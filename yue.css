@@ -1,0 +1,504 @@
+/*2017.0904
+ *WEB前端开发 xiaoyueyue
+ * * * * * * * * * /
+/* * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+body {
+  font-size: 1em;
+  color: #333;
+}
+
+
+/*app背景色*/
+
+.bg-ff {
+  background-color: #FFFFFF
+}
+
+
+/*白色*/
+
+.bg-f6 {
+  background-color: #F6F6F6
+}
+
+
+/*浅灰色*/
+
+
+/*app辅助背景色*/
+
+.bg-red {
+  background-color: #FC7979
+}
+
+
+/*红色*/
+
+.bg-gree {
+  background-color: #78C44F
+}
+
+
+/*绿色*/
+
+.bg-blue {
+  background-color: #4DCBDE
+}
+
+
+/*蓝色*/
+
+.bg-yellow {
+  background-color: #F89D3C
+}
+
+
+/*黄色*/
+
+
+/*bootstrap的颜色样式*/
+
+.primary {
+  background-color: #337ab7
+}
+
+.success {
+  background-color: #5cb85c;
+}
+
+.info {
+  background-color: #5bc0de;
+}
+
+.warning {
+  background-color: #f0ad4e;
+}
+
+.danger {
+  background-color: #d9534f;
+}
+
+
+/*黑->灰*/
+
+.gray-darker {
+  background-color: #222
+}
+
+.gray-dark {
+  background-color: #333
+}
+
+.gray {
+  background-color: #555
+}
+
+.gray-light {
+  background-color: #777
+}
+
+.gray-lighter {
+  background-color: #eeeeee
+}
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
+/*app字体颜色*/
+
+.fc-ff {
+  color: #FFFFFF
+}
+
+
+/*白色*/
+
+.fc-33 {
+  color: #333333
+}
+
+
+/*黑色*/
+
+.fc-66 {
+  color: #666666
+}
+
+
+/*灰色*/
+
+.fc-77 {
+  color: #777777
+}
+
+
+/*中灰色*/
+
+.fc-88 {
+  color: #888888
+}
+
+
+/*浅灰色*/
+
+
+/*app辅助字体颜色*/
+
+.fc-red {
+  color: #FC7979
+}
+
+
+/*红色*/
+
+.fc-gree {
+  color: #78C44F
+}
+
+
+/*绿色*/
+
+.fc-blue {
+  color: #4DCBDE
+}
+
+
+/*蓝色*/
+
+.fc-yellow {
+  color: #F89D3C
+}
+
+
+/*黄色*/
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+.fs12 {
+  font-size: 12px;
+}
+
+.fs14 {
+  font-size: 14px;
+}
+
+.fs16 {
+  font-size: 16px;
+}
+
+.fs18 {
+  font-size: 18px;
+}
+
+.fs24 {
+  font-size: 24px;
+}
+
+.fs32 {
+  font-size: 32px;
+}
+
+.fs42 {
+  font-size: 42px;
+}
+
+
+/*app字体大小*/
+
+.fs-36 {
+  font-size: 1.125em
+}
+
+
+/*页面标题*/
+
+.fs-28 {
+  font-size: 0.875em
+}
+
+
+/*选项卡*/
+
+.fs-24 {
+  font-size: 0.750em
+}
+
+
+/*正文*/
+
+
+/*浮动*/
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/*清除浮动*/
+
+.clearfix:after {
+  content: '';
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+.clearfix {
+  *zoom: 1;
+  /* ie67专用 */
+}
+
+
+/*显示隐藏*/
+
+.block {
+  display: block !important
+}
+
+.inline {
+  display: inline !important
+}
+
+.inline-block {
+  display: inline-block !important;
+}
+
+.hide {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+
+/*单行文字截断*/
+
+.am-text-truncate {
+  word-wrap: normal;
+  /* for IE */
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+
+/*多行文字截断*/
+
+.line-clamp {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /* 这里修改为要显示的行数*/
+  -webkit-box-orient: vertical;
+}
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
+/*盒子定位*/
+
+.pos-r {
+  position: relative
+}
+
+.pos-a {
+  position: absolute
+}
+
+.pos-f {
+  position: fixed
+}
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
+/*盒子宽*/
+
+.w3 {
+  width: 33.33%;
+}
+
+.w5 {
+  width: 50%;
+}
+
+
+/*12*/
+
+.col-xs-12 {
+  width: 100%;
+}
+
+.col-xs-11 {
+  width: 91.66666667%;
+}
+
+.col-xs-10 {
+  width: 83.33333333%;
+}
+
+.col-xs-9 {
+  width: 75%;
+}
+
+.col-xs-8 {
+  width: 66.66666667%;
+}
+
+.col-xs-7 {
+  width: 58.33333333%;
+}
+
+.col-xs-6 {
+  width: 50%;
+}
+
+.col-xs-5 {
+  width: 41.66666667%;
+}
+
+.col-xs-4 {
+  width: 33.33333333%;
+}
+
+.col-xs-3 {
+  width: 25%;
+}
+
+.col-xs-2 {
+  width: 16.66666667%;
+}
+
+.col-xs-1 {
+  width: 8.33333333%;
+}
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
+/*盒子高*/
+
+.h20 {
+  min-height: 0.625em
+}
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
+/*盒子外边距*/
+
+.ma-20 {
+  margin: 0.625em
+}
+
+.mt-20 {
+  margin-top: 0.625em
+}
+
+.mr-20 {
+  margin-right: 0.625em
+}
+
+.mb-20 {
+  margin-right: 0.625em
+}
+
+.ml-20 {
+  margin-right: 0.625em
+}
+
+.mtb-20 {
+  margin-top: 0.625em;
+  margin-bottom: 0.625em
+}
+
+.mlr-20 {
+  margin-left: 0.625em;
+  margin-right: 0.625em
+}
+
+.m-t20-b10 {
+  margin-top: 0.625em;
+  margin-bottom: 0.313em
+}
+
+.m-l20-r10 {
+  margin-left: 0.625em;
+  margin-right: 0.313em
+}
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
+/*盒子内边距*/
+
+.pa-20 {
+  padding: 0.625em
+}
+
+.pt-20 {
+  padding: 0.625em
+}
+
+.pr-20 {
+  padding: 0.625em
+}
+
+.pb-20 {
+  padding: 0.625em
+}
+
+.pl-20 {
+  padding: 0.625em
+}
+
+.ptb-20 {
+  padding: 0.625em;
+  padding: 0.625em
+}
+
+.plr-20 {
+  padding: 0.625em;
+  padding: 0.625em
+}
+
+.p-t20-b10 {
+  padding: 0.625em;
+  padding: 0.313em
+}
+
+.p-l20-r10 {
+  padding: 0.625em;
+  padding: 0.313em
+}
+
+
+/*包裹层*/
+
+.box-wrapper {
+  width: 96%;
+  border: 1px solid #ccc;
+  margin: 2%;
+  padding: 0.2em;
+  border-radius: 0.5em;
+  box-sizing: border-box;
+  height: 6em;
+}

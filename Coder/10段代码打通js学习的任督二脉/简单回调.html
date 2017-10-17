@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    function foo() {
+      console.log(this.a);
+    }
+    function doFoo(fn) {
+      fn();
+    }
+    function doFoo2(o) {
+      o.foo();
+    }
+    var obj = {
+      a: 2,
+      foo: foo
+    }
+
+    var a = "I'm an a";
+    doFoo(obj.foo); //I'm an a
+    doFoo2(obj);   //2
+
+  </script>
+</body>
+
+</html>

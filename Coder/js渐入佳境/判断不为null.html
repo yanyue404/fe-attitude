@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
+</head>
+<body>
+
+<script>
+
+function type(o){
+   return (o===null)?"null":(typeof o);
+}
+
+
+//时间字符串
+var d = new Date();
+// alert(d.toString())
+
+//比较完整的typeof方法
+function typeOf(o){
+   var _toString = Object.prototype.toString;
+
+   var _Type = {
+   "undefined":"undefined",
+   "number":"number",
+   "boolean":"boolean",
+   "string":"string",
+   "[object Function]":"function",
+   "[object RegExp]":"regexp",
+   "[object Array]":"array",
+   "[object Date]":"date",
+   "[object Error]":"error"
+   }
+   return _Type[typeof o] || _Type[_toString.call(o)] || (o?"object":"null");
+}
+
+
+var num = null;
+console.log(typeOf(num))
+
+var obj = {
+show1:function(){
+alert('时间到');
+},
+show2:function(){
+alert('10秒一次的提醒')
+}
+}
+
+setTimeout(obj.show1,1000);
+setTimeout("obj.show1();",2000);
+setTimeout(obj.show2,10000);
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+         <link rel="stylesheet" type="text/css" href="layer/dist/theme/default/layer.css">
+       
+    </head>
+    <body>
+    <button id="about">about</button>
+     <!-- confirm -->
+        <button class="layui-btn demo" data-type="test2">
+            Confirm
+        </button>
+        <script type="text/javascript" src="jquery-1.11.0.js"></script>
+    <script type="text/javascript" src="layer/dist/layer.js"></script>
+`
+ 
+    <script type="text/javascript">
+
+
+    $('#about').on('click', function(){
+  layer.alert(layer.v + ' - 贤心出品 sentsin.com');
+    });
+//询问框
+
+  $('.demo').on('click',function(){
+    
+    layer.confirm('您是如何看待前端开发？', {
+  btn: ['重要','奇葩'] //按钮
+}, function(){
+  layer.msg('的确很重要', {icon: 1});
+}, function(){
+  layer.msg('也可以这样', {
+    time: 20000, //20s后自动关闭
+    btn: ['明白了', '知道了']
+  });
+});
+  })
+
+    </script>
+
+    
+    </body>
+</html>

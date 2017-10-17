@@ -1,0 +1,47 @@
+{
+  "name": "ydui",
+  "title": "YDUI Touch",
+  "version": "0.0.1",
+  "description": "YDUI, A focus on aesthetics, and the performance of efficient mobile terminal & WeChat UI. ",
+  "author": "Ooo_My_God",
+  "homepage": "http://ydcss.github.io/ydui",
+  "scripts": {
+    "dev": "gulp dev --gulpfile ./gulpfile.js",
+    "build": "gulp --gulpfile ./gulpfile.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ydcss/ydui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ydcss/ydui/issues"
+  },
+  "keywords": [
+    "YDUI Touch",
+    "ui",
+    "ydui",
+    "component",
+    "components",
+    "framework",
+    "mobile",
+    "mobile ui"
+  ],
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-clean-css": "^2.0.6",
+    "gulp-concat": "^2.6.0",
+    "gulp-css-base64": "^1.3.4",
+    "gulp-header": "^1.7.1",
+    "gulp-less": "^3.0.3",
+    "gulp-livereload": "^3.8.1",
+    "gulp-load-plugins": "^1.2.2",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rev-append": "^0.1.6",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.1",
+    "gulp-util": "^3.0.7"
+  },
+  "license": "MIT"
+}
