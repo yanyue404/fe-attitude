@@ -1,3 +1,0 @@
-rem 自适应类ydui.flexible.js
-工具方法集合ydui.util.js
-设备侦测YDUI.device
