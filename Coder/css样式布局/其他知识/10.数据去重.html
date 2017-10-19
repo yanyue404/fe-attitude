@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+</html>
+<script>
+	var arr = [1,2,3,3,2,1];
+
+	function quchong(arr){	
+
+		var tmp = [],
+			ppp = {};
+
+		for(var i=0;i<arr.length;i++){
+
+			if( !ppp[ arr[i] ]  ){
+
+				ppp[ arr[i] ] = true;
+
+				tmp.push( arr[i] )
+
+			}
+
+		}
+
+		return tmp;
+
+	}
+
+	console.log( quchong(arr) )
+
+</script>

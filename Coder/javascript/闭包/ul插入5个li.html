@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <ul id="js-list"></ul>
+  <script>
+    (function () {
+      
+      var ndList = document.getElementById('js-list');
+      if(!ndList){
+        return
+      }
+      for (var i = 0; i < 5; i++) {
+        var ndItem = document.createElement('li');
+        ndItem.innerText = i + 1;
+        ndList.appendChild(ndItem);
+
+      }
+      
+      //ul插入5个li.html:37 Uncaught TypeError: Cannot set property 'innerHTML' of null
+      var container = document.getElementById('js-1list');
+      if(!container){
+        return
+      }
+      var html = [];
+      for(var i=0;i<5;i++){
+        var item = '<li>'+(i+1)+'</li>';
+        html.push(item);
+      }
+      container.innerHTML = html.join('');
+
+    })();
+
+
+     //箭头函数版本
+   /* (()=>{
+     var ndContainer = document.getElementById('js-container');
+     if(!ndContainer){
+       return;
+     }
+     for(var i=0;i<5;i++){
+       var ndItem = document.createElement('li');
+       ndItem.innerText = i+1;
+       ndContainer.appendChild(ndItem);
+     }
+    })();*/
+  </script>
+</body>
+
+</html>

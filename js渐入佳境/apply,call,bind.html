@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script src="./underscore_yue.js">
+  </script>
+  <script>
+    function Person() {}
+    Person.prototype.sayName = function () {
+      alert(this.name)
+    }
+    
+    var obj = {
+      name: 'yue'
+    }; // 注意这是一个普通对象，它不是Person的实例
+    
+    var param1 = 1,
+        param2 = 2,
+        param3 = 3;
+    //1)apply
+    Person.prototype.sayName.apply(obj,[param1,param2,param3]);
+    //2)call
+    Person.prototype.sayName.call(obj,param1,param2,param3);
+    //3)bind
+    var sn = Person.prototype.sayName.bind(obj);
+    
+    sn([param1,param2,param3]);
+
+
+    
+
+
+  </script>
+</body>
+
+</html>

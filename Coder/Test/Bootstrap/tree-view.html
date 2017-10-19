@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+
+<script type="text/javascript" src="./node_modules/jquery/dist/jquery.min.js"></script>
+<script src="./node_modules/bootstrap-treeview/js/bootstrap-treeview.js"></script>
+<style>
+  #tree {
+    width: 800px;
+    margin: 100px auto;
+    
+  }
+</style>
+</head>
+<body>
+  
+  <div id="tree"></div>
+
+  <script>
+    function getTree() {
+    
+     //一些逻辑来检索或生成树结构,返回数据
+    var tree = [
+  {
+    text: "Parent 1",
+    icon: "glyphicon glyphicon-stop",
+    nodes: [
+      {
+        text: "Child 1",
+        state:{
+          selected: true
+        },
+        tags: ['available1111'],
+        nodes: [
+          {
+            text: "Grandchild 1"
+          },
+          {
+            text: "Grandchild 2"
+          }
+        ]
+      },
+      {
+        text: "Child 2"
+      }
+    ]
+  },
+  {
+    text: "Parent 2",
+    state: {
+      selected: true,
+      checked: true,
+    }
+  },
+  
+  {
+    text: "Parent 3"
+    
+  },
+  {
+    text: "Parent 4",
+    nodes:[
+      {
+        text:"小越越"
+      }
+    ]
+  },
+  {
+    text: "Parent 5"
+  }
+];                
+    return tree;
+}
+ 
+$('#tree').treeview({data: getTree()}); 
+$('#tree').treeview('collapseAll',{silent:true}); //折叠所有项目树
+
+  </script>
+</body>
+</html>

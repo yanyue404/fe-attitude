@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    var str = '<div>你好</div><div>吗</div><div>?</div>';
+    var index = str.indexOf( '吗' ); // 即在 str 中找 '吗', 如果存在返回其索
+    // console.log( index );
+    var gtIndex = -1;
+    var i;
+    for ( i = index; i >= 0; i-- ) {
+        if ( str.charAt( i ) == '>' ) {
+            break;
+        }
+    }
+    // 可以利用 i 找到 >
+    // 将颜色变成红色只需要添加样式, 即 style="color: red;"
+    // 现在只需要在 i 的前面插入 指定的字符串即可
+
+    // 方案1, 使用 replace, 使用 ">吗", 将其替换成 style="color: red;">吗
+
+    // var res1 = str.replace( '>吗', ' style="color: red;">吗' );
+    // console.log( res1 );
+
+    // 方案2, 在字符串中插入一个字符串使用 splice 方法
+    // splice, slice
+    // 在 > 所在的位置插入需要添加的字符串, 然后再 join 起来
+    var arr = str.split( '' );
+    arr.splice( i, 0, ' style="color: blue;"' )
+
+    var res2 = arr.join( '' );
+
+    console.log( res2 );
+</script>
+</html>

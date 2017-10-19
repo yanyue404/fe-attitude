@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<!--
+		在百分比的世界中,padding,margin,四个方向的百分比都是相对于父盒子的宽度
+	-->
+	<style>
+		*{margin:0;padding:0;}
+		.parent{
+			width:500px;
+			height:200px;
+			background:pink;
+		}
+
+		.children{
+			width:50%;
+			padding-left:10%;
+			padding-top:10%;
+			background:skyblue;
+
+		}
+	</style>
+</head>
+<body>
+	<div class="parent">
+		<div class="children"></div>
+	</div>
+</body>
+</html>

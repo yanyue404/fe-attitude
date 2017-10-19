@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        button {
+            width: 100px;
+            height: 50px;
+            font-size: 20px;
+            margin: 10px;
+        }
+        li {
+            line-height: 30px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: pink;
+        }
+        .aaa {
+            background-color: yellowgreen;
+        }
+    </style>
+</head>
+<body>
+
+    <button>添加元素</button>
+    <ul>
+        <li>我是原生土著li</li>
+        <span>我是span</span>
+        <li>我是原生土著li</li>
+        <span>我是span</span>
+        <li>我是原生土著li</li>
+        <span>我是span</span>
+    </ul>
+
+
+    <script>
+        //问题:新添加的元素没有老事件;
+
+        //演示
+//        var liArr = document.getElementsByTagName("li");
+//        for(var i=0;i<liArr.length;i++){
+//            liArr[i].onclick = function () {
+//                alert("我是li标签!");
+//            }
+//        }
+
+        //新创建的元素没有老事件;
+        document.getElementsByTagName("button")[0].onclick = function () {
+            var newLi = document.createElement("li");
+            newLi.innerHTML = "我是新创建的li标签";
+            newLi.className = "aaa";
+            document.getElementsByTagName("ul")[0].appendChild(newLi);
+        }
+
+
+        //解决新元素没有老事件的问题: 利用事件委托;
+            //事件委托:不要为li设置事件,给他的父盒子设置事件,
+            //        触动的时候会冒泡到父盒子,然后判断点击的
+            //        是否是你要绑定的盒子,如果是就触动逻辑,如果不是就不管;
+                    //新元素和老元素都会冒泡,只要判断事件引发者是否是我们想绑定事件的元素即可;
+        var ul = document.getElementsByTagName("ul")[0];
+        ul.onclick = function (event) {
+            //新元素和老元素都会冒泡,只要
+            // 判断事件引发者是否是我们想绑定事件的元素即可;
+            event = event || window.event;
+            var aaa = event.target || event.srcElement;
+
+            //一般只判断三个值: 1.标签名;    2.类名;   3.id名;
+            if(aaa.tagName === "LI"){
+                alert("我是li标签!");
+            }
+        }
+
+
+        //未来我们学习的jquery特殊绑定事件方法(on方法)都是底层带有事件委托的;
+
+
+    </script>
+
+
+
+</body>
+</html>

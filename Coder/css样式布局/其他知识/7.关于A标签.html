@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		a[href^=http]:empty::before{
+			content:attr(href);
+		}
+	</style>
+</head>
+<body>
+	<a href="http://www.baidu.com" data-word="123"></a>
+	<a href="http://www.sohu.com.cn" data-word="456"></a>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./jquery.js"></script>
+  <style>
+    button {
+      width: 30px;
+      height: 30px;
+    }
+    
+    input {
+      height: 30px;
+      width: 300px;
+    }
+  </style>
+</head>
+
+<body>
+  <button class="btn" value="btn">btn</button>
+  <input name="new_pass" type="text">
+</body>
+
+</html>
+<script>
+  $(function () {
+    $('.btn').click(function () {
+      var pwd = $('input[name="new_pass"]').val();
+      console.log(pwd)
+      alert(pwd)
+    })
+
+  })
+
+</script>
