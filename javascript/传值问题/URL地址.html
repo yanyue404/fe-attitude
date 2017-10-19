@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+    //35. 有这样一个URL：http://item.taobao.com/item.htm?a=1&b=2&c=&d=xxx&e，请写一段JS程序提取URL中的各个GET参数(参数名和参数个数不确定)，将其按key-value形式返回到一个json结构中，如{a:’1′, b:’2′, c:”, d:’xxx’, e:undefined}。
+
+    // var String = 'http://item.taobao.com/item.htm?a=1&b=2&c=&d=xxx&e';
+
+    // function change(url) {
+
+    //     var obj = {};
+    //     var text = url.slice(url.indexOf('?') + 1);
+    //     var arr = text.split('&');
+
+    //     console.log(arr);
+
+    //     for (var i = 0; i < arr.length; i++) {
+    //         var item = arr[i];
+    //         var items = item.split('=');
+
+    //         obj[items[0]] = items[1];
+    //     }
+    //     obj.name = "yue";
+
+    //     console.log(obj);
+    //     delete obj.a;
+    // };
+    //   change(String);
+    getArg()
+
+    function getArg(str) {
+        var query = 'http://item.taobao.com/item.htm?a=1&b=2&c=&d=xxx&e';
+        console.log(query)
+            // var query = window.location.search;
+        var arrTmp = query.slice(query.indexOf('?') + 1)
+        console.log(arrTmp)
+        var arrQuery = arrTmp.split('&');
+        var obj = {};
+        for (var i = 0; i < arrQuery.length; i++) {
+            var item = arrQuery[i];
+            var temp = item.split('=');
+            obj[temp[0]] = temp[1];
+        }
+        //   console.log(obj)
+        return obj;
+
+    }
+    var name = getArg().a;
+    console.log(name)
+    </script>
+</body>
+
+</html>

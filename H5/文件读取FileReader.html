@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <img src="" alt="">
+    <input type="file">
+    <script>
+        //1.选择一个文件
+        var file = document.querySelector('input');
+            //当file类型的input标签发生变化的时候
+        file.onchange = function(){
+            //通过files 属性返回了一个FileList对象
+            //选择的文件就包含在FileList中(伪数组)
+            var fl = this.files;
+            console.log(fl);
+         //2.找一个东西来读取文件
+             //提供了一个FileReader对象来做这件事
+         var reader = new FileReader();
+             //FileReader 提供了一系列的方法帮助我们读取文件
+         console.log(reader);
+         //3.提供以文本文件的形式来读取文件
+               //提供的方法 readerAsDataURl();
+         reader.readAsDataURL(fl[0]);
+         //读取文件需要一个过程,等reder完全读取完成以后
+         reader.onload = function(){
+              //通过result属性体现把文件内容读取出来了
+             var res = reader.result;
+             console.log(res);
+
+             var img = document.querySelector('img');
+             //将文件中的内容放到style标签中
+             img.src = res;
+         }
+
+        }
+
+
+    </script>
+    
+</body>
+</html>

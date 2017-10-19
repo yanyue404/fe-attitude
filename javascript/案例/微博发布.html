@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        .box {
+            width: 600px;
+            padding: 10px;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+        }
+        textarea {
+            outline-style: none;
+            border: 1px solid #ccc;
+            width: 450px;
+            height: 300px;
+            resize: none;
+            font-size: 20px;
+        }
+        label {
+            margin-left: 8px;
+            font-size: 20px;
+        }
+        button {
+            width: 60px;
+            height: 30px;
+            font-size: 20px;
+        }
+        ul {
+            padding: 10px 80px;
+        }
+        li {
+            font: 500 20px/30px "simsun";
+            border-bottom: 1px dashed #ccc;
+        }
+        a {
+            float: right;
+        }
+    </style>
+
+    <script>
+       window.onload =function(){
+
+           var box = document.getElementById("box");
+           var txt = box.children[1];
+           var btn = txt.nextElementSibling || box.nextSibling;
+           var ul = box.lastElementChild || box.lastChild;
+
+           btn.onclick = function(){
+
+               //判断内容不为空或空格
+               if(txt.value.trim() == ""){
+                   alert("输入的内容不能为空");
+                   return;
+               }
+
+               var newLi = document.createElement("li");
+
+               newLi.innerHTML =newLi.innerHTML+ txt.value+ '<a href="#">删除</a>';
+
+               //控制添加新li的顺序,当ul里面已经有了至少一个后,再次添加在原有li的上面
+               /*if(ul.children.length !== 0){
+
+                   ul.insertBefore(newLi,ul.children[0]);
+               }else{
+                   //ul的所有子元素的长度为0,说明没有元素,也不用找参考点了
+                    ul.appendChild(newLi);
+                }*/
+               ul.insertBefore(newLi,ul.children[0]);
+
+               //添加完毕清空输入内容
+               txt.value = "";
+
+               //点击删除删除li
+
+               //生成li之后立即为a绑定
+              /* var arr = newLi.children;
+               for(var i =0;i<arr.length;i++){
+                   arr[i].onclick = function(){
+
+                       ul.removeChild(newLi);
+                   }
+               }*/
+
+               //拓展：不用每次都绑定所有元素；每点击一次，绑定一个！
+               var a = newLi.getElementsByTagName("a")[0];
+               a.onclick = function () {
+                   //让ul删除a所在的li。
+                    ul.removeChild(this.parentNode);
+               }
+
+
+           }
+       }
+    </script>
+</head>
+<body>
+    <div class="box" id="box">
+        <label for="txt">请输入</label>
+        <textarea id="txt"></textarea>
+        <button>发布</button>
+        <ul>
+            <!--<li>111 <a href="#">删除</a></li>-->
+            <!--<li>111 <a href="#">删除</a></li>-->
+            <!--<li>111 <a href="#">删除</a></li>-->
+            <!--<li>111 <a href="#">删除</a></li>-->
+        </ul>
+    </div>
+
+
+
+</body>
+</html>

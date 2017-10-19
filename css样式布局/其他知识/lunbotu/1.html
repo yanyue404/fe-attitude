@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+	*{
+		margin:0;
+		padding:0;
+	}
+	ul,li{
+		list-style:none;
+	}
+	.banner{
+		width:500px;
+		height:200px;
+		overflow:hidden;
+	}
+	
+	.banner ul{
+		width:2000%;
+		height:200px;
+	}
+
+	.banner ul li{
+		width:500px;
+		height:200px;
+		background:red;
+		float:left;
+		color:#FFF;
+		font-size:50px;
+	}
+
+</style>
+<body>
+	<div class="banner">
+		<ul id="banner">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<div id="point"></div>
+	</div>
+	<br/>
+	<div class="banner">
+		<ul id="banner2">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<div id="point2"></div>
+	</div>
+	<script src="jquery.js"></script>
+	<script src="carouFredSel.js"></script>
+	<script>
+		$('#banner').carouFredSel({
+			// responsive:true,
+			items:{
+				width:500, // padding+margin+content
+				height:200
+			},
+			scroll:{
+				duration:600,
+				timeoutDuration:1000,
+				pauseOnHover:true,
+				onBefore:function(data){
+
+					var _index = $('#banner').triggerHandler('currentPosition')
+
+					$('#banner2').trigger('slideTo',_index);
+
+
+					// console.log(data)
+					// console.log(111)
+				},
+				onAfter:function(){
+					//console.log(2222)
+				}/*,
+				fx:'crossfade'*/
+			},
+			onCreate:function(){
+
+				//console.log(3333)
+
+			},
+			pagination:'#point'
+		});
+
+
+
+
+
+
+		$('#banner2').carouFredSel({
+			auto:false,
+			items:{
+				width:500, // padding+margin+content
+				height:200
+			},
+			pagination:'#point2'
+		})
+
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    var url = 'https://tieba.baidu.com/f?kw=张三&fr=fenter&prequery=李四';
+
+
+    var str = '张三=18&李四=20&地区=海淀区&薪资=20k';
+
+    var array = str.split('&');//数组 ['张三=18','李四=20','地区=海淀区','薪资=20k']
+
+    var obj = {};
+
+    for (var i = 0; i < array.length; i++) {  //关键的一步,拿出其中每一项字符串再进行split
+
+      var newStr = array[i];
+
+      var NewArr = newStr.split('=');
+      // ["张三", "18"]
+      // ["李四", "20"]
+      // ["地区", "海淀区"]
+      // ["薪资", "20k"]
+
+      console.log(NewArr)
+
+      obj[NewArr[0]] = NewArr[1];
+
+    }
+    console.log(obj);
+  </script>
+</body>
+
+</html>

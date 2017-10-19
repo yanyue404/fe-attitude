@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    
+    <!-- 1.额外标签法 -->
+    <!-- 在浮动元素的末尾添加空标签 -->
+    <div  style="clear:both"></div>
+
+    <!-- 2.父级添加overflow -->
+    <!-- 设置overflow:hidden/auto/scroll都可 -->
+
+    <!-- 3.使用after伪元素清浮动 -->
+    <style>
+    .clearfix:after {
+        content: '';
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+    }
+
+    .clearfix {
+        *zoom: 1; 
+        /* ie67专用 */
+    }
+
+    </style>
+
+    <!-- 4.双伪元素清浮动 -->
+    <style>
+    .clearfix:before,.clearfix:after {
+        content: '';
+        display: table;
+    }
+    .clearfix:after {
+        clear: both;
+    }
+    .clearfix {
+        *zoom: 1;
+    }
+    </style>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{margin:0;padding:0;}
+		body{font-size:12px;}
+
+		.cleargap{
+			font-size:0;
+			letter-spacing:-8px;
+		}
+
+		.ibox{
+			font-size:12px;
+			letter-spacing:normal;
+			display:inline-block;
+			*display:inline;
+			*zoom:1;
+			vertical-align:top;
+		}
+
+		.parent{
+			width:1000px;
+			height:500px;
+			background-color:pink;
+			text-align: center;
+		}
+		.children{
+			width:250px;
+		}
+		.children-1{
+			background-color:skyblue;
+			height:200px;
+		}
+		.children-2{
+			background-color:yellow;
+			height:200px;
+		}
+	</style>
+	<!--
+		在html中,空格和回车也是特殊的字符 也占位  也是一种特殊的文字
+
+		苹果浏览器不认识font-size:0;
+
+		其他浏览器不认识letter-spacing:-8px
+
+		当body体中font-size:12px的时候 同时父元素身上不能设置字体大小 letter-spacing:-8px
+
+		注意：
+
+			display:inline-block;
+			float:left;
+
+			不能同时使用
+	-->
+</head>
+<body>
+	<div class="parent cleargap">
+		<div class="children children-1 ibox">
+			<div class="cleargap">
+				<div class="ibox">111</div>
+				<div class="ibox">2222</div>
+			</div>
+		</div>
+		<div class="children children-2 ibox">2</div>
+		<div class="children children-2 ibox" style="height:300px">3</div>
+		<div class="children children-2 ibox">4</div>
+		<div class="children children-1 ibox">1</div>
+		<div class="children children-2 ibox">2</div>
+		<div class="children children-2 ibox">3</div>
+		<div class="children children-2 ibox">4</div>
+	</div>
+</body>
+</html>

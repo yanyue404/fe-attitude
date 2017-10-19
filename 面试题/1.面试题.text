@@ -1,0 +1,505 @@
+﻿##  笔试
+
+
+- 请用javascript编写函数，将一个数字（可能是整数也可能是浮点数）四舍五入到小数点后两位，整数部分不足10位的地方要补零，输出处理后的数字
+  答：
+```js
+var num = 12.452;
+function saveTwoDecimal(num){
+  num = parseFloat(num)
+  if(isNaN(num)){
+    return '0.00'
+  }
+  num = Math.round(num*100)/100
+  var pos_point = num.toString().indexOf('.')
+  if(pos_point < 0){
+    tmp = num.toString().length
+    num+='.'
+  }
+  while(num.length <= tmp+2){
+    num+='0'
+  } 
+  return num
+}
+
+```
+- 请简述你了解到的javascript回调模式（包含但不包括callback, promise, async/await）
+  答：博客网上
+
+- 对移动设备页面开发，要求用户无法缩放屏幕，视口宽度为屏幕宽度，高度为设备高度，如何实现？
+
+  答：
+
+```html
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+```
+
+- 
+单行文本溢出省略
+```css
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowarp;
+```
+多行文本溢出
+```css
+display: -webkit-box;
+-webkit-box-orient: vertical;
+-webkit-line-clamp: 3;
+overflow: hidden;
+```
+
+
+- 事件委托和原理？
+  答：第一：事件委托是以冒泡的形式向外传播的
+      第二：当事件传播到被委托的元素，会先判断e.type 和 e.target这两个属性是否满足要求
+
+- 代码的复用性理解？
+  答：表现层：可以通过抽取公共的类样式，`Common.css`
+
+      优点：提高代码的组织和维护性，提高网页的加载速度（文件资源减少），减少http请求。
+
+      行为层：common.js (函数层面)---->原型继承（面向对象层面，方法功能共享）--->模块化开发（单一文件单一职责，需要那部分的功能直接require引入） ---> 组件化开发（不同组件 单一职责）
+
+- 依赖注入的理解？
+  
+
+- 服务理解？
+
+- 自定义依赖？
+
+- ionic相关命令行？
+
+- 简述三层架构的理解？
+
+- 移动端常见的meta标签?
+
+- flex布局？
+
+- 清除浮动的具体方法啊？
+
+- 块级元素垂直居中的方法？
+
+- 状态码400 404 500 ？
+
+
+- 电话号码正则？
+
+- 对网站中文件和资源优化的方法？
+
+- es6中for in和for of的区别？
+
+- 如何遍历文档中的所有文本节点？
+```js
+var textArray = [];
+function searchNodes(element){
+  element = element ? element : {};
+  var nodeList = element.childNodes;
+  for (var i = 0; i < nodeList.length; i++){
+    if (nodeList[i].nodeType = NODE.TEXT_NODE && nodeList[i].nodeValue.trim() !== ""){
+      textArray.push(nodeList[i])
+    }
+    if (nodeList[i].nodeType == NODE.ELEMENT_NODE){
+      searchNodes(nodeList[i])
+    } 
+  }
+}
+searchNodes(document.body)
+console.log(textArray)
+```
+- html5的兼容性怎么处理？
+  IE6/7/8支持通过document.createElement的方法来产生新标签，让这些浏览器支持新标签后，还需要添加标签默认样式；
+  也可以直接使用成熟的框架来处理兼容，比如：html5shim一般要配合使用IE的条件注释 （cc:ie6）
+
+- 浏览器的兼容性有那些？怎么处理
+
+- gulp常用的压缩工具？
+  autoprefixer  cssmin  htmlmin  imagemin  less  rename  uglify  rev  if rev-collector
+
+
+- 三列布局怎么写？
+
+- angular ui angular route
+  AngularJS的ng-route模块为控制器和视图提供了[Deep-Linking]URL。 通俗来讲，ng-route模块中的$routeService监测$location.url()的变化，$routeProvider进行配置并将它映射到预先定义的控制器。也就是在客户端进行URL的路由
+
+  UI-Router是Angular-UI提供的客户端路由框架，它解决了原生的ng-route的很多不足：
+
+  视图不能嵌套。这意味着$scope会发生不必要的重新载入。这也是我们在Onboard中引入ui-route的原因。
+  同一URL下不支持多个视图。这一需求也是常见的：我们希望导航栏用一个视图（和相应的控制器）、内容部分用另一个视图（和相应的控制器）。
+  UI-Router提出了$state的概念。一个$state是一个当前导航和UI的状态，每个$state需要绑定一个URL Pattern。 在控制器和模板中，通过改变$state来进行URL的跳转和路由。
+
+  嵌套视图
+  不同于Angular原生的ng-route，ui-router的视图可以嵌套，视图嵌套通常对应着$state的嵌套。
+  命名视图
+  在ui-router中，一个$state下可以有多个视图，它们有各自的模板和控制器。这一点也是ng-route所没有的， 给了前端路由极大的灵活性。
+
+- angular 子菜单怎么实现？
+  使用ng-class指令配合css实现鼠标滑入，子菜单下拉
+  使用ngRoute实现点击打开对应的新页面
+
+- 跨域的方法有哪些？
+  cors jsonp 使用iframe来做一个反向代理（document.domain配置） 服务端反向代理  
+
+- jsonp原理？
+
+- 关于post请求和get请求的优劣？
+
+- 节点nodeType值对应的类型？
+
+- 媒体查询rem怎么实现自适应布局？
+
+- rem工作中ui给的设计图是多少尺寸？屏幕是多少的
+
+- 构建工具的使用？
+
+- ajax交互模型，同步和异步的区别？
+
+- 如何基于http建立一个长连接？
+
+- 使用js实现parseInt函数？
+
+- 响应头中 Diff, between Expires  Date, Age and if-Modified..  Do not Track  Cache-Control  Transfer-Encoding  Etag  X-frame-options
+
+- 如何解决跨域问题？
+
+- 当margin和float同时使用的时候，IE6的双边距Bug怎么解决？
+
+- FireFox中的标签居中的解决方法？
+
+- XHTML和Css怎么注释/
+
+- CSS sprite这个技术的优缺点？
+
+- angular2的核心是什么？
+
+- 对于Typescript的了解？
+
+- angular2中的路由的工作原理是什么？
+
+- 什么是事件发射器？它怎么工作的
+
+- 什么是延迟加载？怎么在angular2中使用延迟加载
+
+- 在angular2中要注意哪些安全威胁？
+
+- 如何优化angular2中的程序来获取更好的性能？
+
+- 什么是AOT编译？它有什么优缺点？
+
+- 关于primeNg是否了解？
+
+- ng-bind和ng-bind-html的区别？
+
+- ng-if 和 ng-show ng-hide的区别？
+
+- ng-src 和ng-href 为什么不使用普通的src和href？
+
+- ng-class的多种用法？
+
+- angular的依赖注入是怎么实现的？
+
+- angular的内置过滤器有那些？
+
+- an-route 和 ui-route的区别？
+
+- 列举3个以上的angular外置插件，并说出用法？
+
+- mainifest文件?
+  mainfest文件（缓存清单）是简单的缓存文件，它告知浏览器被缓存的内容以及不缓存的内容
+  更新manifest applicationCache.update()
+  ...
+
+- h5标准提供了哪些新的API？列举若干？
+
+- canvas 与 SVG 之间的一些不同之处。 
+  Canvas
+
+  依赖分辨率
+  不支持事件处理器
+  弱的文本渲染能力
+  能够以 .png 或 .jpg 格式保存结果图像
+  最适合图像密集型的游戏，其中的许多对象会被频繁重绘
+  SVG
+
+  不依赖分辨率
+  支持事件处理器
+  最适合带有大型渲染区域的应用程序（比如谷歌地图）
+  复杂度高会减慢渲染速度（任何过度使用 DOM 的应用都不快）
+  不适合游戏应用
+
+- h5如何做到嵌入音视频？除了audio和video还有哪些媒体标签？
+  embed标签
+
+- h5储存类型有哪些，区别是什么？
+
+- 常见的兼容性：清除图片下方的及像素空白间隙？
+
+  常见的三种解决方案：
+  一是给父元素设定高度，二就是设置img为块状元素，三给img设置vertical-algin
+
+- 不同浏览器的不同标签的默认外边距和内边距不一样？
+
+- 用js写出一个ajax注册登录的案例？
+
+- 异步加载js的方法？不少于2中？
+
+- 写出几个jquery绑定事件的函数？
+  jQuery中提供了四种事件监听方式，分别是bind、live、delegate、on，对应的解除监听的函数分别是unbind、die、undelegate、off。
+  尽量使用on方法绑定事件 `on(type,[selector],[data],fn)`
+- css hack？
+
+- 前端优化的一些方案或步骤？
+1. 客户端将初始化webview和加载内容同步进行，通过客户端的长链接来加载内容。如果长链接通过够快，可能webview启动完成，页面就可以显示出来了。
+2. 离线缓存：客户端缓存html页面，webview启动时用缓存的页面展示给用户，wns组件同时计算缓存页面的md5，并放到请求头的e-tag上，服务器收到请求后，将服务器上需要返回给客户端的html页面的md5值与缓存页面的md5值进行比对，如果一致返回304，如果不一致，则刷新webview，显示最新数据，并更新缓存内容。只缓存html资源，其它静态资源依赖浏览器缓存。
+
+3. 增量更新：内容拆分成静态内容和动态内容后，对静态内容进行增量更新，也就是只更新有变化的部分。将静态资源打包动态更新至客户端，客户端提前下载静态资源包，用户访问先从本地加载资源，减少白屏时间。此种方法只在核心页面使用，根据资源包的大小，网络环境判断是否下载。例如低于 100kb的资源包，3g、4g、WIFI 环境启动下载，超过 500KB WIFI 环境下才会下载。
+
+4. 预加载：通过前置页面提前预加载相关资源。
+
+5. 页面图片的处理：雪碧图，CSS3写的图，使用base64位引用小的icon图。支持webp图片格式。针对不同的网络带宽下载不同的图片格式，比如wifi下载高清图，4g普通图，3g低质量的图。图片的懒加载。减少图片大小和图片请求。
+
+6. 首屏优化：域名收敛（减少dns寻址时间），html文档压缩（减少同步返回的数据量），静态资源合并，模块异步加载，图片懒加载等。
+
+7. 合适的数据渲染方式：模版的渲染到底是前端做还是后端输出视情况而定。后端输出模版适用于数据量不大的情况，当数据量较大，后端输出的html体积会增大，此时可采用前端模版来渲染，后端开接口只提供数据，前端组装页面模块并展示。折中的办法是后端输出部分的静态数据，加快页面展示，前端再去获取最新数据并对模块进行更新。目前我们的活动模板就采用了这种方式。
+
+8. 提前缓存大促相关资源：大促预热期间，使用localstorage缓存大促期间要用的公共静态资源，减少cdn的压力。
+
+9. 兜底容灾：接口请求错误时使用缓存数据补上，如果缓存数据没有，则隐藏该模块。
+
+10. 支持http/2
+
+11. 利用调试工具分析网页的cpu 和内存占用，网络请求，动画性能等指标。
+
+12. service worker+流的结合：在网站和客户端之间放置一个service worker，service worker的作用是在获取缺失信息的同时缓存某些固定不变的数据，加速页面的渲染。
+
+13. 所有的静态文件在上线前都内联到页面上，从而减少请求数量。这个打包工具会做处理。
+
+14. 本地缓存：将页面中不变的静态资源，比如css,html,js文件保存在本地的localstorage里，甚至把页面上某个节点的内容保存在localstorage里，挂个空的钩子。获取钩子去加载本地存储的具体内容。
+
+15. 合并外链请求：将外链的资源文件缓存到localstorage里，每个文件有对应的版本号，后端返回新的版本号后，与本地存储的版本号进行对比，将不一样的版本号进行合并后发送请求。
+16. 模块的异步加载，不在首屏的先不加载，等到滚动或其他外部条件触发时再加载。
+
+17. 分析统计数据：给请求加埋点，统计耗时，错误请求等。模块5秒钟内没有渲染完成加埋点等。根据统计结果针对性分析。
+
+18. dns阶段可以做域名收敛。
+
+19. 获取html文件阶段，可以考虑离线包。
+
+20. 从cdn上获取js/css等静态文件的时候，可以考虑本地缓存，离线包等。
+
+21. 开发环境与生产环境能自由切换。
+
+22. 每个组件都包含自己需要的图片，样式，js，html模版等资源文件。加载一个组件时能将该组件所需要的所有资源加载到，实现组件的复用。
+
+23. 组件的功能界限问题：哪些功能在组件内部封装，哪些功能由组件调用者实现。内部逻辑写在组件内部，可变内容由调用者提供。给组件传递参数的时候，可以将参数合并后整成对象传入。
+
+24. 补充前端自动化测试：检测html是否规范，链接是否合法，静态资源的合法性，js报错，页面是否有弹出框，是否有console，页面js的内存纪录，接口的返回数据格式测试，模块是否开天窗等。
+
+25. 快速上线的通道：只用于修改样式等简单的前端问题。
+
+26. 页面展示阶段：懒加载，图片支持webp格式，裁剪尺寸等。
+
+27. 使用requestAnimationFrame()将模版渲染切片。使用point-event:none,禁用滚动中页面的hover效果。
+
+
+- 页面上下滑动实现异步加载?
+
+- 列举3中强制类型转换和2中隐式类型转换？
+  Boolean(value),Number(value),String(value)
+  ==  ===
+
+- css sprite如何使用？
+  1、将用到的背景图片压缩为zip格式的压缩包
+  2、用Css图片拼合生成器将其拼合成一张图片，然后下载该图片
+  3、拼合完成后会生成相应的Css规则，该文件定位了每个图片的位置及图片的宽度和高度
+  4、在Css样式中定位背景图片，
+
+
+- jquery有哪些 选择器，查询节点的选择器有哪些？
+  基本选择器： $('element') $('#id') $('.class') 
+  层叠选择器： $('div~p') $('label+input')
+  基本过滤选择器： $('tr:first') $('input:checked+span') $('tr:even') 
+  内容过滤器：$('div:contains("john")') $("div:has(p)")
+  可视化过滤器：$('div:hidden') $('div:visible')
+  属性过滤选择器：$('input[name^="news"]')
+  子元素过滤选择器： $("div span:first-child") $("ul li:nth-child(2)")
+  表单元素选择器：$(':input') $(':text')  $(':password') $(':submit') $(':hidden')  $(':submit')  $(':reset')  $(':image')
+  表单元素过滤选择器：$(':enabled')  $(':disabled') $(':checked')
+
+
+- ajax中data主要有几种方式？
+1. data主要方式有三种：html拼接 json数组 form表单经过searialize()序列化的 通过dataType指定的，不指定会智能进行判断
+2. $ajax只提交form以文本的方式，如果异步提交包含<file>上传的是上传不上去的，需要使用jquery.form.js 插件中的 $ajaxSubmit进行提交
+
+- 如何实现bind方法？
+  改变函数内部的this指向，但是不执行函数
+```js
+Function.prototype.bind = function(context) {
+  var self = this; // 保存原函数
+  return function() {
+    return self.apply(context,arguments)
+    // 执行新函数时，将传入的上下文context作为新函数的this
+  }
+}
+```
+
+
+
+- 对闭包的理解，如何用js实现方法的重写？
+```js
+function addMethod(object,name,fn) {
+            // 保存原来的函数，因为调用的时候可能不匹配传入的参数个数
+            var old = object[name]
+            object[name] = function() {
+                // console.log(111)
+                // console.log(arguments)
+                // 如果这个函数的形参个数和实参个数相同，就调用这个函数
+                if (fn.length === arguments.length){
+                    return fn.apply(this,arguments)
+                } else if (typeof old == 'function'){
+                    // 如果传入的参数不匹配就调用原有的参数
+                    return old.apply(this,arguments)
+                }
+            }
+        }
+
+
+        var obj = {}
+        var a = b = c = d = 0  
+
+        obj['hello'] = function() {
+            console.log('origin function')
+        }
+        addMethod(obj,'hello',function(){console.log('hello 0')})
+        obj.hello()  //0
+        console.dir(obj.hello)
+        obj.hello(d) 
+
+        addMethod(obj,'hello',function(a,b){console.log('hello 2')})        
+        addMethod(obj,'hello',function(a,b,c){console.log('hello 3')})
+
+
+       
+        // 这里我们可以模拟传入不同的参数实现不同的功能
+        obj.hello(a,b)
+        obj.hello(a,b,c)
+```
+
+- typeof返回哪些数据类型？
+  undefined object function string number boolean 
+
+- ajax的应用场景和不适用场景？
+  使用的场景有：
+  （1）表单驱动的交互
+  （2）深层次DOM树的导航
+  （3）用于快速地进行用户和用户间的响应
+  （4）对数据进行过滤和操纵的相关场景
+  （5）普通文本的输入提示和自动完成的场景
+  不使用的场景：
+  （1）简单的表单和基本的导航
+  （2）搜索
+  （3）对呈现dom的操作
+
+
+- 详细解释ajax的工作原理？
+
+- ajax的优点和缺点？
+  优点：
+1. 最大的一点是页面无刷新，用户体验友好
+2. 使用异步方式和服务端通信，具有更加迅速的响应能力
+3. 可以把以前一些服务端的负担工作转嫁到客户端，利用客户端闲置的能力来处理，减轻服务器和带宽的负担，节约空间和宽带租用的成本。ajax的原则是“按需取数据”，可以最大程度的减少冗余请求和响应给服务器带来的负担。
+4. 基于标准化并被广泛支持的技术，不需要下载插件和小程序
+   缺点：
+5. ajax不支持back按钮
+6. ajax暴露了与服务器交互的细节有一定的安全问题
+7. 对搜索引擎的支持比较弱
+8. 破坏了程序的异常机制
+9. 不容易调试
+10. 移动端的支持不完备
+
+
+
+```
+- 异步加载的方式有那些？
+1. `script`标签中的`async="async"`属性
+2. `script`标签中的`defer="defer"`属性
+3. 动态创建`script`标签
+4. `Ajax eval`使用ajax来获取脚本内容，然后通过`eval`方法来运行脚本
+5. `iframe`的方式
+
+- 使用Iframe嵌套网页的时候，如何做到内嵌网页的高宽自适应？
+  单个iframe 高度自适应：
+```html
+<iframe id="iFrame1" name="iFrame1" width="100%" onload="this.height=iFrame1.document.body.scrollHeight" frameborder="0" src="index.htm"></iframe>
+```
+起作用的是这句：`onload="this.height=iFrame1.document.body.scrollHeight"`
+
+- css中reset的作用和规划？
+  各个浏览器对标签的默认样式的解析不同，为了兼容各个浏览器的效果一致，需要使用reset来重置标签的样式，主要是改变盒模型的方式来达到显示的一致性
+
+- MIME类型
+  MIME的英文全称是"Multipurpose Internet Mail Extensions" 多功能Internet 邮件扩充服务，后来引入到浏览器中，服务器会将它们发送的多媒体数据类型通知给浏览器，而通知的方式就是MIME类型。然后浏览器会根据这个类型分辨出他是什么类型的文件，从而进行系统中查找，看看那个插件可以执行处理改文件
+  常用的MIME类型有： 超文本标记语言 `html,html/text`  普通文本 `text/plain` JPEG图形 `image/jpeg` MPEG文件 `video/mpeg`
+
+
+- 如何对网站的资源进行优化处理？
+1. 文件合并的方式（目的是减少http请求）：js文件和css 文件，CSS SPrites，image map（图像映射），使用`Data URl`来编码图片
+2. 文件的压缩处理：目的是减少文件的下载体积，比如可以通过`Comprossor`， `Gzip`进行代码压缩】、、
+3. 缓存的使用 （可以提供多个域名来提供缓存）： CDN网络内容分发，减少服务端的压力，缓存方便；还有非常规的原因就是主站点隔离防止不必要的安全问题；减少主域名的连接数，从而提高客户端网络带宽的利用率，优化页面响应；跨域不传cookie，节约带宽
+
+- 三点减少页面的加载时间？
+1. 减少http请求（合并文件，合并图片）
+2. 优化图片，减少尺寸，使用base64方式编码图片，图像格式要求不高的情况下使用gif图片
+3. 压缩代码（js，css）
+4. 服务端启用gzip压缩功能，网络传输中的数据量就会大大减少
+5. 设置高度和宽度（如果浏览器没有找到这两个参数，它需要一边下载图片一边计算大小，如果图片很多，浏览器需要不断地调整页面。这不但影响速度，也影响浏览体验。 当浏览器知道了高度和宽度参数后，即使图片暂时无法显示，页面上也会腾出图片的空位，然后继续加载后面的内容。从而加载时间快了，浏览体验也更好了。）
+6. 网址后面加'/'，不加斜杠服务器会多一次判断的过程，加斜杠就会直接返回网站设置的存放在网站根目录下的默认页面。
+7. 使用缓存
+
+- 对浮动的理解
+  浮动的元素不会占据文档流的，当浮动的元素碰到包含它的元素的边框或者其他浮动元素的边框时会停留下来
+
+
+
+
+## 提问问题
+
+- zepto.js把哪些都精炼了？
+
+- ajax是什么，解释？
+
+- angular和vue的区别？
+
+- 解释下MVVM？
+
+- 双向数据绑定是怎么实现的？
+
+- 线程和进程是怎么回事？
+
+- js是如何实现单线程的？
+
+- 单页面应用的优势和劣势？
+
+- 链表？
+
+- 移动端的布局？
+
+- 数据结构是否了解？
+
+- 网络熟悉情况？
+
+- 单页面是如何实现的，原理是什么？
+
+- AMD和CMD？
+
+- 公司离职原因？
+
+- 上家公司的各个职能部门，研发团队的人员构成？
+
+- 公司产品的开发流程是怎样的？
+
+- 未来的规划？
+
+  全栈
+
+

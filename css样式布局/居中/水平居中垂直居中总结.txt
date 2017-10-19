@@ -1,0 +1,100 @@
+﻿水平居中
+   1.若是行内元素,给其父元素设置text-align:center,即可实现行内元素水平居中.
+   2.若是块级元素,给元素设置margin:0 auto;即可.
+   3.若子元素包含float:left属性,为了让子元素水平居中,则可让父元素宽度设置为fit-content,并且配合margin,作如下设置:
+          .parent {
+                     width:-moz-fit-content;
+                     width:-webkit-fit-content;
+                     width:fit-content;
+                     margin:0 auto;
+               }
+           fit-content是css3中给width属性新加的一个属性值,它配合margin可以轻松实现水平居中,目前他只支持chrome和Firefox浏览器;
+   4.使用flex 2012年版本布局,可以轻松实现水平居中,子元素设置如下:
+               .son {
+                       display:flex;
+                       justify-content:center;
+               }
+   5.使用css3新增的transform属性,子元素设置如下:
+               .son {
+                       position:absolute;
+                       left:50%;
+                       transform:translateX(-50%,0);
+               }
+
+   6.使用绝对定位,以及负值的margin-left自身宽度的一半
+   7.使用绝对定位的方式,以及left:0;right:0;margin:0 auto;子元素设置如下:
+               .son {
+                          position:absolute;
+                          width:固定;
+                          left:0;
+                          right:0;
+                          margin:0 auto;
+                }
+垂直居中
+*元素高度不定
+   1.若是元素为单行文本,则可设置line-height等于父元素的高度;
+   2.若元素是块级元素,基本思想是使用display:inline-block,vertical-align:middle和一个伪元素,让内容块居于容器的中央;
+            .parent::after, .son {
+                  display:inline-block;
+                  vertical-align:middle;
+            }
+            .parent::after {
+                  content:'';
+                  height:100%;
+            }
+        这是一种很流行的方法,也适应ie7;
+    3.可以使用vertical-align属性,而vertical-align只有在父层为td或者是th时,才会生效,对于其他块元素,例如div,p等,默认是不支持的,为了使用该属性,我们需要设置父元素display:table,子元素diplay:table-cell;vertical-align:middle;
+     优点:元素高度可以动态改变,不需要在css中定义,如果父元素没有足够的空间时,该元素内容也不会被截断;
+     缺点:ie6-7,甚至ie8 beta中无效;
+
+    4.可以使用flex 2012版,这是未来css布局的趋势,flexbox是css3新增属性,设置初衷是为了解决像垂直居中这样常见的布局问题;
+    父元素作如下设置即可保证子元素垂直居中:
+            .parent {
+                   display:flex;
+                   align-items:center;
+            }
+     优点:内容块的宽高任意,优雅的溢出 可用于更复杂高级的布局技术中
+     缺点;ie8/9不支持 需要添加浏览器厂商前缀  渲染上可能会有一些问题
+
+    5.使用flex 2009版;
+             .parent {
+                     display:box;
+                     box-orient:vertical;
+                     box-pack:center;
+                     }
+
+      优点:实现简单,扩展性强
+      缺点:兼容性差,不支持ie
+    6.可以使用transform,设置父元素相对定位,子元素设置如下css样式:
+                .son {
+                       position:absolute;
+                       top:50%;
+                       -webkit-transform:translate(-50%,-50%);
+                       -ms-transform:translate(-50%,-50%);
+                       transform:translate(-50%,-50%);
+                }
+       优点：代码量少
+       缺点：ie8不支持,属性需要追加浏览器厂商前缀,可能出现干扰其他transform效果,某些情况下会出现文本或元素边界渲染模糊的现象;
+*元素高度固定
+      7.设置父元素相对定位,子元素设置如下的css样式
+                 .son {
+                        position:absolute;
+                        top:50%;
+                        height:固定;
+                        margin-top:-0.5高度;
+                 }
+      优点:适用于所有的浏览器
+      缺点:父元素高度不够时,子元素可能不可见(当浏览器窗口缩小时,滚动条不出现时),如果子元素设置了overflow:auto,则高度不够时,会出现滚动条;
+      8.设置父元素相对定位,子元素css样式如下:
+                 .son {
+                        position:absolute;
+                        height:固定;
+                        top:0;
+                        bottom:0;
+                        margin:auto 0;
+                 }
+
+      优点:简单
+      缺点:没有足够的空间时, 子元素会被截断,但不会有滚动条;
+
+      总结:flex,盒模型,transform,绝对定位,这几种方法同时适用于水平居中和垂直居中;

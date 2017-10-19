@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    //只使用原型链继承
+    //缺点:1.引用类型值得原型属性会被实例共享 2,在创建子类型的实例时,不能向超类型的构造函数中传递参数
+    function Father() {
+      this.name = 'father';
+      this.firend = ['aaa,bbb'];
+    }
+    function Son() { }
+     
+    //原型绑定
+    Son.prototype = new Father();
+    Son.prototype.constructor = Son;
+
+    var s1 = new Son();
+    var s2 = new Son();
+
+    console.log(s1.name); //father
+    console.log(s2.name); //father
+
+    s1.name = 'son';  //实际上已经在构造函数上定义了这个name属性
+    console.log(s1.name); //son
+    console.log(s2.name); //father
+
+    console.log(s1.firend); //['aaa,bbb']
+    console.log(s2.firend); //['aaa,bbb']
+    s1.firend.push('ccc,ddd');
+    console.log(s1.firend); //['aaa,bbb,ccc,ddd']
+    console.log(s2.firend); //['aaa,bbb,ccc,ddd']
+
+    //值类型和引用类型的区别
+    //获取属性的查找规则,先在其构造函数上找,若没有则去原型链上查找
+    //在使用数组赋值的时候,数组是引用类型,存的是一个指针指向,在实例操作后会改变原型中的引用类型
+
+    //如果实例对象"修改了"原型中的属性, 那么其实并没有影响到其他的对象
+
+        // 结论:
+        // 如果修改一个对象的属性, 那么会检查当前对象是否存在该属性, 如果存在即修改, 如果不存在则会给其添加属性.
+
+        // 如果访问一个对象的属性, 首先检查对象是否含有对应的属性, 如果含有即得结果;
+        // 如果不含有该属性, 则去其原型中查找, 如果原型中含有该属性, 既得结果;
+        // 如果原型中依旧没有属性, 就到其原型中的原型去查找, 直到 Object.prototype 
+        // 最后还没有则返回 undefined
+  </script>
+</body>
+
+</html>

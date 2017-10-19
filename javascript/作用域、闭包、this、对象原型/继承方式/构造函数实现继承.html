@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    //实现方法:在子类型构造函数的内部调用超类型构造函数(使用apply和call方法)
+    //优点:解决了原型中引用类型属性的问题,并且子类可以向超类中传参
+    //缺点:子类实例无法访问父类(超类)原型中定义的方法,所以函数的复用就无从谈起了
+    function Father(name, friends) {
+      this.name = name;
+      this.friends = friends;
+    }
+    Father.prototype.getName = function () {
+      return this.name;
+    };
+
+    function Son(name) {
+      // 注意： 为了确保 Father 构造函数不会重写 Son 构造函数的属性，请将调用 Father 构造函数的代码放在 Son 中定义的属性的前面。
+      Father.call(this, name, ['aaa', 'bbb']);
+
+      this.age = 22;
+    }
+
+    var s1 = new Son('son1');
+    var s2 = new Son('son2');
+
+    console.log(s1.name);  // son1
+    console.log(s2.name);  // son2
+
+    s1.friends.push('ccc', 'ddd');
+    console.log(s1.friends);  // ["aaa", "bbb", "ccc", "ddd"]
+    console.log(s2.friends);  // ["aaa", "bbb"]
+    
+    // 子类实例无法访问父类原型中的方法
+    s1.getName(); // TypeError: s1.getName is not a function
+    s2.getName(); // TypeError: s2.getName is not a function
+  </script>
+</body>
+
+</html>
