@@ -20,6 +20,10 @@
      <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
      <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.js"></script>
 ````
+Axios 0.16.1
+````
+    <script src="https://cdn.bootcss.com/axios/0.16.1/axios.js"></script>
+````
 
 
 
