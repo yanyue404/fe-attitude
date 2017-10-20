@@ -5,18 +5,20 @@ var server = http.createServer();
 
 
 
-o
+
 server.on('request',function(req,res){
+  res.writeHeader(200, {
+    "Content-Type": "text/html; charset=utf-8"
+  });
    var url = req.url;
    if(url==="/"){
-    fs.readFile(__dirname + '/fs模块和http模块/views/index.html',function(err,data){
-      if(err) {
-        console.log('出错')
-      }else {
- res.end(data);
-      }
      
-    })
+    fs.readFile('./data/readFIle.html',(err, data) => {
+      if (err) throw err;
+      res.end(data);
+    });
+     
+   
    }
 })
 

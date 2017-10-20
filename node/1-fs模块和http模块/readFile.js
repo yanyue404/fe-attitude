@@ -10,7 +10,8 @@ data <string> | <Buffer>
 
 异步读取文件的全部内容
  */
-fs.readFile('./data/readFIle.txt','utf-8',function(error,data){
+fs.readFile('./data/readFile.txt','utf-8',function(error,data){
   if(error) throw error;
   console.log(data)
+  console.log(__dirname)
 })
