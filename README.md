@@ -14,6 +14,12 @@
      <script src="https://cdn.bootcss.com/angular.js/1.6.6/angular.js"></script>
 ````
 
+- Boostrap 3.3.6
+
+````
+     <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
+     <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+````
 
 
 
