@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+</head>
+<style>
+body{
+	margin: 0;
+	font: 16px/20px "宋体";
+}
+ul{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.box{
+	width: 300px;
+	height: 40px;
+	margin: 0 auto;
+	border: 1px solid black;
+}
+.box .show{
+	background-color: red;
+	line-height: 30px;
+	padding: 5px;
+}
+.box .show-area{
+	color: white;
+	vertical-align: middle;
+}
+.box .show-select{
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	width: 200px;
+	height: 28px;
+	border: 1px solid #999;
+	background-color: white;
+	text-indent: 20px;
+	cursor: pointer;
+}
+.box .show-selectAdd{
+	color: #999;
+}
+.box .show-select i{
+	position: absolute;
+	height: 0;
+	width: 0;
+	top: 0;
+	right: 0;
+	margin-top: 12px;
+	margin-right: 5px;
+	border: 5px solid transparent;
+	border-top-color: black;
+}
+.box .show-selectAdd i{
+	border: 5px solid transparent;
+	border-bottom-color: black;
+	margin-top: 8px;
+}
+.box .list{
+	border: 1px solid #dfdfdf;
+	border-top: none;
+	display: none;
+}
+.box .list-in{
+	height: 30px;
+	line-height: 30px;
+	text-indent: 74px;
+	border-bottom: 1px solid #dfdfdf;	
+	cursor: pointer;
+}
+.box .list-in:hover{
+	color: red;
+}
+</style>
+<body>
+<div class="box" id="box">
+	<div class="show">
+		<strong class="show-area">地址:</strong>
+		<span class="show-select">朝阳区<i></i></span>
+	</div>
+	<ul class="list">
+		<li class="list-in">朝阳区</li>
+		<li class="list-in">海淀区</li>
+		<li class="list-in">东城区</li>
+		<li class="list-in">西城区</li>
+		<li class="list-in">丰台区</li>
+		<li class="list-in">石景山区</li>
+	</ul>
+</div>
+<script>
+var oBox = document.getElementById('box');
+var oDiv = oBox.getElementsByTagName('div')[0];
+var oShow = oDiv.getElementsByTagName('span')[0];
+var oUl = oBox.getElementsByTagName('ul')[0];
+var aLi = oUl.getElementsByTagName('li');
+//简单思路
+//[1]点击oDiv时，默认文字为黑色，三角向上，变成文字为#999，三角向下；简化为增加一个show-selectAdd类名；oUl从隐藏变成显示
+oDiv.onclick = function(e){
+	//阻止冒泡
+    e = e || event;
+    if(e.stopPropagation){
+        e.stopPropagation();
+    }else{
+        e.cancelBubble = true;
+    }
+	oShow.className = 'show-select show-selectAdd';
+	oUl.style.display = 'block';
+}
+//[2]点击oUl的li时，oUl从隐藏变成显示，文字和三角恢复到黑色和向上的默认样式；并且文字内容变成当前点击的li的内容
+for(var i = 0,len=aLi.length; i < len;i++){
+	aLi[i].onclick = function(){
+		oShow.innerHTML = this.innerHTML + '<i></i>';
+	}
+}
+//[3]点击box以外的其他部分时，oUl从隐藏变成显示，文字和三角恢复到黑色和向上的默认样式
+document.onclick = function(){
+	this.getElementsByTagName('span')[0].className = 'show-select';
+	oUl.style.display = 'none';	
+}
+</script>
+</body>
+</html>
