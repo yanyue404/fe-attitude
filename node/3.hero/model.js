@@ -9,12 +9,22 @@ function getAll(callback){
   })
 }
 
-function delHeroByIndex(index,callback){
-  
-}
+
 
 module.exports = {
   getAllHero(callback){
     getAll(callback)
+  },
+  getHeroById(id,callback){
+   getAll((err,heros)=>{
+     if(err) return callback(err);
+     heros.some(hero=>{
+       if(hero.id === parseInt(id)){
+         callback(null,hero);
+
+         return true; //在some的方法中,表示立即结束循环
+       }
+     })
+   })
   }
 }
