@@ -25,5 +25,9 @@
     <script src="https://cdn.bootcss.com/axios/0.16.1/axios.js"></script>
 ````
 
+- underscore.js 1.8.3
+````
+<script src="https://cdn.bootcss.com/underscore.js/1.8.3/underscore-min.js"></script>
 
+````
 
