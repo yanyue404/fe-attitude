@@ -6,5 +6,8 @@ module.exports = function (res) {
     var html = template(path.join(__dirname, '/views/' + fileName + '.html'), dataObj);
     this.end(html)
 
+  },
+  res.json = function(dataObj){
+    this.end(JSON.stringify(dataObj));
   }
 }

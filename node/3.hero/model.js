@@ -52,5 +52,34 @@ module.exports = {
       //重写到数据当中
       writeAll(heros,callback)
     })
+  },
+  addHero(hero,callback){
+getAll((err,heros)=>{
+  var newId = 0;
+  heros.forEach(item=>{
+    if(item.id>newId){
+      newId = item.id;
+    }
+  });
+  newId++;
+  hero.id = newId;
+  heros.push(hero);
+  writeAll(heros,callback);
+})
+  },
+  changeHeroInfo(hero,callback){
+      hero.id = parseInt(hero.id);
+    getAll((err,heros)=>{
+      if(err) throw err;
+      heros.some((item,index)=>{
+        if(item.id ===hero.id){
+          heros.splice(index,1,hero);
+          return true;
+        }
+      })
+        writeAll(heros,callback);
+    })
   }
+
+
 }

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Hero - Admin</title>
-  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
   <style>
     .hero-list img {
       width: 50px;
@@ -50,6 +50,7 @@
   <script>
     $(function () {
       $('#imgFile').on('change', function (e) {
+      
         if (e.target.files.length !== 1) {
           return;
         }

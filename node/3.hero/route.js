@@ -24,12 +24,16 @@ module.exports = function (req, res) {
     handler.showHeroInfo(req, res);
   }else if(url==='/del'){          //删除
     handler.delHeroInfo(req,res);
-  }else if(url==='/add'){          //添加
-    handler.addheroInfo(req,res);
-  }else if(url==='ajaxPostFile'&& method==='post'){  //上传图片
-
-  }else if(url==='submitData'&&method==='post'){  //提交英雄数据
-
+  }else if(url==='/add'&& method === 'get'){          //添加
+    handler.addheroPage(req,res);
+  }else if(url==='/ajaxPostFile'&& method==='post'){  //上传图片
+    handler.sendImgFile(req,res);
+  }else if(url==='/add'&&method==='post'){  //提交英雄数据
+   handler.submitData(req,res);
+  }else if(url ==='/edit'&& method==='get'){  //编辑页面
+    handler.getEditHero(req,res);
+  }else if(url=== '/uploadEditData'&& method ==='post'){
+    handler.uploadEditHero(req,res);
   }
   
   
