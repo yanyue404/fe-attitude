@@ -1,50 +1,32 @@
 [
   {
-    "id": 3,
-    "name": "feo",
-    "gender": "女",
-    "avatar": "/img/upload_4b58596a4014360797937d7c4ab6eef7.jpg"
-  },
-  {
-    "id": 4,
-    "name": "34",
+    "name": "墨子",
     "gender": "男",
-    "avatar": "/img/upload_2c37360b8f40bd1da209407d023e6af4.jpg"
+    "avatar": "/img/upload_bb684acdae2718158cf938d567ca4d59.jpg",
+    "id": 11
   },
   {
-    "id": 5,
-    "name": "56",
+    "name": "孙膑",
     "gender": "男",
-    "avatar": "/img/upload_227d230bf034e85a8daeaff5e81c31ce.png"
+    "avatar": "/img/upload_21aa5bd23c94b835a7de72d634ad8582.jpg",
+    "id": 12
   },
   {
-    "name": "55",
-    "gender": "女",
-    "avatar": "/img/upload_dced8223271d53d952683fd944f03477.jpg",
-    "id": 6
+    "name": "宫本武藏",
+    "gender": "男",
+    "avatar": "/img/upload_3f06bbe6fdf5ae7647d21977275d32d6.jpg",
+    "id": 13
   },
   {
-    "id": 7,
-    "name": "223",
-    "gender": "女",
-    "avatar": "/img/upload_89307ee2e07282ece697140674bca707.png"
+    "name": "狄仁杰",
+    "gender": "男",
+    "avatar": "/img/upload_35120d26f73dec7c3c120912710b8715.jpg",
+    "id": 14
   },
   {
-    "name": "位",
-    "gender": "女",
-    "avatar": "/img/upload_aa6ddb5109e0160cbcfd0ead84d5ad22.jpg",
-    "id": 8
-  },
-  {
-    "name": "额",
-    "gender": "女",
-    "avatar": "/img/upload_52f3be54cea566e4764c99e12b475da0.jpg",
-    "id": 9
-  },
-  {
-    "name": "23",
-    "gender": "女",
-    "avatar": "/img/upload_0c7374725e05dc9c8a3d4829cec7ea97.png",
-    "id": 10
+    "name": "杨戬",
+    "gender": "男",
+    "avatar": "/img/upload_5544b409e0e493a2fccd719e1234b176.jpg",
+    "id": 15
   }
 ]
