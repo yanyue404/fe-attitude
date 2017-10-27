@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body ng-app="myApp" style="height:2000px">
+	<!-- 回到顶部 -->
+	<div go-top="true">Top</div>
+	<script src="node_modules/angular/angular.js"></script>
+	<script>
+		/*
+			ng-style 设置样式
+
+				ng-style = "{ 'width':'100px','height':'100px' }"
+
+		 */
+		angular.module('myApp',[])
+			.directive('goTop',[function(){
+
+				return {
+
+					template:'<button ng-click="clickFn()" ng-style="styles" ng-transclude></button>',
+
+					transclude:true,
+
+					link : function(scope,element,attributes){
+
+						if(attributes.goTop == "false"){
+
+							element.css('display','none')
+
+						}else{
+
+							scope.styles = {
+								'display':'block',
+								'width':'100px',
+								'height':'100px',
+								'background':'red',
+								'border':'none',
+								'position':'fixed',
+								'right':'10px',
+								'bottom':'10px',
+								'cursor':'pointer',
+								'font-size':'40px',
+								'color':'#FFF'
+
+							}
+
+							scope.clickFn = function(){
+
+								document.documentElement.scrollTop = document.body.scrollTop = 0;
+
+							}
+
+						}
+
+					}
+
+				}
+
+			}])
+	</script>
+</body>
+</html>

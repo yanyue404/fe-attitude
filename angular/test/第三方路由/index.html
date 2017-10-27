@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Title</title>
+</head>
+<body ng-app="myapp">
+<script src="../../node_modules/angular/angular.min.js"></script>
+<script src="../../node_modules/angular-ui-router/angular-ui-router.min.js"></script>
+
+<a ui-sref="index">首页</a>
+<div ui-view="viewa"></div>
+<div ui-view="viewb"></div>
+
+<script>
+    angular.module('myapp', ['ui.router'])
+            .config(['$stateProvider', function ($stateProvider) {
+                $stateProvider.state({
+                    name: 'index',
+                    url: '/index',    //锚点名
+//                    templateUrl: './list.html'
+                    views:{
+                        viewa:{
+                    template:'<div>我是view-a里面的内容</div>'
+                },
+                        viewb:{
+                            template:'<div>我是view-b里面的内容</div>'
+                        }
+                    }
+
+
+                });
+//                        $urlRouterProvider.otherwise('/index')  ????
+            }])
+</script>
+
+</body>
+</html>

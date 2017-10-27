@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../node_modules/angular/angular.min.js"></script>
+    <script src="../../node_modules/angular-route/angular-route.min.js"></script>
+
+</head>
+<body ng-app="myapp">
+
+<a href="#!/index">首页</a>
+<a href="#!/list">列表页</a>
+<div ng-view></div>
+
+<script>
+    angular.module('myapp', ['ngRoute'])
+            .config(['$routeProvider', function ($routeProvider) {
+                $routeProvider.when(
+                        '/index', {
+                            templateUrl: './index1.html',
+                            controller: 'indexCtrl'
+                        }
+                ).when('/list', {
+                    templateUrl: './list.html',
+                    controller: 'listCtrl'
+                }).when('/detail/:id',{
+                    templateUrl:'./detail.html',
+                    controller:'detailsCtrl'
+                })
+            }])
+            .controller('indexCtrl', ['$scope', function ($scope) {
+                $scope.name = '闫越';
+            }])
+            .controller('listCtrl', ['$scope', function ($scope) {
+                $scope.list = [
+                    {id:1,name: '石亚霞', age: '20'},
+                    {id:2,name: '马国强', age: '25'},
+                    {id:3,name: '王梦龙', age: '23'}
+                ]
+            }])
+            .controller('detailsCtrl',['$scope','$routeParams',function($scope,$routeParams){
+                console.log($routeParams)
+                $scope.id = $routeParams['id'];
+
+
+            }])
+</script>
+
+</body>
+</html>
