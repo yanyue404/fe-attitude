@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<!--根据HTML文档流的执行顺序，需要在页面元素渲染前执行的js代码应该放在<body>前面的<script>代
+码块中，而需要在页面元素加载完后的js放在</body>元素后面，body标签的onload事件是在最后执行的-->
+
+<script type="text/javascript">
+  alert("first");
+
+  function Fn() {
+    alert("third");
+  }
+
+</script>
+
+<body onload="Fn()">
+
+</body>
+
+<script type="text/javascript">
+  alert("second");
+
+</script>
+
+
+<!--链接：https://www.zhihu.com/question/23564807/answer/82996422
+来源：知乎-->
+
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input type="hidden" name="id" data-name="我是id" value="我是需要传递的id">
+    <script>
+
+     window.onload=function(){
+
+        var text = document.querySelector('input[name="id"]').value;
+         
+
+        var data = document.querySelector('input').dataset['name'];
+
+        console.log(text)
+
+        console.log(data)
+
+     }
+    </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .overlay {  position: fixed;  left: 0;  right: 0;  bottom: 0;  top: 0;  background: rgba(0,0,0,.8);
+}
+.box {
+  width: 400px;
+  height: 400px;
+  background-color: green;
+  margin: 150px auto;
+}
+  </style>
+</head>
+
+<body>
+   <div class="overlay">
+     <div class="box"></div>
+   </div>
+   <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+  <script>
+    spacify('hello world') // => 'h e l l o  w o r l d'  
+
+    function spacify(str) {
+      return str.split('').join(' ');
+    }
+
+    console.log(spacify('hello world'))
+
+    String.prototype.spacity = function () {
+      return this.split('').join(' ');
+    }
+    console.log(('hello world').spacity());
+
+
+    function log() {
+      console.log.apply(console, arguments)
+    }
+
+    log('1', '2', '3')
+
+
+    function log1() {
+      var args = Array.prototype.slice.call(arguments);
+      args.unshift('(app)');
+      console.log.apply(console, args)
+    }
+
+
+    log1('3', '5');
+
+    var User = {
+      count: 1,
+
+      getCount: function () {
+        return this.count;
+      }
+    };
+
+    console.log(User.getCount());  //1
+    var func = User.getCount; 
+    console.log(func)     
+                            // function () {
+                            //     return this.count;
+    //错误                        //  }
+    console.log(func());  //undefined
+
+    //正确
+    var func = User.getCount.bind(User);  
+    console.log(func());
+
+    //兼容bind方法
+    Function.prototype.bind = Function.prototype.bind || function(context) {  
+    var self = this;    return function(){        return self.apply(context,   arguments);
+  };
+}
+
+
+//点击关闭黑窗口
+
+// $('.overlay').click(
+//   function(){
+//     $(this).hide();
+//   }
+// );
+
+$('.overlay').click(function(e){  if (e.target == e.currentTarget)
+     $(this).hide();
+});
+
+  </script>
+</body>
+
+</html>

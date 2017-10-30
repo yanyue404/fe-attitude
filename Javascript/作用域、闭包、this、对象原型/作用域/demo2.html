@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    //变量的查找是就近原则去需找,var定义的变量,当就近没有找到的话，就会查找外层
+
+var a = 10;
+
+function aaa(){
+	
+	alert(a);   //undefined
+	var a = 20;
+	
+}
+
+aaa();
+
+  </script>
+</body>
+</html>

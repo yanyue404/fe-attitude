@@ -1,0 +1,51 @@
+<%- include('./layouts/header.ejs') %>
+
+<h1><a href="/">查看用户信息</a></h1>
+
+<form id="form1">
+  <div class="input-group">
+    <input type="hidden" name="id" value="<%= id %>">
+    <span class="input-group-addon" id="basic-addon1">用户名：</span>
+    <input type="text" name="name" class="form-control" value="<%= name %>">
+  </div>
+
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1">年龄：</span>
+    <input type="number" min="0" max="200" name="age" class="form-control" value="<%= age %>">
+  </div>
+
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1">性别：</span>
+    <input type="text" name="gender" class="form-control" value="<%= gender %>">
+  </div>
+
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1">地址：</span>
+    <input type="text" name="address" class="form-control"  value="<%= address %>">
+  </div>
+  <input type="submit" value="保存用户" class="btn btn-primary">
+</form>
+
+<script src="/node_modules/jquery/dist/jquery.min.js"></script>
+
+<script>
+  $(function(){
+    $('#form1').on('submit', function(e){
+      e.preventDefault();
+
+      $.ajax({
+        url:'/edit',
+        data:$("#form1").serialize(),
+        type:'post',
+        dataType:'json',
+        success:function(result){
+          if(result.err_code === 0){
+            location.href = '/';
+          }
+        }
+      });
+    });
+  });
+</script>
+
+<%- include('./layouts/footer.ejs') %>

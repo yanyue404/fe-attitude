@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+    //深拷贝数组
+    var arr1 = ['1', '3', '5', '7'];
+
+    var arr2 = [].concat(arr1);
+
+    console.log(arr1 === arr2) //false,深拷贝后得到了两个片内存区域,只有是浅拷贝拷贝引用的时候指向同一片内存区域才会为true
+
+    var arr3 = arr1;
+    arr1.push('9');
+    console.log(arr1)
+    console.log(arr2)
+
+    //浅拷贝数组
+
+    var a = [{
+        c: 1
+    }, {
+        d: 2
+    }];
+    
+    //1
+    var b = a.slice();
+    //2
+    var c = Array.prototype.concat(a);
+    console.log(a === c)
+
+
+
+    console.log(a === b); // 输出false，说明外层数组拷贝的是实例
+    a[0].c = 3;
+    console.log(b[0].c); // 输出 3，说明其元素拷贝的是引用
+    console.log(c[0].c) //输出3,说明其拷贝的是引用
+
+    //浅拷贝对象
+    //1
+    var obj1 = {
+        a: {
+            b: 3
+        }
+    }
+    var obj2 = Object.assign({}, obj1);
+
+
+    console.log(obj1 === obj2) //flase
+    obj1.a.b = 1;
+    console.log(obj2.a.b) //1
+
+    obj2.a.b = 5;
+    console.log(obj1.a.b) //5
+
+    //2
+       var o1 = {
+        name: 'jim',
+        age: 19,
+        gender: '男'
+    };
+
+    var o2 = Object.create( o1 );
+
+    console.log(o1===o2)
+    o1.name = 'Nick';
+    console.log(o2.name)
+
+    //深拷贝对象
+
+    var a = {
+        c: {
+            d: 1
+        }
+    };
+    var b = $.extend(true, {}, a);
+    console.log(a === b); // 输出false
+    a.c.d = 3;
+    console.log(b.c.d); // 输出 1，没有改变。
+
+
+
+    </script>
+</body>
+
+</html>

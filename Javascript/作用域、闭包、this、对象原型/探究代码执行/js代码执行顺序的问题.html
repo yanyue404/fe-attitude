@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+   
+  <script type="text/javascript">
+    
+    alert(str);//因为没有定义str，所以浏览器会出错，下面的不能运行      
+    alert("我是代码块一");//没有运行到这里     
+    var test = "我是代码块一变量";
+  </script>
+
+  <script type="text/javascript">
+
+     alert("我是代码块二"); //这里有运行到      
+     alert(test); //undefined
+  </script>
+  <!--上面的代码中代码块一中运行报错，但不影响代码块二的执行，这就是代码块间的独立性，而代码块二中不能调用到代码一中的变量,作用域问题test参与了变量名提升却没有执行覆盖初始值undefined。 -->
+
+  
+  <!--JS是按照代码块来进行编译和执行的，代码块间相互独立，但变量和方法共享-->
+</body>
+
+</html>
