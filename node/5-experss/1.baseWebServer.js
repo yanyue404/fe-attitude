@@ -3,7 +3,6 @@ var fs = require('fs');
 var path = require('path');
 
 var server = http.createServer();
-
 server.on('request', (req, res) => {
   var url = req.url;
   if (url === '/') {
@@ -23,7 +22,7 @@ server.on('request', (req, res) => {
     res.end('404')
   }
 })
-
+console.log('12')
 server.listen('3000', function () {
   console.log('Http Server running at http://127.0.0.1:3000')
 })

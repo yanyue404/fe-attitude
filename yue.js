@@ -326,4 +326,21 @@ function fomate20(x) {
     }
     return s;
 }
+ function getImgBase64 (obj, callback) {
+    var that = this, dataimg = '', file = obj.files[0];
+    if (!file)return;
+    if (!/image\/\w+/.test(file.type)) {
+        that.tipMes('请上传图片文件', 'error');
+        return;
+    }
+
+
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+        console.log('load')
+        dataimg = this.result;
+        typeof callback === 'function' && callback(dataimg);
+    };
+};
 
