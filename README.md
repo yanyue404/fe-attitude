@@ -31,4 +31,7 @@
      <script src="https://cdn.bootcss.com/underscore.js/1.8.3/underscore-min.js"></script>
 
 ````
-
+- moment.js 2.19.0
+````
+     <script src="https://cdn.bootcss.com/moment.js/2.19.0/moment.min.js"></script>
+````
