@@ -9,9 +9,25 @@
 <body>
 <input type="text" data-name="text:1">
 
+<div data-index="0" style="width:100px;height:100px;background:green">
+    
+</div>
+<div data-index="1" style="width:100px;height:100px;background:blue">
+        
+    </div>
  <button>alert</button>
 
 <script>
+    document.querySelector('[data-index="0"]').onclick= function(){
+        alert(1)
+    }
+    (function(){
+        document.querySelector('[data-index="1"]').onclick= function(){
+        alert(1)
+    }
+    })
+    
+    
     var inp = document.querySelector('input');
     var obj = inp.dataset.name.split(':');
     console.log(obj[1])
