@@ -2,10 +2,11 @@
 ## 小越越的日常代码库
 
 ### BootCDN使用的库
-- jquery1.11.1
+- jquery
 
 ````
      <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 ````
 - Boostrap 3.3.6
 
@@ -31,4 +32,7 @@
      <script src="https://cdn.bootcss.com/underscore.js/1.8.3/underscore-min.js"></script>
 
 ````
-
+- moment.js 2.19.0
+````
+     <script src="https://cdn.bootcss.com/moment.js/2.19.0/moment.min.js"></script>
+````
