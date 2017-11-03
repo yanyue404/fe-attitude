@@ -5,7 +5,7 @@
 - jquery
 
 ````
-     <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+     <script src="https://cdn.bootcss.com/jquery/1.8.0/jquery-1.8.0.js"></script>
      <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 ````
 - Boostrap 3.3.6

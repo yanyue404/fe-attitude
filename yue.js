@@ -344,3 +344,34 @@ function fomate20(x) {
     };
 };
 
+// 获取当前日期
+function getDate() {
+	var today = new Date(); 
+	var fullYear = today.getFullYear();
+	var month = (today.getMonth() + 1) < 10?("0" + (today.getMonth() + 1)):(today.getMonth() + 1);
+	var day = today.getDate() < 10 ? ("0"+today.getDate()) : today.getDate();
+ 	return fullYear + '-' + month + '-' + day;
+}
+//以ajax方式获取数据  
+function ajaxPostQuery(url,paramJsonStr,func,dataType){
+	var dataType = dataType||"json";
+	var url = url || queryUrl;
+	
+	$.ajax({ 
+		type: "POST",
+		url: url,
+		data: paramJsonStr,
+		contentType:"application/x-www-form-urlencoded",
+		dataType:dataType,
+		success: func
+      });
+}
+
+//获取request中的参数
+function getQueryString(name){
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]); return null;
+}
+
+
