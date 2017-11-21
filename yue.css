@@ -248,7 +248,7 @@ body {
 
 /*单行文字截断*/
 
-.am-text-truncate {
+.ellipsis {
   word-wrap: normal;
   /* for IE */
   text-overflow: ellipsis;
@@ -296,9 +296,11 @@ body {
 .w5 {
   width: 50%;
 }
+
 .w1 {
-  width:100%;
+  width: 100%;
 }
+
 .w4 {
   width: 25%;
 }
@@ -366,6 +368,7 @@ body {
   box-sizing: border-box;
   height: 6em;
 }
+
 .border-box {
   box-sizing: border-box;
 }
@@ -373,9 +376,23 @@ body {
 .radius2 {
   border-radius: 0.2em;
 }
+
 .radius1 {
   border-radius: 0.1em;
 }
+
 .radius3 {
   border-radius: 0.1em;
+}
+.select {
+  /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+  border: solid 1px #000;
+  /*很关键：将默认的select选择框样式清除*/
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  /*在选择框的最右侧中间显示小箭头图片*/
+  background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent;
+  /*为下拉小箭头留出一点位置，避免被文字覆盖*/
+  padding-right: 14px;
 }
