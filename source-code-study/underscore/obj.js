@@ -39,3 +39,14 @@ var values = function(obj){
   return values;
 
 }
+
+var pairs = function(obj){
+  var keys2 = keys(obj);
+  var length = keys2.length;
+  var pairs = Array(length);
+  for(var i=0;i<length;i++){
+    pairs= [keys2[i],obj[keys2[i]]];
+  }
+
+  return pairs;
+}
