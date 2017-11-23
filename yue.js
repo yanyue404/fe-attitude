@@ -55,7 +55,7 @@ function typeOf(value) {
 function ajaxPostQuery(url, paramJsonStr, func, dataType) {
     var dataType = dataType || "json";
     var url = url || queryUrl;
-    var sid = appcan.locStorage.getVal("sid");
+    var sid = '123';
     $.ajax({
         type: "POST",
         url: url,
@@ -67,7 +67,7 @@ function ajaxPostQuery(url, paramJsonStr, func, dataType) {
         dataType: dataType,
         timeout: 0,
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            appcan.window.alert("提示", "网络暂时不可用", "确定");
+            alert("网络暂时不可用");
         },
         success: function (data) {
             var errorData;
@@ -76,8 +76,8 @@ function ajaxPostQuery(url, paramJsonStr, func, dataType) {
                     errorData = eval("(" + data + ")");
 
                     if (errorData.error == "-1") {
-                        //alert(url);
-                        relogin(url);
+                        alert(url);
+                        // relogin(url);
                     } else {
                         func(data);
                     }
@@ -173,9 +173,9 @@ Date.prototype.formate = function (format) {
 
 
 //重新加载页面,在ajax回调函数执行后调用
-function reload(id,callback) {
+function reload(id, callback) {
     $("#+'id'").html("");
-   
+
 }
 
 function switchChoose(id) {
@@ -289,7 +289,7 @@ function GetQueryString(name) {
 //alert(GetQueryString("参数名1"));
 
 
-//导入script链接,执行回调函数
+//异步加载js,执行回调函数
 function loadScript(url, callback) {
     var script = document.createElement('script');
     script.type = "text/javaScript";
@@ -326,9 +326,12 @@ function fomate20(x) {
     }
     return s;
 }
- function getImgBase64 (obj, callback) {
-    var that = this, dataimg = '', file = obj.files[0];
-    if (!file)return;
+
+function getImgBase64(obj, callback) {
+    var that = this,
+        dataimg = '',
+        file = obj.files[0];
+    if (!file) return;
     if (!/image\/\w+/.test(file.type)) {
         that.tipMes('请上传图片文件', 'error');
         return;
@@ -346,35 +349,40 @@ function fomate20(x) {
 
 // 获取当前日期
 function getDate() {
-	var today = new Date(); 
-	var fullYear = today.getFullYear();
-	var month = (today.getMonth() + 1) < 10?("0" + (today.getMonth() + 1)):(today.getMonth() + 1);
-	var day = today.getDate() < 10 ? ("0"+today.getDate()) : today.getDate();
- 	return fullYear + '-' + month + '-' + day;
+    var today = new Date();
+    var fullYear = today.getFullYear();
+    var month = (today.getMonth() + 1) < 10 ? ("0" + (today.getMonth() + 1)) : (today.getMonth() + 1);
+    var day = today.getDate() < 10 ? ("0" + today.getDate()) : today.getDate();
+    return fullYear + '-' + month + '-' + day;
 }
 //以ajax方式获取数据  
-function ajaxPostQuery(url,paramJsonStr,func,dataType){
-	var dataType = dataType||"json";
-	var url = url || queryUrl;
-	
-	$.ajax({ 
-		type: "POST",
-		url: url,
-		data: paramJsonStr,
-		contentType:"application/x-www-form-urlencoded",
-		dataType:dataType,
-		success: func
-      });
+function ajaxPostQuery(url, paramJsonStr, func, dataType) {
+    var dataType = dataType || "json";
+    var url = url || queryUrl;
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: paramJsonStr,
+        contentType: "application/x-www-form-urlencoded",
+        dataType: dataType,
+        success: func
+    });
 }
 
 //获取request中的参数
-function getQueryString(name){
+function getQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
     var r = window.location.search.substr(1).match(reg);
-    if (r != null) return unescape(r[2]); return null;
+    if (r != null) return unescape(r[2]);
+    return null;
 }
 
 
-
-
-
+function getStyle(ele, prop) {
+    if (window.getComputedStyle) {
+        return window.getComputedStyle(ele, null)[prop];
+    } else {
+        return ele.currentStyle[prop];
+    }
+}

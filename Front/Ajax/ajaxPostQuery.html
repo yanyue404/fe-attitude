@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script src="https://cdn.bootcss.com/jquery/1.8.0/jquery-1.8.0.js"></script>
+  <script>
+    function ajaxPostQuery(url, paramJsonStr, func, dataType) {
+      var dataType = dataType || "json";
+      var url = url || queryUrl;
+      var sid = '123';
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: paramJsonStr + "&sid=" + sid,
+        headers: {
+          accept: "*/*"
+        },
+        //contentType:"application/x-www-form-urlencoded",
+        dataType: dataType,
+        timeout: 0,
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+          alert("网络暂时不可用");
+        },
+        success: function (data) {
+          var errorData;
+          if (typeof data == "string") {
+            try {
+              errorData = eval("(" + data + ")");
+
+              if (errorData.error == "-1") {
+                alert(url);
+                // relogin(url);
+              } else {
+                func(data);
+              }
+            } catch (e) {
+              func(data);
+            }
+          }
+        }
+      });
+    }
+  </script>
+  <script>
+    var url = 'https://api.douban.com/v2/book/1220562';
+    var data = 'ak=ZuSbFihUuxRyEfO7ZqL8rGXKPRVuDmQ8&location=%E5%8C%97%E4%BA%AC&output=json';
+    ajaxPostQuery(url, data, func, 'jsonp');
+
+    function func(data) {
+      console.log(data);
+    }
+  </script>
+
+
+</body>
+
+</html>
