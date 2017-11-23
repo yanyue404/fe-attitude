@@ -1,5 +1,5 @@
-var userModel = require('../model/UserModel.js');
-var querystring = require('querystring');
+const userModel = require('../model/UserModel.js');
+let querystring = require('querystring');
 
 module.exports = {
   getIndexPage(req, res) { // 具体的业务逻辑，展示首页
