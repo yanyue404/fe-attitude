@@ -5,9 +5,9 @@
 - React
 
 ````
-    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
-    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
-    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://cdn.bootcss.com/babel-core/5.8.24/browser.js"></script>
 ````
 
 - Axios 0.16.1
