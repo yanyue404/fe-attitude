@@ -2,11 +2,17 @@
 ## 小越越的日常代码库
 
 ### BootCDN使用的库
-- jquery
+- React
 
 ````
-     <script src="https://cdn.bootcss.com/jquery/1.8.0/jquery-1.8.0.js"></script>
-     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+````
+
+- Axios 0.16.1
+````
+     <script src="https://cdn.bootcss.com/axios/0.16.1/axios.js"></script>
 ````
 - Boostrap 3.3.6
 
@@ -15,24 +21,15 @@
      <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.js"></script>
 ````
 
-- Angular1.6.6
+- jquery
 
 ````
-     <script src="https://cdn.bootcss.com/angular.js/1.6.6/angular.js"></script>
-````
-
-
-- Axios 0.16.1
-````
-     <script src="https://cdn.bootcss.com/axios/0.16.1/axios.js"></script>
+     <script src="https://cdn.bootcss.com/jquery/1.8.0/jquery-1.8.0.js"></script>
+     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 ````
 
 - underscore.js 1.8.3
 ````
      <script src="https://cdn.bootcss.com/underscore.js/1.8.3/underscore-min.js"></script>
 
-````
-- moment.js 2.19.0
-````
-     <script src="https://cdn.bootcss.com/moment.js/2.19.0/moment.min.js"></script>
 ````
