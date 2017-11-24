@@ -20,8 +20,8 @@
         if (ele.currentStyle !== undefined) {
           return ele.currentStyle[attr];
         } else {
-
-          return window.getComputedStyle(ele, null)[attr];
+          return window.getComputedStyle(ele, null)[attr] ? window.getComputedStyle(ele, null)[attr] : ele.getAttribute(
+            attr);
         }
       }
     },
@@ -60,6 +60,22 @@
         }
 
 
+      }
+    },
+    F: {
+      //格式化金额
+      //price = fmoney(price,2);
+      fmoney: function (s, n) {
+
+        n = n > 0 && n <= 20 ? n : 2;
+        s = parseFloat((s + "").replace(/[^\d\.-]/g, "")).toFixed(n) + "";
+        var l = s.split(".")[0].split("").reverse(),
+          r = s.split(".")[1];
+        t = "";
+        for (j = 0; j < l.length; j++) {
+          t += l[j] + ((j + 1) % 3 == 0 && (j + 1) != l.length ? "," : "");
+        }
+        return t.split("").reverse().join("") + "." + r;
       }
     }
   };

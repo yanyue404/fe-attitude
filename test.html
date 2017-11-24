@@ -9,32 +9,34 @@
 </head>
 
 <body>
-  <select id="list" value="12" name="45" width="500px" class="list">
+  <div id="list" value="12" name="45" width="500px" class="list">
 
-  </select>
+  </div>
   <script src="./yue_new.js">
   </script>
   <script>
     var obj1 = document.querySelector('list');
     var obj = document.getElementById('list');
 
-  
-    yue.Dom.$('.list').onclick = function(){
-      aler(1)
-    }
+
     console.log(getStyle(obj, "value"));
     console.log(getStyle(obj, "id"));
 
     console.log(getStyle(obj, "name"));
     console.log(getStyle(obj, "width"));
+    console.log(obj.getAttribute('name'));
+    console.log(obj.getAttribute('id'));
+    console.log(obj.getAttribute('value'));
+
+
 
     function getStyle(ele, attr) {
-     
-      if (ele.currentStyle !== undefined) { 
-        return ele.currentStyle[attr]; 
+
+      if (ele.currentStyle !== undefined) {
+        return ele.currentStyle[attr];
       } else {
-        
-        return window.getComputedStyle(ele, null)[attr];
+        return window.getComputedStyle(ele, null)[attr] ? window.getComputedStyle(ele, null)[attr] : ele.getAttribute(
+          attr);
       }
     }
   </script>
