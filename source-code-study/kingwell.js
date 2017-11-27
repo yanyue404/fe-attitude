@@ -16,6 +16,7 @@
 	opera = /opera/.test(userAgent),
 	ie = /msie/.test(userAgent) && !opera,
 	safari = /webkit/.test(userAgent),
+	test=yue,
 	ff = /firefox/.test(userAgent);
 	var tip = {
 		require : '缺少参数，参数必须的',

@@ -12,7 +12,7 @@
   <div id="list" value="12" name="45" width="500px" class="list">
 
   </div>
-  <script src="./yue_new.js">
+  <script src="./yue.js">
   </script>
   <script>
     var obj1 = document.querySelector('list');
@@ -36,9 +36,17 @@
         return ele.currentStyle[attr];
       } else {
         return window.getComputedStyle(ele, null)[attr] ? window.getComputedStyle(ele, null)[attr] : ele.getAttribute(
-          attr);
+          attr); 
       }
-    }
+    };
+    console.log((new Date()).Format("yyyy-M-d h:m:s.S"));
+    
+   
+    
+   
+
+
+
   </script>
 </body>
 
