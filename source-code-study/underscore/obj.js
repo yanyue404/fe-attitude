@@ -40,6 +40,7 @@ var values = function(obj){
 
 }
 
+//
 var pairs = function(obj){
   var keys2 = keys(obj);
   var length = keys2.length;
