@@ -24,6 +24,7 @@ function formatDate(date) {
       />
     );
   }
+ 
   function UserInfo(props) {
     return (
       <div className="UserInfo">
@@ -44,6 +45,7 @@ function formatDate(date) {
         <div className="Comment-date">
           {formatDate(props.date)}
           </div>
+              
       </div>
    );
 
@@ -55,7 +57,7 @@ function formatDate(date) {
      author:{
       name:'hellow yue',		 
       avatarUrl: 'http://placekitten.com/g/64/64',
-    }
+    },
     
   }
 
@@ -63,7 +65,7 @@ function formatDate(date) {
     <Comment
     date={comment.date}
     text={comment.text}
-    avatarUrl = {comment.avatarUrl}
+    author = {comment.author}
     />,
     document.getElementById('root')
   )

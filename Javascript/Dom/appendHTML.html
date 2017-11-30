@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <p>I would like to say: </p>
+  <div id="test">
+    <span id="text1"> 原先的文本</span>
+  </div>
+</body>
+<!-- <script src="https://cdn.bootcss.com/jquery/1.8.0/jquery-1.8.0.js"></script> -->
+<script>
+  var html = '<p>新添加的文本</p>';
+
+  var ele = document.getElementById('test');
+
+  /*   $(ele).append(html);//js
+    $('p').append("<b>Hello</b>");//jq */
+
+  // $('#text1').append(html);
+
+  var parentNode = document.getElementById('test').childNodes;
+  // parentNode.appendChild('<p>12</p>');  //使用js原生append方法不支持标签
+
+
+  //   HTMLElement.prototype.appendHTML = function(html) {
+  //     var divTemp = document.createElement("div"), nodes = null
+  //         // 文档片段，一次性append，提高性能
+  //         , fragment = document.createDocumentFragment();
+  //     divTemp.innerHTML = html;
+  //     nodes = divTemp.childNodes;
+  //     for (var i=0, length=nodes.length; i<length; i+=1) {
+  //        fragment.appendChild(nodes[i].cloneNode(true));
+  //     }
+  //     this.appendChild(fragment);
+  //     // 据说下面这样子世界会更清净
+  //     nodes = null;
+  //     fragment = null;
+  // };
+
+  var appendHTML = function (el, html) {
+    var divTemp = document.createElement("div"),
+      nodes = null
+      // 文档片段，一次性append，提高性能
+      ,
+      fragment = document.createDocumentFragment();
+    divTemp.innerHTML = html;
+    nodes = divTemp.childNodes;
+    for (var i = 0, length = nodes.length; i < length; i += 1) {
+      fragment.appendChild(nodes[i].cloneNode(true));
+    }
+    // 全部都是一样的，除了下面这个 this → el
+    el.appendChild(fragment);
+    nodes = null;
+    fragment = null;
+  };
+
+  var prependHTML = function (el, html) {
+    var divTemp = document.createElement("div"),
+      nodes = null,
+      fragment = document.createDocumentFragment();
+
+    divTemp.innerHTML = html;
+    nodes = divTemp.childNodes;
+    for (var i = 0, length = nodes.length; i < length; i += 1) {
+      fragment.appendChild(nodes[i].cloneNode(true));
+    }
+    // 插入到容器的前面 - 差异所在
+    el.insertBefore(fragment, el.firstChild);
+    // 内存回收？
+    nodes = null;
+    fragment = null;
+  };
+  appendHTML(ele, html);
+  prependHTML(ele, html);
+</script>
+
+</html>

@@ -1,12 +1,12 @@
+
+
 (function (w, d) {
   if (!window.yue) {
     window.yue = {};
   }
-  var ArrayProto = Array.prototype,
-    ObjProto = Object.prototype,
-    FuncProto = Function.prototype;
-
-  yue = {
+  
+/* eslint-disable no-undef */  // 忽略 no-undef 检查
+var yue = {
 
 
     Dom: {
@@ -32,58 +32,11 @@
 
         if (ele.currentStyle !== undefined) {
           return ele.currentStyle[attr];
-        } else {
+        } 
           return window.getComputedStyle(ele, null)[attr] ? window.getComputedStyle(ele, null)[attr] : ele.getAttribute(
-            attr);
-        }
-      },
-      addClass: function (element, value) {
-        if (!element.className) {
-          element.className = value;
-        } else {
-          newClassName = element.className;
-          newClass += " ";
-          newClassName += value;
-          element.className = newClassName;
-        }
+            attr);    
       }
-    },
-    Ajax: function (obj) {
-      if (!obj.url) {
-        return false;
-      };
-      var methord = obj.type || "GET";
-      var async = obj.async || true;
-      var dataType = obj.dataType;
-      var XHR = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-      XHR.open(method, obj.url, async);
-      XHR.setRequestHeader('If-Modified-Since', 'Thu,06 Apr 2006 00:00: 00 GMT');
-      XHR.send(null);
-      if (obj.sendBefore) {
-        obj.sendBefore();
-      }
-      XHR.onreadystatechange = function () {
-        if (XHR.readyState == 4 && (XHR.status >= 200 && XHR.status < 300 || XHR.status == 304)) {
-          if (obj.success) {
-            if (dataType && dataType.toLocaleLowerCase() === "json") {
-              obj.success.call(XHR, eval("(" + XHR.responsetext + ")"));
-            } else if (dataType && dataType.toLocaleLowerCase() === "xml") {
-              obj.success.call(XHR, XHR.responseXML);
-            } else {
-              obj.success.call(XHR, XHR.responseTest);
-            }
-          }
-          if (obj.complete) {
-            obj.complete();
-          }
-        } else {
-          if (obj.complete) {
-            obj.complete();
-          }
-        }
 
-
-      }
     },
 
     F: {
@@ -117,20 +70,19 @@
             if (undefined !== value.nodeType) {
               if (3 == value.nodeType) {
                 return (/\S/).test(value.nodeValue) ? 'textnode' : 'whitespace';
-              } else {
+              } 
                 return 'element';
-              }
-            } else {
+              
+            } 
               return 'object';
-            }
+            
           default:
             return 'unknow';
         }
       },
       //依赖于jq的ajax方法(post)封装
       ajaxPostQuery: function (url, paramJsonStr, func, dataType) {
-        var dataType = dataType || "json";
-        var url = url || queryUrl;
+      dataType = dataType || "json";
         var sid = '123';
         $.ajax({
           type: "POST",
@@ -172,7 +124,7 @@
           window.onload = function () {
             oldonload();
             func();
-          }
+          };
         }
       },
       //异步加载js,执行回调函数
@@ -210,8 +162,8 @@
         s = parseFloat((s + "").replace(/[^\d\.-]/g, "")).toFixed(n) + "";
         var l = s.split(".")[0].split("").reverse(),
           r = s.split(".")[1];
-        t = "";
-        for (j = 0; j < l.length; j++) {
+        var t = "";
+        for (let j = 0; j < l.length; j++) {
           t += l[j] + ((j + 1) % 3 == 0 && (j + 1) != l.length ? "," : "");
         }
         return t.split("").reverse().join("") + "." + r;
@@ -222,7 +174,7 @@
         if (isNaN(f)) {
           return false;
         }
-        var f = Math.round(x * 100) / 100;
+        f = Math.round(x * 100) / 100;
         var s = f.toString();
         var rs = s.indexOf('.');
         if (rs < 0) {
@@ -260,4 +212,4 @@
 
 
   };
-})(window, document)
+})(window, document);
