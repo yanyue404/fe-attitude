@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<head>
+  <title>React</title>
+  <script type="text/javascript" crossorigin src="https://unpkg.com/react@16/umd/react.development.js"> </script>
+  <script type="text/javascript" crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"> </script>
+  <script type="text/javascript" src="https://cdn.bootcss.com/babel-core/5.8.24/browser.js"> </script>
+<style>
+  * {
+  font-family: sans-serif;
+  margin: 0;
+}
+button {
+  height: 40px;
+  width: 200px;
+}
+</style>
+</head>
+<div id="root"></div>
+<body>
+  <script type="text/babel">
+  function WarnimgBanner(props){
+    if(!props.warn){
+      return null
+    }
+    return (
+      <div className="warning">
+        warning!
+        </div>
+    )
+  }
+
+  class Page extends React.Component{
+    constructor(props){
+      super(props);
+
+      this.state = {showWarning:true}
+      this.handleToggleClick = this.handleToggleClick.bind(this)
+    }
+
+    handleToggleClick(){
+      this.setState(prevState=>({
+        showWarning:!prevState.showWarning
+      }))
+    }
+
+    render(){
+      return (
+        <div>
+          <WarnimgBanner warn={this.state.showWarning} />
+          <button onClick= {this.handleToggleClick}>
+            {this.state.showWarning?'Hide':'Show'}
+            </button>
+          </div>
+      )
+    }
+  }
+
+  ReactDOM.render(
+    <Page />,
+    document.getElementById('root')
+  )
+
+  </script>
+</body>
+</html>

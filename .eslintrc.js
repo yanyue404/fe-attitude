@@ -49,8 +49,8 @@ module.exports = {
         "no-trailing-spaces":0,
         "prefer-arrow-callback": "warn",
         "padded-blocks":0,
-        "max-len":"warn",
-        //ES6的箭头回调函数标记法     
+        "max-len":"warn", //ES6的箭头回调函数标记法  
+        "eol-last": 0,   
 
         
        
