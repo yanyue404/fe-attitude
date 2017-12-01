@@ -15,8 +15,8 @@
   <script src="./yue.js">
   </script>
   <script>
-    var obj1 = document.querySelector('list');
-    var obj = document.getElementById('list');
+
+    const obj = document.getElementById('list');
 
 
     console.log(getStyle(obj, "value"));
@@ -28,17 +28,14 @@
     console.log(obj.getAttribute('id'));
     console.log(obj.getAttribute('value'));
 
-
-
     function getStyle(ele, attr) {
 
       if (ele.currentStyle !== undefined) {
         return ele.currentStyle[attr];
-      } else {
-        return window.getComputedStyle(ele, null)[attr] ? window.getComputedStyle(ele, null)[attr] : ele.getAttribute(
-          attr);
       }
-    };
+      return window.getComputedStyle(ele, null)[attr] ? window.getComputedStyle(ele, null)[attr] : ele.getAttribute(attr);
+    }
+
     console.log((new Date()).Format("yyyy-M-d h:m:s.S"));
   </script>
 </body>
