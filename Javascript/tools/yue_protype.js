@@ -6,9 +6,9 @@ function $(str) {
         return document.getElementById(str.slice(1));
     } else if (char === ".") {
         return document.getElementsByClassName(str.slice(1));
-    } else {
-        return document.getElementsByTagName(str);
     }
+    return document.getElementsByTagName(str)
+
 }
 
 function typeOf(value) {
