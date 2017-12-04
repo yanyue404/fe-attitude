@@ -375,35 +375,31 @@ function isArrayLike(collection) {
 
     return typeof length == 'number' && length > 0 && length <= MAX_ARRAY_INDEX;
 }
-`` `
-           
-        // 判断数组里是否有某个元素
-       
-           
-           function isIncluded (element, array) {
-                   for (var i = 0,
-                       len = array.length; i < len; i++) {
-                     if (array[i] == element) {
-                       return true;
-                     }
-                   }
-                   return false;
-                 }
-         
-          // 是否排序
-           
-             function defaultComparator (a, b) {
-             return a - b
-           }
-           
-             function isorted (array, comparator) {
-           
-           
-             comparator = comparator || defaultComparator;
-             for (var i = 1; i < array.length; ++i) {
-               if (comparator(array[i - 1], array[i]) > 0) return false
-             }
-           
-             return true
-           }
-           ` ``
+
+// 判断数组里是否有某个元素
+
+function isIncluded(element, array) {
+    for (var i = 0, len = array.length; i < len; i++) {
+        if (array[i] == element) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// 是否排序
+
+function defaultComparator(a, b) {
+    return a - b
+}
+
+function isorted(array, comparator) {
+
+    comparator = comparator || defaultComparator;
+    for (var i = 1; i < array.length; ++i) {
+        if (comparator(array[i - 1], array[i]) > 0) 
+            return false
+    }
+
+    return true
+}
