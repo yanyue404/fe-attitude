@@ -47,13 +47,14 @@
 
     // 4:拿到选中项options的text： myselect.options[index].text;
 
-    var myselect = document.getElementById("test");
+  
+
+    function change() {
+      var myselect = document.getElementById("test");
     var index = myselect.selectedIndex;
     var value = myselect.options[index].value;
     var text = myselect.options[index].text;
-    alert('第' + index + '项' + 'value为' + value + '文本text是' + text)
-
-    function change() {
+    
       var nowIndex = myselect.selectedIndex,
         nowValue = myselect.options[nowIndex].value;
       nowText = myselect.options[nowIndex].text;
