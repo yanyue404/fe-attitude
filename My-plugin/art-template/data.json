@@ -1,0 +1,63 @@
+    {
+      "code": 200,
+      "msg": "OK",
+      "result": {
+        "cs_id": 1,
+        "cs_cg_id": 5,
+        "cs_tc_id": 2,
+        "cs_name": "HTML5",
+        "tc_name": "李清照",
+        "cs_brief": "<p>最精彩的网页布局教程</p>\n",
+        "cs_tags": "HTML",
+        "cs_cover": "http://static.botue.com/images/cover/half.jpg?x-oss-     process=image/crop,x_100,y_50,w_500,h_250",
+        "cs_cg_pid": 1,
+        "teacher": [
+          {
+            "tc_id": 2,
+            "tc_name": "李清照"
+          },
+          {
+            "tc_id": 8,
+            "tc_name": "前端学院"
+          },
+          {
+            "tc_id": 9,
+            "tc_name": "令狐冲"
+          }
+        ],
+        "category": {
+          "top": [
+            {
+              "cg_id": 1,
+              "cg_name": "前端开发"
+            },
+            {
+              "cg_id": 2,
+              "cg_name": "后端开发"
+            },
+            {
+              "cg_id": 3,
+              "cg_name": "数据库"
+            }
+          ],
+          "childs": [
+            {
+              "cg_id": 5,
+              "cg_pid": 1,
+              "cg_name": "HTML/CSS"
+            },
+            {
+              "cg_id": 6,
+              "cg_pid": 1,
+              "cg_name": "Javascript"
+            },
+            {
+              "cg_id": 7,
+              "cg_pid": 1,
+              "cg_name": "Mobile"
+            }
+          ]
+        }
+      },
+      "time": 1483321817
+    }

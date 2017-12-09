@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="layui.css">
+        <link rel="stylesheet" type="text/css" href="layer.css">
+    </head>
+    <body>
+     <!-- confirm -->
+        <button class="layui-btn demo" data-type="test2">
+            Confirm
+        </button>
+    <script type="text/javascript" src="../layer/dist/layer.js"></script>
+
+    <script type="text/javascript" src="../jquery-3.1.1.js"></script>
+
+    <script type="text/javascript">
+    
+     window.onload = function(){
+
+        var active = {
+        
+        test2: function(){
+        layer.confirm('您是如何看待前端开发？', {
+        btn: ['重要','奇葩'] //按钮
+        }, function(){
+        layer.msg('的确很重要', {icon: 1});
+        }, function(){
+        layer.msg('也可以这样', {
+        time: 20000, //20s后自动关闭
+        btn: ['明白了', '知道了']
+        });
+        });
+        }
+    
+       
+      
+        
+        };
+        $('.demo').on('click', function(){
+        var type = $(this).data('type');
+        active[type] ? active[type].call(this) : '';
+        });
+      
+     }
+    </script>
+    </body>
+</html>

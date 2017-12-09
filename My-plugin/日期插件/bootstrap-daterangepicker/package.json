@@ -1,0 +1,19 @@
+{
+  "name": "bootstrap-daterangepicker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "daterangepicker": "^2.1.25",
+    "jquery": "^3.2.1",
+    "moment": "^2.19.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
