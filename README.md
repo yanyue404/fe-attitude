@@ -27,6 +27,12 @@
      <script src="https://cdn.bootcss.com/jquery/1.8.0/jquery-1.8.0.js"></script>
      <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 ````
+- Angular
+
+```` 
+     <script src="https://cdn.bootcss.com/angular.js/1.6.0-rc.1/angular.js"></script>
+
+````
 
 - underscore.js 1.8.3
 ````
