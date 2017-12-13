@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      display: inline-block;
+    }
+
+    #text {
+      background-color: pink;
+      width: 200px;
+      margin: 50px auto;
+    }
+
+    .btn {
+      float: right;
+      height: 100%;
+      /* visibility: hidden; */
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div id="text">
+    <span>jia</span>
+    <h1>首页</h1>
+    <button class="btn">编辑</button>
+  </div>
+
+  <script>
+    console.log(document.querySelector('.btn').innerHTML)
+    document.querySelector('.btn').onclick = function () {
+      document.querySelector('.btn').setAttribute("display","none");
+    }
+
+
+  </script>
+</body>
+
+</html>

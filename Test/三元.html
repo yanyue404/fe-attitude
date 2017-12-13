@@ -13,10 +13,10 @@
    </div>
 
   <script>
+    let name = localStorage.getItem('key');
+    let showText = name=='z' ?'1':'2';
+    localStorage.setItem('key', 'zs');
     
-    localStorage.setItem('key','zs');
-    var name = localStorage.getItem('key');
-    var showText = name=='z' ?'1':'2';
 
     document.querySelector('#show').innerHTML = showText;
   </script>
