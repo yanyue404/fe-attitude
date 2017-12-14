@@ -1,8 +1,8 @@
-  //获取地址栏request中的参数
+  // 获取地址栏request中的参数
   function GetQueryString(name) {
     
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-        var r = window
+        const reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        const r = window
             .location
             .search
             .substr(1)

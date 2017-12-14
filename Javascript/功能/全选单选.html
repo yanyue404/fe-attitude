@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    li{list-style: none;}
+  </style>
+</head>
+<body>
+  <div class="first">
+    <ul class="frtInfo">
+      <li class="same">
+        <label><input type="checkbox" name="wp" value="wpa"/>液体</label>
+      </li>
+      <li class="same">
+        <label><input type="checkbox" name="wp" value="wpb"/>粉末</label>
+      </li>
+      <li class="same">
+        <label><input type="checkbox" name="wp" value="wpc"/>仿牌</label>
+      </li>
+      <li class="same">
+        <label><input type="checkbox" name="wp" value="wpd"/>纯电池</label>
+      </li>
+      <li class="same">
+        <label><input type="checkbox" name="wp" value="wpe"/>危险品</label>
+      </li>
+      <li class="same">
+        <label><input type="checkbox" name="wp" value="wpd"/>配套电池</label>
+      </li>
+      <li class="same select">
+        <label><input id="allChecked" class="allChk" type="button" name="sel" value="全选/取消" onclick="selectAllDels()"/></label>
+      </li>
+    </ul>
+  </div>
+
+  <script type="text/javascript">
+    /*全选或取消全选*/
+    function selectAllDels(){
+      var allWp=document.getElementsByName("wp");
+      var selOrUnsel=false;
+      for(var i=0; i<allWp.length;i++){
+        if(allWp[i].checked){
+          selOrUnsel=true;
+          break;
+        }
+      }
+      if (selOrUnsel){
+        allUnchk(allWp);
+      }else{
+        allchk(allWp);
+      }
+    }
+    function allchk(allWp){
+      for(var i=0; i<allWp.length;i++ ){
+        allWp[i].checked=true;
+      }
+    }
+    function allUnchk(allWp){
+      for(var i=0; i<allWp.length;i++){
+        allWp[i].checked=false;
+      }
+    }
+  </script>
+</body>
+</html>
