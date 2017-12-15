@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+  <script>
+    var url = "http://www.domain.com/?user=anonymous&id=123&id=456&city=%E5%8C%97%E4%BA%AC&d&enabled";
+
+    function querystring(str) {
+      var obj = {};
+      var tmp = (decodeURI(str).split('?'))[1];
+      var paramArr = tmp.split('&');
+      for (var i = 0; i < paramArr.length; i++) {
+        var temp = paramArr[i].split('=');
+        //key value
+        var key = temp[0];
+        var value = temp[1];
+        if (!obj[key]) {
+          obj[key] = value;
+        } else {
+          var newValue = [obj[key], value];
+          obj[key] = newValue;
+        }
+      }
+      return obj;
+    }
+
+
+    // {
+    //   username:anonymous,
+    //   id : [123,456],
+    //   city:'北京',
+    //   enabled:true
+    // }
+    querystring(url);
+  </script>
+</body>
+
+</html>
