@@ -50,7 +50,8 @@ module.exports = {
         "prefer-arrow-callback": "warn",
         "padded-blocks":0,
         "max-len":"warn", //ES6的箭头回调函数标记法  
-        "eol-last": 0,   
+        "eol-last": 0,  
+        "no-plusplus":0 //允许使用++，--
 
         
        

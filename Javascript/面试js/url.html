@@ -12,25 +12,45 @@
 
 
   <script>
-    var url = "http://www.domain.com/?user=anonymous&id=123&id=456&city=%E5%8C%97%E4%BA%AC&d&enabled";
+    const url = "http://www.domain.com/?user=anonymous&id=123&id=456&city=%E5%8C%97%E4%BA%AC&d&enabled";
 
-    function querystring(str) {
-      var obj = {};
-      var tmp = (decodeURI(str).split('?'))[1];
-      var paramArr = tmp.split('&');
-      for (var i = 0; i < paramArr.length; i++) {
-        var temp = paramArr[i].split('=');
-        //key value
-        var key = temp[0];
-        var value = temp[1];
+/*     function querystring(str) {
+      const obj = {};
+      const tmp = (decodeURI(str).split('?'))[1];
+      const paramArr = tmp.split('&');
+      for (let i = 0; i < paramArr.length; i++) {
+        const temp = paramArr[i].split('=');
+        // key value
+        const key = temp[0];
+        const value = temp[1];
         if (!obj[key]) {
           obj[key] = value;
         } else {
-          var newValue = [obj[key], value];
+          const newValue = [obj[key], value];
           obj[key] = newValue;
         }
       }
       return obj;
+    } */
+
+
+    function parse(str) {
+    const paramObj = {};
+    const paramArr = decodeURI(str).split('&');
+    for (let i = 0; i < paramArr.length; i++) {
+     const tmp = paramArr[i].split('=');
+     const key = tmp[0];
+     const value = tmp[1] || true;
+     if (typeof paramObj[key] === 'undefined') {
+       paramObj[key] = value;
+     } else {
+      const newValue = Array.isArray(paramObj[key]) ? paramObj[key] : [paramObj[key]];  
+      newValue.push(value);
+      paramObj[key] = newValue;
+     }
+
+    }
+    return paramObj;
     }
 
 
@@ -40,7 +60,8 @@
     //   city:'北京',
     //   enabled:true
     // }
-    querystring(url);
+    // console.dir(querystring(url));
+    console.dir(parse(url));
   </script>
 </body>
 
