@@ -34,23 +34,54 @@
     } */
 
 
-    function parse(str) {
-    const paramObj = {};
-    const paramArr = decodeURI(str).split('&');
-    for (let i = 0; i < paramArr.length; i++) {
-     const tmp = paramArr[i].split('=');
-     const key = tmp[0];
-     const value = tmp[1] || true;
-     if (typeof paramObj[key] === 'undefined') {
-       paramObj[key] = value;
-     } else {
-      const newValue = Array.isArray(paramObj[key]) ? paramObj[key] : [paramObj[key]];  
+    // function parse(str) {
+      
+    // const paramObj = {};
+    // const paramArr = decodeURI(str).split('&'); 
+    // for (let i = 0; i < paramArr.length; i++) {
+    //  const tmp = paramArr[i].split('=');
+    //  const key = tmp[0];
+    //  const value = tmp[1] || true;
+    //  if (typeof paramObj[key] === 'undefined') { // 判断key是否存在
+    //    paramObj[key] = value;
+    //  } else {
+    //   const newValue = Array.isArray(paramObj[key]) ? paramObj[key] : [paramObj[key]];  
+    //   newValue.push(value);
+    //   paramObj[key] = newValue;
+    //  }
+
+    // }
+    // return paramObj;
+    // }
+
+    // 健壮性
+
+   function parse1 (str) {
+      if (typeof str !== 'string') {
+        return {};
+      }
+      const paramObj = {};
+      const STR = (decodeURI(str).split('?'))[1];
+      const paramArr = STR.split('&');
+      for (let i = 0; i < paramArr.length; i++) {
+        const tmp = paramArr[i].split('=');
+        const key = tmp[0];
+        let value = tmp[1];
+
+        // 处理数字
+        // eslint-disable-next-line 
+        if (typeof value === 'string' && isNaN(Number(value)) === false) {
+          value = Number(value);
+        }
+        if (typeof paramObj[key] === 'undefined') {
+          paramObj[key] = value;
+        } else {
+          const newValue = Array.isArray(paramObj[key]) ? paramObj[key] : [paramObj[key]];  
       newValue.push(value);
       paramObj[key] = newValue;
-     }
-
-    }
-    return paramObj;
+        }
+       }
+       return paramObj;
     }
 
 
@@ -61,7 +92,7 @@
     //   enabled:true
     // }
     // console.dir(querystring(url));
-    console.dir(parse(url));
+    console.dir(parse1(url));
   </script>
 </body>
 
