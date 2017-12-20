@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<!-- <input type="date"> -->
+
+<h1 id="date"></h1>
+
+<body>
+
+
+  <script>
+    function GetDateStr(AddDayCount) {
+      var dd = new Date();
+      dd.setTime(dd.getTime() + AddDayCount * 24 * 60 * 60 * 1000);//获取AddDayCount天后的日期
+      var y = dd.getFullYear();
+      var m = dd.getMonth() + 1;//获取当前月份的日期 
+      var d = dd.getDate();
+      return y + "-" + m + "-" + d;
+    }
+    var str = GetDateStr(1);
+    // document.querySelector('#date').innerHTML = str;
+
+    var dataStr = '{"year":"2017","month":"12","day":"19"}';
+    var dataObj = JSON.parse(dataStr);
+    console.log(dataObj)
+    document.querySelector('#date').innerHTML = dataObj.year+'-'+dataObj.month+'-'+dataObj.day;
+    alert(dataStr)
+
+  </script>
+</body>
+
+</html>
