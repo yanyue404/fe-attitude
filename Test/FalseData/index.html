@@ -1,36 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 </head>
+
 <body>
-  
-  <script src="./node_modules/jquery/dist/jquery.js"></script>
-  <script src="./node_modules/mockjs/dist/mock.js"></script>
 
-  <script>
-    Mock.mock('http://api.com', {
-        "user|5-10": [{
-            'name': '@cname',   //中文名称
-            'age|1-100': 100,   //100以内随机整数
-            'birthday': '@date("yyyy-MM-dd")',  //日期
-            'city': '@city(true)'   //中国城市
-        }]
-    });
+    <script src="./node_modules/jquery/dist/jquery.js"></script>
+    <script src="./node_modules/mockjs/dist/mock.js"></script>
 
-   //JQuery方式
-    $.ajax({
-        url: 'http://api.com',
-        dataType: 'json'
-    }).done(function(data, status, xhr) {
-        console.log(
-            JSON.stringify(data, null, 4)
-        )
-    });
-   
+    <script>
+        // Mock.Random 是一个工具类，用于生成各种随机数据。
+        var Random = Mock.Random;
+        Random.extend({
+            // 定义生成 生成随机数据的方法 
+            constellation: function (date) {
+                var constellations = ['白羊座', '金牛座', '双子座', '巨蟹座', '狮子座', '处女座', '天秤座', '天蝎座', '射手座', '摩羯座', '水瓶座', '双鱼座']
+                return this.pick(constellations)
+            }
+        })
+        Random.constellation();
+
+        Mock.mock('@CONSTELLATION');
+
+
+
+
+        // => { constellation: "射手座" }
+        Mock.mock('http://api.com', {
+
+            "user|5-10": [{
+                'id': '@id', // 随机生成一个 18 位身份证。           
+                'name': '@cname',   // 中文名称
+                'age|1-100': 100,   // 100以内随机整数
+                'birthday': '@date("yyyy-MM-dd")',  // 日期
+                'city': '@city(true)',   // 中国城市
+                'text': 'true',
+                'rows': {
+
+                    'constellation': '@CONSTELLATION',
+
+                    'text': '@cparagraph(1)', //随机生成一段文本
+                    'step': '@increment()', // 全局的自增整数 默认为1
+                    'imageURL': "@image('200x100')"
+
+                }
+
+            }]
+        });
+
+        //JQuery方式
+        $.ajax({
+            url: 'http://api.com',
+            dataType: 'json'
+        }).done(function (data, status, xhr) {
+            var data = JSON.stringify(data, null, 4);
+            console.log(JSON.parse(data))
+        });
+
 
    //返回的数据
   /* {
@@ -69,6 +100,7 @@
 }*/
 
 
-  </script>
+    </script>
 </body>
+
 </html>
