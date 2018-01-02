@@ -1,5 +1,5 @@
 # smart
-## 小越越的日常代码库
+## 小越越的日常代码库 [![Build Status](https://travis-ci.org/michaelliao/openweixin.svg?branch=master)](https://travis-ci.org/michaelliao/openweixin)
 
 ### BootCDN使用的库
 - React
