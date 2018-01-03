@@ -75,3 +75,15 @@ function compact(arr) {
   return result;
 };
 
+function arrayIndex(element,array) {
+  var index = array.indexOf(element);
+  return index;
+}
+
+function delArrayByIndex(element,array) {
+  var index = array.indexOf(element);
+  if(index > -1) {
+    array.splice(index,1);
+  }
+}
+

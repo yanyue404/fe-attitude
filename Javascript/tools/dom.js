@@ -1,14 +1,13 @@
-function $(str) {
-
-  var char = str.charAt(0);
-
-  if (char === "#") {
-    return document.getElementById(str.slice(1));
-  } else if (char === ".") {
-    return document.getElementsByClassName(str.slice(1));
-  } else {
-    return document.getElementsByTagName(str);
-  }
+function $(selector, el) {
+  if (!el) { el = document; }
+  return el.querySelector(selector);
+}
+function $$(selector, el) {
+  if (!el) { el = document; }
+  return el.querySelectorAll(selector);
+  // Note: the returned object is a NodeList.
+  // If you'd like to convert it to a Array for convenience, use this instead:
+  // return Array.prototype.slice.call(el.querySelectorAll(selector));
 }
 const appendHTML = function (el, html) {
   let divTemp = document.createElement("div"),
@@ -43,3 +42,69 @@ const prependHTML = function (el, html) {
   nodes = null;
   fragment = null;
 };
+
+function getStyle(ele, attr) {
+
+  if (ele.currentStyle !== undefined) {
+    return ele.currentStyle[attr];
+  } else {
+    return window.getComputedStyle(ele, null)[attr] ? window.getComputedStyle(ele, null)[attr] : ele.getAttribute(
+      attr);
+  }
+}   
+
+
+//addEvent(btn1,"click",fn);//调用添加 removeEvent(btn1,"click",fn);//调用移除
+
+function addEvent(element, eventName, Listener) {
+  if (element.addEventListener) {
+      element.addEventListener(eventName, Listener, false);
+  } else if (element.attachEvent) {
+      element.attachEvent("on" + eventName, Listener);
+  } else {
+      element["on" + eventName] = Listener;
+  }
+}
+function removeEvent(element, eventName, Listener) {
+  if (element.addEventListener) {
+      element.addEventListener(eventName, Listener, false);
+  }else if (element.detachEvent) {
+      element.detachEvent("on"+ eventName, Listener);
+  }else{
+      element["on"+eventName]=Listener;
+  }
+}
+//页面加载自执行函数
+function addLoadEvent(func) {
+  var oldonload = window.onload;
+  if (typeof window.onload != 'function') {
+      window.onload = func;
+  } else {
+      window.onload = function () {
+          oldonload();
+          func();
+      }
+  }
+}
+
+//异步加载js执行回调函数
+function loadScript(url, callback) {
+  var script = document.createElement('script');
+  script.type = "text/javaScript";
+  if (script.readyState) { //IE
+      script.onreadystatechange = function () {
+          if (script.readyState == "loaded" || script.readyState == "complete") {
+              script.onreadystatechange = null;
+              callback();
+          }
+      };
+  } else {
+      script.onload = function () {
+          callback();
+      };
+  }
+  script.src = url;
+  document
+      .getElementsByTagName('head')[0]
+      .appendChild(script);
+}

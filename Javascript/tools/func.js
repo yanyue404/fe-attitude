@@ -51,52 +51,7 @@ function getRand(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-//addEvent(btn1,"click",fn);//调用添加 removeEvent(btn1,"click",fn);//调用移除
 
-function addEvent(element, eventName, Listener) {
-    if (element.addEventListener) {
-        element.addEventListener(eventName, Listener, false);
-    } else if (element.attachEvent) {
-        element.attachEvent("on" + eventName, Listener);
-    } else {
-        element["on" + eventName] = Listener;
-    }
-}
-
-//页面加载自执行函数
-function addLoadEvent(func) {
-    var oldonload = window.onload;
-    if (typeof window.onload != 'function') {
-        window.onload = func;
-    } else {
-        window.onload = function () {
-            oldonload();
-            func();
-        }
-    }
-}
-
-//异步加载js执行回调函数
-function loadScript(url, callback) {
-    var script = document.createElement('script');
-    script.type = "text/javaScript";
-    if (script.readyState) { //IE
-        script.onreadystatechange = function () {
-            if (script.readyState == "loaded" || script.readyState == "complete") {
-                script.onreadystatechange = null;
-                callback();
-            }
-        };
-    } else {
-        script.onload = function () {
-            callback();
-        };
-    }
-    script.src = url;
-    document
-        .getElementsByTagName('head')[0]
-        .appendChild(script);
-}
 
 // 获取当前日期 对Date的扩展，将 Date 转化为指定格式的String 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2
 // 个占位符， 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字) 例子： (new
@@ -165,67 +120,7 @@ contains(str, value) {
         false;
 };
 
-/**
- * @desc 深拷贝，支持常见类型
- * @param {Any} values
- */
-function
-deepClone(values) {
 
-    var copy;
-
-    // Handle the 3 simple types, and null or undefined
-
-    if (null == values || "object" != typeof values)
-        return
-    values;
-
-    // Handle Date
-
-    if (values instanceof Date) {
-        copy = new
-
-            Date();
-        copy.setTime(values.getTime());
-
-        return
-        copy;
-    }
-
-    // Handle Array
-
-    if (values instanceof Array) {
-        copy = [];
-
-        for (var i = 0, len = values.length; i < len; i++) {
-            copy[i] = deepClone(values[i]);
-        }
-
-        return
-        copy;
-    }
-
-    // Handle Object
-
-    if (values instanceof Object) {
-        copy = {};
-
-        for (var attr in values) {
-
-            if (values.hasOwnProperty(attr))
-                copy[attr] = deepClone(values[attr]);
-        }
-
-        return
-        copy;
-    }
-
-    throw
-
-    new
-
-        Error("Unable to copy values! Its type isn't supported.");
-}
 
 /**
  *
@@ -384,61 +279,3 @@ formatRemainTime(endTime) {
     d + "天 " + h + "小时 " + m + "分钟 " + s + "秒";
 }
 
-/**
- *
- * @desc   url参数转对象
- * @param  {String} url  default: window.location.href
- * @return {Object}
- */
-function
-parseQueryString(url) {
-    url = url == null ?
-        window.location.href :
-        url
-
-    var search = url.substring(url.lastIndexOf('?') + 1)
-
-    if (!search) {
-
-        return {}
-    }
-
-    return
-    JSON.parse('{"' + decodeURIComponent(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}')
-}
-
-/**
- *
- * @desc   对象序列化
- * @param  {Object} obj
- * @return {String}
- */
-function
-stringfyQueryString(obj) {
-
-    if (!obj)
-        return
-
-
-    '';
-
-    var pairs = [];
-
-    for (var key in obj) {
-
-        var value = obj[key];
-
-        if (value instanceof Array) {
-
-            for (var i = 0; i < value.length; ++i) {
-                pairs.push(encodeURIComponent(key + '[' + i + ']') + '=' + encodeURIComponent(value[i]));
-            }
-
-            continue;
-        }
-        pairs.push(encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]));
-    }
-
-    return
-    pairs.join('&');
-}
