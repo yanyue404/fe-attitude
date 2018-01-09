@@ -44,36 +44,17 @@
 
           var oilNumber = orderList[i].oilNumber ? orderList[i].oilNumber : 000;
           var oilPrice = orderList[i].oilPrice;
-          // sumprice += oilAmot;
-          //分公司审核 state=0
-          //总公司审核 state=1
+
           var orgType = appcan.locStorage.getVal("orgType");
 
-          //分公司审核
-          //成功生成ERP编码
-
           if (state == '3' && orgType == '1') {
-
               //不存在ERP编码
               if (!orderList[i]["erpStatementCode"]) {
                   var appendHtml = "<div id='" + orderList[i]["orderId"] + "' class='ub ub-ac ub-pe m-row4'><span class='y-font umar-l' onclick='confirmIntention(id,\"" + orderList[i].oilAmot + "\",\"" + orderList[i].cusId + "\",\"" + orderList[i].gyfgs + "\",\"" + orderList[i].orderId + "\")'>确认结算并转付</span></div>";
 
                   $("#position" + i)[0].innerHTML = appendHtml;
               }
-
           }
-          // id," + orderList[i]["oilNumber"] + "," + orderList[i]["oilPrice"] + ",\"" + orderList[i].orderId + "\"," + orderList[i].payType + "
-
-          //总公司审核
-          else if (state == '1' && orgType == '0') {
-
-              var appendHtml = "<div id='" + orderList[i]["orderId"] + "' class='ub ub-ac ub-pe m-row4'><span class='y-font umar-l' onclick='confirmIntention(id,\"" + orderList[i].oilAmot + "\",\"" + orderList[i].cusId + "\",\"" + orderList[i].gyfgs + "\",\"" + orderList[i].orderId + "\")'>确认结算并转付</span></div>";
-
-              // id," + orderList[i]["oilAmot"] + "," + orderList[i]["gyfgs"] + ",\","+orderList[i].orderId +"
-
-              $("#position" + i)[0].innerHTML = appendHtml;
-          }
-
       }
 
   }

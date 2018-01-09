@@ -279,3 +279,17 @@ formatRemainTime(endTime) {
     d + "天 " + h + "小时 " + m + "分钟 " + s + "秒";
 }
 
+// var url = 'http://xiaoyueyue.org';
+    function timestamp(url) {
+      //  var getTimestamp=Math.random();  
+      var getTimestamp = new Date().getTime();
+      if (url.indexOf("?") > -1) {
+        url = url + "&timestamp=" + getTimestamp
+      } else {
+        url = url + "?timestamp=" + getTimestamp
+      }
+      return url;
+    }
+    // var newUrl = timestamp(url);
+    // window.location.href = newUrl
+
