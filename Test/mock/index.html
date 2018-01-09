@@ -27,9 +27,6 @@
 
         Mock.mock('@CONSTELLATION');
 
-
-
-
         // => { constellation: "射手座" }
         Mock.mock('http://api.com', {
 
@@ -59,45 +56,44 @@
             dataType: 'json'
         }).done(function (data, status, xhr) {
             var data = JSON.stringify(data, null, 4);
-            console.log(JSON.parse(data))
+            console.log(data)
         });
 
 
    //返回的数据
-  /* {
+/*    {
     "user": [
         {
-            "name": "锺丽",
-            "age": 17,
-            "birthday": "1983-11-01",
-            "city": "内蒙古自治区 赤峰市"
+            "id": "410000197010137253",
+            "name": "苏娜",
+            "age": 77,
+            "birthday": "2004-08-06",
+            "city": "陕西省 安康市",
+            "text": "true",
+            "rows": {
+                "constellation": "水瓶座",
+                "text": "决如七般要政许值空一地制广以采毛复。",
+                "step": 1,
+                "imageURL": "http://dummyimage.com/200x100"
+            }
         },
         {
-            "name": "陈艳",
-            "age": 25,
-            "birthday": "1973-07-10",
-            "city": "河南省 驻马店市"
-        },
-        {
-            "name": "冯霞",
-            "age": 59,
-            "birthday": "2010-10-28",
-            "city": "澳门特别行政区 离岛"
-        },
-        {
-            "name": "贾秀英",
-            "age": 63,
-            "birthday": "1973-01-22",
-            "city": "新疆维吾尔自治区 伊犁哈萨克自治州"
-        },
-        {
-            "name": "周勇",
-            "age": 34,
-            "birthday": "1985-05-21",
-            "city": "湖南省 衡阳市"
+            "id": "540000199609079596",
+            "name": "姚刚",
+            "age": 52,
+            "birthday": "1985-08-17",
+            "city": "西藏自治区 那曲地区",
+            "text": "true",
+            "rows": {
+                "constellation": "双鱼座",
+                "text": "政发取压断先类矿全老且为划。",
+                "step": 2,
+                "imageURL": "http://dummyimage.com/200x100"
+            }
         }
+       
     ]
-}*/
+  } */
 
 
     </script>
