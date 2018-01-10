@@ -23,13 +23,13 @@
         ndItem.innerText = i + 1;
         ndContainer.appendChild(ndItem);
       }
-      ndContainer.addEventListener('click',function(e){
+      ndContainer.addEventListener('click', function (e) {
         var ele = e.target || e.srcElement;
-           if(ele.tagName === 'LI'){
-             alert(ele.innerText)
-           }
+        if (ele.tagName === 'LI') {
+          alert(ele.innerText)
+        }
       })
-  
+
     })();
   </script>
 </body>

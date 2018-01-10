@@ -1,44 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>Title</title>
 </head>
+
 <body>
-<input type="text" data-name="text:1">
 
-<div data-index="0" style="width:100px;height:100px;background:green">
-    
-</div>
-<div data-index="1" style="width:100px;height:100px;background:blue">
-        
+
+    <div data-index="0" class="cls" style="width:100px;height:100px;background:green">
+
     </div>
- <button>alert</button>
+    <div data-index="1" class="cls" style="width:100px;height:100px;background:blue">
+    </div>
 
-<script>
-    document.querySelector('[data-index="0"]').onclick= function(){
-        alert(1)
-    }
+    <script>
 
+
+        // 方法1
+
+        /*     var dom = document.querySelectorAll('div');
+            // 不能使用getElementsByTagNames与getElementsByClassName 获取元素
     
-    
-    var inp = document.querySelector('input');
-    var obj = inp.dataset.name.split(':');
-    console.log(obj[1])
+            dom.forEach(ele => {
+                ele.onclick = () => {
+                    alert(ele.dataset.index)
+                }
+            }) */
 
-    var btn = document.getElementsByTagName('button')[0];
+        // 方法2 
 
-    btn.onclick = function(){
+        /* document.body.addEventListener('click', function (e) {
+            var ele = e.target || e.srcElement;
+            if (ele.tagName === 'DIV') {
+                alert(ele.dataset.index)
+            }
 
-        if(!null){
-             return;
+        }) */
+
+
+
+        var dom = document.getElementsByTagName('div');
+
+        for (var i = 0; i < dom.length; i++) {
+
+            var arr = []
+            var obj = Object.assign({}, dom);
+            for (var i in obj) {
+                arr.push(obj[i]); //属性
+                //arr.push(object[i]); //值
+            }
+
+            console.dir(arr[i]);
+
+
+
         }
-       
-        alert(1)
-    }
-</script>
+
+
+    </script>
 
 </body>
+
 </html>
