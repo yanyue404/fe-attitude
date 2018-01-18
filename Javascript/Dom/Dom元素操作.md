@@ -8,6 +8,7 @@
    elem.appendChild( ele ); //ele是新的元素
 ```
 var p = document.createElement("p");
+p.innerHTML = "hellow";
 document.body.appendChild(p);
 ```
 2, 插入到某一个元素的前面
@@ -40,7 +41,7 @@ document.body.appendChild(p);
  
  - appendHTML 向目标元素后插入html片段
  ````
-   var appendHTML = function (el, html) {
+   var appendHTML = function (el, html) {
     var divTemp = document.createElement("div"),
       nodes = null
       // 文档片段，一次性append，提高性能
@@ -75,6 +76,11 @@ document.body.appendChild(p);
     nodes = null;
     fragment = null;
   };
+ ````
+ 
+ > 把两个方法扩展到原型上面
+ ````
+  HTMLElement.prototype.appendHTML = function(){}
  ````
 
 ### 删除
