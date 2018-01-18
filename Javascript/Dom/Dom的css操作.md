@@ -22,6 +22,13 @@ ele[aaa] = "erweima hide";
 
 3. 表单属性: value/disabled/checked/selected....
 
+````
+inpArr[i].value = i;
+inp.disabled = true;
+inpArr[i].checked = true;
+optArr[2].selected = true;
+````
+
 4. style属性: 别人都是字符串,这个货是object;
 
 ### ele.set/get/removeAttribute(); 设置获取删除属性.
