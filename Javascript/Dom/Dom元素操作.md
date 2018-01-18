@@ -37,6 +37,45 @@ document.body.appendChild(p);
                // 为空, 即是最后一个
               parent.appendChild( newElem );
  ````
+ 
+ - appendHTML 向目标元素后插入html片段
+ ````
+   var appendHTML = function (el, html) {
+    var divTemp = document.createElement("div"),
+      nodes = null
+      // 文档片段，一次性append，提高性能
+      ,
+      fragment = document.createDocumentFragment();
+    divTemp.innerHTML = html;
+    nodes = divTemp.childNodes;
+    for (var i = 0, length = nodes.length; i < length; i += 1) {
+      fragment.appendChild(nodes[i].cloneNode(true));
+    }
+    // 全部都是一样的，除了下面这个 this → el
+    el.appendChild(fragment);
+    nodes = null;
+    fragment = null;
+  };
+ ````
+ - prependHTML 向目标元素前插入html片段
+ ````
+   var prependHTML = function (el, html) {
+    var divTemp = document.createElement("div"),
+      nodes = null,
+      fragment = document.createDocumentFragment();
+
+    divTemp.innerHTML = html;
+    nodes = divTemp.childNodes;
+    for (var i = 0, length = nodes.length; i < length; i += 1) {
+      fragment.appendChild(nodes[i].cloneNode(true));
+    }
+    // 插入到容器的前面 - 差异所在
+    el.insertBefore(fragment, el.firstChild);
+    // 内存回收？
+    nodes = null;
+    fragment = null;
+  };
+ ````
 
 ### 删除
  -> DOM 的操作方案
