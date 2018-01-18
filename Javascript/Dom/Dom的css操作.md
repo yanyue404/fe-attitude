@@ -8,12 +8,12 @@ src/className/title,innerHTML....
 img.src="image/2.jpg";
 
 var aaa = "className";
-er[aaa] = "erweima hide";
+ele[aaa] = "erweima hide";
 ````
 
 字符串使用方法扩展
 ````
- er[aaa] = er.className.replace("show","hide");
+ ele[aaa] = ele.className.replace("show","hide");
 ````
 
 1. 正常属性: src/title/id....
@@ -41,7 +41,7 @@ for(var i=0;i<liArr.length;i++> {
     3.值是字符串,没有设置是""
     4.命名规则,驼峰命名,和css不一样
     5.设置了类样式不能够获取(只和行内式交互,和内嵌和外链无关)
-    6.box.style.cssText = "字符串形式的样式";
+    6.ele.style.cssText = "字符串形式的样式";
 
 
          
