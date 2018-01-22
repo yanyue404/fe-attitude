@@ -89,3 +89,12 @@
          */
     }
   ````
+  - 全屏
+  背景````
+    *{margin:0;padding:0;}
+  html{
+  background:url("img/1.jpg") no-repeat center center;
+  background-size:cover;
+  min-height:100%;
+  }
+  ````
