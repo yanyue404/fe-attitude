@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style>
+  .select {
+    /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+    border: solid 1px #000;
+    /*很关键：将默认的select选择框样式清除*/
+    appearance: none;
+    -moz-appearance: none;
+    
+    -webkit-appearance: none;
+    /*在选择框的最右侧中间显示小箭头图片*/
+    /* background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent;   */
+    background: url("imgs/arrow.png") no-repeat scroll right center transparent;
+    background-size: 0.6em 0.4em;
+    /*为下拉小箭头留出一点位置，避免被文字覆盖*/
+    padding-right: 0.8em;
+    padding-left: 0.3em;
+  }
+</style>
+
+<body>
+
+
+  <select id="test" class="select" onchange="change();">
+    <option value=0>选项一</option>
+    <option value=1>选项二</option>
+    <option value=2>选项三</option>
+    <option value=3>选项四</option>
+  </select>
+
+  <script>
+    // 原生js操作select  
+
+    // 1:拿到select对象： var myselect=document.getElementById(“test”);
+
+    // 2：拿到选中项的索引：var index=myselect.selectedIndex ; // selectedIndex代表的是你所选中项的index
+
+    // 3:拿到选中项options的value： myselect.options[index].value;
+
+    // 4:拿到选中项options的text： myselect.options[index].text;
+
+  
+
+    function change() {
+      var myselect = document.getElementById("test");
+    var index = myselect.selectedIndex;
+    var value = myselect.options[index].value;
+    var text = myselect.options[index].text;
+    
+      var nowIndex = myselect.selectedIndex,
+        nowValue = myselect.options[nowIndex].value;
+      nowText = myselect.options[nowIndex].text;
+      alert('第' + nowIndex + '项' + 'value为' + nowValue + '文本text是' + nowText)
+
+    }
+  </script>
+</body>
+
+</html>

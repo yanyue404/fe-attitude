@@ -115,8 +115,16 @@ E:target |结合锚点进行使用,处于当前的锚点的元素会被选中
 
 border-box: 盒子实际大小;
 
- 总结:1.盒子设置了一个content-box,计算盒子大小要做加法
-                2.盒子设置了一个boder-box,盒子大小就是我们设置的宽高
+
+
+ 总结:
+
+1.盒子设置了一个content-box,计算盒子大小要做加法
+
+
+2.盒子设置了一个boder-box,盒子大小就是我们设置的宽高
+
+![](../imgs/box-sizing.png)
                 
 -  2.border-radius
 
