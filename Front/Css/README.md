@@ -1,1 +1,46 @@
-### [base64图片在线转码工具](http://tool.chinaz.com/tools/imgtobase)
+## 在线工具
+- [base64图片](http://tool.chinaz.com/tools/imgtobase)
+
+### 常用代码段
+- 清除浮动
+````
+ <!-- 1.额外标签法 -->
+    <!-- 在浮动元素的末尾添加空标签 -->
+    <div style="clear:both"></div>
+
+    <!-- 2.父级添加overflow -->
+    <!-- 设置overflow:hidden/auto/scroll都可 -->
+
+    <!-- 3.使用after伪元素清浮动 -->
+    <style>
+        .clearfix:after {
+            content: '';
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+
+        .clearfix {
+            *zoom: 1;
+            /* ie67专用 */
+        }
+    </style>
+
+    <!-- 4.双伪元素清浮动 -->
+    <style>
+        .clearfix:before,
+        .clearfix:after {
+            content: '';
+            display: table;
+        }
+
+        .clearfix:after {
+            clear: both;
+        }
+
+        .clearfix {
+            *zoom: 1;
+        }
+    </style>
+````
