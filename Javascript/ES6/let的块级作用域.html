@@ -9,32 +9,26 @@
 </head>
 
 <body>
- <div id="list"></div>
+  <h1>var</h1>
+  <div id="list"></div>
+  <h1>let</h1>
+  <div id="list1"></div>
   <script>
-    //let允许声明一个作用域被限制在块级中的变量,语句或表达式,而var声明的变量只能是是全局或者整个函数块的
 
-    //作用域规则:let声明的变量只是在其声明的块或字子块中可使用,这一点,与var相似.二者最大的区别在于var声明的变量的作用域是全局或整个封闭函数
-
-  /*  function varTest() {
-      var x = 1;
-      if (true) {
-        var x = 2;  // 同样的变量!
-        console.log(x);  // 2
-      }
-      console.log(x);  // 2
-    }
-    varTest();
-    function letTest() {
-      let x = 1;
-      if (true) {
-        let x = 2;  // 不同的变量
-        console.log(x);  // 2
-      }
-      console.log(x);  // 1
-    }
-    letTest()*/
 
     var list = document.getElementById("list");
+    var list1 = document.getElementById("list1");
+
+    for (var i = 1; i <= 5; i++) {
+      var Item = document.createElement('LI');
+      Item.appendChild(document.createTextNode("Item" + i));
+
+      var j = i;
+      Item.onclick = function () {
+        alert(j)
+      }
+      list.appendChild(Item)
+    }
 
     for (let i = 1; i <= 5; i++) {
       var item = document.createElement("LI");
@@ -42,18 +36,11 @@
 
       let j = i;
       item.onclick = function (ev) {
-        console.log("Item " + j + " is clicked.");
+        alert("Item " + j + " is clicked.");
       };
-      list.appendChild(item);
+      list1.appendChild(item);
     }
-// 上面这段代码的意图是创建5个li,点击不同的li能够打印出当前li的序号。如果不用let，而改用var的话，将总是打印出 Item 5 is Clicked，因为 j 是函数级变量，5个内部函数都指向了同一个 j ,而 j 最后一次赋值是5。用了let后，j 变成块级域（也就是花括号中的块，每进入一次花括号就生成了一个块级域）,所以 5 个内部函数指向了不同的 j 。
 
-//在程序或者函数的顶层，let并不会像var一样在全局对象上创造一个属性，比如
-
-var x = 'global';
-let y = 'global';
-console.log(this.x); // "global"
-console.log(this.y); // undefined
   </script>
 </body>
 
