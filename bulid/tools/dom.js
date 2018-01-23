@@ -108,3 +108,17 @@ function loadScript(url, callback) {
       .getElementsByTagName('head')[0]
       .appendChild(script);
 }
+
+  //阻止submit的默认提交事件
+ /*  submit.onclick = function(e){
+    stopDefault(e)
+ } */
+function stopDefault(e) {
+    if (e && e.preventDefault) {
+      e.preventDefault();
+    } else {
+      window.event.returnValue = false;
+    }
+
+    return false;
+  }
