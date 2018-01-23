@@ -1,5 +1,8 @@
 ## 在线工具
 - [base64图片](http://tool.chinaz.com/tools/imgtobase)
+- [HTML5 Please Use the new and shiny responsibly](http://html5please.com/)
+- [兼容性速查](https://caniuse.com/)
+- [在线配色选择器](http://www.peise.net/tools/web/)
 
 ### 常用代码段
 - 清除浮动
