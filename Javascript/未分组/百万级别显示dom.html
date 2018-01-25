@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width= , initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>百万数据前端快速流畅显示</title>
+  <style type="text/css">
+    #box {
+      position: relative;
+      height: 300px;
+      width: 200px;
+      border: 1px solid #CCC;
+      overflow: auto
+    }
+
+    #box div {
+      position: absolute;
+      height: 20px;
+      width: 100%;
+      left: 0;
+      overflow: hidden;
+      font: 16px/20px Courier;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="box"></div>
+  第一步要做的一定是分析慢的原因啦
+
+    如果DOM操作多，减少reflow次数
+
+    如果DOM节点多，尝试减少
+
+    如果js运算慢，尝试改进数据结构和算法
+
+    如果以上都做到极致了，还是慢，尝试后端解决
+
+    如果放后端也慢，尝试云计算
+
+    云计算也不行的话，去找擎天柱帮忙吧
+  <script type="text/javascript">
+    var total = 1e5
+      , len = total
+      , height = 300
+      , delta = 20
+      , num = height / delta
+      , data = [];
+
+    for (var i = 0; i < total; i++) {
+      data.push({ content: "item-" + i });
+    }
+
+    var box = document.getElementById("box");
+    box.onscroll = function () {
+      var sTop = box.scrollTop || 0
+        , first = parseInt(sTop / delta, 10)
+        , start = Math.max(first - num, 0)
+        , end = Math.min(first + num, len - 1)
+        , i = 0;
+
+      for (var s = start; s <= end; s++) {
+        var child = box.children[s];
+        if (!box.contains(child) && s != len - 1) {
+          insert(s);
+        }
+      }
+
+      while (child = box.children[i++]) {
+        var index = child.getAttribute("data-index");
+        if ((index > end || index < start) && index != len - 1) {
+          box.removeChild(child);
+        }
+      }
+
+    };
+
+    function insert(i) {
+      var div = document.createElement("div");
+      div.setAttribute("data-index", i);
+      div.style.top = delta * i + "px";
+      div.appendChild(document.createTextNode(data[i].content));
+      box.appendChild(div);
+    }
+
+    box.onscroll();
+    insert(len - 1);
+  </script>
+</body>
+
+</html>
