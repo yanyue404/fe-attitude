@@ -1665,7 +1665,8 @@ pre code {
     margin-left: 91.666667%;
   }
 }
-
+/* --------------------------------------------------------------------------------- */
+/* 表单 */
 .table {
   width: 100%;
   max-width: 100%;
@@ -1689,15 +1690,17 @@ pre code {
   border-top: 2px solid #dee2e6;
 }
 
+/* 条纹状表格，加给tbody之内每一行增加斑马条纹样式 */
+table-striped
 .table .table {
   background-color: #fff;
 }
-
+/* 紧缩表格，单元格填充一半 */
 .table-sm th,
 .table-sm td {
   padding: 0.3rem;
 }
-
+/* 表格边框 */
 .table-bordered {
   border: 1px solid #dee2e6;
 }
@@ -1854,7 +1857,7 @@ pre code {
 .table-hover .table-active:hover > th {
   background-color: rgba(0, 0, 0, 0.075);
 }
-
+/* 表头 */
 .table .thead-dark th {
   color: #fff;
   background-color: #212529;
@@ -1866,7 +1869,7 @@ pre code {
   background-color: #e9ecef;
   border-color: #dee2e6;
 }
-
+/* 深色背景上使用浅色文字 */
 .table-dark {
   color: #fff;
   background-color: #212529;
@@ -1889,7 +1892,7 @@ pre code {
 .table-dark.table-hover tbody tr:hover {
   background-color: rgba(255, 255, 255, 0.075);
 }
-
+/* table表格的具体响应式 */
 @media (max-width: 575.98px) {
   .table-responsive-sm {
     display: block;
@@ -1941,7 +1944,7 @@ pre code {
     border: 0;
   }
 }
-
+/* 总是响应，水平滚动表格 */
 .table-responsive {
   display: block;
   width: 100%;
