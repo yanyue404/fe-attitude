@@ -204,22 +204,28 @@ g) clear();               // 清空数据      语法：localStorage.clear();
 
 
 ### 4.地理定位
-    使用场景:基于用户设置开发互联网应用(基于网络位置的服务)LBS(Location Base Server)
-    获取方式:IP地址,GPS,WiFi,手机信号,用户自定义
-    1.获取当前地理位置信息
+   使用场景:基于用户设置开发互联网应用(基于网络位置的服务)LBS(Location Base Server)
+   获取方式:IP地址,GPS,WiFi,手机信号,用户自定义
+    
+  1.获取当前地理位置信息
+ 
     window.navigayor.goelocation.getCurrentPosition(successCallBack,errorCallBack)
     获取位置成功或失败的回调函数
     //定义成功的回调函数
     function successCallBack(position){
     console.log(position);
+    
     //coords位置
+    
     经度:var longigude = position.coords.longigude
     纬度:var latitude = position.coords.latitude
     }
-    2.获取实时地理信息
+  2.获取实时地理信息
+  
     window.navigator.geolocation.watchPosition(successCallBack,errorCallBack)
 
-    3.应用
+  3.应用
+  
     百度地图应用
 
 ### 5.多媒体(视频和音频)
