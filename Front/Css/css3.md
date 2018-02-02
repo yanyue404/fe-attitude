@@ -44,12 +44,13 @@ E[att*="val"] | 属性值包含某个值的E元素
 
 格式 | 选取元素
 ---|---
-     E:first-child   | 父元素的第一个子元素E。
-     E:last-child    | 父元素的最后一个子元素E
-     E:nth-child(n)  |父元素的第n个子元素E
-     E:nth-of-type(n)| 父元素中第n个同类型的元素
-     E:nth-last-child(n)| 父元素的倒数第n个子元素E 
+E:first-child   | 父元素的第一个子元素E。
+E:last-child    | 父元素的最后一个子元素E
+E:nth-child(n)  |父元素的第n个子元素E
+E:nth-of-type(n)| 父元素中第n个同类型的元素
+E:nth-last-child(n)| 父元素的倒数第n个子元素E 
 
+````
 n--灵活多变:(n是从0开始的)
 
 2n 偶数 关键字 even
@@ -57,6 +58,7 @@ n--灵活多变:(n是从0开始的)
 2n+1 或 2n-1 奇数 关键字 odd
 
 li:nth-child(-1n+3)  选中前三个li
+````
                
                
 ### 空伪类
