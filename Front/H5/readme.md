@@ -123,7 +123,8 @@ novalidate   |取消所有表单验证功能
 
 
 ## JS的API
-1.网络状态
+
+### 1.网络状态
 
     判断网络状态的方法winow.navigator.onLine(返回值,true在线,false离线)
 
@@ -136,7 +137,7 @@ novalidate   |取消所有表单验证功能
     alert("你已经断网")
     })
 
-2.文件读取
+### 2.文件读取
 
     input:file
     1.Filelist
@@ -154,7 +155,7 @@ novalidate   |取消所有表单验证功能
     4.readDataURL()
     //在web页面中的图片能够显示出来,同时还不占用http链接
 
-3.web存储
+### 3.web存储
 
    1.cookie的特点
     //有一个键,同时对应一个值
@@ -189,7 +190,7 @@ novalidate   |取消所有表单验证功能
 
     serializeArray() jq中的方法主要是获取表单中的数据(需要有name属性),好处是转化成数组了
 
-4.地理定位
+### 4.地理定位
     使用场景:基于用户设置开发互联网应用(基于网络位置的服务)LBS(Location Base Server)
     获取方式:IP地址,GPS,WiFi,手机信号,用户自定义
     1.获取当前地理位置信息
@@ -208,7 +209,7 @@ novalidate   |取消所有表单验证功能
     3.应用
     百度地图应用
 
-5.多媒体(视频和音频)
+### 5.多媒体(视频和音频)
 
      属性
      duration 总时长(获取到的是秒,需要转换)
