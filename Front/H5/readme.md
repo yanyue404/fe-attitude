@@ -145,11 +145,17 @@ novalidate   |取消所有表单验证功能
 ### 2.文件读取
 
 input:file
-a) files                                       // 是input type类型为file选取的文件返回的一个伪数组       
+
+a) files                                       // 是input type类型为file选取的文件返回的一个伪数组
+
 b) new FileReader()                 // 是一个文件读取器
+
 c) result                                        // 最终返回的值
+
 d) readAsText()                          // 以文本格式的方式读取文件
+
 e) readAsdataURL()                  // 以图片格式的方法读取文件
+
 用法案例：
 ````
 var ipt = document.querySelector(‘input’);
