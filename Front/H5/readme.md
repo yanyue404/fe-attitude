@@ -43,22 +43,44 @@ search  | 带有语义 下拉菜单 通常配合datalist用
   `<input type=”file” multiple=”multiple”>`   | 选择文件 属性multiple 可以实现多选 多选时按住ctrl键
 
 ### 2.表单元素:
-   datalist 数据列表 (加id名在input里写的list = "绑定")
-   meter
-   progress
 
+  a) datalist 数据列表 (加id名在input里写的list = "绑定")
+   
+   > 	search 类型的input标签  类似于text标签 特点具有语义化
+		一般也是配合 datalist一起使用
+   
+   ````
+   	<input type="search" name="" list="data">
+		<datalist id="data">
+			<option value="汽车"></option>
+			<option value="火车"></option>
+			<option value="飞机"></option>
+		</datalist>
+   ````
+   
+ b)      <meter ></meter>             度量器（进度条）
+<meter max=”100” low=”60” high=”80”></meter>
 
+max//最大值   low//最低值  low//中间值
+
+c)       <progress></progress>         进度条
+
+<progress  max=”100” value=”50”></progress>
+
+d)      <keygen />           生成加密字符串
+
+e)       <output>< /output>        输出结果
  ### 3.表单属性:
  
  类型 | 作用
  ---|---
 palceholder | 默认
-autofocus   | 获取焦点
+`autofocus=autofocus`   | 获取焦点
 autocomplete | 自动完成，用于form元素，也可用于部分input，默认值on
 multiple    | 多选
 required     |必填验证
 pattern     | 正则验证
-novalidate   |取消输入域验证功能  
+novalidate   |取消所有表单验证功能
  min/max/step |
  list        | 规定输入域的datalist
 
