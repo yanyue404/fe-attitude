@@ -15,6 +15,13 @@
 `<legend><legend>  ` | 表单区域标题
 `<footer></footer> ` | 底部
 
+ie9以下认识h5标签   （引入一个只有ie9以下认识的脚本）
+
+````
+<!--[if lte IE 8]> <script src=”html5shiv.min.js”></script><![endif]--> 
+````
+
+
 ## 智能表单
 
 ### 1.输入类型表单:type属性
