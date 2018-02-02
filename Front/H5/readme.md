@@ -42,27 +42,25 @@ week     | 时间 （年、周(某年的第几周)）
 search  | 带有语义 下拉菜单 通常配合datalist用
   `<input type=”file” multiple=”multiple”>`   | 选择文件 属性multiple 可以实现多选 多选时按住ctrl键
 
-search | 
-   网址 email 邮箱 tel 电话 number 数字 date search range
-
-   2.表单元素:
+### 2.表单元素:
    datalist 数据列表 (加id名在input里写的list = "绑定")
    meter
    progress
 
 
-   3.表单属性:
-   palceholder  默认
-   autofocus    获取焦点
-   autocomplete 自动完成，用于form元素，也可用于部分input，默认值on
-   multiple     多选
-   required     必填验证
-   pattern      正则验证
-   novalidate   取消输入域验证功能
-   min
-   max
-   step
-   list         规定输入域的datalist
+ ### 3.表单属性:
+ 
+ 类型 | 作用
+ ---|---
+palceholder | 默认
+autofocus   | 获取焦点
+autocomplete | 自动完成，用于form元素，也可用于部分input，默认值on
+multiple    | 多选
+required     |必填验证
+pattern     | 正则验证
+novalidate   |取消输入域验证功能  
+ min/max/step |
+ list        | 规定输入域的datalist
 
    4.事件:
    onchange
