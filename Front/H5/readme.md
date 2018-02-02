@@ -89,29 +89,32 @@ novalidate   |取消所有表单验证功能
  min/max/step |
  list        | 规定输入域的datalist
 
-   4.事件:
+ ###  4.事件:
    onchange
    oninput 输入的值变化的时候执行
 多媒体标签
    oninvalid 验证不通过时触发
 
 
-HTML5+CSS3+JS API的技术组合
+## HTML5+CSS3+JS API的技术组合
 
-## DOM扩展
-1.获取元素:
+### DOM扩展
+
+#### 1.获取元素:
+
     querSelectorAll(选择器)(返回值永远是一个伪数组)
     var lis = document.querSelsecorAll("ul li.active");
     querySelector(选择器)(返回值永远都是找到的第一个)
 
-2.类名操作:
+#### 2.类名操作:
+
     Node(有效的dom节点)
     Node.classList.add("class");
     ode.classList.remove("class");
     Node.classList.toggle("class");切换
     Node.classList.contains("class");判断有无
 
-3.自定义属性(以"data-"+名称 格式的标签)
+#### 3.自定义属性(以"data-"+名称 格式的标签)
     data-name = "jacob";
     设置
     Node.dataset["name"] = "jacob";
