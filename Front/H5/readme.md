@@ -1,9 +1,33 @@
 # HTML5
 [HTML5 Cross Browser Polyfills](https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-browser-Polyfills)
+### 新增语义化标签
+
+标签 | 作用
+---|---
+`<header></header>` | 头部标签
+`<nav></nav>` |导航标签
+ `<section class=”containt”></section>`| 块区域标签  可以当div用
+`<article></article> `|  文章                                                   
+`<aside></aside>` |   侧边栏
+`<figure></figure>` |  独立的流内容
+`<figcaption></figcaption> ` | 独立流内容的标题
+`<fieldset><fieldset> ` |  表单区域
+`<legend><legend>  ` | 表单区域标题
+`<footer></footer> ` | 底部
 
 ## 智能表单
 
 ### 1.输入类型表单:type属性
+
+类型 | 作用
+---|---
+url | 网址
+email | 网址
+number | 数字
+date | 时间
+search | 
+   网址 email 邮箱 tel 电话 number 数字 date search range
+   
    url 网址
    email 邮箱
    tel 电话
