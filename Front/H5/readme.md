@@ -29,19 +29,21 @@ ie9以下认识h5标签   （引入一个只有ie9以下认识的脚本）
 类型 | 作用
 ---|---
 url | 网址
-email | 网址
-number | 数字
-date | 时间
+email | 邮箱
+tel | 电话
+`<input type=”number” max=”100” min=”1” step=”5”/>` | 数字(max//最大值    min//最小值  step//步长)
+`<input type=”range” max=”100” min=”1” step=”5”/>` | 滑动块
+color | 取色器
+time | 时间（小时与分钟）
+date | 时间 （年、月、日）默认时间格式 value=”2017-04-12”
+datetime-local | 时间 （年、月、日、时、分）
+  month   | 时间 （年、月）
+week     | 时间 （年、周(某年的第几周)）
+search  | 带有语义 下拉菜单 通常配合datalist用
+  `<input type=”file” multiple=”multiple”>`   | 选择文件 属性multiple 可以实现多选 多选时按住ctrl键
+
 search | 
    网址 email 邮箱 tel 电话 number 数字 date search range
-   
-   url 网址
-   email 邮箱
-   tel 电话
-   number 数字
-   date
-   search
-   range
 
    2.表单元素:
    datalist 数据列表 (加id名在input里写的list = "绑定")
