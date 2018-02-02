@@ -58,18 +58,23 @@ search  | 带有语义 下拉菜单 通常配合datalist用
 		</datalist>
    ````
    
- b)      <meter ></meter>             度量器（进度条）
+ b)      `<meter ></meter>`             度量器（进度条）
+ 
+````
 <meter max=”100” low=”60” high=”80”></meter>
+````
 
 max//最大值   low//最低值  low//中间值
 
-c)       <progress></progress>         进度条
+c)       `<progress></progress>`         进度条
 
-<progress  max=”100” value=”50”></progress>
+````
+   <progress  max=”100” value=”50”></progress>
+````
 
-d)      <keygen />           生成加密字符串
+d)      `<keygen />`           生成加密字符串
 
-e)       <output>< /output>        输出结果
+e)       `<output>< /output>`        输出结果
  ### 3.表单属性:
  
  类型 | 作用
