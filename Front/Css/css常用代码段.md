@@ -1,3 +1,4 @@
+### 常用代码段
 - 清除浮动
 ````
  <!-- 1.额外标签法 -->
@@ -84,4 +85,14 @@
         
          */
     }
+  ````
+ - 全屏背景
+  
+  ````
+  *{margin:0;padding:0;}
+  html{
+  background:url("img/1.jpg") no-repeat center center;
+  background-size:cover;
+  min-height:100%;
+  }
   ````
