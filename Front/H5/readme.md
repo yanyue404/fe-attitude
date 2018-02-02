@@ -108,27 +108,31 @@ novalidate   |取消所有表单验证功能
 
 #### 2.类名操作:
 
-    Node(有效的dom节点)
+    Node(有效的dom元素节点)
     Node.classList.add("class");
-    ode.classList.remove("class");
+    Node.classList.remove("class");
     Node.classList.toggle("class");切换
     Node.classList.contains("class");判断有无
 
 #### 3.自定义属性(以"data-"+名称 格式的标签)
+
     data-name = "jacob";
     设置
     Node.dataset["name"] = "jacob";
     获取
     console.log(Node.dataset["name"])
+    值可以是aa-bb  但是获取的时候要驼峰获取 [aaBb]
 
 
 ## JS的API
 
 ### 1.网络状态
 
-    判断网络状态的方法winow.navigator.onLine(返回值,true在线,false离线)
+  判断网络状态的方法winow.navigator.onLine(返回值,true在线,false离线)
 
-    网络状态的监听
+  网络状态的监听
+    
+   ````
     online(在线事件) offline(离线事件)
     window.addEventListener("online",function(){
     alert("你已经联网")
@@ -137,23 +141,29 @@ novalidate   |取消所有表单验证功能
     alert("你已经断网")
     })
 
+   ````
 ### 2.文件读取
 
-    input:file
-    1.Filelist
-    打印属性files返回值为Filelist返回读取到的文件列表(伪数组)
-    2.FileRader 文件读取器 对象
-    var filereader = new = FileReader();
-    3.readAsText()
-    //以文本格式读取文件
-    filereader.readAsText (filelist[0]);
-    //读取文件需要过程
-    filereader.onload = function(){
-    var res = filereader.result;
-    console.log(res);
-    }
-    4.readDataURL()
-    //在web页面中的图片能够显示出来,同时还不占用http链接
+input:file
+a) files                                       // 是input type类型为file选取的文件返回的一个伪数组       
+b) new FileReader()                 // 是一个文件读取器
+c) result                                        // 最终返回的值
+d) readAsText()                          // 以文本格式的方式读取文件
+e) readAsdataURL()                  // 以图片格式的方法读取文件
+用法案例：
+````
+var ipt = document.querySelector(‘input’);
+ipt.onchange = function(){                                                // 事件内容发生改变
+var filelist = this.files;                                                    // 选取的文件的返回值 伪数组
+var filereader = new FileReader();                           // 获取文件读取器
+filereader.readAsText（或者）readAsDataURL(filelist[0]);          // 以哪种方法读取
+filereader.onload = function(){                                  // 读取文件需要过程
+var res = filereader.result;                                    // 最终返回值
+img.src = res;                                                           // 图片应用
+style.innerText = res;                                             // 文件应用
+}
+}
+````
 
 ### 3.web存储
 
