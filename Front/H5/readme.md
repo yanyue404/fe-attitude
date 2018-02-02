@@ -182,29 +182,38 @@ style.innerText = res;                                             // 文件应�
     //存储大小有的限制,一般4k
 
    2.Web Storage(WEB存储)
-    h5新增localStorage约5M和sessionStorage约20M(两者的用法完全一致)
-    h5的localStorage
-    设置保存数据
-    localStorage.setItem(key,value);
-    获取数据
-    getItem(key);
-    删除数据
-    removeItem(key);
-    清除数据(完全)
-    clearI()
-    特点
-        1.localStorage是永久存储,不主动删除,一直存储,sessionSorage是零时存储,关闭浏览器就没了
-        2.localStorage可以多窗口共享,sessionSorage不可以多窗口共享数据
-        3.容量约5M
 
-    转换
+本地存储     
+
+````
+a) localStorage    存储数据方式一
+
+b) sessionStorage  储存数据方式二  （用法和方式一相同）
+
+c) 两种方式的不同处
+
+   i.     localStorage 是持久存储 不主动删除一直存在  可以多窗口共享
+
+  ii.     sessStorage 是临时储存，关闭浏览器数据就没有了  不能多窗口共享数据
+
+d) setItem(‘key’,’val’);   // 保存数据     语法：localStorage.setItem(‘属性’,’值’)；
+
+e) getItem(‘key’);        // 获取数据      语法：localStorage.getItem(‘填写属性’)；
+
+f) removeItem(‘key’);     // 删除数据      语法：localStorage.removeItem(‘填写属性’)；
+
+g) clear();               // 清空数据      语法：localStorage.clear();
+````
+
+
+   转换
     //JSON.stringify(obj) 对象转字符串的方式
     //JSON.parse(str) 字符串转换成对象
 
-    其他存储方式:
+   其他存储方式:
     web SQL ,IndexedDB,Application Cath
 
-    serializeArray() jq中的方法主要是获取表单中的数据(需要有name属性),好处是转化成数组了
+
 
 ### 4.地理定位
     使用场景:基于用户设置开发互联网应用(基于网络位置的服务)LBS(Location Base Server)
