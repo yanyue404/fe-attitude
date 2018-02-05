@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <from>
+
+    <label for="username">用户名
+      <input type="text" id="username" />
+    </label>
+
+  </from>
+  <button>清空</button>
+
+
+  <script>
+    document.querySelector('button').onclick = function () {
+     document.getElementsByName('from').reset()
+    }
+  </script>
+</body>
+
+</html>
