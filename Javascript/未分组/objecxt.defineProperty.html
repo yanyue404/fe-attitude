@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+  <script>
+ var a = {}; 
+
+ Object.defineProperty(o, "b", { 
+     value : 123,
+     writable : false });
+ 
+ console.log(a.b); // 打印 37
+ a.b = 25; // 没有错误抛出（在严格模式下会抛出，即使之前已经有相同的值）
+ console.log(o.a); // 打印 37， 赋值不起作用。
+  </script>
+</body>
+
+</html>
