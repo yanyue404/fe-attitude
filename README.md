@@ -1,5 +1,5 @@
 # smart
-## 小越越的日常代码库 
+
 ## 工具库
 - [oui-dom-utils](https://github.com/oneuijs/oui-dom-utils) / [oui-dom-events](https://github.com/oneuijs/oui-dom-events) 
 - [lodash](https://github.com/lodash/lodash) - 现代JavaScript实用程序库提供模块化，性能，https://lodash.com/
@@ -48,4 +48,4 @@
      <script src="https://cdn.bootcss.com/underscore.js/1.8.3/underscore-min.js"></script>
 
 ````
-**[⬆ 回到顶部](#内容目录)**
+**[⬆ 回到顶部](#smart)**
