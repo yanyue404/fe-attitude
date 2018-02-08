@@ -1,5 +1,13 @@
 # smart
-## 小越越的日常代码库 
+
+## 工具库
+- [oui-dom-utils](https://github.com/oneuijs/oui-dom-utils) / [oui-dom-events](https://github.com/oneuijs/oui-dom-events) 
+- [lodash](https://github.com/lodash/lodash) - 现代JavaScript实用程序库提供模块化，性能，https://lodash.com/
+- [Modernizr](https://github.com/Modernizr/Modernizr) - 检测用户浏览器中的HTML5和CSS3功能 https://modernizr.com
+
+
+## HTML5
+- [html5-boilerplate](https://github.com/h5bp/html5-boilerplate) - 一个专业的前端模板，用于构建快速，可靠的Web应用程序或网站。
 
 ### BootCDN使用的库
 - React
@@ -40,3 +48,4 @@
      <script src="https://cdn.bootcss.com/underscore.js/1.8.3/underscore-min.js"></script>
 
 ````
+**[⬆ 回到顶部](#smart)**
