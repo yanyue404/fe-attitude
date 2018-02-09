@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="./css.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #f0f0f0;
+    }
+
+    .box {
+      height: 200px;
+      width: 300px;
+    }
+  </style>
+</head>
+
+<body>
+  <button style="color:blueviolet;z-index:1111111111">打开弹出框</button>
+  <button>关闭</button>
+  <div class="popup box"></div>
+  <div class="popup-backdrop"></div>
+</body>
+
+<script>
+
+  document.querySelectorAll('button')[0].onclick = function () {
+
+    document.getElementsByClassName('popup')[0].classList.add('popup-in')
+    document.getElementsByClassName('popup-backdrop')[0].style.opacity = 1
+
+
+  }
+  document.querySelectorAll('button')[1].onclick = function () {
+    window.location.reload();
+  }
+
+
+  $.ajax({
+    type: "post",
+    data: {
+      "oilPrice": oilPrice,
+      "ysfs": ysfstext,
+      "tyfs": tyfstext,
+      "xsdw": xsdwtext,
+      "oilinfoId": oilinfoId
+    },
+    cache: false,
+    error: function () {
+    },
+    success: function (data) {
+      var modelList = JSON.parse(data);
+      //alert(modelList.biaoshi);
+      //控股公司买油时，价格不可修改，普通客户购油价格可修改
+      if (modelList.biaoshi == "并表站") {
+        $("#oilPrice").val("");
+        // $("#biaoshi").val("并表站");            
+        document.getElementById("oilPrice").readOnly = "readonly";
+      } else if (modelList.biaoshi == "控股") {
+        document.getElementById("oilPrice").readOnly = "readonly";
+      }
+      var oilPrice = fmoney(modelList.price);
+      document.getElementById('oilPrice').value = oilPrice;
+
+      appcan.locStorage.setVal('wjPrice', modelList.price);
+
+
+
+    }
+  });
+</script>
+
+</html>

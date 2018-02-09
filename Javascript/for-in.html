@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../bulid/data/oildepotList.js"></script>
+</head>
+
+<body>
+  <script>
+    // 自己的油库列表
+    var depolist = [];
+    var oildepotList = window.oildepotList.oildepotList;
+
+    for (var j = 0; j < oildepotList.length; j++) {
+      var obj = {};
+      var oildepotId = oildepotList[j].oildepotId;
+      var oilName = oildepotList[j].depotName;
+      obj[oildepotId] = oilName;
+      depolist.push(obj)
+    }
+    var ykddVal = "60D8BFA7F89B45E2A62D02F9C36359C7"
+    for (var z = 0; z < depolist.length; z++) {
+      for (key in depolist[z]) {
+        if (key === ykddVal) {
+          console.log(depolist)
+
+          alert(depolist[z][key])
+        }
+      }
+
+    }
+  </script>
+</body>
+
+</html>
