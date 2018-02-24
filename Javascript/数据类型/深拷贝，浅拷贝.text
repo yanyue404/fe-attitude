@@ -23,7 +23,7 @@ console.log(b.c); // 输出 2
 
 这种情况，外层源对象是拷贝实例，如果其属性元素为复杂杂数据类型时，内层元素拷贝引用。
 对源对象直接操作，不影响两外一个对象，但是对其属性操作时候，会改变两外一个对象的属性的只。
-常用方法为：Array.prototype.slice(), Array.prototype.concat(), jQury的$.extend({},obj)，例：
+常用方法为：Object.assign(target, sources...),Array.prototype.slice(), Array.prototype.concat(), jQury的$.extend({},obj)，例：
 
 
 var a = [{c:1}, {d:2}];
@@ -33,7 +33,7 @@ a[0].c = 3;
 console.log(b[0].c); // 输出 3，说明其元素拷贝的是引用
 深拷贝
 
-深拷贝后，两个对象，包括其内部的元素互不干扰。常见方法有JSON.parse(),JSON.stringify()，jQury的$.extend(true,{},obj)，lodash的_.cloneDeep和_.clone(value, true)。例：
+深拷贝后，两个对象，包括其内部的元素互不干扰。常见方法有JSON.parse(JSON.stringify(obj));，jQury的$.extend(true,{},obj)，lodash的_.cloneDeep和_.clone(value, true)。例：
 
 
 var a = {c: {d: 1}};

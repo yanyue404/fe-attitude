@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="https://cdn.bootcss.com/axios/0.17.1/axios.js"></script>
+  <form method="post" action="/somewhere">
+    <input id="t" name="t" value="hello" type="text"></input>
+    <input id="submitBtn" type="submit"></input>
+  </form>
+</body>
+<script>
+  const api = 'https://api.baomitu.com/game/gaobai?t=';
+
+  submitBtn.onclick = async function (evt) {
+    evt.preventDefault();
+
+    let result = await axios.get(api + t.value);
+    console.log(result);
+  }
+</script>
+
+</html>
