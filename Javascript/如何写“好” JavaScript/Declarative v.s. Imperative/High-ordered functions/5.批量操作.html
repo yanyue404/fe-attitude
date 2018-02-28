@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+    <li>7</li>
+    <li>8</li>
+    <li>9</li>
+  </ul>
+
+  <script>
+    function batch(fn) {
+      return function (target, ...args) {
+        if (target.length >= 0) {
+          return Array.from(target).map(item => fn.apply(this, [item, ...args]));
+        } else {
+          return fn.apply(this, [target, ...args]);
+        }
+      }
+    }
+
+    function setColor(el, color) {
+      el.style.color = color;
+    }
+
+    function setFontSize(el, fontSize) {
+      el.style.fontSize = fontSize;
+    }
+
+    setColor = batch(setColor);
+    setFontSize = batch(setFontSize);
+
+    let items1 = document.querySelectorAll('ul > li:nth-child(2n + 1)');
+    let items2 = document.querySelectorAll('ul > li:nth-child(3n + 1)');
+
+    setColor(items1, 'red');
+    setColor(items2, 'green');
+    setFontSize(items2, '22px');</script>
+</body>
+
+</html>

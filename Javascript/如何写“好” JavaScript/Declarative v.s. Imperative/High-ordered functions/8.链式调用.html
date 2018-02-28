@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+    <li>7</li>
+    <li>8</li>
+    <li>9</li>
+  </ul>
+
+  <script>
+    function batch(fn) {
+      return function (target, ...args) {
+        if (target.length >= 0) {
+          return Array.from(target).map(item => fn.apply(this, [item, ...args]));
+        } else {
+          return fn.apply(this, [target, ...args]);
+        }
+      }
+    }
+
+    function queriable(fn) {
+      return function (selector, ...args) {
+        if (typeof selector === 'string') {
+          selector = document.querySelectorAll(selector);
+        }
+        return fn.apply(this, [selector, ...args]);
+      }
+    }
+
+    function pack(map) {
+      return function (el, obj) {
+        for (let key in obj) {
+          map[key].call(this, el, obj[key]);
+        }
+      }
+    }
+
+    function methodize(fn, prop) {
+      return function (...args) {
+        fn.apply(null, [prop ? this[prop] : this, ...args]);
+        return this;
+      }
+    }
+
+    function setColor(el, color) {
+      el.style.color = color;
+    }
+
+    function setFontSize(el, fontSize) {
+      el.style.fontSize = fontSize;
+    }
+
+    function setText(el, text) {
+      el.innerHTML = text;
+    }
+
+    let css = pack({ color: setColor, fontSize: setFontSize });
+    css = queriable(batch(css));
+
+    let text = queriable(batch(setText));
+
+    function E(selector) {
+      this._selector = selector;
+    }
+
+    E.prototype.css = methodize(css, '_selector');
+    E.prototype.text = methodize(text, '_selector');
+
+    function $(selector) {
+      return new E(selector);
+    }
+
+    $('ul > li:nth-child(2n + 1)').css({ color: 'red' }).text('abc');
+    $('ul > li:nth-child(3n + 1)').css({ color: 'green', fontSize: '22px' });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #switcher {
+      display: inline-block;
+      background-color: black;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      border-radius: 50%;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    #switcher.on {
+      background-color: green;
+    }
+
+    #switcher.warn {
+      background-color: yellow;
+    }
+
+    #switcher.off {
+      background-color: red;
+    }
+
+    #switcher.on:after {
+      content: 'on';
+      color: white;
+    }
+
+    #switcher.warn:after {
+      content: 'warn';
+      color: black;
+    }
+
+    #switcher.off:after {
+      content: 'off';
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="switcher" class="on"></div>
+  <script>
+    function* loop(list, max = Infinity) {
+      let i = 0;
+
+      //noprotect
+      while (i < max) {
+        yield list[i++ % list.length];
+      }
+    }
+
+
+    function toggle(...actions) {
+      let action = loop(actions);
+      return function (...args) {
+        return action.next().value.apply(this, args);
+      }
+    }
+
+    switcher.onclick = toggle(
+      evt => evt.target.className = 'warn',
+      evt => evt.target.className = 'off',
+      evt => evt.target.className = 'on'
+    );
+  </script>
+</body>
+
+</html>

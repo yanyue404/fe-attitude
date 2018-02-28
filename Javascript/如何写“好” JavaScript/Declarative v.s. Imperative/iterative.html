@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+    // 迭代
+
+    function iterative(fn) {
+      return function (...args) {
+        return args.reduce(fn.bind(this));
+      }
+    }
+
+    const add = iterative((x, y) => x + y);
+    const sub = iterative((x, y) => x - y);
+
+    console.log(add(1, 2, 3, 4));
+    console.log(sub(1, 2, 3, 4));</script>
+</body>
+
+</html>

@@ -53,6 +53,7 @@
   </div>
 </body>
 <script>
+
   class Slider {
     constructor(id, cycle = 3000) {
       this.container = document.getElementById(id);
@@ -83,7 +84,7 @@
     }
     slideNext() {
       let currentIdx = this.getSelectedItemIndex();
-      let nextIdx = (currentIdx + 1) % this.items.length;
+      let nextIdx = (currentIdx + 1) % this.items.length; // 0,1,2,3,0...
       this.slideTo(nextIdx);
     }
     slidePrevious() {
