@@ -5,6 +5,20 @@ function GetQueryString(name) {
   if (r != null) return unescape(r[2]);
   return null;
 }
+//以ajax方式获取数据
+function ajaxPostQuery(url, paramJsonStr, func, dataType) {
+  var dataType = dataType || "json";
+  var url = url || queryUrl;
+
+  $.ajax({
+    type: "POST",
+    url: url,
+    data: paramJsonStr,
+    contentType: "application/x-www-form-urlencoded",
+    dataType: dataType,
+    success: func
+  });
+}
 function ajaxPostQuery(url, paramJsonStr, func, dataType) {
   var dataType = dataType || "json";
   var url = url || queryUrl;
@@ -130,4 +144,33 @@ function getCookie(c_name) {
 //删除
 function clearCookie(name) {
   setCookie(name, "", -1);
+}
+
+// form表单数据序列化 传入form id ,返回序列化json字符串
+function formser(form) {
+  var form = document.getElementById(form);
+  var arr = {};
+  for (var i = 0; i < form.elements.length; i++) {
+    var feled = form.elements[i];
+    switch (feled.type) {
+      case undefined:
+      case "button":
+      case "file":
+      case "reset":
+      case "submit":
+        break;
+      case "checkbox":
+      case "radio":
+        if (!feled.checked) {
+          break;
+        }
+      default:
+        if (arr[feled.name]) {
+          arr[feled.name] = arr[feled.name] + "," + feled.value;
+        } else {
+          arr[feled.name] = feled.value;
+        }
+    }
+  }
+  return arr;
 }
