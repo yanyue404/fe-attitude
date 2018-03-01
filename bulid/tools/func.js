@@ -265,3 +265,14 @@ function getSelIds(inputName) {
   }
   return ids;
 }
+
+// 回车提交
+$("id").onkeypress = function(event) {
+  event = event ? event : window.event ? window.event : "";
+  keyCode = event.keyCode
+    ? event.keyCode
+    : event.which ? event.which : event.charCode;
+  if (keyCode == 13) {
+    $("SubmitLogin").onclick();
+  }
+};
