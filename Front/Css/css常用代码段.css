@@ -39,15 +39,35 @@ bottom:0;
 right:0;
 padding:0 20px 1px 45px;
 background:url(http://newimg88.b0.upaiyun.com/newimg88/2014/09/ellipsis_bg.png) repeat-y;
+}
+
+.text {
+    position: relative;
+    height: 3.6em; /*准确三倍*/
+}
+.text:after {
+    content: '';
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width:20%;
+    height:1.2em;
+    background: linear-gradient(
+        to right,
+        rgba(255,255,255,0),
+        rgba(255,255,255,1)80%
+    )
+}
 
 /*
-height高度真好是line-height的3倍；
+height高度正好是line-height的3倍；
 结束的省略好用了半透明的png做了减淡的效果，或者设置背景颜色；
 IE6-7不显示content内容，所以要兼容IE6-7可以是在内容中加入一个标签，比如用<span class="line-clamp">...</span>去模拟；
 要支持IE8，需要将::after替换成:after；
 
  */
-}
+
 
 /* 隐藏元素 display&visibility */
   /* display：none; // 从标准文档流中移除，不占有原本的位置
