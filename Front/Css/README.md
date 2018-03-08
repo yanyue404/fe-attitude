@@ -1,7 +1,5 @@
 
-## 在线工具
-
-### Adapter
+### 在线工具
 
 <details>
 <summary>View contents</summary>
