@@ -1,9 +1,18 @@
+
 ## 在线工具
+
+### Adapter
+
+<details>
+<summary>View contents</summary>
 
 * [base64 图片](http://tool.chinaz.com/tools/imgtobase)
 * [HTML5 Please Use the new and shiny responsibly](http://html5please.com/)
 * [兼容性速查](https://caniuse.com/)
 * [在线配色选择器](http://www.peise.net/tools/web/)
+
+
+
 
 * 渲染优化
 
