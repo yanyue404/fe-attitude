@@ -2,14 +2,20 @@
 
 视口（viewport）是用来约束网站中最顶级块元素<html>的，即它决定了<html>的大小。
 
+- PC设备
+在PC设备上viewport的大小取决于浏览器窗口的大小，以CSS像素作为度量单位。
+
+
 ## 真机调试
 1、将做好的网页上传至服务器或者本地搭建服务器，然后移动设备通过网络来访问。
 2、借助第三方的调试工具，如weinre、debuggap、ghostlab等
 真机调试必须保证移动设备同服务器间的网络是相通的。
 
 ## 媒体查询
-1、link方法，见代码示例5-1.html
+1、link方法
+````css
 <link href="./5-1.css" media="only screen and (max-width: 320px)">
+````
 2、@media方法（写在CSS里），见代码示例5-2.html
 
 ## 响应式布局
