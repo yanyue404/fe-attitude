@@ -78,7 +78,7 @@ if (typeString !== "[object Number]") {
    })
  } */
 
- // 原生js字符编码传参  https://github.com/xiaoyueyue165/blog/issues/6
+// 原生js字符编码传参  https://github.com/xiaoyueyue165/blog/issues/6
 
 // 对象属性的链式访问
 var obj = {
@@ -92,3 +92,32 @@ var obj = {
 
 console.log(obj.details.color) // orange
 console.log(obj["details"]["color"]) //orange
+
+//点击事件中的 event对象
+document.querySelector('span').onclick = function (e) {
+  console.log(e.target.id)
+}
+
+// setAttribute设置onclick事件
+document.getElementById('box').setAttribute('onclick', "func()");
+
+function func() {
+  alert(2)
+}
+
+// 监听键盘回车事件
+document.onkeydown = function (event) {
+  var e = event || window.event || arguments.callee.caller.arguments[0];
+  if (e && e.keyCode == 13) { // enter 键
+    //要做的事情
+    alert('enter')
+  }
+};
+
+// 星期几获取
+var weekDayLabels = ["星期日", "星期一",
+  "星期二", "星期三", "星期四", "星期五", "星期六"];
+alert(weekDayLabels[(new Date()).getDay()])
+//setTime以毫秒数设置日期，会改变整个日期
+ var dd = new Date();
+dd.setTime(dd.getTime() + AddDayCount * 24 * 60 * 60 * 1000);//获取AddDayCount天后的日期

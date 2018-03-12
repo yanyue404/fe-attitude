@@ -15,7 +15,7 @@
   <title>Document</title>
   <div>
     <input type="text" value="12">
-    <span style="visibility:hidden">吨</span>
+    <span id="dun">吨</span>
   </div>
 
 </head>
@@ -23,7 +23,9 @@
 <body>
   <script>
 
-
+    document.querySelector('span').onclick = function (e) {
+      console.log(e.target.id)
+    }
 
   </script>
 </body>
