@@ -80,3 +80,15 @@ if (typeString !== "[object Number]") {
 
  // 原生js字符编码传参  https://github.com/xiaoyueyue165/blog/issues/6
 
+// 对象属性的链式访问
+var obj = {
+  name: "Carrot",
+  "for": "Max",
+  details: {
+    color: "orange",
+    size: 12
+  }
+}
+
+console.log(obj.details.color) // orange
+console.log(obj["details"]["color"]) //orange
