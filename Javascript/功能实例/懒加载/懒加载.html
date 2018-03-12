@@ -5,43 +5,72 @@
     <title></title>
 </head>
 <style type="text/css">
-div {
-    height: 500px;
-}
+    div {
+        height: 500px;
+    }
 </style>
 
 <body style="height: 2000px">
     <div></div>
-    <div><img src="" data-src="./img/1.png"></div>
-    <div><img src="" data-src="./img/2.png"></div>
-    <div><img src="" data-src="./img/3.png"></div>
-    <div><img src="" data-src="./img/4.png"></div>
-    <script src="./jquery.js"></script>
+    <div>
+        <img src="" data-src="./img/1.png">
+    </div>
+    <div>
+        <img src="" data-src="./img/2.png">
+    </div>
+    <div>
+        <img src="" data-src="./img/3.png">
+    </div>
+    <div>
+        <img src="" data-src="./img/4.png">
+    </div>
+
     <script>
-   /* var num = document.getElementsByTagName('img').length;
-    var img = document.getElementsByTagName("img");
-    var n = 0;
+        window.onload = function () {
 
-    //页面载入完毕加载可是区域内的图片
-    window.onscroll = lazyload;
+            var scrollTop = window.scrollY;
+            var imgs = Array.from(document.querySelectorAll('img'));
+            lazyLoad();
+            // 采用了节流函数
+            window.addEventListener('scroll', throttle(lazyLoad, 500, 1000));
 
-    function lazyload() {
+            function throttle(fun, delay, time) {
+                var timeout,
+                    startTime = new Date();
+                return function () {
 
-        var seeHeight = document.documentElement.clientHeight; //可见区域高度
-        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop; //滚动条距离顶部高度
-        for (var i = n; i < num; i++) {
-            if (img[i].offsetTop < seeHeight + scrollTop) {
-                if (img[i].getAttribute("src") == "") {
-                    img[i].src = img[i].getAttribute("data-src");
-                }
-                n = i + 1;
+                    var context = this,
+                        args = arguments,
+                        curTime = new Date();
+                    clearTimeout(timeout);
+                    // 如果达到了规定的触发时间间隔，触发 handler
+                    console.log(curTime - startTime)
+                    if (curTime - startTime >= time) {
+                        fun();
+                        startTime = curTime;
+                        // 没达到触发间隔，重新设定定时器
+                    } else {
+                        timeout = setTimeout(fun, delay);
+                    }
+                };
+            };
+            // 实际想绑定在 scroll 事件上的 handler
+            // 需要访问到imgs ,  scroll 
+            function lazyLoad() {
+                scrollTop = window.scrollY;
+                imgs.forEach((item, index) => {
+                    if (scrollTop === 0 && item.dataset.src !== '' && item.offsetTop < window.innerHeight + scrollTop) {
+                        // alert()
+                        item.setAttribute('src', item.dataset.src)
+                        item.setAttribute('data-src', '')
+                    } else if (item.dataset.src !== '' && item.offsetTop < window.innerHeight + scrollTop && item.offsetTop > scrollTop) {
+                        item.setAttribute('src', item.dataset.src)
+                        item.setAttribute('data-src', '')
+                    }
+                })
             }
+
         }
-    }*/
-
-    
-
-
     </script>
 </body>
 
