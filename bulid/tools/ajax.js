@@ -34,10 +34,10 @@ function ajaxPostQuery(url, paramJsonStr, func, dataType) {
     //contentType:"application/x-www-form-urlencoded",
     dataType: dataType,
     timeout: 0,
-    error: function(XMLHttpRequest, textStatus, errorThrown) {
+    error: function (XMLHttpRequest, textStatus, errorThrown) {
       alert("网络暂时不可用");
     },
-    success: function(data) {
+    success: function (data) {
       var errorData;
       if (typeof data == "string") {
         try {
@@ -74,11 +74,11 @@ function parseQueryString(url) {
   return;
   JSON.parse(
     '{"' +
-      decodeURIComponent(search)
-        .replace(/"/g, '\\"')
-        .replace(/&/g, '","')
-        .replace(/=/g, '":"') +
-      '"}'
+    decodeURIComponent(search)
+      .replace(/"/g, '\\"')
+      .replace(/&/g, '","')
+      .replace(/=/g, '":"') +
+    '"}'
   );
 }
 
@@ -102,8 +102,8 @@ function stringfyQueryString(obj) {
       for (var i = 0; i < value.length; ++i) {
         pairs.push(
           encodeURIComponent(key + "[" + i + "]") +
-            "=" +
-            encodeURIComponent(value[i])
+          "=" +
+          encodeURIComponent(value[i])
         );
       }
 
@@ -187,8 +187,8 @@ function ajax(setting) {
     async: setting.async || true, // 是否异步
     dataType: setting.dataType || "json", // 解析方式
     data: setting.data || "", // 参数
-    success: setting.success || function() {}, // 请求成功回调
-    error: setting.error || function() {} // 请求失败回调
+    success: setting.success || function () { }, // 请求成功回调
+    error: setting.error || function () { } // 请求失败回调
   };
 
   // 参数格式化
@@ -229,7 +229,7 @@ function ajax(setting) {
   ** 3 : 请求处理中
   ** 4 ：请求已完成，且相应就绪
   */
-  xhr.onreadystatechange = function() {
+  xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 304)) {
       switch (opts.dataType) {
         case "json":
@@ -246,7 +246,7 @@ function ajax(setting) {
     }
   };
 
-  xhr.onerror = function(err) {
+  xhr.onerror = function (err) {
     opts.error(err);
   };
 }

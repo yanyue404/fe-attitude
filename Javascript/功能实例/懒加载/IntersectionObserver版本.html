@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style type="text/css">
+    img {
+      width: 705px;
+        height: 200px;
+     
+    }
+   .img-are {
+      height: 700px;
+      width: 100%;
+      text-align: center;
+    }
+    div {
+      height: 300px;;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div></div>
+    <div class="img-area">
+      <img class="my-photo" alt="loading" data-src="./img/1.jpg">
+    </div>
+    <div class="img-area">
+      <img class="my-photo" alt="loading" data-src="./img/2.png">
+    </div>
+    <div class="img-area">
+      <img class="my-photo" alt="loading" data-src="./img/3.png">
+    </div>
+    <div class="img-area">
+      <img class="my-photo" alt="loading" data-src="./img/4.png">
+    </div>
+  </div>
+  <script>
+    window.onload = checkImgs;
+  window.onscroll = checkImgs;
+    function checkImgs() {
+      var imgs = Array.from(document.getElementsByClassName('my-photo'));
+      imgs.forEach((v, index) => {
+       io.observe(v);
+      })
+    }
+
+    function loadImgs(ele) {
+      if (!ele.src) {
+        var source = ele.dataset.src;
+        ele.src = source;
+      }
+    }
+
+    const io = new IntersectionObserver(ioes => {
+      ioes.forEach(ioe => {
+        const el = ioe.target;
+        const intersectionRatio = ioe.intersectionRatio;
+        if (intersectionRatio > 0 && intersectionRatio <= 1) {
+          loadImgs(el);
+        }
+        el.onload = el.onerror = () => io.unobserve(el);
+      });
+    });
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #box {
+      width: 100px;
+      height: 100px;
+      background-color: green;
+      animation: fadeIn 2s 0s;
+    }
+
+    @-webkit-keyframes fadeIn {
+      0% {
+        opacity: 0;
+        /*初始状态 透明度为0*/
+      }
+      50% {
+        opacity: 0;
+        /*中间状态 透明度为0*/
+      }
+      100% {
+        opacity: 1;
+        /*结尾状态 透明度为1*/
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box"></div>
+</body>
+
+</html>

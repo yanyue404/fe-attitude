@@ -192,13 +192,3 @@ function client() {
     };
   }
 }
-
-//显示盒子
-function show(ele) {
-  ele.style.display = "block";
-}
-
-//隐藏盒子
-function hide(ele) {
-  ele.style.display = "none";
-}

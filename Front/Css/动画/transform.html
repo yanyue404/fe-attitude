@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .trans_effect {
+      display: block;
+      line-height: 100px;
+      width: 100px;
+      background: #beceeb;
+      margin: 30px auto;
+      text-align: center;
+      -webkit-transition: all 2s ease-in-out;
+      -moz-transition: all 2s ease-in-out;
+      -o-transition: all 2s ease-in-out;
+      -ms-transition: all 2s ease-in-out;
+      transition: all 2s ease-in-out;
+    }
+
+    .trans_effect:hover {
+      -webkit-transform: rotate(720deg) scale(2, 2);
+      -moz-transform: rotate(720deg) scale(2, 2);
+      -o-transform: rotate(720deg) scale(2, 2);
+      -ms-transform: rotate(720deg) scale(2, 2);
+      transform: rotate(720deg) scale(2, 2);
+    }
+  </style>
+</head>
+
+<body>
+  <a href="/" class="trans_effect">摸我！</a>
+</body>
+
+</html>

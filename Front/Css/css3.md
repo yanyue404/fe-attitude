@@ -188,7 +188,7 @@ border-box: 盒子实际大小;
       2.径向渐变
       径向渐变设置的百分比是以半径为参照设置的
 
-## 过渡(transition)
+## 过渡transition [官方文档]((https://www.w3.org/TR/css-transitions-1/))
       1.帧动画
       特点:按照帧单位移动.
       2.补间动画
@@ -196,7 +196,7 @@ border-box: 盒子实际大小;
          开始状态(动画放在这个状态里面)
          结束状态
          过渡属性 1. transition-property:all(默认值)
-                 2. 可以指定要进行过渡的css属性,如果提供多个属性值,以逗号进行分隔;(transition:1s width,2s height,3s background;)
+                 2. 可以指定要进行过渡的css属性,如果提供多个属性值,以逗号进行分隔;( transition-property: opacity, left, top, width;)
          过渡执行时间 transition-duration
          动画执行的速度(执行的类型):transition-timing-function:ease(逐渐变慢) 默认值/linear匀速/ease-in(加速)/ease-out(减速)/ease-in-out(先加速后减速                                                                                           )/cubic-bezier贝塞尔曲线(x1,y1,x2,y2)
          动画延时执行 transition-delay:2s;
@@ -270,17 +270,29 @@ border-box: 盒子实际大小;
  属性名 | 设置
  --- |--
 1. 调用动画名称 |   animation-name
-2. 动画完成的时间 | animation-duration
+2. 动画持续的时间 | animation-duration
 3. 执行次数 |    animation-iteration-count(默认为1次,infinite 一直执行)
 4. 延时执行的时间 | animation-delay:2s
 5. 执行的速度| animation-timing-function:inear 匀速 ease 缓冲 ease-in 由慢到快 ease-out 由快到慢 ease-in-out 由慢到快再到慢。cubic-bezier(number,number,number,number)：特定的贝塞尔曲线类型，4个数值需在[0, 1]区间内
-6. 动画逆波(动画在执行中如何返回 |animation-direction:alternat动画时间之外的状态 animation-fill-mode:forwords 停止到动画结束的状态 / backwords (默认) 
-7. 动画的播放状态| animation-play-state:（ running 播放 和paused 暂停 ）
-8. animation-direction | 播放前重置,动画是否重置后再开始播放  
+6. 动画逆波(动画在执行中如何返回 |animation-direction:alternat动画时间之外的状态 
+7. 动画时间之外的问题|animation-fill-mode:forwords 停止到动画结束的状态 / backwords (默认) 
+8. 动画的播放状态| animation-play-state:（ running 播放 和paused 暂停 ）
+9. 播放前重置,动画是否重置后再开始播放  |animation-direction alternate动画直接从上一次停止的位置开始执行  normal动画第二次直接跳到0%的状态开始执行
 
-alternate动画直接从上一次停止的位置开始执行
+### 单一animation属性连写
+````
+<single-animation> = <single-animation-name> || <time> || <single-animation-timing-function> || <time> || <single-animation-iteration-count> || <single-animation-direction> || <single-animation-fill-mode> || <single-animation-play-state>
 
-normal动画第二次直接跳到0%的状态开始执行
+
+```` 
+ 1. 如果提供多组属性值，以逗号进行分隔。 
+注意：如果只提供一个<time>参数，则为 <' animation-duration '> 的值定义；
+
+  2. 如果提供二个<time>参数，则第一个为 <' animation-duration '> 的值定义，第二个为 <' animation-delay '> 的值定义 
+  3. 对应的脚本特性为animation。 
+
+  
+
 
 
   ### 动画执行完成后触发的事件

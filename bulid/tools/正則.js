@@ -5,7 +5,7 @@
  * @return {Boolean}
  */
 function
-isEmail(str) {
+  isEmail(str) {
 
   return
 
@@ -19,7 +19,7 @@ isEmail(str) {
  * @return {Boolean}
  */
 function
-isIdCard(str) {
+  isIdCard(str) {
 
   return
 
@@ -33,7 +33,7 @@ isIdCard(str) {
  * @return {Boolean}
  */
 function
-isPhoneNum(str) {
+  isPhoneNum(str) {
 
   return
 
@@ -47,7 +47,7 @@ isPhoneNum(str) {
  * @return {Boolean}
  */
 function
-isUrl(str) {
+  isUrl(str) {
 
   return
 

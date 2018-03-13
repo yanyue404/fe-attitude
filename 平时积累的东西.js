@@ -121,3 +121,30 @@ alert(weekDayLabels[(new Date()).getDay()])
 //setTime以毫秒数设置日期，会改变整个日期
  var dd = new Date();
 dd.setTime(dd.getTime() + AddDayCount * 24 * 60 * 60 * 1000);//获取AddDayCount天后的日期
+
+// 类数组对象转化为真正的javascript数组
+// jQuery
+$.makeArray(arrayLike);
+
+// Native
+Array.prototype.slice.call(arrayLike);
+
+// ES6-way
+Array.from(arrayLike);
+
+
+// DOMContentLoaded事件(https://www.cnblogs.com/caizhenbo/p/6679478.html)
+// jQuery
+$(document).ready(eventHandler);
+
+// Native
+// 检测 DOMContentLoaded 是否已完成
+if (document.readyState === 'complete' || document.readyState !== 'loading') {
+  eventHandler();
+} else {
+  document.addEventListener('DOMContentLoaded', eventHandler);
+} 
+
+// style与setAttribute
+imgsArray[0].style.src="./img/wait.png"; //错误
+imgsArray[i].setAttribute("src","./img/wait.png") //正确
