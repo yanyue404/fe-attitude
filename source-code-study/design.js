@@ -1,20 +1,3 @@
-/* (function (w, d) {
-  if (!window.KW) {
-    window.KW = {};
-  }
-
-  KW = {
-    Dom: {
-      $: function (id) {
-        return typeof id === 'string' ? d.getElementById(id) : id;
-      }
-    },
-    Ajax: function () {
-
-    }
-  };
-})(window, document) */
-
 
 //jq
 (function (window, undefined) {
