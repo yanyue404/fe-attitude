@@ -1,54 +1,10 @@
 
 // *                         ☆★☆★☆★☆★☆★☆JavaScript草稿集☆★☆★☆★☆★☆★☆
 
+// ★★★★★★★★★★★★★★★★★数据类型★★★★★★★★★★★★★★★★★★★
+// 1.数字验证
 
-// map方法
-var arr = [{
-  id: '1',
-  color: 'green'
-}, {
-  id: '2',
-  color: 'red'
-}]
-
-arr.map((v, index) => {
-  if (v.id === '2') {
-    console.log(v.color)
-  }
-})
-
-// Array.from() 方法从一个类似数组或可迭代对象中创建一个新的数组实例。
-
-const bar = document.querySelectorAll('.slider-list__item, .slider-list__item--selected');
-
-var dom1 = document.querySelector('.slider-list_item--selected')
-console.log(Array.from(bar).indexOf(dom))
-
-// 重复数据的删除
-
-function dedupe(client, hasher) {
-  hasher = hasher || JSON.stringify
-
-  const clone = []
-  const lookup = {}
-
-  for (let i = 0; i < client.length; i++) {
-    let elem = client[i]  //数组元素
-    let hashed = hasher(elem) //键
-
-
-
-    if (!lookup[hashed]) {  //对象中没有键
-      clone.push(elem)   //放到新数组
-      lookup[hashed] = true //标识符
-    }
-  }
-
-  return clone
-}
-// 数字验证
-
-/* var str = parseInt(document.getElementById(str).value);
+var str = parseInt(document.getElementById(str).value);
 var typeString = toString.call(str);
 if (isNaN(str)) {
   alert('请输入数字')
@@ -56,29 +12,12 @@ if (isNaN(str)) {
 
 if (typeString !== "[object Number]") {
   alert('请输入数字')
-} */
+}
 
 // input type为numer和为text的区别
 // parseInt 作用
 // 属性为text document.getElementById(ele).value 任意输入值都可获取
 // 属性为number 获取value属性只能获取输入值为number类型的情况
-
-//多元素绑定事件监听
-
-/* 
-<button>点击</button>
-
-<button>还有</button>
-
-  var btn = document.querySelectorAll('button');
-
- for(var i=0;i<btn.length;i++){
-   btn[i].addEventListener('click',function(e){
-     alert(e.target.innerText)
-   })
- } */
-
-// 原生js字符编码传参  https://github.com/xiaoyueyue165/blog/issues/6
 
 // 对象属性的链式访问
 var obj = {
@@ -92,6 +31,52 @@ var obj = {
 
 console.log(obj.details.color) // orange
 console.log(obj["details"]["color"]) //orange
+
+
+// 星期几获取
+var weekDayLabels = ["星期日", "星期一",
+  "星期二", "星期三", "星期四", "星期五", "星期六"];
+alert(weekDayLabels[(new Date()).getDay()])
+//setTime以毫秒数设置日期，会改变整个日期
+var dd = new Date();
+dd.setTime(dd.getTime() + AddDayCount * 24 * 60 * 60 * 1000);//获取AddDayCount天后的日期
+
+
+// ★★★★★★★★★★★★★★★★★对数组，字符串的操作★★★★★★★★★★★★★
+
+
+//1.map方法与forEach方法区别，map方法重新生成了一个数组并返回，forEach没有
+
+//2.类数组对象转化为真正的javascript数组
+// jQuery
+$.makeArray(arrayLike);
+
+// Native
+Array.prototype.slice.call(arrayLike);
+
+// ES6-way
+Array.from(arrayLike);
+
+
+// ★★★★★★★★★★★★★★★★★★对dom的操作★★★★★★★★★★★★★★★★★★
+
+
+// Array.from() 方法从一个类似数组或可迭代对象中创建一个新的数组实例。
+
+const bar = document.querySelectorAll('.slider-list__item, .slider-list__item--selected');
+
+var dom1 = document.querySelector('.slider-list_item--selected')
+console.log(Array.from(bar).indexOf(dom))
+
+//多元素绑定事件监听
+
+var btn = document.querySelectorAll('button');
+
+for (var i = 0; i < btn.length; i++) {
+  btn[i].addEventListener('click', function (e) {
+    alert(e.target.innerText)
+  })
+}
 
 //点击事件中的 event对象
 document.querySelector('span').onclick = function (e) {
@@ -114,24 +99,8 @@ document.onkeydown = function (event) {
   }
 };
 
-// 星期几获取
-var weekDayLabels = ["星期日", "星期一",
-  "星期二", "星期三", "星期四", "星期五", "星期六"];
-alert(weekDayLabels[(new Date()).getDay()])
-//setTime以毫秒数设置日期，会改变整个日期
- var dd = new Date();
-dd.setTime(dd.getTime() + AddDayCount * 24 * 60 * 60 * 1000);//获取AddDayCount天后的日期
 
-// 类数组对象转化为真正的javascript数组
-// jQuery
-$.makeArray(arrayLike);
-
-// Native
-Array.prototype.slice.call(arrayLike);
-
-// ES6-way
-Array.from(arrayLike);
-
+// 原生js字符编码传参  https://github.com/xiaoyueyue165/blog/issues/6
 
 // DOMContentLoaded事件(https://www.cnblogs.com/caizhenbo/p/6679478.html)
 // jQuery
@@ -143,8 +112,8 @@ if (document.readyState === 'complete' || document.readyState !== 'loading') {
   eventHandler();
 } else {
   document.addEventListener('DOMContentLoaded', eventHandler);
-} 
+}
 
 // style与setAttribute
-imgsArray[0].style.src="./img/wait.png"; //错误
-imgsArray[i].setAttribute("src","./img/wait.png") //正确
+imgsArray[0].style.src = "./img/wait.png"; //错误
+imgsArray[i].setAttribute("src", "./img/wait.png") //正确
