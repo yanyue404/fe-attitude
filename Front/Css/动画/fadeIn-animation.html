@@ -9,10 +9,14 @@
   <style>
     #box {
       width: 100px;
-      height: 100px;
-      background-color: green;
-      animation: fadeIn 2s 0s;
+      height: 100px;  
+      /* background-color: green; */
+      border:1px soild #999;
     }
+  .animation {
+    background-color: green;
+    animation: fadeIn 2s;
+  }
 
     @-webkit-keyframes fadeIn {
       0% {
@@ -28,11 +32,20 @@
         /*结尾状态 透明度为1*/
       }
     }
+    
   </style>
 </head>
 
 <body>
+  <button>显示</button>
   <div id="box"></div>
+  <script>
+    var box = document.getElementById('box');
+    document.querySelector('button').onclick = function (params) {
+      box.className="animation"
+    }
+  </script>
+
 </body>
 
 </html>
