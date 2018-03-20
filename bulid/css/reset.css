@@ -13,3 +13,30 @@ sup{vertical-align:text-top}
 sub{vertical-align:text-bottom}
 input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit}
 input,textarea,select{*font-size:100%}
+a { text-decoration: none; }
+
+
+html { background-color: #060100; }
+body { font: 14px "Microsoft YaHei",Helvetica,Arial,sans-serif; min-width: 1000px; padding-top: 42px; }
+.chromeframe {    background: #6F5252;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+    font-size: 14px;}
+.chromeframe a{font-weight: bold;text-decoration: underline;}
+.chromeframe a{color: #fff}
+.hid { text-indent: -9999px; overflow: hidden; display: block; width: 0; height: 0; }
+.pr{position: relative;}
+.pa{position:absolute}
+.wrap{position:relative;width:990px; margin:0 auto}
+.cepic{ margin:0 auto; min-width:990px}
+
+.header a { color: #fff; }
+
+.nav_ul { font-size: 24px; float: left; }
+    .nav_ul li {float:left; width:85px;}
+        .nav_ul a {display:block;  text-align:center; font-size:20px;  line-height:1; padding-top:34px; height:56px;}
+            .nav_ul a span { display:block; font-size:12px; padding-top:9px;color:#939393;}
+            .nav_ul a:hover { color:#2164bd;}
+            .nav_ul a:hover span,.nav_on_center .btn_nav1 a span { color:#36517b;}
