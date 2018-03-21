@@ -39,6 +39,19 @@ function
 
   /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(str)
 }
+/**
+ * 电话号码检测
+ * @param mobile
+ * @returns {Boolean}
+ */
+function CheckTelephone(telephone){
+  var re = /^0\d{2,3}-?\d{7,8}$/;
+ if(re.test(telephone)){
+     return true;
+ }else{
+     return false;
+ }
+}
 
 /**
  *
@@ -56,3 +69,23 @@ function
 }
 
 function trim(str) { return str.replace(/^(\s|\u00A0)+/, "").replace(/(\s|\u00A0)+$/, "") }
+
+
+/**
+ * 名称相关检测
+ * @param Name
+ * @param Minlen
+ * @param Maxlen
+ * @returns {Number}
+ */
+function checkName(Name, Minlen, Maxlen){
+	rs	= 1;
+    if(Name == '') {
+        rs	= 2;  //请填写名称
+    } else if(getStrActualLen(Name) > Maxlen || getStrActualLen(Name) < Minlen) {
+        rs	= 3; //长度不符合规范
+    } else if(!/^[0-9A-Za-z\_\-\u4e00-\u9fa5]+$/.test(Name)) {
+        rs	= 4; //学校名称只能包含汉字，数字，字母，下划线"_"，连接线"-"
+    }
+    return rs;
+}
