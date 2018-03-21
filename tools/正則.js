@@ -54,3 +54,5 @@ function
   /[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/
   i.test(str);
 }
+
+function trim(str) { return str.replace(/^(\s|\u00A0)+/, "").replace(/(\s|\u00A0)+$/, "") }

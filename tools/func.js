@@ -52,7 +52,7 @@ function getRand(min, max) {
 // 个占位符， 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字) 例子： (new
 // Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423 (new
 // Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18
-Date.prototype.formate = function(format) {
+Date.prototype.formate = function (format) {
   const o = {
     "M+": this.getMonth() + 1, // month
     "d+": this.getDate(), // day
@@ -87,9 +87,9 @@ function fmoney(s, n) {
   n = n > 0 && n <= 20 ? n : 2;
   s = parseFloat((s + "").replace(/[^\d\.-]/g, "")).toFixed(n) + "";
   var l = s
-      .split(".")[0]
-      .split("")
-      .reverse(),
+    .split(".")[0]
+    .split("")
+    .reverse(),
     r = s.split(".")[1];
   t = "";
   for (i = 0; i < l.length; i++) {
@@ -267,7 +267,7 @@ function getSelIds(inputName) {
 }
 
 // 回车提交
-$("id").onkeypress = function(event) {
+$("id").onkeypress = function (event) {
   event = event ? event : window.event ? window.event : "";
   keyCode = event.keyCode
     ? event.keyCode
@@ -287,4 +287,31 @@ function timestamp(url) {
     url = url + "?timestamp=" + getTimestamp
   }
   return url;
+}
+
+
+function setOpacity(e, a) {
+  e.style.opacity = a / 100;
+  e.style.filter = 'alpha(opacity=' + a + ')';
+  /*  if (isIE)
+       e.style.zoom = 1 */
+}
+
+
+function versions() {
+  var u = navigator.userAgent
+    , app = navigator.appVersion;
+  return {
+    trident: u.indexOf("Trident") > -1,
+    presto: u.indexOf("Presto") > -1,
+    webKit: u.indexOf("AppleWebKit") > -1,
+    gecko: u.indexOf("Gecko") > -1 && u.indexOf("KHTML") == -1,
+    mobile: !!u.match(/AppleWebKit.*Mobile.*/),
+    ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+    android: u.indexOf("Android") > -1 || u.indexOf("Linux") > -1,
+    iPhone: u.indexOf("iPhone") > -1 || u.indexOf("Mac") > -1,
+    iPad: u.indexOf("iPad") > -1,
+    webApp: u.indexOf("Safari") == -1,
+    google: u.indexOf("Chrome") > -1
+  }
 }

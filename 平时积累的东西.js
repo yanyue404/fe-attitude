@@ -117,3 +117,9 @@ if (document.readyState === 'complete' || document.readyState !== 'loading') {
 // style与setAttribute
 imgsArray[0].style.src = "./img/wait.png"; //错误
 imgsArray[i].setAttribute("src", "./img/wait.png") //正确
+
+// 获取对应月份的总天数
+function mGetDate(year, month) {
+  var d = new Date(year, month, 0);
+  return d.getDate();
+}

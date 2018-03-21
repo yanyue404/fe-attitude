@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+
+    var publisher = {
+      // 一个数组
+      subscribers: {
+        any: []
+      },
+      // 将订阅者添加到subscribers数组
+      subscribe: function (fn, type) {
+        type = type || 'any';
+        if (typeof this.subscribers[type] === "undefined") {
+          this.subscribers[type] = [];
+        }
+        this.subscribers[type].push(fn);
+      },
+      // 从订阅者数组中删除订阅者
+      unsubscribe: function (fn, type) {
+        this.visitSubscribers('unsubscribe', fn, type);
+      },
+      // 循环遍历subscribers中的每个元素，并且调用他们注册的方法
+      publish: function (publication, type) {
+        this.visitSubscribers('publish', publication, type);
+      },
+      // 帮助方法
+      visitSubscribers: function (action, arg, type) {
+        var pubtype = type || 'any',
+          subscribers = this.subscribers[pubtype],
+          i,
+          max = subscribers.length;
+        for (i = 0; i < max; i += 1) {
+          if (action === 'publish') {
+            subscribers[i](arg);
+          } else {
+            if (subscribers[i] === arg) {
+              subscribers.splice(i, 1);
+            }
+          }
+        }
+      }
+    }
+    // 复刻方法，制造发布者
+    function makePulisher(o) {
+      var i;
+      for (i in publisher) {
+        if (publisher.hasOwnProperty(i) && typeof publisher[i] === "function") {
+          o[i] = publisher[i]
+        }
+      }
+      o.subscribers = { any: [] }
+
+    }
+
+    var paper = {
+      daily: function () {
+        this.publish("big news today")
+      },
+      monthly: function () {
+        this.publish("intersting analysis", "monthly")
+      }
+    }
+
+    makePulisher(paper)
+    var joe = {
+      dringCoffee: function (paper) {
+        console.log('Just read ' + paper);
+      },
+      sundayPreNap: function (monthly) {
+        console.log("About to fall asleep reading this " + monthly)
+      }
+    }
+
+    paper.subscribe(joe.dringCoffee);
+    paper.subscribe(joe.sundayPreNap, "monthly")
+    paper.daily();
+    paper.monthly();
+
+   /*  Just read big news today
+    About to fall asleep reading this intersting analysis */
+  </script>
+</body>
+
+</html>
