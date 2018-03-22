@@ -89,3 +89,8 @@ function checkName(Name, Minlen, Maxlen) {
     }
     return rs;
 }
+
+var passwordReg = /^[A-Za-z0-9]{6,16}$/;
+var nameReg = /^[a-zA-Z\u4e00-\u9fa5]{2,6}$/;
+var mobileReg = /^1[3|4|5|7|8]\d{9}$/;
+var emailReg = /^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/;

@@ -5,6 +5,13 @@ function GetQueryString(name) {
   if (r != null) return unescape(r[2]);
   return null;
 }
+function getQuery(name, url) {
+  //参数：变量名，url为空则表从当前页面的url中取
+  var u = arguments[1] || window.location.search,
+      reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"),
+      r = u.substr(u.indexOf("\?") + 1).match(reg);
+  return r !== null ? r[2] : "";
+}
 
 //以jq ajax方式获取数据
 function ajaxPostQuery(url, paramJsonStr, func, dataType) {

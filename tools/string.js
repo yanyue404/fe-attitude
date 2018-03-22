@@ -6,6 +6,14 @@ function isEmpty(str, callback) {
     callback();
   }
 }
+/**
+ * 判断变量是否为空
+ * @param val
+ * @returns {boolean}
+ */
+function isempty(val) {
+  return (val == null || val == '' || val == undefined || typeof(val) == typeof(undefined));
+}
 function htmlspecialchars(str) {
   return preg_replace(['&', '<', '>', '"'], ['&amp;', '&lt;', '&gt;', '&quot;'], str);
 }

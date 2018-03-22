@@ -332,3 +332,19 @@ function DateDiff(sDate1,sDate2){ //sDate1和sDate2是年-月-日格式
   iDays=parseInt(Math.abs(oDate1-oDate2)/1000/60/60/24); //把相差的毫秒数转换为天数 
   return iDays;
   }
+
+  // 超过范围的值只取最大范围
+function rangval(val, min, max) {
+  try {
+      if (val > parseInt(max)) {
+          val = max;
+      }
+      else if (val < parseInt(min)) {
+          val = min;
+      }
+  }
+  catch (e) {
+      console.log(e.message);
+  }
+  return val;
+}
