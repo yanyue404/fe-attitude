@@ -315,3 +315,20 @@ function versions() {
     google: u.indexOf("Chrome") > -1
   }
 }
+
+
+// 时间比较
+function DateDiff(sDate1,sDate2){ //sDate1和sDate2是年-月-日格式 
+  var aDate,oDate1,oDate2,iDays;
+  
+  
+  aDate=sDate1.split("-");
+  
+  oDate1=new Date(aDate[0],aDate[1],aDate[2]);
+  aDate=sDate2.split("-");
+  
+  oDate2=new Date(aDate[0],aDate[1],aDate[2]);
+  oDate3= new Date();
+  iDays=parseInt(Math.abs(oDate1-oDate2)/1000/60/60/24); //把相差的毫秒数转换为天数 
+  return iDays;
+  }

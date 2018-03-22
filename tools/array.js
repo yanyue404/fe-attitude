@@ -34,6 +34,11 @@ function isIncluded(element, array) {
   }
   return false;
 }
+Array.prototype.isContains = function (e) {
+  for (i = 0; i < this.length && this[i] != e; i++);
+  return !(i == this.length);
+}
+
 
 // 是否排序
 
@@ -88,25 +93,25 @@ function delArrayByIndex(element, array) {
 }
 
 // 去除重复的数据
-function dedupe (client, hasher) {
-    hasher = hasher || JSON.stringify
+function dedupe(client, hasher) {
+  hasher = hasher || JSON.stringify
 
-    const clone = []
-    const lookup = {}
+  const clone = []
+  const lookup = {}
 
-    for (let i = 0; i < client.length; i++) {
-        let elem = client[i]  //数组元素
-        let hashed = hasher(elem) //键
+  for (let i = 0; i < client.length; i++) {
+    let elem = client[i]  //数组元素
+    let hashed = hasher(elem) //键
 
-        
 
-        if (!lookup[hashed]) {  //对象中没有键
-            clone.push(elem)   //放到新数组
-            lookup[hashed] = true //标识符
-        }
+
+    if (!lookup[hashed]) {  //对象中没有键
+      clone.push(elem)   //放到新数组
+      lookup[hashed] = true //标识符
     }
+  }
 
-    return clone
+  return clone
 }
 
 // dedupe.test.js
