@@ -298,25 +298,6 @@ function setOpacity(e, a) {
 }
 
 
-function versions() {
-  var u = navigator.userAgent
-    , app = navigator.appVersion;
-  return {
-    trident: u.indexOf("Trident") > -1,
-    presto: u.indexOf("Presto") > -1,
-    webKit: u.indexOf("AppleWebKit") > -1,
-    gecko: u.indexOf("Gecko") > -1 && u.indexOf("KHTML") == -1,
-    mobile: !!u.match(/AppleWebKit.*Mobile.*/),
-    ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
-    android: u.indexOf("Android") > -1 || u.indexOf("Linux") > -1,
-    iPhone: u.indexOf("iPhone") > -1 || u.indexOf("Mac") > -1,
-    iPad: u.indexOf("iPad") > -1,
-    webApp: u.indexOf("Safari") == -1,
-    google: u.indexOf("Chrome") > -1
-  }
-}
-
-
 // 时间比较
 function DateDiff(sDate1,sDate2){ //sDate1和sDate2是年-月-日格式 
   var aDate,oDate1,oDate2,iDays;
@@ -347,4 +328,16 @@ function rangval(val, min, max) {
       console.log(e.message);
   }
   return val;
+}
+
+//定时跳转
+function jump(count, target) {    
+  window.setTimeout(function(){    
+      count--;    
+      if(count > 0) {   
+          jump(count, target);    
+      } else {  
+          location.href = target;    
+      }    
+  }, 1000);    
 }

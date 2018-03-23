@@ -1,4 +1,4 @@
-getBrowser: function() {
+function getBrowser() {
   var t = navigator.userAgent.toLowerCase();
   if (t.indexOf("android") >= 0)
       return "android";
@@ -18,7 +18,7 @@ getBrowser: function() {
 }
 
 
-browser: function() {
+ function browser() {
   var e = navigator.userAgent.toLowerCase();
   if (e.indexOf("android") >= 0)
       return e.indexOf("ucbrowser") >= 0 ? "android-uc" : "android";

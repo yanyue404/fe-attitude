@@ -1,4 +1,9 @@
-
+## 技巧
+#### 在`index.css`中使用导入方法引入`reset`文件
+````
+@import "reset.css";
+...
+````
 ## 在线工具
 
 * [base64 图片](http://tool.chinaz.com/tools/imgtobase)

@@ -54,6 +54,46 @@ function $$(selector, el) {
   // If you'd like to convert it to a Array for convenience, use this instead:
   // return Array.prototype.slice.call(el.querySelectorAll(selector));
 }
+var getByClass=function(oParent, sClass){
+  var aEle=oParent.getElementsByTagName('*');
+  var aResult=[];
+  var re=new RegExp('\\b'+sClass+'\\b', 'i');
+  var i=0;
+  for(i=0;i<aEle.length;i++){
+          if(re.test(aEle[i].className)){
+                  aResult.push(aEle[i]);
+          }
+  }
+  return aResult;
+}
+function getStyle(e, a) {
+  var b = (typeof objDoc.defaultView == 'function') ? objDoc.defaultView() : objDoc.defaultView;
+  if (b && b.getComputedStyle) {
+    var s = b.getComputedStyle(e, null);
+    return s && s.getPropertyValue(a)
+  }
+  return (e.currentStyle && (e.currentStyle[a] || null) || null)
+}
+function getStyle(ele, attr) {
+  if (ele.currentStyle !== undefined) {
+    return ele.currentStyle[attr];
+  } else {
+    return window.getComputedStyle(ele, null)[attr]
+      ? window.getComputedStyle(ele, null)[attr]
+      : ele.getAttribute(attr);
+  }
+}
+// setStyle(c, {
+//     backgroundColor: this.bgcolor,
+//     display: 'block'
+// })
+function setStyle(e, a) {
+  for (var i in a) {
+    e.style[i] = a[i]
+  }
+}
+
+
 const appendHTML = function (el, html) {
   let divTemp = document.createElement("div"),
     nodes = null,
@@ -88,25 +128,7 @@ const prependHTML = function (el, html) {
   fragment = null;
 };
 
-function getStyle(ele, attr) {
-  if (ele.currentStyle !== undefined) {
-    return ele.currentStyle[attr];
-  } else {
-    return window.getComputedStyle(ele, null)[attr]
-      ? window.getComputedStyle(ele, null)[attr]
-      : ele.getAttribute(attr);
-  }
-}
-function setStyle(e, a) {
-  var i;
-  for (i in a) {
-    e.style[i] = a[i]
-  }
-}
-// setStyle(c, {
-//     backgroundColor: this.bgcolor,
-//     display: 'block'
-// })
+
 
 // addEvent(objWin, 'scroll', fixIECenter)
 // d参数默认false=》冒泡，true为捕获
@@ -131,31 +153,4 @@ function stopDefault(e) {
   }
 
   return false;
-}
-
-function scroll() {
-  return {
-    left: window.pageXOffset || document.documentElement.scrollLeft,
-    top: window.pageYOffset || document.documentElement.scrollTop
-  };
-}
-
-//封装一个方法，兼容获取浏览器可视区域的宽高；
-function client() {
-  if (window.innerWidth !== undefined) {
-    return {
-      width: window.innerWidth,
-      height: window.innerHeight
-    };
-  } else if (document.compatMode === "CSS1Compat") {
-    return {
-      width: document.documentElement.clientWidth,
-      height: document.documentElement.clientHeight
-    };
-  } else {
-    return {
-      width: document.body.clientWidth,
-      height: document.body.clientHeight
-    };
-  }
 }

@@ -22,7 +22,6 @@ Array.prototype.remove = function (val) {
     }
 };
 // 是否为类数组对象
-
 property = function (key) {
   return function (obj) {
     return obj === null
@@ -157,19 +156,5 @@ if (!Array.prototype.indexOf){
     return -1;
   };
 }
-
-//数组原型扩展remove方法
-Array.prototype.indexOf = function (val) {
-  for (var i = 0; i < this.length; i++) {
-      if (this[i] == val) return i;
-  }
-  return -1;
-};
-Array.prototype.remove = function (val) {
-  var index = this.indexOf(val);
-  if (index > -1) {
-      this.splice(index, 1);
-  }
-};
 
 
