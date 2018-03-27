@@ -7,25 +7,23 @@
   <title>Document</title>
 </head>
 <body>
-  
   <script>
-    function createAnother(original){
-      var clone = Object(original); //调用函数创建一个新对象
-      clone.sayHi = function(){
-        alert('hi');
-      }
-      return clone;
-    }
+  function object(o)
+  {
+    var f = function(){};
+    f.prototype = o
+    return f;
+  }
 
-    var person = {
+
+   var person = {
       name:'Nicholas',
       friends:["Shelby","Court","Van"]
     }
 
-    var anotherPerson = createAnother(person);
-    anotherPerson.sayHi();
-    alert(anotherPerson.name);
-    
+    var anotherPerson = object(person);
+    anotherPerson.name
+
   </script>
 </body>
 </html>
