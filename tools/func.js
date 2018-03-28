@@ -108,11 +108,6 @@ function rmoney(s) {
   return;
   parseFloat(s.replace(/[^\d\.-]/g, ""));
 }
-//判断一个字符串是否被包含在另一字符串
-function contains(str, value) {
-  return;
-  str.indexOf(value) > -1 ? true : false;
-}
 
 /**
  *
@@ -266,27 +261,16 @@ function getSelIds(inputName) {
   return ids;
 }
 
-// 回车提交
-$("id").onkeypress = function (event) {
-  event = event ? event : window.event ? window.event : "";
-  keyCode = event.keyCode
-    ? event.keyCode
-    : event.which ? event.which : event.charCode;
-  if (keyCode == 13) {
-    $("SubmitLogin").onclick();
-  }
-};
+// 回车事件
+function ListenEnter(func) {
+  document.onkeydown = function (event) {
+    var e = event || window.event || arguments.callee.caller.arguments[0];
+    if (e && e.keyCode == 13) {// enter 键
 
-// 事件戳
-function timestamp(url) {
-  //  var getTimestamp=Math.random();  
-  var getTimestamp = new Date().getTime();
-  if (url.indexOf("?") > -1) {
-    url = url + "&timestamp=" + getTimestamp
-  } else {
-    url = url + "?timestamp=" + getTimestamp
-  }
-  return url;
+      func();
+    }
+  };
+
 }
 
 
@@ -299,45 +283,45 @@ function setOpacity(e, a) {
 
 
 // 时间比较
-function DateDiff(sDate1,sDate2){ //sDate1和sDate2是年-月-日格式 
-  var aDate,oDate1,oDate2,iDays;
-  
-  
-  aDate=sDate1.split("-");
-  
-  oDate1=new Date(aDate[0],aDate[1],aDate[2]);
-  aDate=sDate2.split("-");
-  
-  oDate2=new Date(aDate[0],aDate[1],aDate[2]);
-  oDate3= new Date();
-  iDays=parseInt(Math.abs(oDate1-oDate2)/1000/60/60/24); //把相差的毫秒数转换为天数 
-  return iDays;
-  }
+function DateDiff(sDate1, sDate2) { //sDate1和sDate2是年-月-日格式 
+  var aDate, oDate1, oDate2, iDays;
 
-  // 超过范围的值只取最大范围
+
+  aDate = sDate1.split("-");
+
+  oDate1 = new Date(aDate[0], aDate[1], aDate[2]);
+  aDate = sDate2.split("-");
+
+  oDate2 = new Date(aDate[0], aDate[1], aDate[2]);
+  oDate3 = new Date();
+  iDays = parseInt(Math.abs(oDate1 - oDate2) / 1000 / 60 / 60 / 24); //把相差的毫秒数转换为天数 
+  return iDays;
+}
+
+// 超过范围的值只取最大范围
 function rangval(val, min, max) {
   try {
-      if (val > parseInt(max)) {
-          val = max;
-      }
-      else if (val < parseInt(min)) {
-          val = min;
-      }
+    if (val > parseInt(max)) {
+      val = max;
+    }
+    else if (val < parseInt(min)) {
+      val = min;
+    }
   }
   catch (e) {
-      console.log(e.message);
+    console.log(e.message);
   }
   return val;
 }
 
 //定时跳转
-function jump(count, target) {    
-  window.setTimeout(function(){    
-      count--;    
-      if(count > 0) {   
-          jump(count, target);    
-      } else {  
-          location.href = target;    
-      }    
-  }, 1000);    
+function jump(count, target) {
+  window.setTimeout(function () {
+    count--;
+    if (count > 0) {
+      jump(count, target);
+    } else {
+      location.href = target;
+    }
+  }, 1000);
 }

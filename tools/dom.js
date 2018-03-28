@@ -54,15 +54,15 @@ function $$(selector, el) {
   // If you'd like to convert it to a Array for convenience, use this instead:
   // return Array.prototype.slice.call(el.querySelectorAll(selector));
 }
-var getByClass=function(oParent, sClass){
-  var aEle=oParent.getElementsByTagName('*');
-  var aResult=[];
-  var re=new RegExp('\\b'+sClass+'\\b', 'i');
-  var i=0;
-  for(i=0;i<aEle.length;i++){
-          if(re.test(aEle[i].className)){
-                  aResult.push(aEle[i]);
-          }
+function getByClass(oParent, sClass) {
+  var aEle = oParent.getElementsByTagName('*');
+  var aResult = [];
+  var re = new RegExp('\\b' + sClass + '\\b', 'i');
+  var i = 0;
+  for (i = 0; i < aEle.length; i++) {
+    if (re.test(aEle[i].className)) {
+      aResult.push(aEle[i]);
+    }
   }
   return aResult;
 }

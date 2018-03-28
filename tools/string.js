@@ -1,6 +1,9 @@
 String.prototype.trim = function () {
   return this.replace(/(^\s*)|(\s*$)/g, "");
 }
+
+function trim(str) { return str.replace(/^(\s|\u00A0)+/, "").replace(/(\s|\u00A0)+$/, "") }
+
 function isEmpty(str, callback) {
   if (str == "" || str == null || typeof (str) == "undefined") {
     callback();
@@ -12,7 +15,7 @@ function isEmpty(str, callback) {
  * @returns {boolean}
  */
 function isempty(val) {
-  return (val == null || val == '' || val == undefined || typeof(val) == typeof(undefined));
+  return (val == null || val == '' || val == undefined || typeof (val) == typeof (undefined));
 }
 function htmlspecialchars(str) {
   return preg_replace(['&', '<', '>', '"'], ['&amp;', '&lt;', '&gt;', '&quot;'], str);
@@ -36,4 +39,33 @@ function preg_replace(search, replace, str, regswitch) {
     str = str.replace(re, typeof replace == 'string' ? replace : (replace[i] ? replace[i] : replace[0]));
   }
   return str;
+}
+
+
+var tplHTMLCache = {};
+function formatJson(str, data) {
+  /* 模板替换,str:模板id或者内容，data:数据内容
+  \W：匹配任何非单词字符。等价于 '[^A-Za-z0-9_]'。
+  如果是id,并且cache中有值，直接返回，否则获取innerHTML，再次解析；
+  如果不是id，解析并存入cache
+*/
+  var fn = !/\W/.test(str) ?
+    tplHTMLCache[str] = tplHTMLCache[str] || formatJson(document.getElementById(str).innerHTML) :
+    new Function("obj",
+      "var p=[],print=function(){p.push.apply(p,arguments);};" +
+      "with(obj){p.push('" + str
+        .replace(/[\r\t\n]/g, " ")
+        .split("<<").join("\t")
+        .replace(/((^|>>)[^\t]*)'/g, "$1\r")
+        .replace(/\t=(.*?)>>/g, "',$1,'")
+        .split("\t").join("');")
+        .split(">>").join("p.push('")
+        .split("\r").join("\\'") + "');}return p.join('');");
+  return data ? fn(data) : fn;
+}
+
+//判断一个字符串是否被包含在另一字符串
+function contains(str, value) {
+  return;
+  str.indexOf(value) > -1 ? true : false;
 }

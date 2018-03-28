@@ -10,16 +10,16 @@ function isArray(arr) {
 
 //数组原型扩展remove方法
 Array.prototype.indexOf = function (val) {
-    for (var i = 0; i < this.length; i++) {
-        if (this[i] == val) return i;
-    }
-    return -1;
+  for (var i = 0; i < this.length; i++) {
+    if (this[i] == val) return i;
+  }
+  return -1;
 };
 Array.prototype.remove = function (val) {
-    var index = this.indexOf(val);
-    if (index > -1) {
-        this.splice(index, 1);
-    }
+  var index = this.indexOf(val);
+  if (index > -1) {
+    this.splice(index, 1);
+  }
 };
 // 是否为类数组对象
 property = function (key) {
@@ -138,18 +138,18 @@ console.log(bbb) */
 
 
 //兼容IE8
-if (!Array.prototype.indexOf){
-  Array.prototype.indexOf = function(elt /*, from*/){
+if (!Array.prototype.indexOf) {
+  Array.prototype.indexOf = function (elt /*, from*/) {
     var len = this.length >>> 0;
 
     var from = Number(arguments[1]) || 0;
     from = (from < 0)
-         ? Math.ceil(from)
-         : Math.floor(from);
+      ? Math.ceil(from)
+      : Math.floor(from);
     if (from < 0)
       from += len;
 
-    for (; from < len; from++){
+    for (; from < len; from++) {
       if (from in this && this[from] === elt)
         return from;
     }
@@ -157,4 +157,19 @@ if (!Array.prototype.indexOf){
   };
 }
 
+
+
+//数组原型扩展remove方法
+Array.prototype.indexOf = function (val) {
+  for (var i = 0; i < this.length; i++) {
+      if (this[i] == val) return i;
+  }
+  return -1;
+};
+Array.prototype.remove = function (val) {
+  var index = this.indexOf(val);
+  if (index > -1) {
+      this.splice(index, 1);
+  }
+};
 

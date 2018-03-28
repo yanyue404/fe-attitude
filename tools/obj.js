@@ -63,8 +63,8 @@ function pairs(obj) {
  * @desc 深拷贝，支持常见类型
  * @param {Any} values
  */
-function
-    deepClone(values) {
+
+function deepClone(values) {
 
     var copy;
 
@@ -120,3 +120,20 @@ function
 
         Error("Unable to copy values! Its type isn't supported.");
 }
+// obj转化为字符串 password=1&sid=1&username=12&
+function signParam(obj) {
+    var arr = [];
+    for (key in obj) {
+      arr.push(key);
+    };
+    arr.sort();
+    var objSign = '';
+    for (var i = 0; i < arr.length; i++) {
+      i < arr.length - 1 ? objSign += arr[i] + '=' + obj[arr[i]] + '&' : objSign += arr[i] + '=' + obj[arr[i]];
+    }
+    return objSign;
+  }
+  var obj = signParam({
+    "username": 12,
+    "password": 1,
+    "sid": 1,

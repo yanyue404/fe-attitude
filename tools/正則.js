@@ -68,9 +68,6 @@ function
     i.test(str);
 }
 
-function trim(str) { return str.replace(/^(\s|\u00A0)+/, "").replace(/(\s|\u00A0)+$/, "") }
-
-
 /**
  * 名称相关检测
  * @param Name
