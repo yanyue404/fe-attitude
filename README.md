@@ -10,48 +10,36 @@
 
 * [html5-boilerplate](https://github.com/h5bp/html5-boilerplate) - 一个专业的前端模板，用于构建快速，可靠的 Web 应用程序或网站。
 
-### BootCDN 使用的库
-
-* React
-
-```
-    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-    <script src="https://cdn.bootcss.com/babel-core/5.8.24/browser.js"></script>
-```
-
-* Axios 0.17.1
-
-```
-    <script src="https://cdn.bootcss.com/axios/0.17.1/axios.min.js"></script>
-    <script src="https://cdn.bootcss.com/axios/0.17.1/axios.js"></script>
-```
-
-* Boostrap 3.3.6
-
-```
-     <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
-     <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.js"></script>
-```
-
-* jquery
-
-```
-     <script src="https://cdn.bootcss.com/jquery/1.8.0/jquery-1.8.0.js"></script>
-     <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.js"></script>
-     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-```
-
-* Angular
-
-```
-     <script src="https://cdn.bootcss.com/angular.js/1.6.0-rc.1/angular.js"></script>
-```
-
-* underscore.js 1.8.3
-
-```
-     <script src="https://cdn.bootcss.com/underscore.js/1.8.3/underscore-min.js"></script>
-```
+## git commit
+````
+# head: <type>(<scope>): <subject>
+# - type: feat, fix, docs, style, refactor, test, chore
+# - scope: can be empty (eg. if the change is a global or difficult to assign to a single component)
+# - subject: start with verb (such as 'change'), 50-character line
+#
+# body: 72-character wrapped. This should answer:
+# * Why was this change necessary?
+# * How does it address the problem?
+# * Are there any side effects?
+#
+# footer: 
+# - Include a link to the ticket, if any.
+# - BREAKING CHANGE
+#
+````
+名称 | 说明
+---|---
+type | commit 的类型
+feat | 新特性
+fix |修改问题
+refactor| 代码重构
+docs| 文档修改
+style| 代码格式修改, 注意不是 css 修改
+test|测试用例修改
+chore| 其他修改, 比如构建流程, 依赖管理.
+scope| commit 影响的范围, 比如: route, component, utils, build...
+subject| commit 的概述, 建议符合 50/72 formatting
+body|commit 具体修改内容, 可以分为多行, 建议符合 50/72 formatting
+footer| 一些备注, 通常是 BREAKING CHANGE 或修复的 bug 的链接.
 
 **[⬆ 回到顶部](#smart)**
