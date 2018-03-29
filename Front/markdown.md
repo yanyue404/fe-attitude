@@ -1,17 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<i class="er" style="top:10px"></i>
+# 总标题
+## 内容目录
+- [标题1](#标题1)
+- [标题2](#标题2)
+- [标题3](#标题3)
 
 
-<body>
-  <script>
+
+
+
+
+## 标题1
+
+内容页
+
+````
 
     let str = `<img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." />`;
 
@@ -24,13 +26,9 @@
    
    
     console.log(ImgArr)
+    
+````
 
-
-   /*  var array = str.match(/(?<=src=("|'))[^"']+/g);
-    console.log(array) */
-
-
-  </script>
-</body>
-
-</html>
+**[⬆ 回到顶部](#内容目录)**
+## 标题2
+## 标题3
