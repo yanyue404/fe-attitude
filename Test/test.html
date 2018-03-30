@@ -1,36 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
 </head>
-<i class="er" style="top:10px"></i>
-
-
 <body>
   <script>
+    
+    var p1 = Promise.resolve([1,2]);
+var p2 = Promise.resolve([3,4]);
+Promise.all([p1,p2]).then(console.log)
 
-    let str = `<img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." />`;
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+ 
+    
 
-    let div = document.createElement('div');
-    div.innerHTML = str;
-    /* let src = Array.from(div.children).map(v => v.src);
-    console.log(src); */
-
-   var ImgArr= Array.prototype.slice.call(div.children).map(v=>v.src)
-   
-   
-    console.log(ImgArr)
-
-
-   /*  var array = str.match(/(?<=src=("|'))[^"']+/g);
-    console.log(array) */
-
-
-  </script>
+    
+    
+</script>
 </body>
-
 </html>

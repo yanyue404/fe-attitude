@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <form action="" id="queryForm" method="post">
+    <table>
+      <tr>
+        <td>客户名称：</td>
+        <td>
+          <input type="text" id="cusCompany" name="cusCompany" />
+        </td>
+
+        <td>审核状态：</td>
+        <td>
+          <select id="state" name="state">
+            <option>请选择</option>
+            <option value="已审核">已审核</option>
+            <option value="未审核">未审核</option>
+            <option value="审核未通过">审核未通过
+              <option>
+          </select>
+        </td>
+
+        <td>
+          <button type="button" onclick="searchHandler()">
+            <span class="icon_find">查询</span>
+          </button>
+        </td>
+        <td>
+          <button type="button" onclick="resetSearch()">
+            <span class="icon_reload">重置</span>
+          </button>
+        </td>
+      </tr>
+    </table>
+  </form>
+
+  <script src="./js/jquery.js"></script>
+  <script src="./js/jquery.from.js"></script>
+
+  <script>
+    function searchHandler() {
+      var query = $("#queryForm").formToArray();
+      var queryString = $('#queryForm').formSerialize();
+      console.log(queryString)
+      console.log(query)
+    }
+    //重置查询
+    function resetSearch() {
+      $("#queryForm")[0].reset();
+      searchHandler();
+    }
+
+  </script>
+</body>
+
+</html>

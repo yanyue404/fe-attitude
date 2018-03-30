@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<i class="er" style="top:10px"></i>
+
+
+<body>
+  <script>
+
+    let str = `<img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." />`;
+
+    let div = document.createElement('div');
+    div.innerHTML = str;
+    /* let src = Array.from(div.children).map(v => v.src);
+    console.log(src); */
+
+   var ImgArr= Array.prototype.slice.call(div.children).map(v=>v.src)
+   
+   
+    console.log(ImgArr)
+
+
+   /*  var array = str.match(/(?<=src=("|'))[^"']+/g);
+    console.log(array) */
+
+
+  </script>
+</body>
+
+</html>
