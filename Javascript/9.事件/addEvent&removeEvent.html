@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style type="text/css">
+    .p1 {
+      background-color: green;
+      height: 50px;
+    }
+  </style>
+</head>
+
+<body>
+  <p class="p1"></p>
+  <script type="text/javascript">
+    var p1 = document.getElementsByClassName('p1')[0];
+
+    function clickFn() {
+      this.innerHTML = 'click'
+    }
+    addEvent(p1, 'click', clickFn)
+
+    removeEvent(p1, 'click', clickFn)
+
+    function addEvent(a, b, c, d) {
+      a.addEventListener ? a.addEventListener(b, c, d) : a.attachEvent("on" + b, c)
+    }
+    function removeEvent(a, b, c, d) {
+      a.removeEventListener ? a.removeEventListener(b, c, d) : a.detachEvent("on" + b, c)
+    }
+  </script>
+</body>
+
+</html>

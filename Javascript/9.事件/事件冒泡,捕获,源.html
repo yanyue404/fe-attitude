@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
@@ -10,6 +11,7 @@
             border: 1px solid #ccc;
             background-color: pink;
         }
+
         .box2 {
             width: 100px;
             height: 100px;
@@ -18,6 +20,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <div class="box1">
@@ -26,22 +29,21 @@
 
 
     <script>
-        //事件冒泡体验：不是冒泡排序；
+        //事件冒泡体验
         var box1 = document.getElementsByClassName("box1")[0];
         var box2 = document.getElementsByClassName("box2")[0];
 
         //addEventListener();还有第三个参数，控制着事件支持的是冒泡还是捕获；
-            //bool有两个：  1.false（默认）支持冒泡；    2.true：支持捕获；
+        //bool有两个：  1.false（默认）支持冒泡；    2.true：支持捕获；
         box1.addEventListener("click", function () {
             alert("我是box1");
-        },false);
+        }, false);
         box2.addEventListener("click", function () {
             alert("我是box2");
-        },false);
+        }, false);
         document.addEventListener("click", function () {
             alert("我是document");
-        },false);
-
+        }, false);
 
 
         //2.捕获阶段；  事件触发从dom树的最顶端，执行到当前触动者；
@@ -102,4 +104,5 @@
     </script>
 
 </body>
+
 </html>

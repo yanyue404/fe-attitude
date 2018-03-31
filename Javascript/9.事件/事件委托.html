@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    ul li {
+      background-color: green;
+      margin: 10px;
+      height: 30px;
+      color: #fff;
+      font-size: 16px;
+      padding-left: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+  </ul>
+  <script>
+
+    var oUl = document.querySelector('ul');
+    var liArr = document.querySelectorAll('li');
+
+    for (var i = 0; i < liArr.length; i++) {
+      liArr[i].onclick = function () {
+        this.style.backgroundColor = "pink";
+      }
+    }
+    for (var i = 0; i < 4; i++) {
+      var aLi = document.createElement('li');
+      oUl.appendChild(aLi);
+    }
+
+    var liArr = document.getElementsByTagName('li');
+
+    oUl.onclick = function (event) {
+      event = event || window.event;
+
+      var Tar = event.target || event.srcElement;
+      //一般只判断三个值: 1.标签名;    2.类名;   3.id名;
+      if (Tar.tagName === 'LI') {
+        alert('我也是li标签');
+        // Tar.style.backgroundColor = "pink";
+      }
+    }
+
+
+    addEvent(oUl, 'click', function (e) {
+      e.target.style.backgroundColor = "pink"
+    })
+    function addEvent(a, b, c, d) {
+      a.addEventListener ? a.addEventListener(b, c, d) : a.attachEvent("on" + b, c)
+    }
+  </script>
+
+
+
+</body>
+
+</html>

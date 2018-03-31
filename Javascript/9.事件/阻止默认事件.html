@@ -9,18 +9,19 @@
 </head>
 
 <form action="http://www.baidu.com">
- <label for="">
-   <input type="text" name="age" value="123">
-   <input id="submit" type="submit" value="提交">
- </label>
+  <label for="">
+    <input type="text" name="age" value="123">
+    <input id="submit" type="submit" value="提交">
+  </label>
 </form>
+
 <body>
 
   <script>
-    var submit =document.getElementById('submit');
+    var submit = document.getElementById('submit');
     //阻止submit的默认提交事件
-    submit.onclick = function(e){
-       stopDefault(e)
+    submit.onclick = function (e) {
+      stopDefault(e)
     }
     function stopDefault(e) {
       if (e && e.preventDefault) {
@@ -35,5 +36,3 @@
 </body>
 
 </html>
-
-   

@@ -123,3 +123,7 @@ function mGetDate(year, month) {
   var d = new Date(year, month, 0);
   return d.getDate();
 }
+
+// 判断node元素内部是否含有otherNode节点
+node.contains( otherNode ) 
+var isTure = document.body.contains(document.querySelector('div'))

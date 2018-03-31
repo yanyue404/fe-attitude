@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var Counter = (function () {
+      var privateCounter = 0;
+      function changeBy(val) {
+        privateCounter += val;
+      }
+      return {
+        increment: function () {
+          changeBy(1);
+        },
+        decrement: function () {
+          changeBy(-1);
+        },
+        value: function () {
+          return privateCounter;
+        }
+      }
+    })();
+
+    console.log(Counter.value()); /* logs 0 */
+    Counter.increment();
+    Counter.increment();
+    console.log(Counter.value()); /* logs 2 */
+    Counter.decrement();
+    console.log(Counter.value()); /* logs 1 */
+  </script>
+</body>
+
+</html>
