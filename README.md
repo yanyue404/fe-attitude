@@ -10,6 +10,15 @@
 
 * [html5-boilerplate](https://github.com/h5bp/html5-boilerplate) - 一个专业的前端模板，用于构建快速，可靠的 Web 应用程序或网站。
 
+### CDN
+
+<details>
+<summary>View contents</summary>
+
+* <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+
+</details>
+
 ## git commit
 ````
 # head: <type>(<scope>): <subject>
