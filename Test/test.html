@@ -6,41 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <style>
+    .body {
+      background-image: url(./img.png)
+    }
+  </style>
 </head>
 
-<body>
-  <script>
+<body class="body">
 
-    var p1 = Promise.resolve([1, 2]);
-    var p2 = Promise.resolve([3, 4]);
-    Promise.all([p1, p2]).then(function(data1,data2){
-      console.log(data1,data2)
-    })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  </script>
 </body>
 
 </html>
