@@ -227,5 +227,5 @@ function formser(form) {
         }
     }
   }
-  return arr;
+  return stringfyQueryString(arr);
 }

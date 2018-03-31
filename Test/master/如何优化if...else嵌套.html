@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // https://segmentfault.com/q/1010000014048097
+    
+    switch (cate) {
+      case 'a':
+        handlerBala(cate, info)
+        break;
+      case 'b':
+        handlerBala(cate, info)
+        break;
+    }
+
+    function handlerBala(cate, info) {
+      switch (info.type) {
+        case 'add':
+          add(cate)
+          break;
+        case 'update':
+          update(cate)
+          break;
+      }
+    }</script>
+</body>
+
+</html>

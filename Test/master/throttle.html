@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    button {
+      width: 100px;
+      height: 30px;
+      font-size: 18px;
+      line-height: 1;
+
+    }
+  </style>
+</head>
+
+<body>
+  <button>点击</button>
+  <script>
+    var btn = document.querySelector('button');
+    btn.onclick = throttle(clickFunc, 3000)
+
+    function clickFunc() {
+      console.log('click' + new Date())
+    }
+
+
+    // 第一种 时间戳
+    /*  function throttle(func, ms) {
+       var content, args;
+       var previous = 0;
+       return function () {
+         var now = + new Date();
+         context = this;
+         args = arguments;
+         if (now - previous > ms) {
+           func.apply(context, args);
+           previous = now;
+ 
+         }
+ 
+       }
+     } */
+
+    // 第二种 定时器
+    /*     function throttle(func, wait) {
+          var timeout, previous;
+          return function () {
+            context = this;
+            args = arguments;
+            if (!timeout) {
+              timeout = setTimeout(() => {
+                timeout = null;
+                func.apply(context.args);
+              }, wait);
+            }
+          }
+        } */
+    // 比较两种定时器
+    // 第一种进入时会立即执行，第二种是在n秒后第一次执行
+    // 第一种事件触发后没办法再执行一次事件，第二种事件触发后还可以再执行一次事件
+
+    // 双剑合璧
+ /*    function throttle(func, wait) {
+      var timeout, context, args, result;
+      var previous = 0;
+      var later = function () {
+        previous = +new Date();
+
+        timeout = null;
+        func.apply(context, args);
+      }
+
+      var throttled = function () {
+        var now = +new Date();
+        // 下次触发func剩余的时间
+        var remaining = wait - (now - previous);
+        context = this;
+        args = arguments;
+        // 如果没有剩余的时间了或者你改了系统时间
+        if (remaining <= 0 || remaining > wait) {
+          if (timeout) {
+            clearTimeout(timeout);
+            timeout = null;
+          }
+          previous = now;
+          func.apply(context, args);
+        } else if (!timeout) {
+          timeout = setTimeout(later, remaining);
+        }
+      }
+
+      return throttled;
+    } */
+
+
+    // 第四版 控制有头无尾与有尾无头
+
+/*  那我们设置个 options 作为第三个参数，然后根据传的值判断到底哪种效果，我们约定:
+
+leading：false 表示禁用第一次执行
+trailing: false 表示禁用停止触发的回调 */
+
+    function throttle(func, wait, options) {
+    var timeout, context, args, result;
+    var previous = 0;
+    if (!options) options = {};
+
+    var later = function() {
+        previous = options.leading === false ? 0 : new Date().getTime();
+        timeout = null;
+        func.apply(context, args);
+        if (!timeout) context = args = null;
+    };
+
+    var throttled = function() {
+        var now = new Date().getTime();
+        if (!previous && options.leading === false) previous = now;
+        var remaining = wait - (now - previous);
+        context = this;
+        args = arguments;
+        if (remaining <= 0 || remaining > wait) {
+            if (timeout) {
+                clearTimeout(timeout);
+                timeout = null;
+            }
+            previous = now;
+            func.apply(context, args);
+            if (!timeout) context = args = null;
+        } else if (!timeout && options.trailing !== false) {
+            timeout = setTimeout(later, remaining);
+        }
+    };
+    return throttled;
+}
+
+  </script>
+</body>
+
+</html>

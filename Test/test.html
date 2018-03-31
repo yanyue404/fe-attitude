@@ -1,41 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
 </head>
+
 <body>
   <script>
-    
-    var p1 = Promise.resolve([1,2]);
-var p2 = Promise.resolve([3,4]);
-Promise.all([p1,p2]).then(console.log)
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
- 
-    
+    var p1 = Promise.resolve([1, 2]);
+    var p2 = Promise.resolve([3, 4]);
+    Promise.all([p1, p2]).then(function(data1,data2){
+      console.log(data1,data2)
+    })
 
-    
-    
-</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
 </body>
+
 </html>

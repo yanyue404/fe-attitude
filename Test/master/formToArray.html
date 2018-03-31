@@ -42,11 +42,14 @@
     </table>
   </form>
 
-  <script src="./js/jquery.js"></script>
-  <script src="./js/jquery.from.js"></script>
+  <script src="../../bulid/jquery/jquery.js"></script>
+  <script src="../../bulid/jquery/jquery.from.js"></script>
+  <script src="../../tools/ajax.js"></script>
 
   <script>
+    
     function searchHandler() {
+      console.log(formser("queryForm"))
       var query = $("#queryForm").formToArray();
       var queryString = $('#queryForm').formSerialize();
       console.log(queryString)

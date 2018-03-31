@@ -12,19 +12,22 @@
   <script>
 
     var getData = new Promise(function (resolve, reject) {
+      var data1 = 1, data2 = 3;
 
-      $.get(href, {}).then(function (r) {
-        var data = eval('(' + r + ')');
-        if (data) {
-          resolve(data);
-        } else {
-          reject(err);
-        }
-      })
+      if (data) {
+        resolve(data1);
+      } else {
+        reject(err);
+      }
     })
 
+
     getData.then(function (data) {
-      // 处理data
+      // 处理data 
+      console.log(data)
+    }).catch(err=>{
+      console.log(err);
+      
     })
 
 
