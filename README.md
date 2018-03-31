@@ -15,18 +15,7 @@
 <details>
 <summary>View contents</summary>
 
-* [`ary`](#ary)
-* [`call`](#call)
-* [`collectInto`](#collectinto)
-* [`flip`](#flip)
-* [`over`](#over)
-* [`overArgs`](#overargs)
-* [`pipeAsyncFunctions`](#pipeasyncfunctions)
-* [`pipeFunctions`](#pipefunctions)
-* [`promisify`](#promisify)
-* [`rearg`](#rearg)
-* [`spreadOver`](#spreadover)
-* [`unary`](#unary)
+* <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
 
 </details>
 
