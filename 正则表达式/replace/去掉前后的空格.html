@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var str = '  hello  ';
+
+    alert('(' + trim(str) + ')');//为了看出区别所以加的括号。 (hello)
+
+    function trim(str) {
+      var re = /^\s+|\s+$/g; // |代表或者   \s代表空格  +至少一个    前面有至少一个空格 或者后面有至少一个空格 且全局匹配
+      return str.replace(re, ''); //把空格替换成空
+    }</script>
+</body>
+
+</html>

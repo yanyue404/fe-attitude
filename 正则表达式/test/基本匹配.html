@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var str = 'onetwo';
+    var str2 = "one two";
+
+    var re = /one\b/;  // e后面必须是独立的 可以是起始，空格，或结束
+
+    alert(re.test(str)); //false
+    alert(re.test(str2));//true  </script>
+</body>
+
+</html>
