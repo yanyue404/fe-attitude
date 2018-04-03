@@ -140,6 +140,18 @@ function getQuery(name, url) {
     r = u.substr(u.indexOf("\?") + 1).match(reg);
   return r !== null ? r[2] : "";
 }
+//设置url参数
+//setUrlPrmt({'a':1,'b':2})
+//a=1&b=2
+function setUrlPrmt(obj) {
+  let _rs = [];
+  for (let p in obj) {
+      if (obj[p] != null && obj[p] != '') {
+          _rs.push(p + '=' + obj[p])
+      }
+  }
+  return _rs.join('&');
+}
 
 /**
  *

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var list1 = [1, 20, 55, 8, 24];
+
+    function getMathRange(arr) {
+
+      var randomRange = [];
+      arr.forEach(element => {
+        var random1 = Math.floor(Math.random() * (1, 200));
+        var random2 = random1 + element;
+        if (random2 < 200) {
+          randomRange.push([random1, random2])
+        } else if (random2 > 200 || randomRange.length !== arr.length) {
+          getMathRange(arr)
+        }
+
+      });
+      return randomRange;
+
+    }
+    /*  function getMathRange(arr) {
+ 
+       var randomRange = [];
+       while (randomRange.length !== arr.length) {
+         var randomRange = [];
+         arr.forEach(element => {
+           var random1 = Math.floor(Math.random() * (1, 200));
+           var random2 = random1 + element;
+           if (random2 < 200) {
+             randomRange.push([random1, random2])
+           }
+         });
+       }
+       return randomRange;
+ 
+     } */
+    var result = getMathRange(list1)
+    console.log(result)
+
+  </script>
+</body>
+
+</html>

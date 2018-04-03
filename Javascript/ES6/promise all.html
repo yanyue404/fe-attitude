@@ -25,9 +25,9 @@
     getData.then(function (data) {
       // 处理data 
       console.log(data)
-    }).catch(err=>{
+    }).catch(err => {
       console.log(err);
-      
+
     })
 
 
@@ -39,6 +39,19 @@
 
     Promise.all([promise1, promise2, promise3]).then(function (values) {
       console.log(values);
+    });
+
+
+    function p1(time) {
+      return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+          resolve(time);
+        }, time);
+      })
+    }
+
+    Promise.all([p1(5000), p1(1000)]).then(function (res) {
+      console.log(res);//[5000,1000]
     });</script>
 </body>
 

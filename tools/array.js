@@ -15,59 +15,37 @@ Array.prototype.indexOf = function (val) {
   }
   return -1;
 };
+//兼容IE8
+if (!Array.prototype.indexOf) {
+  Array.prototype.indexOf = function (elt /*, from*/) {
+    var len = this.length >>> 0;
+
+    var from = Number(arguments[1]) || 0;
+    from = (from < 0)
+      ? Math.ceil(from)
+      : Math.floor(from);
+    if (from < 0)
+      from += len;
+
+    for (; from < len; from++) {
+      if (from in this && this[from] === elt)
+        return from;
+    }
+    return -1;
+  };
+}
+
 Array.prototype.remove = function (val) {
   var index = this.indexOf(val);
   if (index > -1) {
     this.splice(index, 1);
   }
 };
-// 是否为类数组对象
-property = function (key) {
-  return function (obj) {
-    return obj === null
-      ? void 0
-      : obj[key];
-  }
-}
-var MAX_ARRAY_INDEX = Math.pow(2, 53) - 1;
-var getLength = property('length');
-function isArrayLike(collection) {
-  var length = getLength(collection);
-
-  return typeof length == 'number' && length > 0 && length <= MAX_ARRAY_INDEX;
-}
-
 // 判断数组里是否有某个元素
 
-function isIncluded(element, array) {
-  for (var i = 0, len = array.length; i < len; i++) {
-    if (array[i] == element) {
-      return true;
-    }
-  }
-  return false;
-}
 Array.prototype.isContains = function (e) {
   for (i = 0; i < this.length && this[i] != e; i++);
   return !(i == this.length);
-}
-
-
-// 是否排序
-
-function defaultComparator(a, b) {
-  return a - b
-}
-
-function isorted(array, comparator) {
-
-  comparator = comparator || defaultComparator;
-  for (var i = 1; i < array.length; ++i) {
-    if (comparator(array[i - 1], array[i]) > 0)
-      return false
-  }
-
-  return true
 }
 
 // 将一组值转换为数组
@@ -97,13 +75,21 @@ function arrayIndex(element, array) {
   var index = array.indexOf(element);
   return index;
 }
+// 得到n1-n2下标的数组
+//getArrayNum([0,1,2,3,4,5,6,7,8,9],5,9)
+//[5, 6, 7, 8, 9]
 
-function delArrayByIndex(element, array) {
-  var index = array.indexOf(element);
-  if (index > -1) {
-    array.splice(index, 1);
+//getArrayNum([0,1,2,3,4,5,6,7,8,9],2) 不传第二个参数,默认返回从n1到数组结束的元素
+//[2, 3, 4, 5, 6, 7, 8, 9]
+function getArrayNum(arr,n1,n2){
+  var arr1=[],len=n2||arr.length-1;
+  for(var i=n1;i<=len;i++){
+      arr1.push(arr[i])
   }
+  return arr1;
 }
+
+
 
 // 去除重复的数据
 function dedupe(client, hasher) {
@@ -135,41 +121,38 @@ console.log(b)
 var aaa = [{a: 2, b: 1}, {a: 1, b: 2}, {a: 1, b: 3}, {a: 1, b: 4}]
 var bbb = dedupe(aaa, value => value.a)  //只看元素的a键的值是否存在
 console.log(bbb) */
+// 数组最大值，最小值
+function maxArr(arr){
+  return Math.max.apply(null,arr);
+}
+function minArr(arr){
+  return Math.min.apply(null,arr);
+}
+//randomOne([1,2,3,6,8,5,4,2,6])
+//2
+//randomOne([1,2,3,6,8,5,4,2,6])
+//8
+//randomOne([1,2,3,6,8,5,4,2,6])
+//8
+//randomOne([1,2,3,6,8,5,4,2,6])
+//1
+function randomOne(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
 
-
-//兼容IE8
-if (!Array.prototype.indexOf) {
-  Array.prototype.indexOf = function (elt /*, from*/) {
-    var len = this.length >>> 0;
-
-    var from = Number(arguments[1]) || 0;
-    from = (from < 0)
-      ? Math.ceil(from)
-      : Math.floor(from);
-    if (from < 0)
-      from += len;
-
-    for (; from < len; from++) {
-      if (from in this && this[from] === elt)
-        return from;
-    }
-    return -1;
-  };
+// 筛选数组
+//删除值为'val'的数组元素
+//removeArrayForValue(['test','test1','test2','test','aaa'],'test','%')
+//["aaa"]   带有'test'的都删除
+    
+//removeArrayForValue(['test','test1','test2','test','aaa'],'test')
+//["test1", "test2", "aaa"]  //数组元素的值全等于'test'才被删除
+function removeArrayForValue(arr,val,type){
+  return arr.filter(function (item) {
+      return type? item.indexOf(val) === -1 : item !== val
+  })
 }
 
 
 
-//数组原型扩展remove方法
-Array.prototype.indexOf = function (val) {
-  for (var i = 0; i < this.length; i++) {
-      if (this[i] == val) return i;
-  }
-  return -1;
-};
-Array.prototype.remove = function (val) {
-  var index = this.indexOf(val);
-  if (index > -1) {
-      this.splice(index, 1);
-  }
-};
 

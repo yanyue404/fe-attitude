@@ -1,8 +1,13 @@
 String.prototype.trim = function () {
   return this.replace(/(^\s*)|(\s*$)/g, "");
 }
+//判断一个字符串是否被包含在另一字符串
+String.prototype.iscontains = function (str, value) {
+  return;
+  str.indexOf(value) > -1 ? true : false;
+}
 
-function trim(str) { return str.replace(/^(\s|\u00A0)+/, "").replace(/(\s|\u00A0)+$/, "") }
+
 
 function isEmpty(str, callback) {
   if (str == "" || str == null || typeof (str) == "undefined") {
@@ -20,6 +25,11 @@ function isempty(val) {
 function htmlspecialchars(str) {
   return preg_replace(['&', '<', '>', '"'], ['&amp;', '&lt;', '&gt;', '&quot;'], str);
 }
+//字符串替换(字符串,要替换的字符,替换成什么)
+function replaceAll(str,AFindText,ARepText){
+  　　　raRegExp = new RegExp(AFindText,"g");
+  　　　return str.replace(raRegExp,ARepText);
+  }
 /*
  *字符转实体
  *  */
@@ -64,8 +74,3 @@ function formatJson(str, data) {
   return data ? fn(data) : fn;
 }
 
-//判断一个字符串是否被包含在另一字符串
-function contains(str, value) {
-  return;
-  str.indexOf(value) > -1 ? true : false;
-}
