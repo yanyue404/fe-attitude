@@ -125,5 +125,20 @@ function mGetDate(year, month) {
 }
 
 // 判断node元素内部是否含有otherNode节点
-node.contains( otherNode ) 
+node.contains(otherNode)
 var isTure = document.body.contains(document.querySelector('div'))
+
+
+
+// matches
+
+//如果元素被指定的选择器字符串选择，**Element.matches()**  方法返回true;否则返回false。
+//有一些浏览器使用前缀, 在非标准名称  matchesSelector () 下实现了这个方法!
+
+/* 语法
+
+let result = element.matches(selectorString);
+
+-   result 的值为 true 或 false.
+
+-   selectorString 是个css选择器字符串. */

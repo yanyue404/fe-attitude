@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #app {
+      width: 800px;
+      padding: 50px;
+      background: #eee;
+    }
+
+    .wrapper {
+      width: 600px;
+      display: flex;
+      background: #fff;
+      border-radius: 8px;
+    }
+
+    .content {
+      flex: 1;
+      padding: 20px;
+      border-radius: 8px 0 0 8px;
+      box-shadow: -2px 2px 2px #ccc;
+      background: #fff;
+    }
+
+    .title {
+      font-size: 24px;
+    }
+
+    .time {
+      margin-top: 30px;
+      font-size: 18px;
+      color: #9E9E9E;
+    }
+
+    .tip {
+      position: relative;
+      flex: 0 0 100px;
+      text-align: center;
+      color: #ff4242;
+      padding: 20px;
+      border-radius: 0 8px 8px 0;
+      box-shadow: 2px 2px 2px #ccc;
+      background: #fff;
+    }
+
+    .split-line {
+      position: relative;
+      flex: 0 0 0;
+      border-left: 2px dashed #eee;
+      margin: 0 5px 0 3px;
+      background: #fff;
+    }
+
+    .split-line:before,
+    .split-line:after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 8px;
+      background: #eee;
+      left: -9px;
+      z-index: 1;
+    }
+
+    .split-line:before {
+      border-radius: 0 0 8px 8px;
+      top: 0;
+    }
+
+    .split-line:after {
+      border-radius: 8px 8px 0 0;
+      bottom: 0;
+    }
+
+    .money {
+      font-weight: bold;
+      font-size: 24px;
+    }
+
+    .pay-line {
+      margin-top: 30px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="wrapper">
+      <div class="content">
+        <div class="title">
+          满减优惠券
+        </div>
+        <div class="time">
+          有效期至: 2018-01-25
+        </div>
+      </div>
+      <div class="split-line"></div>
+      <div class="tip">
+        <div class="money">
+          $10
+        </div>
+        <div class="pay-line">
+          满1000元减
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
