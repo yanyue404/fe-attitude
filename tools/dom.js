@@ -54,6 +54,20 @@ function $$(selector, el) {
   // If you'd like to convert it to a Array for convenience, use this instead:
   // return Array.prototype.slice.call(el.querySelectorAll(selector));
 }
+// 将NodeList转为数组
+function convertToArray(nodeList) {
+  var array = null
+  try {
+    // IE8-NodeList是COM对象
+    array = Array.prototype.slice.call(nodeList, 0)
+  } catch (err) {
+    array = []
+    for (var i = 0, len = nodeList.length; i < len; i++) {
+      array.push(nodeList[i])
+    }
+  }
+  return array
+}
 function getByClass(oParent, sClass) {
   var aEle = oParent.getElementsByTagName('*');
   var aResult = [];
@@ -145,22 +159,22 @@ const prependHTML = function (el, html) {
   nodes = null;
   fragment = null;
 };
-function siblings(obj){
-  var a=[];//定义一个数组，用来存o的兄弟元素 
-  var p=obj.previousSibling; 
-  while(p){//先取o的哥哥们 判断有没有上一个哥哥元素，如果有则往下执行 p表示previousSibling 
-      if(p.nodeType===1){ 
-      a.push(p); 
-      } 
-      p=p.previousSibling//最后把上一个节点赋给p 
-  } 
+function siblings(obj) {
+  var a = [];//定义一个数组，用来存o的兄弟元素 
+  var p = obj.previousSibling;
+  while (p) {//先取o的哥哥们 判断有没有上一个哥哥元素，如果有则往下执行 p表示previousSibling 
+    if (p.nodeType === 1) {
+      a.push(p);
+    }
+    p = p.previousSibling//最后把上一个节点赋给p 
+  }
   a.reverse()//把顺序反转一下 这样元素的顺序就是按先后的了 
-  var n=obj.nextSibling;//再取o的弟弟 
-  while(n){//判断有没有下一个弟弟结点 n是nextSibling的意思 
-      if(n.nodeType===1){ 
-          a.push(n); 
-      } 
-      n=n.nextSibling; 
+  var n = obj.nextSibling;//再取o的弟弟 
+  while (n) {//判断有没有下一个弟弟结点 n是nextSibling的意思 
+    if (n.nodeType === 1) {
+      a.push(n);
+    }
+    n = n.nextSibling;
   }
   return a;
 }

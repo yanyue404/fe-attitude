@@ -32,6 +32,18 @@ function delay_script(A) {
   document.body.appendChild(B);
   return B
 }
+// 兼容IE动态添加script方法
+function loadScriptString (code) {
+  var script = document.createElement('script')
+  script.type = 'text/javascript'
+  try {
+    script.appendChild(document.createTextNode(code))
+  } catch (e) {
+    script.text = code
+  }
+  document.body.appendChild(script)
+}
+
 // delay_script("//ossweb-img.qq.com/images/js/eas/eas.js");
 /* 如果 async="async"：脚本相对于页面的其余部分异步地执行（当页面继续进行解析时，脚本将被执行）
 如果不使用 async 且 defer="defer"：脚本将在页面完成解析时执行
