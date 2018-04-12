@@ -74,6 +74,34 @@ function ajax(setting) {
   };
 }
 
+function myJsonp(url, data, callback) {
+
+  var fnName = 'myJsonp_' + Math.random().toString().replace('.', '');
+
+  window[fnName] = callback;
+
+  var querystring = '';
+
+  for (var attr in data) {
+
+    querystring += attr + '=' + data[attr] + '&';
+
+  }
+
+  var script = document.createElement('script');
+
+  script.src = url + '?' + querystring + 'callback=' + fnName;
+
+  script.onload = function () {
+
+    document.body.removeChild(script);
+
+  }
+
+  document.body.appendChild(script);
+
+}
+
 /**
  * @param  {url}
  * @param  {setting}
@@ -146,9 +174,9 @@ function getQuery(name, url) {
 function setUrlPrmt(obj) {
   let _rs = [];
   for (let p in obj) {
-      if (obj[p] != null && obj[p] != '') {
-          _rs.push(p + '=' + obj[p])
-      }
+    if (obj[p] != null && obj[p] != '') {
+      _rs.push(p + '=' + obj[p])
+    }
   }
   return _rs.join('&');
 }

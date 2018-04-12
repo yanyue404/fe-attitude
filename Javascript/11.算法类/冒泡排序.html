@@ -7,13 +7,15 @@
 
 <body>
     <script type="text/javascript">
-    var arr = [1, 34, 12, 87, 24];
-    var flag = true;
-     
-    
-       //轮数
+        var arr = [3, 2, 1, 4, 8, 6, 7];
+        var m = 0;
+        var n = 0;
+        var flag = true;
+
+
+        //轮数
         for (var i = 0; i < arr.length - 1; i++) {
-       //次数
+            //次数
             for (var j = 0; j < arr.length - 1 - i; j++) {
 
                 if (arr[j] > arr[j + 1]) {
@@ -22,14 +24,18 @@
                     arr[j] = arr[j + 1];
                     arr[j + 1] = tmp;
                 }
-                
+                n++;
             }
-            if(flag) {
-              break;
+            m++;
+            //判断：如果bool被修改了，说明没有排序完毕。如果一次都没有修改，就说明完成排序了。
+            if (flag) {
+                break;
             }
         }
         console.log(arr);
-       
+        console.log('轮数 ' + m)  // 轮数 6
+        console.log('次数 ' + n)  // 次数 21
+
     </script>
 </body>
 
