@@ -282,3 +282,9 @@ function jump(count, target) {
     }
   }, 1000);
 }
+
+// 获取对应月份的总天数
+function mGetDate(year, month) {
+  var d = new Date(year, month, 0);
+  return d.getDate();
+}
