@@ -84,6 +84,10 @@ function delay_js(url) {
   file == "css" ? document.getElementsByTagName("head")[0].appendChild(obj) : document.body.appendChild(obj);
   return obj;
 }
+// 清除脚本内容
+function stripscript(s) {
+  return s.replace(/<script.*?>.*?<\/script>/ig, '');
+}
 
 //页面加载自执行函数
 
