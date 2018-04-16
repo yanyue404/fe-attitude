@@ -24,7 +24,7 @@ $.getJSON('https://api.github.com/search/repositories?q=javascript&sort=stars',f
 // cnode
 $.getJSON('https://cnodejs.org/api/v1/topics',function(data){console.log( data )})
 // 豆瓣电影
-$.getJSON('https://api.douban.com/v2/movie/in_theaters',function(data){})
+$.get('https://api.douban.com/v2/movie/in_theaters',function(data){console.log( data )},'jsonp')
 ````
 
 ### 前端进阶系列-目录
