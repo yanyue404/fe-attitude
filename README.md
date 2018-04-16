@@ -19,7 +19,8 @@
 ## 公共API
 
 ````js
-$.getJSON('https://api.github.com/search/repositories?q=javascript&sort=stars')
+$.getJSON('https://api.github.com/search/repositories?q=javascript&sort=stars',function(data){})
+$.getJSON('https://cnodejs.org/api/v1/topics',function(data){console.log( "success" )})
 ````
 
 ### 前端进阶系列-目录
