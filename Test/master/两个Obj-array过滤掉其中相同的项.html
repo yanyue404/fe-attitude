@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script> 
+    // 两数组取差集
+    var arr = [
+      {
+        id: 111,
+        name: 'aaa'
+      },
+      {
+        id: 222,
+        name: 'bbb'
+      },
+      {
+        id: 333,
+        name: 'ccc'
+      }
+    ]
+
+    var arr1 = [
+      {
+        id: 111,
+        name: 'aaa'
+      },
+      {
+        id: 222,
+        name: 'bbb'
+      }
+    ]
+    var copyArr = arr.map(val => JSON.stringify(val))
+
+    arr1 = arr1.filter(obj => {
+      let index = copyArr.indexOf(JSON.stringify(obj))
+
+      if (index === -1) return true
+      arr.splice(index, 1)
+      copyArr.splice(index, 1)
+
+    })
+
+    var arr3 = arr1.concat(arr)
+    console.log(arr3)
+
+  </script>
+</body>
+
+</html>
