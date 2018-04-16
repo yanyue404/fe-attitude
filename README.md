@@ -27,7 +27,7 @@ $.getJSON('https://cnodejs.org/api/v1/topics',function(data){console.log( data )
 $.get('https://api.douban.com/v2/movie/in_theaters',function(data){console.log( data )},'jsonp')
 ````
 
-### 前端进阶系列-目录
+## 前端进阶系列-目录
 
 <details>
 <summary>View contents</summary>
