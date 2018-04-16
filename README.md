@@ -170,7 +170,7 @@ PWA
 
 </details>
 
-## git commit
+## Git commit
 ````
 # head: <type>(<scope>): <subject>
 # - type: feat, fix, docs, style, refactor, test, chore
