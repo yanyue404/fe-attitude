@@ -18,6 +18,10 @@
 ```
 ## 公共API
 
+````js
+$.getJSON('https://api.github.com/search/repositories?q=javascript&sort=stars')
+````
+
 ### 前端进阶系列-目录
 
 <details>
