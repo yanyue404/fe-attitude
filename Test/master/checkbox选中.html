@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<label>
+  <h3>单个选中</h3>
+  <!-- <input type="checkbox" id="nan" name="nan">
+  <label for="nan">男</label> -->
+  <br>
+  <hr>
+  <h3>多个选中</h3>
+  <form action="" id="FruitA">
+    <input name="Fruit" type="checkbox" value="" />苹果 </label>
+<label>
+  <input name="Fruit" type="checkbox" value="" />桃子 </label>
+<label>
+  <input name="Fruit" type="checkbox" value="" />香蕉 </label>
+<label>
+  <input name="Fruit" type="checkbox" value="" />梨 </label>
+</form>
+
+<button>提交</button>
+
+<body>
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.js"></script>
+<script>
+  var Fruits = $('[name="Fruit"]');
+  var FruitsArray = Array.prototype.slice.call(Fruits);
+
+  FruitsArray.forEach((v, index) => {
+    v.onclick = function () {
+      v.value = 'y'
+    }
+    for (var i = 0; i < FruitsArray.length; i++) {
+      if (!FruitsArray[i].checked) {
+        FruitsArray[i].value = 'n'
+      }
+    }
+
+  });
+
+
+
+
+
+</script>
+
+</html>

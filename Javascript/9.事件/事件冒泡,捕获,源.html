@@ -22,9 +22,10 @@
 </head>
 
 <body>
+    document
 
-    <div class="box1">
-        <div class="box2"></div>
+    <div class="box1">box1
+        <div class="box2">box2</div>
     </div>
 
 
@@ -35,6 +36,7 @@
 
         //addEventListener();还有第三个参数，控制着事件支持的是冒泡还是捕获；
         //bool有两个：  1.false（默认）支持冒泡；    2.true：支持捕获；
+        // 事件冒泡，从当前触发的时间源一直冒泡到dom树的最顶端
         box1.addEventListener("click", function () {
             alert("我是box1");
         }, false);
@@ -49,7 +51,7 @@
         //2.捕获阶段；  事件触发从dom树的最顶端，执行到当前触动者；
             //ie678：不支持捕获，只支持冒泡；
 
-      /* box1.addEventListener("click", function () {
+     /*  box1.addEventListener("click", function () {
            alert("我是box1");
        },true);
        box2.addEventListener("click", function () {
@@ -57,8 +59,8 @@
        },true);
        document.addEventListener("click", function () {
            alert("我是document");
-       },true);
-*/
+       },true); */
+
 
 
         //3.目标阶段： 谁找的事儿；（哪个元素引发的冒泡或者捕获目标阶段就是谁的事件）
