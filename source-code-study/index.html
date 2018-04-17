@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+	<table class="table table-bordered" id="js-table-test">
+		<tr>
+			<td>编号</td>
+			<td>姓名</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>老王</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>老李</td>
+		</tr>
+	</table>
+	<script type="text/javascript" src="http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		var s =
+			function function_name(argument) {
+				// body...
+			}
+		if (true) { }
+		// $('#js-table-test td').click(function (argument) {
+		// 	var m = $(this).text();
+		// 	var s = '<input type="text" value="'+m+'" />';
+		// 	$(this).html(s);
+		// });
+		// $('#js-table-test td').on('click','input',function (e) {
+		// 	e.stopPropagation();
+		// });
+		(function ($) {
+			var index = {
+				init: function () {
+					var me = this;
+					me.render();
+					me.bind();
+				},
+				datas: {
+					num: 1
+				},
+				render: function () {
+					var me = this;
+					me.test = $('#js-table-test td');
+				},
+				bind: function () {
+					var me = this;
+					me.test.on('click', $.proxy(me['_do'], this));
+				},
+				_do: function (e) {
+					var m = $(e.target).text();
+					var me = this;
+					m = me.datas.num + m;
+					var s = '<input type="text" value="' + m + '" />';
+					$(e.target).html(s);
+				}
+			};
+			index.init();
+			exports = index;
+		})(jQuery);
+	</script>
+</body>
+
+</html>

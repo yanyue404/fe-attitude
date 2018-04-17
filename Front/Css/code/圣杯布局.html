@@ -1,51 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>圣杯布局</title>
     <style>
-    /* 当main的宽度小于两边子面板的宽度的时候,布局会变乱,可以设置main的min-width或双飞翼布局解决问题 */
+        * {
+            margin: 0;
+            padding: 0;
+        }
 
-    /* 两列的实现方法,留左侧的两列布局,则去掉右侧栏,不设置主面板的padding-right值,其他操作相同,反之亦然*/
+        body {
+            background-color: #cccc;
+            text-align: center;
+        }
 
-     .main {
-        float: left;
-        width: 100%;
-        background-color: green;
-        height: 999px;
-        min-width: 700px;
-     }
-     .sub {
-        float: left;
-        width: 190px;
-        margin-left: -100%;
-        position: relative;
-        left: -190px;
-        background-color: yellow;
-        height: 999px;
-     }
-     .extra {
-        float: left;
-        width: 230px;
-        margin-left: -230px;
-        position: relative;
-        right: -230px;
-        background-color: purple;
-        height: 999px;
+        header {
+            height: 50px;
+            background-color: pink;
+            line-height: 50px;
+        }
 
-     }
-     #bd {
-        padding:0 230px 0 190px;
-        height: 999px;
-     }
+        .container {
+            padding: 0 220px 0 200px;
+            clear: both;
+        }
+
+        .middle,
+        .left,
+        .right {
+            position: relative;
+            float: left;
+            min-height: 500px;
+        }
+
+        .middle {
+            background-color: red;
+            width: 100%;
+        }
+
+        .left {
+            width: 200px;
+            background-color: yellow;
+            margin-left: -100%;
+            left: -200px;
+        }
+
+        .right {
+            width: 220px;
+            background-color: blue;
+            margin-left: -220px;
+            right: -220px;
+        }
+
+        .footer {
+            height: 50px;
+            line-height: 50px;
+            border: 1px solid #333;
+            background: #aaa;
+            text-align: center;
+            clear: both;
+        }
     </style>
 </head>
-<body>
 
-    <div id="bd">
-        <div class="main">main</div>
-        <div class="sub">sub</div>
-        <div class="extra">extra</div>
+<body>
+    <header>
+        <h2>我是header</h2>
+    </header>
+    <div class="container">
+        <div class="middle">
+            <h4>我是middle</h4>
+            <p>我是内容部分我是内容部分我是内容部分我是内容部分我是内容部分我是内容部分我是内容部分我是内容部分</p>
+        </div>
+        <div class="left">
+            <h4>我是left</h4>
+            <p>我是left的内容</p>
+        </div>
+        <div class="right">
+            <h4>我是right的内容</h4>
+            <p>我是right的内容</p>
+        </div>
+
     </div>
+    <div class="footer">
+        <h2>footer</h2>
+    </div>
+
 </body>
+
 </html>

@@ -1,86 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-   <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
 
-<script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
- <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.js"></script>
-<script src="https://cdn.bootcss.com/bootstrap-treeview/1.2.0/bootstrap-treeview.min.js"></script>
-<style>
-  #tree {
-    width: 800px;
-    margin: 100px auto;
-    
-  }
-</style>
+  <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap-treeview/1.2.0/bootstrap-treeview.min.js"></script>
+  <style>
+    #tree {
+      width: 800px;
+      margin: 100px auto;
+
+    }
+  </style>
 </head>
+
 <body>
-  
+
   <div id="tree"></div>
 
   <script>
     function getTree() {
-    
-     //一些逻辑来检索或生成树结构,返回数据
-    var tree = [
-  {
-    text: "Parent 1",
-    icon: "glyphicon glyphicon-stop",
-    nodes: [
-      {
-        text: "Child 1",
-        state:{
-          selected: true
+
+      //一些逻辑来检索或生成树结构,返回数据
+      var tree = [
+        {
+          text: "Parent 1",
+          icon: "glyphicon glyphicon-stop",
+          nodes: [
+            {
+              text: "Child 1",
+              state: {
+                selected: true
+              },
+              tags: ['available1111'],
+              nodes: [
+                {
+                  text: "Grandchild 1"
+                },
+                {
+                  text: "Grandchild 2"
+                }
+              ]
+            },
+            {
+              text: "Child 2"
+            }
+          ]
         },
-        tags: ['available1111'],
-        nodes: [
-          {
-            text: "Grandchild 1"
-          },
-          {
-            text: "Grandchild 2"
+        {
+          text: "Parent 2",
+          state: {
+            selected: true,
+            checked: true,
           }
-        ]
-      },
-      {
-        text: "Child 2"
-      }
-    ]
-  },
-  {
-    text: "Parent 2",
-    state: {
-      selected: true,
-      checked: true,
+        },
+
+        {
+          text: "Parent 3"
+
+        },
+        {
+          text: "Parent 4",
+          nodes: [
+            {
+              text: "小越越"
+            }
+          ]
+        },
+        {
+          text: "Parent 5"
+        }
+      ];
+      return tree;
     }
-  },
-  
-  {
-    text: "Parent 3"
-    
-  },
-  {
-    text: "Parent 4",
-    nodes:[
-      {
-        text:"小越越"
-      }
-    ]
-  },
-  {
-    text: "Parent 5"
-  }
-];                
-    return tree;
-}
- 
-$('#tree').treeview({data: getTree()}); 
-$('#tree').treeview('collapseAll',{silent:true}); //折叠所有项目树
+
+    $('#tree').treeview({ data: getTree() });
+    $('#tree').treeview('collapseAll', { silent: true }); //折叠所有项目树
 
   </script>
 </body>
+
 </html>

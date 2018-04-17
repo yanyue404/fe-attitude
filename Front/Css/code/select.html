@@ -14,7 +14,7 @@
     /*很关键：将默认的select选择框样式清除*/
     appearance: none;
     -moz-appearance: none;
-    
+
     -webkit-appearance: none;
     /*在选择框的最右侧中间显示小箭头图片*/
     /* background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent;   */
@@ -47,14 +47,14 @@
 
     // 4:拿到选中项options的text： myselect.options[index].text;
 
-  
+
 
     function change() {
       var myselect = document.getElementById("test");
-    var index = myselect.selectedIndex;
-    var value = myselect.options[index].value;
-    var text = myselect.options[index].text;
-    
+      var index = myselect.selectedIndex;
+      var value = myselect.options[index].value;
+      var text = myselect.options[index].text;
+
       var nowIndex = myselect.selectedIndex,
         nowValue = myselect.options[nowIndex].value;
       nowText = myselect.options[nowIndex].text;
