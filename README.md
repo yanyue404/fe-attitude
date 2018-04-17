@@ -2,7 +2,7 @@
 
 ## Git commit
 ````
-*Head
+* Head
   * type: feat, fix, docs, style, refactor, test, chore
   * scope:影响范围，可省略
   * subject
