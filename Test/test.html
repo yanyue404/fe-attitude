@@ -6,105 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <style>
-    .box2 {
-      width: 300px;
-      height: 300px;
-      border: 1px solid #ccc;
-      background-color: pink;
-    }
-
-    .box1 {
-      width: 100px;
-      height: 100px;
-      margin: 100px;
-      background-color: skyblue;
-    }
-  </style>
 </head>
 
 <body>
-  <!-- https://segmentfault.com/a/1190000013894510 -->
-  document
-  <div class="box2">box2
-    <div class="box1">box1</div>
-  </div>
+  <script>
 
-
-  <!-- <input type="text" id="text" name="text">
-  <label for="text">Click me</label> -->
-  <!-- <label>Click me
-    <input type="text">
-  </label> -->
+    var str = '/movie/1';
+    alert(str.indexOf('/movie'))
+    if (str.indexOf('/movie') != -1) {
+      alert(1)
+    }
+  </script>
 </body>
-<script>
-  var box1 = document.getElementsByClassName("box1")[0];
-  var box2 = document.getElementsByClassName("box2")[0];
-
-  // 冒泡
-  /* box1.addEventListener("click", function () {
-    alert("box1");
-  });
-  box2.addEventListener("click", function () {
-    alert("box2");
-  });
-  document.addEventListener("click", function () {
-    alert("document");
-  }); */
-  // box1,box2,document
-
-  //捕获
-  /*  box1.addEventListener("click", function () {
-     alert("box1");
-   },true);
-   box2.addEventListener("click", function () {
-     alert("box2");
-   },true);
-   document.addEventListener("click", function () {
-     alert("document");
-   },true); */
-
-  // 先捕获，后冒泡
-  /*   box1.addEventListener("click", function () {
-      alert("box1");
-    },true);
-    box2.addEventListener("click", function () {
-      alert("box2");
-    }); */
-  //box1,box2
-  /*   box1.addEventListener("click", function () {
-      alert("box1");
-    });
-    box2.addEventListener("click", function () {
-      alert("box2");
-    }, true); */
-  // box2,box1
-
-  //6
- /*   box1.addEventListener("click", function () {
-     alert("box1");
-   });
-   box1.addEventListener("click", function () {
-     alert("box2");
-   }, true) */
-   //box1,box2
-  //7
- 
-   box1.addEventListener("click", function () {
-     alert("box1");
-   },true);
-   box1.addEventListener("click", function () {
-     alert("box2");
-   })
-  
-  // 如果被监听的元素没有子元素，那么哪个监听代码写在前面，就先执行哪个！???
-
-  /* document.querySelector('label').addEventListener('click', function () {
-    alert(1)
-  })
-  document.querySelector('input').addEventListener('click', function () {
-    alert(2)
-  }) */
-</script>
 
 </html>

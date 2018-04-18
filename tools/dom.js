@@ -205,3 +205,12 @@ function stopDefault(e) {
 
   return false;
 }
+
+function show(ele) {
+  ele.style.display = "block";
+}
+
+//隐藏盒子
+function hide(ele) {
+  ele.style.display = "none";
+}

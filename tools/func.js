@@ -255,3 +255,17 @@ function mGetDate(year, month) {
   var d = new Date(year, month, 0);
   return d.getDate();
 }
+
+function throttle(func, wait) {
+  var timeout, previous;
+  return function () {
+    context = this;
+    args = arguments;
+    if (!timeout) {
+      timeout = setTimeout(() => {
+        timeout = null;
+        func.apply(context.args);
+      }, wait);
+    }
+  }
+}
