@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+    // 使用场景：必须创建一个对象并以某些数据进行初始化，同时还要公开一些能够访问这些私有数据的方法
+    
+    var singleMode = (function () {
+      // 创建私有变量
+      var privateNum = 112;
+      // 创建私有函数
+      function privateFunc() {
+        // 实现自己的业务逻辑代码
+      }
+      // 返回一个对象包含公有方法和属性
+      return {
+        publicMethod1: publicMethod1,
+        publicMethod2: publicMethod1
+      };
+    })();
+  </script>
+</body>
+
+</html>

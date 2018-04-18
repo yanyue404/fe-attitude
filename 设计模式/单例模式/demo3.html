@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    
+    // 编写通用的单例模式
+
+    // 创建div
+    var createWindow = function () {
+      var div = document.createElement("div");
+      div.innerHTML = "我是弹窗内容";
+      div.style.display = 'none';
+      document.body.appendChild(div);
+      return div;
+    };
+    // 创建iframe
+    var createIframe = function () {
+      var iframe = document.createElement("iframe");
+      document.body.appendChild(iframe);
+      return iframe;
+    };
+    // 获取实例的封装代码
+    var getInstance = function (fn) {
+      var result;
+      return function () {
+        return result || (result = fn.call(this, arguments));
+      }
+    };
+    // 测试创建div
+    var createSingleDiv = getInstance(createWindow);
+    document.getElementById("Id").onclick = function () {
+      var win = createSingleDiv();
+      win.style.display = "block";
+    };
+    // 测试创建iframe
+    var createSingleIframe = getInstance(createIframe);
+    document.getElementById("Id").onclick = function () {
+      var win = createSingleIframe();
+      win.src = "http://cnblogs.com";
+    };
+
+  </script>
+</body>
+
+</html>
