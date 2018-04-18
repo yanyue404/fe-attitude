@@ -8,21 +8,31 @@
     .p1 {
       background-color: green;
       height: 50px;
+      color: #fff;
+      text-align: center;
+      line-height: 50px;
     }
   </style>
 </head>
 
 <body>
-  <p class="p1"></p>
+  <p class="p1">Please click me！</p>
+  <button>绑定事件</button>
+  <button>解绑</button>
+
   <script type="text/javascript">
     var p1 = document.getElementsByClassName('p1')[0];
+    var btn = document.querySelectorAll('button');
 
     function clickFn() {
-      this.innerHTML = 'click'
+      alert('click')
     }
-    addEvent(p1, 'click', clickFn)
-
-    removeEvent(p1, 'click', clickFn)
+    btn[0].onclick = function () {
+      addEvent(p1, 'click', clickFn);
+    }
+    btn[1].onclick = function () {
+      removeEvent(p1, 'click', clickFn);
+    }
 
     function addEvent(a, b, c, d) {
       a.addEventListener ? a.addEventListener(b, c, d) : a.attachEvent("on" + b, c)

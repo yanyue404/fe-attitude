@@ -29,8 +29,10 @@
   </ul>
   <script>
 
-    var oUl = document.querySelector('ul');
-    var liArr = document.querySelectorAll('li');
+    var oUl = document.querySelector('ul'),
+      liArr = document.querySelectorAll('li');
+    console.log(liArr) //NodeList
+    console.log(Array.from(liArr)) //Array
 
     for (var i = 0; i < liArr.length; i++) {
       liArr[i].onclick = function () {
@@ -42,23 +44,14 @@
       oUl.appendChild(aLi);
     }
 
-    var liArr = document.getElementsByTagName('li');
-
-    oUl.onclick = function (event) {
-      event = event || window.event;
-
-      var Tar = event.target || event.srcElement;
-      //一般只判断三个值: 1.标签名;    2.类名;   3.id名;
-      if (Tar.tagName === 'LI') {
-        alert('我也是li标签');
-        // Tar.style.backgroundColor = "pink";
+    addEvent(oUl, 'click', function () {
+      var EventSource = event.target ? event.target : event.srcElement;
+      console.dir(EventSource)
+      if (EventSource.tagName === "LI") {
+        EventSource.innerHTML = 'pink'
       }
-    }
-
-
-    addEvent(oUl, 'click', function (e) {
-      e.target.style.backgroundColor = "pink"
     })
+
     function addEvent(a, b, c, d) {
       a.addEventListener ? a.addEventListener(b, c, d) : a.attachEvent("on" + b, c)
     }
