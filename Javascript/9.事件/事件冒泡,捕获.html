@@ -40,15 +40,18 @@
 
 
         //1. 事件冒泡，从当前触发的时间源一直冒泡到dom树的最顶端
+        box1.onclick = function () {
+            alert('我是box1')
+        }
         /*  box1.addEventListener("click", function () {
              alert("我是box1");
-         });
-         box2.addEventListener("click", function () {
-             alert("我是box2");
-         });
-         document.addEventListener("click", function () {
-             alert("我是document");
          }); */
+        box2.addEventListener("click", function () {
+            alert("我是box2");
+        });
+        document.addEventListener("click", function () {
+            alert("我是document");
+        });
 
 
         //2.  事件捕获，事件触发从dom树的最顶端，执行到当前触动者；
@@ -76,12 +79,12 @@
           }, true); */
 
         //3.2
-        box1.addEventListener("click", function (event) {
+        /* box1.addEventListener("click", function (event) {
             alert("我是box1");
         }, true);
         box2.addEventListener("click", function () {
             alert("我是box2");
-        });
+        }); */
 
 
     </script>
