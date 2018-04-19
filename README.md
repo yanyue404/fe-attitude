@@ -50,16 +50,6 @@ footer| 一些备注, 通常是 BREAKING CHANGE 或修复的 bug 的链接.
 // jquery
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 ```
-## 公共API
-
-````js
-// github
-$.getJSON('https://api.github.com/search/repositories?q=javascript&sort=stars',function(data){})
-// cnode
-$.getJSON('https://cnodejs.org/api/v1/topics',function(data){console.log( data )})
-// 豆瓣电影
-$.get('https://api.douban.com/v2/movie/in_theaters',function(data){console.log( data )},'jsonp')
-````
 
 ## 前端进阶系列-目录
 
@@ -204,5 +194,15 @@ PWA
 
 </details>
 
+## 公共API
+
+````js
+// github
+$.getJSON('https://api.github.com/search/repositories?q=javascript&sort=stars',function(data){})
+// cnode
+$.getJSON('https://cnodejs.org/api/v1/topics',function(data){console.log( data )})
+// 豆瓣电影
+$.get('https://api.douban.com/v2/movie/in_theaters',function(data){console.log( data )},'jsonp')
+````
 
 **[⬆ 回到顶部](#smart)**
