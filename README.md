@@ -1,5 +1,10 @@
 # smart
 
+## Start the service
+```bash
+# serve with hot reload at http://127.0.0.1:3007/
+ npm start
+```
 ## Git commit
 ````
 * Head
@@ -28,11 +33,7 @@ scope| commit 影响的范围, 比如: route, component, utils, build...
 subject| commit 的概述, 建议符合 50/72 formatting
 body|commit 具体修改内容, 可以分为多行, 建议符合 50/72 formatting
 footer| 一些备注, 通常是 BREAKING CHANGE 或修复的 bug 的链接.
-## Start the service
-```bash
-# serve with hot reload at http://127.0.0.1:3007/
- npm start
-```
+
 ## 工具库
 
 * [oui-dom-utils](https://github.com/oneuijs/oui-dom-utils) / [oui-dom-events](https://github.com/oneuijs/oui-dom-events)
