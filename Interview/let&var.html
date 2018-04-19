@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var a = [];
+    // 全局的var
+    /*  for (var i = 0; i < 10; i++) {
+       a[i] = function () {
+         console.log(i);
+       };
+     }
+     a[6](); // 10 */
+
+    // 局部的let
+    /*     for (let i = 0; i < 10; i++) {
+          a[i] = function () {
+            console.log(i)
+          }
+        }
+        a[6](); */
+
+    for (var i = 0; i < 10; i++) {
+      a[0] = (function (i) { //也是形参
+        return console.log(i)
+      })(i)
+    }
+    a[6];
+
+    // (function (j) { console.log(j) })(1)
+  </script>
+</body>
+
+</html>

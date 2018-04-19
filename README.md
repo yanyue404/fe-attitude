@@ -2,7 +2,7 @@
 
 ## Start the service
 ```bash
-# serve with hot reload at http://127.0.0.1:3007/
+# serve with hot reload at ./service/app.js
  npm start
 ```
 ## Git commit

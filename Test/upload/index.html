@@ -106,7 +106,7 @@
         </ul>
         <ul class="one">
           <li>
-            <input type="submit" id="button" value="提交订单" />
+            <input type="button" id="button" value="提交订单" />
           </li>
         </ul>
       </form>
@@ -146,21 +146,25 @@
     var amount = num * price + cost;
     document.myform.amount.value = amount;
   }
-  $('#button').on('submit', function () {
-    event.preventDefault() //阻止form表单默认提交
-    registPost()
-  })
-  function registPost() {
+
+  document.querySelector('#button').onclick = function () {
+    var data = $('#subBtn').serialize();
     $.ajax({
-      type: "post",
-      url: "http://127.0.0.1:8081/api",
-      data: $('#subBtn').serialize(),
-    }).success(function (message) {
-      console.log(message)
-    }).fail(function (err) {
-      console.log(err)
+      method: 'get',
+      data: data,
+      url: "http://127.0.0.1:3888/upload",
+      type: 'jsonp',
+      jsonpCallback: "showData",  //指定回调函数名称
+      success: function (data) {
+        console.info("调用success");
+      }
     })
+
   }
+  function showData(data) {
+    console.log(data)
+  }
+
 
 
 </script>

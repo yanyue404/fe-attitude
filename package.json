@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/xiaoyueyue165/smart/issues"
   },
-  "homepage": "https://github.com/xiaoyueyue165/smart#readme"
+  "homepage": "https://github.com/xiaoyueyue165/smart#readme",
+  "dependencies": {
+    "formidable": "^1.2.1"
+  }
 }
