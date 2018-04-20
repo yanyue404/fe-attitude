@@ -10,19 +10,15 @@ module.exports = {
   },
   callbackData(req, res) {
     var body = null;
-    req.on("data", function (chunk) {
-      body += chunk; //读取请求体
+    req.on('data', function (data) {
+      // 获取前端传递的值 参数
+      var data = data.toString();//Buffer对象转字符串
+      body = qs.parse(data);
+      console.log(body)
     });
-    var json = null;
     req.on("end", function () {
       res.writeHead(200, { "Content-Type": "text/html" });
-      /*  json = JSON.stringify({
-         "num": qs.parse(body).num,
-         "price": qs.parse(body).price
-       }) */
-      json = '123'
-      console.log(json)
     });
-    res.end("showData(" + json + ")")
+    res.end(body)
   }
 }

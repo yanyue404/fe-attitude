@@ -1,67 +1,60 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>returnRandomArrayFrom2to32</title>
 </head>
+
 <body>
-<script type="text/javascript">
+    <script type="text/javascript">
 
-    //编写一个javscript函数 fn，该函数有一个参数 n（数字类型），其返回值是一个数组，该数组内是 n 个随机且不重复的整数，且整数取值范围是 [2, 32]。
-    function fn(n)
-    {
-        var array = new Array();
-        for(var i= 0; i<n; i++)
-        {
-            //获得2到32范围的随机数
-            var rnd = getRand(2, 32);                   
-            if(isIncluded(rnd, array))
-            {
-                i--; 
-                //如果数组里面有这个数，让i在下一个循环不变。
-                //这里的i--抵消掉了循环后的i++
+        //编写一个javscript函数 fn，该函数有一个参数 n（数字类型），其返回值是一个数组，该数组内是 n 个随机且不重复的整数，且整数取值范围是 [2, 32]。
+        function fn(n) {
+            var array = new Array();
+            for (var i = 0; i < n; i++) {
+                //获得2到32范围的随机数
+                var rnd = getRand(2, 32);
+                if (isIncluded(rnd, array)) {
+                    i--;
+                    //如果数组里面有这个数，让i在下一个循环不变。
+                    //这里的i--抵消掉了循环后的i++
+                }
+                else {
+                    array.push(rnd);
+                }
             }
-            else
-            {               
-                array.push(rnd);
+            return array;
+        }
+
+        //传递一个数据类型和数组，判断数组内是否有前者。
+        function isIncluded(element, array) {
+            for (var i = 0, len = array.length; i < len; i++) {
+                if (array[i] == element) {
+                    return true;
+                }
             }
-        }   
-        return array;
-    }
+            return false;
+        }
 
-    //传递一个数据类型和数组，判断数组内是否有前者。
-    function isIncluded(element, array)
-    {
-        for (var i = 0, len = array.length; i < len; i++) 
-        {
-            if(array[i] == element)
-            {
-                return true;
+
+        //传入一个范围，返回一个该范围的随机数。
+        function getRand(min, max) {
+            //如果输入的min比max大，将它们的值交换
+            if (max < min) {
+                var n = max;
+                max = min;
+                min = n;
             }
+            //注意是max-min+1而不是max-min哦
+            return Math.floor(Math.random() * (max - min + 1)) + min;
         }
-        return false;
-    }
-   
 
-    //传入一个范围，返回一个该范围的随机数。
-    function getRand(min, max)
-    {
-        //如果输入的min比max大，将它们的值交换
-        if( max< min)
-        {
-            var n = max;
-            max = min;
-            min = n;
+        //输出
+        demo = fn(31);//如果参数是比31还要大的数，可是会无限循环的哦。
+        for (var i = 0; i < demo.length; i++) {
+            console.log(i + ":" + demo[i]);
         }
-        //注意是max-min+1而不是max-min哦
-        return Math.floor(Math.random()* (max-min+1) ) + min;
-    }
-
-    //输出
-    demo = fn(31);//如果参数是比31还要大的数，可是会无限循环的哦。
-    for(var i= 0; i<demo.length; i++)
-        {
-            console.log(i+":"+demo[i]);
-        }
-</script>
+    </script>
 </body>
+
 </html>

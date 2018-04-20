@@ -37,8 +37,9 @@
     aLi.innerHTML = i + 6;
     oUl.appendChild(aLi);
   }
-
-  oUl.onclick = function () {
+  
+// onclick 在谷歌和ie8中可以不写参数，在firefox中不写参数不可以，还是必须加参数
+  oUl.onclick = function (event) {
     var EventSource = event.target ? event.target : event.srcElement;
     console.dir(EventSource)
     if (EventSource.tagName === "LI") {

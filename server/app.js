@@ -2,9 +2,7 @@ var http = require('http');
 var fs = require('fs');
 var Router = require('./router');
 
-// 创建一个 http 服务器
 var server = http.createServer();
-// 监听 http 服务器的 request 请求
 server.on('request', function (req, res) {
   var url = req.url;
   Router(req, res);
@@ -14,7 +12,6 @@ server.on('request', function (req, res) {
   // 静态资源文件：assets
 });
 
-// 指定端口号并启动服务器监听
-server.listen(3888, function () {
-  console.log('server listen at http://127.0.0.1:3888/views/index.html');
+server.listen(3008, function () {
+  console.log('server listen at http://127.0.0.1:3008/views/index.html');
 });

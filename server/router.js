@@ -13,14 +13,9 @@ module.exports = function (req, res) {
   req.query = query;
   var url = req.url;
 
-  req.on('data', function (data) {
-    // 获取前端传递的值 参数
-    console.log(data.toString()); //Buffer对象转字符串
-  });
-
   var method = req.method;
 
-  if (url === '/') { //默认
+  if (url === '/') {
     controller.getIndexPage(req, res);
   }
   if (url === '/upload' && method == "POST") {
