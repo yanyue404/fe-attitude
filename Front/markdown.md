@@ -8,7 +8,7 @@
 
 #### 内容页
    
-**CDN**
+**前端进阶系列-目录**
 
 <details>
 <summary>View contents</summary>
