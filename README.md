@@ -1,10 +1,5 @@
 # smart
 
-## Start the service
-```bash
-# serve with hot reload at ./service/app.js
- npm start
-```
 ## Git commit
 ````
 * Head
