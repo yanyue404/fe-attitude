@@ -9,16 +9,56 @@
 </head>
 
 <body>
-  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
   <script>
-    $.ajax({
-      method: 'post',
-      data: 'yue=123',
-      url: 'http://127.0.0.1:3079/test',
-      suceess: function (response) {
-        console.log(response)
+
+    var loadScript = {
+      init() {
+        this.ele.appendChild(this.getScript())
+        this.func();
+      },
+      options() {
+        var me = this;
+        me.ele = document.body;
+        return this;
+      },
+      datas() {
+
+      },
+      func() {
+        alert(1)
+      },
+      getScript() {
+        var u = navigator.userAgent,
+          script = document.createElement('script'),
+          device = "";
+        //当前设备信息
+        if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {//安卓手机
+          device = "Android";
+          script.src = "../tools/ajax.js";
+
+        } else if (u.indexOf('iPhone') > -1) {//苹果手机
+          device = "iPhone";
+          script.src = "build/compatible/Ios.js"
+
+        } else if (u.indexOf('Windows Phone') > -1) {//winphone手机
+          device = "WindowsPhone";
+        } else {
+          script.src = "../tools/ajax.js";
+        }
+        return script;
+      },
+      render() {
+
       }
-    })</script>
+
+    }
+    loadScript.options().init();
+    loadScript.prototype = {
+      func() {
+        alert(1)
+      }
+    }
+  </script>
 </body>
 
 </html>
