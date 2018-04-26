@@ -1,64 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
 </head>
-
 <body>
   <script>
-
-    var loadScript = {
-      init() {
-        this.ele.appendChild(this.getScript())
-        this.func();
-      },
-      options() {
-        var me = this;
-        me.ele = document.body;
-        return this;
-      },
-      datas() {
-
-      },
-      func() {
-        alert(1)
-      },
-      getScript() {
-        var u = navigator.userAgent,
-          script = document.createElement('script'),
-          device = "";
-        //当前设备信息
-        if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {//安卓手机
-          device = "Android";
-          script.src = "../tools/ajax.js";
-
-        } else if (u.indexOf('iPhone') > -1) {//苹果手机
-          device = "iPhone";
-          script.src = "build/compatible/Ios.js"
-
-        } else if (u.indexOf('Windows Phone') > -1) {//winphone手机
-          device = "WindowsPhone";
-        } else {
-          script.src = "../tools/ajax.js";
-        }
-        return script;
-      },
-      render() {
-
-      }
-
-    }
-    loadScript.options().init();
-    loadScript.prototype = {
-      func() {
-        alert(1)
-      }
-    }
+    
   </script>
 </body>
-
 </html>
