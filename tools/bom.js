@@ -49,3 +49,12 @@ function getMaxW() {
     ww = getWinWidth();
   return Math.max(a, ww)
 }
+function goBack() {
+  history.back();
+}
+
+/* try {
+  localStorage.setItem('noTrace', true)
+} catch (e) {
+  window.location.href = '/notrace.html'
+} */

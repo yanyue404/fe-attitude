@@ -269,3 +269,11 @@ function formser(form) {
   }
   return stringfyQueryString(arr);
 }
+function formatParams(data) {
+  var arr = [];
+  for (var name in data) {
+      arr.push(encodeURIComponent(name) + "=" + encodeURIComponent(data[name]));
+  }
+  arr.push(("v=" + Math.random()).replace(".", ""));
+  return arr.join("&");
+}

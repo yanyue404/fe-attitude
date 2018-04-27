@@ -269,3 +269,4 @@ function throttle(func, wait) {
     }
   }
 }
+
