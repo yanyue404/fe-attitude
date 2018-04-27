@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+
+<body ng-app="myApp" ng-controller="demoCtrl">
+  <input type="text" ng-model="data">
+  <input type="date" ng-model="data">
+  <script src="../bulid/angular.js"></script>
+  <script>
+
+    angular.module('myApp', [])
+      .controller('demoCtrl', demoCtrl)
+
+    function demoCtrl($scope) {
+      var transTime = "2018-04-09T16:00:00.000Z";
+      var d = new Date(transTime);
+      $scope.data = d;
+    }
+  </script>
+</body>
+
+</html>

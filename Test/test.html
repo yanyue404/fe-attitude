@@ -1,14 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <input type="date">
 </head>
+
 <body>
   <script>
-    
+    Date.prototype.formate = function (format) {
+      const o = {
+        "M+": this.getMonth() + 1, // month
+        "d+": this.getDate(), // day
+        "h+": this.getHours(), // hour
+        "m+": this.getMinutes(), // minute
+        "s+": this.getSeconds(), // second
+        "q+": Math.floor((this.getMonth() + 3) / 3), // quarter
+        S: this.getMilliseconds()
+        // millisecond
+      };
+
+      if (/(y+)/.test(format)) {
+        format = format.replace(
+          RegExp.$1,
+          `${this.getFullYear()}`.substr(4 - RegExp.$1.length)
+        );
+      }
+
+      for (const k in o) {
+        if (new RegExp(`(${k})`).test(format)) {
+          format = format.replace(
+            RegExp.$1,
+            RegExp.$1.length == 1 ? o[k] : `00${o[k]}`.substr(`${o[k]}`.length)
+          );
+        }
+      }
+      return format;
+    };
+    var transTime = "2018-04-09T16:00:00.000Z";
+    var d = new Date(transTime);
+    var date = d.formate("yyyy-MM-dd")
+    // "2017-04-12"
+    document.querySelector('input').value = date
   </script>
 </body>
+
 </html>
