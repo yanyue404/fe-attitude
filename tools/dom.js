@@ -115,6 +115,11 @@ function getStyle(ele, attr) {
       : ele.getAttribute(attr);
   }
 }
+
+function css(t, n) {
+    return t.currentStyle ? t.currentStyle[n] : getComputedStyle(t, !1)[n]
+}
+
 // setStyle(c, {
 //     backgroundColor: this.bgcolor,
 //     display: 'block'
