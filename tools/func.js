@@ -270,3 +270,22 @@ function throttle(func, wait) {
   }
 }
 
+window.onerror = function(
+  errMsg,
+  scriptURI,
+  lineNumber,
+  columnNumber,
+  errorObj
+) {
+  setTimeout(function() {
+    var rst = {
+      "错误信息：": errMsg,
+      "出错文件：": scriptURI,
+      "出错行号：": lineNumber,
+      "出错列号：": columnNumber,
+      "错误详情：": errorObj
+    };
+
+    alert(JSON.stringify(rst, null, 10));
+  });
+};
