@@ -9,16 +9,43 @@
 <body ng-app="myApp" ng-controller="demoCtrl">
   <input type="text" ng-model="data">
   <input type="date" ng-model="data">
+  <div>{{2 | changeName}}</div>
+  <div>{{1 | changeName}}</div>
   <script src="../bulid/angular.js"></script>
   <script>
 
     angular.module('myApp', [])
       .controller('demoCtrl', demoCtrl)
+      .filter('changeName', [function () {
+        return function (value) {
+
+          var Arr = [
+            { a: 1, name: 'yue' },
+            { a: 2, name: 'xiao' }
+          ]
+
+          /*  for (var i = 0; i < Arr.length; i++) {
+             if (Arr[i].a === value) {
+               return Arr[i].name
+             }
+           } */
+
+          Arr.filter(function (val, index) {
+           if(val.a==value){
+             console.log(val.name)
+             return val.name
+           }
+          })
+
+        }
+
+      }])
 
     function demoCtrl($scope) {
       var transTime = "2018-04-09T16:00:00.000Z";
       var d = new Date(transTime);
       $scope.data = d;
+      $scope.a = '123'
     }
   </script>
 </body>
