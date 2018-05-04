@@ -9,13 +9,12 @@
 </head>
 
 <body>
+  <script src="./src/observer.js"></script>
   <script>
 
-    var arr = [1, 2, 3, 4];
-   var result =  arr.filter(function (v, i) {
-     return v>2;
-    })
-    console.log(result)
+    var data = { name: '1234' }
+    observe(data)
+    data.name = "yue";
   </script>
 </body>
 
