@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body {
+            height: 5000px;
+        }
+        .box {
+            width: 300px;
+            height: 480px;
+            position: relative;
+            margin: 100px auto;
+            overflow: hidden;
+            border: 1px solid red;
+        }
+        .content {
+            width: 260px;
+            padding: 10px;
+            text-align: center;
+            line-height: 34px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #7aff2d;
+        }
+        .scrollBox {
+            width: 20px;
+            height: 480px;
+            position: absolute;
+            right: 0;
+            top: 0;
+            background-color: #ccc;
+        }
+        .bar {
+            width: 20px;
+            position: absolute;
+            top: 0;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: red;
+        }
+    </style>
+
+    <script>
+        window.onload = function () {
+            //需求1:鼠标在bar上按下,并移动的时候,小bar跟随鼠标移动;(案例4:拖拽案例)
+            //需求2:小bar移动的同时,内容区跟随移动;(案例3:放大镜中的大图片移动);
+
+            //0.根据比例计算出小bar应有的高度;
+                //比例:    bar的高度/scrollBox的高度 = box的高度/content的高度;
+            //获取相关元素;
+            var box = document.getElementById("box");
+            var content = box.children[0];
+            var scrollBox = box.children[1];//不兼容ie678
+            var bar = scrollBox.children[0];//不兼容ie678
+
+            //比例 = box的高度/content的高度
+                //clientHeight: 1.不会获取border;  2.不会被内容撑开;
+            var bili = box.clientHeight/content.offsetHeight;
+            var barHeight = bili*scrollBox.offsetHeight;
+            //赋值;
+            bar.style.height = barHeight+"px";
+
+            //需求1:鼠标在bar上按下,并移动的时候,小bar跟随鼠标移动;(案例4:拖拽案例)
+            bar.onmousedown = function (e) {
+                //鼠标按下的时候,获取鼠标在小bar中的坐标,让了给小bar赋值的时候要减去;
+                e = e || window.event;
+                var pageyy = e.pageY || document.documentElement.scrollTop+e.clientY;
+                var bary = bar.offsetTop;
+                var yy = pageyy - bary;
+
+                //在小bar上按下,在真整个也页面移动,都会触动这个事件;
+                document.onmousemove = function (event) {
+                    //获取鼠标在整个页面中的坐标;然后让小bar跟随移动;(只管纵坐标,不管横坐标)
+                    event = event || window.event;
+                    var pagey = event.pageY || document.documentElement.scrollTop+event.clientY;
+                    //用鼠标在整个页面的坐标 - 鼠标在小bar中的坐标;
+                    pagey = pagey - yy;
+                    //pagey应该受到约束;   最小值为0,最大值为scrollBox的高-barHeight
+                    if(pagey<0){
+                        pagey = 0;
+                    }
+                    if(pagey > scrollBox.offsetHeight-barHeight){
+                        pagey = scrollBox.offsetHeight-barHeight
+                    }
+
+                    //给小bar赋值;
+                    bar.style.top = pagey + "px";
+
+                    //需求2:小bar移动的同时,内容区跟随移动;(案例3:放大镜中的大图片移动);
+                        //根据比例移动content内容区;
+                    //比例:    内容区真是走过的距离/小bar真实走过的距离 = (内容-box)/(scrollBox-bar);
+                    var bili2 = (content.offsetHeight-box.clientHeight)/(scrollBox.offsetHeight-barHeight);
+                    content.style.top = - bili2*pagey + "px";
+
+
+                    //取消选定内容;(写到笔记本上,前面的火狐谷歌ie9+使用;后面的兼容ie678)
+                    window.getSelection?window.getSelection().removeAllRanges():document.selection.empty();
+                }
+            }
+
+            //鼠标在页面上哪个位置弹起,都可以除掉onmousemove事件;
+            document.onmouseup = function () {
+                //事件解绑
+                document.onmousemove = null;
+            }
+
+        }
+    </script>
+</head>
+<body>
+
+    <!--大盒子-->
+    <div class="box" id="box">
+        <!--内容区-->
+        <div class="content">
+            ----------开始------------<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            秋名山上行人稀,常有车手较高低.<br>
+            如今车道依旧在,不见当年老司机.<br>
+            ----------结束------------
+        </div>
+        <!--右侧滚动区域-->
+        <div class="scrollBox">
+            <!--滚动条-->
+            <div class="bar"></div>
+        </div>
+    </div>
+
+</body>
+</html>

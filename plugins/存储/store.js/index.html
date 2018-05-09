@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+</head>
+
+<body>
+    <script src="../store.js/dist/store.everything.min.js"></script>
+   <script type="text/javascript">
+    if(!window.console){
+        window.console = {};
+    }
+    if(!window.console.log){
+        window.console.log = function(msg){};
+    }
+</script>
+    <script type="text/javascript">
+
+//     function log(msg){
+//     if (window["console"]){
+//         console.log(msg);
+//     }
+// }
+     console.log("我是ie")
+    init();
+
+    function init() {
+        if (!store.enabled) {
+            alert("你的浏览器不支持本地存储，请使用更高版本的浏览器");
+            return;
+        } else {
+            alert("你的浏览器支持本地存储")
+        }
+    }
+   
+    store.set('name', 'mavis'); //存储name的值为 mavis
+    store.set('name', 'angel'); //将name的值存储为angel
+    
+    console.log("我是ie")
+    console.log(store.get("name"));
+    alert(store.get("name"))
+    </script>
+</body>
+
+</html>

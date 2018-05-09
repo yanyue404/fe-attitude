@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Keywords" content="关键词，关键词">
+    <meta name="Description" content="描述">
+    <title>唯品会</title>
+    <script src="js/jquery.js"></script>
+    <script>
+        window.onload=function () {
+            var Menu_li=$('.menu ul li');//获取到菜单下的li
+            var Main_li=$('.main ul li');//获取到内容下的li
+            var onOff=true;
+            //浏览器滚动
+            $(window).scroll(function () {
+                if(onOff) {
+                    //获取浏览器滚动高度
+                    var _top = $(window).scrollTop();
+//                console.log(_top);
+                    if (_top > 300) {
+//                        console.log(_top);
+                        $('.menu').show();//显示
+                    } else {
+                        $('.menu').hide();//隐藏
+                    }
+                    //右边滚动内容与滚动比大小，若大于，跟着在导航栏显示
+                    Main_li.each(function () { //each遍历，this当前访问，index下标索引.offest偏移值，eq筛选
+                        var _index = $(this).index();//获取当前下标
+                        var _height = $(this).offset().top;//offset().top距离顶部的偏移值
+                        if (_height > _top) {
+                            Menu_li.eq(_index-1).addClass('on').siblings().removeClass('on');//在当前选中项添加class:on,其他项中移除
+                            return false;//跳出遍历
+                        }
+                    })
+                }
+            })
+            //点击导航li时
+            Menu_li.click(function () {
+                onOff=false;
+                $(this).addClass('on').siblings().removeClass('on');
+                var _index=$(this).index();//获取当前下标
+                var _height=Main_li.eq(_index).offset().top;//距离顶部的偏移值
+                $('html,body').animate({scrollTop:_height},500,function () {
+                    onOff=true;
+                })
+            })
+        }
+    </script>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        body{
+            height: 2000px;
+        }
+        .menu {
+            width: 70px;
+            background: #fff;
+            position: fixed;
+            left:30px;
+            top: 50px;
+            border: 1px solid #cacaca;
+            border-radius: 5px;
+            padding:5px;
+            display: none;
+        }
+        .menu ul li {
+            list-style: none;
+            width: 70px;
+            /*height:37px;*/
+            line-height: 37px;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;/*手指*/
+        }
+        .menu ul li.on{
+            background: #ff1aad;
+            color: #fff;
+        }
+        /*阿里图标引入*/
+        @font-face {font-family: 'iconfont';
+            src: url('ioc/iconfont.eot'); /* IE9*/
+            src: url('ioc/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+            url('ioc/iconfont.woff') format('woff'), /* chrome、firefox */
+            url('ioc/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+            url('ioc/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+        }
+        .iconfont{
+            font-family:"iconfont" !important;
+            font-size:16px;font-style:normal;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-stroke-width: 0.2px;
+            -moz-osx-font-smoothing: grayscale;
+            /*font-size: 20px;*/
+            /*color: red;*/
+            margin-left: 10px;
+            margin-right: 5px;
+        }
+        .menu ul li:hover{
+            color: #f092fa;
+        }
+        .top{
+            width:100%;
+            height:300px;
+            background: green;
+        }
+        .main{
+            width:1000px;
+            margin:0 auto;
+        }
+        .main ul li {
+            list-style: none;
+            width: 1000px;
+        }
+
+    </style>
+</head>
+<body>
+ <div class="menu">
+     <ul>
+         <li class="on"><i class="iconfont">&#xe620;</i>精品</li>
+         <li><i class="iconfont">&#xe62b;</i>女装</li>
+         <li><i class="iconfont">&#xe62e;</i>鞋包</li>
+         <li><i class="iconfont">&#xe62a;</i>男士</li>
+         <li><i class="iconfont">&#xe62b;</i>运动</li>
+         <li><i class="iconfont">&#xe607;</i>饰品</li>
+         <li><i class="iconfont">&#xe669;</i>美妆</li>
+         <li><i class="iconfont">&#xe62b;</i>母婴</li>
+         <li><i class="iconfont">&#xe675;</i>居家</li>
+         <li><i class="iconfont">&#xe625;</i>国际</li>
+         <li><i class="iconfont">&#xe684;</i>生活</li>
+         <li><i class="iconfont">&#xe62f;</i>预告</li>
+
+     </ul>
+ </div>
+ <div class="top"></div>
+ <div class="main">
+     <ul>
+         <li><img src="images/main_pic1.png" alt=""></li>
+         <li><img src="images/main_pic2.png" alt=""></li>
+         <li><img src="images/main_pic3.png" alt=""></li>
+         <li><img src="images/main_pic4.png" alt=""></li>
+         <li><img src="images/main_pic5.png" alt=""></li>
+         <li><img src="images/main_pic6.png" alt=""></li>
+         <li><img src="images/main_pic7.png" alt=""></li>
+         <li><img src="images/main_pic8.png" alt=""></li>
+         <li><img src="images/main_pic9.png" alt=""></li>
+         <li><img src="images/main_pic10.png" alt=""></li>
+         <li><img src="images/main_pic11.png" alt=""></li>
+         <li><img src="images/main_pic12.png" alt=""></li>
+     </ul>
+ </div>
+
+</body>
+</html>

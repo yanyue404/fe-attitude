@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<style type="text/css">
+    body {
+        background: #ccc;
+    }
+
+    label {
+        width: 40px;
+        display: inline-block;
+    }
+
+    .container {
+        margin: 100px auto;
+        width: 400px;
+        padding: 50px;
+        line-height: 40px;
+        border: 1px solid #999;
+        background: #efefef;
+    }
+
+    span {
+        margin-left: 30px;
+        font-size: 12px;
+        padding: 2px 20px 0;
+        color: #ccc;
+    }
+
+    .wrong {
+        color: red;
+        background: url(images/error.png) no-repeat;
+    }
+
+    .right {
+        color: green;
+        background: url(images/right.png) no-repeat;
+    }
+
+    .pwd {
+        width: 220px;
+        height: 20px;
+        background: url("images/strong.jpg") no-repeat;
+    }
+
+    .str1 {
+        background-position: 0 -20px;
+    }
+
+    .str2 {
+        background-position: 0 -40px;
+    }
+
+    .str3 {
+        background-position: 0 -60px;
+    }
+
+    .str4 {
+        background-position: 0 -80px;
+    }
+</style>
+<script>
+    window.onload = function () {
+        //难点1:找正则;   难点2:逻辑;(封装)
+
+        //获取相关元素;
+        var inpArr = document.getElementsByTagName("input");
+        var password = document.getElementById("password");
+        //需求1:鼠标移开第一个input,校验里面的内容是否符合qq标准;用后面的span做出提示;
+//        inpArr[0].onblur = function () {
+//            //如果不输入内容不能校验;
+//            if(this.value === ""){
+//                //类名和内容清空
+//                return;
+//            }
+//            //定义正则;验证;
+//            var reg1 = /^[1-9][0-9]{4,11}$/;
+//            if(reg1.test(this.value)){
+//                //1.span的内容;   2.span的类名;
+//                this.nextSibling.className = "right";
+//                this.nextSibling.innerHTML = "输入正确!";
+//            }else{
+//                //错误
+//                this.nextSibling.className = "wrong";
+//                this.nextSibling.innerHTML = "对不起,格式错误!";
+//            }
+//        }
+
+
+
+        //需求1-6....
+        //校验QQ
+        fn(inpArr[0],/^[1-9][0-9]{4,}$/);
+        //校验手机号
+        fn(inpArr[1],/^((13[0-9])|(15[^4,\D])|(18[0-9]))\d{8}$/);
+        //校验邮箱
+        fn(inpArr[2],/^[\w\-\.]+\@[\w]+\.[\w]{2,4}$/);
+        //校验座机
+        fn(inpArr[3],/^0\d{2}-\d{8}$|^0\d{3}-\d{7}$/);
+        //校验账号
+        fn(inpArr[4],/^[a-zA-Z0-9_-]{3,16}$/);
+
+
+
+        //校验密码
+        inpArr[5].onblur = function () {
+            //如果不输入内容不能校验;
+            if(this.value === ""){
+                //类名和内容清空
+                return;
+            }
+            //定义正则;验证;
+            if(/^[\$a-zA-Z0-9_-]{6,18}$/.test(this.value)){
+                //1.span的内容;   2.span的类名;
+                this.nextSibling.className = "right";
+                this.nextSibling.innerHTML = "输入正确!";
+
+                //密码强度单独写;
+                    //思路:输入的内容如果满足校验密码的正则,后面提示格式正确;
+                        //密码强度的校验;
+                //给定最基本的密码强度;
+                password.className = "pwd str1";
+
+                //判断：密码强度级别；(从强到弱)
+                if(/^[A-Za-z0-9]+[_$]+[A-Za-z0-9]*$/.test(this.value)){
+                    password.className = "pwd str4";
+                }else if(/^([a-z].*[0-9])|([A-Z].*[0-9])|([0-9].*[a-zA-Z])$/.test(this.value)){
+                    password.className = "pwd str3";
+                }else if(/^([a-z].*[A-Z])|([A-Z].*[a-z])$/.test(this.value)){
+                    password.className = "pwd str2";
+                }
+
+            }else{
+                //错误
+                this.nextSibling.className = "wrong";
+                this.nextSibling.innerHTML = "对不起,格式错误!";
+            }
+        }
+
+
+
+
+
+
+        //封装
+        function fn(ele,reg){
+            ele.onblur = function () {
+                //如果不输入内容不能校验;
+                if(this.value === ""){
+                    //类名和内容清空
+                    return;
+                }
+                //定义正则;验证;
+                if(reg.test(this.value)){
+                    //1.span的内容;   2.span的类名;
+                    this.nextSibling.className = "right";
+                    this.nextSibling.innerHTML = "输入正确!";
+                }else{
+                    //错误
+                    this.nextSibling.className = "wrong";
+                    this.nextSibling.innerHTML = "对不起,格式错误!";
+                }
+            }
+        }
+
+    }
+</script>
+<body>
+<div class="container">
+    <label for="inp1">QQ</label><input type="text" id="inp1"><span>输入正确的QQ号码</span><br>
+    <label for="inp2">手机</label><input type="text" id="inp2"><span>输入13位手机号码</span><br>
+    <label for="inp3">邮箱</label><input type="text" id="inp3"><span>输入正确邮箱</span><br>
+    <label for="inp4">座机</label><input type="text" id="inp4"><span>输入您的座机</span><br>
+    <label for="inp5">账号</label><input type="text" id="inp5"><span>亲输入您的账号</span><br>
+    <label for="inp6">密码</label><input type="text" id="inp6"><span>请输入您的密码</span><br>
+    <!--密码强度-->
+    <div id="password" class="pwd"></div>
+</div>
+</body>
+</html>

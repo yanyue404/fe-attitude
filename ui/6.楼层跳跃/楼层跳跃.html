@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        ol {
+            position: fixed;
+            left: 50px;
+            top: 50px;
+        }
+
+        ol li {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #000;
+            line-height: 50px;
+            margin-top: -1px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        ul, body, html {
+            width: 100%;
+            height: 100%;
+        }
+
+        ul li {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            font: 700 180px/500px "simsun";
+        }
+    </style>
+    <script src="jquery-1.11.1-min.js"></script>
+    <script>
+        window.onload = function () {
+            //需求1: 给li上色;
+            //需求2: 点击ol中的li,让页面跳转到对应的ul中的li上;
+            //需求1: 给li上色;
+            var ul = document.getElementsByTagName("ul")[0];
+            var ol = document.getElementsByTagName("ol")[0];
+            var olLiArr = ol.children;
+            var ulLiArr = ul.children;
+
+            //来一个数组,上色用;
+            var arr = ["skyblue", "yellowgreen", "pink", "orange", "yellow"];
+            //定义变量
+            var target = 0;
+            var leader = 0;
+            var timer = null;
+
+            //利用for循环上色;
+            for (var i = 0; i < arr.length; i++) {
+                olLiArr[i].style.backgroundColor = arr[i];
+                ulLiArr[i].style.backgroundColor = arr[i];
+
+                //需求2: 点击ol中的li,让页面跳转到对应的ul中的li上;
+                olLiArr[i].index = i;
+                olLiArr[i].onclick = function () {
+                    //点击之后,立即获取目标位置;
+                    //利用ol中的里的索引值,测量对应的ul中li距离顶部的距离;
+                    target = ulLiArr[this.index].offsetTop;
+
+                    //屏幕条状到对应的ul中的li上(模拟缓动动画)
+                    //要用定时器,先清除定时器
+                    clearInterval(timer);
+
+                    timer = setInterval(function () {
+                        //获取步长
+                        var step = (target - leader) / 10;
+                        //二次处理
+                        step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                        //赋值;
+                        leader = leader + step;
+                        window.scrollTo(0, leader);
+                        //清除定时器
+                        if (leader === target) {
+                            clearInterval(timer);
+                        }
+
+                    }, 10);
+                }
+//
+
+            }
+
+
+            //让leader时刻能够获取也页面的纵坐标
+            window.onscroll = function () {
+                leader = scroll().top;
+            }
+
+
+        }
+    </script>
+</head>
+<body>
+<ul>
+    <li>鞋子区域</li>
+    <li>袜子区域</li>
+    <li>裤子区域</li>
+    <li>帽子区域</li>
+    <li>裙子区域</li>
+</ul>
+
+<ol>
+    <li>鞋子</li>
+    <li>袜子</li>
+    <li>裤子</li>
+    <li>帽子</li>
+    <li>裙子</li>
+</ol>
+</body>
+</html>

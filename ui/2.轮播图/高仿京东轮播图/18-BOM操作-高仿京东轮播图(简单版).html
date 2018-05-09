@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        .box {
+            width: 400px;
+            height: 300px;
+            margin: 100px auto;
+            position: relative;
+            border: 1px solid #ccc;
+        }
+        a {
+            display: none;
+            width: 400px;
+            height: 300px;
+            cursor: move;
+            text-align: center;
+            font: 700 80px/300px "simsun";
+        }
+        .show {
+            display: block;
+        }
+        ul {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            margin-left: -66px;
+        }
+        li {
+            float: left;
+            width: 18px;
+            height: 18px;
+            text-align: center;
+            color: #fff;
+            line-height: 18px;
+            cursor: pointer;
+            margin: 2px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.7);
+        }
+        .current {
+            background-color: red;
+        }
+        span {
+            position: absolute;
+            top: 50%;
+            text-align: center;
+            font: 700 30px/60px "simsun";
+            color: #fff;
+            margin-top: -30px;
+            width: 30px;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        span:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+        .right {
+            right: 0;
+        }
+    </style>
+
+    <script>
+        window.onload = function () {
+            //0.老三步;给每一个a链接上色;
+            //1.下面的li标签被点击的时候,点亮的同时让a链接显示出来;
+            //2.点击右边的span,显示下一张图片;
+            //3.点击左边的span,显示上一张图片;
+            //4.加定时器;
+
+
+            //0.老三步;给每一个a链接上色;
+            var box = document.getElementsByClassName("box")[0];
+            var aArr = box.getElementsByTagName("a");
+            var liArr = box.getElementsByTagName("li");
+            var spanArr = box.getElementsByTagName("span");
+            //定义一个颜色数组;
+            var colorArr = ["skyblue","yellowgreen","pink","orange","yellow","green"];
+            for(var i=0;i<aArr.length;i++){
+                aArr[i].style.background = colorArr[i];
+            }
+
+            //1.下面的li标签被点击的时候,点亮的同时让a链接显示出来;
+            //特别简单:排他思想;(干掉所有人,剩下我自己);
+            for(var i=0;i<liArr.length;i++){
+                //自定义属性;绑定索引值;
+                liArr[i]["index"] = i;
+                liArr[i].onclick = function () {
+                    //点亮li,只需要排他思想加this;但是如果让对应的a链接显示;
+                    //就要模拟tab栏;获取索引值;
+                    //利用排他思想,点亮li.
+                    for(var j=0;j<liArr.length;j++){
+                        liArr[j].className = "";
+                        //a标签的显示也要依靠排他思想;
+                        aArr[j].className = "";
+                    }
+                    //剩下我自己;
+                    this.className = "current";
+                    //让对应的a链接,显示出来;  获取索引值:  this.index;
+                    aArr[this.index].className = "show";
+                }
+            }
+
+            //2.点击右边的span,显示下一张图片;
+            //显示和隐藏按钮,不能在用this.index,因为我们点击的是span;
+            //定义一个计数器,模拟索引值;
+            var count = 0;
+            spanArr[1].onclick = function () {
+                count++;
+                //count的最大值为5,等于6的时候,显示第一个;
+                if(count === 6){
+                    count = 0;
+                }
+
+                //下面的逻辑和li标签的一样,只不过用的是count这个索引值;
+
+                //利用排他思想,点亮li.
+                for(var j=0;j<liArr.length;j++){
+                    liArr[j].className = "";
+                    //a标签的显示也要依靠排他思想;
+                    aArr[j].className = "";
+                }
+                //剩下我自己;
+                liArr[count].className = "current";
+                //让对应的a链接,显示出来;
+                aArr[count].className = "show";
+            }
+
+
+
+            //3.点击左边的span,显示上一张图片;
+            //4.加定时器;
+
+
+        }
+    </script>
+</head>
+<body>
+
+<div class="box">
+    <a href="#" class="show">1</a>
+    <a href="#">2</a>
+    <a href="#">3</a>
+    <a href="#">4</a>
+    <a href="#">5</a>
+    <a href="#">6</a>
+
+    <ul>
+        <li class="current">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+    </ul>
+
+    <span class="left">&lt;</span>
+    <span class="right">&gt;</span>
+</div>
+
+
+
+</body>
+</html>

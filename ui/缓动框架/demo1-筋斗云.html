@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        body {
+            background: rgba(0, 0, 0, 0.6);
+        }
+        .box {
+            width: 800px;
+            height: 42px;
+            position: relative;
+            margin: 100px auto;
+            border-radius: 10px;
+            background: #fff url(images/wifi.png) no-repeat right center;
+        }
+        ul {
+            position: relative;
+        }
+        li {
+            float: left;
+            width: 83px;
+            height: 42px;
+            line-height: 42px;
+            text-align: center;
+            cursor: pointer;
+        }
+        span {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 83px;
+            height: 42px;
+            background: url(images/cloud.gif) no-repeat;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            //需求1:鼠标进入到哪个li,span就移动到那个li上;
+            //需求2:鼠标点击在哪个li,移开的时候span就移动到这个li上;
+            //思路:鼠标放在第1个li上,span移动0个li的距离
+            //思路:鼠标放在第2个li上,span移动1个li的距离
+            //思路:鼠标放在第3个li上,span移动2个li的距离
+            //思路:..索引值
+
+
+            //需求1:鼠标进入到哪个li,span就移动到那个li上;
+            var span = document.getElementsByTagName("span")[0];
+            var liArr = document.getElementsByTagName("li");
+            var spanWidth = span.scrollWidth;
+
+            //计数器
+            var count = 0;
+            for(var i=0;i<liArr.length;i++){
+                //自定义属性
+                liArr[i].index = i;
+                liArr[i].onmouseover = function () {
+                    //span移动到这个li上(利用索引值)
+                    animate(span,this.index*spanWidth);
+                }
+
+                //鼠标移开事件
+                liArr[i].onmouseout = function () {
+                    //span移动到这个li上(利用索引值)当移开的时候,移动到记录的位置
+                    animate(span,count*spanWidth);
+                }
+
+
+                //需求2:鼠标点击在哪个li,移开的时候span就移动到这个li上;
+                liArr[i].onclick = function () {
+                    //记录当前的li的索引值,将来移开的时候,移动到该索引值的位置
+                    count = this.index;
+                }
+            }
+
+        }
+
+
+
+        //封装缓动动画(两个参数)
+        function animate(ele,target) {
+            //要用定时器,先清定时器;
+            clearInterval(ele.timer);
+            //设置定时器
+            ele.timer = setInterval(function () {
+                //获取步长
+                var step = (target - ele.offsetLeft) / 10;
+                //二次处理步长
+                step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                //赋值
+                ele.style.left = ele.offsetLeft + step + "px";
+                //清除定时器
+                console.log(1);
+                //忽略小数
+//                if(target === ele.offsetLeft){
+//                    clearInterval(ele.timer);
+//                }
+                //(如果目标位置和当前位置不够一个步长,就先赋值目标位置,在清除定时器)
+                if (Math.abs(target - ele.offsetLeft) <= Math.abs(step)) {
+                    ele.style.left = target + "px";
+                    clearInterval(ele.timer);
+                }
+            }, 10);
+        }
+    </script>
+
+
+</head>
+<body>
+
+<div class="box">
+    <span></span>
+    <ul>
+        <li>首页新闻</li>
+        <li>师资力量</li>
+        <li>活动策划</li>
+        <li>企业文化</li>
+        <li>招聘信息</li>
+        <li>公司简介</li>
+        <li>上海校区</li>
+        <li>广州校区</li>
+    </ul>
+</div>
+
+
+</body>
+</html>

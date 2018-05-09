@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        button {
+            width: 100px;
+            height: 50px;
+            margin: 10px;
+            font-size: 20px;
+        }
+
+        div {
+            width: 100px;
+            height: 100px;
+            top: 100px;
+            left: 0;
+            position: absolute;
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+<button>动起来</button>
+<div></div>
+
+<script>
+    //需求：点击盒子，让他的宽度变为500，高度变为500，top变为300；left:300;
+    //要求：用一个方法实现；
+
+    var btn = document.getElementsByTagName("button")[0];
+    var div = document.getElementsByTagName("div")[0];
+
+    btn.onclick = function () {
+        //让盒子从左到右,在到下,在到左,在到上;
+        var json1 = {left: 400};
+        var json2 = {top: 500};
+        var json3 = {left: 0};
+        var json4 = {top: 100};
+
+        //需求:让一个程序执行完毕再执行另外一个(这是一种规则:回调函数)
+
+        animate(div, json1, function () {
+            animate(div, json2, function () {
+                animate(div, json3, function () {
+                    animate(div, json4);
+                })
+            })
+        })
+    }
+
+    function animate(ele, json, fn) {
+        //要用定时器,先清定时器
+        clearInterval(ele.timer);
+        //定义定时器
+        ele.timer = setInterval(function () {
+            //利用for...in...遍历json中的每一项,把里面原来的attr换成k,把里面原来的target换成json[k];
+
+            //开闭原则:每次定时器执行时间初始化bool值为true;
+            var bool = true;//一定在for循环之外,还不能超出定时器之外
+            for (var k in json) {
+                //获取盒子当前位置;获取不到位0
+                var leader = parseInt(getStyle(ele, k)) || 0; //getStyle()的返回值是一个带有单位的字符串
+                //获取步长
+                var step = (json[k] - leader) / 10;
+                //二次操作
+                step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                //赋值
+                leader = leader + step;//下一个盒子要到达的位置
+                ele.style[k] = leader + "px";
+
+                console.log(1);
+
+                //for循环之内必须有一个判断每一个属性,是否都到达目标位置
+                if (json[k] != leader) {
+                    //有一个没有到达的,也不能清除定时器
+                    bool = false;
+                }
+
+            }
+
+            //所以清除定时器必须在for循环之外,还需判断
+            if (bool) {
+                clearInterval(ele.timer);
+
+                //清除定时器之后,就是整个函数执行完毕的时候,这时候就可以执行另外一个函数了
+                //bug:没有传递函数就不要执行了;
+                //if( fn && typeOf == "function){//存在此变量且数据类型为函数}
+                //判断有没有函数
+                if (fn) {
+                    fn();//函数名+()就是执行函数
+                }
+            }
+
+        }, 30);
+    }
+
+
+    function getStyle(ele, attr) {
+        //判断:浏览器是否支持某个方法,支持就调用,不支持就用另外一个
+        if (ele.currentStyle !== undefined) {//如果该属性不存在返回值就是undefined
+            return ele.currentStyle[attr];//中括号获取属性值,比较灵活,传递什么就是什么
+        } else {
+            //火狐谷歌ie9+支持的方法
+            return window.getComputedStyle(ele, null)[attr];
+        }
+    }
+
+</script>
+
+
+</body>
+</html>

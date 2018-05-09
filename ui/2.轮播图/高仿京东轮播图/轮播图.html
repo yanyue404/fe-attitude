@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .box {
+      width: 400px;
+      height: 300px;
+      margin: 100px auto;
+      position: relative;
+      border: 1px solid #ccc;
+    }
+
+    a {
+      display: none;
+      width: 400px;
+      height: 300px;
+      cursor: move;
+      text-align: center;
+      font: 700 80px/300px "simsun";
+    }
+
+    .show {
+      display: block;
+    }
+
+    ul {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      margin-left: -66px;
+    }
+
+    li {
+      float: left;
+      width: 18px;
+      height: 18px;
+      text-align: center;
+      color: #fff;
+      line-height: 18px;
+      cursor: pointer;
+      margin: 2px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.7);
+    }
+
+    .current {
+      background-color: red;
+    }
+
+    span {
+      position: absolute;
+      top: 50%;
+      text-align: center;
+      font: 700 30px/60px "simsun";
+      color: #fff;
+      margin-top: -30px;
+      width: 30px;
+      cursor: pointer;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    span:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    .right {
+      right: 0;
+    }
+  </style>
+
+
+</head>
+
+
+<body>
+
+  <div class="box">
+    <a href="#" class="show">1</a>
+    <a href="#">2</a>
+    <a href="#">3</a>
+    <a href="#">4</a>
+    <a href="#">5</a>
+    <a href="#">6</a>
+
+    <ul>
+      <li class="current">1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+    </ul>
+
+    <span class="left">&lt;</span>
+    <span class="right">&gt;</span>
+  </div>
+
+
+
+</body>
+<script>
+
+
+  var colorArr = ["skyblue", "yellowgreen", "pink", "orange", "yellow", "green"];
+  var liArr = document.querySelectorAll('.box ul li');
+  var boxArr = document.querySelectorAll('.box a');
+  var btnR = document.querySelector('.right');
+  var btnL = document.querySelector('.left')
+
+
+  // 上色
+  for (var i = 0; i < boxArr.length; i++) {
+    boxArr[i].style.backgroundColor = colorArr[i];
+  }
+
+  // 点亮
+  for (var i = 0; i < liArr.length; i++) {
+    liArr[i].index = i;
+    liArr[i].onclick = function () {
+      // alert(this.index)
+      for (var j = 0; j < liArr.length; j++) {
+        liArr[j].className = '';
+        boxArr[j].className = ''
+      }
+      liArr[this.index].className = 'current';
+      boxArr[this.index].className = 'show';
+
+    }
+  }
+
+  // 右侧按钮
+  var count = 0;
+  btnR.onclick = function () {
+    count++;
+    if (count === boxArr.length) {
+      count = 0;
+    }
+    for (var i = 0; i < boxArr.length; i++) {
+      boxArr[i].className = '';
+      liArr[i].className = ''
+    }
+    boxArr[count].className = 'show';
+    liArr[count].className = 'current'
+  }
+
+  // 左侧按钮
+  var num = boxArr.length;
+  btnL.onclick = function () {
+    num--;
+    if (num === -1) {
+      num = boxArr.length - 1
+    }
+    for (var j = 0; j < boxArr.length; j++) {
+      boxArr[j].className = '';
+      liArr[j].className = ''
+    }
+    boxArr[num].className = 'show';
+    liArr[num].className = 'current'
+  }
+
+</script>
+
+</html>

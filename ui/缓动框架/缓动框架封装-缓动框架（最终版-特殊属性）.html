@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        button {
+            width: 100px;
+            height: 50px;
+            margin: 10px;
+            font-size: 20px;
+        }
+
+        div {
+            width: 100px;
+            height: 100px;
+            top: 100px;
+            left: 0;
+            position: absolute;
+            background-color: pink;
+            filter: "alpha(opcacity=" ")";
+
+        }
+    </style>
+</head>
+<body>
+<button>动起来</button>
+<div></div>
+
+<script>
+    //需求：点击盒子，让他的宽度变为500，高度变为500，top变为300；left:300;
+    //要求：用一个方法实现；
+    var btn = document.getElementsByTagName("button")[0];
+    var div = document.getElementsByTagName("div")[0];
+
+    //绑定事件
+    btn.onclick = function () {
+        //回调函数版存在一些问题: 有些属性无法控制!
+        //1.不带代为的属性;(z-index);
+        //2.小数赋值的属性;(opacity);
+        //3.特殊属性: backgroundColor;border;color;border-radius.....
+        //有一部分属性,jquery也做不到需要依赖jquery的插件;
+
+        //兼容部分属性: 1.不带代为的属性;(z-index);
+        //兼容部分属性: 2.小数赋值的属性;(opacity);还有兼容问题;
+        //旋转木马要用到这两个属性;.....
+
+        //思路:就是在for循环中对属性进行判断:不一样的属性给不一样的逻辑;
+        animate(div, {"opacity": 0.1, "z-index": 3})
+
+    }
+
+
+    //封装一个方法,传递过去三个参数,元素/属性/值!
+    function animate(ele, json, fn) {
+        //要用定时器,先清定时器
+        clearInterval(ele.timer);
+        ele.timer = setInterval(function () {
+            //一定在for循环之外,还不能超出定时器之外
+            var bool = true;
+            for (var k in json) {
+                //如果属性为z-index
+                if (k === "z-index") {
+                    ele.style.zIndex = json[k];
+                    //如果属性为opacity(一定是小数)
+                } else if (k === "opacity") {
+                    var leader = parseInt(getStyle(ele, k) * 10) || 10;//getStyle();的返回值是一个带有单位的字符串
+                    var step = (parseInt(json[k] * 10) - leader) / 10;
+                    step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                    leader = leader + step;
+                    ele.style[k] = leader / 10;
+                    //兼容ie678
+                    ele.style.filter = "alpha(opacity:" + leader * 10 + ")";
+                    //清除定时器;
+                    if (parseInt(json[k] * 10) !== leader) {
+                        bool = false;
+                    }
+                } else {
+                    //正常属性,走这一套逻辑
+                    var leader = parseInt(getStyle(ele, k)) || 0;//getStyle();的返回值是一个带有单位的字符串
+                    var step = (json[k] - leader) / 10;
+                    step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                    leader = leader + step;//下一步盒子要到的位置
+                    ele.style[k] = leader + "px";
+                    //清除定时器;
+                    if (json[k] !== leader) {
+                        bool = false;
+                    }
+                }
+            }
+            //所以清除定时器必须在for循环之外,还需要判断;
+            console.log(1);
+            if (bool) {
+                clearInterval(ele.timer);
+                //清除定时器之后,就是整个函数执行完毕的时候,这时候我就可以执行另一个函数了
+                if (fn) {
+                    fn();
+                }
+            }
+        }, 30);
+    }
+
+
+    function getStyle(ele, attr) {
+        //判断:浏览器是否支持某个方法,支持就调用,不支持就用另外一个
+        if (ele.currentStyle !== undefined) {//如果该属性不存在返回值就是undefined
+            return ele.currentStyle[attr];//中括号获取属性值,比较灵活,传递什么就是什么
+        } else {
+            //火狐谷歌ie9+支持的方法
+            return window.getComputedStyle(ele, null)[attr];
+        }
+    }
+</script>
+
+</body>
+</html>

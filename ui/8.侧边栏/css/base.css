@@ -1,0 +1,40 @@
+body,p,h1,h2,h3,h4,h5,h6,ul,ol,dl,dt,dd,li,input {
+    margin: 0;
+    padding: 0;
+    color: #666;
+    font-family: "微软雅黑";
+    font-size: 12px;
+}
+li {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+    color: #666;
+    font-family: "微软雅黑";
+    font-size: 12px;
+}
+input,textarea,button {
+    outline: none;
+    border: 0;
+}
+
+/*公共样式*/
+.w {
+    width: 1000px;
+    margin: 0 auto;
+}
+.clearfix:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+.clearfix {
+    *zoom: 1;
+}
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}

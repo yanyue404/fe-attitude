@@ -1,0 +1,804 @@
+
+.fixed {
+    position: fixed;
+    z-index: 1000;
+    top: -40px;
+}
+.zym-head .top {
+    height: 28px;
+    background-color: #f5f5f5;
+}
+.zym-head .top .city {
+    width: 80px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 28px;
+}
+.zym-head .top .city i {
+    color: #bbb;
+    font-style: normal;
+}
+.zym-head .top .city-box {
+    position: relative;
+}
+.zym-head .top .city-list {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    top: 28px;;
+    left: 0;
+    height: 435px;
+    padding: 4px 20px 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: 0;
+}
+.zym-head .top  .city-list tbody tr p {
+    width: 251px;
+    padding-left: 4px;
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px dotted #666;
+    font-weight: 700;
+    text-align: left;
+    color: #000;
+    font-size: 14px;
+}
+.zym-head .top  .city-list tbody tr {
+    display: block;
+    width: 255px;
+    line-height: 26px;
+    height: 26px;
+}
+.zym-head .top  .city-list tbody tr:nth-child(2){
+    margin-top: 14px;
+}
+.zym-head .top .city-list tbody tr th {
+    height: 26px;
+    width: 20px;
+    text-align: left;
+    font-weight: 100;
+}
+.zym-head .top .city-list tbody tr span {
+    cursor: pointer;
+    padding: 2px 2px;
+    color: #676767;
+    margin-right: 3px;
+}
+.zym-head .top ul {
+    line-height: 28px;
+}
+.zym-head .top ul li {
+    padding: 0 10px;
+    float: left;
+}
+.zym-head .top ul li a:hover {
+    color: #f10180;
+}
+.zym-head .top ul li:nth-child(1){
+    position: relative;
+}
+.zym-head .top ul li .user-info {
+    display: none;
+    position: absolute;
+    z-index: 3;
+    top: 28px;
+    left: 0;
+    width: 280px;
+    height: 150px;
+    padding-top: 14px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: 0;
+}
+.zym-head .top ul li .user-info-top {
+    width: 240px;
+    height: 38px;
+    padding: 15px 20px 0;
+}
+.zym-head .top ul li .user-info-top span.pic {
+    width: 38px;
+    height: 38px;
+    margin-right: 10px;
+    background: url(../images/jinglingtu.png) no-repeat 0 -185px;
+}
+.zym-head .top ul li .user-info-top p {
+    float: left;
+    width: 175px;
+    height: 33px;
+    line-height: 33px;
+    padding-left: 5px;
+    background-color: #fff;
+    border-bottom: 1px dotted #999;
+}
+.zym-head .top ul li .user-info a:hover {
+    color: #f10180;
+}
+.zym-head .top ul li .user-info-list {
+    width: 241px;
+    height: 78px;
+    padding-left: 15px;
+    margin: 10px 12px;
+}
+.zym-head .top ul li .user-info-list span {
+    float: left;
+    padding-left: 40px;
+    width: 80px;
+    height: 20px;
+    line-height: 20px;
+    background-color: #fff;
+    margin: 3px 0;
+}
+.zym-head .top ul li.temai {
+    position: relative;
+}
+.zym-head .top ul li.temai:hover {
+    color: #f10180;
+}
+.zym-head .top ul li.temai .shoucang {
+    display: none;
+    position: absolute;
+    top: 28px;
+    left: 0;
+    width: 120px;
+    height: 98px;
+    border: 1px solid #ccc;
+    border-top: 0;
+    background-color: #fff;
+    padding: 0 10px 10px 0;
+}
+.zym-head .top ul li.temai .shoucang p {
+    width: 100px;
+    height: 88px;
+    padding-left: 20px;
+}
+.zym-head .top ul li.temai .shoucang p span {
+    width: 100%;
+    height: 26px;
+    margin: 3px 0;
+}
+.zym-head .top ul li.vip-club {
+    position: relative;
+}
+.zym-head .top ul li.vip-club .vip-club-nav {
+    display: none;
+    position: absolute;
+    top: 28px;
+    left: -11px;
+    width: 100px;
+    padding: 0 10px 10px 0;
+    height: 110px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: 0;
+}
+.zym-head .top ul li.vip-club .vip-club-nav p {
+    padding-left: 20px;
+}
+.zym-head .top ul li.vip-club .vip-club-nav p span {
+    width: 81px;
+    height: 26px;
+    margin: 5px 0;
+}
+.zym-head .top ul li.phone i {
+    display: inline-block;
+    width: 10px;
+    height: 14px;
+    margin: 0 3px 0 1px;
+    background: url(../images/jinglingtu.png) no-repeat -100px -150px;
+}
+.zym-head .top ul li.servce {
+    position: relative;
+}
+.zym-head .top ul li.servce .servce-nav {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    top: 28px;
+    left: -10px;
+    width: 99px;
+    height: 129px;
+    padding: 0 10px 10px 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: 0;
+}
+.zym-head .top ul li.servce .servce-nav p {
+    padding-left: 20px;
+}
+.zym-head .top ul li.servce .servce-nav p span {
+    width: 79px;
+    height: 26px;
+    line-height: 26px;
+    margin: 3px 0;
+}
+.zym-head .top ul li.phone {
+    position: relative;
+}
+.zym-head .top ul li.phone .phone-nav {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    top: 28px;
+    right: 0;
+    width: 187px;
+    height: 203px;
+    background-color: #fff;
+    padding-top: 12px;
+    border: 1px solid #ccc;
+    border-top: 0;
+    text-align: center;
+}
+.zym-head .top ul li.phone .phone-nav p {
+    margin-top: -3px;
+}
+.zym-head .top ul li.phone .phone-nav p a{
+    font-size: 15px;
+    font-weight: 700;
+    color: #333;
+}
+.zym-head .top ul li.phone .phone-nav p a:hover {
+    color: #f10180;
+}
+.zym-head .top ul li.phone .phone-nav a img{
+    width: 160px;
+}
+.zym-head .top ul li.more {
+    position: relative;
+}
+.zym-head .top ul li.more a i {
+    font-style: normal;
+    font-size: 12px;
+}
+.zym-head .top ul li.more .more-list {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    top: 28px;
+    right: 0;
+    width: 300px;
+    height: 144px;
+    background-color: #fff;
+    padding: 10px 0;
+    border: 1px solid #ccc;
+    border-top: 0;
+}
+.zym-head .top ul li.more .more-list h5 {
+    width: 260px;
+    height: 25px;
+    padding: 0 20px;
+    margin-top: 5px;
+    font-weight: 700;
+    font-size: 14px;
+    color: #333;
+}
+.zym-head .top ul li.more .more-list p {
+    width: 260px;
+    height: 26px;
+    padding: 0 20px;
+}
+.zym-head .top ul li.more .more-list p a {
+    display: inline;
+    margin-right: 10px;
+    color: #333;
+}
+.zym-head .top ul li.more .more-list p a:hover {
+    color: #f10180;
+}
+.zym-head .top ul li.more .more-list p.ad {
+    padding: 0;
+    padding-bottom: 15px;
+    margin: 0 20px;
+    border-bottom: 1px dotted #ccc;
+}
+
+.zym-head .top ul span {
+    float: left;
+    margin: 0 5px;
+    cursor: default;
+}
+.zym-head .con {
+    height: 100px;
+}
+.zym-head .con h1 {
+    float: left;
+    margin-left: -30px;
+}
+.zym-head .con h1 img {
+    float: left;
+    height: 100px;
+}
+.zym-head .con .ad {
+    height: 100px;
+}
+.zym-head .con .ad li {
+    float: left;
+    margin-right: 20px;
+}
+.zym-head .con .ad img {
+    height: 100px;
+}
+.zym-head .con .ad .bag {
+    position: relative;
+    cursor: pointer;
+    color: #333;
+    margin-right: 0;
+}
+.zym-head .con .bag .my-bag {
+    width: 111px;
+    height: 29px;
+    padding: 18px 9px 5px 14px;
+    margin-top: 17px;
+    color: #333;
+}
+.zym-head .con .bag i {
+    float: left;
+    position: relative;
+    width: 28px;
+    height: 28px;
+    margin-right: 12px;
+    background: url(../images/jinglingtu.png) no-repeat 6px -57px;
+}
+.zym-head .con .bag p span {
+    float: left;
+    line-height: 28px;
+}
+.zym-head .con .bag em {
+    position: absolute;
+    background: #f10180;
+    border-radius: 8px;
+    height: 16px;
+    width: 24px;
+    font-style: normal;
+    line-height: 16px;
+    color: #fff;
+    left: 14px;
+    top: -2px;
+    text-align: center;
+}
+.zym-head .con .bag .bag-list {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    top: 70px;
+    right: 0;
+    width: 320px;
+    height: 60px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+.zym-head .con .bag .bag-list .white-line {
+    position: absolute;
+    top: -2px;
+    right: 0;
+    height: 3px;
+    width: 132px;
+    background-color: #fff;
+}
+.zym-head .con .bag .bag-list .bag-list-in {
+    width: 320px;
+    padding: 16px 0;
+}
+.zym-head .con .bag .bag-list .bag-list-in p {
+    color: #333;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+}
+.zym-head .con .bag .bag-list .bag-list-in p a {
+    color: #f10180;
+}
+.zym-head .con .line {
+    float: left;
+    margin-top: 45px;
+    width: 1px;
+    height: 10px;
+    background-color: #dddddd;
+}
+.zym-head .nav {
+    width: 100%;
+    height: 40px;
+    background-color: #f10180;
+}
+.zym-head .nav ul {
+    float: left;
+}
+.zym-head .nav ul li {
+    float: left;
+}
+.zym-head .nav ul li a{
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 15px;
+    color: #fff;
+    font-size: 16px;
+}
+.zym-head .nav ul.first-ul li:nth-child(1) {
+    background-color: #bd1067;
+}
+.zym-head .nav ul li:hover {
+    background-color: #db0a76;
+}
+.zym-head .nav ul li a {
+    color: #fff;
+}
+.zym-head .nav ul.first-ul li a {
+    font-size: 16px;
+}
+.zym-head .nav ul.second-ul li a {
+    font-size: 15px;
+}
+.zym-head .nav .second-ul li.more {
+    height: 40px;
+    cursor: pointer;
+    line-height: 40px;
+    padding: 0 15px;
+    color: #fff;
+    font-size: 15px;
+}
+.zym-head .nav .second-ul li.more i {
+    font-style: normal;
+    font-size: 8px;
+}
+
+.zym-head .nav ol li {
+    float: left;
+}
+.zym-head .nav ol li i {
+    float: left;
+    margin: 3px 2px 0 0;
+    width: 20px;
+    height: 32px;
+    background: url(../images/1470377526197.png) no-repeat center;
+}
+.zym-head .nav ol li i.second-i {
+    background: url(../images/1470377501079.png) no-repeat center;
+}
+.zym-head .nav ol li a{
+    float: left;
+    color: #fff;
+    font-size: 16px;
+    padding: 0 14px;
+    width: 58px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+}
+.zym-head .nav ol li a:hover {
+    background-color: #bd1067;
+}
+.zym-head .nav .second-ul .more {
+    position: relative;
+}
+.zym-head .nav .second-ul-more-pic {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    top: 40px;
+    width: 568px;
+    height: 224px;
+    background-color: #fff;
+    padding: 26px 10px 11px 26px;
+    box-shadow: 0 0 3px 3px rgba(0,0,0,.1);
+
+}
+.zym-head .nav .second-ul-more-pic .more-pic {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    margin: 0 16px 16px 0;
+    width: 170px;
+    height: 96px;
+    border-radius: 4px;
+    vertical-align: top;
+    overflow: hidden;
+}
+.zym-head .nav .second-ul-more-pic .more-pic a{
+    width: 100%;
+    height: 100%;
+    padding: 0;
+}
+.zym-head .nav .second-ul-more-pic a img {
+    display: inline;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+.zym-head .nav .second-ul-more-pic a i {
+    position: absolute;
+    top: 38px;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 96px;
+    background: linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,.9) 100%);
+}
+
+.zym-head .nav .second-ul-more-pic a p {
+    position: absolute;
+    z-index: 3;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    width: 100%;
+    height: 20px;
+    left: 0;
+    bottom: 10px;
+}
+.zym-sidebar {
+    position: fixed;
+    right: -36px;
+    top: 0;
+    width: 36px;
+    height: 100%;
+    z-index:9999;
+    background-color: #262626;
+    color: #fff;
+}
+.zym-sidebar i {
+    font-size: 24px;
+}
+.zym-sidebar .sidebar-charge {
+    cursor: pointer;
+    width: 36px;
+    height: 42px;
+    padding: 8px 0 6px 0;
+    text-align: center;
+    margin-top: 88px;
+    line-height: 22px;
+}
+.zym-sidebar .sidebar-charge .sidebar-charge-login {
+    display: none;
+    position: absolute;
+    top: 88px;
+    left: -274px;
+    width: 246px;
+    height: 304px;
+    padding: 0 14px;
+    border-right: 1px solid #ccc;
+    border-right: 0;
+    background-color: #fff;
+    overflow: hidden;
+    box-shadow: -5px 1px 8px rgba(0,0,0,.15);
+}
+.zym-sidebar .sidebar-charge .sidebar-charge-login img{
+    display: block;
+    cursor: pointer;
+    margin: 30px auto 20px;
+    width: 66px;
+    height: 66px;
+    border: 1px solid #fff;
+    box-shadow: 0 1px 3px #ddd;
+}
+.zym-sidebar .sidebar-charge .sidebar-charge-login p {
+    padding-bottom: 20px;
+}
+.zym-sidebar .sidebar-charge .sidebar-charge-login p a{
+    color: #df147f;
+}
+.zym-sidebar .sidebar-charge .sidebar-charge-login .sidebar-charge-center{
+    clear: both;
+    overflow: hidden;
+    margin: 0 -14px;
+    width: 274px;
+    height: 76px;
+    padding: 14px 0;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    background-color: #f8f8f8;
+}
+.zym-sidebar .sidebar-charge .sidebar-charge-login .sidebar-charge-center a {
+    width: 136px;
+    border-right: 1px solid #e5e5e5;
+    float: left;
+    position: relative;
+    height: 66px;
+    padding-top: 10px;
+    text-align: center;
+    font-size: 9px;
+}
+.zym-sidebar .sidebar-charge .sidebar-charge-login .sidebar-charge-center a:hover {
+    color: #df147f;
+    cursor: pointer;
+}
+
+.zym-sidebar .sidebar-charge .sidebar-charge-login .sidebar-charge-center a i {
+    display: block;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+.zym-sidebar .sidebar-charge .sidebar-charge-login .avip-club{
+    line-height: 36px;
+    color: #20a0cd;
+    padding-right: 15px;
+    float: right;
+}
+.zym-sidebar .sidebar-charge .sidebar-charge-login span {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    font-size: 25px;
+    cursor: pointer;
+    color: #333;
+    text-align: center;
+    top: 10px;
+    right: 20px;
+}
+.zym-sidebar .sidebar-charge .sidebar-charge-login span:hover {
+    color: #ccc;
+}
+
+.zym-sidebar .sidebar-charge:hover {
+    background-color: #df147f;
+}
+.zym-sidebar .shop-bag {
+    position: relative;
+    cursor: pointer;
+    width: 36px;
+    height: 130px;
+    padding-top: 20px;
+    border-top: 1px solid #262626;
+    background-color: #df147f;
+    text-align: center;
+    line-height: 18px;
+}
+.zym-sidebar .shop-bag .shop-bag-in {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 36px;
+    width: 246px;
+    height: 198px;
+    padding: 0 14px;
+    border: 1px solid #ccc;
+    border-right: 0;
+    box-shadow: -5px 1px 8px rgba(0,0,0,.15);
+    background-color: #fff;
+    text-align: center;
+    cursor: auto;
+}
+.zym-sidebar .shop-bag .shop-bag-in img {
+    cursor: pointer;
+    display: block;
+    margin: 30px auto 20px;
+    width: 66px;
+    height: 66px;
+    border: 1px solid #fff;
+    box-shadow: 0 1px 3px #ddd;
+}
+.zym-sidebar .shop-bag .shop-bag-in p {
+    color: #333;
+}
+.zym-sidebar .shop-bag .shop-bag-in p a{
+    color: #df147f;
+}
+.zym-sidebar .shop-bag .shop-bag-in span {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    font-size: 25px;
+    cursor: pointer;
+    color: #333;
+    text-align: center;
+    top: 10px;
+    right: 20px;
+}
+
+.zym-sidebar .shop-bag i {
+    display: block;
+    margin-bottom: 10px;
+}
+.zym-sidebar .shop-bag p {
+    color: #fff;
+    font-size: 14px;
+}
+.zym-sidebar .shop-bag em {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    font-style: normal;
+    text-align: center;
+    line-height: 20px;
+    color: #df147f;
+    border-radius: 50%;
+    margin-top: 10px;
+    margin-left: 8px;
+}
+.zym-sidebar .small-list {
+    position: relative;
+    text-align: center;
+    padding-top: 5px;
+}
+.zym-sidebar .small-list i {
+    position: relative;
+    z-index: 1;
+    background: #262626;
+    display: block;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    font-size: 22px;
+    margin-bottom: 2px;
+    cursor: pointer;
+}
+.zym-sidebar .small-list i:hover {
+    background: #df147f;
+}
+.zym-sidebar .small-list i:nth-child(3){
+    font-size: 25px;
+}
+.zym-sidebar .small-list p {
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: -70px;
+    width: 100px;
+    height: 34px;
+    line-height: 34px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-right: 0;
+    box-shadow: -5px 1px 8px rgba(0,0,0,.15);
+    text-align: center;
+}
+.zym-sidebar .small-list p.incon-in2 {
+    top: 43px;
+}
+.zym-sidebar .small-list p.incon-in3 {
+    top: 81px;
+}
+.zym-sidebar .small-list p.incon-in4 {
+    top: 119px;
+}
+.zym-sidebar .bottom-list {
+    position: absolute;
+    text-align: center;
+    left: 0;
+    bottom: 20px;
+}
+.zym-sidebar .bottom-list i {
+    position: relative;
+    z-index: 1;
+    display: block;
+    margin-top: 2px;
+    width: 36px;
+    height: 36px;
+    background-color: #262626;
+    cursor: pointer;
+    text-align: center;
+    line-height: 36px;
+}
+.zym-sidebar .bottom-list p {
+    cursor: pointer;
+    position: absolute;
+    top: 2px;
+    right: -70px;
+    width: 100px;
+    height: 34px;
+    line-height: 34px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-right: 0;
+    box-shadow: -5px 1px 8px rgba(0,0,0,.15);
+    text-align: center;
+}
+.zym-sidebar .bottom-list p.incon-in6 {
+    top: 40px;
+}
+.zym-sidebar .bottom-list a {
+    color: #fff;
+}
+.zym-sidebar .bottom-list i:hover {
+    background: #df147f;
+}
+
+
+
+
+
+

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .tab-web {
+            width: 404px;
+            height: 330px;
+            margin: 50px auto;
+            overflow: hidden;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        li {
+            float: left;
+            list-style: none;
+            width: 40px;
+            height: 33px;
+            line-height: 33px;
+            text-align: center;
+            color: #000;
+            margin-right: 2px;
+            padding: 0 20px;
+            border: 1px solid #ddd;
+            border-bottom-color: #000;
+            cursor: pointer;
+            position: relative;
+            z-index: 20;
+        }
+
+        .item {
+            display: none;
+            height: 260px;
+            width: 400px;
+            text-align: center;
+            font: 700 80px/260px "simsum";
+            background-color: #fff;
+            border: 1px solid #000;
+            position: relative;
+            top: -1px;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .current {
+            color: #c00;
+            padding: 0 20px;
+            margin-top: 1px;
+            background: url(./images/tabs_0.gif) repeat-x left bottom;
+            border: 1px solid #000;
+            border-bottom: 0;
+            cursor: pointer;
+            z-index: 100;
+        }
+    </style>
+</head>
+<script>
+    window.onload = function () {
+        Tab();
+    }
+    function Tab() {
+        var arrLi = document.querySelectorAll('#tab-web li');
+        var arrSpan = document.querySelectorAll('.item');
+
+        for (var i = 0; i < arrLi.length; i++) {
+            arrLi[i].index = i;
+            arrLi[i].onclick = function () {
+                for (var j = 0; j < arrLi.length; j++) {
+                    // 排他思想，干掉所有人
+                    arrLi[j].className = "";
+                    arrSpan[j].className = "item";
+                }
+                // 只剩我自己
+                this.className = "current";
+                arrSpan[this.index].className = "show item";
+            }
+        }
+    }
+
+
+
+</script>
+
+<body>
+    <div class="tab-web" id="tab-web">
+        <ul>
+            <li class="current">新闻</li>
+            <li>娱乐</li>
+            <li>旅游</li>
+        </ul>
+        <div class="show item">新闻区域</div>
+        <div class="item">娱乐区域</div>
+        <div class="item">旅游区域</div>
+    </div>
+</body>
+
+</html>

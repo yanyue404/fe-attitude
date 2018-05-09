@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .wrapper {
+            width: 1000px;
+            height: 475px;
+            margin: 0 auto;
+            margin-top: 100px;
+        }
+
+        .tab {
+            border: 1px solid #ddd;
+            border-bottom: 0;
+            height: 36px;
+            width: 320px;
+        }
+
+        .tab li {
+            position: relative;
+            float: left;
+            width: 80px;
+            height: 34px;
+            line-height: 34px;
+            text-align: center;
+            cursor: pointer;
+            border-top: 4px solid #fff;
+        }
+
+        .tab span {
+            position: absolute;
+            right: 0;
+            top: 10px;
+            background: #ddd;
+            width: 1px;
+            height: 14px;
+            overflow: hidden;
+        }
+
+        .products {
+            width: 1002px;
+            border: 1px solid #ddd;
+            height: 476px;
+        }
+
+        .products .main {
+            float: left;
+            display: none;
+        }
+
+        .products .main.selected {
+            display: block;
+        }
+
+        .tab li.active {
+            border-color: red;
+            border-bottom: 0;
+        }
+
+        .message {
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+            padding-left: 10px;
+            border: 1px solid #ccc;
+            font-size: 12px;
+            opacity: 0;
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/jquery/1.8.0/jquery-1.8.0.js"></script>
+    <!--
+            1:页面结构
+            2：入口函数
+            3：找事件
+            tab-item 添加点击事件
+                    1：点击tab-item,给当前点击的元素添加一个样式
+                   把其它的兄弟元素 tab-item 移除.
+                    2：我还需要根据当前tab-item去找到对应的产品的div
+                 怎么对应，我们通过索引去对应.
+                    3：如果对应上之后，我应该吧这个产品的div 显示。
+                 把这个产品的div 的其它的兄弟元素隐藏.
+    -->
+    <script>
+        $(function () {
+
+            $(".tab-item").click(function () {
+                $(this).addClass("active").siblings().removeClass("active");
+                $(".products>div").eq($(this).index()).show().siblings().hide();
+                /*
+                * 逻辑应该写在这个点击事件里面.
+                * 1:准备一个盒子.
+                * 2:获取到当前点击的盒子的位置
+                * 3:根据当前点击的盒子的位置来设置正在加载中的盒子的位置
+                * 4：让正在加载中的盒子执行动画，从右向左滑动，慢慢显示 opacity 1
+                * 5：过1秒钟之后，我又执行动画，让盒子的位置还原。
+                * 让盒子从右向做滑动，慢慢隐藏。
+                * */
+                //2:获取到当前点击的盒子的位置
+                var offset = $(this).offset();
+                //获取当前元素的位置.
+                var top = offset.top;
+                var left = offset.left;
+                //3:根据当前点击的盒子的位置来设置正在加载中的盒子的位置
+                $(".message").offset({
+                    left: left + 250,
+                    top: top + 45
+                });
+                /*我要让当前的元素执行动画.*/
+                //4：让正在加载中的盒子执行动画，从右向左滑动，慢慢显示 opacity 1
+                $(".message").animate({ "left": left, "opacity": 1 }, 300);
+                //5:过1秒钟之后，我又执行动画，让盒子的位置还原。让盒子从左向右滑动，慢慢隐藏。
+                window.setTimeout(function () {
+                    $(".message").animate({ "left": left + 250, "opacity": 0 }, 300)
+                }, 1000);
+
+                //执行动画让盒子显示
+                //delay 延迟的意思. 延迟1秒然后执行后面的逻辑.
+                //$(".message").animate({"left":left,"opacity":1},300).delay(1000).animate({"left":left+250,"opacity":0},300);
+            })
+
+
+        })
+    </script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <ul class="tab">
+            <li class="tab-item active">国际大牌
+                <span></span>
+            </li>
+            <li class="tab-item ">国妆名牌
+                <span></span>
+            </li>
+            <li class="tab-item">清洁用品
+                <span></span>
+            </li>
+            <li class="tab-item">男士精品</li>
+        </ul>
+        <div class="products">
+            <div class="main selected">
+                <a href="###">
+                    <img src="imgs/guojidapai.jpg" alt="" />
+                </a>
+            </div>
+            <div class="main">
+                <a href="###">
+                    <img src="imgs/guozhuangmingpin.jpg" alt="" />
+                </a>
+            </div>
+            <div class="main">
+                <a href="###">
+                    <img src="imgs/qingjieyongpin.jpg" alt="" />
+                </a>
+            </div>
+            <div class="main">
+                <a href="###">
+                    <img src="imgs/nanshijingpin.jpg" alt="" />
+                </a>
+            </div>
+        </div>
+
+        <div class="message">
+            <img src="imgs/loading.gif" style="width: 25px;" alt=""> 正在加载中，请稍后...
+        </div>
+
+    </div>
+</body>
+
+</html>

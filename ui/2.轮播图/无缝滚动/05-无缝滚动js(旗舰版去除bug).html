@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>无标题文档</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            border: 0;
+        }
+
+        .all {
+            width: 500px;
+            height: 200px;
+            padding: 7px;
+            border: 1px solid #ccc;
+            margin: 100px auto;
+            position: relative;
+        }
+
+        .screen {
+            width: 500px;
+            height: 200px;
+            /*overflow: hidden;*/
+            position: relative;
+        }
+
+        .screen li {
+            width: 500px;
+            height: 200px;
+            overflow: hidden;
+            float: left;
+        }
+
+        .screen ul {
+            position: absolute;
+            left: 0;
+            top: 0px;
+            width: 3000px;
+        }
+
+        .all ol {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            line-height: 20px;
+            text-align: center;
+        }
+
+        .all ol li {
+            float: left;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .all ol li.current {
+            background: yellow;
+        }
+
+        #arr {
+            display: none;
+        }
+
+        #arr span {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            left: 5px;
+            top: 50%;
+            margin-top: -20px;
+            background: #000;
+            cursor: pointer;
+            line-height: 40px;
+            text-align: center;
+            font-weight: bold;
+            font-family: '黑体';
+            font-size: 30px;
+            color: #fff;
+            opacity: 0.3;
+            border: 1px solid #fff;
+        }
+
+        #arr #right {
+            right: 5px;
+            left: auto;
+        }
+
+    </style>
+
+    <script>
+        window.onload = function () {
+            //需求: 无缝滚动;(原理:复制第一张到最末尾,然后第二轮从第一张滑动到第二张的时候,瞬间闪动到第一张,在从第一张滑动到第二张 )
+
+            //1.复制第一个li添加到ul的最末尾;并添加ol中li的个数;点亮其中的第一个;
+            //2.ol中的所有li绑定事件，滑动轮播逻辑(案例1)
+            //3.点击右侧的小三角，滑动到下一张；(案例2)
+            //4.点击左侧的小三角，滑动到上一张；(案例2)
+            //5.添加定时器；(案例2:和右侧小三角逻辑一样)
+
+
+            //1.复制第一个li添加到ul的最末尾;并添加ol中li的个数;点亮其中的第一个;
+
+            var box = document.getElementById("all");
+            var screen = document.getElementById("screen");
+            var imgWidth = screen.offsetWidth;
+            var ul = document.getElementById("ul");
+            var ulLiArr = ul.children;
+            var ol = screen.children[1];
+            var arr = screen.children[2];
+            var left = document.getElementById("left");
+            var right = document.getElementById("right");
+
+            //复制第一个li添加到ul的最末尾
+            ul.appendChild(ulLiArr[0].cloneNode(true));
+            //添加ol中li的个数==ul中li的个数-1;
+            for (var i = 0; i < ulLiArr.length - 1; i++) {
+                var newLi = document.createElement("li");
+                //添加内容
+                newLi.innerHTML = i + 1;
+                ol.appendChild(newLi);
+            }
+            //点亮ol中li的第一个;类名+current
+            var olLiArr = ol.children;
+            olLiArr[0].className = "current";
+
+            //2.ol中的所有li绑定事件
+
+            //for循环绑定事件
+            for (var i = 0; i < olLiArr.length; i++) {
+                olLiArr[i].index = i;
+                olLiArr[i].onmouseover = function () {
+                    //1.点亮盒子(排他思想)
+                    for (var j = 0; j < olLiArr.length; j++) {
+                        olLiArr[j].className = "";
+                    }
+                    console.log(this.index);
+                    this.className = "current";
+                    //2.移动ul(利用animate())
+                    animate(ul, -imgWidth * (this.index));
+
+                    //bug:li标签移动ul,和自定义索引值没有同步
+                    key = square = this.index;//同步(控制台有打印,已经同步)
+                }
+            }
+
+            //3.点击右侧的小三角，滑动到下一张；
+
+            //思路:自定义两个索引值,一个给小方块用.一个给图片用
+            var key = 0;//模拟图片的索引值
+            var square = 0;//模拟小方块的索引值
+            //为右侧的小三角绑定点击事件
+            right.onclick = autoPlay;
+
+            //4.点击左侧的小三角，滑动到上一张；
+
+            left.onclick = function () {
+                //1.索引值自减(无缝滚动)
+                key--;
+                //(无缝滚动原理:瞬间闪动到最后一张,再从倒数第一张滑动到倒数第二张)
+                //key的索引值最小到0,等于-1的时候,瞬间闪动到倒数第一张,再从倒数第一张滑动到倒数第二张;
+                if (key == -1) {
+                    //闪动到倒数第二张
+                    //最后一张图片显示的时候,ul的left值为5张图片的宽;
+                    ul.style.left = -imgWidth * 5 + "px";
+                    //滑动到第二张(索引值为4)
+                    key = 4;
+                }
+
+                square--;//小方块的索引值要受到约束;
+                //square的最小值为0,到-1的时候把值设为4;代表最后一个
+                if (square == -1) {
+                    square = 4;
+                }
+
+                //2.点亮盒子
+                for (var j = 0; j < olLiArr.length; j++) {
+                    olLiArr[j].className = "";
+                }
+                olLiArr[square].className = "current";
+
+                //3.移动ul
+                animate(ul, -imgWidth * key);
+            }
+
+            //5.添加定时器；(和右侧小三角逻辑一样)
+
+            timer = setInterval(autoPlay, 1000);
+            //鼠标进入清除定时器,移开再次开启定时器
+            //鼠标进入显示,移开隐藏
+            box.onmouseover = function () {
+                arr.style.display = "block";
+                clearInterval(timer);
+            }
+            box.onmouseout = function () {
+                arr.style.display = "none";
+                timer = setInterval(autoPlay, 1000);
+            }
+
+
+            //右侧小三角的封装
+            function autoPlay() {
+                //思路: 1.索引值自增(无缝滚动);   2.点亮盒子;    3.移动ul;
+
+                //1.索引值自增(无缝滚动)
+                key++;//图片的索引值要受到约束
+                //(无缝滚动的原理:瞬间闪动到第一张,再从第一张滑动到第二张)
+                //key的索引值最大到5,等到6的时候,瞬间闪动到第一张,再从第一张滑动到第二张
+                if (key == 6) {
+                    //闪动到第一张
+                    ul.style.left = 0;//第一张图片显示的时候,ul的left值为0;
+                    //滑动到第二张(索引值为1)
+                    key = 1;
+                }
+
+                square++;//小方块的索引值要受到约束;
+                //square的最大值为4,到5的时候把值设为0;代表第一个
+                if (square == 5) {
+                    square = 0;
+                }
+
+                //2.点亮盒子
+                for (var j = 0; j < olLiArr.length; j++) {
+                    olLiArr[j].className = "";
+                }
+                console.log(square);
+                olLiArr[square].className = "current";
+
+                //3.移动ul
+                console.log(key);
+                animate(ul, -imgWidth * key);
+            }
+
+
+            //封装一个方法,可以按照目标目标值移动盒子;
+            function animate(ele, target) {
+                //要用定时器,先清除定时器;
+                clearInterval(ele.timer);
+                //每个盒子一个定时器;把定时器作为盒子的属性设置;(自定义属性)
+                ele.timer = setInterval(function () {
+                    //步长不能永远为10; 因为步长的取值要经过计算;
+                    var step = target > ele.offsetLeft ? 10 : -10;
+                    //移动盒子
+                    ele.style.left = ele.offsetLeft + step + "px";
+
+                    //判断:到达目标位置停止定时器
+                    //解决小数问题;  目标位置和当前位置之间的距离不足一个步长的时候;
+                    if (Math.abs(target - ele.offsetLeft) <= Math.abs(step)) {
+                        //设置目标位置为target,并清除定时器;
+                        ele.style.left = target + "px";
+                        clearInterval(ele.timer);
+                    }
+                }, 10);
+            }
+
+
+        }
+
+    </script>
+</head>
+
+<body>
+
+<!--外盒子-->
+<div class="all" id='all'>
+    <!--内盒子-->
+    <div class="screen" id="screen">
+        <ul id="ul">
+            <li><img src="images/1.jpg" width="500" height="200"/></li>
+            <li><img src="images/2.jpg" width="500" height="200"/></li>
+            <li><img src="images/3.jpg" width="500" height="200"/></li>
+            <li><img src="images/4.jpg" width="500" height="200"/></li>
+            <li><img src="images/5.jpg" width="500" height="200"/></li>
+        </ul>
+        <!--小方块-->
+        <ol>
+
+        </ol>
+        <!--左右小三角-->
+        <div id="arr">
+            <span id="left"><</span>
+            <span id="right">></span>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+

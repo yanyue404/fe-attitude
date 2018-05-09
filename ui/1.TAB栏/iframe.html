@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    li {
+      list-style: none;
+      float: left;
+    }
+
+    .item {
+      width: 350px;
+      height: 240px;
+      display: none;
+    }
+
+    .show {
+      display: block;
+    }
+
+    .current {
+      color: #c00;
+      border: 1px solid #000;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box">
+    <ul>
+      <li class="current">国际</li>
+      <li>批发</li>
+      <li>零售</li>
+    </ul>
+    <div class="item show">
+      <div class="mt10 quxian" id="con_three_1">
+        <iframe src="http://www.cnpc.com.cn/cnpcstockinfohtml/jqplot/examples/show11.html" frameborder="0" scrolling="no" style="width: 320px; height: 240px; overflow: hidden;"
+          allowtransparency="true">
+        </iframe>
+      </div>
+    </div>
+    <div class="item">
+      <iframe src="http://www.cnpc.com.cn/cnpcstockinfohtml/jqplot/examples/show22.html" frameborder="0" scrolling="no" style="width: 320px; height: 240px; overflow: hidden;"
+        allowtransparency="true">
+      </iframe>
+    </div>
+    <div class="item">
+      <div class="mt10 quxian" id="con_three_3">
+        <iframe src="http://www.cnpc.com.cn/cnpcstockinfohtml/jqplot/examples/show33.html" frameborder="0" scrolling="no" style="width: 320px; height: 240px; overflow: hidden;"
+          allowtransparency="true">
+        </iframe>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+<script>
+  window.onload = function () {
+    Tab();
+  }
+  function Tab() {
+    var arrLi = document.querySelectorAll('#box li');
+    var arrSpan = document.querySelectorAll('.item');
+
+    for (var i = 0; i < arrLi.length; i++) {
+      arrLi[i].index = i;
+      arrLi[i].onclick = function () {
+        for (var j = 0; j < arrLi.length; j++) {
+          // 排他思想，干掉所有人
+          arrLi[j].className = "";
+          arrSpan[j].className = "item";
+        }
+        // 只剩我自己
+        this.className = "current";
+        arrSpan[this.index].className = "show item";
+      }
+    }
+  }
+</script>
+
+</html>

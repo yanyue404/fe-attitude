@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+        img {
+            vertical-align: top;
+        }
+        .top {
+            width: 1500px;
+            margin: 0 auto;
+        }
+        .main {
+            margin: 0 auto;
+            width: 1000px;
+        }
+        #Q-nav {
+            width: 1500px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+    </style>
+    <script>
+        //有图片，测量图片的宽高的时候，一般都建议使用window.onload;
+        window.onload = function () {
+            //需求：屏幕滑动，被圈去的头部如果大于了第一张图片的高，那么第二张图片就添加固定定位（添加类）；
+                //思路：绑定屏幕滚动事件，判断,如果被卷去的头部超过第一张图片的高,那么第二张图片添加固定定位;
+
+            //步骤:
+            //1.老三步;
+            //2.判断:如果被卷去的头部超过第一张图片的高,那么第二张图片添加固定定位;
+            //3.如果没有超过,还要清除固定定位;
+
+            //获取相关元素;
+            var img1 = document.getElementById("top");
+            var img2 = document.getElementById("Q-nav");
+            var img3 = document.getElementById("main");
+
+            //1.老三步;
+            window.onscroll = function () {
+                //2.判断:如果被卷去的头部超过第一张图片的高,那么第二张图片添加固定定位;
+                if(scroll().top >= img1.scrollHeight){//不能设置padding<会影响到值;
+                    //第二张图片添加固定定位;
+                    img2.className = "fixed";
+                    //bug:添加固定定位后,盒子不占位置,下面的盒子会顶上来
+                        //解决办法:1.给下边的盒子一个上padding或者margin;
+                        //解决办法:2.给上边的盒子一个下margin;
+
+                    //解决办法:1.给下边的盒子一个上padding或者margin;
+//                    img3.style.paddingTop = img2.scrollHeight + "px";
+                    img2.style.marginBottom = img2.scrollHeight + "px";
+
+                }else{
+                    //3.如果没有超过,还要清除固定定位;
+                    img2.className = "";
+                    //解决办法:1.清0;
+                    img3.style.paddingTop = 0;
+                    img2.style.marginBottom =0;
+
+                }
+            }
+
+            //封装的方法获取页面被卷去的头部和左侧部分;
+            function scroll(){
+                return {
+                    top: window.pageYOffset || document.documentElement.scrollTop,
+                    left: window.pageXOffset || document.documentElement.scrollLeft
+                };
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <!--第一张图片-->
+    <div class="top" id="top">
+        <img src="images/top.png" alt=""/>
+    </div>
+    <!--第二张图片-->
+    <div id="Q-nav">
+        <img src="images/nav.png" alt=""/>
+    </div>
+    <!--第三张图片-->
+    <div class="main" id="main">
+        <img src="images/main.png" alt=""/>
+    </div>
+
+
+
+</body>
+</html>
+

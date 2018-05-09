@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        div {
+            width: 1210px;
+            margin: 100px auto;
+            text-align: center;
+            font-size: 35px;
+        }
+    </style>
+
+    <script>
+        //定义一个定时器,5秒钟后页面跳转到另一个网站.5秒钟内都要刷新页面;
+        window.onload = function () {
+
+            //1秒钟刷新一次页面上的数值
+            var timer = setInterval(fn, 1000);
+            var div = document.getElementsByTagName("div")[0];
+            //定义一个函数
+            var num = 5;
+            function fn() {
+                //修改div里面的内容
+                num--;
+                if (num == 0) {
+                    clearInterval(timer);
+                    //页面跳转
+                    location.href = "http://www.baidu.com";
+                    return;//下面的代码不许执行了
+                }
+                //赋值
+                div.innerHTML = num + '秒钟后页面将跳转到百度<a href="http://www.baidu.com">官方网站</a>';
+            }
+
+
+        }
+    </script>
+</head>
+
+<body>
+
+    <div>
+        5秒钟后页面将跳转到百度
+        <a href="http://www.baidu.com">百度一下</a>
+    </div>
+
+
+
+</body>
+
+</html>

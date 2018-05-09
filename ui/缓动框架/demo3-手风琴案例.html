@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        ul {
+            list-style: none
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            width: 1150px;
+            height: 400px;
+            margin: 50px auto;
+            border: 1px solid red;
+            overflow: hidden;
+        }
+
+        div li {
+            width: 240px;
+            height: 400px;
+            float: left;
+            cursor: pointer;
+        }
+
+        div ul {
+            width: 1300px;
+        }
+    </style>
+    <!--引入工具包-->
+    <script src="animate.js"></script>
+    <script>
+        window.onload = function () {
+            //需求1: 为每一个li标签上背景图;
+            //需求2: 所有的li,鼠标进入当前的变为800;其他的变为100;
+            //需求3: 鼠标移开div所有的li宽度变为240;
+
+
+
+            //需求1: 为每一个li标签上背景图;
+            var box = document.getElementsByTagName("div")[0];
+            var liArr = box.getElementsByTagName("li");
+            //for循环上背景图;
+            for(var i=0;i<liArr.length;i++){
+                liArr[i].style.background = "url(images/"+(i+1)+".jpg) no-repeat";
+
+
+                //需求2: 所有的li,鼠标进入当前的变为800;其他的变为100;
+                liArr[i].onmouseover = function () {
+                    //当前的变为800;其他的变为100;(排他思想);
+                    for(var j=0;j<liArr.length;j++){
+                        animate(liArr[j],{"width":100});
+                    }
+                    animate(this,{"width":800});
+                }
+            }
+
+            //需求3: 鼠标移开div所有的li宽度变为240;
+            box.onmouseout = function () {
+                //鼠标移开div所有的li宽度变为240;
+                for(var j=0;j<liArr.length;j++){
+                    animate(liArr[j],{"width":240});
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+
+    <div>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
+
+</body>
+</html>

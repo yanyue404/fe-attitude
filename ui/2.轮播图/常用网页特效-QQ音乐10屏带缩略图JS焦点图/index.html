@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>QQ音乐10屏带缩略图JS焦点图</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<link rel="stylesheet" type="text/css" href="Styles/style.css" />
+
+
+<style type="text/css">
+
+</style>
+</head>
+    <body>
+        <div id="main">
+            <div id="bigimg">
+                <img src="Images/b01.jpg" alt="第1张图的描述信息" class="current" />
+                <img src="Images/b02.jpg" alt="第2张图的描述信息" />
+                <img src="Images/b03.jpg" alt="第3张图的描述信息" />
+                <img src="Images/b04.jpg" alt="第4张图的描述信息" />
+                <img src="Images/b05.jpg" alt="第5张图的描述信息" />
+                <img src="Images/b06.jpg" alt="第6张图的描述信息" />
+                <img src="Images/b07.jpg" alt="第7张图的描述信息" />
+                <img src="Images/b08.jpg" alt="第8张图的描述信息" />
+                <img src="Images/b09.jpg" alt="第9张图的描述信息" />
+                <img src="Images/b10.jpg" alt="第10张图的描述信息" />
+                <div id="tip">
+                    <h3>第1张图的描述信息</h3>
+                    <a class="l" href="javascript:void(0)"></a>
+                    <a class="r" href="javascript:void(0)"></a>
+                </div>
+            </div>
+            <div id="smallimg">
+                <ul>
+                    <li><img src="Images/small01.jpg" /><span class="mask" style="display:none;"></span><span class="border" style="display:block;"></span></li>
+                    <li><img src="Images/small02.jpg" /><span class="mask"></span><span class="border"></span></li>
+                    <li><img src="Images/small03.jpg" /><span class="mask"></span><span class="border"></span></li>
+                    <li><img src="Images/small04.jpg" /><span class="mask"></span><span class="border"></span></li>
+                    <li><img src="Images/small05.jpg" /><span class="mask"></span><span class="border"></span></li>
+                    <li><img src="Images/small06.jpg" /><span class="mask"></span><span class="border"></span></li>
+                    <li><img src="Images/small07.jpg" /><span class="mask"></span><span class="border"></span></li>
+                    <li><img src="Images/small08.jpg" /><span class="mask"></span><span class="border"></span></li>
+                    <li><img src="Images/small09.jpg" /><span class="mask"></span><span class="border"></span></li>
+                    <li><img src="Images/small10.jpg" /><span class="mask"></span><span class="border"></span></li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>
+<script type="text/javascript">
+    var imgs = document.getElementById('bigimg').getElementsByTagName('img');
+    var tip = document.getElementById('tip').getElementsByTagName('h3')[0];
+    var masks = document.getElementsByClassName('mask');
+    var borders = document.getElementsByClassName('border');
+    var n = 1;
+    function changeImg() {
+        for(var i=0,len=imgs.length; i<len; i++) {
+            imgs[i].style.display = 'none';
+        }
+        imgs[n].style.display = 'block';
+        tip.innerHTML = imgs[n].alt;
+
+        for(var j=0; j<masks.length; j++) {
+            masks[j].style.display = 'block';
+        }
+        
+        masks[n].style.display = 'none';
+
+        for(var t=0; t<borders.length; t++) {
+            borders[t].style.display = 'none';
+        }
+        
+        borders[n].style.display = 'block';
+
+        n++;
+        n = n % len;
+        
+    }
+    
+    var lis = document.getElementById('smallimg').getElementsByTagName('li');
+    for(var i=0; i<lis.length; i++) {
+        lis[i].onmouseover = (function () {
+            var n = i;
+            return function () {
+                window.clearInterval(timer);
+                for(var j=0,len=imgs.length; j<len; j++) {
+                    imgs[j].style.display = 'none';
+                }
+                imgs[n].style.display = 'block';
+                tip.innerHTML = imgs[n].alt;
+
+                for(var j=0; j<masks.length; j++) {
+                    masks[j].style.display = 'block';
+                }
+                
+                masks[n].style.display = 'none';
+
+                for(var t=0; t<borders.length; t++) {
+                    borders[t].style.display = 'none';
+                }
+                
+                borders[n].style.display = 'block';
+            }
+        })();
+
+        lis[i].onmouseout = (function () {
+            var s = i;
+            return function () {
+                window.clearInterval(timer);
+                timer = window.setInterval(changeImg,1000);
+                n = s;
+            }
+        })();
+    }
+    var timer = window.setInterval(changeImg,1000);
+</script>

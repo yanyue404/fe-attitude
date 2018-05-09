@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .box {
+            width: 322px;
+            position: fixed;
+            bottom: 0;
+            right: 0;
+        }
+
+        span {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        img {
+            display: block;
+        }
+    </style>
+    <!--要用功能包,先引入-->
+    <script src="animate.js"></script>
+    <script>
+        window.onload = function () {
+            //需求:点击关闭按钮,然后下面的盒子高度变为0,然后整个大盒子宽度在变为0;
+            var b = document.getElementById("b");
+            var box = b.parentNode;
+            var span = box.firstElementChild || box.firstChild;
+
+            //绑定事件
+            span.onclick = function () {
+                //下面的盒子高度变为0,然后整个大盒子宽度在变为0;
+                animate(b,{"height":0}, function () {
+                    animate(box,{"width":0});
+                });
+            }
+        }
+    </script>
+</head>
+<body>
+
+<!--大盒子-->
+<div class="box" id="box">
+    <!--关闭按钮-->
+    <span></span>
+    <div class="hd" id="t">
+        <img src="images/t.jpg" alt=""/>
+    </div>
+    <!--最下面的盒子-->
+    <div class="bd" id="b">
+        <img src="images/b.jpg" alt=""/>
+    </div>
+</div>
+
+
+</body>
+</html>

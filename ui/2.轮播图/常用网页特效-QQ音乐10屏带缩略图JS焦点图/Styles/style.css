@@ -1,0 +1,93 @@
+#main {
+	width:700px;
+	margin:auto;
+	background:#000;
+}
+#bigimg {
+	height:320px;
+	position:relative;
+}
+#bigimg img {
+	display:none;
+}
+#bigimg .current {display:block}
+#bigimg #tip {
+	width:700px;
+	height:53px;
+	line-height:53px;
+	position:absolute;
+	bottom:0px;
+	background-color:rgba(0,0,0,0.8);
+	z-index:10;
+}
+#bigimg #tip h3 {
+	width:82%;
+	margin:0;
+	margin-right:20px;
+	padding-left:20px;
+	color:#98E404;
+	font-size:28px;
+	float:left;
+	font-weight:500;
+	font-family:"Microsoft Yahei",Tahoma,Geneva;
+}
+#bigimg #tip a {
+	width:30px;
+	height:29px;
+	display:block;
+	float:left;
+	margin-top:12px;
+	margin-right:3px;
+}
+#bigimg #tip a.l {
+	background:url(../Images/icon_focus_switch.png) no-repeat 0 0;
+}
+#bigimg #tip a.l:hover {
+	background:url(../Images/icon_focus_switch.png) no-repeat -30px 0;
+}
+#bigimg #tip a.r {
+	background:url(../Images/icon_focus_switch.png) no-repeat -60px 0;
+}
+#bigimg #tip a.r:hover {
+	background:url(../Images/icon_focus_switch.png) no-repeat -90px 0;
+}
+#smallimg {
+	padding:10px 0;
+}
+#smallimg ul {
+	list-style-type:none;
+	margin:0 0 0 4px;
+	padding:0;
+	overflow:hidden;
+}
+#smallimg ul li {
+	float:left;
+	width:60px;
+	margin:0 4px 0 5px;
+	text-align:center;
+	position:relative;
+}
+#smallimg ul li img {
+	display:block;
+	border:0;
+	text-align:center;
+	width:60px;
+}
+#smallimg ul li span.mask {
+	width:60px;
+	height:60px;
+	display:block;
+	position:absolute;
+	top:0;
+	left:0;
+	background-color:rgba(0,0,0,0.4);
+}
+#smallimg ul li span.border {
+	width:54px;
+	display:none;
+	position:absolute;
+	bottom:0;
+	left:0;
+	z-index:20;
+	border:3px solid #98E404;
+}

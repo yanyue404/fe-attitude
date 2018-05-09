@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>无标题文档</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            border: 0;
+        }
+
+        .all {
+            width: 500px;
+            height: 200px;
+            padding: 7px;
+            border: 1px solid #ccc;
+            margin: 100px auto;
+            position: relative;
+        }
+
+        .screen {
+            width: 500px;
+            height: 200px;
+            /*overflow: hidden;*/
+            position: relative;
+        }
+
+        .screen li {
+            width: 500px;
+            height: 200px;
+            overflow: hidden;
+            float: left;
+        }
+
+        .screen ul {
+            position: absolute;
+            left: 0;
+            top: 0px;
+            width: 3000px;
+        }
+
+        .all ol {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            line-height: 20px;
+            text-align: center;
+        }
+
+        .all ol li {
+            float: left;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .all ol li.current {
+            background: yellow;
+        }
+
+        #arr {
+            display: none;
+        }
+        #arr span {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            left: 5px;
+            top: 50%;
+            margin-top: -20px;
+            background: #000;
+            cursor: pointer;
+            line-height: 40px;
+            text-align: center;
+            font-weight: bold;
+            font-family: '黑体';
+            font-size: 30px;
+            color: #fff;
+            opacity: 0.3;
+            border: 1px solid #fff;
+        }
+
+        #arr #right {
+            right: 5px;
+            left: auto;
+        }
+
+    </style>
+
+    <script>
+        window.onload = function () {
+            //需求: 无缝滚动;(原理:复制第一张到最末尾,然后第二轮从第一张滑动到第二张的时候,瞬间闪动到第一张,在从第一张滑动到第二张 )
+
+
+            //1.复制第一个li添加到ul的最末尾;并添加ol中li的个数;点亮其中的第一个;
+            var box = document.getElementById("all");
+            var screen = document.getElementById("screen");
+            var imgWidth = screen.offsetWidth;
+            var ul = document.getElementById("ul");
+            var ulLiArr = ul.children;
+            var ol = screen.children[1];
+            var arr = screen.children[2];
+            var left = document.getElementById("left");
+            var right = document.getElementById("right");
+
+            //复制第一个li添加到ul的最末尾
+            ul.appendChild(ulLiArr[0].cloneNode(true));
+            //添加ol中li的个数==ul中li的个数-1;
+            for(var i=0;i<ulLiArr.length-1;i++){
+                var newLi = document.createElement("li");
+                //添加内容
+                newLi.innerHTML = i+1;
+                ol.appendChild(newLi);
+            }
+            //点亮ol中li的第一个;类名+current
+            var olLiArr = ol.children;
+            olLiArr[0].className = "current";
+
+
+
+            //2.ol中的所有li绑定事件，滑动轮播逻辑(案例1)
+            //3.点击右侧的小三角，滑动到下一张；(案例2)
+            //4.点击左侧的小三角，滑动到上一张；(案例2)
+            //5.添加定时器；(案例2:和右侧小三角逻辑一样)
+        }
+    </script>
+</head>
+
+<body>
+
+<!--外盒子-->
+<div class="all" id='all'>
+    <!--内盒子-->
+    <div class="screen" id="screen">
+        <ul id="ul">
+            <li><img src="images/1.jpg" width="500" height="200"/></li>
+            <li><img src="images/2.jpg" width="500" height="200"/></li>
+            <li><img src="images/3.jpg" width="500" height="200"/></li>
+            <li><img src="images/4.jpg" width="500" height="200"/></li>
+            <li><img src="images/5.jpg" width="500" height="200"/></li>
+        </ul>
+        <!--小方块-->
+        <ol>
+
+        </ol>
+        <!--左右小三角-->
+        <div id="arr">
+            <span id="left"><</span>
+            <span id="right">></span>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+

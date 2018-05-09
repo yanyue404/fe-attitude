@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    .container {
+        width: 1200px;
+        margin: 0 auto;
+        padding-top: 40px;
+    }
+    
+    .items {
+        position: relative;
+    }
+    
+    .item {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 232px;
+        /*控制阴影.*/
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    }
+    
+    .item>img {
+        width: 100%;
+        display: block;
+    }
+    
+    .item:nth-child(4n) img {
+        display: block;
+        height: 289px;
+    }
+    </style>
+    <script src="js/jquery-1.12.4.js"></script>
+    <!--瀑布流插件. 我现在要扩展一个方法。这个方法可以实现瀑布流的布局.-->
+    <!--
+            1:什么是瀑布流
+    -->
+    <script>
+    $(function() {
+
+        //最外面拿到items
+        var $items = $(".items");
+
+        //获取到外面的最大的盒子的width
+        var parentWidth = $items.width();
+
+        //我要获取到 item 的width ,我还要获取到space 间距.
+
+        //获取到所有的item
+        var $childrenitems = $items.children(".item");
+        //获取到item 的宽度.
+        var width = $childrenitems.width();
+
+        //计算出来间距.
+
+        /*假设总共是有5列. column(列)*/
+        var column = 5;
+        var space = (parentWidth - column * width) / (column - 1);
+        //就计算出来了间距.
+
+        var colArray = [];
+
+        $childrenitems.each(function(index, dom) {
+            /*
+             * 每一个dom 遍历出来，每一个item 出来了。
+             * */
+            var $dom = $(dom);
+            //设置每一个item 的位置.
+            if (index < column) {
+                //offset 改的位置是当前元素在浏览器的位置.
+                $dom.css({
+                    left: index * (width + space),
+                    top: 0
+                });
+
+                //我把对应的五列的高度放在一个临时数组当中.
+                colArray[index] = $dom.height();
+            } else {
+                //计算其它的元素的位置.
+                //第六个元素，它的索引值5 ，它的位置我应该怎么去计算.
+                //我要计算出第六个盒子的位置.
+                //left 以及 top 值.
+                /*找到最矮的那一列的索引，以及高度.*/
+                //                          我要从数组里面找到最矮的那一列。 index
+                //假设最矮的一列的索引值等于0
+                var minIndex = 0;
+                var minHeight = colArray[minIndex];
+
+                //进行查找，查找数组里面最矮的一列，以及它的索引.
+                for (var i = 0; i < colArray.length; i++) {
+                    if (minHeight > colArray[i]) {
+                        minHeight = colArray[i];
+                        minIndex = i;
+                    }
+                }
+                /*设置这个第六个盒子的位置.*/
+          $dom.css({
+                    top: minHeight + space,
+                    left: minIndex * (width + space)
+                })
+
+                //因为设置一个元素在最矮的那一列，我必须重新修改它的高度.
+                colArray[minIndex] = minHeight + space + $dom.height();
+
+            }
+        })
+    })
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="items">
+            <div class="item">
+                <img src="images/images/1.jpg" alt="" width="" height="300">
+                <p>
+                    地产广告火凤凰：呵呵 钱多 人傻 速来：#晒稿·东大川南家居城#杂志报版提案稿。尝试用画面...
+                </p>
+            </div>
+            <div class="item">
+                <img src="images/images/2.jpg" alt="" width="" height="200">
+                <p>
+                    地产广告火凤凰：呵呵 钱多 人傻 速来：#晒稿·东大川南家居城#杂志报版提案稿。尝试用画面...
+                </p>
+            </div>
+            <div class="item">
+                <img src="images/images/3.jpg" alt="" width="" height="190">
+                <p>
+                    地产广告火凤凰：呵呵 钱多 人傻 速来：#晒稿·东大川南家居城#杂志报版提案稿。尝试用画面...
+                </p>
+            </div>
+            <div class="item">
+                <img src="images/images/4.jpg" alt="" width="" height="250">
+                <p>
+                    地产广告火凤凰：呵呵 钱多 人傻 速来：#晒稿·东大川南家居城#杂志报版提案稿。尝试用画面...
+                </p>
+            </div>
+            <div class="item">
+                <img src="images/images/5.jpg" alt="" width="" height="400">
+                <p>
+                    地产广告火凤凰：呵呵 钱多 人傻 速来：#晒稿·东大川南家居城#杂志报版提案稿。尝试用画面...
+                </p>
+            </div>
+            <div class="item">
+                <img src="images/images/6.jpg" alt="" width="" height="400">
+                <p>
+                    地产广告火凤凰：呵呵 钱多 人傻 速来：#晒稿·东大川南家居城#杂志报版提案稿。尝试用画面...
+                </p>
+            </div>
+            <div class="item">
+                <img src="images/images/7.jpg" alt="" width="" height="400">
+                <p>
+                    地产广告火凤凰：呵呵 钱多 人傻 速来：#晒稿·东大川南家居城#杂志报版提案稿。尝试用画面...
+                </p>
+            </div>
+            <div class="item">
+                <img src="images/images/8.jpg" alt="" width="" height="400">
+                <p>
+                    地产广告火凤凰：呵呵 钱多 人傻 速来：#晒稿·东大川南家居城#杂志报版提案稿。尝试用画面...
+                </p>
+            </div>
+            <div class="item">
+                <img src="images/images/9.jpg" alt="" width="" height="400">
+                <p>
+                    地产广告火凤凰：呵呵 钱多 人傻 速来：#晒稿·东大川南家居城#杂志报版提案稿。尝试用画面...
+                </p>
+            </div>
+            <div class="item">
+                <img src="images/images/10.jpg" alt="" width="" height="400">
+                <p>
+                    地产广告火凤凰：呵呵 钱多 人傻 速来：#晒稿·东大川南家居城#杂志报版提案稿。尝试用画面...
+                </p>
+            </div>
+            <div class="item">
+                <img src="images/images/11.jpg" alt="" width="" height="400">
+                <p>
+                    地产广告火凤凰：呵呵 钱多 人傻 速来：#晒稿·东大川南家居城#杂志报版提案稿。尝试用画面...
+                </p>
+            </div>
+            <div class="item">
+                <img src="images/images/12.jpg" alt="" width="" height="400">
+                <p>
+                    地产广告火凤凰：呵呵 钱多 人傻 速来：#晒稿·东大川南家居城#杂志报版提案稿。尝试用画面...
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

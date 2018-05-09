@@ -1,0 +1,88 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        button {
+            margin: 10px;
+            width: 120px;
+            height: 50px;
+            font-size: 20px;
+        }
+        .box1 {
+            width: 100%;
+            height: 300px;
+            position: relative;
+            background-color: #ccc;
+        }
+        .box2 {
+            width: 100px;
+            height: 100px;
+            background-color: yellowgreen;
+            position: absolute;
+            left: 0;
+            top: 100px;
+        }
+    </style>
+</head>
+<body>
+
+<button>移动到200</button>
+<button>移动到400.8</button>
+<div class="box1">
+    <div class="box2">
+        银钱双戟丧尽古今人品,穷之一穴埋没多少英雄....
+    </div>
+</div>
+
+<script>
+
+    //体验缓动动画: 获取元素,绑定事件,步长为:  (目标位置-当前位置)/10;
+
+    //获取元素:
+    var div = document.getElementsByClassName("box2")[0];
+    var btn1 = document.getElementsByTagName("button")[0];
+    var btn2 = document.getElementsByTagName("button")[1];
+
+    //绑定事件;
+    btn1.onclick = function () {
+        //调用：
+        animate(div,200);
+    }
+
+
+    //绑定事件;
+    btn2.onclick = function () {
+        //调用：
+        animate(div,400.8);
+    }
+
+
+    //封装缓动动画(两个参数)
+    function animate(ele,target) {
+        //要用定时器,先清除定时器
+        clearInterval(ele.timer);
+        ele.timer = setInterval(function () {
+            //步长
+            var step = (target - ele.offsetLeft)/10;
+            //二次判断
+            step = step>0?Math.ceil(step):Math.floor(step);
+            ele.style.left = ele.offsetLeft + step +"px";
+            console.log(1);
+            if(Math.abs(target - ele.offsetLeft) <=Math.abs(step)){
+                ele.style.left = target + "px";
+                clearInterval(ele.timer);
+            }
+        },30)
+    }
+
+
+</script>
+</body>
+</html>

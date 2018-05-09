@@ -9,25 +9,73 @@
 </head>
 
 <body>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
   <script>
+    // 获取App详细信息
+    // 该接口可以获取某个 App 的某个具体版本的详细信息。
+    /*  var paramstr = 'appKey=ed6aca0d0ab22bc1af2b7d9bf93743d2&_api_key=2a535a16440971a7a64675e5e5270be0';
+     $.ajax({
+       url: 'https://www.pgyer.com/apiv2/app/view',
+       type: 'POST',
+       data: paramstr,
+       success: function (res) {
+         console.log(res)
+         console.log(res.data.buildBuildVersion)
+       }
+     }
+     ) */
 
-    var obj = [{
-      name: 'yue',
-      age: '25'
-    },
-    {
-      name: 'hongyou',
-      age: '25'
-    }]
-  
+    // 获取app的信息
+    /*  var paramstr = 'buildShortcutUrl=EBCp&_api_key=2a535a16440971a7a64675e5e5270be0';
+     $.ajax({
+       url: 'https://www.pgyer.com/apiv2/app/getByShortcut',
+       type: 'POST',
+       data: paramstr,
+       success: function (res) {
+         console.log(res)
+         console.log(res.data.buildBuildVersion)
+       }
+     }
+     ) */
 
-   /*  for (var i = 0; i < 3; i++) {
-      (function (i) { //也是形参
-        setTimeout(function () {
-          console.log(i)
-        }, 300)
-      })(i)
-    } */
+
+    /*  var paramstr = 'appKey=ed6aca0d0ab22bc1af2b7d9bf93743d2&_api_key=2a535a16440971a7a64675e5e5270be0';
+     $.ajax({
+       url: 'https://www.pgyer.com/apiv2/app/update',
+       type: 'POST',
+       data: paramstr,
+       success: function (res) {
+         console.log(res)
+         if (res.data.buildIsLastest != 1) {
+           // alert("app不是最新的版本")
+         }
+         if (res.data.buildIsLastest == 1) {
+           // alert("app是最新的版本")
+         }
+       }
+     }
+     ) */
+
+    // 检测App是否有更新
+    // buildBuildVersion  (选填) 蒲公英生成的用于区分历史版本的build号
+    var paramstr = 'appKey=ed6aca0d0ab22bc1af2b7d9bf93743d2&_api_key=2a535a16440971a7a64675e5e5270be0&buildBuildVersion=6';
+    $.ajax({
+      url: 'https://www.pgyer.com/apiv2/app/check',
+      type: 'POST',
+      data: paramstr,
+      success: function (res) {
+        console.log(res)
+        alert(res.data.haveNewVersion)
+        if (!res.data.haveNewVersion) {
+          window.location = res.data.downloadURL
+          return;
+        }
+        console.log(JSON.stringify(res))
+
+
+      }
+    }
+    )
 
   </script>
 </body>
