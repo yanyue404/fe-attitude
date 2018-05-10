@@ -52,10 +52,9 @@
         }
 
         .current {
-            color: #c00;
+            color: blue;
             padding: 0 20px;
             margin-top: 1px;
-            background: url(./images/tabs_0.gif) repeat-x left bottom;
             border: 1px solid #000;
             border-bottom: 0;
             cursor: pointer;
@@ -63,32 +62,7 @@
         }
     </style>
 </head>
-<script>
-    window.onload = function () {
-        Tab();
-    }
-    function Tab() {
-        var arrLi = document.querySelectorAll('#tab-web li');
-        var arrSpan = document.querySelectorAll('.item');
 
-        for (var i = 0; i < arrLi.length; i++) {
-            arrLi[i].index = i;
-            arrLi[i].onclick = function () {
-                for (var j = 0; j < arrLi.length; j++) {
-                    // 排他思想，干掉所有人
-                    arrLi[j].className = "";
-                    arrSpan[j].className = "item";
-                }
-                // 只剩我自己
-                this.className = "current";
-                arrSpan[this.index].className = "show item";
-            }
-        }
-    }
-
-
-
-</script>
 
 <body>
     <div class="tab-web" id="tab-web">
@@ -102,5 +76,41 @@
         <div class="item">旅游区域</div>
     </div>
 </body>
+<script>
+
+    var tab = {
+        options: function () {
+            var y = this;
+            var options = {};
+            y.options.clickLi = document.querySelectorAll('#tab-web li');
+            y.options.showItem = document.querySelectorAll('.item');
+            return y;
+        },
+        init:function() {
+            var y = this;
+            y.options();
+            var arrLi = y.options.clickLi;
+            var arrSpan = y.options.showItem;
+
+            for (var i = 0; i < arrLi.length; i++) {
+                arrLi[i].index = i;
+                arrLi[i].onclick = function () {
+                    for (var j = 0; j < arrLi.length; j++) {
+                        // 排他思想，干掉所有人
+                        arrLi[j].className = "";
+                        arrSpan[j].className = "item";
+                    }
+                    // 只剩我自己
+                    this.className = "current";
+                    arrSpan[this.index].className = "show item";
+                }
+            }
+        }
+    }
+    tab.init();
+
+
+
+</script>
 
 </html>

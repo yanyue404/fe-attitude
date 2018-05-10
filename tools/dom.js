@@ -131,15 +131,15 @@ function setStyle(e, a) {
 }
 
 
-const appendHTML = function (el, html) {
-  let divTemp = document.createElement("div"),
+function appendHTML (el, html) {
+  var divTemp = document.createElement("div"),
     nodes = null,
     // 文档片段，一次性append，提高性能
 
     fragment = document.createDocumentFragment();
   divTemp.innerHTML = html;
   nodes = divTemp.childNodes;
-  for (let i = 0, length = nodes.length; i < length; i += 1) {
+  for (var i = 0, length = nodes.length; i < length; i += 1) {
     fragment.appendChild(nodes[i].cloneNode(true));
   }
   // 全部都是一样的，除了下面这个 this → el
@@ -148,14 +148,14 @@ const appendHTML = function (el, html) {
   fragment = null;
 };
 
-const prependHTML = function (el, html) {
-  let divTemp = document.createElement("div"),
+ function prependHTML (el, html) {
+  var divTemp = document.createElement("div"),
     nodes = null,
     fragment = document.createDocumentFragment();
 
   divTemp.innerHTML = html;
   nodes = divTemp.childNodes;
-  for (let i = 0, length = nodes.length; i < length; i += 1) {
+  for (var i = 0, length = nodes.length; i < length; i += 1) {
     fragment.appendChild(nodes[i].cloneNode(true));
   }
   // 插入到容器的前面 - 差异所在

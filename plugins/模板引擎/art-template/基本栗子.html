@@ -4,6 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <title>basic-demo</title>
+  <style>
+    .blue {
+      color: blue;
+    }
+  </style>
   <script src="./template-web.js"></script>
 </head>
 
@@ -14,7 +19,11 @@
     <h1>{{title}}</h1>
     <ul>
       {{each list as value i}}
+      {{if i%2==0}}
+      <li class="blue">索引 {{i + 1}} ：{{value}}</li>
+      {{else}}
       <li>索引 {{i + 1}} ：{{value}}</li>
+      {{/if}}
       {{/each}}
     </ul>
     {{/if}}
