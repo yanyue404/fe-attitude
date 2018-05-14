@@ -19,9 +19,9 @@
   <select name="" class="form-control input-sm">
     {{each teacher}} 
     {{if $value.tc_name == tc_name}}
-    <option selected value="{{$value.tc_id}}">{{$value.tc_name}}</option>
+    <option id="yue{{$index}}" selected value="{{$value.tc_id}}">{{$value.tc_name+$index}}</option>
     {{else}}
-    <option value="{{$value.tc_id}}">{{$value.tc_name}}</option>
+    <option value="{{$value.tc_id}}">{{$value.tc_name+$index}}</option>
     {{/if}}
     {{/each}}
 
