@@ -43,6 +43,7 @@ footer| 一些备注, 通常是 BREAKING CHANGE 或修复的 bug 的链接.
 // bootstrap
 <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
 // jquery
+<script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 ```
 
