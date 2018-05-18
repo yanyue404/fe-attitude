@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>session storage</title>
+</head>
+<body>
+	<div>
+		key: <input type="text" id="skey">
+		val: <input type="text" id="sval">
+		<input type="button" id="sbtn" value="set">
+	</div>
+	<div>
+		key: <input type="text" id="gkey">
+		val: <input type="text" id="gval">
+		<input type="button" id="gbtn" value="get">
+	</div>
+	<div>
+		key: <input type="text" id="rkey">
+		<input type="button" id="rbtn" value="remove">
+	</div>
+	<div>
+		<input type="button" id="cbtn" value="clear">
+	</div>	
+
+	<script>
+
+		// cookie 的特点 
+		// 有一个键 同时对应一个值
+		// 通过“; ”来分割各个数据的
+
+		// 缺点 
+		// 需要自己手动写脚本处理数据
+		// 存储大小有限制 一般4K左右
+
+		// H5提供了新的存储功能
+		// localStorage和sessionStorage
+		// 特点
+		// 1、以键值对的方式存储数据
+		// 2、提供了相应的操作方法
+		// 3、localStorage和sessionStorage的方法完全一致
+
+		// H5 的 sessionStorage
+
+		// 保存数据
+		document.querySelector("#sbtn").onclick = function(){
+			var key = document.querySelector("#skey").value;
+			var val = document.querySelector("#sval").value;
+			
+			// 保存数据
+			sessionStorage.setItem(key,val);
+		}
+
+		// 获取数据
+		document.querySelector("#gbtn").onclick = function(){
+			var key = document.querySelector("#gkey").value;
+			// 获取数据的方法
+			var val = sessionStorage.getItem(key);
+			
+			document.querySelector("#gval").value = val;
+		}
+
+		// 删除数据
+		document.querySelector("#rbtn").onclick = function(){
+			var key = document.querySelector("#rkey").value;
+			// 删除数据的方法
+			sessionStorage.removeItem(key);
+			
+		}
+
+		// 完全清除
+		document.querySelector("#cbtn").onclick = function(){
+
+			// 完全删除数据的方法
+			sessionStorage.clear();
+			
+		}
+
+		// 特点
+		// 1、localStorage 是持久存储，不主动删除 一直存在
+		//    sessionStorage 是临时存储,关闭浏览器数据就没了
+		// 2、localStorage 可以多窗口共享
+	    //    sessionStorage 不能多窗口共享数据
+
+
+
+	
+	</script>
+</body>
+</html>

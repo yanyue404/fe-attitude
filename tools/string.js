@@ -27,7 +27,9 @@ String.prototype.strLen = function() {
     }
     return len;
 }
-
+function strlen(str) {
+	return (BROWSER.ie && str.indexOf('\n') != -1) ? str.replace(/\r?\n/g, '_').length : str.length;
+}
 //将字符串拆成字符，并存到数组中
 String.prototype.strToChars = function(){
     var chars = new Array();
@@ -83,6 +85,9 @@ function isDigit(value) {
   } else {
     return true
   }
+}
+function isUndefined(variable) {
+	return typeof variable == 'undefined' ? true : false;
 }
 /**
  * 判断变量是否为空

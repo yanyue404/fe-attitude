@@ -289,3 +289,6 @@ window.onerror = function(
     alert(JSON.stringify(rst, null, 10));
   });
 };
+function stripscript(s) {
+	return s.replace(/<script.*?>.*?<\/script>/ig, '');
+}

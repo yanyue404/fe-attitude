@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .img-cont {
+      width: 700px;
+      border: 1px solid #317ef3;
+      margin: 50px auto;
+    }
+
+    .img-cont>div {
+      width: 300px;
+      height: 260px;
+      border: 1px solid #777;
+      float: left;
+      margin: 20px 0 0 20px;
+    }
+
+    .img-cont>div>div {
+      width: 300px;
+      height: 220px;
+      border: 1px solid red;
+    }
+
+    .img-cont>div>a {
+      width: 60px;
+      height: 30px;
+      border-radius: 4px;
+      line-height: 30px;
+      text-align: center;
+      color: #fff;
+      display: block;
+      background: #317ef3;
+      margin: 5px 0 0 0px;
+      cursor: pointer;
+    }
+
+    .hide {
+      display: none !important;
+    }
+  </style>
+  <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.js"></script>
+  <script>
+    //////定义上传方法函数
+    var id = "1";
+
+    function PreviewImage(imgFile) {
+      var pattern = /(\.*.jpg$)|(\.*.png$)|(\.*.jpeg$)|(\.*.gif$)|(\.*.bmp$)/;
+      if (!pattern.test(imgFile.value)) {
+        alert("系统仅支持jpg/jpeg/png/gif/bmp格式的照片！");
+        imgFile.focus();
+      } else {
+        //定义图片路径 
+        var path;
+        //添加显示图片的HTML元素
+        id += 1;
+        $(".img-cont").append("<div><div id='" + id + "'><img src='' /></div><a class='hide delete-btn'>删除</a></div>");
+        //判断浏览器类型
+        if (document.all) {
+          //兼容IE
+          imgFile.select();
+          path = document.selection.createRange().text;
+          document.getElementById(id).innerHTML = "";
+          document.getElementById(id).style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled='true',sizingMethod='scale',src=\"" + path + "\")"; //使用滤镜效果 
+        } else {
+          //兼容其他浏览器 
+          path = URL.createObjectURL(imgFile.files[0]);
+          document.getElementById(id).innerHTML = "<img src='" + path + "' width='300' height='220' />";
+        }
+        //重置表单
+        resetForm(imgFile);
+      }
+    }
+
+    //重置表单,允许用户连续添加相同的图片
+    function resetForm(imgFile) {
+      $(imgFile).parent()[0].reset();
+    }
+
+    //控制"按钮"显示与隐藏
+    $(".img-cont").off("mouseenter", "div").on("mouseenter", "div", function () {
+      var that = this;
+      var dom = $(that).children("a");
+      dom.removeClass("hide");
+      //为点击事件解绑，防止重复执行
+      dom.off("click");
+      dom.on("click", function () {
+        //删除当前图片
+        dom.parent().remove();
+      });
+    }).off("mouseleave", "div").on("mouseleave", "div", function () {
+      var that = this;
+      $(that).children("a").addClass("hide");
+    })
+  </script>
+</head>
+
+<body>
+  <center>
+    <!-- 图片选择框 -->
+    <form>
+      <input type="file" onchange="PreviewImage(this)">
+    </form>
+    <!-- 图片展示容器 -->
+    <div class="img-cont"></div>
+  </center>
+</body>
+
+</html>
