@@ -1,14 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <style>
+  #gun {
+    height: 60px;
+    width: 90%;
+    background-color: pink;
+    margin: 0 auto;
+    position: relative;
+  }
+  p {
+  line-height: 60px;
+  padding: 0 5px;
+  position: absolute;
+  
+  }
+  </style>
 </head>
+<div id="gun">
+  <p>星期四</p>
+</div>
 <body>
   <script>
     
+    var gun = {
+      options:function(){
+        var y = this,option={};
+        y.options.p = document.querySelector('p');
+        y.options.left = '10px';
+        y.options.right = '10px'
+        y.options.pWidth = '700px';
+      },
+      init:function(){
+        var y = this;
+        var box = y.options.p;
+        setInterval(function(){
+          box.style.left = '500px'
+        },1000)
+      
+      }
+    }
+    gun.init();
+
+
   </script>
 </body>
+
 </html>

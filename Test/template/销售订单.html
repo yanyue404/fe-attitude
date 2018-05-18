@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <style>
+    #customers {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    #customers td,
+    #customers th {
+      font-size: 1em;
+      border: 1px solid #98bf21;
+      padding: 3px 7px 2px 7px;
+    }
+
+    #customers th {
+      font-size: 1.1em;
+      text-align: left;
+      padding-top: 5px;
+      padding-bottom: 4px;
+      background-color: #A7C942;
+      color: #ffffff;
+    }
+
+    #customers tr.alt td {
+      color: #000000;
+      background-color: #EAF2D3;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="table">
+    <table id="customers" class="xiaoshou">
+      <tbody>
+        <tr>
+          <th>公司</th>
+          <th>合计</th>
+          <th>汽油</th>
+          <th>柴油</th>
+        </tr>
+
+        <tr class="del">
+          <td>本部</td>
+          <td>230776.076</td>
+          <td>88846</td>
+          <td>141930.076</td>
+        </tr>
+        <tr class="alt del">
+          <td>浦东</td>
+          <td>40853.602</td>
+          <td>9.7</td>
+          <td>40843.902</td>
+        </tr>
+        <tr class="del">
+          <td>浦西</td>
+          <td>32919.945</td>
+          <td>11550.4</td>
+          <td>21369.545</td>
+        </tr>
+        <tr class="alt del">
+          <td>松青</td>
+          <td>13186.817</td>
+          <td>1407.5</td>
+          <td>11779.317</td>
+        </tr>
+        <tr class="del">
+          <td>宝嘉</td>
+          <td>19911.766</td>
+          <td>16.066</td>
+          <td>19895.7</td>
+        </tr>
+        <tr class="alt del">
+          <td>奉金</td>
+          <td>25015.917999999998</td>
+          <td>1916.123</td>
+          <td>23099.795</td>
+        </tr>
+        <tr class="del">
+          <td>崇明</td>
+          <td>4241</td>
+          <td>216</td>
+          <td>4025</td>
+        </tr>
+        <tr class="alt del">
+          <td>中油奉贤</td>
+          <td>19638</td>
+          <td>14752</td>
+          <td>4886</td>
+        </tr>
+        <tr class="del">
+          <td>中油同盛</td>
+          <td>32807.693</td>
+          <td>4948</td>
+          <td>27859.693</td>
+        </tr>
+        <tr class="del">
+          <td>中油康桥</td>
+          <td>19253</td>
+          <td>9894</td>
+          <td>9359</td>
+        </tr>
+        <tr class="alt del">
+          <td>中油上海</td>
+          <td>12217.723</td>
+          <td>5840</td>
+          <td>6377.723</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <script src="../../Test/excel.js"></script>
+  <script>
+          function method4(tableid){  
+  
+  var curTbl = document.getElementById(tableid);  
+  var oXL;  
+  try{  
+      oXL = new ActiveXObject("Excel.Application"); //创建AX对象excel  
+  }catch(e){  
+      alert("无法启动Excel!\n\n如果您确信您的电脑中已经安装了Excel，"+"那么请调整IE的安全级别。\n\n具体操作：\n\n"+"工具 → Internet选项 → 安全 → 自定义级别 → 对没有标记为安全的ActiveX进行初始化和脚本运行 → 启用");  
+      return false;  
+  }  
+  var oWB = oXL.Workbooks.Add(); //获取workbook对象  
+  var oSheet = oWB.ActiveSheet;//激活当前sheet  
+  var sel = document.body.createTextRange();  
+  sel.moveToElementText(curTbl); //把表格中的内容移到TextRange中  
+  sel.select(); //全选TextRange中内容  
+  sel.execCommand("Copy");//复制TextRange中内容  
+  oSheet.Paste();//粘贴到活动的EXCEL中  
+  oXL.Visible = true; //设置excel可见属性  
+  var fname = oXL.Application.GetSaveAsFilename("将table导出到excel.xls", "Excel Spreadsheets (*.xls), *.xls");  
+  oWB.SaveAs(fname);  
+  oWB.Close();  
+  oXL.Quit();  
+} 
+function doFileExport(inName, inStr) {  
+            var xlsWin = null;  
+            if (!!document.all("glbHideFrm")) {  
+                xlsWin = glbHideFrm;  
+            }  
+            else {  
+                var width = 6;  
+                var height = 4;  
+                var openPara = "left=" + (window.screen.width / 2 - width / 2)  
+                        + ",top=" + (window.screen.height / 2 - height / 2)  
+                        + ",scrollbars=no,width=" + width + ",height=" + height;  
+                xlsWin = window.open("", "_blank", openPara);  
+            }  
+            xlsWin.document.write(inStr);  
+            xlsWin.document.close();  
+            xlsWin.document.execCommand('Saveas', true, inName);  
+            xlsWin.close();  
+  
+        } 
+method4('customers')
+ //第五种方法  
+ var idTmr;  
+        function  getExplorer() {  
+            var explorer = window.navigator.userAgent ;  
+            //ie  
+            if (explorer.indexOf("MSIE") >= 0) {  
+                return 'ie';  
+            }  
+            //firefox  
+            else if (explorer.indexOf("Firefox") >= 0) {  
+                return 'Firefox';  
+            }  
+            //Chrome  
+            else if(explorer.indexOf("Chrome") >= 0){  
+                return 'Chrome';  
+            }  
+            //Opera  
+            else if(explorer.indexOf("Opera") >= 0){  
+                return 'Opera';  
+            }  
+            //Safari  
+            else if(explorer.indexOf("Safari") >= 0){  
+                return 'Safari';  
+            }  
+        }  
+        function method5(tableid) {  
+            if(getExplorer()=='ie')  
+            {  
+                var curTbl = document.getElementById(tableid);  
+                var oXL = new ActiveXObject("Excel.Application");  
+                var oWB = oXL.Workbooks.Add();  
+                var xlsheet = oWB.Worksheets(1);  
+                var sel = document.body.createTextRange();  
+                sel.moveToElementText(curTbl);  
+                sel.select();  
+                sel.execCommand("Copy");  
+                xlsheet.Paste();  
+                oXL.Visible = true;  
+  
+                try {  
+                    var fname = oXL.Application.GetSaveAsFilename("Excel.xls", "Excel Spreadsheets (*.xls), *.xls");  
+                } catch (e) {  
+                    print("Nested catch caught " + e);  
+                } finally {  
+                    oWB.SaveAs(fname);  
+                    oWB.Close(savechanges = false);  
+                    oXL.Quit();  
+                    oXL = null;  
+                    idTmr = window.setInterval("Cleanup();", 1);  
+                }  
+  
+            }  
+            else  
+            {  
+                tableToExcel(tableid)  
+            }  
+        }  
+        function Cleanup() {  
+            window.clearInterval(idTmr);  
+            CollectGarbage();  
+        }  
+        var tableToExcel = (function() {  
+            var uri = 'data:application/vnd.ms-excel;base64,',  
+                    template = '<html><head><meta charset="UTF-8"></head><body><table>{table}</table></body></html>',  
+                    base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) },  
+                    format = function(s, c) {  
+                        return s.replace(/{(\w+)}/g,  
+                                function(m, p) { return c[p]; }) }  
+            return function(table, name) {  
+                if (!table.nodeType) table = document.getElementById(table)  
+                var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}  
+                window.location.href = uri + base64(format(template, ctx))  
+            }  
+        })()  
+  </script>
+</body>
+
+</html>
