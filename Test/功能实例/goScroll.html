@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #gun {
+      height: 60px;
+      width: 90%;
+      background-color: pink;
+      margin: 0 auto;
+    }
+
+    p {
+      line-height: 60px;
+      padding: 0 5px;
+      position: absolute;
+
+    }
+  </style>
+</head>
+<div id="gun">
+  <p>星期四</p>
+</div>
+
+<body>
+  <script>
+    function getStyle(ele, attr) {
+      if (ele.currentStyle !== undefined) {
+        return ele.currentStyle[attr];
+      } else {
+        return window.getComputedStyle(ele, null)[attr]
+          ? window.getComputedStyle(ele, null)[attr]
+          : ele.getAttribute(attr);
+      }
+    }
+    var gun = {
+      options: function () {
+        var y = this, option = {};
+        y.options.p = document.querySelector('#gun p');
+        y.options.gun = document.querySelector('#gun');
+        y.options.left = parseInt(getStyle(y.options.gun, 'margin-right')) + 10;
+        y.options.pWidth = y.options.gun.offsetWidth - y.options.left;
+      },
+      init: function () {
+        var y = this;
+        y.options();
+        var box = y.options.p,
+          i = 0;
+        box.style.left = y.options.pWidth + y.options.left + 'px'
+        clearInterval(goScroll)
+        var goScroll = setInterval(function () {
+          i++;
+          var distance = y.options.left + y.options.pWidth - i * 10;
+          box.style.left = distance + 'px';
+          if (parseInt(box.style.left) < y.options.left) {
+            box.style.left = y.options.left + y.options.pWidth + 'px';
+            i = 0;
+          }
+        }, 50)
+
+      }
+    }
+    gun.init();
+
+
+  </script>
+</body>
+
+</html>
