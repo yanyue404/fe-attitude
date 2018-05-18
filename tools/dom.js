@@ -97,14 +97,7 @@ function replaceClass(obj, newName, oldName) {
   removeClass(obj, oldName);
   addClass(obj, newName);
 }
-function getStyle(e, a) {
-  var b = (typeof objDoc.defaultView == 'function') ? objDoc.defaultView() : objDoc.defaultView;
-  if (b && b.getComputedStyle) {
-    var s = b.getComputedStyle(e, null);
-    return s && s.getPropertyValue(a)
-  }
-  return (e.currentStyle && (e.currentStyle[a] || null) || null)
-}
+
 
 function getStyle(ele, attr) {
   if (ele.currentStyle !== undefined) {
