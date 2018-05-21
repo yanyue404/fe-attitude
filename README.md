@@ -1,4 +1,5 @@
 # smart
+> 日常代码库+笔记
 
 ## [mockapi](https://www.mockapi.io/projects)
 
