@@ -5,7 +5,16 @@
 ````bash
 http(s)://5b02556920848e001432c915.mockapi.io/api/v1/:records
 ````
+## 公共API
 
+````js
+// github
+$.getJSON('https://api.github.com/search/repositories?q=javascript&sort=stars',function(data){})
+// cnode
+$.getJSON('https://cnodejs.org/api/v1/topics',function(data){console.log( data )})
+// 豆瓣电影
+$.get('https://api.douban.com/v2/movie/in_theaters',function(data){console.log( data )},'jsonp')
+````
 
 ## Git commit
 ````
@@ -197,15 +206,5 @@ PWA
 
 </details>
 
-## 公共API
-
-````js
-// github
-$.getJSON('https://api.github.com/search/repositories?q=javascript&sort=stars',function(data){})
-// cnode
-$.getJSON('https://cnodejs.org/api/v1/topics',function(data){console.log( data )})
-// 豆瓣电影
-$.get('https://api.douban.com/v2/movie/in_theaters',function(data){console.log( data )},'jsonp')
-````
 
 **[⬆ 回到顶部](#smart)**
