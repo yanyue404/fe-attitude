@@ -1,5 +1,12 @@
 # smart
 
+## [mockapi](https://www.mockapi.io/projects)
+
+````bash
+http(s)://5b02556920848e001432c915.mockapi.io/api/v1/:records
+````
+
+
 ## Git commit
 ````
 * Head
