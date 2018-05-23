@@ -1,6 +1,21 @@
 # smart
 > 日常代码库+笔记
 
+## mock
+
+- [mockapi](https://www.mockapi.io/projects)
+- [json-server](https://github.com/typicode/json-server)
+
+### 公共API
+
+````js
+// github
+$.getJSON('https://api.github.com/search/repositories?q=javascript&sort=stars',function(data){})
+// cnode
+$.getJSON('https://cnodejs.org/api/v1/topics',function(data){console.log( data )})
+// 豆瓣电影
+$.get('https://api.douban.com/v2/movie/in_theaters',function(data){console.log( data )},'jsonp')
+````
 ## Git commit
 ````
 * Head
@@ -47,23 +62,7 @@ footer| 一些备注, 通常是 BREAKING CHANGE 或修复的 bug 的链接.
 <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 ```
-## [mockapi](https://www.mockapi.io/projects)
 
-![image](https://xiaoyueyue165.github.io/static/blog/mockapi.png)
-
-````bash
-http(s)://5b02556920848e001432c915.mockapi.io/api/v1/:records
-````
-## 公共API
-
-````js
-// github
-$.getJSON('https://api.github.com/search/repositories?q=javascript&sort=stars',function(data){})
-// cnode
-$.getJSON('https://cnodejs.org/api/v1/topics',function(data){console.log( data )})
-// 豆瓣电影
-$.get('https://api.douban.com/v2/movie/in_theaters',function(data){console.log( data )},'jsonp')
-````
 ## 前端进阶系列-目录
 
 <details>
