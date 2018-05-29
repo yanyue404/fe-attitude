@@ -190,7 +190,7 @@ function removeEvent(a, b, c, d) {
 }
 
 
-//阻止submit的默认提交事件
+//取消浏览器默认行为
 /*  submit.onclick = function(e){
     stopDefault(e)
  } */
@@ -202,6 +202,14 @@ function stopDefault(e) {
   }
 
   return false;
+}
+// 阻止事件冒泡
+function stopBubble(e){
+  if (e && e.stopPropagation) {
+      e.stopPropagation();
+  }else if (window.event) {
+      window.event.cancelBubble = true;
+  }
 }
 
 function show(ele) {

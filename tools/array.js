@@ -1,3 +1,5 @@
+
+
 // Array isArray
 
 function isArray(arr) {
@@ -7,6 +9,16 @@ function isArray(arr) {
     .call(arr) === '[object Array]'
 }
 
+// 给数组创建一个随机项
+var items = [12, 548, 'a', 2, 5478, 'foo', 8852, , 'Doe', 2145, 119];
+var randomItem = items[Math.floor(Math.random() * items.length)];
+
+// 打乱数字数组的顺序
+var numbers = [12, 548, 'a', 2, 5478, 'foo', 8852, , 'Doe', 2145, 119];
+numbers.sort(function(){ return Math.random() - 0.5});
+
+// 数组追加
+Array.prototype.push.apply(array1, array2);
 
 //数组原型扩展remove方法
 Array.prototype.indexOf = function (val) {
@@ -48,6 +60,18 @@ Array.prototype.isContains = function (e) {
   return !(i == this.length);
 }
 
+// 数组深度克隆
+Array.prototype.clone = function () {
+  var newArray = []
+  for (var i = 0; i < this.length; i++) {
+      if (typeof(this[i]) == 'object' || typeof(this[i]) == 'function') {
+          newArray[i] = this[i].clone()
+      } else {
+          newArray[i] = this[i]
+      }
+  }
+  return newArray
+}
 // 将一组值转换为数组
 function arrayOf() {
   return []

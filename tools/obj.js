@@ -72,4 +72,17 @@ function signParam(obj) {
     }
     return objSign;
   }
+  // 对象深度克隆
+  Object.prototype.clone = function () {
+    var newObj = {};
+    for (var i in this) {
+        console.log("i = " + i)
+        if (typeof(this[i]) == 'object'|| typeof(this[i]) == 'function') {
+            newObj[i] = this[i].clone()
+        } else {
+            newObj[i] = this[i]
+        }
+    }
+    return newObj
+}
 
