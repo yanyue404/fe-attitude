@@ -59,6 +59,16 @@ Array.prototype.isContains = function (e) {
   for (i = 0; i < this.length && this[i] != e; i++);
   return !(i == this.length);
 }
+function in_array(needle, haystack) {
+	if(typeof needle == 'string' || typeof needle == 'number') {
+		for(var i in haystack) {
+			if(haystack[i] == needle) {
+					return true;
+			}
+		}
+	}
+	return false;
+}
 
 // 数组深度克隆
 Array.prototype.clone = function () {
