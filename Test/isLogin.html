@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        h1 {
+            font-size: 2em;
+            /* 1em = 16px */
+            margin-bottom: 1em;
+            -webkit-filter: blur(1px);
+            background-color: purple;
+            /* 1em = 32px */
+        }
+
+        p {
+            font-size: 1em;
+            /* 1em = 16px */
+            margin-bottom: 1em;
+            /* 1em = 16px */
+        }
+    </style>
+</head>
+<div>
+    <h1>这是一段文字</h1>
+    <p>这是第二段文字</p>
+    <ul></ul>
+</div>
+
+
+<body>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script>
+        localStorage.setItem('isLogin', 'true');
+        var halfAnHour = parseInt(0.5 * (1000 * 60 * 60));
+        clearTimeout(timer);
+        var timer = setTimeout((halfAnHour) => {
+            localStorage.removeItem('isLogin');
+            isLogin();
+
+        }, 10000);
+        isLogin();
+        function isLogin() {
+
+            if (localStorage.getItem('isLogin')) {
+                alert('登录成功')
+            } else {
+                alert("登录失效，请重新登录")
+            }
+
+        }
+
+    </script>
+</body>
+
+</html>

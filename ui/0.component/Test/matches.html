@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <ul id="birds">
+    <li>Orange-winged parrot</li>
+    <li class="endangered">Philippine eagle</li>
+    <li>Great white pelican</li>
+  </ul>
+  
+  <script type="text/javascript">
+    var birds = document.getElementsByTagName('li');
+  
+    for (var i = 0; i < birds.length; i++) {
+      if (birds[i].matches('.endangered')) {
+        console.log('The ' + birds[i].textContent + ' is endangered!');
+      }
+    }
+  </script>
+</body>
+</html>

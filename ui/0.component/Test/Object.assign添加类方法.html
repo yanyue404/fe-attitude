@@ -6,22 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <style>
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem; /* 1rem = 16px */
-    }
-    p {
-      font-size: 1rem;
-      margin-bottom: 1rem; /* 1rem = 16px */
-    }
-  </style>
 </head>
 
 <body>
-  <h1>这是一段文字</h1>
-  <p>这是第二段文字</p>
+  <script>
+    class Point {
+      constructor() {
+        // ...
+      }
+    }
 
+    Object.assign(Point.prototype, {
+      toString() { },
+      toValue() { }
+    });
+
+    var p = new Point();
+  </script>
 </body>
 
 </html>

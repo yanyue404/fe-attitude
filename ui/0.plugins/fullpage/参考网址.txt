@@ -1,7 +1,0 @@
-https://github.com/alvarotrigo/fullPage.js
-http://www.dowebok.com/77.html
-
-使用方法：
-新建页面 
-	1.引入fullpage的js
-	2.再引入一个jq文件
