@@ -4,7 +4,7 @@
       var imgsArray = Array.prototype.slice.call(imgs);
       imgsArray.forEach((v, index) => {
           if (v.style.src == "") {
-              v.setAttribute("src", "./img/wait.png")
+              v.setAttribute("src", "https://xiaoyueyue165.github.io/static/smart/lazyload/wait.png")
           }
           if (isInSight2(v)) {
               loadImgs(v)
