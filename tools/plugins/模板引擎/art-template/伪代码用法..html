@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script id="artListTem" type="text/html">
+            
+      <% for (var i = 1; i < itemList.length; i ++) { %>
+        <%  if(i==1&&itemList[1].isTop==1){%>
+          <li class="hot-s fl" id="hotGg">
+            <a  target="_blank" href="http://tgideas.qq.com<%= itemList[i].link %>">
+            <img src="<%= itemList[i].img %>" /><span class="h-close spr" onclick="tg.closeHotGg()"></span>
+            </a>
+          </li>
+        <% }else{ %>
+          <li class="newslist fl">
+          <a  target="_blank" href="http://tgideas.qq.com<%= itemList[i].link %>">
+            <span class="img-box"><img src="<%= itemList[i].img %>" /></span>
+            <div class="newsbox">
+              <img class="avatar" width="62" height="62" src="http://ossweb-img.qq.com/images/tgideas/web201312/avatars/<%= itemList[i].avatar %>.png" />
+              <p class="newsauthor ffam m0a">
+                <strong class="newsat">BY</strong><%= itemList[i].author %>
+                <strong class="newsat">IN</strong><span><%= itemList[i].type %></span>
+              </p>
+              <dl class="newsvote">
+                <dt class="htxt fl">赞</dt>
+                <dd class="newsscore nvi1 spr" id="<%= itemList[i].like %>"></dd>
+                <dt class="htxt fl">评论</dt>
+                <dd class="newsscore nvi2 spr"><span id="<%= itemList[i].commNum %>">0</span></dd>
+              </dl>
+            </div>
+            <div class="plr10 intro">		
+              <h2 class="newstitle ffam"><%= itemList[i].title %></h2>
+              <p class="newsintro"><%= itemList[i].summary %></p>
+            </div>
+          </a>
+        </li>
+        <% } %>
+      <% } %>
+      
+    </script>
+  <script>
+    var $id = function (id) {
+      return "string" == typeof id ? document.getElementById(id) : id
+    };
+    var html = template.render('artListTem', {
+      "itemList": itemList
+    });
+    $id('newsList').innerHTML = html;
+  </script>
+</body>
+
+</html>

@@ -66,84 +66,96 @@ function client() {
   }
 }
 
-function getPageHeight() {
-  var h = (objWin.innerHeight && objWin.scrollMaxY) ? (objWin.innerHeight + objWin.scrollMaxY) : (objBody.scrollHeight > objBody.offsetHeight ? objBody.scrollHeight : objBody.offsetHeight);
-  return Math.max(h, objDel.scrollHeight)
+var device = {
+  /**
+	 * 获取页面最大高度
+	 * @return 属性样式
+	 */
+	getMaxH: function(){
+		return (this.getPageHeight() > this.getWinHeight() ? this.getPageHeight() : this.getWinHeight())
+	},
+	
+	/**
+	 * 获取页面最大宽度
+	 * @return 属性样式
+	 */
+	getMaxW: function(){
+		return (this.getPageWidth() > this.getWinWidth() ? this.getPageWidth() : this.getWinWidth())
+	},
+	
+	/**
+	 * 网页内容高度
+	 * @return {int} 网页内容高度
+	 */
+	getPageHeight: function(){
+		var h = (window.innerHeight && window.scrollMaxY) ? (window.innerHeight + window.scrollMaxY) : (document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight);
+		return h > document.documentElement.scrollHeight ? h : document.documentElement.scrollHeight
+	},
+	
+	/**
+	 * 网页内容宽度
+	 * @return {int} 网页内容宽度
+	 */
+	getPageWidth: function(){
+		return (window.innerWidth && window.scrollMaxX) ? (window.innerWidth + window.scrollMaxX) : (document.body.scrollWidth > document.body.offsetWidth ? document.body.scrollWidth : document.body.offsetWidth);
+	},
+	
+	/**
+	 * 浏览器可视区域高度
+	 * @return {int} 网可视区域高度
+	 */
+	getWinHeight: function(){
+		return (window.innerHeight) ? window.innerHeight : 
+		(document.documentElement && document.documentElement.clientHeight) 
+		? document.documentElement.clientHeight 
+		: document.body.offsetHeight
+	},
+	
+	/**
+	 * 浏览器可视区域宽度
+	 * @return {int} 网可视区域宽度
+	 */
+	getWinWidth: function(){
+		return (window.innerWidth) ? window.innerWidth : (document.documentElement && document.documentElement.clientWidth) ? document.documentElement.clientWidth : document.body.offsetWidth
+	},
+	
+	/**
+	 * 设置dom透明度
+	 * @param {dom} ele dom对象
+	 * @param {int} level 透明度值（0-100的整数）
+	 * @return {undefined} 
+	 */	
+	setOpacity: function(ele, level){
+		//level = Math.min(1,Math.max(level,0));
+		if(this.browser.msie && (!document.documentMode || document.documentMode < 9)){
+			ele.style.filter = 'Alpha(opacity=' + level + ')'
+		}else{
+			ele.style.opacity = level / 100
+		 }
+    },
+	/**
+	 * 获取页面中对象的绝对X位置
+	 * @param {dom} e dom对象
+	 * @return {int} 
+	 */	
+	getX: function(e) {
+		var t = e.offsetLeft;
+		while (e = e.offsetParent) t += e.offsetLeft;
+		return t
+	},
+	/**
+	 * 获取页面中对象的绝对Y位置
+	 * @param {dom} e dom对象
+	 * @return {int} 
+	 */	
+	getY: function(e) {
+		var t = e.offsetTop;
+		while (e = e.offsetParent) t += e.offsetTop;
+		return t
+	}
 }
-function getPageWidth() {
-  return (objWin.innerWidth && objWin.scrollMaxX) ? (objWin.innerWidth + objWin.scrollMaxX) : (Math.max(objBody.scrollWidth, objBody.offsetWidth))
-}
-function getWinHeight() {
-  return (objWin.innerHeight) ? objWin.innerHeight : (objDel && objDel.clientHeight) ? objDel.clientHeight : objBody.offsetHeight
-}
-function getWinWidth() {
-  return (objWin.innerWidth) ? objWin.innerWidth : (objDel && objDel.clientWidth) ? objDel.clientWidth : objBody.offsetWidth
-}
-function getMaxH() {
-  var a = getPageHeight(),
-    wh = getWinHeight();
-  return Math.max(a, wh)
-}
-function getMaxW() {
-  var a = getPageWidth(),
-    ww = getWinWidth();
-  return Math.max(a, ww)
-}
+
 function goBack() {
   history.back();
 }
 
-/* try {
-  localStorage.setItem('noTrace', true)
-} catch (e) {
-  window.location.href = '/notrace.html'
-} */
-
-
-window.onerror = function(msg,url,line,col,error){
-    if (msg != "Script error." && !url){
-        return true;
-    }
-    if(url.indexOf(".js")==-1){
-        return true;
-    }
-    setTimeout(function(){
-        var data = {
-            url: encodeURIComponent(url),
-            line: encodeURIComponent(line),
-            col: col || (window.event && window.event.errorCharacter) || 0
-        };
-
-        if (!!error && !!error.stack){
-            data.msg = error.stack.toString();
-        }else if (!!arguments.callee){
-            var ext = [];
-            var f = arguments.callee.caller, c = 3;
-            while (f && (--c>0)) {
-               ext.push(f.toString());
-               if (f  === f.caller) {
-                    break;//如果有环
-               }
-               f = f.caller;
-            }
-            ext = ext.join(",");
-            data.msg = error.stack.toString();
-        };
-        data.msg = encodeURIComponent(data.msg);
-
-        var api = "//moco.imooc.com/monitor/api/jslog.html?url="+data.url+"&line="+data.line+"&col="+data.col+"&msg="+data.msg;
-
-        var xmlhttp;
-        if (window.XMLHttpRequest){
-            xmlhttp=new XMLHttpRequest();
-        }else if (window.ActiveXObject){
-            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        if (xmlhttp!=null) {
-            xmlhttp.onreadystatechange=function(){};
-            xmlhttp.open("GET",api,true);
-            xmlhttp.send();
-        }
-    },0);
-    return true;
-};

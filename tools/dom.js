@@ -116,7 +116,24 @@ const dom = {
     return this;
   }
 };
+// 对象合并 option = _extend(option, opt);
+var _extend = function (option, opt) {
+  if (typeof (opt) != 'object' || !opt) {
+    return option;
+  }
+  for (var property in opt) {
+    option[property] = opt[property];
+  }
+  return option;
+};
 
+function create(t) {
+  return document.createElement(t)
+}
+
+function remove(t) {
+  t && t.parentNode && t.parentNode.removeChild(t)
+}
 
 function $(selector, el) {
   if (!el) {
@@ -125,15 +142,15 @@ function $(selector, el) {
   return el.querySelector(selector);
 }
 function getId(id) {
-	return !id ? null : document.getElementById(id);
+  return !id ? null : document.getElementById(id);
 }
 function display(id) {
-	var obj = getId(id);
-	if(obj.style.visibility) {
-		obj.style.visibility = obj.style.visibility == 'visible' ? 'hidden' : 'visible';
-	} else {
-		obj.style.display = obj.style.display == '' ? 'none' : '';
-	}
+  var obj = getId(id);
+  if (obj.style.visibility) {
+    obj.style.visibility = obj.style.visibility == 'visible' ? 'hidden' : 'visible';
+  } else {
+    obj.style.display = obj.style.display == '' ? 'none' : '';
+  }
 }
 function $$(selector, el) {
   if (!el) {
@@ -171,30 +188,30 @@ function getByClass(oParent, sClass) {
   return aResult;
 }
 function $C(classname, ele, tag) {
-	var returns = [];
-	ele = ele || document;
-	tag = tag || '*';
-	if(ele.getElementsByClassName) {
-		var eles = ele.getElementsByClassName(classname);
-		if(tag != '*') {
-			for (var i = 0, L = eles.length; i < L; i++) {
-				if (eles[i].tagName.toLowerCase() == tag.toLowerCase()) {
-						returns.push(eles[i]);
-				}
-			}
-		} else {
-			returns = eles;
-		}
-	}else {
-		eles = ele.getElementsByTagName(tag);
-		var pattern = new RegExp("(^|\\s)"+classname+"(\\s|$)");
-		for (i = 0, L = eles.length; i < L; i++) {
-				if (pattern.test(eles[i].className)) {
-						returns.push(eles[i]);
-				}
-		}
-	}
-	return returns;
+  var returns = [];
+  ele = ele || document;
+  tag = tag || '*';
+  if (ele.getElementsByClassName) {
+    var eles = ele.getElementsByClassName(classname);
+    if (tag != '*') {
+      for (var i = 0, L = eles.length; i < L; i++) {
+        if (eles[i].tagName.toLowerCase() == tag.toLowerCase()) {
+          returns.push(eles[i]);
+        }
+      }
+    } else {
+      returns = eles;
+    }
+  } else {
+    eles = ele.getElementsByTagName(tag);
+    var pattern = new RegExp("(^|\\s)" + classname + "(\\s|$)");
+    for (i = 0, L = eles.length; i < L; i++) {
+      if (pattern.test(eles[i].className)) {
+        returns.push(eles[i]);
+      }
+    }
+  }
+  return returns;
 }
 function hasClass(obj, classStr) {
   var arr = obj.className.split(/\s+/); //这个正则表达式是因为class可以有多个,判断是否包含 
@@ -226,7 +243,7 @@ function getStyle(ele, attr) {
 }
 
 function css(t, n) {
-    return t.currentStyle ? t.currentStyle[n] : getComputedStyle(t, !1)[n]
+  return t.currentStyle ? t.currentStyle[n] : getComputedStyle(t, !1)[n]
 }
 
 // setStyle(c, {
@@ -240,7 +257,7 @@ function setStyle(e, a) {
 }
 
 
-function appendHTML (el, html) {
+function appendHTML(el, html) {
   var divTemp = document.createElement("div"),
     nodes = null,
     // 文档片段，一次性append，提高性能
@@ -257,7 +274,7 @@ function appendHTML (el, html) {
   fragment = null;
 };
 
- function prependHTML (el, html) {
+function prependHTML(el, html) {
   var divTemp = document.createElement("div"),
     nodes = null,
     fragment = document.createDocumentFragment();
@@ -320,11 +337,11 @@ function stopDefault(e) {
   return false;
 }
 // 阻止事件冒泡
-function stopBubble(e){
+function stopBubble(e) {
   if (e && e.stopPropagation) {
-      e.stopPropagation();
-  }else if (window.event) {
-      window.event.cancelBubble = true;
+    e.stopPropagation();
+  } else if (window.event) {
+    window.event.cancelBubble = true;
   }
 }
 

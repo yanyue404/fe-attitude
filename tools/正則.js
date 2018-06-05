@@ -1,309 +1,78 @@
-/**
- *
- * @desc   判断是否为邮箱地址
- * @param  {String}  str
- * @return {Boolean}
- */
-function
-    isEmail(str) {
-
-    return
-
-    /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/.test(str);
-}
-
-/**
- *
- * @desc  判断是否为身份证号
- * @param  {String|Number} str
- * @return {Boolean}
- */
-function
-    isIdCard(str) {
-
-    return
-
-    /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/.test(str)
-}
-
-/**
- *
- * @desc   判断是否为手机号
- * @param  {String|Number} str
- * @return {Boolean}
- */
-function
-    isPhoneNum(str) {
-
-    return
-
-    /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(str)
-}
-/**
- * 电话号码检测
- * @param mobile
- * @returns {Boolean}
- */
-function CheckTelephone(telephone) {
-    var re = /^0\d{2,3}-?\d{7,8}$/;
-    if (re.test(telephone)) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-/**
- *
- * @desc   判断是否为URL地址
- * @param  {String} str
- * @return {Boolean}
- */
-function
-    isUrl(str) {
-
-    return
-
-    /[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/
-    i.test(str);
-}
-
-/**
- * 名称相关检测
- * @param Name
- * @param Minlen
- * @param Maxlen
- * @returns {Number}
- */
-function checkName(Name, Minlen, Maxlen) {
-    rs = 1;
-    if (Name == '') {
-        rs = 2;  //请填写名称
-    } else if (getStrActualLen(Name) > Maxlen || getStrActualLen(Name) < Minlen) {
-        rs = 3; //长度不符合规范
-    } else if (!/^[0-9A-Za-z\_\-\u4e00-\u9fa5]+$/.test(Name)) {
-        rs = 4; //学校名称只能包含汉字，数字，字母，下划线"_"，连接线"-"
-    }
-    return rs;
-}
-
-var passwordReg = /^[A-Za-z0-9]{6,16}$/;
-var nameReg = /^[a-zA-Z\u4e00-\u9fa5]{2,6}$/;
-var mobileReg = /^1[3|4|5|7|8]\d{9}$/;
-var emailReg = /^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/;
-
 //checkType('165226226326','phone')
-//false
-//大家可以根据需要扩展
-function checkType (str, type) {
-    switch (type) {
-        case 'email':
-            return /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(str);
-        case 'phone':
-            return /^1[3|4|5|7|8][0-9]{9}$/.test(str);
-        case 'tel':
-            return /^(0\d{2,3}-\d{7,8})(-\d{1,4})?$/.test(str);
-        case 'number':
-            return /^[0-9]$/.test(str);
-        case 'english':
-            return /^[a-zA-Z]+$/.test(str);
-        case 'chinese':
-            return /^[\u4E00-\u9FA5]+$/.test(str);
-        case 'lower':
-            return /^[a-z]+$/.test(str);
-        case 'upper':
-            return /^[A-Z]+$/.test(str);
-        default :
-            return true;
-    }
+function checkType(str) {
+	switch (type) {
+		case 'email':
+			return /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(str);
+		case 'phone':
+			return /^1[3|4|5|7|8][0-9]{9}$/.test(str);
+		case 'tel':
+			return /^(0\d{2,3}-\d{7,8})(-\d{1,4})?$/.test(str);
+		case 'number':
+			return /^[0-9]$/.test(str);
+		/**
+		 * 校验邮政编码
+		 * @param {string} str 字符串
+		 * @return {bool}
+		 */
+		case 'isZipCode':
+			return /^(\d){6}$/.test(str);
+		case 'isURL':
+			return /^(https|http):\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/.test(str);
+		case 'english':
+			return /^[a-zA-Z]+$/.test(str);
+		case 'chinese':
+			return /^[\u4E00-\u9FA5]+$/.test(str);
+		case 'lower':
+			return /^[a-z]+$/.test(str);
+		case 'upper':
+			return /^[A-Z]+$/.test(str);
+		default:
+			return true;
+	}
 }
 
-var Validator = (function ($) {
+/**
+ * 是否身份证号码
+ * @param {string} str 字符串
+ * @return {bool}
+ */
 
-	//Validates a date input -- http://jquerybyexample.blogspot.com/2011/12/validate-date-    using-jquery.html
-	function isDate(str) {
-		var currVal = str;
-		if (currVal == '')
-			return false;
-
-		//Declare Regex
-		var rxDatePattern = /^(\d{1,2})(\/|-)(\d{1,2})(\/|-)(\d{4})$/;
-		var dtArray = currVal.match(rxDatePattern); // is format OK?
-
-		if (dtArray == null)
-			return false;
-
-		//Checks for dd/mm/yyyy format.
-		var dtDay = dtArray[1];
-		var dtMonth = dtArray[3];
-		var dtYear = dtArray[5];
-
-		if (dtMonth < 1 || dtMonth > 12)
-			return false;
-		else if (dtDay < 1 || dtDay > 31)
-			return false;
-		else if ((dtMonth == 4 || dtMonth == 6 || dtMonth == 9 || dtMonth == 11) && dtDay == 31)
-			return false;
-		else if (dtMonth == 2) {
-			var isleap = (dtYear % 4 == 0 && (dtYear % 100 != 0 || dtYear % 400 == 0));
-			if (dtDay > 29 || (dtDay == 29 && !isleap))
-				return false;
-		}
-
-		return true;
+function isIDCard(str) {
+	var C15ToC18 = function (c15) {
+		var cId = c15.substring(0, 6) + "19" + c15.substring(6, 15);
+		var strJiaoYan = ["1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2"];
+		var intQuan = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
+		var intTemp = 0;
+		for (i = 0; i < cId.length; i++)
+			intTemp += cId.substring(i, i + 1) * intQuan[i];
+		intTemp %= 11;
+		cId += strJiaoYan[intTemp];
+		return cId;
 	}
+	var Is18IDCard = function (IDNum) {
+		var aCity = { 11: "北京", 12: "天津", 13: "河北", 14: "山西", 15: "内蒙古", 21: "辽宁", 22: "吉林", 23: "黑龙江", 31: "上海", 32: "江苏", 33: "浙江", 34: "安徽", 35: "福建", 36: "江西", 37: "山东", 41: "河南", 42: "湖北", 43: "湖南", 44: "广东", 45: "广西", 46: "海南", 50: "重庆", 51: "四川", 52: "贵州", 53: "云南", 54: "西藏", 61: "陕西", 62: "甘肃", 63: "青海", 64: "宁夏", 65: "新疆", 71: "台湾", 81: "香港", 82: "澳门", 91: "国外" };
 
-	/*
-	 * Check whether email is valid
-	 */
-	var isValidEmail = function (strEmail) {
-		
-		validRegExp = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
-		
-		if (strEmail.search(validRegExp) == -1) {
+		var iSum = 0, info = "", sID = IDNum;
+		if (!/^\d{17}(\d|x)$/i.test(sID)) {
 			return false;
 		}
-		
-		return true;
-	}
+		sID = sID.replace(/x$/i, "a");
 
-	/*
-	 * Check whether mobile phone number is valid
-	 */
-	var isValidMobile = function (str) {
-	
-		str = str.replace(/([- ])/g, '');
-		validRegExp = /^[0-9]{10,}$/i;
-		
-		if (str.search(validRegExp) == -1)
-			return false;
-			
-		return true;
-	}
-
-	/*
-	 * Check whether desk phone number is valid
-	 */
-	var isValidPhone = function (str) {
-	
-		//validRegExp = /^[ 0-9]{8,}$/i;
-		str = str.replace(/([- ])/g, '');
-		validRegExp = /^[0-9]{8,}$/i;
-		
-		if (str.search(validRegExp) == -1) {
-		
+		if (aCity[parseInt(sID.substr(0, 2))] == null) {
 			return false;
 		}
-		
+
+		var sBirthday = sID.substr(6, 4) + "-" + Number(sID.substr(10, 2)) + "-" + Number(sID.substr(12, 2));
+		var d = new Date(sBirthday.replace(/-/g, "/"))
+
+		if (sBirthday != (d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate())) return false;
+
+		for (var i = 17; i >= 0; i--) iSum += (Math.pow(2, i) % 11) * parseInt(sID.charAt(17 - i), 11)
+
+		if (iSum % 11 != 1) return false;
 		return true;
 	}
 
-	var isValidUrl = function (str) {
-		validRegExp = /^(ht|f)tps?:\/\/[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?$/i;
-		if (str.search(validRegExp) == -1)
-			return false;
-		return true;
-	}
-
-	var isValidPostCode = function (postCode) {
-		var validRegExp = /^\d{5}$|^\d{5}-\d{4}$/;
-		return validRegExp.test(postCode);
-	}
-
-	/**
-	 * Format XXXXXXXXXX.
-	 */
-	var isValidIdCard = function (str) {
-		validRegExp = /^[0-9]{9,15}$/i;
-		if (str.search(validRegExp) == -1)
-			return false;
-		return true;
-	}
-
-
-	/**
-	 * Format XXXXXX-XX-XXXX Or XXXXXX XX XXXX Or XXXXXXXXXXXX with X = a number.
-	 */
-	var isICNo = function (str) {
-		if (str.length != 12 && str.length != 14)
-			return false;
-		if (str.length == 14) {
-			if (str.indexOf('-') != -1)
-				var validRegExp = /^\d{6}-\d{2}-\d{4}$/;
-			else if (str.indexOf(' ') != -1)
-				var validRegExp = /^\d{6} \d{2} \d{4}$/;
-			else
-				return false;
-
-			return validRegExp.test(str);
-		} else {
-			var validRegExp = /^\d{12}$/;
-			return validRegExp.test(str);
-		}
-
-	}
-
-	/**
-	 * Format XXXXXX-XX-XXXX Or XXXXXX XX XXXX Or XXXXXXXXXXXX with X = a number.
-	 */
-	var isBRNo = function (str) {
-		var validRegExp = /^[0-9a-zA-Z]{7}$/;
-		return validRegExp.test(str);
-	}
-
-	/**
-	 * cellphone 	0xxx-xxx-xxx 
-	 * phone 		0x-xxxx-xxxx
-	 */
-	var isTaiwanMobile = function (str) {
-		var cellPhoneRegExp = /^0\d{3}-\d{3}-\d{3}$/;
-		var phoneRegExp = /^0\d{1}-\d{4}-\d{4}$/;
-		var validRegExp = /^0[0-9]{9}$/;
-
-		str = str.replace(/([- ])/g, '');
-
-		if (cellPhoneRegExp.test(str))
-			return true;
-		else if (phoneRegExp.test(str))
-			return true;
-		else if (validRegExp.test(str))
-			return true;
-		else
-			return false;
-	}
-
-	/**
-	 * Validate Malaysia mobile.
-	 *
-	 * Minimum 10 digits & maximum 11 digits. Need to start with "0"
-	 */
-	var isMalaysiaMobile = function (str) {
-		var validRegExp = /^0\d{9,10}$/;
-		str = str.replace(/([- ])/g, '');
-		if (validRegExp.test(str))
-			return true;
-		else
-			return false;
-	}
-
-	return {
-		"isDate" : isDate,
-		"isEmail" : isValidEmail,
-		"isValidEmail" : isValidEmail,
-		"isMobile" : isValidMobile,
-		"isValidMobile" : isValidMobile,
-		"isPhone" : isValidPhone,
-		"isValidPhone" : isValidPhone,
-		"isPostCode" : isValidPostCode,
-		"isValidPostCode" : isValidPostCode,
-		"isUrl" : isValidUrl,
-		"isValidUrl" : isValidUrl,
-		"isICNo" : isICNo,
-		"isBRNo" : isBRNo,
-		"isValidIdCard" : isValidIdCard,
-		"isIdCard" : isValidIdCard,
-		"isTaiwanMobile" : isTaiwanMobile,
-		"isMalaysiaMobile" : isMalaysiaMobile
-	};
-})(jQuery);
+	return str.length == 15 ? Is18IDCard(C15ToC18(str)) : Is18IDCard(str);
+}
 

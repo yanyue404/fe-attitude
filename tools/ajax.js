@@ -1,46 +1,52 @@
-	/*
-	 * Get an ajax content.
-	 *
-	 * @Use var diagram = $.parseJSON( getPostContent( '/doajax?action=login-status', data ) );
-	 */
-	var getPostContent = function (url, data) {
-		var value = (function () {
-			var val = null;
-			$.ajax({
-				'type' : 'POST',
-				'async' : false,
-				'global' : false,
-				'url' : url,
-				'data' : data,
-				'success' : function (res) {
-					val = res;
-				}
-			});
-			return val;
-		})();
-		return value;
-	}
+/*
+ * Get an ajax content.
+ *
+ * @Use var diagram = $.parseJSON( getPostContent( '/doajax?action=login-status', data ) );
+ */
+var getPostContent = function (url, data) {
+  var value = (function () {
+    var val = null;
+    $.ajax({
+      'type': 'POST',
+      'async': false,
+      'global': false,
+      'url': url,
+      'data': data,
+      'success': function (res) {
+        val = res;
+      }
+    });
+    return val;
+  })();
+  return value;
+}
 
-	/*
-	 * Get an ajax content.
-	 *
-	 * @Use var diagram = $.parseJSON( getContent( '/doajax?action=login-status' ) );
-	 */
-	var getContent = function (url) {
-		var value = (function () {
-			var val = null;
-			$.ajax({
-				'async' : false,
-				'global' : false,
-				'url' : url,
-				'success' : function (data) {
-					val = data;
-				}
-			});
-			return val;
-		})();
-		return value;
-	}
+/*
+ * Get an ajax content.
+ *
+ * @Use var diagram = $.parseJSON( getContent( '/doajax?action=login-status' ) );
+ */
+var getContent = function (url) {
+  var value = (function () {
+    var val = null;
+    $.ajax({
+      'async': false,
+      'global': false,
+      'url': url,
+      'success': function (data) {
+        val = data;
+      }
+    });
+    return val;
+  })();
+  return value;
+}
+
+function encode(e) {
+  return function (t) {
+    return e + "::" + encodeURIComponent(t)
+  }
+}
 /**
  * @param  {setting}
  */
@@ -314,7 +320,7 @@ function formser(form) {
 function formatParams(data) {
   var arr = [];
   for (var name in data) {
-      arr.push(encodeURIComponent(name) + "=" + encodeURIComponent(data[name]));
+    arr.push(encodeURIComponent(name) + "=" + encodeURIComponent(data[name]));
   }
   arr.push(("v=" + Math.random()).replace(".", ""));
   return arr.join("&");
