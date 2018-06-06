@@ -1,10 +1,17 @@
 # smart
+
 > 日常代码库+笔记
+
+## showTime
+
+- https://www.netlify.com 部署静态站点演示
 
 ## mock
 
 - [mockapi](https://www.mockapi.io/projects)
 - [json-server](https://github.com/typicode/json-server)
+- [yapi](https://github.com/YMFE/yapi)
+- [easyapi](https://www.easyapi.com/info/doc)
 
 ### 公共API
 
