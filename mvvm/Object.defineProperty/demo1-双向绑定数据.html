@@ -18,36 +18,32 @@
   </p>
 
   <script>
-    var model = document.querySelector('[yue-model]');
+
+    var Inp = document.querySelector('[yue-model]');
     var yue = {
       data: {
         text: '',
-        list: [
-          { name: 'HTML', age: 10, },
-          { name: 'JavaScript', age: 20, },
-          { name: 'CSS', age: 12, },
-          { name: 'Scss', age: 15, },
-          { name: 'less', age: 13, },
-          { name: 'Angular', age: 17, },
-        ]
-      },
-      methods: {
-
-      },
-      el: '',
+      }
     }
 
+    /**
+     * @param {obj} 要在其上定义属性的对象
+     * @param {prop} 要定义或修改的属性的名称
+     * @param {descriptor} 将被定义或修改的属性描述符
+     */
     Object.defineProperty(yue.data, 'text', {
       get: function () {
+        console.log('get...')
         return this.text;
       },
       set: function (value) {
+        console.log('set...')
         document.querySelector('[yue-text]').innerHTML = value;
       }
 
     })
 
-    model.oninput = function () {
+    Inp.oninput = function () {
       yue.data.text = this.value;
     }
 

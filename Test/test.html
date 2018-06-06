@@ -11,12 +11,12 @@
 <body>
   <span id="departmentdadio">
     <input id="cate" type="radio" value="cate" style="vertical-align: middle;" name="query" checked="true">
-    <a style="vertical-align: middle;text-decoration: none;color: #808080;">按模块显示</a>
+    <a yue-a style="vertical-align: middle;text-decoration: none;color: #808080;">按模块显示</a>
 
     <input id="depart" type="radio" value="depart" style="margin:5px 0;vertical-align: middle;" name="query">
     <a style="vertical-align: middle;text-decoration: none;color: #808080;">按部门显示</a>
     <button id="selectalldepart" class="edit-button" style="width:80px;margin-left:10px;">选择部门</button>
-
+   <div class="alert"></div>
 
     <input id="folder" type="radio" value="folder" style="margin:5px 0;vertical-align: middle;" name="query">
     <a style="vertical-align: middle;text-decoration: none;color: #808080;">按文件夹显示</a>
@@ -25,14 +25,13 @@
   </span>
   <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
   <script>
-    var items = document.getElementById("departmentdadio").children;
-    var itemsArray = Array.prototype.slice.call(items);
+    var matches =document.querySelectorAll("#departmentdadio input,div.alert");
+    var matchesArray = Array.prototype.slice.call(matches);
 
-    for (var i = 0; i < itemsArray.length; i++) {
-      if (i != itemsArray.length - 1) {
-        itemsArray[i].style.display = "none"
-      }
-    }
+    matchesArray.push(document.querySelector('[yue-a]'))
+
+    console.log(matchesArray)
+
   </script>
 </body>
 

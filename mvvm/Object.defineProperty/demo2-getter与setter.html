@@ -12,12 +12,14 @@
   <script>
     // 一个自存档对象。 当设置temperature 属性时，archive 数组会获取日志条目。
     function Archiver() {
-      var temperature = null;
+      var temperature = '123';
       var archive = [];
 
       Object.defineProperty(this, 'temperature', {
         get: function () {
-          console.log('get!');
+
+          console.log(temperature)
+
           return temperature;
         },
         set: function (value) {
