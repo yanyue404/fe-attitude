@@ -1,5 +1,10 @@
 # smart
+
 > 日常代码库+笔记
+
+## showTime
+
+- https://www.netlify.com 部署静态站点演示
 
 ## mock
 
