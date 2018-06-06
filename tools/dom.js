@@ -143,13 +143,8 @@ function isPlainObject(obj) {
   return Object.getPrototypeOf(obj) === proto
 }
 
-function create(t) {
-  return document.createElement(t)
-}
 
-function remove(t) {
-  t && t.parentNode && t.parentNode.removeChild(t)
-}
+// ----------------------------------------获取元素------------------------------------------------------
 
 function $(selector, el) {
   if (!el) {
@@ -157,26 +152,17 @@ function $(selector, el) {
   }
   return el.querySelector(selector);
 }
-function getId(id) {
-  return !id ? null : document.getElementById(id);
-}
-function display(id) {
-  var obj = getId(id);
-  if (obj.style.visibility) {
-    obj.style.visibility = obj.style.visibility == 'visible' ? 'hidden' : 'visible';
-  } else {
-    obj.style.display = obj.style.display == '' ? 'none' : '';
-  }
-}
+
 function $$(selector, el) {
   if (!el) {
     el = document;
   }
-  return el.querySelectorAll(selector);
-  // Note: the returned object is a NodeList.
+  return Array.prototype.slice.call(el.querySelectorAll(selector));
+  // Note: el.querySelectorAll(selector) => the returned object is a NodeList ;
   // If you'd like to convert it to a Array for convenience, use this instead:
   // return Array.prototype.slice.call(el.querySelectorAll(selector));
 }
+
 // 将NodeList转为数组
 function convertToArray(nodeList) {
   var array = null
@@ -191,6 +177,12 @@ function convertToArray(nodeList) {
   }
   return array
 }
+
+function getId(id) {
+  return !id ? null : document.getElementById(id);
+}
+
+
 function getByClass(oParent, sClass) {
   var aEle = oParent.getElementsByTagName('*');
   var aResult = [];
@@ -229,6 +221,30 @@ function $C(classname, ele, tag) {
   }
   return returns;
 }
+function siblings(obj) {
+  var a = [];//定义一个数组，用来存o的兄弟元素 
+  var p = obj.previousSibling;
+  while (p) {//先取o的哥哥们 判断有没有上一个哥哥元素，如果有则往下执行 p表示previousSibling 
+    if (p.nodeType === 1) {
+      a.push(p);
+    }
+    p = p.previousSibling//最后把上一个节点赋给p 
+  }
+  a.reverse()//把顺序反转一下 这样元素的顺序就是按先后的了 
+  var n = obj.nextSibling;//再取o的弟弟 
+  while (n) {//判断有没有下一个弟弟结点 n是nextSibling的意思 
+    if (n.nodeType === 1) {
+      a.push(n);
+    }
+    n = n.nextSibling;
+  }
+  return a;
+}
+
+
+
+// ---------------------------·····class与属性，css样式-------------------------
+
 function hasClass(obj, classStr) {
   var arr = obj.className.split(/\s+/); //这个正则表达式是因为class可以有多个,判断是否包含 
   return (arr.indexOf(classStr) == -1) ? false : true;
@@ -245,6 +261,62 @@ function removeClass(obj, classStr) {
 function replaceClass(obj, newName, oldName) {
   removeClass(obj, oldName);
   addClass(obj, newName);
+}
+
+// 另一套，使用时放开 {}
+var ClassList = {
+  // el can be an Element, NodeList or selector
+  addClass(el, className) {
+    if (typeof el === 'string') el = document.querySelectorAll(el);
+    const els = (el instanceof NodeList) ? [].slice.call(el) : [el];
+
+    els.forEach(e => {
+      if (this.hasClass(e, className)) { return; }
+
+      if (e.classList) {
+        e.classList.add(className);
+      } else {
+        e.className += ' ' + className;
+      }
+    });
+  },
+
+  // el can be an Element, NodeList or selector
+  removeClass(el, className) {
+    if (typeof el === 'string') el = document.querySelectorAll(el);
+    const els = (el instanceof NodeList) ? [].slice.call(el) : [el];
+
+    els.forEach(e => {
+      if (this.hasClass(e, className)) {
+        if (e.classList) {
+          e.classList.remove(className);
+        } else {
+          e.className = e.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+        }
+      }
+    });
+  },
+
+  // el can be an Element or selector
+  hasClass(el, className) {
+    if (typeof el === 'string') el = document.querySelector(el);
+    if (el.classList) {
+      return el.classList.contains(className);
+    }
+    return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
+  },
+
+  // el can be an Element or selector
+  toggleClass(el, className) {
+    if (typeof el === 'string') el = document.querySelector(el);
+    const flag = this.hasClass(el, className);
+    if (flag) {
+      this.removeClass(el, className);
+    } else {
+      this.addClass(el, className);
+    }
+    return flag;
+  }
 }
 
 
@@ -273,6 +345,40 @@ function setStyle(e, a) {
 }
 
 
+// --------------------------------显示，隐藏，插入---------------------------
+function create(t) {
+  return document.createElement(t)
+}
+
+// el can be an Element, NodeList or query string
+function remove(t) {
+  if (typeof el === 'string') {
+    [].forEach.call(document.querySelectorAll(el), node => {
+      node.parentNode.removeChild(node);
+    });
+  } else if (el.parentNode) {
+    // it's an Element
+    el.parentNode.removeChild(el);
+  } else if (el instanceof NodeList) {
+    // it's an array of elements
+    [].forEach.call(el, node => {
+      node.parentNode.removeChild(node);
+    });
+  } else {
+    throw new Error('you can only pass Element, array of Elements or query string as argument');
+  }
+}
+
+
+function insertAfter(newEl, targetEl) {
+  const parent = targetEl.parentNode;
+
+  if (parent.lastChild === targetEl) {
+    parent.appendChild(newEl);
+  } else {
+    parent.insertBefore(newEl, targetEl.nextSibling);
+  }
+}
 function appendHTML(el, html) {
   var divTemp = document.createElement("div"),
     nodes = null,
@@ -306,27 +412,9 @@ function prependHTML(el, html) {
   nodes = null;
   fragment = null;
 };
-function siblings(obj) {
-  var a = [];//定义一个数组，用来存o的兄弟元素 
-  var p = obj.previousSibling;
-  while (p) {//先取o的哥哥们 判断有没有上一个哥哥元素，如果有则往下执行 p表示previousSibling 
-    if (p.nodeType === 1) {
-      a.push(p);
-    }
-    p = p.previousSibling//最后把上一个节点赋给p 
-  }
-  a.reverse()//把顺序反转一下 这样元素的顺序就是按先后的了 
-  var n = obj.nextSibling;//再取o的弟弟 
-  while (n) {//判断有没有下一个弟弟结点 n是nextSibling的意思 
-    if (n.nodeType === 1) {
-      a.push(n);
-    }
-    n = n.nextSibling;
-  }
-  return a;
-}
 
 
+//----------------------------------------- 事件相关------------------------------------------
 
 // addEvent(objWin, 'scroll', fixIECenter)
 // d参数默认false=》冒泡，true为捕获
@@ -361,11 +449,4 @@ function stopBubble(e) {
   }
 }
 
-function show(ele) {
-  ele.style.display = "block";
-}
 
-//隐藏盒子
-function hide(ele) {
-  ele.style.display = "none";
-}

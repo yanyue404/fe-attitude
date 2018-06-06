@@ -63,26 +63,63 @@ function pairs(obj) {
 function signParam(obj) {
     var arr = [];
     for (key in obj) {
-      arr.push(key);
+        arr.push(key);
     };
     arr.sort();
     var objSign = '';
     for (var i = 0; i < arr.length; i++) {
-      i < arr.length - 1 ? objSign += arr[i] + '=' + obj[arr[i]] + '&' : objSign += arr[i] + '=' + obj[arr[i]];
+        i < arr.length - 1 ? objSign += arr[i] + '=' + obj[arr[i]] + '&' : objSign += arr[i] + '=' + obj[arr[i]];
     }
     return objSign;
-  }
-  // 对象深度克隆
-  Object.prototype.clone = function () {
+}
+// 对象深度克隆
+Object.prototype.clone = function () {
     var newObj = {};
     for (var i in this) {
         console.log("i = " + i)
-        if (typeof(this[i]) == 'object'|| typeof(this[i]) == 'function') {
+        if (typeof (this[i]) == 'object' || typeof (this[i]) == 'function') {
             newObj[i] = this[i].clone()
         } else {
             newObj[i] = this[i]
         }
     }
     return newObj
+}
+/**
+ * @desc 深拷贝，支持常见类型
+ * @param {Any} values
+ */
+function deepClone(values) {
+    var copy;
+
+    // Handle the 3 simple types, and null or undefined
+    if (null == values || "object" != typeof values) return values;
+
+    // Handle Date
+    if (values instanceof Date) {
+        copy = new Date();
+        copy.setTime(values.getTime());
+        return copy;
+    }
+
+    // Handle Array
+    if (values instanceof Array) {
+        copy = [];
+        for (var i = 0, len = values.length; i < len; i++) {
+            copy[i] = deepClone(values[i]);
+        }
+        return copy;
+    }
+
+    // Handle Object
+    if (values instanceof Object) {
+        copy = {};
+        for (var attr in values) {
+            if (values.hasOwnProperty(attr)) copy[attr] = deepClone(values[attr]);
+        }
+        return copy;
+    }
+
+    throw new Error("Unable to copy values! Its type isn't supported.");
 }
 
