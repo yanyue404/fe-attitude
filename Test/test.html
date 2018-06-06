@@ -9,30 +9,30 @@
 </head>
 
 <body>
+  <span id="departmentdadio">
+    <input id="cate" type="radio" value="cate" style="vertical-align: middle;" name="query" checked="true">
+    <a style="vertical-align: middle;text-decoration: none;color: #808080;">按模块显示</a>
 
-  <button></button>
+    <input id="depart" type="radio" value="depart" style="margin:5px 0;vertical-align: middle;" name="query">
+    <a style="vertical-align: middle;text-decoration: none;color: #808080;">按部门显示</a>
+    <button id="selectalldepart" class="edit-button" style="width:80px;margin-left:10px;">选择部门</button>
+
+
+    <input id="folder" type="radio" value="folder" style="margin:5px 0;vertical-align: middle;" name="query">
+    <a style="vertical-align: middle;text-decoration: none;color: #808080;">按文件夹显示</a>
+    <button id="selectallfolder" class="edit-button" style="margin-left:10px;">选择文件夹</button>
+
+  </span>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
   <script>
-    var _extend = function (option, opt) {
-      if (typeof (opt) != 'object' || !opt) {
-        return option;
-      }
-      for (var property in opt) {
-        option[property] = opt[property];
-      }
-      return option;
-    };
+    var items = document.getElementById("departmentdadio").children;
+    var itemsArray = Array.prototype.slice.call(items);
 
-    var Page = function (option) {
-      // 支持Page()或new Page()创建
-      if (!(this instanceof Page)) return new Page();
+    for (var i = 0; i < itemsArray.length; i++) {
+      if (i != itemsArray.length - 1) {
+        itemsArray[i].style.display = "none"
+      }
     }
-    var defaultOptions = { element1: '' };
-    var options = Object.assign({}, defaultOptions, { element1: "btn" });
-    console.log(options.hasOwnProperty("element"))
-    var page1 = Page(options);
-
-
-
   </script>
 </body>
 
