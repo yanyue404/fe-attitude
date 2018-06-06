@@ -3,17 +3,15 @@ var loadMore = {
     var y = this;
 
     var defaultOptions = {
-      ele: ''
     }
-    y.options = Object.assign({}, defaultOptions, options);
+    y.options = _extend(defaultOptions, options);
     var domStr = y.options.ele;
-    y.checkOptions().appendById(domStr);
+    y.checkOptions().appendById(domStr).bind();
 
     console.log(this)
-
   },
   checkOptions: function () {
-    if (!this.options.ele) {
+    if (!this.options.hasOwnProperty("ele")) {
       throw new Error("element is required");
     }
     return this;
@@ -26,7 +24,7 @@ var loadMore = {
       + '<li id="btn-load-more" class="">'
       + '<a href="javascript:;">点击载入更多</a></li>'
 
-      + '<li id="btn-loading" class="hidde">'
+      + '<li id="btn-loading" class="hidden">'
       + '<a href="javascript:;">'
       + '<i class="fa fa-spinner fa-spin" aria-hidden="true"></i> 载入中</a> </li>'
       + '</ul>';
@@ -37,5 +35,18 @@ var loadMore = {
     var y = this;
     var box = y.makeBtnLayout();
     document.getElementById(id).appendChild(box);
+    return y;
+  },
+  bind: function () {
+    var loadMore = document.getElementById("btn-load-more");
+    var loading = document.getElementById("btn-loading");
+    addEvent(loadMore, 'click', function () {
+      this.classList.add("hidden");
+      loading.classList.remove("hidden");
+    })
+  },
+  loadComplete: function () {
+    var loading = document.getElementById("btn-loading");
+    loading.classList.add("hidden");
   }
 }
