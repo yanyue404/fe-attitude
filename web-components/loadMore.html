@@ -48,12 +48,22 @@
 </head>
 
 <body>
-  <div id="content"></div>
+  <div id="content">
+    <button>加载完成</button>
+  </div>
+  <script src="../tools/dom.js"></script>
   <script src="./js/loadMore.js"></script>
   <script>
+
     loadMore.init({
       ele: "content"
     });
+
+    // 加载完成
+    document.querySelector("button").onclick = function () {
+      loadMore.loadComplete();
+    }
+
   </script>
 </body>
 

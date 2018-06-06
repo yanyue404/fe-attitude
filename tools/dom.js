@@ -127,6 +127,22 @@ var _extend = function (option, opt) {
   return option;
 };
 
+/**
+ * 
+ * @param {any} obj 
+ * @returns {boolean} 判断传入的参数是否是一个朴素对象
+ */
+function isPlainObject(obj) {
+  if (typeof obj !== 'object' || obj === null) return false
+
+  let proto = obj
+  while (Object.getPrototypeOf(proto) !== null) {
+    proto = Object.getPrototypeOf(proto)
+  }
+
+  return Object.getPrototypeOf(obj) === proto
+}
+
 function create(t) {
   return document.createElement(t)
 }

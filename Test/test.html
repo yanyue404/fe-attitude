@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <button></button>
+  <script>
+    var _extend = function (option, opt) {
+      if (typeof (opt) != 'object' || !opt) {
+        return option;
+      }
+      for (var property in opt) {
+        option[property] = opt[property];
+      }
+      return option;
+    };
+
+    var Page = function (option) {
+      // 支持Page()或new Page()创建
+      if (!(this instanceof Page)) return new Page();
+    }
+    var defaultOptions = { element1: '' };
+    var options = Object.assign({}, defaultOptions, { element1: "btn" });
+    console.log(options.hasOwnProperty("element"))
+    var page1 = Page(options);
+
+
+
+  </script>
+</body>
+
+</html>
