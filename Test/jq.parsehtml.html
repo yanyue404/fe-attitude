@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <ul class="sb"></ul>
+  <ul class="sbs"></ul>
+  <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+  <script>
+    $(function () {
+      var str = '</li><li>4</li><script type="text/javascript">console.log("执行脚本代码完成");<\/script>';
+      var arr0 = jQuery.parseHTML(str, true);
+      var arr1 = jQuery.parseHTML(str);
+      console.log(arr0);
+      console.log(arr0[0]);
+      console.log(arr1);
+      console.log(arr1[0]);
+      $.each(arr0, function (i) {
+        $("ul.sb").append(arr0[i]);
+      });
+      $.each(arr1, function (i) {
+        $("ul.sbs").append(arr1[i]);
+      });
+    })
+
+
+
+
+
+
+    // var rsingleTag = (/^<(\w+)\s*\/?>(?:<\/\1>|)$/);
+    // jQuery.parseHTML = function (data, context, keepScripts) {
+    //   if (!data || typeof data !== "string") {
+    //     return null;
+    //   }
+    //   //只有两个参数的时候，第二个就是是否保存script标签，这时候context就没有传进来!  
+    //   if (typeof context === "boolean") {
+    //     keepScripts = context;
+    //     context = false;
+    //   }
+    //   //如果只有两个参数那么context就是document对象!  
+    //   context = context || document;
+
+    //   //如果不是单个标签那么parsed就是null,所谓的单个标签就是<div/>或者<div></div>但是<div>hello</div>不满足!  
+    //   var parsed = rsingleTag.exec(data),
+    //     //如果keepScripts是false，那么scripts就是  
+    //     scripts = !keepScripts && [];
+    //   // Single tag  
+    //   if (parsed) {
+    //     //如果是单个标签就调用相应的createElement方法，默认上下文是document!  
+    //     return [context.createElement(parsed[1])];
+    //   }
+    //   //如果不是单个标签就调用buildFragment方法，把html字符串传入，同时上下文也传入，第三个参数就是scripts!  
+    //   //如果paseHTML的第三个参数是false，那么这里的scripts就是一个数组，传递到buildFragment中会把所有的script标签放在里面  
+    //   //所以就要收到移除!  
+    //   parsed = jQuery.buildFragment([data], context, scripts);
+    //   if (scripts && scripts.length) {
+    //     jQuery(scripts).remove();
+    //   }
+    //   //buildFragment返回的是文档碎片，所以要变成数组，调用merge方法!  
+    //   return jQuery.merge([], parsed.childNodes);
+    // };
+  </script>
+</body>
+
+</html>

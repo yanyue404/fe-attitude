@@ -7,8 +7,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <link href="https://cdn.bootcss.com/bootstrap-table/1.12.1/bootstrap-table.css" rel="stylesheet">
- 
+
 </head>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap-table/1.12.1/bootstrap-table.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap-table/1.12.1/locale/bootstrap-table-zh-CN.js"></script>
@@ -28,30 +29,32 @@
     </thead>
   </table>
   <script>
+
+
     var items = [
       { c0: "专业知识库", c1: "HSE知识", c4: "" },
-      { c0: "", c1: "工艺知识", c4: "" },
-      { c0: "", c1: "设备知识", c4: "" },
-      { c0: "", c1: "计量知识", c4: "" },
-      { c0: "", c1: "经营管理知识", c4: "" },
-      { c0: "", c1: "其他知识", c4: "" },
-      { c0: "", c1: "科技前沿", c4: "" },
+      { c0: "专业知识库", c1: "工艺知识", c4: "" },
+      { c0: "专业知识库", c1: "设备知识", c4: "" },
+      { c0: "专业知识库", c1: "计量知识", c4: "" },
+      { c0: "专业知识库", c1: "经营管理知识", c4: "" },
+      { c0: "专业知识库", c1: "其他知识", c4: "" },
+      { c0: "专业知识库", c1: "科技前沿", c4: "" },
     ]
 
 
     for (var i = 0; i < items.length; i++) {
       items[i]["id"] = i + 1;
-      // var v1 = items[i];
-      // var v2 = items[i + 1];
-      // console.log(v2)
-      // for (var key in v1) {
-      //   var name = v1[key];
+      var v1 = items[i];
+      var v2 = items[i + 1];
+      console.log(v2)
+      for (var key in v1) {
+        var name = v1[key];
 
-      //   if (v2 != undefined && v2[key] === v1[key]) {
-      //     console.log("key相等")
-      //     v2[key] = "";
-      //   }
-      // }
+        if (v2 != undefined && v2[key] === v1[key]) {
+          console.log("key相等")
+          v2[key] = "";
+        }
+      }
     }
 
     console.log(items)
