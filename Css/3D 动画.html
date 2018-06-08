@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .box {
+            width:310px;
+            height: 310px;
+            margin: 50px auto;
+            position: relative;
+            transform-style:preserve-3d;
+
+            /*动画*/
+            animation:zhuan 5s infinite linear;
+        }
+
+        /*鼠标划上.box停止动画*/
+        .box:hover {
+            animation-play-state:paused;
+        }
+        .box>ul {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left:0;
+            top:0;
+            overflow: hidden;
+        }
+        .box>ul li{
+            float: left;
+            width:90px;
+            height:90px;
+            margin: 10px 0 0 10px;
+            border-radius:10px;
+            text-align: center;
+            line-height: 90px;
+            font-size: 30px;
+        }
+        .box>ul li:nth-child(1){
+            background-color: skyblue;
+        }
+        .box>ul li:nth-child(2){
+            background-color: pink;
+        }
+        .box>ul li:nth-child(3){
+            background-color: darkmagenta;
+        }
+        .box>ul li:nth-child(4){
+            background-color: blue;
+        }
+        .box>ul li:nth-child(5){
+            background-color: orange;
+        }
+        .box>ul li:nth-child(6){
+            background-color: greenyellow;
+        }
+        .box>ul li:nth-child(7){
+            background-color: purple;
+        }
+        .box>ul li:nth-child(8){
+            background-color: firebrick;
+        }
+        .box>ul li:nth-child(9){
+            background-color: darkolivegreen;
+        }
+
+        /*立方体*/
+        .qian {
+            transform: translateZ(150px);
+        }
+        .hou {
+            transform: translateZ(-150px);
+        }
+        .left {
+            transform:rotateY(-90deg) translateZ(150px);
+        }
+        .right {
+            transform:rotateY(90deg) translateZ(150px);
+        }
+        .top {
+            transform:rotateX(-90deg) translateZ(150px);
+        }
+        .bottom {
+            transform:rotateX(90deg) translateZ(150px);
+        }
+
+
+
+        /*动画*/
+        @keyframes zhuan{
+            0% {
+                transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg);
+            }
+
+            20% {
+                transform: rotateY(-30deg) rotateX(40deg) rotateZ(20deg);
+            }
+
+            40% {
+                transform: rotateY(160deg) rotateX(-60deg) rotateZ(150deg);
+            }
+
+            60% {
+                transform: rotateY(145deg) rotateX(180deg) rotateZ(-10deg);
+            }
+
+            80% {
+                transform: rotateY(-60deg) rotateX(60deg) rotateZ(50deg);
+            }
+
+            100% {
+                transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg);
+            }
+
+        }
+
+    </style>
+    <script>
+        window.onload = function(){
+            var btn = document.querySelector('button');
+            var div = document.querySelector('div');
+            btn.onclick = function(){
+                if(this.innerText == '停止动画'){
+                    div.style.animationPlayState = 'paused';
+                    this.innerText = '开始动画';
+                }else{
+                    div.style.animationPlayState = '';
+                    this.innerText = '停止动画';
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <button>停止动画</button>
+    <div class="box">
+        <ul class="qian">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+        </ul>
+        <ul class="hou">
+            <li>a</li>
+            <li>b</li>
+            <li>c</li>
+            <li>d</li>
+            <li>e</li>
+            <li>f</li>
+            <li>g</li>
+            <li>h</li>
+            <li>i</li>
+        </ul>
+        <ul class="left">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+        </ul>
+        <ul class="right">
+            <li>a</li>
+            <li>b</li>
+            <li>c</li>
+            <li>d</li>
+            <li>e</li>
+            <li>f</li>
+            <li>g</li>
+            <li>h</li>
+            <li>i</li>
+        </ul>
+        <ul class="top">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+        </ul>
+        <ul class="bottom">
+            <li>a</li>
+            <li>b</li>
+            <li>c</li>
+            <li>d</li>
+            <li>e</li>
+            <li>f</li>
+            <li>g</li>
+            <li>h</li>
+            <li>i</li>
+        </ul>
+    </div>
+</body>
+</html>

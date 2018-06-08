@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<input type="file"/>
+<script>
+   var ipt = document.querySelector('input');
+   ipt.onchange = function(){
+       //当input 发生变化的时候  自身返回一个FileList对象
+       //FileList 对象包含了你所选择的文件
+       var filelist = this.files;
+       var filereader = new FileReader();
+       // 以文本格式的方式读取文件
+       filereader.readAsText(filelist[0]);
+       // 读取文件需要过程
+       filereader.onload = function(){
+           //获取最后的目标值
+           var res = filereader.result;
+           // 应用
+           // 创建style标签
+           var style = document.createElement('style');
+           // 将文件内容放入style标签中
+           style.innerText = res;
+           var head = document.querySelector('head');
+           //将样式添加到head 中
+           head.appendChild(style);
+       }
+   }
+</script>
+</body>
+</html>

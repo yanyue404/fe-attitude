@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>凹凸文字</title>
+	<style>	
+		*{
+			margin:0;
+			padding:0;
+			list-style: none;
+		}
+		body{
+			background-color: #ccc;
+		}
+		.box{
+			width:200px;
+			margin:100px auto;
+		}
+		.box p{
+			color:#ccc;
+			font:bold 40px/2em '微软雅黑';
+		}
+		.box p:nth-child(1){
+			text-shadow:1px 1px 1px #333,-1px -1px 1px #fff;
+		}
+		.box p:nth-child(2){
+			text-shadow:1px 1px 1px #fff,-1px -1px 1px #333;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<p>我是文字1</p>
+		<p>我是文字2</p>
+
+	</div>
+</body>
+</html>
