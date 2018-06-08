@@ -1,0 +1,279 @@
+
+/* ---------------------------------------base--------------------000 */
+.w100 {
+  width: 100%;
+}
+.h100 {
+  height: 100%;
+}
+.border-box {
+  box-sizing: border-box;
+}
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.pr {
+  position: relative;
+}
+
+.pa {
+  position: absolute;
+}
+
+.pf {
+  position: fixed;
+}
+.block {
+  display: block !important;
+}
+
+.inline {
+  display: inline !important;
+}
+
+.inline-block {
+  display: inline-block !important;
+}
+
+.hide {
+  display: none !important;
+}
+.clearfix:after {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+.clearfix {
+  *zoom: 1;
+  /* ie67专用 */
+}
+/* -----------------------------------------box---------------------- */
+.box {
+  display: -webkit-box !important;
+  display: box !important;
+  position: relative;
+}
+/*元素垂直排列*/
+.box-ver {
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
+}
+/*水平*/
+.box-h {
+  box-orient: horizontal;
+  -webkit-box-orient: horizontal;
+}
+/*元素反序排列*/
+.box-rev {
+  -webkit-box-direction: reverse;
+  box-direction: reverse;
+}
+
+/*空间分配大小比例*/
+.box-f1 {
+  position: relative;
+  -webkit-box-flex: 1;
+  box-flex: 1;
+}
+
+.box-f2 {
+  position: relative;
+  -webkit-box-flex: 2;
+  box-flex: 2;
+}
+
+.box-f3 {
+  position: relative;
+  -webkit-box-flex: 3;
+  box-flex: 3;
+}
+
+.box-f4 {
+  position: relative;
+  -webkit-box-flex: 4;
+  box-flex: 4;
+}
+
+/*垂直居中*/
+.box-ac {
+  -webkit-box-align: center;
+  box-align: center;
+}
+/*位于底边*/
+.box-ae {
+  -webkit-box-align: end;
+  box-align: end;
+}
+/*水平居中*/
+.box-pc {
+  -webkit-box-pack: center;
+  box-pack: center;
+}
+/*位于末尾*/
+.box-pe {
+  -webkit-box-pack: end;
+  box-pack: end;
+}
+/*两端对齐*/
+.box-pj {
+  -webkit-box-pack: justify;
+  box-pack: justify;
+}
+
+/* --------------------------------------images-------------------------- */
+
+/* 将背景图像等比缩放到宽度或高度与容器的宽度或高度相等，背景图像始终包含在容器内 */
+.img {
+  -webkit-background-size: contain;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* 定义将背景图片等比例缩放到完全覆盖容器，背景图像有可能超过容器 */
+.img1 {
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+/* 定义背景图像横向平铺 */
+.img2 {
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+}
+/* 定义背景图像纵向平铺 */
+.img3 {
+  background-repeat: repeat-y;
+  background-size: 100% auto;
+}
+/* 定义背景图像横向100%，纵向自适应; */
+.img4 {
+  -webkit-background-size: 100% auto;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+/* 定义背景图像横向自适应，纵向为100% */
+.img5 {
+  -webkit-background-size: auto 100%;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+/* 定义背景图像居中显示 */
+.img6 {
+  background-repeat: no-repeat;
+  background-position: center;
+}
+/*---------------------------------盒子宽---------------------------------------------*/
+
+.w3 {
+  width: 33.333%;
+}
+
+.w2 {
+  width: 50%;
+}
+
+.w1 {
+  width: 100%;
+}
+
+.w4 {
+  width: 25%;
+}
+
+/* -----------------------------------------12栅格-------------------------- */
+.col-12 {
+  width: 100%;
+}
+
+.col-11 {
+  width: 91.66666667%;
+}
+
+.col-10 {
+  width: 83.33333333%;
+}
+
+.col-9 {
+  width: 75%;
+}
+
+.col-8 {
+  width: 66.66666667%;
+}
+
+.col-7 {
+  width: 58.33333333%;
+}
+
+.col-6 {
+  width: 50%;
+}
+
+.col-5 {
+  width: 41.66666667%;
+}
+
+.col-4 {
+  width: 33.33333333%;
+}
+
+.col-3 {
+  width: 25%;
+}
+
+.col-2 {
+  width: 16.66666667%;
+}
+
+.col-1 {
+  width: 8.33333333%;
+}
+
+
+/* -----------------------------------------font------------------------- */
+
+.fs12 {
+  font-size: 12px;
+}
+
+.fs14 {
+  font-size: 14px;
+}
+
+.fs16 {
+  font-size: 16px;
+}
+
+.fs18 {
+  font-size: 18px;
+}
+
+.fs24 {
+  font-size: 24px;
+}
+
+.fs32 {
+  font-size: 32px;
+}
+
+.fs42 {
+  font-size: 42px;
+}
+

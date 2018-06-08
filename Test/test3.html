@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    ul:first-child {
+      background-color: pink;
+    }
+
+    ul:nth-child(2) {
+      background-color: rgb(58, 240, 58);
+    }
+    .checked {
+      color:yellow;
+    }
+
+  </style>
+</head>
+<div id="box">
+  <ul>
+    <li>
+      <span>知识目录</span>
+      <ul>
+        <li class="checked">11</li>
+        <li>22</li>
+        <li>33</li>
+      </ul>
+    </li>
+    <li>2</li>
+    <li>2</li>
+  </ul>
+</div>
+<script src="../tools/dom.js"></script>
+<script>
+
+  var liArs =document.querySelectorAll("li");
+  Array.from(liArs).forEach(function(dom){
+    dom.onclick = function(){
+      this.className = "checked";
+    }
+  })
+
+</script>
+
+<body>
+</body>
+
+</html>

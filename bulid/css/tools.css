@@ -1,0 +1,91 @@
+.select {
+  /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+  border: solid 1px #000;
+  /*很关键：将默认的select选择框样式清除*/
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  /*在选择框的最右侧中间显示小箭头图片*/
+  background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat
+    scroll right center transparent;
+  /*为下拉小箭头留出一点位置，避免被文字覆盖*/
+  padding-right: 14px;
+}
+
+/*单行文字截断*/
+
+.ellipsis {
+  word-wrap: normal;
+  /* for IE */
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/*多行文字截断*/
+
+.line-clamp {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /* 这里修改为要显示的行数*/
+  -webkit-box-orient: vertical;
+}
+
+/* 多行 */
+/*跨浏览器兼容,设置相对定位的容器高度,用包含省略号的(...)的元素模拟实现*/
+
+.multi-line {
+  position: relative;
+  line-height: 1.4em;
+  height: 4.2em;
+  width: 201px;
+  overflow: hidden;
+  }
+  .multi-line::after {
+  content:"...";
+  font-weight:bold;
+  position:absolute;
+  bottom:0;
+  right:0;
+  padding:0 20px 1px 45px;
+  background:url(http://newimg88.b0.upaiyun.com/newimg88/2014/09/ellipsis_bg.png) repeat-y;
+  }
+  
+  .multiLine {
+      position: relative;
+      height: 3.6em; /*准确三倍*/
+  }
+  .multiLine:after {
+      content: '';
+      text-align: right;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width:20%;
+      height:1.2em;
+      background: linear-gradient(
+          to right,
+          rgba(255,255,255,0),
+          rgba(255,255,255,1)80%
+      )
+  }
+
+
+ /* 改变 placeholder 的字体颜色大小   pc 端可以，真机上不行 */
+ input::-webkit-input-placeholder {
+  /* WebKit browsers */
+  font-size:14px;
+  color: #333;
+}
+input::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  font-size:14px;
+  color: #333;
+}
+input:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  font-size:14px;
+  color: #333;
+}
