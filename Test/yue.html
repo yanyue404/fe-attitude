@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var Order = (function () {
+      function yue() {
+        var y = this;
+        y.init = function () {
+          y.createBtn("点击");
+        },
+          y.createBtn = function (name) {
+            var dom = document.createElement("button");
+            dom.innerHTML = name;
+            $("content").appendChild(dom);
+          }
+      }
+
+      var fn = yue.prototype;
+      fn.extend = yue.extend = function (obj) {
+        for (var key in obj) {
+          this[key] = obj[key];
+          // this.key = obj.key;
+        }
+      }
+
+
+
+      fn.extend({
+
+      })
+
+      return yue;
+    })()
+    var order = new Order;
+    order.init();
+
+  </script>
+</body>
+
+</html>

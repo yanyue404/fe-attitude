@@ -45,7 +45,11 @@ var loadMore = {
       loading.classList.remove("hidden");
     })
   },
-  loadComplete: function () {
+  start: function (options) {
+    var y = this;
+    y.init(options);
+  },
+  complete: function () {
     var loading = document.getElementById("btn-loading");
     loading.classList.add("hidden");
   }

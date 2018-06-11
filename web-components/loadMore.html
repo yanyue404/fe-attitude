@@ -15,7 +15,7 @@
     .pager {
       display: inline-block;
       padding-left: 0;
-      margin: 20px 0;
+      margin: 1.250em 0; /*20px*/
       list-style: none;
       text-align: center;
     }
@@ -28,16 +28,19 @@
       color: #009a61;
       text-decoration: none;
       background: transparent;
-      font-size: 14px;
+      font-size: 0.875em;
+      /*14px*/
     }
 
     .pager li>a,
     .pager li>span {
       display: inline-block;
-      padding: 5px 14px;
+      padding: 0.313em 0.875em;
+      /* 5px 14px*/
       background-color: #fff;
       border: 1px solid #ddd;
-      border-radius: 15px;
+      border-radius: 0.938em;
+      /*15px*/
     }
 
     .hidden {
@@ -55,13 +58,13 @@
   <script src="./js/loadMore.js"></script>
   <script>
 
-    loadMore.init({
+    loadMore.start({
       ele: "content"
     });
 
     // 加载完成
     document.querySelector("button").onclick = function () {
-      loadMore.loadComplete();
+      loadMore.complete();
     }
 
   </script>
