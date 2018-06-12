@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #test {
+      height: 60px;
+      background-color: pink;
+      text-align: center;
+      line-height: 60px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="test">点我</div>
+  <div id="tap"></div>
+  <div id="click"></div>
+  <script src="./js/hammer.js"></script>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+    // 利用hammer绑定tap事件
+    var hammertime = new Hammer(document.getElementById("test"), {});
+    hammertime.on('tap', function (ev) {
+      $('#tap').html('hammer封装tap事件触发时间戳:' + new Date().getTime());
+    });
+
+    //  绑定click事件
+    $("#test").click(function () {
+      $('#click').html('原生click事件触发时间戳:' + new Date().getTime())
+    })</script>
+</body>
+
+</html>

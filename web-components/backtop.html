@@ -8,6 +8,7 @@
   <title>Document</title>
   <style>
     .backtop {
+      display: none;
       background: transparent;
       position: fixed;
       right: 40px;
@@ -106,7 +107,7 @@
     <br> 风吹马尾千条线,雨打龙鳞万点金...
     <br>
   </div>
-  <div class="backtop" onclick="backtotop();" style="display:none">
+  <div class="backtop" onclick="backtotop();">
     <img src="../bulid/static/backtop.png" alt="" width="60px" height="60px">
   </div>
   <script src="../tools/func.js">
@@ -122,9 +123,9 @@
       var backtop = document.querySelector('.backtop');
 
       if (scroll().top > 500) {
-        show(backtop)
+        backtop.style.display = "block";
       } else {
-        hide(backtop)
+        backtop.style.display = "";
       }
       leader = scroll().top;
       console.log(leader)
