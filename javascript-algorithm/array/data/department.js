@@ -85,6 +85,9 @@ window.data = {
     },
     {
       "path": "/公司主页/社区/knowledge-base/knowledge-lib/ERP咨询/勘探与生产业务咨询部/HSE体系/组织结构、资源和文件"
+    },
+    {
+      "path": "/公司主页/社区/knowledge-base/knowledge-lib/ERP咨询/勘探与生产业务咨询部/HSE体系/组织结构、资源和文件"
     }
   ]
 }

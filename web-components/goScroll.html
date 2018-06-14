@@ -7,23 +7,39 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <style>
-    #gun {
-      height: 60px;
-      width: 90%;
-      background-color: pink;
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    #gun_content {
+      width: 100%;
+      height: 35px;
+      background-color: #F0F0F0;
+    }
+
+    .wrapper {
+      width: 985px;
       margin: 0 auto;
+      height: 35px;
     }
 
     p {
-      line-height: 60px;
-      padding: 0 5px;
+      width: 777px;
+      line-height: 35px;
+      padding: 3px 0;
+      box-sizing: border-box;
       position: absolute;
+      color: #526A53;
+      font-size: 14px;
 
     }
   </style>
 </head>
-<div id="gun">
-  <p>知识分类、知识点、在线人数、用户数</p>
+<div id="gun_content">
+  <div class="wrapper" id="gun">
+    <p>xiaoyueyue</p>
+  </div>
 </div>
 
 <body>
@@ -42,7 +58,7 @@
         var y = this, option = {};
         y.options.p = document.querySelector('#gun p');
         y.options.gun = document.querySelector('#gun');
-        y.options.left = parseInt(getStyle(y.options.gun, 'margin-right')) + 10;
+        y.options.left = parseInt(getStyle(y.options.gun, 'margin-right')) + 1;
         y.options.pWidth = y.options.gun.offsetWidth - y.options.left;
       },
       init: function () {
@@ -50,14 +66,14 @@
         y.options();
         var box = y.options.p,
           i = 0;
-        box.style.left = y.options.pWidth + y.options.left + 'px'
+        box.style.left = y.options.pWidth + y.options.left + 100 + 'px'
         clearInterval(goScroll)
         var goScroll = setInterval(function () {
           i++;
           var distance = y.options.left + y.options.pWidth - i * 10;
           box.style.left = distance + 'px';
           if (parseInt(box.style.left) < y.options.left) {
-            box.style.left = y.options.left + y.options.pWidth + 'px';
+            box.style.left = y.options.nextWidth + 'px';
             i = 0;
           }
         }, 150)

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var name = 'xiaoyueyue',
+      age = 25;
+
+    var box = document.createElement("div");
+    box.innerHTML = '<button onclick="alertInfo(\'' + name + '\')">点击</button>';
+    console.log(box)
+    document.body.appendChild(box);
+
+
+    // name, age
+    function alertInfo(name, age, home, friend) {
+      alert("我是" + name)
+    }
+  </script>
+</body>
+
+</html>

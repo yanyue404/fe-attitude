@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var name = 'xiaoyueyue',
+      age = '25',
+      home = 'shanxi',
+      friend = 'heizi';
+
+    var params = "&quot;" + name + "&quot;,&quot;" + age + "&quot;,&quot;" + home + "&quot;,&quot;" + friend + "&quot;";
+    var box = document.createElement("div");
+    box.innerHTML = "<button onclick='alertInfo(" + params + ")'>点击</button>";
+    console.log(box)
+    document.body.appendChild(box);
+
+
+    // name, age,home,friend
+    function alertInfo(name, age, home, friend) {
+      alert("我是" + name + ',' + "我今年" + age + "岁了！")
+    }
+  </script>
+</body>
+
+</html>

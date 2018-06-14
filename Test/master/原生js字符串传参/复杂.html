@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var data = [
+      {
+        "name": "xiaoyueyue",
+        "age": "25",
+        "home": "shanxi",
+        "friend": "heizi"
+      }
+
+    ]
+
+    var box = document.createElement("div");
+
+    for (var i = 0; i < data.length; i++) {
+      box.innerHTML = "<button id='btn'  onclick='alertInfo(id,\"" + data[i].name + "\",\"" + data[i].age + "\",\"" + data[i].home + "\",\"" + data[i].friend + "\")'>点击</button>";
+    }
+
+    document.body.appendChild(box);
+
+    function alertInfo(id, name, age, home, friend) {
+      alert("我是" + name + "," + friend + "是我的好朋友")
+    }
+
+
+
+
+  </script>
+</body>
+
+</html>
