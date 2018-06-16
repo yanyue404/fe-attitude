@@ -5,7 +5,8 @@
 ## showTime
 
 - https://www.netlify.com 部署静态站点演示
-- https://codesandbox.io/u/xiaoyueyue165 在线code
+- http://jsbin.com/
+- https://codesandbox.io/u/xiaoyueyue165 
 
 ## mock
 
