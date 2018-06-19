@@ -2,6 +2,11 @@
 
 > 日常代码库+笔记
 
+## Userful links
+
+- https://www.w3.org/TR/
+- https://eslint.org/docs/rules
+
 ## showTime
 
 - https://www.netlify.com 部署静态站点演示

@@ -253,3 +253,12 @@ g) clear();               // 清空数据      语法：localStorage.clear();
      requsetFullScreen();
      谷歌: webkitrequsetFullScreen()
      火狐:mozrequsetFullScreen()
+
+### 6.canvas
+
+### 7.拖放
+
+### 8.Web Workers
+
+### 9.离线缓存
+
