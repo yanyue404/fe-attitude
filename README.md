@@ -16,7 +16,7 @@
 - http://jsbin.com/
 - https://codesandbox.io/u/xiaoyueyue165 
 
-### Code related
+### 代码闯关
 
 - https://leetcode-cn.com/
 - https://freecodecamp.cn/
