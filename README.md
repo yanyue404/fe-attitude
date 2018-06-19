@@ -6,7 +6,7 @@
 
 - https://www.w3.org/TR/
 - https://eslint.org/docs/rules
-- [lodash](https://github.com/lodash/lodash) - 现代 JavaScript 实用程序库提供模块化，性能，https://lodash.com/
+- http://devdocs.io
 - [Modernizr](https://github.com/Modernizr/Modernizr) - 检测用户浏览器中的 HTML5 和 CSS3 功能 https://modernizr.com
 - [html5-boilerplate](https://github.com/h5bp/html5-boilerplate) - 一个专业的前端模板，用于构建快速，可靠的 Web 应用程序或网站。
 
