@@ -3,11 +3,14 @@
 > 日常代码库+笔记
 
 ## Table of contents
+
 - [Guide](#guide)
 - [ShowTime](#showTime)
 - [Code related](#code-related)
 - [Mock](#mock)
-- [CDN](#cdn)
+- [Interview](#interview)
+- [p5-p8](#p5-p8)
+
 
 
 ## Navigation
@@ -49,7 +52,7 @@ $.getJSON('https://cnodejs.org/api/v1/topics',function(data){console.log( data )
 $.get('https://api.douban.com/v2/movie/in_theaters',function(data){console.log( data )},'jsonp')
 ````
 
-## CDN
+**CDN**
 ```js
 // bootstrap
 <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
@@ -58,7 +61,7 @@ $.get('https://api.douban.com/v2/movie/in_theaters',function(data){console.log( 
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 ```
 
-## 前端进阶系列-目录
+## Interview
 
 <details>
 <summary>View contents</summary>
@@ -201,15 +204,9 @@ PWA
 
 </details>
 
-## 技术人员需要不断学习，如何兼顾广度与深度？
 
-这个问题藏着一个陷阱，其实深度和广度都很重要，不能因为注重深度而不去兼顾广度，同样反过来也不行。我的方法论是把基础的内容掌握好，每天学习增量其实并不痛苦，看看新闻，写写demo，就很容易可以兼顾广度和深度了。
 
-但如果底层不好，把全部的经历去投入到某一个细节上去，比如你如果花很多时间研究了angular1，那么angular2出来的时候那些就没有意义了。
-
-所以，学好算法，语言都没有关系，学好了语言，框架都没有关系了。我认为，在自己能力范围内，把更本质更深入的东西学好，才是最关键的。
-
-## [阿里 p5-p8](https://zhuanlan.zhihu.com/p/37079448)
+### [p5-p8](https://zhuanlan.zhihu.com/p/37079448)
 
 p5：平均工作两年内；基础扎实、高质完成；基础过硬；熟悉浏览器等前端运行容器的工作原理；熟悉前端常用的工程工具；熟悉前端常用的框架；高质量、可维护；熟练使用类库解决业务问题，项目代码具有可维护性；具备质量意识，掌握兼容性、性能等问题的解决方法；
 
