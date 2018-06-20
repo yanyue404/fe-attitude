@@ -3,7 +3,7 @@
 > 日常代码库+笔记
 
 ## Table of contents
-- [Guide](#Guide)
+- [Guide](#guide)
 - ShowTime
 - Code related
 - Mock
