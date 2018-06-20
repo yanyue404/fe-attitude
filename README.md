@@ -9,7 +9,7 @@
 - [Code related](#code-related)
 - [Mock](#mock)
 - [Interview](#interview)
-- [p5-p8](#p5-p8)
+- [Norm](#norm)
 
 
 
@@ -61,7 +61,7 @@ $.get('https://api.douban.com/v2/movie/in_theaters',function(data){console.log( 
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 ```
 
-## Interview
+### Interview
 
 <details>
 <summary>View contents</summary>
@@ -206,7 +206,7 @@ PWA
 
 
 
-### [p5-p8](https://zhuanlan.zhihu.com/p/37079448)
+### Norm
 
 p5：平均工作两年内；基础扎实、高质完成；基础过硬；熟悉浏览器等前端运行容器的工作原理；熟悉前端常用的工程工具；熟悉前端常用的框架；高质量、可维护；熟练使用类库解决业务问题，项目代码具有可维护性；具备质量意识，掌握兼容性、性能等问题的解决方法；
 
@@ -215,5 +215,8 @@ p6：平均工作三年左右；独当一面、辅助团队；全面了解前端
 p7：平均工作五年左右：领域专家、影响团队；精通至少一个领域的前端知识体系；精通常用框架的设计原理，能合理运用；
 
 p8：平均工作五年以上：领域突破、业务增值。
+
+#### 参考
+- https://zhuanlan.zhihu.com/p/37079448
 
 **[⬆ 回到顶部](#smart)**
