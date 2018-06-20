@@ -4,10 +4,10 @@
 
 ## Table of contents
 - [Guide](#guide)
-- ShowTime
-- Code related
-- Mock
-- CDN
+- [ShowTime](#showTime)
+- [Code related](#code-related)
+- [Mock](#mock)
+- [CDN](#cdn)
 
 
 ## Navigation
@@ -20,7 +20,7 @@
 - [Modernizr](https://github.com/Modernizr/Modernizr) - 检测用户浏览器中的 HTML5 和 CSS3 功能 https://modernizr.com
 - [html5-boilerplate](https://github.com/h5bp/html5-boilerplate) - 一个专业的前端模板，用于构建快速，可靠的 Web 应用程序或网站。
 
-### showTime
+#### showTime
 
 - https://www.netlify.com 部署静态站点演示
 - http://jsbin.com/
