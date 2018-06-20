@@ -32,15 +32,14 @@
 - http://jsbin.com/
 - https://codesandbox.io/u/xiaoyueyue165 
 
-### mock
+### Mock
 
 - [mockapi](https://www.mockapi.io/projects)
 - [json-server](https://github.com/typicode/json-server)
 - [yapi](https://github.com/YMFE/yapi)
 - [easyapi](https://www.easyapi.com/info/doc)
 
-#### 公共API
-
+**公共API**
 ````js
 // github
 $.getJSON('https://api.github.com/search/repositories?q=javascript&sort=stars',function(data){})
