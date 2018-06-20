@@ -72,19 +72,18 @@ function signParam(obj) {
     }
     return objSign;
 }
-// 对象深度克隆
+// 对象深度克隆，支持[]和{}
 Object.prototype.clone = function () {
-    var newObj = {};
-    for (var i in this) {
-        console.log("i = " + i)
-        if (typeof (this[i]) == 'object' || typeof (this[i]) == 'function') {
-            newObj[i] = this[i].clone()
-        } else {
-            newObj[i] = this[i]
-        }
+    var obj = this;
+    if (typeof obj !== 'object') return;
+    var newObj = obj instanceof Array ? [] : {};
+    for (var key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        newObj[key] = typeof obj[key] === 'object' ? (obj[key]).clone() : obj[key];
+      }
     }
-    return newObj
-}
+    return newObj;
+  }
 /**
  * @desc 深拷贝，支持常见类型
  * @param {Any} values

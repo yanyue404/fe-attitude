@@ -70,18 +70,7 @@ function in_array(needle, haystack) {
 	return false;
 }
 
-// 数组深度克隆
-Array.prototype.clone = function () {
-  var newArray = []
-  for (var i = 0; i < this.length; i++) {
-      if (typeof(this[i]) == 'object' || typeof(this[i]) == 'function') {
-          newArray[i] = this[i].clone()
-      } else {
-          newArray[i] = this[i]
-      }
-  }
-  return newArray
-}
+
 // 将一组值转换为数组
 function arrayOf() {
   return []

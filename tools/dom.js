@@ -143,6 +143,19 @@ function isPlainObject(obj) {
   return Object.getPrototypeOf(obj) === proto
 }
 
+// 对象深度克隆，支持[]和{}
+Object.prototype.clone = function () {
+  var obj = this;
+  if (typeof obj !== 'object') return;
+  var newObj = obj instanceof Array ? [] : {};
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      newObj[key] = typeof obj[key] === 'object' ? (obj[key]).clone() : obj[key];
+    }
+  }
+  return newObj;
+}
+
 
 // ----------------------------------------获取元素------------------------------------------------------
 
