@@ -20,6 +20,7 @@
 - https://www.w3.org/TR/
 - https://eslint.org/docs/rules
 - http://devdocs.io
+- http://devhints.cn
 
 ### Code related
 
