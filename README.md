@@ -51,7 +51,10 @@ $.get('https://api.douban.com/v2/movie/in_theaters',function(data){console.log( 
 ````
 
 **CDN**
+
 ```js
+// axios
+<script src="https://cdn.bootcss.com/axios/0.18.0/axios.js"></script>
 // bootstrap
 <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
 // jquery
