@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+    // 将扩展运算符作用于参数，即为rest参数。 
+    // 它会将所有相应的传入参数合并成一个数组，赋值给rest参数。 
+    // rest参数只能是最后一个参数，没有正则中所谓的贪婪性，否则会报错。
+    
+    fn('0001', 'm1', 'm2');
+
+    function fn(groupId, ...members) {
+      console.log(groupId, members);// '0001' ['m1','m2']
+    }
+  </script>
+</body>
+
+</html>

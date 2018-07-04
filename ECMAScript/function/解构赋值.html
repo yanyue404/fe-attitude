@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    fn({
+      id: '0003'
+    }); // 两者都打印出：'0003' undefined
+
+    // --- ES6 之前
+    function fn1(conf) {
+      let id = conf.id;
+      let name = conf.name;
+      console.log(id, name);
+    }
+
+    // --- ES6 之后
+    function fn({ id, name }) {
+      console.log(id, name);
+    }  
+  </script>
+</body>
+
+</html>
