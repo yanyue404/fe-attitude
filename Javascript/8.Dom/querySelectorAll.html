@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="hidden" class="code" value="201807207427">
+  <input type="hidden" class="code" value="201807207427">
+  <input type="hidden" class="code" value="201807207427">
+  <button class="btn">提交</button>
+  <button class="btn">提交</button>
+  <button class="btn">提交</button>
+  <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+  <script>
+    var arrTpl = Array.prototype.slice.call(document.querySelectorAll('.code,.btn'))
+    arrTpl.forEach(function (v) {
+      v.className = "xiaoyueyue";
+    })
+  </script>
+</body>
+
+</html>

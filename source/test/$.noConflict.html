@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="../jquery/jquery-1.7.1.js"></script>
+    <div>
+        <p>jQuery.noConflict()</p>
+    </div>
+</body>
+<script>
+    function $(selector, el) {
+        if (!el) {
+            el = document;
+        }
+        return el.querySelector(selector);
+    }
+    jQuery.noConflict();
+    // Do something with jQuery
+    // jQuery("div p").hide();
+    console.log('$', $);
+    console.log('window', window);
+
+
+    $("div p").style.display = 'none';
+</script>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      /*   for (var i = 1; i <= 5; i++) {
+      setTimeout(function timer() {
+        console.log(i);
+      }, i * 1000);
+    } */
+
+      // 第一种解法 使用闭包
+      for (var i = 1; i <= 5; i++) {
+        (function(j) {
+          setTimeout(function timer() {
+            console.log(j);
+          }, j * 1000);
+        })(i);
+      }
+
+      // 第二种 使用setTimeout 的第三个参数
+      /*  for (var i = 1; i <= 5; i++) {
+      setTimeout(function timer(j) {
+        console.log(j);
+      }, i * 1000, i);
+    } */
+
+      // 第三种 使用 let 定义 i
+
+      // for (let i = 1; i <= 5; i++) {
+      //   setTimeout(function timer() {
+      //     console.log(i);
+      //   }, i * 1000);
+      // }
+    </script>
+  </body>
+</html>

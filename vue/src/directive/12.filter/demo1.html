@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Title</title>
+    <script src="../../../build/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{title | toLower | reverse}} {{msg | toUpper}}
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                title: 'MSIDJFOWIJEFW',
+                msg: 'dsffdeoiwewo'
+            },
+            filters: {
+                toLower(input) {
+                    return input.toLowerCase()
+                },
+                reverse(input) {
+                    return input.split('').reverse().join('')
+                },
+                toUpper(input) {
+                    return input.toUpperCase()
+                }
+
+            }
+        })
+    </script>
+</body>
+
+</html>

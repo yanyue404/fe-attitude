@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #box {
+      width: 300px;
+      height: 500px;
+      background-color: #fafafa;
+      position: relative;
+      border: 1px #ccc solid;
+    }
+
+    .red {
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      background-color: red;
+      top: 10px;
+      right: 10px;
+    }
+
+    #goCart {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      cursor: pointer;
+    }
+  </style>
+  <link rel="stylesheet" href="../bulid/fonts/font-awesome.min.css">
+</head>
+<div id="box">
+  <i class="red"></i>
+  <span id="goCart">加入购物车</span>
+</div>
+
+<body>
+  <script>
+    const ballToElement = (
+      e,
+      el,
+      option = {},
+    ) => new Promise((resolve) => {
+      const initOptions = {
+        ballWidth: 20,
+        ballColor: '#6f5499',
+        timingFunction: 'all .5s cubic-bezier(0,0,0.28,1)',
+        ...option,
+      };
+      const { ballWidth, ballColor, timingFunction } = initOptions;
+      // 获取初始位置
+      const [x, y] = [e.clientX, e.clientY];
+      // 获取终点位置
+      const finalPos = el.getBoundingClientRect();
+      const [finalX, finalY] = [finalPos.left, finalPos.top];
+      const ball = document.createElement('div');
+      document.body.appendChild(ball);
+      ball.style.cssText =
+        'position: fixed;' +
+        `left: ${x - ballWidth / 2}px;` +
+        `top: ${y - ballWidth / 2}px;` +
+        `width: ${ballWidth}px; ` +
+        `height: ${ballWidth}px; ` +
+        `background: ${ballColor};` +
+        'z-index: 2; ' +
+        'border-radius: 50%;' +
+        `transition: ${timingFunction};`;
+      ball.addEventListener('transitionend', function () {
+        this.remove();
+        resolve();
+      });
+      setTimeout(() => {
+        ball.style.top = `${finalY + ballWidth / 2}px`;
+        ball.style.left = `${finalX + ballWidth / 2}px`;
+      }, 0);
+    });
+
+
+    var goCart = document.getElementById('goCart');
+    var Cart = document.querySelector('.red');
+    goCart.onclick = function (e) {
+      ballToElement(e, Cart, {
+        timingFunction: 'left .5s linear, top .5s cubic-bezier(0.77,0,1,1)'
+      });
+    }
+  </script>
+</body>
+
+</html>

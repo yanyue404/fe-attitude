@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .btn {
+    display: inline-block;
+    width: 80px;
+    height: 36px;
+    line-height: 36px;
+    font-size: 14px;
+    color: #000;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+  }
+  a.btn {
+    font-family:'微软雅黑'; 
+  }
+  .btn-small {
+    width:60px;
+    height:30px;
+    font-size:12px;
+    line-height: 30px;
+  }
+  .btn-big {
+    width:100px;
+    height:40px;
+    font-size:16px;
+    line-height: 40px;
+  }
+  .btn-red {
+    background:#f33;
+  }
+  .btn-yellow {
+    background:#f90;
+  }
+  .btn-blue {
+    background: #c4e0f3;
+    border: 1px solid #369ce4;
+    color: #369ce4;
+  }
+  .btn-blue:hover{
+    background: #369ce4; 
+    color:#fff
+    }
+  .target {
+    position: relative;
+    text-align: center
+  }
+  .target input[type="file"]{
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      opacity: 0;
+      -ms-filter: 'alpha(opacity=0)';
+  }
+  .i-upload {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url("../imgs/icon_upload.png") no-repeat;
+    background-position: -2000px -2000px\9;
+    background-size: 16px 16px;
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../imgs/icon_upload.png',  sizingMethod='scale');
+    margin-bottom: -2px;
+}
+.btn-blue:hover .i-upload {
+      display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url("../imgs/icon_upload_hover.png") no-repeat;
+    background-position: -2000px -2000px\9;
+    background-size: 16px 16px;
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../imgs/icon_upload_hover.png',  sizingMethod='scale');
+    }
+
+
+  </style>
+</head>
+
+<body>
+  <a class="target btn btn-blue">
+    <i class="i-upload"></i>上传
+    <input type="file">
+  </a>
+  <a class="target btn btn-small">
+    上传
+    <input type="file">
+  </a>
+  <a class="target btn btn-big btn-red">
+    上传
+    <input type="file">
+  </a>
+</body>
+
+</html>

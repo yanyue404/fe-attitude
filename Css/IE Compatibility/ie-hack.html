@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <style>
+    /* https://segmentfault.com/a/1190000013954044 */
+    html,
+    body,
+    .box1 {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    .box1 {
+      background-color: #FFF8DC;
+    }
+
+    @media \0screen {
+      .box1 {
+        background-color: blueviolet;
+        /*只针对ie8有效*/
+      }
+    }
+
+    @media screen\0 {
+      .box1 {
+        background-color: green;
+        /*针对ie8,9,10,edge有效*/
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="box1"></div>
+</body>
+
+</html>

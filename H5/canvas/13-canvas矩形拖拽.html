@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: #000;
+        }
+        canvas {
+            background: #fff;
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="c" width="800" height="600">
+        <!-- 低版本处理方法 -->
+        <span style="color: #fff;">您的浏览器版本过低了！不支持canvas，请更新您的IE浏览器至最新版，或使用chrome/firefox浏览器进行访问</span>
+    </canvas>
+</body>
+<script>
+    let oC = document.getElementById('c');
+    let gd = oC.getContext('2d'); // 绘图接口(上下文)
+
+    let x = 100;
+    let y = 100;
+    let w = 100;
+    let h = 100;
+
+    gd.fillStyle = '#ccc';
+    gd.fillRect(x, y, w, h);
+
+    document.onmousedown = (ev) => {
+        // 在 画板 上点击的位置
+        let downX = ev.clientX - oC.offsetLeft;
+        let downY = ev.clientY - oC.offsetTop;
+
+        // 原有的位置
+        let disX = ev.clientX - oC.offsetLeft - x;
+        let disY = ev.clientY - oC.offsetTop - y;
+
+        let l1 = x;
+        let r1 = x + w;
+        let t1 = y;
+        let b1 = y + h;
+
+        // 划定可拖拽的范围
+        if (downX > l1 && downX < r1 && downY > t1 && downY < b1) {
+            document.onmousemove = (ev) => {
+                // 擦除画板
+                gd.clearRect(0, 0, oC.width, oC.height);
+                // 当前x,y坐标
+                let left = ev.clientX - disX - oC.offsetLeft;
+                let top = ev.clientY - disY - oC.offsetTop;
+
+                gd.fillRect(left, top, w, h);
+                // 重新赋值x,y轴坐标
+                x = left;
+                y = top;
+            };
+            document.onmouseup = () => {
+                document.onmousemove = document.onmouseup = null;
+            };
+            // 阻止默认事件
+            return false;
+        }
+    }
+</script>
+</html>

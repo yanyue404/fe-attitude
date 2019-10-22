@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    Array.prototype.isContains = function (e) {
+      if (Array.prototype.includes) {
+        return Array.prototype.includes(e);
+      }
+      for (i = 0; i < this.length && this[i] != e; i++);
+      return !(i == this.length);
+    }
+    console.log([1, 2, 4].includes(2));
+    console.log([1, 2, 4].isContains(2));
+
+    [1, 2, 3].includes(2); // true
+    [1, 2, 3].includes(4); // false
+    [1, 2, NaN].includes(NaN); // true
+
+    // 该方法的第二个参数表示搜索的起始位置，默认为0。
+    [1, 2, 3].includes(3, 3); // false
+    [1, 2, 3].includes(3, -1); // true
+  </script>
+</body>
+
+</html>

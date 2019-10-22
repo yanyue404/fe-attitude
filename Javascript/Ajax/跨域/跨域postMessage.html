@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // https://developer.mozilla.org/zh-CN/docs/Web/API/Window/postMessage
+    // postMessage
+    //这种方式通常用于获取嵌入页面中的第三方页面数据。一个页面发送消息，另一个页面判断来源并接收消息
+
+    // 发送消息端
+    window.parent.postMessage('message', 'http://test.com');
+    // 接收消息端
+    var mc = new MessageChannel();
+    mc.addEventListener('message', (event) => {
+      var origin = event.origin || event.originalEvent.origin;
+      if (origin === 'http://test.com') {
+        console.log('验证通过')
+      }
+    });
+  </script>
+</body>
+
+</html>

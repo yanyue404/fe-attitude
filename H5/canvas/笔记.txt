@@ -1,0 +1,162 @@
+canvas绘图：
+	什么是canvas？
+	    画图用的，本身这个标签什么都没有 — 通过js来绘图
+    --------------------------------
+	标签：
+        1. 颜色—透明的
+        2. 跟img一样 可以加 width height
+        3. inline-block
+    --------------------------------
+	兼容么？
+	    兼容IE9+ chrome firefox safari
+    --------------------------------
+	低版本想处理？
+        <canvas id="c" width="800" height="600">
+            <span style="color: #fff;">您的浏览器版本过低了！不支持canvas，请xxxx...</span>
+        </canvas>
+        oC.height   canvas的高度
+        oC.width    canvas的宽度
+		*cavnas规定宽度、高度不能用style样式
+    --------------------------------
+	getContext
+        绘图接口，canvas所有的绘图相关属性、方法都在它身上 → http://www.w3school.com.cn/jsref/met_canvas_getcontext.asp
+                                                       → https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLCanvasElement/getContext
+                                                       "2d"  "webgl"  "webgl2" "bitmaprenderer"
+		oC.getContext(contextID); contextID指定绘制的类型，当前唯一的合法值是"2d"
+        oC.getContext('2d');
+    --------------------------------
+    使用：
+	    路径：有点类似于ps选区，必须需要描边或者填充
+	    gd.moveTo(100,100);   // 移动到哪去
+	    gd.lineTo(100,300);   // 连到哪去
+        *建议：最好加上 gd.closePath() // 闭合路径
+
+	    gd.stroke(); // 描边，会实际地绘制出通过 moveTo() 和 lineTo() 方法定义的路径。默认颜色是黑色。
+	    gd.fill(); // 填充 background 默认颜色是黑色。
+
+	    样式：必须要写到描边或者填充之前
+	    gd.strokeStyle = '颜色'; // 描边样式
+	    gd.fillStyle = '颜色'; // 填充样式
+	    gd.lineWidth = 10; // 线宽 number 以像素计
+	    
+	    开始路径：
+	    gd.beginPath(); // 开始路径，消除之前影响
+        --------------------------------
+	    画图方式：
+	    gd.beginPath();
+        // 画图xxxx...
+        gd.closePath();
+        --------------------------------
+	    关于线宽：lineWidth
+		border: 10px; // 样式往外走
+	    gd.lineWidth = 10; // 向两边扩展
+		1-4
+-----------------------------------
+提供一些现成图形：
+    矩形(长方形)：
+        gd.strokeRect(
+            x, // 距左边距
+            y, // 距上边距
+            w, // 宽
+            h  // 高
+        ); // 描边矩形
+        gd.strokeStyle = 'red/#f00/rgb/rgba()'; // 颜色都可以
+        gd.fillRect(x, y, w, h); // 填充矩形
+-----------------------------------
+路径—其他形式：
+	gd.moveTo()
+	gd.lineTo()
+	gd.lineCap 端点
+		butt\round\square
+		默认   圆     方
+	gd.lineJoin	连接点
+		miter\round\bevel
+		默认	 圆     切
+-----------------------------------
+图形-运动：
+	// 画出来一堆像素点
+	// 先擦除了，重新画
+	gd.clearRect(0, 0, oC.width, oC.height);
+	低帧频：30  
+	高帧频：1000/60≈16 保证canvas动画流畅
+	图形运动\柱状图
+-----------------------------------
+圆弧：
+	圆	
+	gd.arc(
+		centerX, // 圆心位置 x
+		centerY, // 圆心位置 y
+		r, // 半径
+		起始角, // 弧度
+		终点角, // 弧度
+		是否逆时针
+	);
+
+	角度转弧度：d2a
+	跟路径有点区别 beginPath阻止不了
+-----------------------------------
+画圆弧过程：
+	1. 	// 圆弧
+		gd.beginPath();
+		gd.arc(200, 200, 100, d2a(0), d2a(i++), false)
+		gd.stroke();
+	2.  // 实心圆
+		gd.arc(200, 200, 100, d2a(i), d2a(i+=1), false)
+	   	i++;
+	   	gd.stroke();
+渐变：
+	let linear = gd.createLinearGradient(
+		x, // 距x轴
+		y, // 距y轴
+		w, // 宽(结束点的x坐标)
+		h  // 高(结束点的y坐标)
+		);
+	linear.addColorStop(0, 颜色);
+	linear.addColorStop(1, 颜色);
+-----------------------------------------
+文字：
+	gd.font = '30px 黑体';
+	gd.fillText(文字, x, y, 最大宽度);
+	*最大宽度：会让文字变窄，不会截取文字
+	gd.strokeText(文字, x, y, 最大宽度);
+	测量文字的宽度：
+	gd.measureText(str).width
+-----------------------------------------
+事件：
+	没有事件	
+	自己动手检测区域：
+	矩形：x > l && x < r && y > t && y > b
+	圆： c < r
+-----------------------------------------
+图片操作：
+	https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/drawImage
+	gd.drawImage(img, dx, dy);
+	gd.drawImage(
+		img,
+		sx, sy, sw, sh,
+		dx, dy, dw, dh
+	);
+
+	sx-> source x  	   原图x坐标
+	sy-> source y      原图y坐标
+	sw-> source width  原图的宽度
+	sh-> source height 原图的高度
+
+	*dx-> destination x     目标点x坐标
+	*dy-> destination y     目标点y坐标
+	dw-> destination width  目标宽度
+	dh-> destination height 目标高度
+-----------------------------------------
+像素级操作：(必须工作服务器环境-www)
+	40*30 -> 1200像素点
+	300*400 -> 120000
+	let result = gd.getImageData(x, y, w, h);
+	let arr = result.data; // 用于存放像素数组
+
+	一个像素由4位构成： r g b a
+	像素点不仅能读，还能写
+
+	// 放回去
+	gd.putImageData(result, x, y);
+导出图片(拍照)：
+	oC.toDataURL();

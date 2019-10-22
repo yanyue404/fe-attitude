@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var obj = {};
+    var userListArr = ["全资公司订单审核", "全资公司订单结算", "配送审核"];
+    var pipei = function (val) {
+      var re = new RegExp("." + val, "g")
+      for (var i = 0; i < userListArr.length; i++) {
+        var item = userListArr[i];
+        if (re.test(item)) {
+          return true
+        }
+      }
+      return false;
+
+    }
+    obj.isA = pipei("订单审核");
+    obj.isB = pipei("订单结算");
+    obj.isC = pipei("配送自提审核");
+    console.log(obj);
+  </script>
+</body>
+
+</html>

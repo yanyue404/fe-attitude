@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<input type="file"/>
+<img src="" alt=""/>
+<script>
+   var ipt = document.querySelector('input');
+    ipt.onchange = function(){
+        //当input 发生变化的时候  自身返回一个FileList对象
+        //FileList 对象包含了你所选择的文件
+        var filelist = this.files;
+
+        var filereader = new FileReader();
+        // 以图片格式的方式读取文件
+        filereader.readAsDataURL(filelist[0]);
+        // 读取文件需要过程
+        filereader.onload = function(){
+            //获取最后的目标值
+            var res = filereader.result;
+            var img = document.querySelector('img');
+            img.src = res;
+        }
+    }
+</script>
+</body>
+</html>

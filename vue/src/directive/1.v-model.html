@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <title>Title</title>
+    <!--引入vue-->
+    <script src="../../build/vue.min.js"></script>
+  </head>
+
+  <body>
+    <div id="demo"></div>
+    <script>
+      Vue.component('currency-input', {
+        template: `
+    <span>
+      <input
+        ref="input"
+        :value="value" // 这里将父组件传来的value赋值给input的value
+        @input="$emit('input', $event.target.value)" // 这里去触发input方法
+      >
+    </span>
+  `,
+        props: ['value']
+      });
+
+      var demo = new Vue({
+        el: '#demo',
+        data: {
+          price: 100
+        }
+      });
+    </script>
+  </body>
+</html>

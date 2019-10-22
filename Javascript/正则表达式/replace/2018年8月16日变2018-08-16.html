@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var dateStr = '2017年9月25日';
+
+    console.log(dateStr.replace(/[年月]/g, '-').replace('日', '')); // 2017-9-25
+    console.log(dateStr.match(/\d+/g).join('-')); // 2017-9-25
+    console.log(dateStr.match(/\d+/g).map(n => n < 10 ? '0'+n : n).join('-'));// 2017-09-25
+    
+  </script>
+</body>
+
+</html>

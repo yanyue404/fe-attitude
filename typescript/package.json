@@ -1,0 +1,15 @@
+{
+  "name": "typescript",
+  "version": "1.0.0",
+  "description": "- [官网](http://www.typescriptlang.org/)\r - [中文手册](https://zhongsp.gitbooks.io/typescript-handbook/content/) \r - [TypeScript 入门教程](https://github.com/xcatliu/typescript-tutorial)  https://ts.xcatliu.com/\r ## 开始",
+  "main": "原始类型数据.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^10.12.0"
+  }
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="../array.js"></script>
+    <script>
+      var data = [
+        {
+          name: "李蛋",
+          age: 22
+        },
+        {
+          name: "虞姬",
+          age: 21
+        },
+        {
+          name: "兰陵王",
+          age: 25
+        },
+        {
+          name: "兰陵王",
+          age: 25
+        }
+      ];
+      // console.log(sortBy(data, "age", "desc"));
+
+      // 数组对象根据某一个相同的键去重
+      function filterByItemKey(arr, name) {
+        var hash = {};
+        return arr.reduce(function(item, next) {
+          hash[next[name]] ? "" : (hash[next[name]] = true && item.push(next));
+          return item;
+        }, []);
+      }
+      console.log(filterByItemKey(data, "name"));
+    </script>
+  </body>
+</html>

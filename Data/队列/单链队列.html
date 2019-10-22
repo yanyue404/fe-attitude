@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 队列一个线性结构，特点是在某一端添加数据，在另一端删除数据，遵循先进先出的原则
+    // 概念：我们平时排队，按次序来，你排在第1个，那你就第一个轮到，就是先进先出，先到先来
+    class Queue {
+      constructor() {
+        this.queue = []
+      }
+      enQueue(item) {
+        this.queue.push(item);
+        console.log(item + "------- , 入队列操作");
+      }
+      deQueue() {
+        var current = this.queue.shift();
+        console.log(current + "------- , 出队列操作");
+        return current;
+      }
+      getHeader() {
+        return this.queue[0]
+      }
+      getLength() {
+        return this.queue.length
+      }
+      isEmpty() {
+        return this.getLength() === 0
+      }
+    }
+
+    var arr = new Queue();
+    var nowQueueLog = function () {
+      var state = arr.isEmpty() ? "空队列" : arr.queue;
+      console.log(state + "------- , 当前队列");
+    }
+
+    nowQueueLog();
+    arr.enQueue(1);
+    arr.enQueue(2);
+    arr.enQueue(3);
+    nowQueueLog();
+
+    arr.deQueue();
+    arr.deQueue();
+    arr.deQueue();
+    nowQueueLog();
+  </script>
+</body>
+
+</html>

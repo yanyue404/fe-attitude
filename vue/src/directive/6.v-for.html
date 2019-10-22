@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>Title</title>
+</head>
+<script src="../../build/vue.min.js"></script>
+
+<body>
+  <div id="app">
+    <h2>对象</h2>
+    <ul>
+      <li v-for="(value,key,index) in user" :key="index">{{index}} {{key}}-{{value}}</li>
+    </ul>
+    <h2>数组</h2>
+    <ul>
+      <li v-for="(value,index) in simpleArray" :key="index"> {{index}} {{value}}</li>
+    </ul>
+    <h2>复杂object</h2>
+    <ul>
+      <template v-for="item in objectArr" key="item.id">
+        <li> {{item.author}} 作 {{item.name}}</li>
+      </template>
+    </ul>
+    <h2>过滤排序-计算属性</h2>
+    <ul>
+      <li v-for="n in evenNumbers">{{ n }}</li>
+      <li v-for="n in even(numbers)">{{ n }}</li>
+    </ul>
+
+  </div>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        numbers: [1, 2, 3, 4, 5],
+        simpleArray: ['狼厂', '鹅厂', '熊厂'],
+        objectArr: [{
+          id: '762',
+          name: '《Javascript高级程序设计》',
+          author: 'Nicholas C.zakes'
+        }, {
+          id: '770',
+          name: '《javascript语言精粹》',
+          author: 'Douglas Crockford'
+        }],
+        user: {
+          name: 'mei',
+          age: '18',
+          sex: '男'
+        }
+      },
+      methods: {
+        even: function (numbers) {
+          return numbers.filter(function (number) {
+            return number % 2 === 0
+          })
+        }
+      },
+      computed: {
+        evenNumbers: function () {
+          return this.numbers.filter(function (number) {
+            return number % 2 === 0
+          })
+        }
+      }
+    })
+
+    Vue.set(vm.user, 'friend', 'heizi'); //添加新的
+    vm.user = Object.assign({}, vm.user, {
+      read: '《Vuejs 实战》',
+    })
+  </script>
+</body>
+
+</html>

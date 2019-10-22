@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // https://babeljs.io/repl
+      // class Yue {
+      //   constructor() {
+      //     this.state = {
+      //       name: "rainbow"
+      //     };
+      //   }
+
+      //   logNumber() {
+      //     console.log(123);
+      //   }
+
+      //   handleLogByArrow = () => {
+      //     var a = { b: 1, c: 123 };
+
+      //     console.log(a);
+      //   };
+      // }
+
+      function _defineProperty(obj, key, value) {
+        if (key in obj) {
+          Object.defineProperty(obj, key, {
+            value: value,
+            enumerable: true,
+            configurable: true,
+            writable: true
+          });
+        } else {
+          obj[key] = value;
+        }
+        return obj;
+      }
+
+      class Yue {
+        constructor() {
+          _defineProperty(this, "handleLogByArrow", () => {
+            var a = {
+              b: 1,
+              c: 123
+            };
+            console.log(a);
+          });
+
+          this.state = {
+            name: "rainbow"
+          };
+        }
+
+        logNumber() {
+          console.log(123);
+        }
+      }
+
+      const people = new Yue();
+      people.handleLogByArrow();
+    </script>
+  </body>
+</html>

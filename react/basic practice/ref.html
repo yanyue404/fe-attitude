@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React</title>
+
+    <style>
+      .box {
+        width: 200px;
+        height: 200px;
+        background-color: pink;
+      }
+    </style>
+    <script src="../build/react.development.js"></script>
+    <script src="../build/react-dom.development.js"></script>
+    <script src="../build/browser.min.js"></script>
+  </head>
+  <div id="root"></div>
+
+  <body>
+    <script type="text/babel">
+      class Demo extends React.Component {
+        componentDidMount() {
+          this.myInput.focus();
+        }
+
+        render() {
+          return (
+            <div>
+              <input
+                ref={ele => {
+                  this.myInput = ele;
+                }}
+              />
+            </div>
+          );
+        }
+      }
+      ReactDOM.render(<Demo />, document.getElementById("root"));
+    </script>
+  </body>
+</html>

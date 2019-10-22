@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var str =
+            `&lt;p class=&quot;MsoNormal&quot;&gt;
+↵	在3182例接受磁控胶囊胃镜检查的无症状体检人群中&lt;span&gt;，共检出&lt;/span&gt;7例胃癌，这意味着无症状人群的胃癌检出率为2.2‰，其中50岁以上人群胃癌检出率高达7.4‰！这一研究成果刊发于美国消化领域权威学术期刊GIE&lt;span&gt;（&lt;/span&gt;Gastrointestinal Endoscopy，译名《消化内镜》&lt;span&gt;）。&lt;/span&gt; 
+↵&lt;/p&gt;`
+        var result;
+        var reg = /[\u4e00-\u9fa5|0-9.|\‰]+/g;
+        if (reg.test(str)) {
+            result = str.match(reg).join("，");
+        }
+        console.log(result);
+    </script>
+</body>
+
+</html>

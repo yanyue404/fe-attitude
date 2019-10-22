@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/jquery.fullPage.min.js"></script>
+        <link rel="stylesheet" href="css/index.css">
+    </head>
+    <body>
+	      
+	     <div id="fullpage">
+
+	     	<!-- 第一屏 -->
+	    	<div class="section">
+	    		 <div class="logo">
+	    		 	 <img src="img/logo.png">
+	    		 </div>
+	    		 <div class="text">
+	    		 	 <img src="img/text_1.png">
+	    		 	 <img src="img/text_2.png">
+	    		 	 <img src="img/text_3.png">
+	    		 	 <img src="img/text_4.png">
+	    		 	 <img src="img/text_5.png">
+	    		 	 <img src="img/text_6.png">
+	    		 	 <img src="img/text_7.png">
+	    		 	 <img src="img/text_8.png">
+	    		 </div>
+	    		 <div class="other">
+	    		 	 <img src="img/info_1.png">
+	    		 </div>
+	    	</div>
+	    	<!-- 第二屏 -->
+	    	<div class="section">
+	    		 <div class="left">
+	    		 	 <img src="img/shield_1.png">
+	    		 	 <img src="img/shield_2.png">
+	    		 	 <img src="img/shield_3.png">
+	    		 	 <img src="img/shield_4.png">
+	    		 	 <img src="img/shield_5.png">
+	    		 	 <img src="img/shield_6.png">
+	    		 	 <img src="img/shield_7.png">
+	    		 	 <img src="img/shield_8.png">
+	    		 	 <img src="img/shield_9.png">
+	    		 </div>
+	    		 <div class="right">
+	    		 	 <img src="img/info_2.png">
+	    		 </div>
+	    	</div>
+	    	<!-- 第三屏 -->
+    	    <div class="section">
+    	    	 <div class="left">
+    	    	 	 <img src="img/info_3.png">
+    	    	 </div>
+    	    	 <div class="right">
+    	    	 	 <img src="img/circle.png">
+    	    	 	 <img src="img/rocket.png">
+    	    	 </div>
+    	    </div>
+    	     <!-- 第四屏 -->
+    	    <div class="section">
+    	    	 <div class="left">
+    	    	 	 <div class="search">
+    	    	 	 	<img src="img/search.png">
+    	    	 	 </div>
+    	    	 	 <div class="key"></div>
+    	    	 	 <div class="reault">
+    	    	 	 	<img src="img/result.png">
+    	    	 	 </div>
+    	    	 </div>
+    	    	 <div class="right">
+    	    	 	 <img src="img/info_4.png">
+    	    	 </div>
+    	    </div>
+    	     <!-- 第五屏 -->
+    	    <div class="section">
+    	    	 <div class="top">
+    	    	 	 <img src="img/info_5.png">
+    	    	 </div>
+    	    	 <div class="bot">
+    	    	 	 <div class="toolbar">
+    	    	 	 	 <img src="img/toolbar.png">
+    	    	 	 	 <div class="box"></div>
+    	    	 	 </div>
+    	    	 	 <div class="extra">
+    	    	 	 	 <img src="img/extra.png">
+    	    	 	 </div>
+    	    	 </div>
+    	    </div>
+		</div>
+
+		<script>
+			
+    		$('#fullpage').fullpage({
+    			// 设置选中区域的颜色
+    			sectionsColor:['#0da5d6', '#2AB561', '#DE8910', '#16BA9D', '#0DA5D6'],
+
+    			//滚动到某一屏后的回调函数
+    			afterLoad:function(anchorLink,index){
+
+    				 // 全部移除one样式
+    				 $(".section").removeClass('one');
+    				 
+    				 // 动态设置样式
+    				 setTimeout(function(){
+    				 	$(".section").eq(index-1).addClass('one');
+    				 }, 50)
+    			}
+    		});
+		</script>
+    </body>
+</html>

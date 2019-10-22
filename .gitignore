@@ -1,0 +1,13 @@
+config/*
+!config/default.*
+*.DS_Store
+node_modules
+.vscode
+.idea
+# 不需要版本锁定，若有了.npmrc禁用lock 此条可忽略
+package-lock.json
+# 不需要版本锁定
+yarn.lock
+yarn-error.log
+npm-debug.log
+

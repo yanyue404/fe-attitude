@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
+  </head>
+
+  <body>
+    <span></span>
+    <button class="increment">+</button>
+    <input class="num" style="width:40px" value="1" type="number" />
+    <button class="decrement">-</button>
+
+    <script>
+      // actions
+      function increment(num) {
+        return {
+          type: 'INCREMENT',
+          num
+        };
+      }
+
+      function decrement(num) {
+        return {
+          type: 'DECREMENT',
+          num
+        };
+      }
+
+      //  reducers
+      var initCount = {
+        count: 0
+      };
+      function counter(state, action) {
+        if (!state) {
+          return initCount;
+        }
+        switch (action.type) {
+          case 'INCREMENT':
+            return { count: state.count + Number(action.num) };
+          case 'DECREMENT':
+            return { count: state.count - Number(action.num) };
+          default:
+            return state;
+        }
+      }
+
+      var store = Redux.createStore(counter);
+
+      function renderValue() {
+        document.querySelector('span').innerHTML = store.getState().count;
+      }
+
+      renderValue();
+      //注册监听器
+      store.subscribe(renderValue);
+
+      document.querySelector('.increment').onclick = function() {
+        let num = document.querySelector('input').value;
+        setTimeout(() => {
+          store.dispatch(increment(num));
+        }, 0);
+      };
+      document.querySelector('.decrement').onclick = function() {
+        let num = document.querySelector('input').value;
+        store.dispatch(decrement(num));
+      };
+    </script>
+  </body>
+</html>

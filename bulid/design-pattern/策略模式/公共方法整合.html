@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <form id="myForm">
+    <h2>基本信息</h2>
+    <hr width="100%" />
+    <table class="tableStyle" align="center">
+      <input type="hidden" name="id" id="id" />
+      <input type="hidden" name="attach_id" id="attach_id" />
+      <input type="hidden" name="type" id="type" value="1" />
+      <tr>
+        <td>发布单位：</td>
+        <td> <input type="hidden" id="rel_unit" name="rel_unit" /> <input type="text" id="rel_unit_name" name="rel_unit_name"
+            readonly style="width:200px" class="validate[required]" /><input type="button" value="选择" onclick="selectUserControl(this)" /><span
+            class="star">*</span></td>
+        <td>发布时间：</td>
+        <td><input type="text" id="release_date" class="validate[required] date" style="width:200px" name="release_date" /><span
+            class="star">*</span></td>
+      </tr>
+      <tr>
+        <td>文件字号：</td>
+        <td><input type="text" name="code" id="code" style="width:200px" class="validate[required]" /><span class="star">*</span></td>
+        <td>文件名称：</td>
+        <td><input type="text" name="name" id="name" style="width:200px" class="validate[required]" /><span class="star">*</span></td>
+      </tr>
+      <tr>
+        <td>归口部门：</td>
+        <td><input type="hidden" id="org_id" name="org_id" /> <input type="text" id="org_id_name" name="org_id_name"
+            readonly style="width:200px" class="validate[required]" /><input type="button" value="选择" onclick="selectUserControl(this)" /><span
+            class="star">*</span></td>
+        <td>参与部门：</td>
+        <td><input type="hidden" name="join_dept" id="join_dept" /> <input type="text" id="join_dept_name" name="join_dept_name"
+            readonly class="validate[required]" style="width:200px" /><input type="button" value="选择" onclick="selectUserControl(this)" /><span
+            class="star">*</span></td>
+      </tr>
+    </table>
+  </form>
+</body>
+<script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+<script>
+  function selectUserControl(that) {
+    var firstInput = $(that.parentNode).find("input:first")[0];
+    var val = firstInput.value;
+    var id = firstInput.id;
+    var obj = {
+      "rel_unit": function (key) {
+        var obj2 = {
+          "type": 2,
+          "toastName": "选择发布单位"
+        };
+        return obj2[key]
+      },
+      "org_id": function (key) {
+        var obj2 = {
+          "type": 3,
+          "toastName": "选择归口部门"
+        }
+        return obj2[key]
+      },
+      "join_dept": function (key) {
+        var obj2 = {
+          "type": 1,
+          "toastName": "选择参与部门"
+        }
+        return obj2[key]
+      }
+
+    };
+    var getType = function (key1, key2) {
+      return obj[key1](key2);
+    };
+    var url = "/rule/selectUser.jsp?id=" + id + "&val=" + val + "&type=" + getType(id, "type") +
+      "&JCDP_OP_NAME=findRelUnit";
+    alert(url)
+    alert(getType(id, "toastName"))
+
+  }
+</script>
+
+</html>

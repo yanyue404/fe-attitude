@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      .red {
+        color: red;
+      }
+
+      p {
+        margin: 8px 0px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+
+    <div id="content">
+      <h1>{{ text }}</h1>
+      <h3>githubStar</h3>
+      <ul>
+        <li v-if="githubStar===null">loading...</li>
+        <li
+          :id="gernerateId(index)"
+          v-else-if="githubStar.length >1"
+          v-for="(record, index) in githubStar"
+        >
+          <a :href="record.html_url" :class="index<3?'red':''">
+            {{ record.name }}
+          </a>
+          ({{ record.stargazers_count }} stars)
+          <br />
+          <p v-if="index<3" style="color: #000;">{{ record.description }}</p>
+          <p v-else style="color: #333;">{{ record.description }}</p>
+        </li>
+        <li v-else>{{ error }}</li>
+      </ul>
+    </div>
+
+    <script>
+      var vm = new Vue({
+        el: "#content",
+        data: {
+          text: "Hello,Vue!",
+          githubStar: null,
+          error: null
+        },
+        beforeCreate: function() {},
+        methods: {
+          gernerateId: function(index) {
+            return "project_" + index;
+          },
+          getGithubStarData: function() {
+            var _this = this;
+            axios
+              .get(
+                "https://api.github.com/search/repositories?q=javascript&sort=stars"
+              )
+              .then(response => {
+                _this.githubStar = response.data.items;
+                let print = obj => {
+                  var type = "log";
+                  const log = JSON.parse(JSON.stringify(obj));
+                  console[type](log);
+                };
+                print(_this.githubStar);
+              })
+              .catch(error => {
+                _this.error = error.message;
+              });
+          }
+        },
+        mounted: function() {
+          console.log("created");
+          this.getGithubStarData();
+        }
+      });
+    </script>
+  </body>
+</html>

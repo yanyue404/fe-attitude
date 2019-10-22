@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <p></p>
+  <script>
+    //  问题:ajax也能实现同步
+    //  解决: 在open方法的第三个参数添加一个值:  布尔类型  如果是true(代表异步 是默认的) 如果false(代表同步)
+    //       如果是同步  不需要监听
+    // 1.实例化对象
+    var xhr = new XMLHttpRequest();
+    // 2.设置请求行
+    xhr.open('get','./anync.php',false);
+    // 3.设置请求头
+    xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+    // 4.设置请求内容
+    xhr.send(null);
+    // 5.监听并处理相应
+     xhr.onreadystatechange = function(){
+       if(xhr.readyState == 4 && xhr.status == 200){
+         console.log(xhr.responseText);
+       }
+     }
+    console.log(xhr.responseText);
+    console.log("我先走")
+  </script>
+</body>
+</html>

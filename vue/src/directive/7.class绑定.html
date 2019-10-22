@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../../build/vue.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <h2>对象语法</h2>
+    <div class="static" :class="{ active: isActive, 'text-danger': hasError }">class1 对象条件
+      <div :class="classObject">class2 data对象</div>
+      <div :class="classComputed">class3 计算属性返回对象</div>
+      <h2>数组语法</h2>
+      <div :class="[activeClass, errorClass]"> class1 数组元素插入</div>
+      <div :class="[isActive ? activeClass : '', errorClass]">class2 数组三元表达式</div>
+      <div :class="[{ active: isActive }, errorClass]">class3 数组中使用对象</div>
+    </div>
+  </div>
+</body>
+<script>
+  var vm = new Vue({
+    el: "#app",
+    data: {
+      isActive: true,
+      error: null,
+      hasError: false,
+      activeClass: 'active',
+      errorClass: 'text-danger',
+      classObject: {
+        active: true,
+        'text-danger': false
+      }
+    },
+    computed: {
+      classComputed: function () {
+        return {
+          active: this.isActive && !this.error,
+          'text-danger': this.error && this.error.type === 'fatal'
+        }
+      }
+    }
+  })
+</script>
+
+</html>

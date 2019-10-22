@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .box {
+            /*父盒子设为伸缩盒子*/
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        .box .left {
+            width: 150px;
+            height: 100%;
+            background-color: green;
+        }
+
+        .box .right {
+            flex: 1;
+            background-color: purple;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="left">123</div>
+        <div class="right">456</div>
+    </div>
+</body>
+
+</html>

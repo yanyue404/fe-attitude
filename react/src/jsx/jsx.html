@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@16/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+    ></script>
+    <script src="https://cdn.bootcss.com/babel-core/5.8.34/browser.min.js"></script>
+  </head>
+
+  <body>
+    <fieldset>
+      <legend>
+        <h3>JSXComponent</h3>
+      </legend>
+      <div id="div1"></div>
+    </fieldset>
+  </body>
+
+  <script type="text/babel">
+    class JSXComponent extends React.Component {
+      constructor() {
+        super();
+        this.state = {
+          name: "yueyue"
+        };
+      }
+      render() {
+        var arr = ["Hello,world!", "React is awesome."];
+        var style = {
+          fontSize: "16px",
+          color: "green"
+        };
+
+        var wrapper = React.Fragment;
+        return (
+          <wrapper>
+            {/*在这里写注释*/}
+            <ul style={style}>
+              {/*多行
+                注释
+              */
+              arr.map(function(value, index) {
+                return <li key={index}>{value}</li>;
+              })}
+            </ul>
+          </wrapper>
+        );
+      }
+    }
+
+    ReactDOM.render(<JSXComponent />, document.getElementById("div1"));
+  </script>
+</html>

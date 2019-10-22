@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link
+      href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css"
+      rel="stylesheet"
+    />
+    <style>
+      .box {
+        width: 800px;
+        margin: 50px auto;
+        padding: 60px 30px;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="example"></div>
+    <script src="../../build/react.js"></script>
+    <script src="../../build/react-dom.js"></script>
+    <script src="../../build/browser.min.js"></script>
+
+    <script type="text/babel">
+      class Input extends React.Component {
+        constructor() {
+          super();
+          this.state = {
+            value: "Hello!"
+          };
+          this.handleChange = this.handleChange.bind(this);
+        }
+        handleChange(event) {
+          this.setState({ value: event.target.value });
+          console.dir(event);
+          console.dir(event.target);
+        }
+        render() {
+          var value = this.state.value;
+          return (
+            <div>
+              <input type="text" value={value} onChange={this.handleChange} />
+              <p>{value}</p>
+              <Component1 />
+              <Component2 />
+            </div>
+          );
+        }
+      }
+
+      class Component1 extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            text: "lime"
+          };
+        }
+        change(e) {
+          this.setState({ text: e.target.value });
+        }
+        render() {
+          return (
+            <div>
+              <select value={this.state.text} onChange={this.change.bind(this)}>
+                <option value="grapefruit">Grapefruit</option>
+                <option value="lime">Lime</option>
+                <option value="coconut">Coconut</option>
+                <option value="mango">Mango</option>
+              </select>
+            </div>
+          );
+        }
+      }
+
+      class Component2 extends React.Component {
+        submit(e) {
+          console.log(this.file.files);
+        }
+        render() {
+          return (
+            <div>
+              <input
+                type="file"
+                ref={input => {
+                  this.file = input;
+                }}
+              />
+              <input
+                type="button"
+                value="submit"
+                onClick={this.submit.bind(this)}
+              />
+            </div>
+          );
+        }
+      }
+
+      ReactDOM.render(<Input />, document.getElementById("example"));
+    </script>
+  </body>
+</html>

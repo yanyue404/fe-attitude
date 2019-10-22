@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../../build/vue.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <h2>对象语法</h2>
+    <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">style1 对象条件语法</div>
+    <div v-bind:style="styleObject">style2 直接绑定对象</div>
+    <h2>数组语法</h2>
+    <div v-bind:style="[baseStyles, overridingStyles]">数组语法</div>
+  </div>
+
+</body>
+<script>
+  var vm = new Vue({
+    el: "#app",
+    data: {
+      activeColor: 'red',
+      fontSize: 30,
+      styleObject: {
+        color: 'red',
+        fontSize: '13px'
+      },
+      baseStyles: {
+         color:'green',
+      },
+      overridingStyles:{
+        fontSize:'20px'
+      }
+
+    }
+  })
+</script>
+
+</html>

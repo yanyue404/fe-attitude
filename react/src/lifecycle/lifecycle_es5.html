@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@16/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+    ></script>
+    <script src="https://cdn.bootcss.com/babel-core/5.8.34/browser.min.js"></script>
+  </head>
+
+  <body>
+    <fieldset>
+      <legend>
+        <h3>CompleteComponent</h3>
+      </legend>
+      <div id="div1"></div>
+    </fieldset>
+  </body>
+
+  <script type="text/babel">
+    var CompleteComponent = React.createClass({
+      getInitialState() {
+        return {
+          title: "Hello",
+          number: 0
+        };
+      },
+      getDefaultProps() {
+        return {
+          content: "React"
+        };
+      },
+
+      setNewNumber() {
+        this.setState({
+          number: this.state.number + 1
+        });
+      },
+      componentWillMount() {
+        console.log("componentWillMount");
+      },
+      render() {
+        console.log("render");
+        return (
+          <div>
+            <h1>
+              {this.state.title}, {this.props.content} ! {this.state.number}
+            </h1>
+
+            <button
+              type="button"
+              classNames="btn btn-primary"
+              onClick={this.setNewNumber}
+            >
+              number ++
+            </button>
+          </div>
+        );
+      },
+      componentDidMount() {
+        console.log("componentDidMount");
+      },
+      componentWillReceiveProps(newProps) {
+        console.log("Component WILL RECEIVE PROPS!", newProps);
+      },
+      componentWillUpdate(newProps, newStates) {
+        console.log("componentWillUpdate", newProps, newStates);
+      },
+      componentDidUpdate(prevProps, prevState) {
+        console.log("componentDidUpdate", prevProps, prevState);
+      }
+    });
+
+    ReactDOM.render(<CompleteComponent />, document.getElementById("div1"));
+  </script>
+</html>

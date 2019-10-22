@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>组件</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../../build/vue.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <fieldset>
+      <legend>
+        <h3>多个自定义组件复用</h3>
+      </legend>
+      <my-component></my-component>
+      <my-component></my-component>
+      <my-component></my-component>
+    </fieldset>
+  </div>
+
+  <script type="text/javascript">
+    Vue.component('my-component', {
+      template: '<button @click ="counter++">{{counter}}</button>',
+      data: function () { // 必须是一个函数，每个实例就可以维护一份被返回对象的独立的拷贝
+        return {
+          counter: 0
+        }
+      }
+    })
+    var app = new Vue({
+      el: '#app',
+    })
+  </script>
+</body>
+
+</html>

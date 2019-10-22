@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React</title>
+    <script src="../../build/react.js"></script>
+    <script src="../../build/react-dom.js"></script>
+    <script src="../../build/browser.min.js"></script>
+  </head>
+
+  <body>
+    <fieldset>
+      <legend>
+        <h3>Brother</h3>
+      </legend>
+      <div id="root"></div>
+    </fieldset>
+  </body>
+
+  <script type="text/babel">
+    class Parent extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          value: ""
+        };
+      }
+
+      setValue2(param) {
+        this.refs.c1.changeState(param);
+        this.setState({
+          value: param
+        });
+      }
+
+      setValue1(param) {
+        this.refs.c2.changeState(param);
+        this.setState({
+          value: param
+        });
+      }
+
+      render() {
+        return (
+          <div>
+            <p>我是Parent,接受子组件的传参:{this.state.value}</p>
+
+            <Child1 ref="c1" setValue={this.setValue1.bind(this)} />
+            <Child2 ref="c2" setValue={this.setValue2.bind(this)} />
+          </div>
+        );
+      }
+    }
+
+    class Child1 extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          text: ""
+        };
+      }
+      handleChange(e) {
+        this.props.setValue(e.target.value);
+      }
+      changeState(text) {
+        this.setState({ text: text });
+      }
+
+      render() {
+        return (
+          <div>
+            我是child1
+            <input onChange={this.handleChange.bind(this)} />
+            <p>来自子组件2的调用: {this.state.text}</p>
+            <br />
+          </div>
+        );
+      }
+    }
+
+    class Child2 extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          text: ""
+        };
+      }
+      handleChange(e) {
+        this.props.setValue(e.target.value);
+      }
+      changeState(text) {
+        this.setState({ text: text });
+      }
+
+      render() {
+        return (
+          <div>
+            我是child1
+            <input onChange={this.handleChange.bind(this)} />
+            <p>来自子组件1的调用: {this.state.text}</p>
+            <br />
+          </div>
+        );
+      }
+    }
+    ReactDOM.render(<Parent />, document.getElementById("root"));
+  </script>
+</html>

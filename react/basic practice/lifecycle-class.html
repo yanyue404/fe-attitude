@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>React</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@16/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+    ></script>
+    <script src="https://cdn.bootcss.com/babel-core/5.8.34/browser.min.js"></script>
+  </head>
+
+  <body>
+    <fieldset>
+      <legend>
+        <h3>Mounting</h3>
+      </legend>
+      <div id="div1"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>
+        <h3>Updating</h3>
+      </legend>
+      <div id="div2"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>
+        <h3>Unmounting</h3>
+      </legend>
+      <div id="div3"></div>
+    </fieldset>
+  </body>
+
+  <script type="text/babel">
+    class MountingComponent extends React.Component {
+      componentWillMount() {
+        console.log(this.refs.h1); // undefined
+      }
+      componentDidMount() {
+        console.log(this.refs.h1); // h1对象
+      }
+      render() {
+        return <h1 ref="h1">Lifecycle-Mountion</h1>;
+      }
+    }
+
+    ReactDOM.render(<MountingComponent />, document.getElementById("div1"));
+
+    class UpdatingComponent extends React.Component {
+      constructor() {
+        super();
+        this.state = {
+          data: 0
+        };
+      }
+
+      setNewNumber() {
+        // 当state发生改变的时候，state对应的组件将会被重新挂载
+        // 会触发componentWillUpdate, componentDidUpdate
+        this.setState({
+          data: this.state.data + 1
+        });
+      }
+
+      //参数 newProps：已更新的 props
+      componentWillReceiveProps(newProps) {
+        console.log("Component WILL RECEIVE PROPS!", newProps);
+      }
+
+      //参数 newProps：已更新的 props
+      //参数 newState：已更新的 state
+      //必须要返回 boolen，true 则执行componentWillUpdate、render、componentDidUpdate。反之则不执行。
+      shouldComponentUpdate(newProps, newStates) {
+        console.log("shouldComponentUpdate", newProps, newStates);
+        return newStates.data > 0 && newStates.data % 2 == 0;
+      }
+      // 参数 newProps:将要更新的props
+      // 参数 newState：将要更新的state
+      componentWillUpdate(newProps, newStates) {
+        console.log("componentWillUpdate", newProps, newStates, this.refs.p1);
+      }
+      // 参数 prevProps:更新前的props
+      // 参数 prevState:更新前的state
+      componentDidUpdate(prevProps, prevState) {
+        console.log("componentDidUpdate", prevProps, prevState);
+      }
+      render() {
+        return (
+          <div>
+            <button onClick={this.setNewNumber.bind(this)}>INCREMENT</button>
+            <h3>{this.state.data}</h3>
+          </div>
+        );
+      }
+    }
+
+    ReactDOM.render(<UpdatingComponent />, document.getElementById("div2"));
+
+    // Unmounting
+    class ChildrenComponent extends React.Component {
+      componentWillUnmount() {
+        console.log("componentWillUnmount");
+      }
+      render() {
+        return <h3>{this.props.myNumber}</h3>;
+      }
+    }
+
+    class UnmountingComponent extends React.Component {
+      constructor() {
+        super();
+        this.state = {
+          data: 0
+        };
+      }
+      setNewNumber() {
+        this.setState({
+          data: this.state.data + 1
+        });
+      }
+      render() {
+        var content;
+        // 当条件不符合时 ChildrenComponent 会被移除，然后触发组件的 componentWillUnmount 方法
+        // 当条件重新符合时，会重新渲染组件ChildrenComponent
+        if (this.state.data % 2 == 0) {
+          content = <ChildrenComponent myNumber={this.state.data} />;
+        } else {
+          content = <ChildrenComponent myNumber={this.state.data} />;
+        }
+
+        return (
+          <div>
+            <button onClick={this.setNewNumber.bind(this)}>INCREMENT</button>
+            {content}
+          </div>
+        );
+      }
+    }
+
+    ReactDOM.render(<UnmountingComponent />, document.getElementById("div3"));
+  </script>
+</html>

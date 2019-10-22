@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+    <main>
+        <article>The list properties describe basic visual formatting of lists:
+          they allow style sheets to specify the marker type (image, glyph,
+          or number), and the marker position with respect to the principal
+          box (outside it or within it before content). 
+        </article>
+        <aside>aside</aside>
+      </main>
+      <style>
+        main {
+          display: table;
+          width: 100%;
+          font-size: 14px;
+        }
+        article, aside {
+          display: table-cell;
+          padding: 1em;
+        }
+        article {
+          background: coral;
+        }
+        aside {
+          width: 10em;
+          background: lightblue;
+        }
+      </style>
+</body>
+</html>

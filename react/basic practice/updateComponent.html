@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@16/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+    ></script>
+    <script src="https://cdn.bootcss.com/babel-core/5.8.34/browser.min.js"></script>
+    <style></style>
+  </head>
+  <div id="root"></div>
+
+  <body>
+    <script type="text/babel">
+      class Child extends React.Component {
+        //  组件从父组件接收到新的 props 之前调用
+        componentWillReceiveProps(nextProps) {
+          //  console.log('nextProps',nextProps);
+        }
+        shouldComponentUpdate(nextProps, nextState) {
+          console.log("Child self Props", this.props);
+          console.log("Child nextProps", nextProps);
+          return nextProps.value > 10 ? true : false;
+        }
+
+        render() {
+          console.log("渲染 child 组件,大于10--------------");
+          return <div>我是child {this.props.value}</div>;
+        }
+      }
+
+      class Father extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            value: "",
+            year: 20
+          };
+          this.handleChange = this.handleChange.bind(this);
+          this.handleChangeAge = this.handleChangeAge.bind(this);
+        }
+
+        componentDidMount() {
+          this.myInput.focus();
+        }
+        //    shouldComponentUpdate(nextProps, nextState) {
+        //         console.log('Father nextState',nextState);
+        //         return nextState.value > 3 ? true:false;
+        //     }
+
+        handleChange(e) {
+          this.setState({
+            value: e.target.value
+          });
+        }
+        handleChangeAge(e) {
+          this.setState({
+            year: e.target.value
+          });
+        }
+        render() {
+          console.log("渲染 Father 组件，大于3--------------");
+          return (
+            <React.Fragment>
+              <input
+                ref={ele => {
+                  this.myInput = ele;
+                }}
+                type="text"
+                value={this.state.value}
+                onChange={this.handleChange}
+              />
+              <input
+                type="text"
+                value={this.state.year}
+                onChange={this.handleChangeAge}
+              />
+              <Child value={this.state.value} />
+            </React.Fragment>
+          );
+        }
+      }
+      ReactDOM.render(<Father />, document.getElementById("root"));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    ul li {
+      background-color: green;
+      margin: 10px;
+      height: 30px;
+      color: #fff;
+      font-size: 16px;
+      padding-left: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+  </ul>
+  <script>
+
+    var oUl = document.querySelector('ul'),
+      liArr = document.querySelectorAll('li');
+    console.log(liArr) //NodeList
+    console.log(Array.from(liArr)) //Array
+
+    for (var i = 0; i < liArr.length; i++) {
+      liArr[i].onclick = function () {
+        this.style.backgroundColor = "pink";
+      }
+    }
+    for (var i = 0; i < 4; i++) {
+      var aLi = document.createElement('li');
+      oUl.appendChild(aLi);
+    }
+
+    addEvent(oUl, 'click', function () {
+      var EventSource = event.target ? event.target : event.srcElement;
+      console.dir(EventSource)
+      if (EventSource.tagName === "LI") {
+        EventSource.innerHTML = 'pink';
+      }
+    })
+
+    function addEvent(a, b, c, d) {
+      a.addEventListener ? a.addEventListener(b, c, d) : a.attachEvent("on" + b, c)
+    }
+  </script>
+
+
+
+</body>
+
+</html>

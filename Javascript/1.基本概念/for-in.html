@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var obj = {
+      name: "xiaoyueyue",
+      age: 24,
+      friend: "heizi"
+    };
+    // 实际上遍历的也是对象
+    var a = ['A', 'B', 'C'];
+    for (var i in a) {
+      alert(i); // '0', '1', '2'
+      alert(a[i]); // 'A', 'B', 'C'
+    }
+    for (var key in obj) {
+      console.log(obj[key]);
+    }
+    if ("friend" in obj && obj.hasOwnProperty("name")) {
+      alert("我是 " + obj.name + ", 我的好朋友是 " + obj.friend)
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: #000;
+        }
+        canvas {
+            background: #fff;
+            display: block;
+            margin: 20px auto;
+        }
+        
+    </style>
+</head>
+<body>
+    <canvas id="c" width="800" height="600">
+        <!-- 低版本处理方法 -->
+        <span style="color: #fff;">您的浏览器版本过低了！不支持canvas，请更新您的IE浏览器至最新版，或使用chrome/firefox浏览器进行访问</span>
+    </canvas>
+</body>
+<script>
+    let oC = document.getElementById('c');
+    let gd = oC.getContext('2d'); // 绘图接口(上下文)
+
+    // 角度转弧度(并不是弧长：圆周长公式: 2πr / πd)
+    // 圆转一圈是 2π 弧度
+    // Math.PI = π
+    let d2a = (n) => {
+        return n * Math.PI / 180;
+    }
+
+    // 1/4圆
+    // 从 0 到 90 度，顺时针
+    gd.arc(300, 300, 100, d2a(0), d2a(90), false);
+    gd.stroke();
+
+    // 整个圆
+    // gd.arc(300, 300, 100, d2a(0), d2a(360), false);
+    // gd.stroke();
+</script>
+</html>

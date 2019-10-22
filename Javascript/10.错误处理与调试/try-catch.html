@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    try {
+      //可能会报错的代码
+      alert(yue);
+      // alert("没有错误就执行完毕,不会再执行catch的语句")
+
+    } catch (error) {
+      //在发生错误时怎么处理  
+      alert('报错了')
+      alert(error.message) //报错信息 
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    function func() {
+      console.log(this)
+    }
+    func();
+
+    var o = { name: 'jim' };
+    func.apply(o); // => o
+
+    function func1(a, b) {
+      console.log(a + ',' + b);
+    }
+
+    func1(12, 34) //12,34
+    // 第一个参数是函数运行的作用域（this），其余的参数为参数
+    // call 提供散列数组
+    // cpply 提供数组
+
+    //第1个参数如果是null则this默认为window,如果第1个参数为基本类型则this默认为其包装对象
+
+    func1.apply(null, [12, 34]);
+    func1.call(null, 12, 34)
+
+  </script>
+</body>
+
+</html>

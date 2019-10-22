@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+</head>
+<style type="text/css">
+    img {
+        width: 705px;
+        height: 200px;
+    }
+
+    div {
+        height: 300px;
+    }
+</style>
+
+<body style="height: 2000px">
+    <div>
+        <a href="https://segmentfault.com/a/1190000010744417">原生JS实现最简单的图片懒加载</a>
+    </div>
+    <div>
+        <img src="" data-src="https://xiaoyueyue165.github.io/static/smart/lazyload/1.jpg">
+    </div>
+    <div>
+        <img src="" data-src="https://xiaoyueyue165.github.io/static/smart/lazyload/2.png">
+    </div>
+    <div>
+        <img src="" data-src="https://xiaoyueyue165.github.io/static/smart/lazyload/3.png">
+    </div>
+    <div>
+        <img src="" data-src="https://xiaoyueyue165.github.io/static/smart/lazyload/4.png">
+    </div>
+
+</body>
+<script src="./js/lazyload.js"></script>
+<script>
+    window.onload = checkImgs;
+    window.onscroll = throttle(checkImgs); 
+</script>
+
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="btns">
+    <button>点我弹窗</button>
+  </div>
+  <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+  <script>
+    $.fn.my_alert = function (msg) {
+      $(this).on('click', function () {
+        alert(msg);
+      })
+    }
+
+    $('.btns button').my_alert('Alert')
+  </script>
+</body>
+
+</html>

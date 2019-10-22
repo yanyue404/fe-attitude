@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: #000;
+        }
+        canvas {
+            background: #fff;
+            display: block;
+            margin: 20px auto;
+
+            /* 设置 width/height 不要使用样式 */
+            /* width: 800px;
+            height: 600px; */
+        }
+    </style>
+</head>
+<body>
+    <canvas id="c" width="800" height="600">
+    <!-- <canvas id="c"> -->
+        <!-- 低版本处理方法 -->
+        <span style="color: #fff;">您的浏览器版本过低了！不支持canvas，请更新您的IE浏览器至最新版，或使用chrome/firefox浏览器进行访问</span>
+    </canvas>
+</body>
+<script>
+    let oC = document.getElementById('c');
+    let gd = oC.getContext('2d'); // 绘图接口(上下文)
+
+    // 开始画
+    // 从坐标 100, 100 开始
+    gd.moveTo(100, 100);
+    // 连接到 100, 300
+    gd.lineTo(100, 300);
+    // 连接到 300, 300
+    gd.lineTo(300, 300);
+
+    // 画出来
+    gd.stroke();
+    // 填充颜色
+    gd.fillStyle = 'green';
+    // 填充
+    gd.fill();
+</script>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>template</title>
+</head>
+
+<body>
+  <div id="container"></div>
+  <script type="text/html" id="user_tmpl">
+    <%for ( var i = 0; i < users.length; i++ ) { %>
+      <li>
+        <a href="<%=users[i].url%>">
+          <%=users[i].name%>
+        </a>
+      </li>
+      <% } %>
+  </script>
+</body>
+
+</html>
+<script>
+  (function () {
+    this.tmpl = function (str, data) {
+
+      var str = document.getElementById(str).innerHTML;
+
+      var string = "var p = []; p.push('" +
+        str
+        .replace(/[\r\t\n]/g, "") // 替换 \r 回车符 \t	制表符。\n 换行符。
+
+        .replace(/<%=(.*?)%>/g, "');p.push($1);p.push('")
+        .replace(/<%/g, "');")
+        .replace(/%>/g, "p.push('") +
+        "');"
+
+      eval(string)
+
+      return p.join('');
+    };
+  })();
+
+  var results = document.getElementById("container");
+
+  var users = [{
+      "name": "Byron",
+      "url": "http://localhost"
+    },
+    {
+      "name": "Casper",
+      "url": "http://localhost"
+    },
+    {
+      "name": "Frank",
+      "url": "http://localhost"
+    }
+  ]
+
+  results.innerHTML = tmpl("user_tmpl", users);
+</script>

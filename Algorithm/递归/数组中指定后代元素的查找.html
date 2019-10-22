@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var arr = [{
+      "id": 28,
+      "text": "公司信息",
+      "children": [{
+          "id": 1,
+          "text": "公司文化"
+        }, {
+          "id": 2,
+          "text": "招聘计划"
+        },
+        {
+          "id": 6,
+          "text": "公司新闻",
+          "children": [{
+            "id": 47,
+            "text": "行业新闻"
+          }]
+        },
+        {
+          "id": 11,
+          "text": "内部新闻",
+          "children": [{
+            "id": 24,
+            "text": "行政信息"
+          }, {
+            "id": 27,
+            "text": "高层指示"
+          }]
+        },
+        {
+          "id": 22,
+          "text": "联系我们"
+        },
+        {
+          "id": 26,
+          "text": "产品展示",
+          "children": [{
+            "id": 32,
+            "text": "电力产品"
+          }, {
+            "id": 33,
+            "text": "配件介绍",
+            "children": [{
+              "id": 55,
+              "text": "公司文化"
+            }]
+          }]
+        }
+      ]
+    }]
+
+
+    function getMenuName(obj) {
+      var arr = [];
+      for (var i = 0, len = obj.length; i < len; i++) {
+        arr.push(obj[i].id);
+        if (obj[i].children != null && obj[i].children.length > 0) {
+          (function () {
+            var _obj = arguments[0];
+            for (var j = 0, _len = _obj.length; j < _len; j++) {
+              arr.push(_obj[j].id);
+              if (_obj[j].children != null && _obj[j].children.length > 0) {
+                arguments.callee(_obj[j].children); //递归匿名方法
+              }
+            }
+          })(obj[i].children)
+        }
+      }
+      return arr;
+    }
+
+
+    console.log(getMenuName(arr));
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function* gen() {
+      var x = yield 'rails365';
+      var y = yield 'hfpp2012';
+      var z = yield 'hello';
+      return x + y + z;
+    }
+
+    var myGen = gen();
+    console.log(myGen.next());
+    console.log(myGen.next(1));
+    console.log(myGen.next(2));
+    console.log(myGen.next(3));
+  </script>
+</body>
+
+</html>

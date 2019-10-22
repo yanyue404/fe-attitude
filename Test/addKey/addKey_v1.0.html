@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let arr = [
+        {
+          id: 1,
+          name: "亚瑟"
+        },
+        {
+          id: 2,
+          name: "狄仁杰"
+        },
+        {
+          id: 3,
+          name: "曹操"
+        }
+      ];
+      // FIXME:增加在遇到删除单项时的处理
+
+      function addKey(sourceArray, extendObj, filterFn) {
+        if (!typeof sourceArray === "Array") {
+          throw new Error("The first argument must be an array type");
+        }
+        var secondParamType = typeof arguments[1],
+          args = arguments,
+          filterMethord = typeof args[1] === "function" ? args[1] : filterFn;
+
+        sourceArray.forEach((...arguments) => {
+          var params = arguments,
+            extendObjToSource = () => {
+              for (var key in extendObj) {
+                params[0][key] = extendObj[key];
+              }
+            };
+          secondParamType === "object" ? extendObjToSource() : "";
+          filterMethord ? filterMethord(...params) : "";
+        });
+      }
+      addKey(
+        arr,
+        { isShow: false, list: { id: 1, date: "2019-06-26" } },
+        (v, index, array) => {
+          console.log(index);
+          // FIXME:
+          v.list["id"] = index;
+          // index === array.length - 1
+          //   ? ((v.name = "曹操"), (v.isShow = true))
+          //   : "";
+        }
+      );
+      console.log(arr);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      .uploadBox {
+        margin-top: 10px;
+        width: 1203px;
+        height: 274px;
+        background: #fff;
+        border: 1px solid #eaeef0;
+        border-radius: 4px;
+        position: relative;
+        box-sizing: border-box;
+        padding: 32px 0 0 33px;
+      }
+
+      .uploadItem {
+        position: relative;
+        float: left;
+        width: 126px;
+        height: 126px;
+        border-radius: 10px;
+        border: 1px dashed #ccc;
+        margin-right: 10px;
+      }
+
+      .uploadItem input {
+        width: 126px;
+        height: 126px;
+        z-index: 3;
+        opacity: 0;
+      }
+
+      .uploadItem .pic {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 126px;
+        height: 126px;
+        z-index: 10;
+        border-radius: 10px;
+      }
+
+      .uploadItem .close {
+        position: absolute;
+        right: 7px;
+        top: 7px;
+        z-index: 100;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="uploadBox">
+      <div class="uploadItem">
+        <input type="file" accept="image/jpeg,image/jpg,image/png" />
+        <input type="hidden" id="test" value="" class="preview_input" />
+        <img class="pic" src="" alt="" />
+        <img
+          class="close"
+          src="../../../assets/Javascript/uploadImg_close.png"
+          alt=""
+          style="display: none"
+        />
+      </div>
+      <div class="uploadItem">
+        <input type="file" accept="image/jpeg,image/jpg,image/png" />
+        <img class="pic" src="" alt="" />
+        <img
+          class="close"
+          src="../../../assets/Javascript/uploadImg_close.png"
+          alt=""
+          style="display: none"
+        />
+      </div>
+      <div class="uploadItem">
+        <input type="file" accept="image/jpeg,image/jpg,image/png" />
+        <img class="pic" src="" alt="" />
+        <img
+          class="close"
+          src="../../../assets/Javascript/uploadImg_close.png"
+          alt=""
+          style="display: none"
+        />
+      </div>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+    <script>
+      var Uploads = Array.from(document.querySelectorAll("input[type='file']"));
+      var Pics = Array.from(document.querySelectorAll(".pic"));
+      var CloseBtns = Array.from(document.querySelectorAll(".close"));
+      console.log(Uploads);
+      function addEvent(a, b, c, d) {
+        a.addEventListener
+          ? a.addEventListener(b, c, d)
+          : a.attachEvent("on" + b, c);
+      }
+      //建立一?可存取到?file的url
+      function getObjectURL(file) {
+        var url = null;
+        if (window.createObjectURL != undefined) {
+          // basic
+          url = window.createObjectURL(file);
+        } else if (window.URL != undefined) {
+          // mozilla(firefox)
+          url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL != undefined) {
+          // webkit or chrome
+          url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+      }
+      function getBase64(img, callback) {
+        const reader = new FileReader();
+        reader.readAsBinaryString(img);
+        reader.addEventListener("load", function(e) {
+          callback(e.currentTarget.result);
+        });
+      }
+      function listenDom(ele, callback) {
+        var MutationObserver =
+          window.MutationObserver ||
+          window.WebKitMutationObserver ||
+          window.MozMutationObserver;
+        var observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type == "attributes") {
+              callback(ele, mutation.target);
+            }
+          });
+        });
+        observer.observe(ele, {
+          attributes: true //configure it to listen to attribute changes,
+        });
+      }
+      // 监听元素
+      var element = document.querySelector("#test");
+      listenDom(element, (before, after) => {
+        if (after.value != "") {
+          console.log("新的图片地址已被设置");
+        }
+      });
+
+      Uploads.forEach((v, index) => {
+        addEvent(v, "change", function(e) {
+          var ImgFile = e.target.files[0];
+          getBase64(ImgFile, result => {
+            console.log("getBase64", result);
+          });
+          // 图片信息
+          // console.dir(v.files[0]);
+          var objUrl = getObjectURL(v.files[0]); //获取图片的路径，该路径不是图片在本地的路径
+          Pics[index].src = objUrl;
+          document.getElementById("test").value = objUrl;
+          CloseBtns[index].style.display = "block";
+        });
+      });
+      Pics.forEach((p, index) => {
+        addEvent(p, "click", function() {
+          // 选择图片
+          // FIXME: click 事件有时无法调用 起
+          document.querySelectorAll("input[type='file']")[index].click();
+        });
+      });
+      CloseBtns.forEach((v, index) => {
+        addEvent(v, "click", function() {
+          Pics[index].src = "";
+          CloseBtns[index].style.display = "none";
+        });
+      });
+    </script>
+  </body>
+</html>

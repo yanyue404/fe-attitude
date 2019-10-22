@@ -1,0 +1,178 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>basic-demo</title>
+  <style>
+    #customers {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    #customers td,
+    #customers th {
+      font-size: 1em;
+      border: 1px solid #98bf21;
+      padding: 3px 7px 2px 7px;
+    }
+
+    #customers th {
+      font-size: 1.1em;
+      text-align: left;
+      padding-top: 5px;
+      padding-bottom: 4px;
+      background-color: #A7C942;
+      color: #ffffff;
+    }
+
+    #customers tr.alt td {
+      color: #000000;
+      background-color: #EAF2D3;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="content"></div>
+  <script id="test" type="text/html">
+    {{if chukuliang=='否'}}
+    <h1>出库量为否的情况</h1>
+    {{each list as value i}}
+
+    <table id="customers" class="table{{i}}">
+      <tr>
+        <th>合计</th>
+        <th>汽油</th>
+        <th>柴油</th>
+      </tr>
+      <tr>
+        <td>{{i+1}}</td>
+        <td>订单号</td>
+        <td>{{value.ORDERSALE_CODE}}</td>
+      </tr>
+      <tr>
+        <td>{{i+1}}</td>
+        <td>油品名称</td>
+        <td>{{value.OILINFO_NAME || value.TIDAI_NAME}}</td>
+      </tr>
+      <tr>
+        <td>{{i+1}}</td>
+        <td>配送方式</td>
+        <td>
+          <!-- {{if value.EXTRACT_TYPE==1}} 自提 {{else}} 配送 {{/if}} -->
+          {{ value.EXTRACT_TYPE ==1?'自提':'配送'}}
+        </td>
+      </tr>
+      <tr>
+        <td>{{i+1}}</td>
+        <td>油品数量</td>
+        <td>{{value.OIL_NUMBER | changeMoney}}</td>
+      </tr>
+      <tr>
+        <td>{{i+1}}</td>
+        <td>可申请数量</td>
+        <td>{{value.noticenum | computed:value.outnum,value.STATEMENT_NUM | changeMoney}}</td>
+      </tr>
+      <tr>
+        <td>{{i+1}}</td>
+        <td>价格总量</td> 
+        <td>{{value.OIL_NUMBER * value.noticenum | OneDecimal}}</td>
+      </tr>
+      <tr>
+        <td>{{i+1}}</td>
+        <td>参数</td>
+        <td>{{value.EXTRACT_TYPE+"#"+value.xsdwName}}</td>
+      </tr>
+      <tr>
+        <td>{{i+1}}</td>
+        <td>参数</td>
+        <td>
+          <button data-OrderID={{value.ORDER_ID}} data-OILINFO_NAME={{value.OILINFO_NAME}} data-OIL_NUMBER={{value.OIL_NUMBER}} value={{value.OILINFO_NAME+
+            "#"+value.OIL_NUMBER}} id={{value.EXTRACT_TYPE+ "#"+value.xsdwName}} onclick="clickFn(this,this.dataset,value,id)">传参,查看购买油品详情</button>
+        </td>
+      </tr>
+    </table>
+
+
+    {{/each}} {{/if}}
+
+  </script>
+  <script src="./template-web.js"></script>
+  <script src="./template-filter.js"></script>
+  <script>
+    var data = {
+      chukuliang: "否",
+      cusType: "普通客户",
+      list: [{
+          "CHUKULIANG": "否",
+          "EXTRACT_TYPE": 1,
+          "NOTICESUB_ID": "162325c1371011e884160050568d787a",
+          "NOTICE_CODE": "FY1014269041",
+          "NOTICE_ID": "1622765e371011e884160050568d787a",
+          "OILINFO_NAME": "0号普通柴油",
+          "OIL_NUMBER": 500,
+          "outnum": '100',
+          "ORDERSALE_CODE": "2029584249",
+          "ORDER_ID": "acd9c1882da511e884160050568d787a",
+          "STATEMENT_NUM": 777.00000,
+          "noticenum": 500.00000,
+          "xsdwName": "中国石油天然气股份有限公司上海销售分公司"
+        },
+        {
+          "CHUKULIANG": "否",
+          "EXTRACT_TYPE": 0,
+          "NOTICESUB_ID": "162325c1371011e884160050568d787a",
+          "NOTICE_CODE": "FY1014269041",
+          "NOTICE_ID": "1622765e371011e884160050568d787a",
+          "OILINFO_NAME": "92号车用柴油",
+          "OIL_NUMBER": 100,
+          "outnum": '200',
+          "ORDERSALE_CODE": "2029584249",
+          "ORDER_ID": "acd9c1882da511e884160050568d787a",
+          "STATEMENT_NUM": 888.00000,
+          "noticenum": 500.00000,
+          "xsdwName": "中国石油天然气股份有限公司上海销售分公司"
+        },
+
+      ]
+    };
+
+    /* 辅助方法
+
+    使用template.helper(name, callback)注册公用辅助方法：
+
+    template.helper('dateFormat', function (date, format) { 
+     // .. 
+     return value; 
+    }); 
+    模板中使用的方式： {{time | dateFormat:'yyyy-MM-dd hh:mm:ss'}}  
+    支持传入参数与嵌套使用： {{time | say:'cd' | ubb | link}}  */
+
+    function computed(value, outNum, statamentNum) {
+      console.log(statamentNum);
+
+      return (value + Number(outNum)) || 0;
+    }
+
+
+
+    var html = template('test', data);
+    document.getElementById('content').innerHTML = html;
+
+    function clickFn(that, data, value, id) {
+      console.log(that);
+      console.log(arguments);
+      console.log("value:" + value + ",id:" + id);
+      alert("您正在购买的是" + data.oilinfo_name + ", 购买数量为:" + data.oil_number + ",油品id为" + data.orderid)
+
+    }
+  </script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="example"></div>
+    <script src="../../build/react.js"></script>
+    <script src="../../build/react-dom.js"></script>
+    <script src="../../build/browser.min.js"></script>
+
+    <script type="text/babel">
+      class HandleEvent extends React.Component {
+        constructor() {
+          super();
+          this.state = { liked: false };
+        }
+        handleClick() {
+          this.setState({ liked: !this.state.liked });
+        }
+        render() {
+          var text = this.state.liked ? "不喜欢" : "喜欢";
+          return <h3 onClick={this.handleClick.bind(this)}>你 {text} 我</h3>;
+        }
+      }
+
+      ReactDOM.render(<HandleEvent />, document.getElementById("example"));
+    </script>
+  </body>
+</html>

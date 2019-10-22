@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var list = [{
+      id: '1',
+      isCheck: false,
+      children: [{
+        id: '1-1',
+        isCheck: false,
+        children: null
+      }, {
+        id: '1-2',
+        isCheck: true,
+        children: null
+      }]
+    }, {
+      id: '2',
+      isCheck: false,
+      children: [{
+        id: '2-1',
+        isCheck: true,
+        children: null
+      }]
+    }, {
+      id: '3',
+      isCheck: true,
+      children: null
+    }]
+    
+    const result = [],
+  getId = arr => {
+    arr.forEach(v => {
+        v.isCheck && result.push(v.id);
+        if (v.children instanceof Array) {
+            getId(v.children)
+        }
+    });
+}
+getId(list);
+console.log(result) //["1-2", "2-1", "3"]</script>
+</body>
+
+</html>

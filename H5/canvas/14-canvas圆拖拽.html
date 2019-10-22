@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: #000;
+        }
+        canvas {
+            background: #fff;
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="c" width="800" height="600">
+        <!-- 低版本处理方法 -->
+        <span style="color: #fff;">您的浏览器版本过低了！不支持canvas，请更新您的IE浏览器至最新版，或使用chrome/firefox浏览器进行访问</span>
+    </canvas>
+</body>
+<script>
+    let oC = document.getElementById('c');
+    let gd = oC.getContext('2d'); // 绘图接口(上下文)
+    let d2a = (n) => {
+        return n * Math.PI / 180;
+    };
+
+    // 初始圆的数据
+    let cx = 200;
+	let cy = 200;
+	let r = 100;
+	let new_cx = 0;
+	let new_cy = 0;
+	
+	gd.arc(cx, cy, r, d2a(0), d2a(360), false);
+    gd.fillStyle = 'red';
+	gd.fill();
+	document.onmousedown = (ev) => {
+		let downX = ev.clientX;
+		let downY = ev.clientY;
+        // 鼠标距离画板 x 初始位置
+		let x = ev.clientX - oC.offsetLeft;
+		// 鼠标距离画板 y 初始位置
+        let y = ev.clientY - oC.offsetTop;
+		let a = cx - x;
+		let b = cy - y;
+        // 返回一个数的平方根 Math.sqrt → https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math/sqrt
+        // 根据直角三角形的边长公式 c²=a²+b²
+		let c = Math.sqrt(a*a+b*b);
+		
+		if (c < r) {
+			// 拖着走
+			document.onmousemove = (ev) => {
+                // 擦除画板
+				gd.clearRect(0, 0, oC.width, oC.height);
+				gd.beginPath();
+				let disX = ev.clientX - downX;
+				let disY = ev.clientY - downY;
+				new_cx = disX + cx;
+				new_cy = disY + cy;
+				gd.arc(new_cx, new_cy, r, d2a(0), d2a(360), false);
+				gd.fill();
+			};
+			document.onmouseup = () => {
+				document.onmousemove = document.onmouseup = null;
+				cx = new_cx;
+				cy = new_cy;
+			};
+			return false;
+		}
+	};
+</script>
+</html>

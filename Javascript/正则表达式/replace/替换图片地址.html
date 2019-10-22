@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="root">
+        <p>
+            <img src="/Upload/image/2019-03-01/20190301170619_14718.png" alt="">
+        </p>
+        <div>
+            <img src="/Upload/image/2019-03-01/20190301170619_14718.png" alt="">
+        </div>
+    </div>
+
+</body>
+<script>
+    let str = document.getElementById('root').innerHTML;
+    var srcArr = str.match(/(?<=src=")(\S*)(?=")/g)
+    srcArr.forEach(v => {
+        console.log(filterImgUrl(v));
+
+    })
+
+    function filterImgUrl(str) {
+        var RootUrl = 'http://www.qixieke.com/';
+        return str.indexOf('/') === 0 ? RootUrl + str : str;
+    }
+</script>
+
+</html>

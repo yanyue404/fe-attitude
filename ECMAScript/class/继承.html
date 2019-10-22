@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    class Point { /* ... */ }
+    class ColorPoint extends Point {
+      constructor(x, y, color) {
+        super(x, y); // 调用父类的constructor(x, y),如果不调用 super 方法，子类就得不到 this 对象。
+        this.color = color;
+      }
+
+      toString() {
+        return this.color + ' ' + super.toString(); // 调用父类的toString()
+      }
+    }
+    var color = new ColorPoint(0, 1, '#f1f1f1');
+    console.dir(color.toString());
+  </script>
+</body>
+
+</html>

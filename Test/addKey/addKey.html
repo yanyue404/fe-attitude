@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script src="https://cdn.bootcss.com/react/16.8.6/umd/react.development.js"></script>
+    <script>
+      let arr = [
+        {
+          id: 1,
+          name: "亚瑟"
+        },
+        {
+          id: 2,
+          name: "狄仁杰"
+        },
+        {
+          id: 3,
+          name: "曹操"
+        }
+      ];
+      function addKey(sourceArray, extendObj, filterFn) {
+        var getType = function(a) {
+          return Object.prototype.toString.call(data).slice(8, -1);
+        };
+        var secondParamType = getType(arguments[1]);
+
+        if (!getType(sourceArray) == "Array") {
+          throw new Error("The first argument must be an array type");
+        }
+        if (secondParamType === "Object") {
+          return sourceArray.forEach((v, index, sourceArray) => {
+            for (var key in extendObj) {
+              v[key] = extendObj[key];
+            }
+            typeof filterFn === "function"
+              ? filterFn(v, index, sourceArray)
+              : "";
+          });
+        } else if (secondParamType === "Function") {
+          return sourceArray.forEach((v, index, sourceArray) => {
+            arguments[1](v, index, sourceArray);
+          });
+        } else {
+          if (arguments.length > 1) {
+            console.warn(
+              "The second parameter type is " +
+                secondParamType +
+                " , Must use an object or function type"
+            );
+          }
+
+          return sourceArray;
+        }
+      }
+
+      let obj = addKey(arr, "1");
+      console.log(obj);
+    </script>
+  </body>
+</html>

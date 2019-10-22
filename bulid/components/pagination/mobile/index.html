@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Document</title>
+  <link href="loadmore.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="loadmore">
+    <div class="list">
+    </div>
+    <div class="tips">正在加载...</div>
+  </div>
+  <script src="loadmore.js"></script>
+  <script>
+    var getList = function(page, fn) {
+      var list = []
+      var size = 10
+
+      for (var i = 1; i <= size; i ++) {
+        list.push('<div class="item">'+ (i + (page - 1) * size) +'</div>')
+      }
+      
+      setTimeout(function() {
+        fn && fn(list.join(''))
+      }, 1000)
+    }
+
+    var container = document.querySelector('.list')
+    
+    loadMore(1, function(page, next) {
+      getList(page, function(html) {
+        container.innerHTML += html
+        next()
+      })
+    })
+  </script>
+</body>
+</html>

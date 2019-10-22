@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link
+      href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css"
+      rel="stylesheet"
+    />
+    <style>
+      .box {
+        width: 800px;
+        margin: 50px auto;
+        padding: 60px 30px;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="example"></div>
+    <script src="../../build/react.js"></script>
+    <script src="../../build/react-dom.js"></script>
+    <script src="../../build/browser.min.js"></script>
+
+    <script type="text/babel">
+      class Parent extends React.Component {
+        handleSubmit(event) {
+          event.preventDefault();
+          let name = this.name.value;
+          alert("你输入的姓名是" + name);
+        }
+        render() {
+          return (
+            <form className="box" onSubmit={this.handleSubmit.bind(this)}>
+              <div className="from-group">
+                <label htmlFor="name">姓名</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  ref={ref => (this.name = ref)}
+                />
+                <br />
+              </div>
+              <div className="from-group">
+                <Son />
+                <br />
+              </div>
+              <div className="from-group">
+                <input type="submit" className="btn btn-primary" />
+              </div>
+            </form>
+          );
+        }
+      }
+
+      class Son extends React.Component {
+        constructor() {
+          super();
+          this.handleClick = this.handleClick.bind(this);
+        }
+        handleClick() {
+          if (this.myTextInput != null) {
+            this.myTextInput.focus();
+          }
+        }
+        render() {
+          return (
+            <div>
+              <input type="text" ref={ref => (this.myTextInput = ref)} />
+              <input
+                type="button"
+                value="Focus the text input"
+                onClick={this.handleClick}
+              />
+            </div>
+          );
+        }
+      }
+
+      ReactDOM.render(<Parent />, document.getElementById("example"));
+    </script>
+  </body>
+</html>

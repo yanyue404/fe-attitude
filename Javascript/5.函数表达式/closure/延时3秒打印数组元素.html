@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    //写一个函数，循环一个整数数组，延迟 3 秒打印这个数组中每个元素的索引。
+    var arr = [1, 3, 8, 12, 24];
+
+    /*(function () {
+      setTimeout(function () {
+        for (var i = 0; i < arr.length; i++) {
+          console.log(arr[i])
+        }
+      }, 3000)
+
+    })();*/
+
+    /* (function(){
+       setTimeout(function(){
+        arr.forEach(function(i,v) {
+          console.log(i)
+        });
+       },3000)
+     })();*/
+
+    //错误写法
+    /*  for (var i = 0; i < arr.length; i++) {
+
+       setTimeout(function () {
+         console.log('The index of this number is: ' + i);
+       }, 3000);
+     } */
+    //错误分析: setTimeout函数创建了一个访问外部作用域的函数(闭包),就是包含i的那个循环.3秒之后,函数开始执行打印i的值,而此时的循环已经结束,i的值已经遍历完毕,为5.
+
+    //解决方法1
+    /*for (var i = 0; i < arr.length; i++) {
+      //为setTimeout传入变量i,使其能正确访问到索引
+      setTimeout(function (i_local) {
+        return function () {
+          console.log('The index of this number is: ' + i_local);
+        }
+      }(i), 3000);
+    }*/
+
+    //解决方法2
+    // for (let i = 0; i < arr.length; i++) {
+    //   setTimeout(function () {
+    //     console.log('The index of this number is: ' + i)
+    //   }, 3000)
+
+    // }
+
+    //使用let作用域定义变量i,使得在setTimeout中可以访问到i
+
+    // 解决方法3
+    /*  for (var i = 0; i < arr.length; i++) {
+      setTimeout(function (j) {
+        console.log('The index of this number is: ' + j)
+      }, 3000,i)
+
+    } */
+  // 解决方法4 立即执行的函数表达式
+    for (var i = 0; i < arr.length; i++) {
+      (function (j) {
+        setTimeout(function () {
+          console.log('The index of this number is: ' + j)
+        }, 3000)
+      })(i);
+
+
+    }
+  </script>
+</body>
+
+</html>

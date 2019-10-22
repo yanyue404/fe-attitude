@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script> 
+    // 两数组取差集
+    var arr = [
+      {
+        id: 111,
+        name: 'aaa'
+      },
+      {
+        id: 222,
+        name: 'bbb'
+      },
+      {
+        id: 333,
+        name: 'ccc'
+      }
+    ]
+
+    var arr1 = [
+      {
+        id: 111,
+        name: 'aaa'
+      },
+      {
+        id: 222,
+        name: 'bbb'
+      }
+    ]
+    // 方法1
+    var copyArr = arr.map(val => JSON.stringify(val))
+
+    arr1 = arr1.filter(obj => {
+      let index = copyArr.indexOf(JSON.stringify(obj))
+
+      if (index === -1) return true
+      arr.splice(index, 1)
+      copyArr.splice(index, 1)
+
+    })
+
+    var arr3 = arr1.concat(arr)
+    console.log(arr3)
+  // 方法2
+  //取arr1的补集 concat arr2的补集，即是两者的非交集。后边的rules用来实现可复用的函数。传入要检查的key集合
+    function filter(arr1, arr2, rules) {
+      return arr1.filter(item1 => !arr2.some(item2 => rules.every(key => item1[key] === item2[key])))
+    }
+
+    function build(arr1, arr2, rules) {
+      return [].concat(filter(arr1, arr2, rules), filter(arr2, arr1, rules))
+    }
+
+    let result = build(arr1, arr, ['id', 'name'])
+
+    console.log(result)
+
+  </script>
+</body>
+
+</html>

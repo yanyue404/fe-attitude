@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>组件</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../../build/vue.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <div id="box" v-if="showDiv">这是一段文本</div>
+    <button @click="getText">获取div文本里的内容</button>
+
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data: {
+          showDiv: false
+        },
+        methods: {
+          getText: function () {
+            this.showDiv = true;
+            /* var text = document.getElementById('box').innerHTML; //Uncaught TypeError: Cannot read property 'innerHTML' of null 异步更新队列
+            console.log(text);
+ */
+            this.$nextTick(function () {
+              var text = document.getElementById('box').innerHTML;
+              console.dir(text);
+
+            })
+
+          }
+        }
+      })
+    </script>
+  </div>
+</body>
+
+</html>

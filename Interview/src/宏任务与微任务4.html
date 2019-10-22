@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=
+  , initial-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // async/await函数
+
+      setTimeout(_ => console.log(4));
+
+      async function main() {
+        console.log(1);
+        await Promise.resolve();
+        console.log(3);
+      }
+
+      main();
+
+      console.log(2);
+
+      //  1,2,3,4
+    </script>
+  </body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="example"></div>
+    <script src="../../build/react.js"></script>
+    <script src="../../build/react-dom.js"></script>
+    <script src="../../build/browser.min.js"></script>
+
+    <script type="text/babel">
+      class Wrapper extends React.Component {
+        render() {
+          return (
+            <div>
+              <Component1 />
+              <Component2 />
+              <Component3 />
+              <Component4 />
+            </div>
+          );
+        }
+      }
+
+      class Component1 extends React.Component {
+        submit(e) {
+          console.log(this);
+          e.target.style.color = "red";
+        }
+        render() {
+          return (
+            <input
+              type="button"
+              value="submit1"
+              onClick={e => this.submit(e)}
+            />
+          );
+        }
+      }
+
+      class Component2 extends React.Component {
+        constructor(props) {
+          super(props);
+          this.submit = this.submit.bind(this);
+        }
+
+        submit(e) {
+          console.log(this);
+          e.target.style.color = "red";
+        }
+        render() {
+          return <input type="button" value="submit2" onClick={this.submit} />;
+        }
+      }
+
+      class Component3 extends React.Component {
+        submit(e) {
+          console.log(this);
+          e.target.style.color = "red";
+        }
+        render() {
+          return (
+            <input
+              type="button"
+              value="submit3"
+              onClick={this.submit.bind(this)}
+            />
+          );
+        }
+      }
+
+      class Component4 extends React.Component {
+        render() {
+          const submit = e => {
+            console.log(this);
+            e.target.style.color = "red";
+          };
+          this.submit = submit;
+          console.log(this);
+
+          return <input type="button" value="submit4" onClick={this.submit} />;
+        }
+      }
+
+      ReactDOM.render(<Wrapper />, document.getElementById("example"));
+    </script>
+  </body>
+</html>

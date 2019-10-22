@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .left {
+      float: left;
+    }
+
+    .i-small {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background-size: 12px 12px;
+    }
+
+    .page-prev {
+      background: url('./imgs/icon_prev.png') no-repeat;
+      background-size: 12px 12px;
+    }
+
+    .page-next {
+      background: url('./imgs/icon_next.png') no-repeat;
+      background-size: 12px 12px;
+    }
+    .page-prev-ie {
+      background: url('./imgs/icon_prev_ie.png') no-repeat;
+      background-size: 12px 12px;
+    }
+
+    .page-next-ie {
+      background: url('./imgs/icon_next_ie.png') no-repeat;
+      background-size: 12px 12px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <fieldset>
+    <legend>
+      <h3>background-size</h3>
+    </legend>
+    <a class="left" href="#"><i class="i-small page-next"></i></a>
+    <span class="left">第2页</span>
+    <a class="left" href="#"><i class="i-small page-next"></i></a>
+  </fieldset>
+  <fieldset>
+    <legend>
+      <h3>固定宽度支持ie</h3>
+    </legend>
+    <a class="left" href="#"><i class="i-small page-next-ie"></i></a>
+    <span class="left">第2页</span>
+    <a class="left" href="#"><i class="i-small page-next-ie"></i></a>
+  </fieldset>
+
+
+
+</body>
+
+</html>

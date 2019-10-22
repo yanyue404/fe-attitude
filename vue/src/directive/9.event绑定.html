@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../../build/vue.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <button v-on:click="counter += 1">Add 1</button>
+    <p>The button above has been clicked {{ counter }} times.</p>
+    <button id="createByXiaoyueyue" @click="greet">Greet</button>
+    <button v-on:click="say('Xiaoyueyue',$event)">Say Hello</button>
+    <h2>事件修饰符</h2>
+    <!-- 阻止单击事件继续传播 -->
+    <a v-on:click.stop="doThis"></a>
+
+    <!-- 提交事件不再重载页面 -->
+    <form v-on:submit.prevent="onSubmit"></form>
+
+    <!-- 修饰符可以串联 -->
+    <a v-on:click.stop.prevent="doThat"></a>
+
+    <!-- 只有修饰符 -->
+    <form v-on:submit.prevent></form>
+
+    <!-- 添加事件监听器时使用事件捕获模式 -->
+    <!-- 即元素自身触发的事件先在此处理，然后才交由内部元素进行处理 -->
+    <div v-on:click.capture="doThis">...</div>
+
+    <!-- 只当在 event.target 是当前元素自身时触发处理函数 -->
+    <!-- 即事件不是从内部元素触发的 -->
+    <div v-on:click.self="doThat">...</div>
+
+    <!-- 使用修饰符时，顺序很重要；相应的代码会以同样的顺序产生。因此，用  -->
+    <!-- 会阻止所有的点击 -->
+    <a v-on:click.prevent.self="doThis"></a>
+    <!-- 只会阻止对元素自身的点击 -->
+    <a v-on:click.self.prevent="doThis"></a>
+
+    <!-- 点击事件将只会触发一次，2.1.4新增 -->
+    <a v-on:click.once="doThis"></a>
+
+    <input v-on:keyup.enter="submit">
+  </div>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        counter: 0,
+        name: 'Vue.js'
+      },
+      methods: {
+        greet: function (event) {
+          alert('Hello ' + this.name + '!')
+          // `event` 是原生 DOM 事件
+          if (event) {
+            console.dir(event.target);
+            console.log(event.target.id);
+          }
+        },
+        submit: function () {
+          alert('提交表单事件触发')
+        },
+
+        say: function (message, event) {
+          // 现在我们可以访问原生事件对象
+          if (event) event.preventDefault()
+          alert('Hello, ' + message);
+          console.dir(event.target)
+        }
+      }
+    })
+  </script>
+
+</body>
+
+</html>

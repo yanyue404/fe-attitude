@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        padding: 2vw;
+      }
+
+      .flexbox {
+        display: flex;
+        justify-content: space-between;
+        flex-flow: row wrap;
+        border: 1px solid #eee;
+        box-shadow: 1px 1px 1px rgba(#eee, 0.5);
+        border-radius: 5px;
+        margin: 10px;
+        width: 40vw;
+        counter-reset: number;
+      }
+      .flexbox .item {
+        flex: 1;
+        margin: 5px;
+        min-height: 15vh;
+        background: #f36;
+        border-radius: 3px;
+        position: relative;
+        min-width: 110px;
+      }
+
+      .flexbox .item::before {
+        counter-increment: number;
+        content: counter(number);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 2rem;
+        color: #fff;
+      }
+      .dummy_card {
+        height: 0;
+        flex: 1;
+        min-width: 110px;
+        margin: 0 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flexbox" id="flexbox">
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+    </div>
+  </body>
+  <script>
+    function checkCount(current_total, next) {
+      if (current_total % 12) {
+        // 12 is smallest number that 3 and 4 go in to
+        current_total += 1; // Proper way to do ++
+        checkCount(current_total, next); // Recursion!
+      } else {
+        next(current_total);
+      }
+    }
+    function addDummyElementsToCards(container_id) {
+      var container = document.getElementById(container_id);
+      var card_count = container.children.length;
+      checkCount(card_count, function(final_count) {
+        var dummy_element;
+        for (i = 0; i < card_count; i++) {
+          dummy_element = document.createElement("div");
+          dummy_element.className = "dummy_card";
+          container.appendChild(dummy_element);
+        }
+      });
+    }
+    addDummyElementsToCards("flexbox");
+  </script>
+</html>

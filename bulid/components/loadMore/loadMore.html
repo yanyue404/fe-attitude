@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link href="https://cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+  <style>
+    .text-center {
+      text-align: center;
+    }
+
+    .pager {
+      display: inline-block;
+      padding-left: 0;
+      margin: 1.250em 0;
+      /*20px*/
+      list-style: none;
+      text-align: center;
+    }
+
+    .pager li {
+      display: inline;
+    }
+
+    .pager a {
+      color: #009a61;
+      text-decoration: none;
+      background: transparent;
+      font-size: 0.875em;
+      /*14px*/
+    }
+
+    .pager li>a,
+    .pager li>span {
+      display: inline-block;
+      padding: 0.313em 0.875em;
+      /* 5px 14px*/
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 0.938em;
+      /*15px*/
+    }
+
+    .hidden {
+      display: none !important;
+      visibility: hidden !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="content">
+  </div>
+  <div id="more"></div>
+  <script src="./js/loadMore.js"></script>
+  <script src="./js/pagenationData.js"></script>
+  <script>
+    new loadMore({
+      ele: "#more",
+      data: window.yichuku.list,
+      totalNum: 23,
+      limit: 5,
+      clickFn: basPager,
+      frontendPager: true, // 是否采用前端分页
+      beforeCreat: function () {
+        console.log("beforeCreat")
+      },
+      afterCreat: function () {
+        console.log('afterCreat');
+      }
+    });
+
+    // 后端分页
+    function basPager(current_page, max_page, totalNum) {
+      alert("正在加载第" + current_page + "页， 共" + max_page + "页 " + totalNum + "条数据")
+
+      // 获取第 current_page 页的数据
+      // Order.queryOrderList(current_page);
+    }
+    // 前端分页
+    function FrontPager(current_page, current_data, max_page, totalNum) {
+
+      alert("正在加载第" + current_page + "页， 共" + max_page + "页 " + totalNum + "条数据")
+      console.log(current_data)
+    }
+  </script>
+</body>
+
+</html>

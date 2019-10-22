@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React</title>
+    <script src="../build/react.development.js"></script>
+    <script src="../build/react-dom.development.js"></script>
+    <script src="../build/browser.min.js"></script>
+  </head>
+  <div id="root"></div>
+
+  <body>
+    <script type="text/babel">
+      class Demo extends React.Component {
+        componentDidMount() {
+          this.myBtn.addEventListener('click', e => {
+            this.handleClcik(e);
+          });
+        }
+
+        componentWillUnmount() {
+          this.myBtn.removeEventListener('click');
+        }
+
+        handleClcik(e) {
+          alert('原生点击触发');
+          console.log(e);
+        }
+
+        render() {
+          return (
+            <div>
+              <button
+                ref={ele => {
+                  this.myBtn = ele;
+                }}
+              >
+                原生点击
+              </button>
+            </div>
+          );
+        }
+      }
+      ReactDOM.render(<Demo />, document.getElementById('root'));
+    </script>
+  </body>
+</html>

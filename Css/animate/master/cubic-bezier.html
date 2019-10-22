@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+
+  <style>
+    .animation {
+      width: 50px;
+      height: 50px;
+      background-color: #ed3;
+      -webkit-transition: all 2s;
+      -o-transition: all 2s;
+      transition: all 2s;
+    }
+
+    .animation:hover {
+      -webkit-transform: translateX(100px);
+      -ms-transform: translateX(100px);
+      -o-transform: translateX(100px);
+      transform: translateX(100px);
+      -webkit-transition: all 2s cubic-bezier(.17, .86, .73, .14);
+      -o-transition: all 2s cubic-bezier(.17, .86, .73, .14);
+      transition: all 2s cubic-bezier(.17, .86, .73, .14);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- https://www.jianshu.com/p/d999f090d333 -->
+  <div class="animation"></div>
+</body>
+
+</html>

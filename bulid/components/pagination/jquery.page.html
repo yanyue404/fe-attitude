@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    a {
+      text-decoration: none;
+      cursor: pointer
+    }
+
+    .page-wrap .pagination {
+      padding: 15px 20px;
+      color: #999;
+      text-align: center;
+      margin: 0 auto
+    }
+
+    .page-wrap .pagination a {
+      display: inline-block;
+      color: #999;
+      display: inline-block;
+      height: 28px;
+      line-height: 28px;
+      padding: 0 10px;
+      border: 1px solid #d9d9de;
+      margin: 0 2px;
+      border-radius: 4px;
+      vertical-align: middle
+    }
+
+    .page-wrap .pagination a:hover {
+      text-decoration: none;
+      text-decoration: none;
+      color: #999;
+      border: 1px solid #999
+    }
+
+    .page-wrap .pagination span.current {
+      display: inline-block;
+      height: 28px;
+      line-height: 28px;
+      padding: 0 10px;
+      margin: 0 2px;
+      color: #fff;
+      background-color: #fe5453;
+      border: 1px solid #fe5453;
+      border-radius: 4px;
+      vertical-align: middle
+    }
+
+    .page-wrap .pagination span.disabled {
+      display: inline-block;
+      height: 28px;
+      line-height: 28px;
+      padding: 0 10px;
+      margin: 0 2px;
+      color: #999;
+      background: #f2f2f2;
+      border: 1px solid #d9d9de;
+      border-radius: 4px;
+      vertical-align: middle
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page-section">
+    <div class="page-wrap">
+      <div class="pagination"></div>
+    </div>
+  </div>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+  <script src="./js/jquery.page.js"></script>
+  <script>
+
+    $(".pagination").createPage({
+      pageCount: 13,
+      current: 1,
+      backFn: function (number) {
+        console.log(number)
+      }
+    })
+  </script>
+</body>
+
+</html>

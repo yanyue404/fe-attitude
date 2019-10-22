@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script>
+        var Module = {
+            init: function () {
+                var y = this;
+                y.id = "root";
+                y.error = null;
+                y.fetchOrderList();// 若有可以扩展添加结束处理的逻辑
+            },
+            fetchOrderList: function () {
+                var y = this;
+                $.getJSON('https://api.github.com/search/repositories?q=javascript&sort=stars').then(
+                    value => {
+                        y.render(value);
+                    },
+                    error => {
+                        y.error = error; // 错误标记
+                        y._fetchDataFailed(error);
+                    }
+                )
+            },
+            render: function (data) {
+                var y = this;
+                let html;
+                if (y.error === null) {
+                    html = this._resolveData(data);
+                } else {
+                    html = data;
+                }
+                document.getElementById(y.id).innerHTML = html;
+            },
+
+            // 需要时格式化处理
+            _resolveData: function (data) {
+                var repos = data.items;
+                var repoList = repos.map(function (repo, index) {
+                    return `<li> <a href=${repo.html_url}>${repo.name}</a> (${repo.stargazers_count} stars) <br /> ${repo.description}</li>`
+                });
+                return `<main>
+                <h1>Most Popular JavaScript Projects in Github</h1>
+                <ol> ${repoList.join('')}</ol>
+                 </main> `
+
+            },
+            // 错误处理
+            _fetchDataFailed: function (error) {
+                let errorHtml = `<span>Error: ${error.message}</span>`;
+                this.render(errorHtml)
+            }
+        }
+        Module.init();
+    </script>
+</body>
+
+</html>

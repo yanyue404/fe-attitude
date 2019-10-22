@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+  // https://segmentfault.com/q/1010000012623893/
+    const json = [{
+        "name": "测试1",
+        "children": []
+      },
+      {
+        "name": "测试2",
+        "children": [{
+            "name": "A区",
+            "children": [{
+                "name": "a1",
+                "children": null
+              },
+              {
+                "name": "a2",
+                "children": null
+              },
+            ]
+          },
+          {
+            "name": "B区",
+            "children": [{
+                "name": "b1",
+                "children": null
+              },
+              {
+                "name": "b2",
+                "children": null
+              },
+            ]
+          }
+        ]
+      },
+    ]
+
+    function findTarget(source, targetName) {
+      if (source && source.length) {
+        // of 必要
+        for (let item of source) {
+          if (item.name === targetName) {
+            item.expand = true;
+          } else if (item.children && item.children.length) {
+            findTarget(item.children, targetName);
+          }
+        }
+      }
+    }
+
+    function addExpand(arr, find) {
+      for (let k in arr) {
+        let item = arr[k]
+        if (typeof item === 'object') {
+          addExpand(item, find);
+        } else {
+          if (item == find) {
+            arr.expand = true
+          }
+        }
+      }
+      return arr
+    }
+
+    let nJson = addExpand(json, 'a1');
+
+console.log(nJson);
+
+    // findTarget(json, "a1");
+
+  </script>
+</body>
+
+</html>

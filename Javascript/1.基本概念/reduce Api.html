@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var arr = [1, 2, 3, 4];
+        Array.prototype.y_reduce = function (fn, init) {
+            let result = init || 0; // 初始累计
+            for (let i = 0; i < this.length; i++) {
+                if (i in this) {
+                    // result 累计器 结果
+                    result = fn.call(undefined, result, this[i], i, this)
+                }
+            }
+            return result
+        }
+        console.log(arr.y_reduce(((accumulator, currentValue, index, arr) => {
+            console.log("累计结算结果:" + accumulator, "当前值：" + currentValue, index, arr);
+            return accumulator * currentValue
+        }), 1))
+    </script>
+</body>
+
+</html>

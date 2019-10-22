@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 一次声明多个变量
+    let [a, b, c] = [1, 2, 3];
+    console.log(a); //1
+    console.log(b); //2
+    console.log(c); //3
+
+    // 结合综合扩展符
+    let [head, ...tail] = [1, 2, 3, 4];
+    console.log(head) // 1
+    console.log(tail) // [2, 3, 4]
+
+    //解构赋值允许指定默认值
+    let [foo = true] = [];
+    foo // true
+
+    let [x, y = 'b'] = ['a'];
+    // x='a', y='b'
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Title</title>
+    <script src="../../build/vue.min.js"></script>
+    <script src="../../build/vue-router.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <a href="#/news">跳转到news</a>
+        <a href="#/share">跳转到share</a>
+        <router-view></router-view>
+    </div>
+    <script>
+        //    创建组件
+        var news = Vue.component('news', {
+            template: '<h1>news</h1>'
+        })
+        //    创建组件
+        var share = Vue.component('share', {
+            template: '<h1>share</h1>'
+        })
+
+        var router = new VueRouter({
+            routes: [
+                { name: 'news', path: '/news', component: news },
+                { name: 'share', path: '/share', component: share }
+            ]
+        })
+
+        var vm = new Vue({
+            el: '#app',
+            router: router,
+            data: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>

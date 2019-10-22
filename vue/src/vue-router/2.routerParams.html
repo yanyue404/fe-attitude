@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Title</title>
+    <script src="../../build/vue.min.js"></script>
+    <script src="../../build/vue-router.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!--<a href="#/news">跳转到news</a>-->
+        <!--<a href="#/share">跳转到share</a>-->
+
+        <!--vue-router中多数使用router-link来进行跳转-->
+        <router-link to="/news">跳转到news</router-link>
+        <!--可以进行传值-->
+        <router-link to="/share/13">跳转到share</router-link>
+        <!--设置一个坑,加载对应的组件-->
+        <router-view></router-view>
+    </div>
+    <script>
+        //    创建组件
+        var news = Vue.component('news', {
+            template: '<h1>news</h1>'
+        })
+        //    创建组件
+        var share = Vue.component('share', {
+            //        自定义一个全局变量,用来接收传过来的值,进行展示
+            data() {
+                title: ''
+            },
+            // 这个方法是在组件加载完成之后调用
+            created() {
+                this.title = this.$route.params.id;
+            },
+            // 接收传入的值
+            props: ['id'],
+            // 组件内部的模板
+            template: '<h1>share---{{title}}</h1>'
+        })
+
+        // 初始化路由
+        var router = new VueRouter({
+            routes: [
+                // 路由的内容写在数组的对象中
+                { name: 'news', path: '/news', component: news },
+                { name: 'share', path: '/share/:id', component: share }
+            ]
+        })
+
+        // 初始化对象
+        var vm = new Vue({
+            el: '#app',
+            router: router,
+            data: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>

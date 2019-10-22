@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: #000;
+        }
+        canvas {
+            background: #fff;
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="c" width="800" height="600">
+        <!-- 低版本处理方法 -->
+        <span style="color: #fff;">您的浏览器版本过低了！不支持canvas，请更新您的IE浏览器至最新版，或使用chrome/firefox浏览器进行访问</span>
+    </canvas>
+</body>
+<script>
+    let oC = document.getElementById('c');
+    let gd = oC.getContext('2d'); // 绘图接口(上下文)
+
+    let img = new Image();
+    img.src = 'cat.jpg';
+    img.onload = () => {
+        oC.width = img.width;
+        oC.height = img.height;
+        gd.drawImage(img, 0, 0);
+        // 获取画布的所有像素点
+        let result = gd.getImageData(0, 0, oC.width, oC.height);
+        let arr = result.data;
+        for (let i = 0; i < arr.length; i+=4) {
+			let r = arr[i];
+			let g = arr[i+1];
+			let b = arr[i+2];
+			arr[i] = (r * 0.393) + (g * 0.769) + (b * 0.189); // red
+			arr[i+1] = (r * 0.349) + (g * 0.686) + (b * 0.168); // green
+			arr[i+2] = (r * 0.272) + (g * 0.534) + (b * 0.131); // blue
+		}
+        // 将修改后的像素点放回去
+        gd.putImageData(result, 0, 0);
+    };
+</script>
+</html>

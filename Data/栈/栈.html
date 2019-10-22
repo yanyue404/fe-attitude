@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // https://yuchengkai.cn/docs/zh/cs/dataStruct.html#%E6%A0%88
+    // 栈的特点是只能在某一端添加或删除数据，遵循先进后出的原则
+    //概念：子弹壳装弹，一粒一粒压进去，但是打出来的时候是从上面打出来的，最先压进去的最后弹出来，如果进去顺序是123，打出来顺序是321，这就是后进先出
+    class Stack {
+      constructor() {
+        this.stack = []
+      }
+      push(item) {
+        this.stack.unshift(item);
+        console.log(item + "------- , 入栈操作");
+
+      }
+      pop() {
+        var current = this.stack.shift();
+        console.log(current + "------- , 出栈操作");
+        return current;
+      }
+      peek() {
+        return this.stack[this.getCount() - 1]
+      }
+      getCount() {
+        return this.stack.length
+      }
+      isEmpty() {
+        return this.getCount() === 0
+      }
+    }
+
+    var arr = new Stack();
+    var nowStackLog = function () {
+      var state = arr.isEmpty() ? "空栈" : arr.stack;
+      console.log(state + "------- , 当前栈内存");
+    }
+
+    nowStackLog();
+    arr.push(1);
+    arr.push(2);
+    arr.push(3);
+    nowStackLog();
+
+    arr.pop();
+    arr.pop();
+    arr.pop();
+    nowStackLog();
+  </script>
+</body>
+
+</html>

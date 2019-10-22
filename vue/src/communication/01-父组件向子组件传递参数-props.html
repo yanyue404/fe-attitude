@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../../build/vue.min.js"></script>
+</head>
+
+<body>
+  <fieldset>
+    <legend>
+      <h3>父组件向子组件传参数 - props</h3>
+    </legend>
+    <div id="app">
+      <p>
+        <label>父组件</label>
+        <input type="text" v-model="txt" />
+      </p>
+      <child :txt="txt"></child>
+    </div>
+  </fieldset>
+
+  <script type="text/javascript">
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        txt: "123"
+      },
+      components: {
+        'child': {
+          props: ['txt'],
+          template: '<h1>子组件-{{this.txt}}</h1>'
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

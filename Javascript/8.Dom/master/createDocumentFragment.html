@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    let abc = ['https://www.gstatic.com/webp/gallery3/2.png', 'https://www.gstatic.com/webp/gallery3/3.png'];
+
+    let imgs = abc.map((v) => `<img src="${v}">`).join("");
+
+    const append = (el, html) => {
+      let divTemp = document.createElement("div"),
+        fragment = document.createDocumentFragment();
+      divTemp.innerHTML = html;
+      for (let node of divTemp.childNodes) {
+        fragment.appendChild(node.cloneNode(true));
+      }
+      return el.appendChild(fragment);
+    };
+
+    append(document.body, imgs)</script>
+</body>
+
+</html>

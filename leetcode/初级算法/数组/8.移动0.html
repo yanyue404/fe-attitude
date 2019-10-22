@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /**
+     * @param {number[]} nums
+     * @return {void} Do not return anything, modify nums in-place instead.
+     */
+    var moveZeroes = function (nums) {
+      var Zeroes = 0;
+      for (var i = 0; i < nums.length; i++) {
+        if (nums[i] === 0) {
+          Zeroes++;
+        }
+      }
+      if (Zeroes === nums.length) {
+        return;
+      }
+      for (var i = 0; i < nums.length; i++) {
+        if (nums[i] === 0) {
+          nums.splice(i, 1);
+          nums.push(0);
+          i--;
+        }
+      }
+    };
+    var nums1 = [0, 1, 0, 3, 12];
+    var nums2 = [0, 0, 1];
+    var nums3 = [1, 0, 0, 0,1];
+    // moveZeroes(nums1);
+    // moveZeroes(nums2);
+    moveZeroes(nums3);
+    console.log(nums1);
+    console.log(nums2);
+    console.log(nums3);
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var testStr = "now test001 test002";
+    var re = /test(\d+)/; //只匹配一次     
+    var r = "";
+    var r = re.exec(testStr)
+    alert(r);// test001  001 返回匹配结果，以及子项
+    alert(r.length); //2   返回内容的长度
+    alert(r.input); //now test001 test002    代表每次匹配成功的字符串 
+    alert(r[0]);   //test001   
+    alert(r[1]);  //001    代表每次匹配成功字符串中的第一个子项 (\d+) 
+    alert(r.index);   //  4   每次匹配成功的字符串中的第一个字符的位置</script>
+</body>
+
+</html>

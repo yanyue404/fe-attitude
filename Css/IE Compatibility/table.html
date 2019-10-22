@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .tableCenter {
+      margin: 0 auto;
+    }
+
+    .tableCenter tr td {
+      float: left;
+    }
+    .no-float label,.no-float input {
+    	float: none !important;
+}
+.f-box {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: center;
+}
+  </style>
+</head>
+
+<body>
+  <table class="tableCenter">
+    <tr>
+      <td><label for="">姓名：</label><input type="text" placeholder="Xiaoyueyue"></td>
+      <td><label for="">好友：</label><input type="text" placeholder="Heizi"></td>
+    </tr>
+  </table>
+
+  <div class="f-box">
+    <div class="f-box">
+      <label for="">姓名：</label><input type="text" placeholder="Xiaoyueyue">
+    </div>
+    <div class="f-box">
+      <label for="">好友：</label><input type="text" placeholder="Heizi">
+    </div>
+
+  </div>
+</body>
+
+</html>

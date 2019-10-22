@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React</title>
+    <script src="../../build/react.js"></script>
+    <script src="../../build/react-dom.js"></script>
+    <script src="../../build/browser.min.js"></script>
+  </head>
+
+  <body>
+    <fieldset>
+      <legend>
+        <h3>ParentToSon</h3>
+      </legend>
+      <div id="root"></div>
+    </fieldset>
+  </body>
+
+  <script type="text/babel">
+    class Parent extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          value: ""
+        };
+      }
+
+      setValue(param) {
+        console.log(param);
+        this.setState({
+          value: param
+        });
+      }
+
+      render() {
+        return (
+          <div>
+            <Child setValue={this.setValue.bind(this)} />
+            <p>我是Parent,接受子组件的传参:{this.state.value}</p>
+          </div>
+        );
+      }
+    }
+
+    class Child extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          text: ""
+        };
+      }
+      handleChange(e) {
+        this.props.setValue(e.target.value);
+      }
+
+      render() {
+        return (
+          <div>
+            我是child
+            <input onChange={this.handleChange.bind(this)} />
+            <br />
+          </div>
+        );
+      }
+    }
+    ReactDOM.render(<Parent />, document.getElementById("root"));
+  </script>
+</html>

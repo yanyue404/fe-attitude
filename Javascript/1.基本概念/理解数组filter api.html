@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        Array.prototype.y_filter = function (fn) {
+            let result = [];
+            let temp = [];
+            for (let i = 0; i < this.length; i++) {
+                if (i in this) {
+                    if (fn.call(undefined, this[i], i, this)) {
+                        result.push(this[i])
+                    }
+                }
+            }
+            return result;
+        }
+
+        var arr = [12, 5, 8, 130, 44]
+        var filtered = arr.y_filter((v, i, arr) => {
+            console.log(v, i, arr);
+            return v > 10;
+        });
+
+
+        console.log('filtered', filtered) // => [12, 130, 44]
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: #000;
+        }
+        canvas {
+            background: #fff;
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="c" width="800" height="600">
+        <!-- 低版本处理方法 -->
+        <span style="color: #fff;">您的浏览器版本过低了！不支持canvas，请更新您的IE浏览器至最新版，或使用chrome/firefox浏览器进行访问</span>
+    </canvas>
+</body>
+<script>
+    let oC = document.getElementById('c');
+    let gd = oC.getContext('2d'); // 绘图接口(上下文)
+    let rnd = (n, m) => {
+        return parseInt(Math.random() * (m - n) + n)
+    };
+    let list = [];
+
+    while (list.length < 10) {
+        list.push(rnd(50, 1000));
+    }
+
+    // 距canvas边距
+    let padding = {
+        left: 50,
+        top: 50,
+        bottom: 50,
+        right: 50
+    };
+    // 获取最大值
+    let iMax = Math.max(...list);
+    // 每个柱形的高度
+    let listHeight = [];
+
+    list.map((item, index) => {
+        // 最高高度就是canvas画板高度
+        listHeight[index] = (oC.height - padding.top - padding.bottom) * item / iMax;
+    });
+
+    // 画矩形
+    // 这个空隙的算法可能有些绕，试举例一下
+    // space里面的 4 并不是写死的，只是一个随机的数字，想要空隙大一点，就把数字往大了写，反之...
+    // 为什么要减 1，是因为柱状图最后一个矩形的右边没有空隙
+    let space = (oC.width - padding.left - padding.right) / (list.length * 4 - 1); // 空隙
+    let w = space * 3; // 宽度
+
+    // 随机颜色数组
+    let RGBList = [];
+    list.map(() => RGBList.push(`rgb(${parseInt(Math.random()*256)}, ${parseInt(Math.random()*256)}, ${parseInt(Math.random()*256)})`));
+    // 开始画
+    let n = 0;
+    let timer = setInterval(() => {
+        // 擦除画布
+        gd.clearRect(0, 0, oC.width, oC.height);
+        n+=10;
+        listHeight.map((item, index) => {
+            // 随机填充颜色
+            gd.fillStyle = RGBList[index];
+            // 距左边距
+            let left = padding.left + index * w + index * space;
+            // 距上边距
+            let iMargin = n > item ? item : n;
+            let top =  oC.height - padding.bottom - iMargin;
+            // 写数字
+            gd.font = '18px 黑体';
+            gd.fillText(n > list[index] ? list[index] : n, left + space / 2, top - 5,  w);
+            // 画框
+            gd.strokeRect(left, top, w, iMargin);
+            // 填充颜色
+            gd.fillRect(left, top, w, iMargin);
+        });
+        (n >= iMax) && clearInterval(timer);
+    }, 16);
+</script>
+</html>

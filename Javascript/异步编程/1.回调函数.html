@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /*   function f1() {
+      alert('我要在第一阶段执行');
+    }
+
+    function f2() {
+      alert('那我在第二阶段执行');
+    }
+    f1();
+    f2();
+    */
+
+    f1();
+
+    function f1() {
+      setTimeout(() => {
+        alert('我的操作很费时,你先来吧');
+        f2();
+      }, 500);
+    }
+
+    function f2() {
+      alert('不行，我要等你...');
+      alert("缺点，每次只能指定一个回调函数");
+    }
+  </script>
+</body>
+
+</html>

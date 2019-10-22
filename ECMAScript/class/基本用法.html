@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    //定义类
+    class FunSum {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+      }
+      sum() {
+        console.log(this.x + this.y)
+      }
+    }
+
+    // 使用的时候，也是直接对类使用new命令，跟构造函数的用法完全一致。
+    let f = new FunSum(10, 20);
+    f.sum() // 30
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #box {
+      width: 200px;
+      height: 200px;
+      background-color: purple;
+      border: 1px solid #ccc;
+      position: relative;
+      font: 26px/200px arial, sans-serif;
+      /* font-style | font-variant | font-weight | font-size | line-height | font-family */
+      color: #fff;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box">
+    drag
+  </div>
+</body>
+<script>
+
+  var box = document.getElementById("box");
+  var drag = {
+    start: function (evt) {
+      var e = window.event || evt;
+      box.startX = e.clientX - box.offsetLeft;
+      box.startY = e.clientY - box.offsetTop;
+      document.onmousemove = drag.ondrag;
+      document.addEventListener ? document.addEventListener("mouseup", drag.stop, false) : document.attachEvent("onmouseup", drag.stop);
+    },
+    ondrag: function (evt) {
+      var e = window.event || evt;
+      with (box.style) {
+        position = "absolute";
+        left = e.clientX - box.startX + "px";
+        top = e.clientY - box.startY + "px";
+      };
+    },
+    stop: function () {
+      document.onmousemove = "";
+      document.detachEvent ? document.detachEvent("onmouseup", drag.start) : document.removeEventListener("mouseup", drag.start, false);
+    },
+    init: function () {
+      box.addEventListener ? box.addEventListener("mousedown", drag.start, false) : box.attachEvent("onmousedown", drag.start);
+    }
+  }
+  drag.init();
+</script>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="./dialog.css">
+  <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+  <script src="./dialog.js"></script>
+</head>
+
+<body>
+  <h1>Dialog</h1>
+  <button id="delete">Confirm-删除文件</button>
+  <button id="alert">Alert-接受Request</button>
+  <button id="dialog">Dialog-打开新的Url</button>
+  <script>
+    $("#delete").click(function () {
+      $.DialogNew.Confirm({
+        Title: "删除",
+        Content: '确定删除该文件？',
+        ConfirmFun: function () {
+          console.log("确认删除");
+        }
+      })
+    })
+
+    $("#alert").click(function () {
+      $.DialogNew.Alert({
+        Content: "request返回值",
+        ConfirmFun: function () {
+          console.log("执行回调函数");
+
+        }
+      });
+    })
+
+    $("#dialog").click(function () {
+      $.DialogNew.Dialog({
+        Width: 1200,
+        Height: 560,
+        Title: "新的窗口",
+        URL: "http://xiaoyueyue.org/"
+      });
+    })
+  </script>
+</body>
+
+</html>

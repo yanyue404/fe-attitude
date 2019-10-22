@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    video {
+      width: 400px
+  }
+  </style>
+</head>
+
+<body>
+  <video controls src="https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_1mb.mp4"></video>
+  <canvas></canvas>
+  <button>Capture Frame</button>
+
+</body>
+<script>
+  const video = document.getElementsByTagName('video')[0];
+  const canvas = document.getElementsByTagName('canvas')[0];
+  const button = document.getElementsByTagName('button')[0];
+
+  button.onclick = async () => {
+    const image = await window.createImageBitmap(video);
+    canvas.getContext('2d').drawImage(image, 0, 0, 200, 100);
+  }
+</script>
+
+</html>

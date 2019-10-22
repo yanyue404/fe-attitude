@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    .form{
+                width: 400px;
+                height: 200px;
+                margin: 0px auto;
+            }
+
+            .form-item-label{
+                width:100px;
+                text-align: right;
+                float: left;
+            }
+
+            .form-item-input{
+                float: left;
+            }
+
+            .form-item{
+                width: 100% ;
+                height: 50px;
+                line-height: 50px;
+            }
+        </style>
+</head>
+
+<body>
+
+  <div class="form">
+    <div class="form-item">
+      <div class="form-item-label"><span>用户名：</span></div>
+      <div class="form-item-input"><input id="userName" name="用户名" type="text"></div>
+    </div>
+
+    <div class="form-item">
+      <div class="form-item-label"><span>密码：</span></div>
+      <div class="form-item-input"><input id="password" name="密码" type="text"></div>
+    </div>
+
+    <div class="form-item">
+      <div class="form-item-label"><span>确认密码：</span></div>
+      <div class="form-item-input"><input id="repassword" name="密码确认" type="text"></div>
+    </div>
+
+    <div class="form-item">
+      <div class="form-item-label"><span>邮箱：</span></div>
+      <div class="form-item-input"><input id="mail" name="邮箱" type="text"></div>
+    </div>
+  </div>
+
+  <br>
+  <button id="submit">提交</button>
+
+  <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $("#submit").bind("click", doSubmit);
+    });
+
+    function doSubmit() {
+      var validators = new InputValidators();
+
+      validators.importStrategies(validationStrategies);
+
+      validators.addValidationStrategy("isEqual", function (element, errMsg, value1, value2) {
+        if (value1 !== value2) {
+          return this.buildInvalidObj(element, errMsg, value1);
+        }
+      });
+
+      var eleUserName = document.getElementById("userName");
+      validators.addValidator("isNoEmpty", eleUserName, "用户名不能为空", eleUserName.value);
+      validators.addValidator("minLength:6", eleUserName, "用户名的字符个数必须是6到20个", eleUserName.value);
+      validators.addValidator("maxLength:20", eleUserName, "用户名的字符个数必须是6到20个", eleUserName.value);
+
+      var elePassword = document.getElementById("password");
+      validators.addValidator("isNoEmpty", elePassword, "密码不能为空", elePassword.value);
+      validators.addValidator("minLength:6", elePassword, "密码的字符个数必须是6到20个", elePassword.value);
+      validators.addValidator("maxLength:20", elePassword, "密码的字符个数必须是6到20个", elePassword.value);
+
+      var eleRepassword = document.getElementById("repassword");
+      validators.addValidator("isNoEmpty", eleRepassword, "确认密码不能为空", eleRepassword.value);
+      validators.addValidator("minLength:6", eleRepassword, "确认密码的字符个数必须是6到20个", eleRepassword.value);
+      validators.addValidator("maxLength:20", eleRepassword, "确认密码的字符个数必须是6到20个", eleRepassword.value);
+      validators.addValidator("isEqual:" + elePassword.value, eleRepassword, "两次密码不一致", eleRepassword.value);
+
+      var eleMail = document.getElementById("mail");
+      validators.addValidator("isNoEmpty", eleMail, "邮箱不能为空", eleMail.value);
+      validators.addValidator("isMail", eleMail, "邮箱不是一个有效的格式", eleMail.value);
+
+
+      var result = validators.check();
+      if (result) {
+        alert(result.errMsg);
+        result.element.focus();
+        result.element.select();
+        return false;
+      }
+
+      alert("验证通过");
+    }
+
+    //输入验证器
+    function InputValidators() {
+      this.validators = [];
+      this.strategies = {};
+
+      //this.from(validationStrategies);
+    }
+
+    //添加验证方法
+    //参数:
+    //  rule: 验证策略字符串
+    //  element: 被验证的dom元素
+    //  errMsg: 验证失败时显示的提示信息
+    //  value: 被验证的值
+    InputValidators.prototype.addValidator = function (rule, element, errMsg, value) {
+      var that = this;
+      var ruleElements = rule.split(":");
+
+      this.validators.push(function () {
+        var strategy = ruleElements.shift();
+        var params = ruleElements;
+        params.unshift(value);
+        params.unshift(errMsg);
+        params.unshift(element);
+
+        return that.strategies[strategy].apply(that, params);
+      });
+    };
+
+    //添加验证策略函数
+    //参数:
+    //  name: 策略名称
+    //  strategy: 策略函数
+    InputValidators.prototype.addValidationStrategy = function (name, strategy) {
+      this.strategies[name] = strategy;
+    };
+
+    //从策略对象导入验证策略函数
+    //参数:
+    //  strategies: 包含各种策略函数的对象
+    InputValidators.prototype.importStrategies = function (strategies) {
+      for (var strategyName in strategies) {
+        this.addValidationStrategy(strategyName, strategies[strategyName]);
+      }
+    };
+
+    //验证失败时，将相关的错误信息打包返回
+    //参数:
+    //  element: dom元素
+    //   errMsg: 验证失败时的提示消息
+    //    value: 被验证的值
+    InputValidators.prototype.buildInvalidObj = function (element, errMsg, value) {
+      return {
+        "value": value,
+        "element": element,
+        "errMsg": errMsg
+      };
+    };
+
+    //开始验证
+    InputValidators.prototype.check = function () {
+      for (var i = 0, validator; validator = this.validators[i++];) {
+        var result = validator();
+        if (result) {
+          return result;
+        }
+      }
+    };
+
+    //验证策略对象，包含默认的验证策略函数
+    var validationStrategies = {
+      isNoEmpty: function (element, errMsg, value) {
+        if (value === "") {
+          return this.buildInvalidObj(element, errMsg, value);
+        }
+      },
+
+      minLength: function (element, errMsg, value, length) {
+        if (value.length < length) {
+          return this.buildInvalidObj(element, errMsg, value);
+        }
+      },
+
+      maxLength: function (element, errMsg, value, length) {
+        if (value.length > length) {
+          return this.buildInvalidObj(element, errMsg, value);
+        }
+      },
+
+      isMail: function (element, errMsg, value, length) {
+        var reg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+        if (!reg.test(value)) {
+          return this.buildInvalidObj(element, errMsg, value);
+        }
+      }
+    };
+  </script>
+</body>
+
+</html>

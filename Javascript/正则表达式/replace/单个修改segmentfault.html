@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+  <script>
+    var str = "这是一个 react 项目,没事我就会segmentfault,然后我还会去谷歌";
+    var html = str.replace(/segmentfault/, '<a href="http://www.segmentfault.com">segmentfault</a>');
+    $(document.body).append((html));
+  </script>
+</body>
+
+</html>

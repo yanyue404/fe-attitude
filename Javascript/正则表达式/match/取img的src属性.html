@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<i class="er" style="top:10px"></i>
+
+
+<body>
+  <script>
+
+    let str = `<img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." /><img alt="image" src="http://www.qqbsmall.com/data/..." />`;
+
+    // let div = document.createElement('div');
+    // div.innerHTML = str;
+    // /* let src = Array.from(div.children).map(v => v.src);
+    // console.log(src); */
+
+    // var ImgArr = Array.prototype.slice.call(div.children).map(v => v.src)
+
+
+    // console.log(ImgArr)
+
+    // 第一种
+    var array = str.match(/(?<=src=("|'))[^"']+/g);
+    //  ?= 匹配任何其后紧接指定字符串 n 的字符串。 
+    // () 含有
+    //  [^abc]非
+    console.log(array)
+    // 第二种
+    var strArray = str.split('><')
+
+    var result = strArray.map(function (str) {
+      return str.replace(/<*img.+src\="(.+)".*/ig, '$1');
+    });
+    console.log(result);
+    // 第三种
+    console.log(str.match(/(?<=src=")(\S*)(?=")/g));
+    // /S 非空格
+
+
+
+
+  </script>
+</body>
+
+</html>

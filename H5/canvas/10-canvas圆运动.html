@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: #000;
+        }
+        canvas {
+            background: #fff;
+            display: block;
+            margin: 20px auto;
+        }
+        
+    </style>
+</head>
+<body>
+    <canvas id="c" width="800" height="600">
+        <!-- 低版本处理方法 -->
+        <span style="color: #fff;">您的浏览器版本过低了！不支持canvas，请更新您的IE浏览器至最新版，或使用chrome/firefox浏览器进行访问</span>
+    </canvas>
+</body>
+<script>
+    let oC = document.getElementById('c');
+    let gd = oC.getContext('2d'); // 绘图接口(上下文)
+    let d2a = (n) => {
+        return n * Math.PI / 180;
+    }
+
+    let i = 0;
+
+    gd.lineWidth = 20;
+
+    // 1 空心圆
+    // let timer = setInterval(() => {
+    //     // 擦除画板
+    //     gd.clearRect(0, 0, oC.width, oC.height);
+    //     // 边框颜色
+    //     gd.strokeStyle = `rgb(${parseInt(i / 360 * 255)}, 255, 0)`;
+    //     gd.beginPath();
+    //     gd.arc(200, 200, 100, d2a(0), d2a(i+=5), false);
+    //     gd.stroke();
+    //     (i > 360) && clearInterval(timer);
+    // }, 16);
+
+    // 2-1 实心圆
+    // let timer = setInterval(() => {
+    //     // 擦除画板
+    //     gd.clearRect(0, 0, oC.width, oC.height);
+    //     // 边框颜色
+    //     gd.strokeStyle = `rgb(${parseInt(i / 360 * 255)}, 255, 0)`;
+    //     gd.fillStyle = `rgb(${parseInt(i / 360 * 255)}, 255, 0)`;
+    //     gd.arc(200, 200, 100, d2a(i), d2a(i+=5), false);
+    //     gd.stroke();
+    //     gd.fill();
+    //     (i > 360) && clearInterval(timer);
+    // }, 16);
+
+    // 2-2 实心圆
+    // let timer = setInterval(() => {
+    //     // 擦除画板
+    //     gd.clearRect(0, 0, oC.width, oC.height);
+    //     // 边框颜色
+    //     gd.strokeStyle = `rgb(${parseInt(i / 360 * 255)}, 255, 0)`;
+    //     gd.fillStyle = `rgb(${parseInt(i / 360 * 255)}, 255, 0)`;
+    //     gd.arc(200, 200, 100, d2a(i), d2a(i+=5), false);
+    //     gd.arc(200, 200, 0, d2a(i), d2a(i+=5), false);
+    //     gd.stroke();
+    //     (i > 360) && clearInterval(timer);
+    // }, 16);
+
+    // 3 进度条
+    // 定义颜色
+    let linear = gd.createLinearGradient(100, 100, 400, 400);
+	linear.addColorStop(0, '#399');
+	linear.addColorStop(1, '#f60');
+    gd.strokeStyle = linear;
+    gd.fillStyle = linear;
+
+    let timer = setInterval(() => {
+        // 定义进度
+		i = i+2 > 100 ? 100 : i+2;
+        // 擦除画板
+		gd.clearRect(0, 0, oC.width, oC.height);
+		// 开始画
+		gd.beginPath();
+		gd.arc(200, 200, 100, d2a(0), d2a(i*3.6), false);
+		gd.stroke();
+		// 文字
+		gd.font = '30px 黑体';
+		let str = `${i}%`;
+		let w = gd.measureText(str).width;
+		gd.fillText(str, 200-w/2, 200+15);	
+		(i === 100) && clearInterval(timer);
+	}, 16);
+</script>
+</html>

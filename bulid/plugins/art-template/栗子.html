@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>basic-demo</title>
+  <script src="./template-web.js"></script>
+</head>
+
+<body>
+  <select name="" id=""></select>
+  <div id="content"></div>
+  <script id="test" type="text/html">
+    <ul>
+
+      {{each list as value i}}
+      <li>索引 {{i + 1}} ：{{value.orgName}}</li>
+      {{/each}}
+    </ul>
+
+  </script>
+
+  <script id="select" type="text/html">
+    {{each list}}
+
+   
+
+    <option linkId = {{$value.linkId}} value={{$value.linkId+'*'+$value.orgName}}>{{$value.orgName}}</option>
+  {{/each}}
+  </script>
+  <script>
+    var data = {
+      title: '基本例子',
+      isAdmin: true,
+      list: ['文艺', '博客', '摄影', '电影', '民谣', '旅行', '吉他']
+    };
+    var data2 = [{
+      "basOrgId": "002",
+      "cusId": "960E682409F945D8A248D099AD047239",
+      "delFlag": 0,
+      "linkId": "25B4426ACCCE40EF9BF980C7EB3140B6",
+      "orgName": "浦西分公司"
+    }, {
+      "basOrgId": "001",
+      "cusId": "960E682409F945D8A248D099AD047239",
+      "delFlag": 0,
+      "linkId": "A8555E0F47034CC9B7C0B0855AA8FB1B",
+      "orgName": "浦东分公司"
+    }, {
+      "basOrgId": "0001",
+      "cusId": "960E682409F945D8A248D099AD047239",
+      "delFlag": 0,
+      "linkId": "CD7EBEFF95084945A57E0B23390F10D8",
+      "orgName": "总部-营销处"
+    }];
+    var html = template('test', {
+      list: data2
+    });
+    console.log(data)
+    document.getElementById('content').innerHTML = html;
+    var selectHtml = template('select', { list: data2 })
+    console.log(selectHtml)
+
+    document.querySelector('select').innerHTML = selectHtml
+  </script>
+</body>
+
+</html>

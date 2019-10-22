@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Title</title>
+    <script src="../build/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!--input一般使用v-model,其他的一般使用text和html-->
+        <div v-text="msg"></div>
+        <span v-html="msg"></span>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                title: '欢迎使用vue',
+                msg: '<h1>sdfsfdwfewfe</h1>'
+            }
+        })
+    </script>
+</body>
+
+</html>

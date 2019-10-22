@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../../build/vue.min.js"></script>
+</head>
+
+<body>
+  <fieldset>
+    <legend>
+      <h3>子组件调用父组件的方法 - emit</h3>
+    </legend>
+    <div id="app">
+      {{message}}
+      <br>
+      <br>
+      <my-component></my-component>
+    </div>
+  </fieldset>
+  <script>
+    var bus = new Vue();
+    Vue.component('my-component', {
+      template: '<button @click ="handleEvent">传递事件</button>',
+      methods: {
+        handleEvent: function () {
+          bus.$emit('on-message', '来自组件my-component的内容');
+        }
+      }
+    })
+    var app = new Vue({
+      el: '#app',
+      data: {
+        message: ''
+      },
+      mounted: function () {
+        var _this = this;
+        // 在实例化组价的时候，监听来自bus实例的事件
+        bus.$on('on-message', function (msg) {
+          _this.message = msg;
+        })
+      }
+    })
+  </script>
+</body>
+
+</html>

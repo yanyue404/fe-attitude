@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<title>BootstrapValidator demo</title>
+<link href="../../../bulid/bootstrap/bootstrap.3.3.6.css" rel="stylesheet">
+<!-- <script src="../../bulid/jquery.1.11.1.js"></script> -->
+<script src="../../../bulid/jquery.1.11.1.js"></script>
+<script src="./js/bootstrapValidate.js"></script>
+<style>
+  .transparent-border {
+    border:1px solid transparent;
+  }
+  #defaultForm .form-control~p {
+      color: #c7254e;
+    }
+    .error {
+      border: 1px solid #c7254e;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <!-- form: -->
+      <section>
+        <div class="col-lg-8 col-lg-offset-2">
+          <div class="page-header">
+            <h2>表单验证</h2>
+          </div>
+
+          <form id="defaultForm" method="post" class="form-horizontal">
+
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Username</label>
+              <div class="col-lg-5">
+                <input type="text" class="form-control" name="username" data-bv-required="true"
+                  data-bv-required-message="用户名为必填项且不能为空" data-bv-regexp="[a-zA-Z0-9_\.]+" data-bv-regexp-message="用户名只能包含字母，数字，点和下划线" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Email</label>
+              <div class="col-lg-5">
+                <input class="form-control" name="email" type="email" data-bv-required="true" data-bv-required-message="邮件地址为必填项不能为空"
+                  data-bv-email="true" data-bv-email-message="请输入符合规范的邮件地址" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Website</label>
+              <div class="col-lg-5">
+                <input class="form-control" name="website" type="url" data-bv-required="true" data-bv-required-message="网址为必填项且不能为空"
+                  data-bv-url="true" data-bv-url-message="请输入有效的网址" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Age</label>
+              <div class="col-lg-2">
+                <input type="number" class="form-control" name="age" data-bv-required="true" data-bv-required-message="年龄为必填项且不能为空"
+                  data-bv-integer="true" data-bv-integer-message="请输入一个整数" data-bv-greaterthan="10"
+                  data-bv-greaterthan-message="输入项必须大于10" data-bv-lessthan="100" data-bv-lessthan-message="输入项小于100" />
+
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-lg-9 col-lg-offset-3">
+                <input type="submit" class="btn btn-primary" onclick="toSave()" value="提交">
+                <input type="reset" class="btn btn-primary" value="重置">
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+      <!-- :form -->
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var isValid = true;
+    $('#defaultForm').bootstrapValidator({
+      trigger: 'keyup',
+      el: '#defaultForm',
+      callback: function (response) {
+        console.log("response:" + response);
+      }
+    });
+
+
+    function toSave() {
+      alert($('#defaultForm').valid())
+    }
+  </script>
+</body>
+
+</html>

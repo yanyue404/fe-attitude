@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var str = '  hello  ';
+
+    alert('(' + trim(str) + ')');//为了看出区别所以加的括号。 (hello)
+
+    function trim(str) {
+      var re = /^\s+|\s+$/g; // |代表或者   \s代表空格  +至少一个    前面有至少一个空格 或者后面有至少一个空格 且全局匹配
+      return str.replace(re, ''); //把空格替换成空
+    }
+
+    var newStr = {
+      "SERVICE": {
+        "SERVICE_HEADER": {
+          "SERVICE_ID": "TFCMJPreRepayByTerms",
+          "ORG": "000000000001",
+          "CHANNEL_ID": "BANK",
+          "ACQ_ID": "10000000",
+          "SUB_TERMINAL_TYPE": "Android",
+          "SERVICESN": "incode",
+          "OP_ID": "None",
+          "REQUEST_TIME": "20160817182001",
+          "VERSION_ID": "01",
+          "MAC": "None",
+          "SERV_RESPONSE": "None"
+        },
+        "SERVICE_BODY": {
+          "REQUEST": {
+            "CONTR_NBR": "incode",
+            "TERMS": "1,2"
+          },
+          "RESPONSE": "None"
+        }
+      }
+    }
+    // 将字符串json 转换为数组
+    function transToArray(str) {
+      // 由于数组解析错误，导致数据展示不出来 -- lk bug号（MAG-69）
+      if (str) {
+        var obj = JSON.parse(str);
+        var resArr = [];
+        for (var i in obj) {
+          if (obj[i] === "None") {
+            obj[i] = None
+          }
+          resArr.push({
+            key: i,
+            value: obj[i]
+          });
+        }
+        return resArr;
+      } else {
+        var resArr = [];
+        resArr.push({
+          key: '',
+          value: ''
+        });
+        return resArr;
+      }
+    }
+    console.log(transToArray(JSON.stringify(newStr)))
+    var newS = "Node";
+    console.log(newS.replace(/"Node"/g, Node))</script>
+</body>
+
+</html>

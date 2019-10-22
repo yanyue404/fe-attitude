@@ -1,0 +1,278 @@
+/*
+* @Author: dhl
+* @Date:   2017-04-18 13:27:45
+* @Last Modified by:   dhl
+* @Last Modified time: 2017-04-18 19:18:06
+*/
+* {
+	 margin: 0;
+	 padding: 0;
+}
+
+/* 第一屏 */
+.logo {
+	 text-align: center;
+	 padding-top: 50px;
+}
+
+.text {
+	 padding-top: 100px;
+	 text-align: center;
+}
+
+.other {
+	 text-align: center;
+	 padding-top: 100px;
+}
+
+
+/* 第一屏动画类样式 */
+/* 图片开始状态 */
+.section:nth-child(1) .text img {
+	margin: 0 35px;
+	opacity: 0;
+}
+
+/* 图片结束状态 */
+.section.one .text img {
+    margin: 0 10px;
+    opacity: 1;
+    transition: all 1s linear;
+}
+
+
+/* 第二屏 */
+.section:nth-child(2)>div {
+	 display: flex;
+	 /* 调整在主轴方向的对齐方向 */
+	 justify-content: space-around;
+	 align-items: center;
+}
+
+.section:nth-child(2) .left {
+	 width: 424px;
+	 height: 482px;
+	 position: relative;
+}
+
+.section:nth-child(2) .left img {
+	position: absolute;
+}
+
+.section:nth-child(2) .left img:nth-child(1) {
+	  left: 20px;
+	  top: 40px;
+	  opacity: 0;
+	  transform: rotateZ(30deg);
+	  transition: all 1s linear;
+}
+.section:nth-child(2) .left img:nth-child(2){
+	  left: 600px;
+	  top: 20px;
+	  transform: rotateZ(70deg) skew(40deg);
+	  /* transition: all 1s linear; */
+}
+.section:nth-child(2) .left img:nth-child(3) {
+	 left: 291px;
+	 top: 0;
+}
+.section:nth-child(2) .left img:nth-child(4) {
+	 top: 150px;
+	 left: 0;
+}
+.section:nth-child(2) .left img:nth-child(5) {
+	top: 150px;
+	left: 113px;
+}
+.section:nth-child(2) .left img:nth-child(6) {
+	top: 150px;
+	left: 291px;
+}
+
+.section:nth-child(2) .left img:nth-child(7) {
+	top: 328px;
+	left: 0;
+}
+.section:nth-child(2) .left img:nth-child(8) {
+	top: 328px;
+	left: 113px;
+}
+.section:nth-child(2) .left img:nth-child(9) {
+	top: 328px;
+	left: 291px;
+}
+
+
+/* 第二屏动画开始 */
+.section:nth-child(2).one .left img:nth-child(1) {
+	 left: 0;
+	 top: 0;
+	 opacity: 1;
+	 transform: rotateZ(0deg);
+}
+.section:nth-child(2).one .left img:nth-child(2) {
+	  left: 113px;
+	  top: 0;
+	  transform: rotateZ(0deg) skew(0deg);
+	  transition: all 1s linear;
+}
+
+
+
+/* 第三屏样式*/
+.section:nth-child(3)>div {
+	 display: flex;
+	 /* 调整子元素在主轴的对齐方式 */
+	 justify-content: space-around;
+	 /* 调整子元素在侧轴的对齐方式 */
+	 align-items: center;
+}
+
+.section:nth-child(3) .right {
+	 position: relative;
+}
+
+.section:nth-child(3) .right img:nth-child(2) {
+	 position: absolute;
+	 left: -380px;
+	 bottom: -380px;
+	 transition: all 1s linear;
+}
+
+
+/* 第三屏动画 */
+.section:nth-child(3).one .right img:nth-child(2){
+	 position: absolute;
+	 left: 110px;
+	 bottom: 110px;
+}
+
+
+/* 第四屏样式开始 */
+.section:nth-child(4) {
+	position: relative;
+}
+
+.section:nth-child(4)>div {
+	 display: flex;
+	 justify-content: space-around;
+	 align-items: center;
+}
+
+.section:nth-child(4)>div .left {
+	 position: relative;
+}
+.section:nth-child(4)>div .left .search  {
+	 transform: translateX(-200%);
+	 transition: all 1s linear;
+}
+
+.section:nth-child(4)>div .left .key {
+	 position: absolute;
+	 top:20px;
+	 left: 22px;
+	 width: 0px;
+	 height: 22px;
+	 background: url(../img/key.png) no-repeat;
+}
+
+.section:nth-child(4)>div .left .reault {
+	 width: 529px;
+	 height: 372px;
+	 overflow: hidden;
+	 position: relative;
+} 
+
+.section:nth-child(4)>div .left .reault img {
+	 position: absolute;
+	 top: -100%;
+	 transition: all 1s 3s linear;
+}
+
+
+
+
+/* 第四屏动画 */
+.section:nth-child(4).one .left .search {
+	 transform: translateX(0px);
+}
+
+.section:nth-child(4).one .left  .key {
+	animation: words 1s 1s forwards steps(5);
+}
+@keyframes  words {
+	 from {
+	 	 width: 0px;
+	 }
+
+	 to {
+	 	 width: 99px;
+	 }
+}
+.section:nth-child(4).one .left .reault img {
+	 top: 0;
+}
+
+
+/* 第五屏样式 */
+
+.section:nth-child(5)>div {
+	 display: flex;
+
+	 flex-direction: column;
+
+	 align-items: center;
+}
+.section:nth-child(5) .top {
+	 padding-top: 50px;
+	 text-align: center;
+
+	 opacity: 0;
+
+	 transition: all 1s linear;
+}
+
+.section:nth-child(5) .bot {
+	 margin-top: 50px;
+	 width: 1004px;
+	 height: 100%;
+	 border: 1px solid #fff;
+	 background-color: rgba(255,255,255,.5);
+	 position: relative;
+	 bottom: -100%;
+	 transition: all 1s 0.5s linear;
+}
+
+.section:nth-child(5) .bot .box {
+	 border: 1px solid #fff;
+	 width: 915px;
+	 height: 26px;
+	 position: absolute;
+	 top: 29px;
+	 left: 74px;
+}
+
+
+.section:nth-child(5) .bot .extra {
+	 border-top: 1px solid #fff;
+	 width: 100%;
+	 position: absolute;
+	 bottom: 0;
+}
+
+.section:nth-child(5) .bot .extra img {
+	 float: right;
+}
+
+/* 第五屏动画 */
+.section:nth-child(5).one  .top {
+	 opacity: 1;
+}
+
+.section:nth-child(5).one .bot {
+	 bottom: 0;
+}
+
+
+
+

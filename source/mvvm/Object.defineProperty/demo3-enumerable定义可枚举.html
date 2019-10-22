@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      // enumerable定义了对象的属性是否可以在 for...in 循环和 Object.keys() 中被枚举。
+      var o = {};
+      Object.defineProperty(o, "a", { value: 1, enumerable: true });
+      Object.defineProperty(o, "b", { value: 2, enumerable: false });
+      Object.defineProperty(o, "c", { value: 3 }); // enumerable defaults to false
+      o.d = 4; // 如果使用直接赋值的方式创建对象的属性，则这个属性的enumerable为true
+
+      for (var k in o) {
+        console.log(k); // a,a
+      }
+      Object.keys(o); // ["a", "d"]
+
+      o.propertyIsEnumerable("a"); // true
+      o.propertyIsEnumerable("b"); // false
+      o.propertyIsEnumerable("c"); // false
+    </script>
+  </body>
+</html>

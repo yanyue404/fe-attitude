@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>·
+
+  <ul>
+    <li class="item-1">Item 1 content</li>
+    <li class="item-2">Item 2 content</li>
+    <li class="item-3">Item 3 content</li>
+    <li class="item-4">Item 4 content</li>
+  </ul>
+  <div id="main">
+    <div style="background-color:coral;"></div>
+    <div style="background-color:lightblue;"></div>
+    <div style="background-color:pink;"></div>
+  </div>
+
+
+  <style>
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0;
+      background: lightgray;
+    }
+
+    li {
+      list-style: none;
+      padding: 1em;
+      width: 33%;
+      box-sizing: border-box;
+    }
+   /* flex-wrap 属性是设置在父元素上，笨蛋 */
+    #main {
+      width: 70px;
+      height: 300px;
+      border: 1px solid #c3c3c3;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-wrap: wrap;
+      flex-wrap: wrap;
+      -webkit-align-content: center;
+      align-content: center;
+    }
+
+    #main div {
+      width: 70px;
+      height: 70px;
+    }
+  </style>
+</body>
+
+</html>

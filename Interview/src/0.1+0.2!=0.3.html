@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body></body>
+  <script>
+    // 因为 JS 采用 IEEE 754 双精度版本（64位），并且只要采用 IEEE 754 的语言都有该问题。
+    console.log("我明明等于:" + (0.1 + 0.2));
+    console.log(0.1 + 0.2 === 0.3);
+    console.log("正确解法:" + (parseFloat((0.1 + 0.2).toFixed(10)) === 0.3));
+  </script>
+</html>

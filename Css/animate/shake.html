@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.css" rel="stylesheet">
+  <title>Document</title>
+
+  <style>
+    div {
+      width: 200px;
+      height: 200px;
+      background-color: green;
+      border-radius: 100px;
+      text-align: center;
+      line-height: 200px;
+      color: #fff;
+      font-weight: 700;
+      transition: background-color 3s, transform 3s;
+    }
+
+    .on {
+      transform: translateX(300px);
+      background: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div>xiaoyueyue</div>
+
+  <script>
+    var box = document.querySelector('div');
+
+    box.onmouseenter = function () {
+      box.classList.add('animated','shake');
+    }
+  </script>
+</body>
+
+</html>

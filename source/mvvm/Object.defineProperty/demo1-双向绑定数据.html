@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <p>
+    Model Strat
+    <input type="text" yue-model="text" style="display:block">
+    <h1 yue-text="text" style="display:block"></h1>
+
+    Model End
+  </p>
+
+  <script>
+
+    var Inp = document.querySelector('[yue-model]');
+    var yue = {
+      data: {
+        text: '',
+      }
+    }
+
+    /**
+     * @param {obj} 要在其上定义属性的对象
+     * @param {prop} 要定义或修改的属性的名称
+     * @param {descriptor} 将被定义或修改的属性描述符
+     */
+    Object.defineProperty(yue.data, 'text', {
+      get: function () {
+        // console.log('get...')
+        // return this.text;
+      },
+      set: function (value) {
+        console.log('set...',value)
+        document.querySelector('[yue-text]').innerHTML = value;
+      }
+    })
+
+    Inp.oninput = function () {
+      yue.data.text = this.value;
+    }
+
+  </script>
+</body>
+
+</html>

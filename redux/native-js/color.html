@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Redux basic</title>
+  <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
+</head>
+
+<body>
+  <div>
+    <p>
+      <span id="colorEl">Watch my color.</span>
+      <button id="red">RED</button>
+      <button id="green">GREEN</button>
+      <button id="toggle">TOGGLE</button>
+  </div>
+  <script type="text/javascript">
+    var initialState = {
+      color: 'red'
+    }
+
+    function color(state, action) {
+      if (typeof state === 'undefined') {
+        return initialState
+      }
+
+      switch (action.type) {
+        case 'RED':
+          return { color: 'red' }
+        case 'GREEN':
+          return { color: 'green' }
+        case 'TOGGLE':
+          return state.color === 'red' ? { color: 'green' } : { color: 'red' }
+        default:
+          return state
+      }
+    }
+
+    var store = Redux.createStore(color)
+
+    function renderValue() {
+      document.getElementById('colorEl').style.color = store.getState().color
+    }
+
+    renderValue()
+    //注册监听器
+    store.subscribe(renderValue)
+
+    document.getElementById('red').addEventListener('click', function () {
+      store.dispatch({
+        type: 'RED'
+      })
+    })
+
+    document.getElementById('green').addEventListener('click', function () {
+      store.dispatch({
+        type: 'GREEN'
+      })
+    })
+
+    document.getElementById('toggle').addEventListener('click', function () {
+      store.dispatch({
+        type: 'TOGGLE'
+      })
+    })
+
+  </script>
+</body>
+
+</html>

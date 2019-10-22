@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="../../build/vue.min.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 在 HTML 中是 kebab-case 的 -->
+      <blog-post post-title="hello!"></blog-post>
+    </div>
+    <script>
+      Vue.component('blog-post', {
+        // 在 JavaScript 中是 camelCase 的
+        props: {
+          // 基础的类型检查 (`null` 匹配任何类型)
+          postTitle: Number,
+          // 多个可能的类型
+          propB: [String, Number],
+          // 必填的字符串
+          propC: {
+            type: String,
+            required: true
+          },
+          // 带有默认值的数字
+          propD: {
+            type: Number,
+            default: 100
+          },
+          // 带有默认值的对象
+          propE: {
+            type: Object,
+            // 对象或数组默认值必须从一个工厂函数获取
+            default: function() {
+              return {
+                message: 'hello'
+              };
+            }
+          },
+          // 自定义验证函数
+          propF: {
+            validator: function(value) {
+              // 这个值必须匹配下列字符串中的一个
+              return ['success', 'warning', 'danger'].indexOf(value) !== -1;
+            }
+          }
+        },
+        template: '<h3>{{ postTitle }}</h3>'
+      });
+      var vm = new Vue({
+        el: '#app',
+        data: {}
+      });
+    </script>
+  </body>
+</html>

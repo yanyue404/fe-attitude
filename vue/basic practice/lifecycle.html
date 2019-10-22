@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>vue生命周期学习</title>
+    <script src="https://cdn.bootcss.com/vue/2.4.2/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{ message + "这是在outer HTML中的" }}</h1>
+      <h1>{{ date }}</h1>
+    </div>
+  </body>
+  <script>
+    var vm = new Vue({
+      el: "#app",
+      data: {
+        message: "Vue的生命周期",
+        dateInit: new Date()
+      },
+      // template: "<h1>{{message +'这是在template中的'}}</h1>", //在vue配置项中修改的
+      // render: function(createElement) {
+      //   return createElement("h1", "我是 render, 我最大");
+      // },
+      computed: {
+        // 计算属性的 getter
+        date: function() {
+          // `this` 指向 vm 实例
+          return this.dateInit.toLocaleTimeString();
+        }
+      },
+      methods: {
+        tick: function() {
+          this.dateInit = new Date();
+        }
+      },
+
+      beforeCreate: function() {
+        console.group("------beforeCreate创建前状态------"); // 初始化事件和生命周期
+        console.log("%c%s", "color:red", "el     : " + this.$el); //undefined
+        console.log("%c%s", "color:red", "data   : " + this.$data); //undefined
+        console.log("%c%s", "color:red", "message: " + this.message);
+      },
+      created: function() {
+        console.group("------created创建完毕状态------"); //数据的观测
+        console.log("%c%s", "color:red", "el     : " + this.$el); //undefined
+        console.log("%c%s", "color:red", "data   : " + this.$data); //已被初始化
+        console.log("%c%s", "color:red", "message: " + this.message); //已被初始化
+      },
+      beforeMount: function() {
+        // 首先会判断对象是否有el选项。如果有的话就继续向下编译，如果没有el选项，则停止编译，也就意味着停止了生命周期，直到在该vue实例上调用vm.$mount(el)。
+        // template参数选项的有无对生命周期的影响，有 template 可以替代要渲染的 el 指定的区域 综合排名优先级 render函数选项 > template选项 > outer HTML
+
+        console.group("------beforeMount挂载前状态------");
+        console.log("%c%s", "color:red", "el     : " + this.$el); //虚拟的，并未真实存在
+        console.log(this.$el);
+        console.log("%c%s", "color:red", "data   : " + this.$data); //已被初始化
+        console.log("%c%s", "color:red", "message: " + this.message); //已被初始化
+      },
+      mounted: function() {
+        console.group("------mounted 挂载结束状态------");
+        console.log("%c%s", "color:red", "el     : " + this.$el); //已被初始化
+        console.log(this.$el);
+        console.log("%c%s", "color:red", "data   : " + this.$data); //已被初始化
+        console.log("%c%s", "color:red", "message: " + this.message); //已被初始化
+        this.timeID = setInterval(() => this.tick(), 5000);
+      },
+      beforeUpdate: function() {
+        console.group("beforeUpdate 更新前状态===============》");
+        console.log("%c%s", "color:red", "el     : " + this.$el);
+        console.log(this.$el);
+        console.log("%c%s", "color:red", "data   : " + this.$data);
+        console.log("%c%s", "color:red", "message: " + this.message);
+        console.log("%c%s", "color:red", "date: " + this.date);
+      },
+      updated: function() {
+        console.group("updated 更新完成状态===============》");
+        console.log("%c%s", "color:red", "el     : " + this.$el);
+        console.log(this.$el);
+        console.log("%c%s", "color:red", "data   : " + this.$data);
+        console.log("%c%s", "color:red", "message: " + this.message);
+        console.log("%c%s", "color:red", "date: " + this.date);
+      },
+      beforeDestroy: function() {
+        console.group("beforeDestroy 销毁前状态===============》");
+        console.log("%c%s", "color:red", "el     : " + this.$el);
+        console.log(this.$el);
+        console.log("%c%s", "color:red", "data   : " + this.$data);
+        console.log("%c%s", "color:red", "message: " + this.message);
+      },
+      destroyed: function() {
+        console.group("destroyed 销毁完成状态===============》");
+        console.log("%c%s", "color:red", "el     : " + this.$el);
+        console.log(this.$el);
+        console.log("%c%s", "color:red", "data   : " + this.$data);
+        console.log("%c%s", "color:red", "message: " + this.message);
+        clearInterval(this.timeID);
+      }
+    });
+  </script>
+</html>

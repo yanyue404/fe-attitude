@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React</title>
+    <script src="../../build/react.js"></script>
+    <script src="../../build/react-dom.js"></script>
+    <script src="../../build/browser.min.js"></script>
+  </head>
+
+  <body>
+    <fieldset>
+      <legend>
+        <h3>ParentToSon</h3>
+      </legend>
+      <div id="root"></div>
+    </fieldset>
+  </body>
+
+  <script type="text/babel">
+    class Parent extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          value: ""
+        };
+      }
+      handleChange(e) {
+        this.value = e.target.value;
+        // 调用子组件的方法
+        this.refs.c1.changeChild(this.value);
+      }
+      handleClick() {
+        this.setState({
+          value: this.value
+        });
+      }
+
+      render() {
+        return (
+          <div>
+            我是parent
+            <input onChange={this.handleChange.bind(this)} />
+            <button className="button" onClick={this.handleClick.bind(this)}>
+              通知
+            </button>
+            <div>
+              <br />
+
+              <Child ref="c1" value={this.state.value} />
+            </div>
+          </div>
+        );
+      }
+    }
+
+    class Child extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          text: ""
+        };
+      }
+
+      changeChild(text) {
+        this.setState({
+          text: text
+        });
+      }
+      render() {
+        const { value } = this.props;
+
+        return (
+          <div>
+            <p>我是Child,来自父组件的传参：{value}</p>
+            <br />
+            <p>我是child，来自父组件的调用：{this.state.text}</p>
+          </div>
+        );
+      }
+    }
+    ReactDOM.render(<Parent />, document.getElementById("root"));
+  </script>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 分析下面的代码我们发现，不管促销策略如何增加，getActualTotal函数完全不需要再变化了。我们要做的，就是增加新策略的函数而已。
+
+    // 通过策略模式的代码，我们消除了让人反胃的大片条件分支语句，getActualTotal本身并没有计算能力，而是将计算全权委托给了策略函数。
+
+    // 由此我们可以总结出策略模式实现的要点：
+
+    // 1.将变化的算法封装成独立的策略函数，并负责具体的计算 
+    // 2.委托函数， 该函数接受客户请求， 并将请求委托给某一个具体的策略函数
+    var policies = {
+      "Type_0": function (originTotal) {
+        return originTotal - Math.floor(originTotal / 100) * 10
+      },
+      "Type_1": function (originTotal) {
+        return originTotal - Math.floor(originTotal / 200) * 30
+      },
+      "Type_n": function (originTotal) {}
+    }
+
+    var getActualTotal = function (onSaleType, originTotal, account) {
+      return policies["Type_" + onSaleType](originTotal, account)
+    }
+    //执行
+    var price = getActualTotal(0, 2680.00); //2208
+    alert('price：' + price)
+  </script>
+</body>
+
+</html>

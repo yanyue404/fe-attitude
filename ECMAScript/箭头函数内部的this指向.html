@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="button" value="点击" id="btn">
+  <script>
+    document.getElementById('btn').onclick = function () {
+      /*var _this = this;
+      setTimeout(function(){
+        // 内部的this 默认指向window
+        _this.value = '哈哈';
+      }, 1000);*/
+
+      // 箭头函数中的this， 永远指向它所在作用域中的this
+      // 会捕获其所在上下文的  this 值，作为自己的 this 值
+      setTimeout(() => {
+        this.value = '哈哈';
+      }, 1000);
+    }
+  </script>
+</body>
+
+</html>

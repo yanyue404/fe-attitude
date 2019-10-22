@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    #box-group {
+      margin: 0 10px;
+      /* background-color: purple; */
+      display: flex;
+    }
+
+    #left {
+      flex: 1;
+      /* background-color: pink; */
+    }
+
+    .gap {
+      float: left;
+      width: 10px;
+      height: 100%;
+      background-color: transparent;
+    }
+
+    #right {
+      flex: 1;
+      /* background-color: skyblue; */
+    }
+
+    .img-cell {
+      width: 100%;
+      padding-top: 133.33%;
+      /*width/height = 3:4*/
+      background-color: blue;
+      margin: 10px 0;
+    }
+
+    .special-cell {
+      display: block;
+      width: 100%;
+      padding-top: 66.66%;
+      background-color: greenyellow;
+      background: url('../imgs/4.jpg') no-repeat;
+      background-size: 100% 100%;
+    }
+
+    .special-cell:hover,
+    .img-cell:hover {
+      cursor: pointer;
+    }
+
+    .girl {
+      background: url('../imgs/7.jpg') no-repeat;
+      background-size: 100% 100%;
+    }
+
+    .men {
+      background: url('../imgs/22.jpg') no-repeat;
+      background-size: 100% 100%;
+    }
+
+    #right .img-cell:nth-child(1) {
+      margin-top: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box-group">
+
+    <div id="left">
+      <a class="special-cell"></a>
+      <div class="img-cell girl"></div>
+      <div class="img-cell girl"></div>
+      <div class="img-cell girl"></div>
+
+    </div>
+    <div class="gap"></div>
+
+    <div id="right">
+      <div class="img-cell men"></div>
+      <div class="img-cell men"></div>
+      <div class="img-cell men"></div>
+    </div>
+
+
+</body>
+
+</html>

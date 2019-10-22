@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var arr = [
+      { 'id': 1, 'num': 2 },
+      { 'id': 1, 'num': 3 },
+      { 'id': 2, 'num': 4 }
+    ]
+    var newArr = [
+      { 'id': 1, 'num': 3 },
+      { 'id': 2, 'num': 4 }
+    ]
+
+    var obj = {};
+    arr.forEach(function (value) {
+      var id = value.id,
+        num = value.num;
+      if (obj.hasOwnProperty(id)) {
+        var cur = obj[id].num;
+        obj[id].num = Math.max(cur, num);
+      } else {
+        obj[id] = {
+          'id': id,
+          'num': num
+        }
+      }
+    })
+    console.log(Object.values(obj))
+
+  </script>
+</body>
+
+</html>

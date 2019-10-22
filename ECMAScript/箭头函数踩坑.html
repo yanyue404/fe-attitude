@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // http://es6.ruanyifeng.com/#docs/function#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0
+        var arr = [12, 5, 8, 130, 44]
+        var filtered = arr.filter(v => v >= 10);
+        var filtered2 = arr.filter(v => {
+            v >= 10
+        })
+        var fix_filtered2 = arr.filter(v => {
+            return v >= 10
+        })
+
+        // 纠正花括号错误
+
+        console.log('filtered', filtered) // => [12, 130, 44] 正确姿势
+        console.log('filtered2', filtered2) // => [] 使用花括号包住处理函数，必须使用 return 才有返回值
+        console.log('fix_filtered2', fix_filtered2) // => [12, 130, 44] 正确姿势
+    </script>
+</body>
+
+</html>
