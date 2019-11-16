@@ -1,6 +1,6 @@
 # Smart
 
-:octocat: 日常代码库
+:octocat: 日常代码库 ([路径](https://github.com/yanyue404/blog/issues/100))
 
 ## Web Developer
 
