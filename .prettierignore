@@ -1,0 +1,6 @@
+node_modules
+/build
+/dist
+/dist-es6
+.eslintrc.json
+package.json

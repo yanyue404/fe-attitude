@@ -13,7 +13,7 @@ function startServer() {
     } else if (request.url === '/api/v1/records') {
       response.writeHead(200, { 'Content-Type': 'application/json' });
       var jsonObj = {
-        name: 'hfpp2012'
+        name: 'hfpp2012',
       };
       response.end(JSON.stringify(jsonObj));
     } else {

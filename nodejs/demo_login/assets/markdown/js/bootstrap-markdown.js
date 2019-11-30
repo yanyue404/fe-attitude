@@ -17,9 +17,9 @@
  * limitations under the License.
  * ========================================================== */
 (function(factory) {
-  if (typeof define === "function" && define.amd) {
+  if (typeof define === 'function' && define.amd) {
     //RequireJS
-    define(["jquery"], factory);
+    define(['jquery'], factory);
   } else if (typeof exports === 'object') {
     //Backbone.js
     factory(require('jquery'));
@@ -27,8 +27,8 @@
     //Jquery plugin
     factory(jQuery);
   }
-}(function($) {
-  "use strict";
+})(function($) {
+  'use strict';
 
   /* MARKDOWN CLASS DEFINITION
    * ========================== */
@@ -36,9 +36,19 @@
   var Markdown = function(element, options) {
     // @TODO : remove this BC on next major release
     // @see : https://github.com/toopay/bootstrap-markdown/issues/109
-    var opts = ['autofocus', 'savable', 'hideable', 'width',
-      'height', 'resize', 'iconlibrary', 'language',
-      'footer', 'fullscreen', 'hiddenButtons', 'disabledButtons'
+    var opts = [
+      'autofocus',
+      'savable',
+      'hideable',
+      'width',
+      'height',
+      'resize',
+      'iconlibrary',
+      'language',
+      'footer',
+      'fullscreen',
+      'hiddenButtons',
+      'disabledButtons',
     ];
     $.each(opts, function(_, opt) {
       if (typeof $(element).data(opt) !== 'undefined') {
@@ -56,9 +66,15 @@
       type: null,
       attrKeys: [],
       attrValues: [],
-      content: null
+      content: null,
     };
-    this.$options = $.extend(true, {}, $.fn.markdown.defaults, options, this.$element.data('options'));
+    this.$options = $.extend(
+      true,
+      {},
+      $.fn.markdown.defaults,
+      options,
+      this.$element.data('options'),
+    );
     this.$oldContent = null;
     this.$isPreview = false;
     this.$isFullscreen = false;
@@ -72,11 +88,10 @@
   };
 
   Markdown.prototype = {
-
     constructor: Markdown,
     __alterButtons: function(name, alter) {
       var handler = this.$handler,
-        isAll = (name == 'all'),
+        isAll = name == 'all',
         that = this;
 
       $.each(handler, function(k, v) {
@@ -100,39 +115,50 @@
 
       for (i = 0; i < buttonsArray.length; i++) {
         // Build each group container
-        var y, btnGroups = buttonsArray[i];
+        var y,
+          btnGroups = buttonsArray[i];
         for (y = 0; y < btnGroups.length; y++) {
           // Build each button group
           var z,
             buttons = btnGroups[y].data,
             btnGroupContainer = $('<div/>', {
-              'class': 'btn-group'
+              class: 'btn-group',
             });
 
           for (z = 0; z < buttons.length; z++) {
             var button = buttons[z],
-              buttonContainer, buttonIconContainer,
+              buttonContainer,
+              buttonIconContainer,
               buttonHandler = ns + '-' + button.name,
               buttonIcon = this.__getIcon(button.icon),
               btnText = button.btnText ? button.btnText : '',
               btnClass = button.btnClass ? button.btnClass : 'btn',
               tabIndex = button.tabIndex ? button.tabIndex : '-1',
-              hotkey = typeof button.hotkey !== 'undefined' ? button.hotkey : '',
-              hotkeyCaption = typeof jQuery.hotkeys !== 'undefined' && hotkey !== '' ? ' (' + hotkey + ')' : '';
+              hotkey =
+                typeof button.hotkey !== 'undefined' ? button.hotkey : '',
+              hotkeyCaption =
+                typeof jQuery.hotkeys !== 'undefined' && hotkey !== ''
+                  ? ' (' + hotkey + ')'
+                  : '';
 
             // Construct the button object
             buttonContainer = $('<button></button>');
-            buttonContainer.text(' ' + this.__localize(btnText)).addClass('btn-default btn-sm').addClass(btnClass);
-            if (btnClass.match(/btn\-(primary|success|info|warning|danger|link)/)) {
+            buttonContainer
+              .text(' ' + this.__localize(btnText))
+              .addClass('btn-default btn-sm')
+              .addClass(btnClass);
+            if (
+              btnClass.match(/btn\-(primary|success|info|warning|danger|link)/)
+            ) {
               buttonContainer.removeClass('btn-default');
             }
             buttonContainer.attr({
-              'type': 'button',
-              'title': this.__localize(button.title) + hotkeyCaption,
-              'tabindex': tabIndex,
+              type: 'button',
+              title: this.__localize(button.title) + hotkeyCaption,
+              tabindex: tabIndex,
               'data-provider': ns,
               'data-handler': buttonHandler,
-              'data-hotkey': hotkey
+              'data-hotkey': hotkey,
             });
             if (button.toggle === true) {
               buttonContainer.attr('data-toggle', 'button');
@@ -159,7 +185,10 @@
     __setListener: function() {
       // Set size and resizable Properties
       var hasRows = typeof this.$textarea.attr('rows') !== 'undefined',
-        maxRows = this.$textarea.val().split("\n").length > 5 ? this.$textarea.val().split("\n").length : '5',
+        maxRows =
+          this.$textarea.val().split('\n').length > 5
+            ? this.$textarea.val().split('\n').length
+            : '5',
         rowsVal = hasRows ? this.$textarea.attr('rows') : maxRows;
 
       this.$textarea.attr('rows', rowsVal);
@@ -168,10 +197,10 @@
       }
 
       this.$textarea.on({
-        'focus': $.proxy(this.focus, this),
-        'keyup': $.proxy(this.keyup, this),
-        'change': $.proxy(this.change, this),
-        'select': $.proxy(this.select, this)
+        focus: $.proxy(this.focus, this),
+        keyup: $.proxy(this.keyup, this),
+        change: $.proxy(this.change, this),
+        select: $.proxy(this.select, this),
       });
 
       if (this.eventSupported('keydown')) {
@@ -237,8 +266,7 @@
         $('body').removeClass('md-nooverflow');
         this.$options.onFullscreenExit(this);
 
-        if (this.$isPreview === true)
-          this.hidePreview().showPreview();
+        if (this.$isPreview === true) this.hidePreview().showPreview();
       }
 
       this.$isFullscreen = mode;
@@ -256,38 +284,42 @@
         callback = this.$callback,
         options = this.$options,
         editor = $('<div/>', {
-          'class': 'md-editor',
+          class: 'md-editor',
           click: function() {
             instance.focus();
-          }
+          },
         });
 
       // Prepare the editor
       if (this.$editor === null) {
         // Create the panel
         var editorHeader = $('<div/>', {
-          'class': 'md-header btn-toolbar'
+          class: 'md-header btn-toolbar',
         });
 
         // Merge the main & additional button groups together
         var allBtnGroups = [];
-        if (options.buttons.length > 0) allBtnGroups = allBtnGroups.concat(options.buttons[0]);
+        if (options.buttons.length > 0)
+          allBtnGroups = allBtnGroups.concat(options.buttons[0]);
         if (options.additionalButtons.length > 0) {
           // iterate the additional button groups
           $.each(options.additionalButtons[0], function(idx, buttonGroup) {
-
             // see if the group name of the addional group matches an existing group
-            var matchingGroups = $.grep(allBtnGroups, function(allButtonGroup, allIdx) {
+            var matchingGroups = $.grep(allBtnGroups, function(
+              allButtonGroup,
+              allIdx,
+            ) {
               return allButtonGroup.name === buttonGroup.name;
             });
 
             // if it matches add the addional buttons to that group, if not just add it to the all buttons group
             if (matchingGroups.length > 0) {
-              matchingGroups[0].data = matchingGroups[0].data.concat(buttonGroup.data);
+              matchingGroups[0].data = matchingGroups[0].data.concat(
+                buttonGroup.data,
+              );
             } else {
               allBtnGroups.push(options.additionalButtons[0][idx]);
             }
-
           });
         }
 
@@ -298,8 +330,16 @@
               return options.reorderButtonGroups.indexOf(btnGroup.name) > -1;
             })
             .sort(function(a, b) {
-              if (options.reorderButtonGroups.indexOf(a.name) < options.reorderButtonGroups.indexOf(b.name)) return -1;
-              if (options.reorderButtonGroups.indexOf(a.name) > options.reorderButtonGroups.indexOf(b.name)) return 1;
+              if (
+                options.reorderButtonGroups.indexOf(a.name) <
+                options.reorderButtonGroups.indexOf(b.name)
+              )
+                return -1;
+              if (
+                options.reorderButtonGroups.indexOf(a.name) >
+                options.reorderButtonGroups.indexOf(b.name)
+              )
+                return 1;
               return 0;
             });
         }
@@ -310,10 +350,16 @@
         }
 
         if (options.fullscreen.enable) {
-          editorHeader.append('<div class="md-controls"><a class="md-control md-control-fullscreen" href="#"><span class="' + this.__getIcon(options.fullscreen.icons.fullscreenOn) + '"></span></a></div>').on('click', '.md-control-fullscreen', function(e) {
-            e.preventDefault();
-            instance.setFullscreen(true);
-          });
+          editorHeader
+            .append(
+              '<div class="md-controls"><a class="md-control md-control-fullscreen" href="#"><span class="' +
+                this.__getIcon(options.fullscreen.icons.fullscreenOn) +
+                '"></span></a></div>',
+            )
+            .on('click', '.md-control-fullscreen', function(e) {
+              e.preventDefault();
+              instance.setFullscreen(true);
+            });
         }
 
         editor.append(editorHeader);
@@ -325,13 +371,16 @@
           textarea.addClass('md-input');
           editor.append(textarea);
         } else {
-          var rawContent = (typeof toMarkdown == 'function') ? toMarkdown(container.html()) : container.html(),
+          var rawContent =
+              typeof toMarkdown == 'function'
+                ? toMarkdown(container.html())
+                : container.html(),
             currentContent = $.trim(rawContent);
 
           // This is some arbitrary content that could be edited
           textarea = $('<textarea/>', {
-            'class': 'md-input',
-            'val': currentContent
+            class: 'md-input',
+            val: currentContent,
           });
 
           editor.append(textarea);
@@ -351,7 +400,7 @@
         }
 
         var editorFooter = $('<div/>', {
-            'class': 'md-footer'
+            class: 'md-footer',
           }),
           createFooter = false,
           footer = '';
@@ -364,18 +413,21 @@
           handler.push(saveHandler);
           callback.push(options.onSave);
 
-          editorFooter.append('<button class="btn btn-success" data-provider="' +
-            ns +
-            '" data-handler="' +
-            saveHandler +
-            '"><i class="icon icon-white icon-ok"></i> ' +
-            this.__localize('Save') +
-            '</button>');
-
-
+          editorFooter.append(
+            '<button class="btn btn-success" data-provider="' +
+              ns +
+              '" data-handler="' +
+              saveHandler +
+              '"><i class="icon icon-white icon-ok"></i> ' +
+              this.__localize('Save') +
+              '</button>',
+          );
         }
 
-        footer = typeof options.footer === 'function' ? options.footer(this) : options.footer;
+        footer =
+          typeof options.footer === 'function'
+            ? options.footer(this)
+            : options.footer;
 
         if ($.trim(footer) !== '') {
           createFooter = true;
@@ -398,8 +450,10 @@
         if (options.height && options.height !== 'inherit') {
           if (jQuery.isNumeric(options.height)) {
             var height = options.height;
-            if (editorHeader) height = Math.max(0, height - editorHeader.outerHeight());
-            if (editorFooter) height = Math.max(0, height - editorFooter.outerHeight());
+            if (editorHeader)
+              height = Math.max(0, height - editorHeader.outerHeight());
+            if (editorFooter)
+              height = Math.max(0, height - editorFooter.outerHeight());
             textarea.css('height', height + 'px');
           } else {
             editor.addClass(options.height);
@@ -415,33 +469,44 @@
         this.__setListener();
 
         // Set editor attributes, data short-hand API and listener
-        this.$editor.attr('id', (new Date()).getTime());
-        this.$editor.on('click', '[data-provider="bootstrap-markdown"]', $.proxy(this.__handle, this));
+        this.$editor.attr('id', new Date().getTime());
+        this.$editor.on(
+          'click',
+          '[data-provider="bootstrap-markdown"]',
+          $.proxy(this.__handle, this),
+        );
 
         if (this.$element.is(':disabled') || this.$element.is('[readonly]')) {
           this.$editor.addClass('md-editor-disabled');
           this.disableButtons('all');
         }
 
-        if (this.eventSupported('keydown') && typeof jQuery.hotkeys === 'object') {
-          editorHeader.find('[data-provider="bootstrap-markdown"]').each(function() {
-            var $button = $(this),
-              hotkey = $button.attr('data-hotkey');
-            if (hotkey.toLowerCase() !== '') {
-              textarea.bind('keydown', hotkey, function() {
-                $button.trigger('click');
-                return false;
-              });
-            }
-          });
+        if (
+          this.eventSupported('keydown') &&
+          typeof jQuery.hotkeys === 'object'
+        ) {
+          editorHeader
+            .find('[data-provider="bootstrap-markdown"]')
+            .each(function() {
+              var $button = $(this),
+                hotkey = $button.attr('data-hotkey');
+              if (hotkey.toLowerCase() !== '') {
+                textarea.bind('keydown', hotkey, function() {
+                  $button.trigger('click');
+                  return false;
+                });
+              }
+            });
         }
 
         if (options.initialstate === 'preview') {
           this.showPreview();
-        } else if (options.initialstate === 'fullscreen' && options.fullscreen.enable) {
+        } else if (
+          options.initialstate === 'fullscreen' &&
+          options.fullscreen.enable
+        ) {
           this.setFullscreen(true);
         }
-
       } else {
         this.$editor.show();
       }
@@ -452,10 +517,14 @@
       }
 
       if (options.fullscreen.enable && options.fullscreen !== false) {
-        this.$editor.append('<div class="md-fullscreen-controls">' +
-          '<a href="#" class="exit-fullscreen" title="Exit fullscreen"><span class="' + this.__getIcon(options.fullscreen.icons.fullscreenOff) + '">' +
-          '</span></a>' +
-          '</div>');
+        this.$editor.append(
+          '<div class="md-fullscreen-controls">' +
+            '<a href="#" class="exit-fullscreen" title="Exit fullscreen"><span class="' +
+            this.__getIcon(options.fullscreen.icons.fullscreenOff) +
+            '">' +
+            '</span></a>' +
+            '</div>',
+        );
         this.$editor.on('click', '.exit-fullscreen', function(e) {
           e.preventDefault();
           instance.setFullscreen(false);
@@ -471,25 +540,33 @@
       // enable dropZone if available and configured
       if (options.dropZoneOptions) {
         if (this.$editor.dropzone) {
-          if(!options.dropZoneOptions.init) {
+          if (!options.dropZoneOptions.init) {
             options.dropZoneOptions.init = function() {
               var caretPos = 0;
               this.on('drop', function(e) {
-                  caretPos = textarea.prop('selectionStart');
-                  });
+                caretPos = textarea.prop('selectionStart');
+              });
               this.on('success', function(file, path) {
-                  var text = textarea.val();
-                  textarea.val(text.substring(0, caretPos) + '\n![description](' + path + ')\n' + text.substring(caretPos));
-                  });
+                var text = textarea.val();
+                textarea.val(
+                  text.substring(0, caretPos) +
+                    '\n![description](' +
+                    path +
+                    ')\n' +
+                    text.substring(caretPos),
+                );
+              });
               this.on('error', function(file, error, xhr) {
-                  console.log('Error:', error);
-                  });
+                console.log('Error:', error);
+              });
             };
           }
           this.$textarea.addClass('dropzone');
           this.$editor.dropzone(options.dropZoneOptions);
         } else {
-          console.log('dropZoneOptions was configured, but DropZone was not detected.');
+          console.log(
+            'dropZoneOptions was configured, but DropZone was not detected.',
+          );
         }
       }
 
@@ -499,14 +576,20 @@
           var caretPos = textarea.prop('selectionStart');
           e.stopPropagation();
           e.preventDefault();
-          $.each(e.originalEvent.dataTransfer.files, function(index, file){
+          $.each(e.originalEvent.dataTransfer.files, function(index, file) {
             var fileReader = new FileReader();
-              fileReader.onload = (function(file) {
-                 return function(e) {
-                    var text = textarea.val();
-                    textarea.val(text.substring(0, caretPos) + '\n<img src="'+ e.target.result  +'" />\n' + text.substring(caretPos) );
-                 };
-              })(file);
+            fileReader.onload = (function(file) {
+              return function(e) {
+                var text = textarea.val();
+                textarea.val(
+                  text.substring(0, caretPos) +
+                    '\n<img src="' +
+                    e.target.result +
+                    '" />\n' +
+                    text.substring(caretPos),
+                );
+              };
+            })(file);
             fileReader.readAsDataURL(file);
           });
         });
@@ -540,8 +623,8 @@
         container = this.$textarea,
         afterContainer = container.next(),
         replacementContainer = $('<div/>', {
-          'class': 'md-preview',
-          'data-provider': 'markdown-preview'
+          class: 'md-preview',
+          'data-provider': 'markdown-preview',
         }),
         content,
         callbackContent;
@@ -560,7 +643,10 @@
       // Try to get the content from callback
       callbackContent = options.onPreview(this);
       // Set the content based from the callback content if string otherwise parse value from textarea
-      content = typeof callbackContent == 'string' ? callbackContent : this.parseContent();
+      content =
+        typeof callbackContent == 'string'
+          ? callbackContent
+          : this.parseContent();
 
       // Build preview element
       replacementContainer.html(content);
@@ -576,7 +662,7 @@
       // Set the preview element dimensions
       replacementContainer.css({
         width: container.outerWidth() + 'px',
-        height: container.outerHeight() + 'px'
+        height: container.outerHeight() + 'px',
       });
 
       if (this.$options.resize) {
@@ -601,7 +687,9 @@
       this.$isPreview = false;
 
       // Obtain the preview container
-      var container = this.$editor.find('div[data-provider="markdown-preview"]');
+      var container = this.$editor.find(
+        'div[data-provider="markdown-preview"]',
+      );
 
       // Remove the preview container
       container.remove();
@@ -632,11 +720,17 @@
       var content = this.getContent(),
         startChunkPosition;
 
-      if (startChunkPosition = content.indexOf(chunk), startChunkPosition >= 0 && chunk.length > 0) {
+      if (
+        ((startChunkPosition = content.indexOf(chunk)),
+        startChunkPosition >= 0 && chunk.length > 0)
+      ) {
         var oldSelection = this.getSelection(),
           selection;
 
-        this.setSelection(startChunkPosition, startChunkPosition + chunk.length);
+        this.setSelection(
+          startChunkPosition,
+          startChunkPosition + chunk.length,
+        );
         selection = this.getSelection();
 
         this.setSelection(oldSelection.start, oldSelection.end);
@@ -647,68 +741,60 @@
       }
     },
     getSelection: function() {
-
       var e = this.$textarea[0];
 
       return (
-
-        ('selectionStart' in e && function() {
-          var l = e.selectionEnd - e.selectionStart;
-          return {
-            start: e.selectionStart,
-            end: e.selectionEnd,
-            length: l,
-            text: e.value.substr(e.selectionStart, l)
-          };
-        }) ||
-
+        ('selectionStart' in e &&
+          function() {
+            var l = e.selectionEnd - e.selectionStart;
+            return {
+              start: e.selectionStart,
+              end: e.selectionEnd,
+              length: l,
+              text: e.value.substr(e.selectionStart, l),
+            };
+          }) ||
         /* browser not supported */
         function() {
           return null;
         }
-
       )();
-
     },
     setSelection: function(start, end) {
-
       var e = this.$textarea[0];
 
       return (
-
-        ('selectionStart' in e && function() {
-          e.selectionStart = start;
-          e.selectionEnd = end;
-          return;
-        }) ||
-
+        ('selectionStart' in e &&
+          function() {
+            e.selectionStart = start;
+            e.selectionEnd = end;
+            return;
+          }) ||
         /* browser not supported */
         function() {
           return null;
         }
-
       )();
-
     },
     replaceSelection: function(text) {
-
       var e = this.$textarea[0];
 
       return (
-
-        ('selectionStart' in e && function() {
-          e.value = e.value.substr(0, e.selectionStart) + text + e.value.substr(e.selectionEnd, e.value.length);
-          // Set cursor to the last replacement end
-          e.selectionStart = e.value.length;
-          return this;
-        }) ||
-
+        ('selectionStart' in e &&
+          function() {
+            e.value =
+              e.value.substr(0, e.selectionStart) +
+              text +
+              e.value.substr(e.selectionEnd, e.value.length);
+            // Set cursor to the last replacement end
+            e.selectionStart = e.value.length;
+            return this;
+          }) ||
         /* browser not supported */
         function() {
           e.value += text;
           return jQuery(e);
         }
-
       )();
     },
     getNextTab: function() {
@@ -716,7 +802,8 @@
       if (this.$nextTab.length === 0) {
         return null;
       } else {
-        var nextTab, tab = this.$nextTab.shift();
+        var nextTab,
+          tab = this.$nextTab.shift();
 
         if (typeof tab == 'function') {
           nextTab = tab();
@@ -746,10 +833,7 @@
       return;
     },
     __parseButtonNameParam: function(names) {
-      return typeof names == 'string' ?
-        names.split(' ') :
-        names;
-
+      return typeof names == 'string' ? names.split(' ') : names;
     },
     enableButtons: function(name) {
       var buttons = this.__parseButtonNameParam(name),
@@ -819,7 +903,7 @@
 
         case 9: // tab
           var nextTab;
-          if (nextTab = this.getNextTab(), nextTab !== null) {
+          if (((nextTab = this.getNextTab()), nextTab !== null)) {
             // Get the nextTab if exists
             var that = this;
             setTimeout(function() {
@@ -832,12 +916,18 @@
             // check the cursor position to determine tab action
             var cursor = this.getSelection();
 
-            if (cursor.start == cursor.end && cursor.end == this.getContent().length) {
+            if (
+              cursor.start == cursor.end &&
+              cursor.end == this.getContent().length
+            ) {
               // The cursor already reach the end of the content
               blocked = false;
             } else {
               // Put the cursor to the end
-              this.setSelection(this.getContent().length, this.getContent().length);
+              this.setSelection(
+                this.getContent().length,
+                this.getContent().length,
+              );
 
               blocked = true;
             }
@@ -880,20 +970,28 @@
       editor.addClass('active');
 
       // Blur other markdown(s)
-      $(document).find('.md-editor').each(function() {
-        if ($(this).attr('id') !== editor.attr('id')) {
-          var attachedMarkdown;
+      $(document)
+        .find('.md-editor')
+        .each(function() {
+          if ($(this).attr('id') !== editor.attr('id')) {
+            var attachedMarkdown;
 
-          if (attachedMarkdown = $(this).find('textarea').data('markdown'),
-            attachedMarkdown === null) {
-            attachedMarkdown = $(this).find('div[data-provider="markdown-preview"]').data('markdown');
-          }
+            if (
+              ((attachedMarkdown = $(this)
+                .find('textarea')
+                .data('markdown')),
+              attachedMarkdown === null)
+            ) {
+              attachedMarkdown = $(this)
+                .find('div[data-provider="markdown-preview"]')
+                .data('markdown');
+            }
 
-          if (attachedMarkdown) {
-            attachedMarkdown.blur();
+            if (attachedMarkdown) {
+              attachedMarkdown.blur();
+            }
           }
-        }
-      });
+        });
 
       // Trigger the onFocus hook
       options.onFocus(this);
@@ -935,8 +1033,7 @@
       }
 
       return this;
-    }
-
+    },
   };
 
   /* MARKDOWN PLUGIN DEFINITION
@@ -949,8 +1046,7 @@
       var $this = $(this),
         data = $this.data('markdown'),
         options = typeof option == 'object' && option;
-      if (!data)
-        $this.data('markdown', (data = new Markdown(this, options)));
+      if (!data) $this.data('markdown', (data = new Markdown(this, options)));
     });
   };
 
@@ -973,434 +1069,515 @@
 
     /* Buttons Properties */
     buttons: [
-      [{
-        name: 'groupFont',
-        data: [{
-          name: 'cmdBold',
-          hotkey: 'Ctrl+B',
-          title: 'Bold',
-          icon: {
-            glyph: 'glyphicon glyphicon-bold',
-            fa: 'fa fa-bold',
-            'fa-3': 'icon-bold',
-            octicons: 'octicon octicon-bold'
-          },
-          callback: function(e) {
-            // Give/remove ** surround the selection
-            var chunk, cursor, selected = e.getSelection(),
-              content = e.getContent();
+      [
+        {
+          name: 'groupFont',
+          data: [
+            {
+              name: 'cmdBold',
+              hotkey: 'Ctrl+B',
+              title: 'Bold',
+              icon: {
+                glyph: 'glyphicon glyphicon-bold',
+                fa: 'fa fa-bold',
+                'fa-3': 'icon-bold',
+                octicons: 'octicon octicon-bold',
+              },
+              callback: function(e) {
+                // Give/remove ** surround the selection
+                var chunk,
+                  cursor,
+                  selected = e.getSelection(),
+                  content = e.getContent();
 
-            if (selected.length === 0) {
-              // Give extra word
-              chunk = e.__localize('strong text');
-            } else {
-              chunk = selected.text;
-            }
+                if (selected.length === 0) {
+                  // Give extra word
+                  chunk = e.__localize('strong text');
+                } else {
+                  chunk = selected.text;
+                }
 
-            // transform selection and set the cursor into chunked text
-            if (content.substr(selected.start - 2, 2) === '**' &&
-              content.substr(selected.end, 2) === '**') {
-              e.setSelection(selected.start - 2, selected.end + 2);
-              e.replaceSelection(chunk);
-              cursor = selected.start - 2;
-            } else {
-              e.replaceSelection('**' + chunk + '**');
-              cursor = selected.start + 2;
-            }
-
-            // Set the cursor
-            e.setSelection(cursor, cursor + chunk.length);
-          }
-        }, {
-          name: 'cmdItalic',
-          title: 'Italic',
-          hotkey: 'Ctrl+I',
-          icon: {
-            glyph: 'glyphicon glyphicon-italic',
-            fa: 'fa fa-italic',
-            'fa-3': 'icon-italic',
-            octicons: 'octicon octicon-italic'
-          },
-          callback: function(e) {
-            // Give/remove * surround the selection
-            var chunk, cursor, selected = e.getSelection(),
-              content = e.getContent();
-
-            if (selected.length === 0) {
-              // Give extra word
-              chunk = e.__localize('emphasized text');
-            } else {
-              chunk = selected.text;
-            }
-
-            // transform selection and set the cursor into chunked text
-            if (content.substr(selected.start - 1, 1) === '_' &&
-              content.substr(selected.end, 1) === '_') {
-              e.setSelection(selected.start - 1, selected.end + 1);
-              e.replaceSelection(chunk);
-              cursor = selected.start - 1;
-            } else {
-              e.replaceSelection('_' + chunk + '_');
-              cursor = selected.start + 1;
-            }
-
-            // Set the cursor
-            e.setSelection(cursor, cursor + chunk.length);
-          }
-        }, {
-          name: 'cmdHeading',
-          title: 'Heading',
-          hotkey: 'Ctrl+H',
-          icon: {
-            glyph: 'glyphicon glyphicon-header',
-            fa: 'fa fa-header',
-            'fa-3': 'icon-font',
-            octicons: 'octicon octicon-text-size'
-          },
-          callback: function(e) {
-            // Append/remove ### surround the selection
-            var chunk, cursor, selected = e.getSelection(),
-              content = e.getContent(),
-              pointer, prevChar;
-
-            if (selected.length === 0) {
-              // Give extra word
-              chunk = e.__localize('heading text');
-            } else {
-              chunk = selected.text + '\n';
-            }
-
-            // transform selection and set the cursor into chunked text
-            if ((pointer = 4, content.substr(selected.start - pointer, pointer) === '### ') ||
-              (pointer = 3, content.substr(selected.start - pointer, pointer) === '###')) {
-              e.setSelection(selected.start - pointer, selected.end);
-              e.replaceSelection(chunk);
-              cursor = selected.start - pointer;
-            } else if (selected.start > 0 && (prevChar = content.substr(selected.start - 1, 1), !!prevChar && prevChar != '\n')) {
-              e.replaceSelection('\n\n### ' + chunk);
-              cursor = selected.start + 6;
-            } else {
-              // Empty string before element
-              e.replaceSelection('### ' + chunk);
-              cursor = selected.start + 4;
-            }
-
-            // Set the cursor
-            e.setSelection(cursor, cursor + chunk.length);
-          }
-        }]
-      }, {
-        name: 'groupLink',
-        data: [{
-          name: 'cmdUrl',
-          title: 'URL/Link',
-          hotkey: 'Ctrl+L',
-          icon: {
-            glyph: 'glyphicon glyphicon-link',
-            fa: 'fa fa-link',
-            'fa-3': 'icon-link',
-            octicons: 'octicon octicon-link'
-          },
-          callback: function(e) {
-            // Give [] surround the selection and prepend the link
-            var chunk, cursor, selected = e.getSelection(),
-              content = e.getContent(),
-              link;
-
-            if (selected.length === 0) {
-              // Give extra word
-              chunk = e.__localize('enter link description here');
-            } else {
-              chunk = selected.text;
-            }
-
-            link = prompt(e.__localize('Insert Hyperlink'), 'http://');
-
-            var urlRegex = new RegExp('^((http|https)://|(mailto:)|(//))[a-z0-9]', 'i');
-            if (link !== null && link !== '' && link !== 'http://' && urlRegex.test(link)) {
-              var sanitizedLink = $('<div>' + link + '</div>').text();
-
-              // transform selection and set the cursor into chunked text
-              e.replaceSelection('[' + chunk + '](' + sanitizedLink + ')');
-              cursor = selected.start + 1;
-
-              // Set the cursor
-              e.setSelection(cursor, cursor + chunk.length);
-            }
-          }
-        }, {
-          name: 'cmdImage',
-          title: 'Image',
-          hotkey: 'Ctrl+G',
-          icon: {
-            glyph: 'glyphicon glyphicon-picture',
-            fa: 'fa fa-picture-o',
-            'fa-3': 'icon-picture',
-            octicons: 'octicon octicon-file-media'
-          },
-          callback: function(e) {
-            // Give ![] surround the selection and prepend the image link
-            var chunk, cursor, selected = e.getSelection(),
-              content = e.getContent(),
-              link;
-
-            if (selected.length === 0) {
-              // Give extra word
-              chunk = e.__localize('enter image description here');
-            } else {
-              chunk = selected.text;
-            }
-
-            link = prompt(e.__localize('Insert Image Hyperlink'), 'http://');
-
-            var urlRegex = new RegExp('^((http|https)://|(//))[a-z0-9]', 'i');
-            if (link !== null && link !== '' && link !== 'http://' && urlRegex.test(link)) {
-              var sanitizedLink = $('<div>' + link + '</div>').text();
-
-              // transform selection and set the cursor into chunked text
-              e.replaceSelection('![' + chunk + '](' + sanitizedLink + ' "' + e.__localize('enter image title here') + '")');
-              cursor = selected.start + 2;
-
-              // Set the next tab
-              e.setNextTab(e.__localize('enter image title here'));
-
-              // Set the cursor
-              e.setSelection(cursor, cursor + chunk.length);
-            }
-          }
-        }]
-      }, {
-        name: 'groupMisc',
-        data: [{
-          name: 'cmdList',
-          hotkey: 'Ctrl+U',
-          title: 'Unordered List',
-          icon: {
-            glyph: 'glyphicon glyphicon-list',
-            fa: 'fa fa-list',
-            'fa-3': 'icon-list-ul',
-            octicons: 'octicon octicon-list-unordered'
-          },
-          callback: function(e) {
-            // Prepend/Give - surround the selection
-            var chunk, cursor, selected = e.getSelection(),
-              content = e.getContent();
-
-            // transform selection and set the cursor into chunked text
-            if (selected.length === 0) {
-              // Give extra word
-              chunk = e.__localize('list text here');
-
-              e.replaceSelection('- ' + chunk);
-              // Set the cursor
-              cursor = selected.start + 2;
-            } else {
-              if (selected.text.indexOf('\n') < 0) {
-                chunk = selected.text;
-
-                e.replaceSelection('- ' + chunk);
+                // transform selection and set the cursor into chunked text
+                if (
+                  content.substr(selected.start - 2, 2) === '**' &&
+                  content.substr(selected.end, 2) === '**'
+                ) {
+                  e.setSelection(selected.start - 2, selected.end + 2);
+                  e.replaceSelection(chunk);
+                  cursor = selected.start - 2;
+                } else {
+                  e.replaceSelection('**' + chunk + '**');
+                  cursor = selected.start + 2;
+                }
 
                 // Set the cursor
-                cursor = selected.start + 2;
-              } else {
-                var list = [];
+                e.setSelection(cursor, cursor + chunk.length);
+              },
+            },
+            {
+              name: 'cmdItalic',
+              title: 'Italic',
+              hotkey: 'Ctrl+I',
+              icon: {
+                glyph: 'glyphicon glyphicon-italic',
+                fa: 'fa fa-italic',
+                'fa-3': 'icon-italic',
+                octicons: 'octicon octicon-italic',
+              },
+              callback: function(e) {
+                // Give/remove * surround the selection
+                var chunk,
+                  cursor,
+                  selected = e.getSelection(),
+                  content = e.getContent();
 
-                list = selected.text.split('\n');
-                chunk = list[0];
+                if (selected.length === 0) {
+                  // Give extra word
+                  chunk = e.__localize('emphasized text');
+                } else {
+                  chunk = selected.text;
+                }
 
-                $.each(list, function(k, v) {
-                  list[k] = '- ' + v;
-                });
-
-                e.replaceSelection('\n\n' + list.join('\n'));
-
-                // Set the cursor
-                cursor = selected.start + 4;
-              }
-            }
-
-            // Set the cursor
-            e.setSelection(cursor, cursor + chunk.length);
-          }
-        }, {
-          name: 'cmdListO',
-          hotkey: 'Ctrl+O',
-          title: 'Ordered List',
-          icon: {
-            glyph: 'glyphicon glyphicon-th-list',
-            fa: 'fa fa-list-ol',
-            'fa-3': 'icon-list-ol',
-            octicons: 'octicon octicon-list-ordered'
-          },
-          callback: function(e) {
-
-            // Prepend/Give - surround the selection
-            var chunk, cursor, selected = e.getSelection(),
-              content = e.getContent();
-
-            // transform selection and set the cursor into chunked text
-            if (selected.length === 0) {
-              // Give extra word
-              chunk = e.__localize('list text here');
-              e.replaceSelection('1. ' + chunk);
-              // Set the cursor
-              cursor = selected.start + 3;
-            } else {
-              if (selected.text.indexOf('\n') < 0) {
-                chunk = selected.text;
-
-                e.replaceSelection('1. ' + chunk);
+                // transform selection and set the cursor into chunked text
+                if (
+                  content.substr(selected.start - 1, 1) === '_' &&
+                  content.substr(selected.end, 1) === '_'
+                ) {
+                  e.setSelection(selected.start - 1, selected.end + 1);
+                  e.replaceSelection(chunk);
+                  cursor = selected.start - 1;
+                } else {
+                  e.replaceSelection('_' + chunk + '_');
+                  cursor = selected.start + 1;
+                }
 
                 // Set the cursor
-                cursor = selected.start + 3;
-              } else {
-                var i = 1;
-                var list = [];
+                e.setSelection(cursor, cursor + chunk.length);
+              },
+            },
+            {
+              name: 'cmdHeading',
+              title: 'Heading',
+              hotkey: 'Ctrl+H',
+              icon: {
+                glyph: 'glyphicon glyphicon-header',
+                fa: 'fa fa-header',
+                'fa-3': 'icon-font',
+                octicons: 'octicon octicon-text-size',
+              },
+              callback: function(e) {
+                // Append/remove ### surround the selection
+                var chunk,
+                  cursor,
+                  selected = e.getSelection(),
+                  content = e.getContent(),
+                  pointer,
+                  prevChar;
 
-                list = selected.text.split('\n');
-                chunk = list[0];
+                if (selected.length === 0) {
+                  // Give extra word
+                  chunk = e.__localize('heading text');
+                } else {
+                  chunk = selected.text + '\n';
+                }
 
-                $.each(list, function(k, v) {
-                  list[k] = i + '. ' + v;
-                  i++;
-                });
-
-                e.replaceSelection('\n\n' + list.join('\n'));
-
-                // Set the cursor
-                cursor = selected.start + 5;
-              }
-            }
-
-            // Set the cursor
-            e.setSelection(cursor, cursor + chunk.length);
-          }
-        }, {
-          name: 'cmdCode',
-          hotkey: 'Ctrl+K',
-          title: 'Code',
-          icon: {
-            glyph: 'glyphicon glyphicon-console',
-            fa: 'fa fa-code',
-            'fa-3': 'icon-code',
-            octicons: 'octicon octicon-code'
-          },
-          callback: function(e) {
-            // Give/remove ** surround the selection
-            var chunk, cursor, selected = e.getSelection(),
-              content = e.getContent();
-
-            if (selected.length === 0) {
-              // Give extra word
-              chunk = e.__localize('code text here');
-            } else {
-              chunk = selected.text;
-            }
-
-            // transform selection and set the cursor into chunked text
-            if (content.substr(selected.start - 4, 4) === '```\n' &&
-              content.substr(selected.end, 4) === '\n```') {
-              e.setSelection(selected.start - 4, selected.end + 4);
-              e.replaceSelection(chunk);
-              cursor = selected.start - 4;
-            } else if (content.substr(selected.start - 1, 1) === '`' &&
-              content.substr(selected.end, 1) === '`') {
-              e.setSelection(selected.start - 1, selected.end + 1);
-              e.replaceSelection(chunk);
-              cursor = selected.start - 1;
-            } else if (content.indexOf('\n') > -1) {
-              e.replaceSelection('```\n' + chunk + '\n```');
-              cursor = selected.start + 4;
-            } else {
-              e.replaceSelection('`' + chunk + '`');
-              cursor = selected.start + 1;
-            }
-
-            // Set the cursor
-            e.setSelection(cursor, cursor + chunk.length);
-          }
-        }, {
-          name: 'cmdQuote',
-          hotkey: 'Ctrl+Q',
-          title: 'Quote',
-          icon: {
-            glyph: 'glyphicon glyphicon-comment',
-            fa: 'fa fa-quote-left',
-            'fa-3': 'icon-quote-left',
-            octicons: 'octicon octicon-quote'
-          },
-          callback: function(e) {
-            // Prepend/Give - surround the selection
-            var chunk, cursor, selected = e.getSelection(),
-              content = e.getContent();
-
-            // transform selection and set the cursor into chunked text
-            if (selected.length === 0) {
-              // Give extra word
-              chunk = e.__localize('quote here');
-
-              e.replaceSelection('> ' + chunk);
-
-              // Set the cursor
-              cursor = selected.start + 2;
-            } else {
-              if (selected.text.indexOf('\n') < 0) {
-                chunk = selected.text;
-
-                e.replaceSelection('> ' + chunk);
+                // transform selection and set the cursor into chunked text
+                if (
+                  ((pointer = 4),
+                  content.substr(selected.start - pointer, pointer) ===
+                    '### ') ||
+                  ((pointer = 3),
+                  content.substr(selected.start - pointer, pointer) === '###')
+                ) {
+                  e.setSelection(selected.start - pointer, selected.end);
+                  e.replaceSelection(chunk);
+                  cursor = selected.start - pointer;
+                } else if (
+                  selected.start > 0 &&
+                  ((prevChar = content.substr(selected.start - 1, 1)),
+                  !!prevChar && prevChar != '\n')
+                ) {
+                  e.replaceSelection('\n\n### ' + chunk);
+                  cursor = selected.start + 6;
+                } else {
+                  // Empty string before element
+                  e.replaceSelection('### ' + chunk);
+                  cursor = selected.start + 4;
+                }
 
                 // Set the cursor
-                cursor = selected.start + 2;
-              } else {
-                var list = [];
+                e.setSelection(cursor, cursor + chunk.length);
+              },
+            },
+          ],
+        },
+        {
+          name: 'groupLink',
+          data: [
+            {
+              name: 'cmdUrl',
+              title: 'URL/Link',
+              hotkey: 'Ctrl+L',
+              icon: {
+                glyph: 'glyphicon glyphicon-link',
+                fa: 'fa fa-link',
+                'fa-3': 'icon-link',
+                octicons: 'octicon octicon-link',
+              },
+              callback: function(e) {
+                // Give [] surround the selection and prepend the link
+                var chunk,
+                  cursor,
+                  selected = e.getSelection(),
+                  content = e.getContent(),
+                  link;
 
-                list = selected.text.split('\n');
-                chunk = list[0];
+                if (selected.length === 0) {
+                  // Give extra word
+                  chunk = e.__localize('enter link description here');
+                } else {
+                  chunk = selected.text;
+                }
 
-                $.each(list, function(k, v) {
-                  list[k] = '> ' + v;
-                });
+                link = prompt(e.__localize('Insert Hyperlink'), 'http://');
 
-                e.replaceSelection('\n\n' + list.join('\n'));
+                var urlRegex = new RegExp(
+                  '^((http|https)://|(mailto:)|(//))[a-z0-9]',
+                  'i',
+                );
+                if (
+                  link !== null &&
+                  link !== '' &&
+                  link !== 'http://' &&
+                  urlRegex.test(link)
+                ) {
+                  var sanitizedLink = $('<div>' + link + '</div>').text();
+
+                  // transform selection and set the cursor into chunked text
+                  e.replaceSelection('[' + chunk + '](' + sanitizedLink + ')');
+                  cursor = selected.start + 1;
+
+                  // Set the cursor
+                  e.setSelection(cursor, cursor + chunk.length);
+                }
+              },
+            },
+            {
+              name: 'cmdImage',
+              title: 'Image',
+              hotkey: 'Ctrl+G',
+              icon: {
+                glyph: 'glyphicon glyphicon-picture',
+                fa: 'fa fa-picture-o',
+                'fa-3': 'icon-picture',
+                octicons: 'octicon octicon-file-media',
+              },
+              callback: function(e) {
+                // Give ![] surround the selection and prepend the image link
+                var chunk,
+                  cursor,
+                  selected = e.getSelection(),
+                  content = e.getContent(),
+                  link;
+
+                if (selected.length === 0) {
+                  // Give extra word
+                  chunk = e.__localize('enter image description here');
+                } else {
+                  chunk = selected.text;
+                }
+
+                link = prompt(
+                  e.__localize('Insert Image Hyperlink'),
+                  'http://',
+                );
+
+                var urlRegex = new RegExp(
+                  '^((http|https)://|(//))[a-z0-9]',
+                  'i',
+                );
+                if (
+                  link !== null &&
+                  link !== '' &&
+                  link !== 'http://' &&
+                  urlRegex.test(link)
+                ) {
+                  var sanitizedLink = $('<div>' + link + '</div>').text();
+
+                  // transform selection and set the cursor into chunked text
+                  e.replaceSelection(
+                    '![' +
+                      chunk +
+                      '](' +
+                      sanitizedLink +
+                      ' "' +
+                      e.__localize('enter image title here') +
+                      '")',
+                  );
+                  cursor = selected.start + 2;
+
+                  // Set the next tab
+                  e.setNextTab(e.__localize('enter image title here'));
+
+                  // Set the cursor
+                  e.setSelection(cursor, cursor + chunk.length);
+                }
+              },
+            },
+          ],
+        },
+        {
+          name: 'groupMisc',
+          data: [
+            {
+              name: 'cmdList',
+              hotkey: 'Ctrl+U',
+              title: 'Unordered List',
+              icon: {
+                glyph: 'glyphicon glyphicon-list',
+                fa: 'fa fa-list',
+                'fa-3': 'icon-list-ul',
+                octicons: 'octicon octicon-list-unordered',
+              },
+              callback: function(e) {
+                // Prepend/Give - surround the selection
+                var chunk,
+                  cursor,
+                  selected = e.getSelection(),
+                  content = e.getContent();
+
+                // transform selection and set the cursor into chunked text
+                if (selected.length === 0) {
+                  // Give extra word
+                  chunk = e.__localize('list text here');
+
+                  e.replaceSelection('- ' + chunk);
+                  // Set the cursor
+                  cursor = selected.start + 2;
+                } else {
+                  if (selected.text.indexOf('\n') < 0) {
+                    chunk = selected.text;
+
+                    e.replaceSelection('- ' + chunk);
+
+                    // Set the cursor
+                    cursor = selected.start + 2;
+                  } else {
+                    var list = [];
+
+                    list = selected.text.split('\n');
+                    chunk = list[0];
+
+                    $.each(list, function(k, v) {
+                      list[k] = '- ' + v;
+                    });
+
+                    e.replaceSelection('\n\n' + list.join('\n'));
+
+                    // Set the cursor
+                    cursor = selected.start + 4;
+                  }
+                }
 
                 // Set the cursor
-                cursor = selected.start + 4;
-              }
-            }
+                e.setSelection(cursor, cursor + chunk.length);
+              },
+            },
+            {
+              name: 'cmdListO',
+              hotkey: 'Ctrl+O',
+              title: 'Ordered List',
+              icon: {
+                glyph: 'glyphicon glyphicon-th-list',
+                fa: 'fa fa-list-ol',
+                'fa-3': 'icon-list-ol',
+                octicons: 'octicon octicon-list-ordered',
+              },
+              callback: function(e) {
+                // Prepend/Give - surround the selection
+                var chunk,
+                  cursor,
+                  selected = e.getSelection(),
+                  content = e.getContent();
 
-            // Set the cursor
-            e.setSelection(cursor, cursor + chunk.length);
-          }
-        }]
-      }, {
-        name: 'groupUtil',
-        data: [{
-          name: 'cmdPreview',
-          toggle: true,
-          hotkey: 'Ctrl+P',
-          title: 'Preview',
-          btnText: 'Preview',
-          btnClass: 'btn btn-primary btn-sm',
-          icon: {
-            glyph: 'glyphicon glyphicon-search',
-            fa: 'fa fa-search',
-            'fa-3': 'icon-search',
-            octicons: 'octicon octicon-search'
-          },
-          callback: function(e) {
-            // Check the preview mode and toggle based on this flag
-            var isPreview = e.$isPreview,
-              content;
+                // transform selection and set the cursor into chunked text
+                if (selected.length === 0) {
+                  // Give extra word
+                  chunk = e.__localize('list text here');
+                  e.replaceSelection('1. ' + chunk);
+                  // Set the cursor
+                  cursor = selected.start + 3;
+                } else {
+                  if (selected.text.indexOf('\n') < 0) {
+                    chunk = selected.text;
 
-            if (isPreview === false) {
-              // Give flag that tell the editor enter preview mode
-              e.showPreview();
-            } else {
-              e.hidePreview();
-            }
-          }
-        }]
-      }]
+                    e.replaceSelection('1. ' + chunk);
+
+                    // Set the cursor
+                    cursor = selected.start + 3;
+                  } else {
+                    var i = 1;
+                    var list = [];
+
+                    list = selected.text.split('\n');
+                    chunk = list[0];
+
+                    $.each(list, function(k, v) {
+                      list[k] = i + '. ' + v;
+                      i++;
+                    });
+
+                    e.replaceSelection('\n\n' + list.join('\n'));
+
+                    // Set the cursor
+                    cursor = selected.start + 5;
+                  }
+                }
+
+                // Set the cursor
+                e.setSelection(cursor, cursor + chunk.length);
+              },
+            },
+            {
+              name: 'cmdCode',
+              hotkey: 'Ctrl+K',
+              title: 'Code',
+              icon: {
+                glyph: 'glyphicon glyphicon-console',
+                fa: 'fa fa-code',
+                'fa-3': 'icon-code',
+                octicons: 'octicon octicon-code',
+              },
+              callback: function(e) {
+                // Give/remove ** surround the selection
+                var chunk,
+                  cursor,
+                  selected = e.getSelection(),
+                  content = e.getContent();
+
+                if (selected.length === 0) {
+                  // Give extra word
+                  chunk = e.__localize('code text here');
+                } else {
+                  chunk = selected.text;
+                }
+
+                // transform selection and set the cursor into chunked text
+                if (
+                  content.substr(selected.start - 4, 4) === '```\n' &&
+                  content.substr(selected.end, 4) === '\n```'
+                ) {
+                  e.setSelection(selected.start - 4, selected.end + 4);
+                  e.replaceSelection(chunk);
+                  cursor = selected.start - 4;
+                } else if (
+                  content.substr(selected.start - 1, 1) === '`' &&
+                  content.substr(selected.end, 1) === '`'
+                ) {
+                  e.setSelection(selected.start - 1, selected.end + 1);
+                  e.replaceSelection(chunk);
+                  cursor = selected.start - 1;
+                } else if (content.indexOf('\n') > -1) {
+                  e.replaceSelection('```\n' + chunk + '\n```');
+                  cursor = selected.start + 4;
+                } else {
+                  e.replaceSelection('`' + chunk + '`');
+                  cursor = selected.start + 1;
+                }
+
+                // Set the cursor
+                e.setSelection(cursor, cursor + chunk.length);
+              },
+            },
+            {
+              name: 'cmdQuote',
+              hotkey: 'Ctrl+Q',
+              title: 'Quote',
+              icon: {
+                glyph: 'glyphicon glyphicon-comment',
+                fa: 'fa fa-quote-left',
+                'fa-3': 'icon-quote-left',
+                octicons: 'octicon octicon-quote',
+              },
+              callback: function(e) {
+                // Prepend/Give - surround the selection
+                var chunk,
+                  cursor,
+                  selected = e.getSelection(),
+                  content = e.getContent();
+
+                // transform selection and set the cursor into chunked text
+                if (selected.length === 0) {
+                  // Give extra word
+                  chunk = e.__localize('quote here');
+
+                  e.replaceSelection('> ' + chunk);
+
+                  // Set the cursor
+                  cursor = selected.start + 2;
+                } else {
+                  if (selected.text.indexOf('\n') < 0) {
+                    chunk = selected.text;
+
+                    e.replaceSelection('> ' + chunk);
+
+                    // Set the cursor
+                    cursor = selected.start + 2;
+                  } else {
+                    var list = [];
+
+                    list = selected.text.split('\n');
+                    chunk = list[0];
+
+                    $.each(list, function(k, v) {
+                      list[k] = '> ' + v;
+                    });
+
+                    e.replaceSelection('\n\n' + list.join('\n'));
+
+                    // Set the cursor
+                    cursor = selected.start + 4;
+                  }
+                }
+
+                // Set the cursor
+                e.setSelection(cursor, cursor + chunk.length);
+              },
+            },
+          ],
+        },
+        {
+          name: 'groupUtil',
+          data: [
+            {
+              name: 'cmdPreview',
+              toggle: true,
+              hotkey: 'Ctrl+P',
+              title: 'Preview',
+              btnText: 'Preview',
+              btnClass: 'btn btn-primary btn-sm',
+              icon: {
+                glyph: 'glyphicon glyphicon-search',
+                fa: 'fa fa-search',
+                'fa-3': 'icon-search',
+                octicons: 'octicon octicon-search',
+              },
+              callback: function(e) {
+                // Check the preview mode and toggle based on this flag
+                var isPreview = e.$isPreview,
+                  content;
+
+                if (isPreview === false) {
+                  // Give flag that tell the editor enter preview mode
+                  e.showPreview();
+                } else {
+                  e.hidePreview();
+                }
+              },
+            },
+          ],
+        },
+      ],
     ],
     additionalButtons: [], // Place to hook more buttons by code
     reorderButtonGroups: [],
@@ -1414,15 +1591,15 @@
           fa: 'fa fa-expand',
           glyph: 'glyphicon glyphicon-fullscreen',
           'fa-3': 'icon-resize-full',
-          octicons: 'octicon octicon-link-external'
+          octicons: 'octicon octicon-link-external',
         },
         fullscreenOff: {
           fa: 'fa fa-compress',
           glyph: 'glyphicon glyphicon-fullscreen',
           'fa-3': 'icon-resize-small',
-          octicons: 'octicon octicon-browser'
-        }
-      }
+          octicons: 'octicon octicon-browser',
+        },
+      },
     },
 
     /* Events hook */
@@ -1434,11 +1611,10 @@
     onChange: function(e) {},
     onFullscreen: function(e) {},
     onFullscreenExit: function(e) {},
-    onSelect: function(e) {}
+    onSelect: function(e) {},
   };
 
   $.fn.markdown.Constructor = Markdown;
-
 
   /* MARKDOWN NO CONFLICT
    * ==================== */
@@ -1465,23 +1641,32 @@
     var $activeElement = $(document.activeElement);
 
     // Blur event
-    $(document).find('.md-editor').each(function() {
-      var $this = $(this),
-        focused = $activeElement.closest('.md-editor')[0] === this,
-        attachedMarkdown = $this.find('textarea').data('markdown') ||
-        $this.find('div[data-provider="markdown-preview"]').data('markdown');
+    $(document)
+      .find('.md-editor')
+      .each(function() {
+        var $this = $(this),
+          focused = $activeElement.closest('.md-editor')[0] === this,
+          attachedMarkdown =
+            $this.find('textarea').data('markdown') ||
+            $this
+              .find('div[data-provider="markdown-preview"]')
+              .data('markdown');
 
-      if (attachedMarkdown && !focused) {
-        attachedMarkdown.blur();
-      }
-    });
+        if (attachedMarkdown && !focused) {
+          attachedMarkdown.blur();
+        }
+      });
   };
 
   $(document)
-    .on('click.markdown.data-api', '[data-provide="markdown-editable"]', function(e) {
-      initMarkdown($(this));
-      e.preventDefault();
-    })
+    .on(
+      'click.markdown.data-api',
+      '[data-provide="markdown-editable"]',
+      function(e) {
+        initMarkdown($(this));
+        e.preventDefault();
+      },
+    )
     .on('click focusin', function(e) {
       blurNonFocused(e);
     })
@@ -1490,5 +1675,4 @@
         initMarkdown($(this));
       });
     });
-
-}));
+});

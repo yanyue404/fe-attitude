@@ -4,13 +4,13 @@ class Child extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ''
+      text: '',
     };
   }
 
   changeChild(text) {
     this.setState({
-      text: text
+      text: text,
     });
   }
   render() {

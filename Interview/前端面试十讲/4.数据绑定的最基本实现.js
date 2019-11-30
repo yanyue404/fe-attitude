@@ -1,10 +1,10 @@
 // 有一个全局变量 a，有一个全局函数 b，实现一个方法bindData，执行后，a的任何赋值都会触发b的执行。
 var a = {
-  id: 1
+  id: 1,
 };
 
 function b() {
-  console.log("a 的值发生改变, " + a.id);
+  console.log('a 的值发生改变, ' + a.id);
 }
 
 bindData(a, b);
@@ -23,7 +23,7 @@ function bindData(target, event) {
           set: function(_value) {
             v = _value;
             event.call(this);
-          }
+          },
         });
       })();
     }

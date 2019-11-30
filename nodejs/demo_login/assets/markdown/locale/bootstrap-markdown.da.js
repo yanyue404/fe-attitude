@@ -2,15 +2,15 @@
  * Danish translation for bootstrap-markdown
  * Dan Storm <storm@catalystcode.net>
  */
-(function ($) {
+(function($) {
   $.fn.markdown.messages.da = {
-    'Bold': 'Fed',
-    'Italic': 'Kursiv',
-    'Heading': 'Overskrift',
+    Bold: 'Fed',
+    Italic: 'Kursiv',
+    Heading: 'Overskrift',
     'URL/Link': 'URL/Link',
-    'Image': 'Billede',
-    'List': 'Liste',
-    'Preview': 'Forhåndsvisning',
+    Image: 'Billede',
+    List: 'Liste',
+    Preview: 'Forhåndsvisning',
     'strong text': 'stærk tekst',
     'emphasized text': 'fremhævet tekst',
     'heading text': 'overskrift tekst',
@@ -21,6 +21,6 @@
     'enter image title here': 'Indsæt billede titel',
     'list text here': 'Indsæt liste tekst her',
     'quote here': 'Indsæt citat her',
-    'code text here': 'Indsæt kode her'
+    'code text here': 'Indsæt kode her',
   };
-}(jQuery));
+})(jQuery);

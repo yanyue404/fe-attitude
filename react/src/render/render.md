@@ -73,10 +73,10 @@ function Mailbox(props) {
   );
 }
 
-const messages = ["React", "Re: React", "Re:Re: React"];
+const messages = ['React', 'Re: React', 'Re:Re: React'];
 ReactDOM.render(
   <Mailbox unreadMessages={messages} />,
-  document.getElementById("root")
+  document.getElementById('root'),
 );
 ```
 
@@ -103,14 +103,14 @@ jsx 语法可以直接渲染内容为 html 代码的数组，也可以写成函�
 
 ```js
 var arr = [<h1 key="1">Hello,world!</h1>, <h2 key="2">React is awesome.</h2>];
-ReactDOM.render(<div>{arr}</div>, document.getElementById("example"));
+ReactDOM.render(<div>{arr}</div>, document.getElementById('example'));
 ```
 
 #### 2.1 数组 map 方法
 
 ```js
 const Component = () => {
-  var names = ["yue", "niuniu", "laoshi"];
+  var names = ['yue', 'niuniu', 'laoshi'];
   let lis = [];
   names.map(function(name, index) {
     lis.push(<li key={index}>hello,{name}!</li>);
@@ -121,7 +121,7 @@ const Component = () => {
     </div>
   );
 };
-ReactDOM.render(<Component />, document.getElementById("example"));
+ReactDOM.render(<Component />, document.getElementById('example'));
 ```
 
 #### 2.2 this.props.children
@@ -151,7 +151,7 @@ ReactDOM.render(
     <span>hello</span>
     <span>world</span>
   </NotesList>,
-  document.getElementById("example")
+  document.getElementById('example'),
 );
 ```
 
@@ -197,7 +197,7 @@ function NumberList(props) {
 const numbers = [1, 2, 3, 4, 5];
 ReactDOM.render(
   <NumberList numbers={numbers} />,
-  document.getElementById("root")
+  document.getElementById('root'),
 );
 ```
 
@@ -221,7 +221,7 @@ function NumberList(props) {
 const numbers = [1, 2, 3, 4, 5];
 ReactDOM.render(
   <NumberList numbers={numbers} />,
-  document.getElementById("root")
+  document.getElementById('root'),
 );
 ```
 
@@ -236,13 +236,13 @@ class RepoList extends React.Component {
     this.state = {
       loading: true,
       error: null,
-      data: null
+      data: null,
     };
   }
   componentDidMount() {
     this.props.promise.then(
       value => this.setState({ loading: false, data: value }),
-      error => this.setState({ loading: false, error: error })
+      error => this.setState({ loading: false, error: error }),
     );
   }
   render() {
@@ -255,7 +255,7 @@ class RepoList extends React.Component {
       var repoList = repos.map(function(repo, index) {
         return (
           <li key={index}>
-            <a href={repo.html_url}>{repo.name}</a> ({repo.stargazers_count}{" "}
+            <a href={repo.html_url}>{repo.name}</a> ({repo.stargazers_count}{' '}
             stars) <br /> {repo.description}
           </li>
         );
@@ -273,9 +273,9 @@ class RepoList extends React.Component {
 ReactDOM.render(
   <RepoList
     promise={$.getJSON(
-      "https://api.github.com/search/repositories?q=javascript&sort=stars"
+      'https://api.github.com/search/repositories?q=javascript&sort=stars',
     )}
   />,
-  document.getElementById("example")
+  document.getElementById('example'),
 );
 ```

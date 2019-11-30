@@ -5,7 +5,7 @@ class Parent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ''
+      value: '',
     };
   }
   handleChange(e) {
@@ -15,7 +15,7 @@ class Parent extends React.Component {
   }
   handleClick() {
     this.setState({
-      value: this.value
+      value: this.value,
     });
   }
 

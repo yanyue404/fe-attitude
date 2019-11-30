@@ -25,7 +25,7 @@ class Parent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ''
+      value: '',
     };
   }
   handleChange(e) {
@@ -35,7 +35,7 @@ class Parent extends React.Component {
   }
   handleClick() {
     this.setState({
-      value: this.value
+      value: this.value,
     });
   }
 
@@ -68,13 +68,13 @@ class Child extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ''
+      text: '',
     };
   }
 
   changeChild(text) {
     this.setState({
-      text: text
+      text: text,
     });
   }
   render() {
@@ -129,13 +129,13 @@ class Father extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ''
+      value: '',
     };
   }
 
   setValue(param) {
     this.setState({
-      value: param
+      value: param,
     });
   }
 
@@ -161,7 +161,7 @@ class Son extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ''
+      text: '',
     };
   }
   handleChange(e) {
@@ -215,21 +215,21 @@ class Parent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ''
+      value: '',
     };
   }
 
   setValue2(param) {
     this.refs.c1.changeState(param);
     this.setState({
-      value: param
+      value: param,
     });
   }
 
   setValue1(param) {
     this.refs.c2.changeState(param);
     this.setState({
-      value: param
+      value: param,
     });
   }
 
@@ -253,7 +253,7 @@ class Child1 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ''
+      text: '',
     };
   }
   handleChange(e) {
@@ -282,7 +282,7 @@ class Child2 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ''
+      text: '',
     };
   }
   handleChange(e) {
@@ -317,12 +317,12 @@ var Parent = React.createClass({
       }.bind(this),
       changeChildren2: function(text) {
         this.refs.cp2.changeState(text);
-      }.bind(this)
+      }.bind(this),
     };
   },
   childContextTypes: {
     changeChildren1: React.PropTypes.func.isRequired,
-    changeChildren2: React.PropTypes.func.isRequired
+    changeChildren2: React.PropTypes.func.isRequired,
   },
   render: function() {
     return (
@@ -331,7 +331,7 @@ var Parent = React.createClass({
         <Children2 ref="cp2" />
       </div>
     );
-  }
+  },
 });
 ```
 
@@ -340,11 +340,11 @@ var Parent = React.createClass({
 var Children1 = React.createClass({
   getInitialState: function() {
     return {
-      text: ''
+      text: '',
     };
   },
   contextTypes: {
-    changeChildren2: React.PropTypes.func.isRequired
+    changeChildren2: React.PropTypes.func.isRequired,
   },
   changeState: function(text) {
     this.setState({ text: text });
@@ -364,7 +364,7 @@ var Children1 = React.createClass({
         <p>来自子组件2的调用-{this.state.text}</p>
       </div>
     );
-  }
+  },
 });
 ```
 
@@ -373,11 +373,11 @@ var Children1 = React.createClass({
 var Children2 = React.createClass({
   getInitialState: function() {
     return {
-      text: ''
+      text: '',
     };
   },
   contextTypes: {
-    changeChildren1: React.PropTypes.func.isRequired
+    changeChildren1: React.PropTypes.func.isRequired,
   },
   changeState: function(text) {
     this.setState({ text: text });
@@ -397,7 +397,7 @@ var Children2 = React.createClass({
         <p>来自子组件1的调用-{this.state.text}</p>
       </div>
     );
-  }
+  },
 });
 ```
 
@@ -427,14 +427,14 @@ class List1 extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: 'List1'
+      message: 'List1',
     };
   }
   componentDidMount() {
     // 组件装载完成以后声明一个自定义事件
     this.eventEmitter = emitter.addListener('changeMessage', message => {
       this.setState({
-        message
+        message,
       });
     });
   }
@@ -493,14 +493,14 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: 'msgFromApp'
+      message: 'msgFromApp',
     };
   }
   componentDidMount() {
     // 组件装载完成以后声明一个自定义事件
     this.eventEmitter = emitter.addListener('changeMessageApp', message => {
       this.setState({
-        message
+        message,
       });
     });
   }

@@ -6,7 +6,7 @@ var mysql = require('mysql');
 var connection = mysql.createConnection({
   database: 'my123', // 指定要连接的数据库名称
   user: 'root', // 登录名
-  password: '123456' // 登录密码
+  password: '123456', // 登录密码
 });
 
 connection.connect(function(err) {

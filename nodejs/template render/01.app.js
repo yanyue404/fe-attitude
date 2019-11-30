@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
   res.render('test.ejs', {
     name: '飒飒',
     age: 20,
-    hobby: ['唱歌', '跳舞', '撩妹']
+    hobby: ['唱歌', '跳舞', '撩妹'],
   });
 });
 

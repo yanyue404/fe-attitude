@@ -1,7 +1,0 @@
-CACHE MANIFEST
-#version 1.4
-CACHE:
-   https://www.gstatic.com/webp/gallery3/2.png
-   https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.css
-NETWORK:
-    *

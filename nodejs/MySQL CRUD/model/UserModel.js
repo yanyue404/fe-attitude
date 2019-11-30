@@ -9,7 +9,7 @@ module.exports = {
       (err, results) => {
         if (err) return callback(err);
         callback(null, results);
-      }
+      },
     );
   },
   addUser(user, callback) {
@@ -35,7 +35,7 @@ module.exports = {
       (err, results) => {
         if (err) return callback(err);
         callback(null, results);
-      }
+      },
     );
   },
   deleteUserById(id, callback) {
@@ -46,7 +46,7 @@ module.exports = {
       (err, result) => {
         if (err) return callback(err);
         callback(null, result);
-      }
+      },
     );
-  }
+  },
 };

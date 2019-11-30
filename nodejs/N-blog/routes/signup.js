@@ -57,7 +57,7 @@ router.post('/', checkNotLogin, function(req, res, next) {
     password: password,
     gender: gender,
     bio: bio,
-    avatar: avatar
+    avatar: avatar,
   };
   // 用户信息写入数据库
   UserModel.create(user)

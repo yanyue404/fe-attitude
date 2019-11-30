@@ -17,7 +17,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 0
+      count: 0,
     };
   }
   componentDidMount() {
@@ -62,7 +62,7 @@ const singleObject = Object.assign(
   {},
   objectFromSetState1,
   objectFromSetState2,
-  objectFromSetState3
+  objectFromSetState3,
 );
 ```
 
@@ -85,7 +85,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 0
+      count: 0,
     };
   }
 
@@ -131,7 +131,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 0
+      count: 0,
     };
   }
   componentDidMount() {
@@ -179,7 +179,7 @@ class App extends React.Component {
 const updateQueue = [
   state => ({ count: state.count + 1 }),
   state => ({ count: state.count + 1 }),
-  state => ({ count: state.count + 1 })
+  state => ({ count: state.count + 1 }),
 ];
 ```
 

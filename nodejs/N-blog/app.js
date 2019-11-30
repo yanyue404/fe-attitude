@@ -27,13 +27,13 @@ app.use(
     resave: true, // 强制更新 session
     saveUninitialized: false, // 设置为 false，强制创建一个 session，即使用户未登录
     cookie: {
-      maxAge: config.session.maxAge // 过期时间，过期后 cookie 中的 session id 自动删除
+      maxAge: config.session.maxAge, // 过期时间，过期后 cookie 中的 session id 自动删除
     },
     store: new MongoStore({
       // 将 session 存储到 mongodb
-      url: config.mongodb // mongodb 地址
-    })
-  })
+      url: config.mongodb, // mongodb 地址
+    }),
+  }),
 );
 // flash 中间件，用来显示通知
 app.use(flash());
@@ -42,14 +42,14 @@ app.use(flash());
 app.use(
   require('express-formidable')({
     uploadDir: path.join(__dirname, 'public/img'), // 上传文件目录
-    keepExtensions: true // 保留后缀
-  })
+    keepExtensions: true, // 保留后缀
+  }),
 );
 
 // 设置模板全局常量
 app.locals.blog = {
   title: pkg.name,
-  description: pkg.description
+  description: pkg.description,
 };
 
 // 添加模板必需的三个变量
@@ -66,13 +66,13 @@ app.use(
     transports: [
       new winston.transports.Console({
         json: true,
-        colorize: true
+        colorize: true,
       }),
       new winston.transports.File({
-        filename: 'logs/success.log'
-      })
-    ]
-  })
+        filename: 'logs/success.log',
+      }),
+    ],
+  }),
 );
 // 路由
 routes(app);
@@ -82,13 +82,13 @@ app.use(
     transports: [
       new winston.transports.Console({
         json: true,
-        colorize: true
+        colorize: true,
       }),
       new winston.transports.File({
-        filename: 'logs/error.log'
-      })
-    ]
-  })
+        filename: 'logs/error.log',
+      }),
+    ],
+  }),
 );
 
 // 错误页面,权限控制

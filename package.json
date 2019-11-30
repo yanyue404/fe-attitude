@@ -1,0 +1,27 @@
+{
+  "name": "smart",
+  "version": "1.0.0",
+  "description": "前端开发技术之路！",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "prettier": "prettier --write \"./**/*.{js,jsx,css,scss,md,json}\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yanyue404/smart.git"
+  },
+  "author": "yanyue404",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yanyue404/smart/issues"
+  },
+  "homepage": "https://github.com/yanyue404/smart#readme",
+  "devDependencies": {
+    "prettier": "^1.19.1"
+  }
+}

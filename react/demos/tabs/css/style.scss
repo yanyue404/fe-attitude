@@ -1,4 +1,4 @@
-$class-prefix: "tabs";
+$class-prefix: 'tabs';
 
 html,
 body {
@@ -27,7 +27,7 @@ ul {
     &:after,
     &:before {
       display: table;
-      content: " ";
+      content: ' ';
     }
 
     &:after {

@@ -2,7 +2,7 @@
 
 在 React 中，数据是自顶向下流动的，即从父组件到子组件。这条原则让组件之间的关系变得简单且可预测。
 
-state  与props 是 React 组件中最重要的概念。如果顶层组件初始化 props ，那么 React 会向下遍历整颗组件树，重新尝试渲染所有相关的子组件。而 state 只关心每个组件自己内部的状态，这些状态只能在组件内部改变。把组件看成一个函数，那么它接受了 props 作为参数，内部由 state 作为函数的内部参数，返回一个 Virtual DOM 的实现。
+state 与 props 是 React 组件中最重要的概念。如果顶层组件初始化 props ，那么 React 会向下遍历整颗组件树，重新尝试渲染所有相关的子组件。而 state 只关心每个组件自己内部的状态，这些状态只能在组件内部改变。把组件看成一个函数，那么它接受了 props 作为参数，内部由 state 作为函数的内部参数，返回一个 Virtual DOM 的实现。
 
 ### 1.state
 
@@ -12,33 +12,35 @@ state  与props 是 React 组件中最重要的概念。如果顶层组件初始
 
 **setState**：
 
-````js
-  class MyComponent extends React.Component{
-    constructor(props) {
-      super(props);
-      this.handleClick = this.handleClick.bind(this);
-      this.state = {
-        count:0
-      }
-    }
+```js
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+    this.state = {
+      count: 0,
+    };
+  }
 
-    handleClick(){
-      this.setState({
-        count:this.state.count+1
-      })
-    }
-    
-  
-     render(){
-       return(
-        <div>
-          <p>{this.state.count}</p>
-          <a href="#" onClick={this.handleClick}>更新</a>
-        </div>
-       )
-     }
-   }
-````
+  handleClick() {
+    this.setState({
+      count: this.state.count + 1,
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <p>{this.state.count}</p>
+        <a href="#" onClick={this.handleClick}>
+          更新
+        </a>
+      </div>
+    );
+  }
+}
+```
+
 ### 2.props
 
 当 React 遇到的元素是用户自定义的组件，它会将 JSX 属性作为单个对象传递给该组件，这个对象称之为“props”。
@@ -49,30 +51,25 @@ React 的单向数据流，主要的流通管道就是 props。props 本身是�
 
 #### 简单栗子
 
-````js
+```js
 function Welcome(props) {
   return <h1>Hello, {props.name}</h1>;
 }
 
 const element = <Welcome name="Sara" />;
-ReactDOM.render(
-  element,
-  document.getElementById('root')
-);
-````
+ReactDOM.render(element, document.getElementById('root'));
+```
+
 #### 复杂栗子
 
-````js
-  function formatDate(date) {
+```js
+function formatDate(date) {
   return date.toLocaleDateString();
 }
 
-
 function Avatar(props) {
   return (
-    <img className="Avatar"
-         src={props.user.avatarUrl}
-         alt={props.user.name} />
+    <img className="Avatar" src={props.user.avatarUrl} alt={props.user.name} />
   );
 }
 
@@ -81,16 +78,10 @@ function Comment(props) {
     <div className="Comment">
       <div className="UserInfo">
         <Avatar user={props.author} />
-        <div className="UserInfo-name">
-          {props.author.name}
-        </div>
+        <div className="UserInfo-name">{props.author.name}</div>
       </div>
-      <div className="Comment-text">
-        {props.text}
-      </div>
-      <div className="Comment-date">
-        {formatDate(props.date)}
-      </div>
+      <div className="Comment-text">{props.text}</div>
+      <div className="Comment-date">{formatDate(props.date)}</div>
     </div>
   );
 }
@@ -100,14 +91,11 @@ const comment = {
   text: 'I hope you enjoy learning React!',
   author: {
     name: 'Hello Kitty',
-    avatarUrl: 'http://placekitten.com/g/64/64'
-  }
+    avatarUrl: 'http://placekitten.com/g/64/64',
+  },
 };
 ReactDOM.render(
-  <Comment
-    date={comment.date}
-    text={comment.text}
-    author={comment.author} />,
-  document.getElementById('root')
+  <Comment date={comment.date} text={comment.text} author={comment.author} />,
+  document.getElementById('root'),
 );
-````
+```

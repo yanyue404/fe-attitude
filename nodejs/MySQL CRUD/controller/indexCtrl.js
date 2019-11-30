@@ -66,5 +66,5 @@ module.exports = {
         res.json({ err_code: 0, users: users });
       });
     });
-  }
+  },
 };

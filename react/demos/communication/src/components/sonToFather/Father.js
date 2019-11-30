@@ -4,13 +4,13 @@ class Father extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ''
+      value: '',
     };
   }
 
   setValue(param) {
     this.setState({
-      value: param
+      value: param,
     });
   }
 

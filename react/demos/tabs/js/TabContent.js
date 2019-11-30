@@ -1,11 +1,11 @@
-import React, { Component, PropTypes, cloneElement } from "react";
-import classnames from "classnames";
+import React, { Component, PropTypes, cloneElement } from 'react';
+import classnames from 'classnames';
 
 class TabContent extends Component {
   static propTypes = {
     classPrefix: React.PropTypes.string,
     panels: PropTypes.node,
-    activeIndex: PropTypes.number
+    activeIndex: PropTypes.number,
   };
 
   getTabPanes() {
@@ -23,7 +23,7 @@ class TabContent extends Component {
         classPrefix,
         isActive,
         children: child.props.children,
-        key: `tabpane-${order}`
+        key: `tabpane-${order}`,
       });
     });
   }
@@ -32,7 +32,7 @@ class TabContent extends Component {
     const { classPrefix } = this.props;
 
     const classes = classnames({
-      [`${classPrefix}-content`]: true
+      [`${classPrefix}-content`]: true,
     });
 
     return <div className={classes}>{this.getTabPanes()}</div>;

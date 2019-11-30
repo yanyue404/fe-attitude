@@ -1,11 +1,11 @@
-import React, { Component, PropTypes, cloneElement } from "react";
-import classnames from "classnames";
+import React, { Component, PropTypes, cloneElement } from 'react';
+import classnames from 'classnames';
 
 class TabNav extends Component {
   static propTypes = {
     classPrefix: React.PropTypes.string,
     panels: PropTypes.node,
-    activeIndex: PropTypes.number
+    activeIndex: PropTypes.number,
   };
 
   getTabs() {
@@ -21,26 +21,26 @@ class TabNav extends Component {
       let classes = classnames({
         [`${classPrefix}-tab`]: true,
         [`${classPrefix}-active`]: activeIndex === order,
-        [`${classPrefix}-disabled`]: child.props.disabled
+        [`${classPrefix}-disabled`]: child.props.disabled,
       });
 
       let events = {};
       if (!child.props.disabled) {
         events = {
-          onClick: this.props.onTabClick.bind(this, order)
+          onClick: this.props.onTabClick.bind(this, order),
         };
       }
 
       const ref = {};
       if (activeIndex === order) {
-        ref.ref = "activeTab";
+        ref.ref = 'activeTab';
       }
 
       return (
         <li
           role="tab"
-          aria-disabled={child.props.disabled ? "true" : "false"}
-          aria-selected={activeIndex === order ? "true" : "false"}
+          aria-disabled={child.props.disabled ? 'true' : 'false'}
+          aria-selected={activeIndex === order ? 'true' : 'false'}
           {...events}
           className={classes}
           key={order}
@@ -56,11 +56,11 @@ class TabNav extends Component {
     const { classPrefix } = this.props;
 
     const rootClasses = classnames({
-      [`${classPrefix}-bar`]: true
+      [`${classPrefix}-bar`]: true,
     });
 
     const classes = classnames({
-      [`${classPrefix}-nav`]: true
+      [`${classPrefix}-nav`]: true,
     });
 
     return (

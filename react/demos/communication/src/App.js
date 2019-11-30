@@ -9,7 +9,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: 'msgFromApp'
+      message: 'msgFromApp',
     };
   }
   componentDidMount() {
@@ -18,7 +18,7 @@ class App extends React.Component {
       console.log(message);
 
       this.setState({
-        message
+        message,
       });
     });
   }

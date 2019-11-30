@@ -3,16 +3,16 @@ const mogoose = require('mongoose');
 const PostSchema = mogoose.Schema({
   title: {
     type: String,
-    required: true
+    required: true,
   },
   description: {
     type: String,
-    required: true
+    required: true,
   },
   date: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 module.exports = mogoose.model('Posts', PostSchema);

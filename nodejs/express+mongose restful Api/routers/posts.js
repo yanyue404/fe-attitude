@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   const post = new Post({
     title: req.body.title,
-    description: req.body.description
+    description: req.body.description,
   });
 
   try {
@@ -57,9 +57,9 @@ router.patch('/:postId', async (req, res) => {
       { _id: req.params.postId },
       {
         $set: {
-          title: req.body.title
-        }
-      }
+          title: req.body.title,
+        },
+      },
     );
     res.json(updatePost);
   } catch (err) {

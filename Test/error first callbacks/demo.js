@@ -9,8 +9,8 @@ Page({
         } else {
           result = res.response_data.lists;
         }
-        typeof callback === "function" ? callback(error, result) : "";
+        typeof callback === 'function' ? callback(error, result) : '';
       });
     });
-  }
+  },
 });

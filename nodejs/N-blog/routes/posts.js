@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
   PostModel.getPosts(author)
     .then(function(posts) {
       res.render('posts', {
-        posts: posts
+        posts: posts,
       });
     })
     .catch(next);
@@ -41,7 +41,7 @@ router.post('/create', checkLogin, function(req, res, next) {
   let post = {
     author: author,
     title: title,
-    content: content
+    content: content,
   };
 
   PostModel.create(post)
@@ -67,7 +67,7 @@ router.get('/:postId', function(req, res, next) {
   Promise.all([
     PostModel.getPostById(postId), // 获取文章信息
     CommentModel.getComments(postId), // 获取该文章所有留言
-    PostModel.incPv(postId) // pv 加 1
+    PostModel.incPv(postId), // pv 加 1
   ])
     .then(function(result) {
       const post = result[0];
@@ -78,7 +78,7 @@ router.get('/:postId', function(req, res, next) {
 
       res.render('post', {
         post: post,
-        comments: comments
+        comments: comments,
       });
     })
     .catch(next);
@@ -98,7 +98,7 @@ router.get('/:postId/edit', checkLogin, function(req, res, next) {
         throw new Error('权限不足');
       }
       res.render('edit', {
-        post: post
+        post: post,
       });
     })
     .catch(next);

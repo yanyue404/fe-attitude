@@ -1,8 +1,8 @@
-import React, { Component, PropTypes, cloneElement } from "react";
-import styles from "../css/style.scss";
-import classnames from "classnames";
-import TabNav from "./TabNav";
-import TabContent from "./TabContent";
+import React, { Component, PropTypes, cloneElement } from 'react';
+import styles from '../css/style.scss';
+import classnames from 'classnames';
+import TabNav from './TabNav';
+import TabContent from './TabContent';
 
 class Tabs extends Component {
   static propTypes = {
@@ -10,16 +10,16 @@ class Tabs extends Component {
     classPrefix: PropTypes.string,
     children: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.node),
-      PropTypes.node
+      PropTypes.node,
     ]),
     defaultActiveIndex: PropTypes.number,
     activeIndex: PropTypes.number,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
   };
 
   static defaultProps = {
-    classPrefix: "tabs",
-    onChange: () => {}
+    classPrefix: 'tabs',
+    onChange: () => {},
   };
 
   constructor(props) {
@@ -29,22 +29,22 @@ class Tabs extends Component {
     const currProps = this.props;
     let activeIndex;
 
-    if ("activeIndex" in currProps) {
+    if ('activeIndex' in currProps) {
       activeIndex = currProps.activeIndex;
-    } else if ("defaultActiveIndex" in currProps) {
+    } else if ('defaultActiveIndex' in currProps) {
       activeIndex = currProps.defaultActiveIndex;
     }
 
     this.state = {
       activeIndex,
-      prevIndex: activeIndex
+      prevIndex: activeIndex,
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    if ("activeIndex" in nextProps) {
+    if ('activeIndex' in nextProps) {
       this.setState({
-        activeIndex: nextProps.activeIndex
+        activeIndex: nextProps.activeIndex,
       });
     }
   }
@@ -54,11 +54,11 @@ class Tabs extends Component {
 
     if (
       this.state.activeIndex !== activeIndex &&
-      "defaultActiveIndex" in this.props
+      'defaultActiveIndex' in this.props
     ) {
       this.setState({
         activeIndex,
-        prevIndex
+        prevIndex,
       });
 
       this.props.onChange({ activeIndex, prevIndex });
@@ -94,7 +94,7 @@ class Tabs extends Component {
 
   render() {
     const { className } = this.props;
-    const cx = classnames(className, "ui-tabs");
+    const cx = classnames(className, 'ui-tabs');
 
     return (
       <div className={cx}>

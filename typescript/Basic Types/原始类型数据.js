@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 // 原始数据类型包括：布尔值、数值、字符串、null、undefined 以及 ES6 中的新类型 Symbol。
 //  布尔值
 var isDone = false;
@@ -10,14 +10,19 @@ var infinityNumber = Infinity;
 var myName = 'Tom';
 var myAge = 25;
 // 模板字符串
-var sentence = "Hello, my name is " + myName + ".\nI'll be " + (myAge + 1) + " years old next month.";
+var sentence =
+  'Hello, my name is ' +
+  myName +
+  ".\nI'll be " +
+  (myAge + 1) +
+  ' years old next month.';
 // Array
 var list = [1, 2, 3];
 var list2 = [1, 2, 3];
 // 空值
 // 可以用 void 表示没有任何返回值的函数
 function alertName() {
-    alert('My name is Tom');
+  alert('My name is Tom');
 }
 // let unusable: void = undefined;
 var unusable = undefined;

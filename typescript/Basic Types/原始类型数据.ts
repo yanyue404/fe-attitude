@@ -1,15 +1,12 @@
 // 原始数据类型包括：布尔值、数值、字符串、null、undefined 以及 ES6 中的新类型 Symbol。拓展：元组，枚举。。。
 
-
 // # Boolean 布尔值
 let isDone: boolean = false;
-
 
 // # Number 数字
 let decLiteral: number = 6;
 let notANumber: number = NaN;
 let infinityNumber: number = Infinity;
-
 
 // # String 字符串
 let myName: string = 'Tom';
@@ -18,33 +15,34 @@ let myAge: number = 25;
 let sentence: string = `Hello, my name is ${myName}.
 I'll be ${myAge + 1} years old next month.`;
 
-
 // # Array
 let list: number[] = [1, 2, 3];
 let list2: Array<number> = [1, 2, 3];
 let list3: Array<any> = [];
-
 
 // # Tuple 元组类型
 
 // 声明一个元组类型
 let x: [string, number];
 // Initialize it
-x = ["hello", 10]; // OK
+x = ['hello', 10]; // OK
 // Initialize it incorrectly
 // x = [10, "hello"]; // Error
 
-
 // # Enum 枚举类型
 
-enum Color { Red, Green, Blue }
+enum Color {
+  Red,
+  Green,
+  Blue
+}
 let c: Color = Color.Green;
 // 空值
 
 // # Any 任意类型
 
 let notSure: any = 4;
-notSure = "maybe a string instead";
+notSure = 'maybe a string instead';
 notSure = false; // okay, definitely a boolean
 
 // # Void
@@ -74,7 +72,7 @@ let n: null = null;
 
 // # Never
 
-// # Object 
+// # Object
 //object是一种表示非基本类型的类型，即任何不是数字，字符串，布尔值，符号，空值或未定义的东西。
 
 // 使用对象类型，可以更好地表示Object.create等API。 例如：
@@ -89,7 +87,6 @@ create(null); // OK
 // create(false); // Error
 // create(undefined); // Error
 // Type assertions
-
 
 // 使用 let关键字
 

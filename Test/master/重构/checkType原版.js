@@ -2,7 +2,7 @@
 // https://segmentfault.com/a/1190000014533857
 //checkType('165226226326','mobile')
 //result：false
-let checkType = function (str, type) {
+let checkType = function(str, type) {
   switch (type) {
     case 'email':
       return /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(str);
@@ -25,4 +25,4 @@ let checkType = function (str, type) {
     default:
       return true;
   }
-}
+};

@@ -6,5 +6,5 @@ module.exports = {
       if (!user) return res.send({ err_msg: 'err' });
       res.send({ err_msg: 'ok' });
     });
-  }
+  },
 };

@@ -13,7 +13,7 @@ var numAnim = new AnimateToNum({
   initNum: 500, //初始化的数字
   onChange: function(num) {
     console.log(num);
-  }
+  },
 });
 
 numAnim.toNum(100);

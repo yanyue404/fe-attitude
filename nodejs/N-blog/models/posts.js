@@ -8,12 +8,12 @@ Post.plugin('addCommentsCount', {
     return Promise.all(
       posts.map(function(post) {
         return CommentModel.getCommentsCount(post._id).then(function(
-          commentsCount
+          commentsCount,
         ) {
           post.commentsCount = commentsCount;
           return post;
         });
-      })
+      }),
     );
   },
   afterFindOne: function(post) {
@@ -24,7 +24,7 @@ Post.plugin('addCommentsCount', {
       });
     }
     return post;
-  }
+  },
 });
 // 将 post 的 content 从 markdown 转换成 html
 Post.plugin('contentToHtml', {
@@ -39,7 +39,7 @@ Post.plugin('contentToHtml', {
       post.content = marked(post.content);
     }
     return post;
-  }
+  },
 });
 
 module.exports = {
@@ -99,5 +99,5 @@ module.exports = {
           return CommentModel.delCommentsByPostId(postId);
         }
       });
-  }
+  },
 };

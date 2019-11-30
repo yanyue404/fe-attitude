@@ -15,7 +15,7 @@ class User {
     status,
     created,
     role,
-    token
+    token,
   ) {
     this.id = id;
     this.slug = slug;
@@ -40,7 +40,7 @@ class User {
     status,
     created,
     role,
-    token
+    token,
   }) {
     // 解构的使用
     return new User(
@@ -53,7 +53,7 @@ class User {
       status,
       created,
       role,
-      token
+      token,
     );
   }
   // 查询用户
@@ -83,7 +83,7 @@ class User {
         typeof callback === 'function' &&
           ((rows.length <= 0 && callback(null, null)) ||
             (rows.length == 1 && callback(null, User.create(rows[0]))));
-      }
+      },
     );
   }
 
@@ -114,7 +114,7 @@ class User {
         typeof callback === 'function' &&
           ((result.affectedRows >= 1 && callback(null, true)) ||
             (result.affectedRows <= 0 && callback(null, false)));
-      }
+      },
     );
   }
 }

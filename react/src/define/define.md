@@ -28,7 +28,7 @@ var Component1 = React.createClass({
         <h1>Sam</h1>
       </div>
     );
-  }
+  },
 });
 
 ReactDOM.render(<Component1 />, document.getElementById('app'));
@@ -110,7 +110,7 @@ var Component1 = React.createClass({
   getDefaultProps: function() {
     return {
       name: 'Tom',
-      age: 20
+      age: 20,
     };
   },
   render: function() {
@@ -120,7 +120,7 @@ var Component1 = React.createClass({
         <p>年龄：{this.props.age}</p>
       </div>
     );
-  }
+  },
 });
 
 //es6
@@ -129,7 +129,7 @@ import ReactDOM from 'react-dom';
 class Component1 extends React.Component {
   static defaultProps = {
     name: 'Tom',
-    age: 20
+    age: 20,
   };
   render() {
     return (
@@ -144,7 +144,7 @@ class Component1 extends React.Component {
 //或者
 Component1.defaultProps = {
   name: 'Sam',
-  age: 22
+  age: 22,
 };
 
 //使用
@@ -179,7 +179,7 @@ class Component1 extends React.Component {
 
 //定义属性 name 为字符串且必须有值
 Component1.propTypes = {
-  name: PropTypes.string
+  name: PropTypes.string,
 };
 
 ReactDOM.render(<Component1 name="Tom" />, document.getElementById('div1'));
@@ -190,11 +190,11 @@ ReactDOM.render(<Component1 name="Tom" />, document.getElementById('div1'));
 ```js
 var MyTitle = React.createClass({
   propTypes: {
-    title: React.PropTypes.string.isRequired
+    title: React.PropTypes.string.isRequired,
   },
   render() {
     return <h1>{this.props.title}</h1>;
-  }
+  },
 });
 const data = 'hello,propTypes';
 ReactDOM.render(<MyTitle title={data} />, document.getElementById('example'));

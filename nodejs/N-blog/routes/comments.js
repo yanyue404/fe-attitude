@@ -23,7 +23,7 @@ router.post('/', checkLogin, function(req, res, next) {
   const comment = {
     author: author,
     postId: postId,
-    content: content
+    content: content,
   };
 
   CommentModel.create(comment)
