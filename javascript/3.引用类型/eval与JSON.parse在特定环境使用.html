@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+</head>
+
+<body>
+
+  <script>
+    var result1 = "{date:{year:2018}}"
+    // var data1 = JSON.parse(result); // Uncaught SyntaxError: Unexpected token d in JSON at position 1
+    var data2 = (eval("(" + result1 + ")")).date;
+    alert(data2.year);
+
+    var result2 = {
+      "data": ["上海市 ", "上海市 ", "黄浦区"],
+      "index": [0, 0, 0]
+    };
+    var json = JSON.stringify(result2);
+    alert(json)
+
+    if (typeof (json) == "string") {
+      data = JSON.parse(json)
+    }
+    var areaArr = data.data;
+    alert(areaArr);
+  </script>
+</body>
+
+</html>

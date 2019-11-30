@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 递归函数，函数名调用自身
+    
+    // 对象深度克隆
+    Object.prototype.clone = function () {
+      var obj = this;
+      if (typeof obj !== 'object') return;
+      var newObj = obj instanceof Array ? [] : {};
+      for (var key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          newObj[key] = typeof obj[key] === 'object' ? (obj[key]).clone() : obj[key];
+        }
+      }
+      return newObj;
+    }
+
+  </script>
+</body>
+
+</html>

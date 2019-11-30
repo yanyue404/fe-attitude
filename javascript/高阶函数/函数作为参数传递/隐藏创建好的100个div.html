@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    //在页面中创建 100个 div 节点，然后把这些 div 节点都设置为隐藏  
+    // 方法1 硬编码   appendDiv 个性化，成为了一个难以复用的函数，并不是每个人创建了节点之后就希望它们立刻被隐藏
+/*     var appendDiv = function () {
+      for (var i = 0; i < 100; i++) {
+        var div = document.createElement('div');
+        div.innerHTML = i;
+        document.body.appendChild(div);
+        div.style.display = 'none';
+      }
+    };
+    appendDiv(); */
+    //     把 div.style.display = 'none' 这行代码抽出来，用回调函数的形式传入 appendDiv
+    // 方法，委托处理
+    var appendDiv2 = function (callback) {
+      for (var i = 0; i < 100; i++) {
+        var div = document.createElement('div');
+        div.innerHTML = i;
+        document.body.appendChild(div);
+        if (typeof callback === 'function') {
+          callback(div);
+        }
+      }
+    };
+    appendDiv2(function (node) {
+      node.style.display = 'none';
+    });
+  </script>
+</body>
+
+</html>

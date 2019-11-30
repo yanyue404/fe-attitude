@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .normal {
+      background-color: #ccc;
+    }
+
+    .active {
+      background-color: orange;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <p class="active">1</p>
+    <p>2</p>
+    <p>3</p>
+  </div>
+  <script>
+
+    var firstP = document.querySelector('p:first-child');
+    var others = Array.from(document.querySelectorAll('p:not(.active)'));
+
+    console.log(others)
+    others.forEach(ele => {
+      ele.className = 'normal';
+    })
+
+
+  </script>
+</body>
+
+</html>

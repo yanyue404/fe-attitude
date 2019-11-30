@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 例子
+    /*  var monthlyCost = 0;
+     var cost = function (money) {
+       monthlyCost += money;
+     };
+     cost(100); // 第 1 天开销
+     cost(200); // 第 2 天开销
+     cost(300); // 第 3 天开销
+     //cost( 700 ); // 第 30 天开销
+     alert(monthlyCost); // 输出：600 */
+
+    var currying = function (fn) {
+      var args = [];
+      return function () {
+        if (arguments.length === 0) {
+          return fn.apply(this, args);
+        } else {
+          [].push.apply(args, arguments);
+          return arguments.callee;
+        }
+      }
+    };
+    var cost = (function () {
+      var money = 0;
+      return function () {
+        for (var i = 0, l = arguments.length; i < l; i++) {
+          money += arguments[i];
+        }
+        return money;
+      }
+    })();
+    var cost = currying(cost); // 转化成 currying 函数
+    cost(100); // 未真正求值
+    cost(200); // 未真正求值
+    cost(300); // 未真正求值
+    alert(cost()); // 求值并输出：600
+
+    /*   如果明确地带上了一些参数，
+表示此时并不进行真正的求值计算，而是把这些参数保存起来，此时让 cost 函数返回另外一个
+函数。只有当我们以不带参数的形式执行 cost() 时，才利用前面保存的所有参数，真正开始进行 */
+  </script>
+</body>
+
+</html>

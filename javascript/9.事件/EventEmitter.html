@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function EventEmitter() {
+      this._events = {};
+    }
+    EventEmitter.prototype.addListener = function (type, listener) {
+      if (!this._events[type]) this._events[type] = [];
+      this._events[type].push(listener);
+    }
+    EventEmitter.prototype.removeListener = function (type, listener) {
+      var listenerArray = this._events[type] ? this._events[type] : [];
+      var index = listenerArray.indexOf(listener);
+      if (index !== -1) {
+        listenerArray.splice(index, 1);
+      }
+    }
+    EventEmitter.prototype.emit = function (type) {
+      var listenerArray = this._events[type] ? this._events[type] : [];
+      for (var i = 0; i < listenerArray.length; i++) {
+        listenerArray[i].apply(this);
+      }
+    }
+
+    //使用
+    var a = new EventEmitter();
+    a.addListener("type1", function () {
+      console.log("service1");
+    })
+    a.addListener("type1", function () {
+      console.log("service2");
+    })
+    a.emit("type1");
+
+    function otherService() {
+      console.log("other service");
+    }
+    a.addListener("type2", otherService);
+    a.addListener("type2", function () {
+      console.log("service 3")
+    })
+    a.emit("type2");
+    a.removeListener("type2", otherService);
+    a.emit("type2");
+  </script>
+</body>
+
+</html>

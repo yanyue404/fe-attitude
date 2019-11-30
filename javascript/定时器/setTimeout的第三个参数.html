@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <p>Live Example</p>
+  <button onclick="delayedAlert();">Show an alert box after two seconds</button>
+  <p></p>
+  <button onclick="clearAlert();">Cancel alert before it happens</button>
+  <script>
+    // https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout
+    var timeoutID;
+
+    function delayedAlert() {
+      //  定时器启动时候，第三个以后的参数是作为第一个func()的参数传进去。
+      timeoutID = window.setTimeout(window.alert, 2000, 'That was really slow!');
+    }
+
+    function clearAlert() {
+      window.clearTimeout(timeoutID);
+    }
+  </script>
+</body>
+
+</html>

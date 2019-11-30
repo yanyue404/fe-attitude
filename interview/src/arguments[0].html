@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      //https://www.zhihu.com/question/21466212
+      var length = 10;
+      function fn() {
+        console.log(this.length);
+      }
+      var obj = {
+        length: 5,
+        method: function(f) {
+          f();
+          arguments[0]();
+          arguments[0].call(this);
+        }
+      };
+      obj.method(fn);
+    </script>
+  </body>
+</html>

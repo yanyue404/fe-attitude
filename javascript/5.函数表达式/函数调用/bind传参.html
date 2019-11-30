@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div title="hui" class="oDiv">记录表单</div>
+  <script>
+    var obj = {
+      name: 'sven'
+    };
+    var func = function (a, b, c, d) {
+      alert(this.name); // 输出：sven
+      alert([a, b, c, d]) // 输出：[ 1, 2, 3, 4 ]
+    }.bind(obj, 1, 2);
+
+    func(3, 4)
+  </script>
+</body>
+
+</html>

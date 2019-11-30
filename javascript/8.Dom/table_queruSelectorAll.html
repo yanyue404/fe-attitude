@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .customers {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      width: 60%;
+      border-collapse: collapse;
+    }
+
+    .customers td,
+    .customers th {
+      font-size: 1em;
+      border: 1px solid #D3D4D6;
+      padding: 3px 7px 2px 7px;
+    }
+
+    .customers td {
+      font-size: 0.9em;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #FEFEFE;
+    }
+
+    table tr:nth-child(odd) {
+      background-color: #f6f6f6;
+    }
+
+    .customers th {
+      font-size: 1.1em;
+      text-align: center;
+      padding-top: 0.2em;
+      padding-bottom: 0.2em;
+      background-color: #E9EAEC;
+      color: #333;
+    }
+
+    .customers tr.alt td {
+      color: #000000;
+      font-size: 0.9em
+    }
+  </style>
+</head>
+
+<body>
+  <div id="table">
+    <table class="xiaoshou customers">
+      <tbody>
+        <tr>
+          <th>公司</th>
+          <th>合计</th>
+          <th>汽油</th>
+          <th>柴油</th>
+        </tr>
+
+        <tr class="del">
+          <td>本部</td>
+          <td>8440.55</td>
+          <td>3938</td>
+          <td>4502</td>
+        </tr>
+        <tr class="alt del">
+          <td>浦东</td>
+          <td>3054</td>
+          <td>11.1</td>
+          <td>3043</td>
+        </tr>
+        <tr class="del">
+          <td>浦西</td>
+          <td>82</td>
+          <td>17</td>
+          <td>65.2</td>
+        </tr>
+        <tr class="alt del">
+          <td>松青</td>
+          <td>424.275</td>
+          <td>150</td>
+          <td>274</td>
+        </tr>
+        <tr class="del">
+          <td>崇明</td>
+          <td>163.9</td>
+          <td>8</td>
+          <td>155</td>
+        </tr>
+        <tr class="alt del">
+          <td>中油奉贤</td>
+          <td>1318</td>
+          <td>1006</td>
+          <td>312</td>
+        </tr>
+        <tr class="del">
+          <td>中油同盛</td>
+          <td>1419.0</td>
+          <td>366</td>
+          <td>1053</td>
+        </tr>
+        <tr class="alt del">
+          <td>中油农工商</td>
+          <td>1700.6</td>
+          <td>40</td>
+          <td>1660</td>
+        </tr>
+        <tr class="del">
+          <td>中油康桥</td>
+          <td>1176</td>
+          <td>564.3</td>
+          <td>612</td>
+        </tr>
+        <tr class="alt del">
+          <td>中油上海</td>
+          <td>1430</td>
+          <td>1260.1</td>
+          <td>170</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</body>
+<script>
+  var qiyouArr = Array.from(document.querySelectorAll('.xiaoshou tr td:nth-child(2)'));
+  var chaiyouArr = Array.from(document.querySelectorAll('table tr td:nth-child(3)'));
+  var sumArr = Array.from(document.querySelectorAll('table tr td:nth-child(4)'));
+
+  qiyouArr.forEach(function (v) {
+    v.innerHTML = toFixed(v.innerHTML, 1);
+
+  })
+
+  function toFixed(number, fractionDigits) {
+    var times = Math.pow(10, fractionDigits);
+    var roundNum = Math.round(number * times) / times;
+    return roundNum.toFixed(fractionDigits);
+  }
+</script>
+
+</html>

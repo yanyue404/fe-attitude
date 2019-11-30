@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body id="dv">
+    
+    <script>    
+    
+        function TableView ( datas ) {
+            this.__datas__ = datas;
+            this.DOM = this.__update__();
+        }
+
+
+        TableView.prototype = {
+
+            constructor: TableView,
+
+            __update__: function () { // render: 将 数据 转换 成 html
+                var datas = this.__datas__;
+                var table = document.createElement( 'table' );
+                table.width = '400';   // <table border="1" width="400">
+                table.border = '1';
+                var tbody = document.createElement( 'tbody' );
+                table.appendChild( tbody );
+                for ( var i = 0; i < datas.length; i++ ) {
+                    var tr = document.createElement( 'tr' );
+                    var tds = '<td>' + ( i + 1 ) + '</td>';
+                    for ( var k in datas[ i ] ) {
+                        tds += '<td>' + datas[ i ][ k ] + '</td>';
+                    }
+                    tr.innerHTML = tds;
+                    tbody.appendChild( tr );
+                }
+                return table;
+            },
+
+            addTo: function ( idSelector ) {
+                var node = document.getElementById( idSelector );
+                node.appendChild( this.DOM );
+                this.selector = idSelector;
+            },
+
+            addData: function ( data ) {
+                this.__datas__.push( data );
+                // 重新生成 HTML
+                this.DOM = this.__update__();
+                if ( this.selector ) {
+                    var node = document.getElementById( this.selector );
+                    node.innerHTML = '';
+                    node.appendChild( this.DOM );
+                }
+            },
+
+            rmData: function ( index ) {
+                this.__datas__.splice( index, 1 );
+                // 重新生成 HTML
+                this.DOM = this.__update__();
+                if ( this.selector ) {
+                    var node = document.getElementById( this.selector );
+                    node.innerHTML = '';
+                    node.appendChild( this.DOM );
+                }
+            }
+    
+        };
+
+
+
+        var  tv = new TableView([
+            { name: 'jim', age: 19, gender: '男' },
+            { name: 'rose', age: 18, gender: '女' },
+            { name: 'tom', age: 29, gender: '男' }
+        ]);
+
+
+        tv.addTo( 'dv' );
+    
+    </script>
+</body>
+</html>

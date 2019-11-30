@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .purple {
+      color: purple;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <p>1</p>
+    <p>2</p>
+    <p>3</p>
+  </div>
+  <script>
+    // console.log(document.querySelector('p:first-child').previousSibling);
+    var others = siblings(document.querySelector('p:first-child'));
+
+    console.log(others);
+
+    function siblings2(ele) {
+      var newArr = [];
+      var arr = ele.parentNode.children;//ie678中无法取出注释节点;
+      for (var i = 0; i < arr.length; i++) {
+        if (arr[i].nodeType == 1 && arr[i] != ele) {
+          newArr.push(arr[i]);
+        }
+      }
+      return newArr;
+    }
+    function siblings(obj) {
+      var a = [];//定义一个数组，用来存obj的兄弟元素 
+      var p = obj.previousSibling;
+      while (p) {//先取o的哥哥们 判断有没有上一个哥哥元素，如果有则往下执行 p表示previousSibling 
+        if (p.nodeType === 1) {
+          a.push(p);
+        }
+        p = p.previousSibling//最后把上一个节点赋给p 
+      }
+      a.reverse()//把顺序反转一下 这样元素的顺序就是按先后的了 
+      var n = obj.nextSibling;//再取o的弟弟 
+      while (n) {//判断有没有下一个弟弟结点 n是nextSibling的意思 
+        if (n.nodeType === 1) {
+          a.push(n);
+        }
+        n = n.nextSibling;
+      }
+      return a;
+    }
+
+  </script>
+</body>
+
+</html>

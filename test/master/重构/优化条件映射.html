@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script>
+
+    var obj = [
+      {
+        'name': '小米',
+        'marriage': 1
+      },
+      {
+        'name': '小明',
+        'marriage': 2
+      },
+      {
+        'name': '小红',
+        'marriage': 3
+      },
+      {
+        'name': '大熊',
+        'marriage': 4
+      }
+    ]
+    var mp = ['未婚单身无目标', '未婚单身有目标', '未婚有对象交往'];
+    var MarryLiList = obj.map((v, i) => {
+      return '<li>' + v.name + " : " + (mp[obj[i]['marriage'] - 1] || '婚姻状况：未知') + '</li>'
+    })
+    document.getElementById("root").innerHTML = '<ol>' + MarryLiList.join('') + '</ol>'
+
+
+  </script>
+</body>
+
+</html>

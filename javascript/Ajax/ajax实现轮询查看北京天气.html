@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>天气预报</title>
+    <style>
+        table {
+            margin-top: 20px;
+            width: 600px;
+            border-collapse: collapse;
+        }
+        
+        td,
+        th {
+            height: 50px;
+            text-align: center;
+            border: 1px solid #CCC;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="city" /> <a href="javascript:;" id="search">天气查询</a>
+    <table>
+        <thead>
+            <tr>
+                <th>日期</th>
+                <th>白天</th>
+                <th>晚上</th>
+                <th>温度</th>
+                <th>天气</th>
+                <th>风力</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+<!--jquery的jsonp怎么用
+     1.jsonp的请求方式必须是get
+     2.jsonp的ajax方法的dataType必须是jsonp
+-->
+<!--引入包-->
+<script src="./js/jquery.min.js"></script>
+<script src="./js/template-native.js"></script>
+<!--模板-->
+<script type="text/template" id="temp">
+<%for(var i =0;i<weather_data.length;i++){%>
+<tr>
+   <td><%=weather_data[i].date%></td>
+   <td><img src="<%=weather_data[i].dayPictureUrl%>" alt=""></td>
+   <td><img src="<%=weather_data[i].nightPictureUrl%>" alt=""></td>
+   <td><%=weather_data[i].temperature%></td>
+   <td><%=weather_data[i].weather%></td>
+   <td><%=weather_data[i].wind%></td>
+</tr>
+<%}%>
+
+</script>
+<script> 
+
+  function getWeatherInBJ (){
+
+    var city = '北京';
+    $.ajax({
+        type:'get',
+        url:'http://api.map.baidu.com/telematics/v3/weather',
+        data:{
+            ak:'ZuSbFihUuxRyEfO7ZqL8rGXKPRVuDmQ8',
+            location:city,
+            output:'json'
+        },
+        dataType:'jsonp',//如果dataType是jsonp 那么就不是ajax请求
+        // jsonp是datatype必须是jsonp 如果不是jsonp 那么就是ajax请求
+           // 4.绑定数据
+        success:function(data){
+            console.log(data);
+            $('tbody')[0].innerHTML = "";
+           $('tbody').append( template('temp',data.results[0]));
+        }
+    })
+
+  }
+
+  window.setInterval("getWeatherInBJ()",5000);
+
+</script>
+</body>
+
+</html>

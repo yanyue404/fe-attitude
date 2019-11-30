@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+  <script>
+    $.ajax({
+      type: 'get',
+      url: "https://api.douban.com/v2/book/1220562",
+      dataType: 'jsonp',
+      beforeSend: function () {
+        console.log("请求发起前")
+      },
+      success: function (result) {
+        console.log(result);
+      },
+      complete: function () {
+        console.log('请求完成');
+      }
+    })
+  </script>
+</body>
+
+</html>

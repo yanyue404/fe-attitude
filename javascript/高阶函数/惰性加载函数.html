@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="div1">点我绑定事件</div>
+  <script>
+    // 在初次面对不同浏览器的时候使用嗅探工作，以后就不用了，优化方式，减少必要执行的条件
+    //     此时 addEvent 依然被声明为一个普通函
+    // 数，在函数里依然有一些分支判断。但是在第一次进入条件分支之后，在函数内部会重写这个函
+    // 数，重写之后的函数就是我们期望的 addEvent 函数，在下一次进入 addEvent 函数的时候， addEvent
+    // 函数里不再存在条件分支语句（覆盖原函数）
+    //https://www.cnblogs.com/dolphinX/p/3251165.html
+    var addEvent = function (elem, type, handler) {
+      if (window.addEventListener) {
+        addEvent = function (elem, type, handler) {
+          elem.addEventListener(type, handler, false);
+        }
+      } else if (window.attachEvent) {
+        addEvent = function (elem, type, handler) {
+          elem.attachEvent('on' + type, handler);
+        }
+      }
+      addEvent(elem, type, handler);
+    };
+
+    var div = document.getElementById('div1');
+    addEvent(div, 'click', function () {
+      alert(1);
+    });
+    addEvent(div, 'click', function () {
+      alert(2);
+    });
+  </script>
+</body>
+
+</html>

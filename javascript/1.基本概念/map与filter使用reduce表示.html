@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        Array.prototype.y_reduce = function (fn, init) {
+            let result = init || 0; // 初始累计
+            for (let i = 0; i < this.length; i++) {
+                if (i in this) {
+                    // result 累计器 结果
+                    result = fn.call(undefined, result, this[i], i, this)
+                }
+            }
+            return result
+        }
+
+        var arr = [1, 2, 3, 4, 5];
+        console.log('map 结果:' + arr.map(a => a * 2));
+        var sum = arr.y_reduce(((result, v) => {
+            result.push(v * 2);
+            return result;
+        }), [])
+        console.log('reduce 结果：' + sum);
+        var filterResult = arr.filter(x => x % 2 === 0)
+        var reduceFilterResult = arr.y_reduce(((result, v) => {
+            if (v % 2 === 0) {
+                result.push(v)
+            }
+            return result
+        }), [])
+        console.log("filterResult 结果:" + filterResult);
+
+        console.log("reduceFilterResult 结果:" + reduceFilterResult)
+    </script>
+</body>
+
+</html>

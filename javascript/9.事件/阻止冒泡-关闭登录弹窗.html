@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    a {
+      display: inline-block;
+      margin: 20px;
+      font-size: 20px;
+      text-decoration: none;
+    }
+
+    body {
+      height: 5000px;
+    }
+
+    .mask {
+      display: none;
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .login {
+      width: 400px;
+      height: 240px;
+      padding-top: 50px;
+      margin: 150px 150px;
+      background: #fff;
+      text-align: center;
+      position: relative;
+    }
+
+    input {
+      margin: 20px 10px;
+    }
+
+    span {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      background-color: yellowgreen;
+      text-align: center;
+      line-height: 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="javascript:;">登陆</a>
+
+  <div class="mask" id="mask">
+    <div class="login">
+      账号:
+      <input type="text" />
+      <br> 密码:
+      <input type="text" />
+      <span>×</span>
+    </div>
+  </div>
+
+
+  <script>
+    var a = document.querySelector('a'),
+      mask = document.querySelector('.mask'),
+      login = mask.children[0];
+
+    //需求1：点击登陆按钮，显示mask盒子。
+    a.onclick = function (event) {
+
+      mask.style.display = "block";
+
+      //阻止a链接的冒泡行为,因为不希望将来判断是否隐藏mask;
+      event = event || window.event;
+      if (event && event.stopPropagation) {
+        event.stopPropagation();
+      } else {
+        event.cancelBubble = true;
+      }
+
+    }
+    //需求2：只有点击login部分显示mask，除了login部分，都隐藏mask。
+    document.onclick = function (event) {
+
+      event = event || window.event;
+      //所有的元素都会冒泡到document,只要判断事件源
+      var EventSource = event.target ? event.target : event.srcElement;
+
+      //判断:只要不是login和两个input就可以了
+      if (EventSource.className !== "login" && EventSource.tagName !== "INPUT") {
+
+        mask.style.display = "none";
+      }
+    }
+
+  </script>
+
+</body>
+
+</html>

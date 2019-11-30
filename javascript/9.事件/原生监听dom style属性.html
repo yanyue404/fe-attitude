@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+  </head>
+
+  <body>
+    <div
+      id="test"
+      style="position: relative;"
+      data-left="0"
+      onclick="clickMe()"
+    >
+      test
+    </div>
+    <script type="text/javascript">
+      // https://segmentfault.com/q/1010000016547396
+      var MutationObserver =
+        window.MutationObserver ||
+        window.WebKitMutationObserver ||
+        window.MozMutationObserver;
+      var element = document.querySelector("#test");
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type == "attributes") {
+            if (mutation.target.dataset.left !== mutation.target.style.left) {
+              mutation.target.dataset.left = element.style.left;
+              console.log("left changed to", mutation.target.style.left);
+            }
+            if (mutation.target.dataset.top !== mutation.target.style.top) {
+              mutation.target.dataset.top = element.style.top;
+              console.log("top changed to", mutation.target.style.top);
+            }
+          }
+        });
+      });
+
+      observer.observe(element, {
+        attributes: true, //configure it to listen to attribute changes,
+        attributeFilter: ["style"]
+      });
+
+      function clickMe() {
+        element.style.left = Math.random() * 10 + "px";
+        element.style.top = Math.random() * 10 + "px";
+        element.class = Math.random() * 10;
+      }
+    </script>
+  </body>
+</html>
