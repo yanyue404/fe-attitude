@@ -9,16 +9,9 @@
 
   <body>
     <script>
-      var data = {
-        name: "yck"
-      };
-      observe(data);
-      let name = data.name; // -> get value
-      data.name = "yyy"; // -> change value
-
       function observe(obj) {
         // 判断类型
-        if (!obj || typeof obj !== "object") {
+        if (!obj || typeof obj !== 'object') {
           return;
         }
         Object.keys(obj).forEach(key => {
@@ -27,21 +20,32 @@
       }
 
       function defineReactive(obj, key, val) {
-        // 递归子属性
-        observe(val);
         Object.defineProperty(obj, key, {
           enumerable: true,
           configurable: true,
-          get: function reactiveGetter() {
-            console.log("get value");
+          get: function() {
+            console.log('你访问了' + key);
             return val;
           },
-          set: function reactiveSetter(newVal) {
-            console.log("change value");
+          set: function(newVal) {
+            console.log('你设置了' + key);
+            console.log('新的' + key + ' = ' + JSON.stringify(newVal));
+            if (newVal === val) return;
             val = newVal;
-          }
+            if (typeof val === 'object') {
+              new observe(val);
+            }
+          },
         });
       }
+
+      var data = {
+        name: 'yck',
+        obj: {
+          a: 123,
+        },
+      };
+      let app = new observe(data);
     </script>
   </body>
 </html>
