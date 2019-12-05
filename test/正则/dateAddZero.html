@@ -8,17 +8,17 @@
   </head>
   <body>
     <script>
-      var date = "2019/7/7";
+      var date = '2019/7/7';
       // ?= 其后紧接着
       //  \b 匹配字符边界 \d 数字
       function dateAddZero(str) {
-        return str.replace(/(?=\b\d\b)/g, "0");
+        return str.replace(/(?=\b\d\b)/g, '0');
       }
       function dateAddZero2(str) {
         return str
           .match(/(\d+)/g)
-          .map(v => (v < 10 ? "0" + v : v))
-          .join("-");
+          .map(v => (v < 10 ? '0' + v : v))
+          .join('-');
       }
       console.log(dateAddZero(date)); // 2019/07/07
       console.log(dateAddZero2(date)); // 2019-07-07

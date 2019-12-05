@@ -1,42 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <script>
-        function F() {}
-        F.prototype.sayHello = function () {
-            console.log( 'F' );
+      function F() {}
+      F.prototype.sayHello = function() {
+        console.log('F');
+      };
+
+      function FF() {
+        this.sayHello = function() {
+          console.log('FF');
         };
+      }
+      FF.prototype = new F();
 
-        function FF() {
-            this.sayHello = function () {
-                console.log( 'FF' );
-            }
-        }
-        FF.prototype = new F();  
+      function FFF() {
+        this.sayHello = function() {
+          console.log('FFF');
+        };
+      }
+      FFF.prototype = new FF();
 
-        function FFF() {
-            this.sayHello = function () {
-                console.log( 'FFF' );
-            }
-        }
-        FFF.prototype = new FF();
+      var fobj = new FFF();
+      // fobj -> FFF.prototype( FF的实例 ) -> FF.prototype( F 的实例 ) -> F.prototype
+      // -> Object.prototype -> null
 
-        var fobj = new FFF();
-        // fobj -> FFF.prototype( FF的实例 ) -> FF.prototype( F 的实例 ) -> F.prototype 
-        // -> Object.prototype -> null
-
-        fobj.sayHello();
-        // 1, FFF
-        // 2, FF
-        // 3, F
-        // 4, 报错
-
+      fobj.sayHello();
+      // 1, FFF
+      // 2, FF
+      // 3, F
+      // 4, 报错
     </script>
-</body>
+  </body>
 </html>

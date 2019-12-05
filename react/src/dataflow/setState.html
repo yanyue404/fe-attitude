@@ -19,13 +19,13 @@
           super(props);
           this.handleClick = this.handleClick.bind(this);
           this.state = {
-            count: 0
+            count: 0,
           };
         }
 
         handleClick() {
           this.setState({
-            count: this.state.count + 1
+            count: this.state.count + 1,
           });
         }
 
@@ -41,7 +41,7 @@
         }
       }
 
-      ReactDOM.render(<MyComponent />, document.getElementById("example"));
+      ReactDOM.render(<MyComponent />, document.getElementById('example'));
     </script>
   </body>
 </html>

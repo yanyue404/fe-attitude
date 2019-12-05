@@ -1,61 +1,55 @@
 <!DOCTYPE html>
 <html>
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <title></title>
+    <style>
+      .box1 {
+        width: 300px;
+        height: 300px;
+        border: 1px solid #ccc;
+        background-color: pink;
+      }
 
-<head lang="en">
-  <meta charset="UTF-8">
-  <title></title>
-  <style>
-    .box1 {
-      width: 300px;
-      height: 300px;
-      border: 1px solid #ccc;
-      background-color: pink;
-    }
+      .box2 {
+        width: 100px;
+        height: 100px;
+        margin: 100px;
+        background-color: skyblue;
+      }
+    </style>
+  </head>
 
-    .box2 {
-      width: 100px;
-      height: 100px;
-      margin: 100px;
-      background-color: skyblue;
-    }
-  </style>
-</head>
+  <body>
+    document
 
-<body>
-  document
+    <div class="box1">
+      box1
+      <div class="box2">box2</div>
+    </div>
 
-  <div class="box1">box1
-    <div class="box2">box2</div>
-  </div>
+    <script>
+      var box1 = document.getElementsByClassName('box1')[0];
+      var box2 = document.getElementsByClassName('box2')[0];
 
+      //addEventListener();还有第三个参数，控制着事件支持的是冒泡还是捕获；
+      //bool有两个：  1.false（默认）支持冒泡；    2.true：支持捕获；
+      //event.eventPhase: 1.值如果等于1那么处于捕获；  2.值如果等于2处于目标；   3.值如果等于3处于冒泡；
 
-  <script>
-
-    var box1 = document.getElementsByClassName("box1")[0];
-    var box2 = document.getElementsByClassName("box2")[0];
-
-    //addEventListener();还有第三个参数，控制着事件支持的是冒泡还是捕获；
-    //bool有两个：  1.false（默认）支持冒泡；    2.true：支持捕获；
-    //event.eventPhase: 1.值如果等于1那么处于捕获；  2.值如果等于2处于目标；   3.值如果等于3处于冒泡；
-
-
-    //事件冒泡，从当前触发的时间源一直冒泡到dom树的最顶端
-    // !!!子元素没有绑定事件也照样会冒泡到父元素上面
-    /*  box1.onclick = function () {
+      //事件冒泡，从当前触发的时间源一直冒泡到dom树的最顶端
+      // !!!子元素没有绑定事件也照样会冒泡到父元素上面
+      /*  box1.onclick = function () {
          alert('我是box1')
      } */
-    /*  box1.addEventListener("click", function () {
+      /*  box1.addEventListener("click", function () {
          alert("我是box1");
      }); */
-    box2.addEventListener("click", function () {
-      alert("我是box2");
-    });
-    document.addEventListener("click", function () {
-      alert("我是document");
-    });
-
-  </script>
-
-</body>
-
+      box2.addEventListener('click', function() {
+        alert('我是box2');
+      });
+      document.addEventListener('click', function() {
+        alert('我是document');
+      });
+    </script>
+  </body>
 </html>

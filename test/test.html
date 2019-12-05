@@ -13,13 +13,13 @@
     </button>
     <script>
       function clickedMe() {
-  alert(this + ' : ' + this.tagName + ' : ' + this.id);
-}
+        alert(this + ' : ' + this.tagName + ' : ' + this.id);
+      }
       function myFun() {
         return this; // What is `this` here?
       }
       var obj = {
-        someData: 'a string'
+        someData: 'a string',
       };
       console.log('this is window:', myFun.call(obj) == window);
       console.log('this is obj:', myFun.call(obj) == obj);

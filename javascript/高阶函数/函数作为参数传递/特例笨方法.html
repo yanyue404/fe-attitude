@@ -1,45 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-
-<body>
-  <h3 class="test">heizi</h3>
-  <h3 class="test">yue</h3>
-  <h3 class="test">qita</h3>
-  <script>
-    function getIndexByClass(param, callback) {
-      var element = param.className ? param : param.target;
-      var className = element.className;
-      var domArr = Array.prototype.slice.call(document.querySelectorAll('.' + className));
-      for (var index = 0; index < domArr.length; index++) {
-
-        if (callback) {
-          var number = callback(domArr[index], element, index)
-          if (number) return number;
-
-        } else {
-          if (domArr[index] === element) {
-            return index;
+  <body>
+    <h3 class="test">heizi</h3>
+    <h3 class="test">yue</h3>
+    <h3 class="test">qita</h3>
+    <script>
+      function getIndexByClass(param, callback) {
+        var element = param.className ? param : param.target;
+        var className = element.className;
+        var domArr = Array.prototype.slice.call(
+          document.querySelectorAll('.' + className),
+        );
+        for (var index = 0; index < domArr.length; index++) {
+          if (callback) {
+            var number = callback(domArr[index], element, index);
+            if (number) return number;
+          } else {
+            if (domArr[index] === element) {
+              return index;
+            }
           }
         }
+        return -1;
       }
-      return -1;
-    }
 
-    getIndexByClass(document.querySelectorAll(".test")[1], function (current, element, index) {
-      console.dir(current)
-      if (current.innerHTML === "yue") {
-        console.log(index);
-        return index;
-      }
-    })
-  </script>
-</body>
-
+      getIndexByClass(document.querySelectorAll('.test')[1], function(
+        current,
+        element,
+        index,
+      ) {
+        console.dir(current);
+        if (current.innerHTML === 'yue') {
+          console.log(index);
+          return index;
+        }
+      });
+    </script>
+  </body>
 </html>

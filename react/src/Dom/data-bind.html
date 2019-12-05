@@ -19,13 +19,13 @@
           super();
           this.handleChange = this.handleChange.bind(this);
           this.state = {
-            text: ""
+            text: '',
           };
         }
         handleChange(e) {
           console.log(e.target.value);
           this.setState({
-            text: e.target.value
+            text: e.target.value,
           });
         }
         render() {
@@ -42,7 +42,7 @@
         }
       }
 
-      ReactDOM.render(<MyComponent />, document.getElementById("example"));
+      ReactDOM.render(<MyComponent />, document.getElementById('example'));
     </script>
   </body>
 </html>

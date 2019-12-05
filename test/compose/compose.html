@@ -28,10 +28,7 @@
       const square = x => x * x;
       const multiply = (x, y) => x * y;
       // 从右到左计算
-      let composeFn = compose(
-        add5,
-        multiply
-      );
+      let composeFn = compose(add5, multiply);
       // 从左到右计算
       let composeRightFn = composeRight(add, square);
       let a = composeFn(5, 2);

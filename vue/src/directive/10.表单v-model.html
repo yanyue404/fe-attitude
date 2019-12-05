@@ -1,129 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="../../build/vue.min.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <script src="../../build/vue.min.js"></script>
-</head>
+  <body>
+    <div id="app">
+      <!-- v-model主要用于表单控件或组件上创建双向绑定 -->
 
-<body>
-  <div id="app">
-    <!-- v-model主要用于表单控件或组件上创建双向绑定 -->
+      <h2>input文本</h2>
+      <input v-model="message" placeholder="edit me" />
+      <p>Message is: {{ message }}</p>
 
-    <h2>input文本</h2>
-    <input v-model="message" placeholder="edit me">
-    <p>Message is: {{ message }}</p>
+      <h2>textarea</h2>
+      <span>Multiline message is:</span>
+      <p style="white-space: pre-line;">{{ message2 }}</p>
+      <textarea v-model="message2" placeholder="add multiple lines"></textarea>
 
-    <h2>textarea</h2>
-    <span>Multiline message is:</span>
-    <p style="white-space: pre-line;">{{ message2 }}</p>
-    <textarea v-model="message2" placeholder="add multiple lines"></textarea>
+      <h2>单选框</h2>
+      <input type="checkbox" id="checkbox" v-model="checked" />
+      <label for="checkbox">{{ checked }}</label>
 
-    <h2>单选框</h2>
-    <input type="checkbox" id="checkbox" v-model="checked">
-    <label for="checkbox">{{ checked }}</label>
+      <h2>多个复选框，绑定到同一个数组</h2>
+      <input type="checkbox" id="jack" value="Jack" v-model="checkedNames" />
+      <label for="jack">Jack</label>
+      <input type="checkbox" id="john" value="John" v-model="checkedNames" />
+      <label for="john">John</label>
+      <input type="checkbox" id="mike" value="Mike" v-model="checkedNames" />
+      <label for="mike">Mike</label>
+      <br />
+      <span>Checked names: {{ checkedNames }}</span>
 
-    <h2>多个复选框，绑定到同一个数组</h2>
-    <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
-    <label for="jack">Jack</label>
-    <input type="checkbox" id="john" value="John" v-model="checkedNames">
-    <label for="john">John</label>
-    <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
-    <label for="mike">Mike</label>
-    <br>
-    <span>Checked names: {{ checkedNames }}</span>
+      <h2>单选按钮</h2>
+      <input type="radio" id="one" value="One" v-model="picked" />
+      <label for="one">One</label>
+      <br />
+      <input type="radio" id="two" value="Two" v-model="picked" />
+      <label for="two">Two</label>
+      <br />
+      <span>Picked: {{ picked }}</span>
 
-    <h2>单选按钮</h2>
-    <input type="radio" id="one" value="One" v-model="picked">
-    <label for="one">One</label>
-    <br>
-    <input type="radio" id="two" value="Two" v-model="picked">
-    <label for="two">Two</label>
-    <br>
-    <span>Picked: {{ picked }}</span>
+      <h2>选择框-单选</h2>
+      <select v-model="selected">
+        <option disabled value="">请选择</option>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+      </select>
+      <span>Selected: {{ selected }}</span>
 
-    <h2>选择框-单选</h2>
-    <select v-model="selected">
-      <option disabled value="">请选择</option>
-      <option>A</option>
-      <option>B</option>
-      <option>C</option>
-    </select>
-    <span>Selected: {{ selected }}</span>
+      <h2>选择框-多选</h2>
+      <select v-model="selected2" multiple style="width: 50px;">
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+      </select>
+      <br />
+      <span>Selected: {{ selected2 }}</span>
 
-    <h2>选择框-多选</h2>
-    <select v-model="selected2" multiple style="width: 50px;">
-      <option>A</option>
-      <option>B</option>
-      <option>C</option>
-    </select>
-    <br>
-    <span>Selected: {{ selected2 }}</span>
+      <h2>v-for 渲染动态选项</h2>
+      <select v-model="selected3">
+        <option v-for="option in options" v-bind:value="option.value">
+          {{ option.text }}
+        </option>
+      </select>
+      <span>Selected: {{ selected3 }}</span>
 
-    <h2>v-for 渲染动态选项</h2>
-    <select v-model="selected3">
-      <option v-for="option in options" v-bind:value="option.value">
-        {{ option.text }}
-      </option>
-    </select>
-    <span>Selected: {{ selected3 }}</span>
+      <h2>值绑定</h2>
+      <!-- 当选中时，`picked` 为字符串 "a" -->
+      <input type="radio" v-model="picked" value="a" />
 
-    <h2>值绑定</h2>
-    <!-- 当选中时，`picked` 为字符串 "a" -->
-    <input type="radio" v-model="picked" value="a">
+      <!-- `toggle` 为 true 或 false -->
+      <input type="checkbox" v-model="toggle" />
 
-    <!-- `toggle` 为 true 或 false -->
-    <input type="checkbox" v-model="toggle">
+      <!-- 当选中第一个选项时，`selected` 为字符串 "abc" -->
+      <select v-model="selected">
+        <option value="abc">ABC</option>
+      </select>
 
-    <!-- 当选中第一个选项时，`selected` 为字符串 "abc" -->
-    <select v-model="selected">
-      <option value="abc">ABC</option>
-    </select>
-
-    <h2>修饰符</h2>
-    <!-- 在“change”时而非“input”时更新 -->
-    <input v-model.lazy="msg">
-    <!-- 自动将用户的输入值转为数值类型 -->
-    <input v-model.number="age" type="number">
-    <!-- 自动过滤用户输入的首尾空白字符 -->
-    <input v-model.trim="msg">
-
-  </div>
-  <script>
-    var vm = new Vue({
-      el: '#app',
-      data: {
-        message: '',
-        message2: '',
-        checked: false,
-        checkedNames: [],
-        picked: '',
-        selected: '',
-        selected2: [],
-        selected3: 'A',
-        options: [{
-            text: 'One',
-            value: 'A'
-          },
-          {
-            text: 'Two',
-            value: 'B'
-          },
-          {
-            text: 'Three',
-            value: 'C'
-          }
-        ]
-      },
-      methods: {
-
-      }
-    })
-  </script>
-
-</body>
-
+      <h2>修饰符</h2>
+      <!-- 在“change”时而非“input”时更新 -->
+      <input v-model.lazy="msg" />
+      <!-- 自动将用户的输入值转为数值类型 -->
+      <input v-model.number="age" type="number" />
+      <!-- 自动过滤用户输入的首尾空白字符 -->
+      <input v-model.trim="msg" />
+    </div>
+    <script>
+      var vm = new Vue({
+        el: '#app',
+        data: {
+          message: '',
+          message2: '',
+          checked: false,
+          checkedNames: [],
+          picked: '',
+          selected: '',
+          selected2: [],
+          selected3: 'A',
+          options: [
+            {
+              text: 'One',
+              value: 'A',
+            },
+            {
+              text: 'Two',
+              value: 'B',
+            },
+            {
+              text: 'Three',
+              value: 'C',
+            },
+          ],
+        },
+        methods: {},
+      });
+    </script>
+  </body>
 </html>

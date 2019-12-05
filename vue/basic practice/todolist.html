@@ -32,46 +32,46 @@
       </ul>
     </div>
     <script>
-      Vue.component("todo-item", {
+      Vue.component('todo-item', {
         template:
-          "\
+          '\
     <li>\
       {{ title }}\
-      <button @click=\"$emit('remove')\">Remove</button>\
+      <button @click="$emit(\'remove\')">Remove</button>\
     </li>\
-  ",
-        props: ["title"]
+  ',
+        props: ['title'],
       });
 
       var vm = new Vue({
-        el: "#todo-list-example",
+        el: '#todo-list-example',
         data: {
-          newTodoText: "",
+          newTodoText: '',
           todos: [
             {
               id: 1,
-              title: "Do the dishes"
+              title: 'Do the dishes',
             },
             {
               id: 2,
-              title: "Take out the trash"
+              title: 'Take out the trash',
             },
             {
               id: 3,
-              title: "Mow the lawn"
-            }
+              title: 'Mow the lawn',
+            },
           ],
-          nextTodoId: 4
+          nextTodoId: 4,
         },
         methods: {
           addNewTodo: function() {
             this.todos.push({
               id: this.nextTodoId++,
-              title: this.newTodoText
+              title: this.newTodoText,
             });
-            this.newTodoText = "";
-          }
-        }
+            this.newTodoText = '';
+          },
+        },
       });
     </script>
   </body>

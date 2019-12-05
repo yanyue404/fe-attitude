@@ -1,84 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>local storage</title>
-</head>
-<body>
-	<div>
-		key: <input type="text" id="skey">
-		val: <input type="text" id="sval">
-		<input type="button" id="sbtn" value="set">
-	</div>
-	<div>
-		key: <input type="text" id="gkey">
-		val: <input type="text" id="gval">
-		<input type="button" id="gbtn" value="get">
-	</div>
-	<div>
-		key: <input type="text" id="rkey">
-		<input type="button" id="rbtn" value="remove">
-	</div>
-	<div>
-		<input type="button" id="cbtn" value="clear">
-	</div>	
+  <head>
+    <meta charset="UTF-8" />
+    <title>local storage</title>
+  </head>
+  <body>
+    <div>
+      key: <input type="text" id="skey" /> val: <input type="text" id="sval" />
+      <input type="button" id="sbtn" value="set" />
+    </div>
+    <div>
+      key: <input type="text" id="gkey" /> val: <input type="text" id="gval" />
+      <input type="button" id="gbtn" value="get" />
+    </div>
+    <div>
+      key: <input type="text" id="rkey" />
+      <input type="button" id="rbtn" value="remove" />
+    </div>
+    <div>
+      <input type="button" id="cbtn" value="clear" />
+    </div>
 
-	<script>
-		var cookie = "o2-webp=true; __jdv=122270672|direct|-|none|-|1491981371439; __jda=122270672.1490427306224167239294.1490427306.1491022367.1491981371.3; __jdb=122270672.2.1490427306224167239294|3.1491981371; __jdc=122270672; __jdu=1490427306224167239294"
+    <script>
+      var cookie =
+        'o2-webp=true; __jdv=122270672|direct|-|none|-|1491981371439; __jda=122270672.1490427306224167239294.1490427306.1491022367.1491981371.3; __jdb=122270672.2.1490427306224167239294|3.1491981371; __jdc=122270672; __jdu=1490427306224167239294';
 
-		// cookie 的特点 
-		// 有一个键 同时对应一个值
-		// 通过“; ”来分割各个数据的
+      // cookie 的特点
+      // 有一个键 同时对应一个值
+      // 通过“; ”来分割各个数据的
 
-		// 缺点 
-		// 需要自己手动写脚本处理数据
-		// 存储大小有限制 一般4K左右
+      // 缺点
+      // 需要自己手动写脚本处理数据
+      // 存储大小有限制 一般4K左右
 
-		// H5提供了新的存储功能
-		// localStorage和sessionStorage
-		// 特点
-		// 1、以键值对的方式存储数据
-		// 2、提供了相应的操作方法
-		// 3、localStorage和sessionStorage的方法完全一致
+      // H5提供了新的存储功能
+      // localStorage和sessionStorage
+      // 特点
+      // 1、以键值对的方式存储数据
+      // 2、提供了相应的操作方法
+      // 3、localStorage和sessionStorage的方法完全一致
 
-		// H5 的 localStorage
+      // H5 的 localStorage
 
-		// 保存数据
-		// setItem(key,value);
-		document.querySelector("#sbtn").onclick = function(){
-			var key = document.querySelector("#skey").value;
-			var val = document.querySelector("#sval").value;
+      // 保存数据
+      // setItem(key,value);
+      document.querySelector('#sbtn').onclick = function() {
+        var key = document.querySelector('#skey').value;
+        var val = document.querySelector('#sval').value;
 
-			// 保存数据
-			localStorage.setItem(key,val);
-		}
+        // 保存数据
+        localStorage.setItem(key, val);
+      };
 
-		// 获取数据
-		// getItem(key)
-		document.querySelector("#gbtn").onclick = function(){
-			var key = document.querySelector("#gkey").value;
-			
-			// 获取数据
-			var val = localStorage.getItem(key);
-			document.querySelector("#gval").value = val;
-		}
+      // 获取数据
+      // getItem(key)
+      document.querySelector('#gbtn').onclick = function() {
+        var key = document.querySelector('#gkey').value;
 
-		// 删除数据
-		// removeItem(key)
-		document.querySelector("#rbtn").onclick = function(){
-			var key = document.querySelector("#rkey").value;
-			
-			// 获取数据
-			var val = localStorage.removeItem(key);
+        // 获取数据
+        var val = localStorage.getItem(key);
+        document.querySelector('#gval').value = val;
+      };
 
-		}
+      // 删除数据
+      // removeItem(key)
+      document.querySelector('#rbtn').onclick = function() {
+        var key = document.querySelector('#rkey').value;
 
-		// 清除数据
-		// clear();
-		document.querySelector("#cbtn").onclick = function(){
-			localStorage.clear();
-		}
+        // 获取数据
+        var val = localStorage.removeItem(key);
+      };
 
-	</script>
-</body>
+      // 清除数据
+      // clear();
+      document.querySelector('#cbtn').onclick = function() {
+        localStorage.clear();
+      };
+    </script>
+  </body>
 </html>

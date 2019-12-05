@@ -1,31 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
+  <body>
+    <script>
+      function outerFunction() {
+        var counter = 0;
 
-<body>
-  <script>
-    function outerFunction() {
-      var counter = 0;
+        function innerFunction() {
+          var num = (counter += 1);
+          console.log(num);
 
-      function innerFunction() {
-        var num = counter += 1;
-        console.log(num);
-
-        return num;
+          return num;
+        }
+        return innerFunction;
       }
-      return innerFunction;
-    }
-    var add = outerFunction();
-    add();
-    add();
-    add(); // 计数器为 3
-  </script>
-</body>
-
+      var add = outerFunction();
+      add();
+      add();
+      add(); // 计数器为 3
+    </script>
+  </body>
 </html>

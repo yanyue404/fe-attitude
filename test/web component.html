@@ -81,10 +81,10 @@
           .querySelector('img')
           .setAttribute('src', this.getAttribute('image'));
         content.querySelector('.container>.name').innerText = this.getAttribute(
-          'name'
+          'name',
         );
         content.querySelector(
-          '.container>.email'
+          '.container>.email',
         ).innerText = this.getAttribute('email');
 
         shadow.appendChild(content);

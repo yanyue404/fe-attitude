@@ -20,17 +20,17 @@
         window.MutationObserver ||
         window.WebKitMutationObserver ||
         window.MozMutationObserver;
-      var element = document.querySelector("#test");
+      var element = document.querySelector('#test');
       var observer = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
-          if (mutation.type == "attributes") {
+          if (mutation.type == 'attributes') {
             if (mutation.target.dataset.left !== mutation.target.style.left) {
               mutation.target.dataset.left = element.style.left;
-              console.log("left changed to", mutation.target.style.left);
+              console.log('left changed to', mutation.target.style.left);
             }
             if (mutation.target.dataset.top !== mutation.target.style.top) {
               mutation.target.dataset.top = element.style.top;
-              console.log("top changed to", mutation.target.style.top);
+              console.log('top changed to', mutation.target.style.top);
             }
           }
         });
@@ -38,12 +38,12 @@
 
       observer.observe(element, {
         attributes: true, //configure it to listen to attribute changes,
-        attributeFilter: ["style"]
+        attributeFilter: ['style'],
       });
 
       function clickMe() {
-        element.style.left = Math.random() * 10 + "px";
-        element.style.top = Math.random() * 10 + "px";
+        element.style.left = Math.random() * 10 + 'px';
+        element.style.top = Math.random() * 10 + 'px';
         element.class = Math.random() * 10;
       }
     </script>

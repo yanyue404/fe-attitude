@@ -40,10 +40,10 @@
         data = [];
 
       for (var i = 0; i < total; i++) {
-        data.push({ content: "item-" + i });
+        data.push({ content: 'item-' + i });
       }
 
-      var box = document.getElementById("box");
+      var box = document.getElementById('box');
       box.onscroll = function() {
         var sTop = box.scrollTop || 0,
           first = parseInt(sTop / delta, 10),
@@ -59,7 +59,7 @@
         }
 
         while ((child = box.children[i++])) {
-          var index = child.getAttribute("data-index");
+          var index = child.getAttribute('data-index');
           if ((index > end || index < start) && index != len - 1) {
             box.removeChild(child);
           }
@@ -67,9 +67,9 @@
       };
 
       function insert(i) {
-        var div = document.createElement("div");
-        div.setAttribute("data-index", i);
-        div.style.top = delta * i + "px";
+        var div = document.createElement('div');
+        div.setAttribute('data-index', i);
+        div.style.top = delta * i + 'px';
         div.appendChild(document.createTextNode(data[i].content));
         box.appendChild(div);
       }

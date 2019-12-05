@@ -45,7 +45,7 @@
 
         handleToggleClick() {
           this.setState(prevState => ({
-            showWarning: !prevState.showWarning
+            showWarning: !prevState.showWarning,
           }));
         }
 
@@ -54,14 +54,14 @@
             <div>
               <WarnimgBanner warn={this.state.showWarning} />
               <button onClick={this.handleToggleClick}>
-                {this.state.showWarning ? "Hide" : "Show"}
+                {this.state.showWarning ? 'Hide' : 'Show'}
               </button>
             </div>
           );
         }
       }
 
-      ReactDOM.render(<Page />, document.getElementById("root"));
+      ReactDOM.render(<Page />, document.getElementById('root'));
     </script>
   </body>
 </html>

@@ -1,34 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-
-<body>
-  <script> 
-    var arr2 = [
-      { name: "name1", num: "1" },
-      { name: "name2", num: "11" },
-      { name: "name3", num: "12" },
-      { name: "name4", num: "13" },
-      { name: "name2", num: "1" },
-      { name: "name6", num: "12" }
-    ]
-    function arrayUnique2(arr, name) {
-      var hash = {};
-      return arr.reduce(function (item, next) {
-        hash[next[name]] ? '' : hash[next[name]] = true && item.push(next);
-        return item;
-      }, []);
-    }
-    console.log(arrayUnique2(arr2, "name"));
-    console.log(arrayUnique2(arr2, "num"));
-
-  </script>
-</body>
-
+  <body>
+    <script>
+      var arr2 = [
+        { name: 'name1', num: '1' },
+        { name: 'name2', num: '11' },
+        { name: 'name3', num: '12' },
+        { name: 'name4', num: '13' },
+        { name: 'name2', num: '1' },
+        { name: 'name6', num: '12' },
+      ];
+      function arrayUnique2(arr, name) {
+        var hash = {};
+        return arr.reduce(function(item, next) {
+          hash[next[name]] ? '' : (hash[next[name]] = true && item.push(next));
+          return item;
+        }, []);
+      }
+      console.log(arrayUnique2(arr2, 'name'));
+      console.log(arrayUnique2(arr2, 'num'));
+    </script>
+  </body>
 </html>

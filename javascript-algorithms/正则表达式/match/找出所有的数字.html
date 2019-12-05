@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
+  <body>
+    <script>
+      var str = 'haj123sdk54hask33dkhalsd879';
 
-<body>
-  <script>
-    var str = 'haj123sdk54hask33dkhalsd879';
+      var re = /\d+/g; // 每次匹配至少一个数字  且全局匹配  如果不是全局匹配，当找到数字123，它就会停止了。就只会弹出123.加上全局匹配，就会从开始到结束一直去搜索符合规则的。如果没有加号，匹配的结果就是1，2，3，5，4，3，3，8，7，9并不是我们想要的，有了加号，每次匹配的数字就是至少一个了。
 
-    var re = /\d+/g;   // 每次匹配至少一个数字  且全局匹配  如果不是全局匹配，当找到数字123，它就会停止了。就只会弹出123.加上全局匹配，就会从开始到结束一直去搜索符合规则的。如果没有加号，匹配的结果就是1，2，3，5，4，3，3，8，7，9并不是我们想要的，有了加号，每次匹配的数字就是至少一个了。
-
-    alert(str.match(re));   // [123，54，33，879]</script>
-</body>
-
+      alert(str.match(re)); // [123，54，33，879]
+    </script>
+  </body>
 </html>

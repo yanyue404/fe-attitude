@@ -1,31 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <script>
-    window.onload = function() {
-
-
+      window.onload = function() {
         if (!String.prototype.trim) {
-            String.prototype.trim = function() {
-                return this.replace(/^\s+|\s+$/, '');
-            };
+          String.prototype.trim = function() {
+            return this.replace(/^\s+|\s+$/, '');
+          };
         }
 
-        var str = "   你 好     啊";
-       
+        var str = '   你 好     啊';
 
         console.log(str);
-        console.log(str.trim())
-
-
-    }
+        console.log(str.trim());
+      };
     </script>
-</body>
-
+  </body>
 </html>

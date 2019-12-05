@@ -49,23 +49,23 @@
             console.log(1);
             window.isOpen = false;
           })()
-        : "";
+        : '';
     }
 
     function once(fn) {
       return function() {
-        if (typeof fn === "function") {
+        if (typeof fn === 'function') {
           var ret = fn.apply(this, arguments);
           fn = null;
           return ret;
         } else {
-          throw new TypeError("Expected a function");
+          throw new TypeError('Expected a function');
         }
       };
     }
 
     block.onclick = once(function(evt) {
-      console.log("hide");
+      console.log('hide');
       // evt.target.className = 'hide';
       setTimeout(function() {
         // document.body.removeChild(block);

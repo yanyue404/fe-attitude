@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <p>Click me!</p>
+    <span></span>
+    <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+    <script>
+      var count = 0;
+      $('body').on('click', 'p', function() {
+        $(this).after('<p>Another paragraph! ' + ++count + '</p>');
+      });
+    </script>
+  </body>
+</html>

@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "prettier": "prettier --write \"./**/*.{js,jsx,css,scss,md,json}\"",
+    "prettier": "prettier --write \"./**/*.{js,jsx,css,html,scss,md,json}\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

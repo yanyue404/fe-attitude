@@ -46,7 +46,7 @@
     </div>
     <script>
       function onceFn(callback) {
-        if (!window.isOnce && typeof callback === "function") {
+        if (!window.isOnce && typeof callback === 'function') {
           return function() {
             var result = callback.apply(this, arguments);
             window.isOnce = true;
@@ -57,12 +57,12 @@
         }
       }
 
-      document.querySelector(".btn").onclick = function() {
+      document.querySelector('.btn').onclick = function() {
         onceFn(func)();
       };
 
       function log(num) {
-        console.log("只执行" + num + "次");
+        console.log('只执行' + num + '次');
       }
       var func = log(1);
     </script>

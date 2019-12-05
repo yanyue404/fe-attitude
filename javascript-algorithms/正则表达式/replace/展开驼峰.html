@@ -10,11 +10,11 @@
     <script>
       function styleHyphenFormat(propertyName) {
         function upperToHyphenLower(match) {
-          return "-" + match.toLowerCase();
+          return '-' + match.toLowerCase();
         }
         return propertyName.replace(/[A-Z]/g, upperToHyphenLower);
       }
-      console.log(styleHyphenFormat("borderTop")); // border-top
+      console.log(styleHyphenFormat('borderTop')); // border-top
     </script>
   </body>
 </html>

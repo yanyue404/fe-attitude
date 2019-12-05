@@ -24,14 +24,14 @@
           this.state = {
             loading: true,
             error: null,
-            data: null
+            data: null,
           };
         }
         componentDidMount() {
           console.log('componentDidMount');
           this.props.promise.then(
             value => this.setState({ loading: false, data: value }),
-            error => this.setState({ loading: false, error: error })
+            error => this.setState({ loading: false, error: error }),
           );
         }
         static getDerivedStateFromProps(props, state) {
@@ -78,10 +78,10 @@
       ReactDOM.render(
         <RepoList
           promise={$.getJSON(
-            'https://api.github.com/search/repositories?q=javascript&sort=stars'
+            'https://api.github.com/search/repositories?q=javascript&sort=stars',
           )}
         />,
-        document.getElementById('example')
+        document.getElementById('example'),
       );
     </script>
   </body>

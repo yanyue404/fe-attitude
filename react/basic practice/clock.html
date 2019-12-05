@@ -25,7 +25,7 @@
           this.timeID = setInterval(() => this.tick(), 1000);
         }
         componentWillReceiveProps(nextProps) {
-          console.log("nextProps", nextProps);
+          console.log('nextProps', nextProps);
         }
 
         shouldComponentUpdate(nextProps, nextState) {
@@ -38,7 +38,7 @@
 
         tick() {
           this.setState({
-            date: new Date()
+            date: new Date(),
           });
         }
         render() {
@@ -51,7 +51,7 @@
         }
       }
 
-      ReactDOM.render(<Clock />, document.getElementById("root"));
+      ReactDOM.render(<Clock />, document.getElementById('root'));
     </script>
   </body>
 </html>

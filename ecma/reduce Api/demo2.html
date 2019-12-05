@@ -15,13 +15,17 @@
             console.log(m.staticKeys);
             return keys.concat(m.staticKeys || []);
           },
-          []
+          [],
         );
         console.log(arr);
         return arr.join(',');
       }
       console.log(
-        genStaticKeys([{ staticKeys: 1 }, { staticKeys: 2 }, { staticKeys: 3 }])
+        genStaticKeys([
+          { staticKeys: 1 },
+          { staticKeys: 2 },
+          { staticKeys: 3 },
+        ]),
       );
     </script>
   </body>

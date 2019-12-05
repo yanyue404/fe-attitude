@@ -117,18 +117,18 @@
         var target = 0;
         var leader = 0;
         var timer = null;
-        var backtop = document.querySelector(".backtop");
+        var backtop = document.querySelector('.backtop');
 
         if (bom.getScrollTop() > 500) {
           setStyle(backtop, {
-            display: "block",
-            opacity: "1",
-            transition: "opacity 0.7s"
+            display: 'block',
+            opacity: '1',
+            transition: 'opacity 0.7s',
           });
         } else {
           setStyle(backtop, {
-            opacity: "0",
-            transition: "opacity 0.7s"
+            opacity: '0',
+            transition: 'opacity 0.7s',
           });
         }
         leader = bom.getScrollTop();
@@ -152,7 +152,7 @@
         };
       }
 
-      addEvent(window, "scroll", throttle(backtotop, "500"));
+      addEvent(window, 'scroll', throttle(backtotop, '500'));
       // window.onscroll = backtotop;
     </script>
   </body>

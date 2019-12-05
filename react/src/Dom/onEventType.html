@@ -23,12 +23,12 @@
           this.setState({ liked: !this.state.liked });
         }
         render() {
-          var text = this.state.liked ? "不喜欢" : "喜欢";
+          var text = this.state.liked ? '不喜欢' : '喜欢';
           return <h3 onClick={this.handleClick.bind(this)}>你 {text} 我</h3>;
         }
       }
 
-      ReactDOM.render(<HandleEvent />, document.getElementById("example"));
+      ReactDOM.render(<HandleEvent />, document.getElementById('example'));
     </script>
   </body>
 </html>

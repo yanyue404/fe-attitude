@@ -13,8 +13,8 @@
       var arr = [
         1,
         1,
-        "true",
-        "true",
+        'true',
+        'true',
         true,
         true,
         15,
@@ -27,13 +27,13 @@
         null,
         NaN,
         NaN,
-        "NaN",
+        'NaN',
         0,
         0,
-        "a",
-        "a",
+        'a',
+        'a',
         {},
-        {}
+        {},
       ];
 
       // 方法一： ES6 Set
@@ -60,7 +60,7 @@
       // 三、利用indexOf去重
       function unique3(arr) {
         if (!Array.isArray(arr)) {
-          console.log("type error!");
+          console.log('type error!');
           return;
         }
         var array = [];
@@ -76,7 +76,7 @@
       // 四、利用sort()
       function unique4(arr) {
         if (!Array.isArray(arr)) {
-          console.log("type error!");
+          console.log('type error!');
           return;
         }
         arr = arr.sort();
@@ -95,7 +95,7 @@
       // 五、利用对象的属性不能相同的特点进行去重
       function unique5(arr) {
         if (!Array.isArray(arr)) {
-          console.log("type error!");
+          console.log('type error!');
           return;
         }
         var arrry = [];
@@ -115,7 +115,7 @@
       // 六、利用includes
       function unique6(arr) {
         if (!Array.isArray(arr)) {
-          console.log("type error!");
+          console.log('type error!');
           return;
         }
         var array = [];

@@ -14,15 +14,15 @@
       function isChinese(str) {
         return /^[\u4E00-\u9FA5]+$/.test(str);
       }
-      console.log(isChinese("长城"));
-      console.log(isChinese("Rainbow"));
-      console.log(isChinese("666"));
+      console.log(isChinese('长城'));
+      console.log(isChinese('Rainbow'));
+      console.log(isChinese('666'));
 
       function isChineseAndBumber(str) {
         return /^(([\u4E00-\u9FA5])|(\d))+$/.test(str);
       }
-      console.log(isChineseAndBumber("长城666"));
-      console.log(isChineseAndBumber("长城 Rainbow"));
+      console.log(isChineseAndBumber('长城666'));
+      console.log(isChineseAndBumber('长城 Rainbow'));
     </script>
   </body>
 </html>

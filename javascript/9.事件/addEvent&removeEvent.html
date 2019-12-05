@@ -1,46 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style type="text/css">
+      .p1 {
+        background-color: green;
+        height: 50px;
+        color: #fff;
+        text-align: center;
+        line-height: 50px;
+      }
+    </style>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <title>Document</title>
-  <style type="text/css">
-    .p1 {
-      background-color: green;
-      height: 50px;
-      color: #fff;
-      text-align: center;
-      line-height: 50px;
-    }
-  </style>
-</head>
+  <body>
+    <p class="p1">Please click me！</p>
+    <button>绑定事件</button>
+    <button>解绑</button>
 
-<body>
-  <p class="p1">Please click me！</p>
-  <button>绑定事件</button>
-  <button>解绑</button>
+    <script type="text/javascript">
+      var p1 = document.getElementsByClassName('p1')[0];
+      var btn = document.querySelectorAll('button');
 
-  <script type="text/javascript">
-    var p1 = document.getElementsByClassName('p1')[0];
-    var btn = document.querySelectorAll('button');
+      function clickFn() {
+        alert('click');
+      }
+      btn[0].onclick = function() {
+        addEvent(p1, 'click', clickFn);
+      };
+      btn[1].onclick = function() {
+        removeEvent(p1, 'click', clickFn);
+      };
 
-    function clickFn() {
-      alert('click')
-    }
-    btn[0].onclick = function () {
-      addEvent(p1, 'click', clickFn);
-    }
-    btn[1].onclick = function () {
-      removeEvent(p1, 'click', clickFn);
-    }
-
-    function addEvent(a, b, c, d) {
-      a.addEventListener ? a.addEventListener(b, c, d) : a.attachEvent("on" + b, c)
-    }
-    function removeEvent(a, b, c, d) {
-      a.removeEventListener ? a.removeEventListener(b, c, d) : a.detachEvent("on" + b, c)
-    }
-  </script>
-</body>
-
+      function addEvent(a, b, c, d) {
+        a.addEventListener
+          ? a.addEventListener(b, c, d)
+          : a.attachEvent('on' + b, c);
+      }
+      function removeEvent(a, b, c, d) {
+        a.removeEventListener
+          ? a.removeEventListener(b, c, d)
+          : a.detachEvent('on' + b, c);
+      }
+    </script>
+  </body>
 </html>

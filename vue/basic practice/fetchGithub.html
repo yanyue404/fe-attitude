@@ -44,27 +44,27 @@
 
     <script>
       var vm = new Vue({
-        el: "#content",
+        el: '#content',
         data: {
-          text: "Hello,Vue!",
+          text: 'Hello,Vue!',
           githubStar: null,
-          error: null
+          error: null,
         },
         beforeCreate: function() {},
         methods: {
           gernerateId: function(index) {
-            return "project_" + index;
+            return 'project_' + index;
           },
           getGithubStarData: function() {
             var _this = this;
             axios
               .get(
-                "https://api.github.com/search/repositories?q=javascript&sort=stars"
+                'https://api.github.com/search/repositories?q=javascript&sort=stars',
               )
               .then(response => {
                 _this.githubStar = response.data.items;
                 let print = obj => {
-                  var type = "log";
+                  var type = 'log';
                   const log = JSON.parse(JSON.stringify(obj));
                   console[type](log);
                 };
@@ -73,12 +73,12 @@
               .catch(error => {
                 _this.error = error.message;
               });
-          }
+          },
         },
         mounted: function() {
-          console.log("created");
+          console.log('created');
           this.getGithubStarData();
-        }
+        },
       });
     </script>
   </body>

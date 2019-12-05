@@ -26,26 +26,26 @@
     var CompleteComponent = React.createClass({
       getInitialState() {
         return {
-          title: "Hello",
-          number: 0
+          title: 'Hello',
+          number: 0,
         };
       },
       getDefaultProps() {
         return {
-          content: "React"
+          content: 'React',
         };
       },
 
       setNewNumber() {
         this.setState({
-          number: this.state.number + 1
+          number: this.state.number + 1,
         });
       },
       componentWillMount() {
-        console.log("componentWillMount");
+        console.log('componentWillMount');
       },
       render() {
-        console.log("render");
+        console.log('render');
         return (
           <div>
             <h1>
@@ -63,19 +63,19 @@
         );
       },
       componentDidMount() {
-        console.log("componentDidMount");
+        console.log('componentDidMount');
       },
       componentWillReceiveProps(newProps) {
-        console.log("Component WILL RECEIVE PROPS!", newProps);
+        console.log('Component WILL RECEIVE PROPS!', newProps);
       },
       componentWillUpdate(newProps, newStates) {
-        console.log("componentWillUpdate", newProps, newStates);
+        console.log('componentWillUpdate', newProps, newStates);
       },
       componentDidUpdate(prevProps, prevState) {
-        console.log("componentDidUpdate", prevProps, prevState);
-      }
+        console.log('componentDidUpdate', prevProps, prevState);
+      },
     });
 
-    ReactDOM.render(<CompleteComponent />, document.getElementById("div1"));
+    ReactDOM.render(<CompleteComponent />, document.getElementById('div1'));
   </script>
 </html>

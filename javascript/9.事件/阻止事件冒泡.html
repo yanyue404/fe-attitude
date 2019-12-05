@@ -1,61 +1,60 @@
 <!DOCTYPE html>
 <html>
-
-<head lang="en">
-    <meta charset="UTF-8">
+  <head lang="en">
+    <meta charset="UTF-8" />
     <title></title>
     <style>
-        .box1 {
-            width: 300px;
-            height: 300px;
-            border: 1px solid #ccc;
-            background-color: pink;
-        }
+      .box1 {
+        width: 300px;
+        height: 300px;
+        border: 1px solid #ccc;
+        background-color: pink;
+      }
 
-        .box2 {
-            width: 100px;
-            height: 100px;
-            margin: 100px;
-            background-color: skyblue;
-        }
+      .box2 {
+        width: 100px;
+        height: 100px;
+        margin: 100px;
+        background-color: skyblue;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     document
-    <div class="box1" id="box1">box1
-        <div class="box2" id="box2">box2</div>
+    <div class="box1" id="box1">
+      box1
+      <div class="box2" id="box2">box2</div>
     </div>
 
-
     <script>
-        var box1 = document.getElementById("box1");
-        var box2 = document.getElementById("box2");
+      var box1 = document.getElementById('box1');
+      var box2 = document.getElementById('box2');
 
-        //阻止捕获或者冒泡（阻止传播）
-        box2.addEventListener("click", function (event) {
-            stopBubble(event);
-            alert("我是box2");
+      //阻止捕获或者冒泡（阻止传播）
+      box2.addEventListener(
+        'click',
+        function(event) {
+          stopBubble(event);
+          alert('我是box2');
+        },
+        true,
+      );
+      box1.addEventListener('click', function(event) {
+        alert('我是box1');
+      });
+      document.addEventListener('click', function(event) {
+        alert('我是document');
+      });
 
-        }, true);
-        box1.addEventListener("click", function (event) {
-            alert("我是box1");
-        });
-        document.addEventListener("click", function (event) {
-            alert("我是document");
-        });
-
-        function stopBubble(e) {
-            //如果提供了事件对象，则这是一个非IE浏览器 
-            if (e && e.stopPropagation)
-                //因此它支持W3C的stopPropagation()方法 
-                e.stopPropagation();
-            else
-                //否则，我们需要使用IE的方式来取消事件冒泡 
-                window.event.cancelBubble = true;
-        }
+      function stopBubble(e) {
+        //如果提供了事件对象，则这是一个非IE浏览器
+        if (e && e.stopPropagation)
+          //因此它支持W3C的stopPropagation()方法
+          e.stopPropagation();
+        //否则，我们需要使用IE的方式来取消事件冒泡
+        else window.event.cancelBubble = true;
+      }
     </script>
-
-</body>
-
+  </body>
 </html>

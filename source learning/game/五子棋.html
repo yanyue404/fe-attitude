@@ -11,8 +11,8 @@
     <script>
       (function() {
         // 画布绘制
-        let canvas = document.getElementById("canvas");
-        let context = canvas.getContext("2d");
+        let canvas = document.getElementById('canvas');
+        let context = canvas.getContext('2d');
         context.beginPath();
         for (let i = 0; i < 19; i++) {
           // 竖线绘制
@@ -37,12 +37,12 @@
           matrix[i][j] = 0;
         }
       }
-      $("#canvas").click(event => {
+      $('#canvas').click(event => {
         // 每次落子的时候取反
         blorwh = !blorwh;
         console.log(event.offsetX);
-        let canvas = document.getElementById("canvas");
-        let context = canvas.getContext("2d");
+        let canvas = document.getElementById('canvas');
+        let context = canvas.getContext('2d');
         // 保存要落子的坐标
         let arcPosX, arcPosY;
         // 保存棋子在数组中的位置
@@ -65,19 +65,19 @@
         if (matrix[mtxPosX][mtxPosY] == 0) {
           context.beginPath();
           if (blorwh) {
-            context.fillStyle = "white";
+            context.fillStyle = 'white';
             context.arc(arcPosX, arcPosY, 10, 0, Math.PI * 2, false);
             context.stroke();
             // 白子为1
-            console.log("白：", mtxPosX, mtxPosY);
+            console.log('白：', mtxPosX, mtxPosY);
 
             matrix[mtxPosX][mtxPosY] = 1;
           } else {
-            context.fillStyle = "black";
+            context.fillStyle = 'black';
             context.arc(arcPosX, arcPosY, 10, 0, Math.PI * 2, false);
             // 黑子为2
             matrix[mtxPosX][mtxPosY] = 2;
-            console.log("黑：", mtxPosX, mtxPosY);
+            console.log('黑：', mtxPosX, mtxPosY);
           }
           context.fill();
         }

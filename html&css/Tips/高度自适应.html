@@ -1,64 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      * {
+        width: 0;
+        padding: 0;
+      }
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <style>
-    * {
-      width: 0;
-      padding: 0;
-    }
+      .container {
+        width: 1000px;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+      }
 
-    .container {
-      width: 1000px;
-      padding-right: 15px;
-      padding-left: 15px;
-      margin-right: auto;
-      margin-left: auto
-    }
+      .son {
+        float: left;
+        width: 300px;
+        height: 300px;
+        background-color: #dcdcdc;
+        margin: 10px;
+      }
 
-    .son {
-      float: left;
-      width: 300px;
-      height: 300px;
-      background-color: #DCDCDC;
-      margin: 10px;
-    }
+      #project {
+        width: 100%;
+      }
 
-    #project {
-      width: 100%;
-    }
+      .clearfix:after {
+        content: '';
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+      }
 
-    .clearfix:after {
-      content: "";
-      display: block;
-      height: 0;
-      clear: both;
-      visibility: hidden;
-    }
+      .clearfix {
+        *zoom: 1;
+        /* ie67专用 */
+      }
+    </style>
+  </head>
 
-    .clearfix {
-      *zoom: 1;
-      /* ie67专用 */
-    }
-  </style>
-</head>
-
-<body>
-  <div class="container clearfix">
-    <div id="project">
-      <div class="son"></div>
-      <div class="son"></div>
-      <div class="son"></div>
-      <div class="son"></div>
-      <div class="son"></div>
-      <div class="son"></div>
-      <div class="son"></div>
+  <body>
+    <div class="container clearfix">
+      <div id="project">
+        <div class="son"></div>
+        <div class="son"></div>
+        <div class="son"></div>
+        <div class="son"></div>
+        <div class="son"></div>
+        <div class="son"></div>
+        <div class="son"></div>
+      </div>
     </div>
-  </div>
-</body>
-
+  </body>
 </html>

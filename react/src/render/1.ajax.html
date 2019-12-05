@@ -30,13 +30,13 @@
         this.state = {
           loading: true,
           error: null,
-          data: null
+          data: null,
         };
       }
       componentDidMount() {
         this.props.promise.then(
           value => this.setState({ loading: false, data: value }),
-          error => this.setState({ loading: false, error: error })
+          error => this.setState({ loading: false, error: error }),
         );
       }
       render() {
@@ -49,7 +49,7 @@
           var repoList = repos.map(function(repo, index) {
             return (
               <li key={index}>
-                <a href={repo.html_url}>{repo.name}</a> ({repo.stargazers_count}{" "}
+                <a href={repo.html_url}>{repo.name}</a> ({repo.stargazers_count}{' '}
                 stars) <br /> {repo.description}
               </li>
             );
@@ -67,10 +67,10 @@
     ReactDOM.render(
       <RepoList
         promise={$.getJSON(
-          "https://api.github.com/search/repositories?q=javascript&sort=stars"
+          'https://api.github.com/search/repositories?q=javascript&sort=stars',
         )}
       />,
-      document.getElementById("example")
+      document.getElementById('example'),
     );
   </script>
 </html>

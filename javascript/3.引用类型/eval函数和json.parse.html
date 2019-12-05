@@ -1,36 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
+  <body>
+    <script>
+      //区别：eval方法不会去检查给的字符串时候符合json的格式~同时如果给的字符串中存在js代码eval也会一并执行~比如如果上面的json格式的字符串改为：(注意alert)
 
-<body>
+      var data =
+        '{"student" : [{"name":"鸣人","age":17}, {"name":"小樱","age":alert("hehe")},{"name":"佐助","age":17}]}';
 
-  <script>
+      var test = eval(data);
 
-    //区别：eval方法不会去检查给的字符串时候符合json的格式~同时如果给的字符串中存在js代码eval也会一并执行~比如如果上面的json格式的字符串改为：(注意alert)
+      // var evalData = eval('(' + data + ')');
+      var parseData = JSON.parse(data);
 
-    var data = '{"student" : [{"name":"鸣人","age":17}, {"name":"小樱","age":alert("hehe")},{"name":"佐助","age":17}]}';
+      // console.log(evalData)
+      console.log(parseData);
 
-    var test = eval(data);
+      //此时执行eval方法后会先弹出一个提示框输出hehe的字符串~
 
-    // var evalData = eval('(' + data + ')');
-    var parseData = JSON.parse(data);
+      //但是使用JSON.parse()就会报错~显示错误信息为当前字符串不符合json格式~即JSON.parse()方法会检查需要转换的字符串是否符合json格式~
 
-    // console.log(evalData)
-    console.log(parseData)
-
-//此时执行eval方法后会先弹出一个提示框输出hehe的字符串~
-
-//但是使用JSON.parse()就会报错~显示错误信息为当前字符串不符合json格式~即JSON.parse()方法会检查需要转换的字符串是否符合json格式~
-
-//相比较而言eval方法是很危险的~特别是当涉及到第三方时我们需要确保传给eval的参数是我们可以控制的~不然里面插入比如window.location~指向一个恶意的连接~那叫叫天啦
-
-  </script>
-</body>
-
+      //相比较而言eval方法是很危险的~特别是当涉及到第三方时我们需要确保传给eval的参数是我们可以控制的~不然里面插入比如window.location~指向一个恶意的连接~那叫叫天啦
+    </script>
+  </body>
 </html>

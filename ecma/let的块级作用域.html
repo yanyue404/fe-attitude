@@ -1,47 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
+  <body>
+    <h1>var</h1>
+    <div id="list"></div>
+    <h1>let</h1>
+    <div id="list1"></div>
+    <script>
+      var list = document.getElementById('list');
+      var list1 = document.getElementById('list1');
 
-<body>
-  <h1>var</h1>
-  <div id="list"></div>
-  <h1>let</h1>
-  <div id="list1"></div>
-  <script>
+      for (var i = 1; i <= 5; i++) {
+        var Item = document.createElement('LI');
+        Item.appendChild(document.createTextNode('Item' + i));
 
-
-    var list = document.getElementById("list");
-    var list1 = document.getElementById("list1");
-
-    for (var i = 1; i <= 5; i++) {
-      var Item = document.createElement('LI');
-      Item.appendChild(document.createTextNode("Item" + i));
-
-      var j = i;
-      Item.onclick = function () {
-        alert(j)
+        var j = i;
+        Item.onclick = function() {
+          alert(j);
+        };
+        list.appendChild(Item);
       }
-      list.appendChild(Item)
-    }
 
-    for (let i = 1; i <= 5; i++) {
-      var item = document.createElement("LI");
-      item.appendChild(document.createTextNode("Item " + i));
+      for (let i = 1; i <= 5; i++) {
+        var item = document.createElement('LI');
+        item.appendChild(document.createTextNode('Item ' + i));
 
-      let j = i;
-      item.onclick = function (ev) {
-        alert("Item " + j + " is clicked.");
-      };
-      list1.appendChild(item);
-    }
-
-  </script>
-</body>
-
+        let j = i;
+        item.onclick = function(ev) {
+          alert('Item ' + j + ' is clicked.');
+        };
+        list1.appendChild(item);
+      }
+    </script>
+  </body>
 </html>

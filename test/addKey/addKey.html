@@ -14,16 +14,16 @@
       let arr = [
         {
           id: 1,
-          name: "亚瑟"
+          name: '亚瑟',
         },
         {
           id: 2,
-          name: "狄仁杰"
+          name: '狄仁杰',
         },
         {
           id: 3,
-          name: "曹操"
-        }
+          name: '曹操',
+        },
       ];
       function addKey(sourceArray, extendObj, filterFn) {
         var getType = function(a) {
@@ -31,28 +31,28 @@
         };
         var secondParamType = getType(arguments[1]);
 
-        if (!getType(sourceArray) == "Array") {
-          throw new Error("The first argument must be an array type");
+        if (!getType(sourceArray) == 'Array') {
+          throw new Error('The first argument must be an array type');
         }
-        if (secondParamType === "Object") {
+        if (secondParamType === 'Object') {
           return sourceArray.forEach((v, index, sourceArray) => {
             for (var key in extendObj) {
               v[key] = extendObj[key];
             }
-            typeof filterFn === "function"
+            typeof filterFn === 'function'
               ? filterFn(v, index, sourceArray)
-              : "";
+              : '';
           });
-        } else if (secondParamType === "Function") {
+        } else if (secondParamType === 'Function') {
           return sourceArray.forEach((v, index, sourceArray) => {
             arguments[1](v, index, sourceArray);
           });
         } else {
           if (arguments.length > 1) {
             console.warn(
-              "The second parameter type is " +
+              'The second parameter type is ' +
                 secondParamType +
-                " , Must use an object or function type"
+                ' , Must use an object or function type',
             );
           }
 
@@ -60,7 +60,7 @@
         }
       }
 
-      let obj = addKey(arr, "1");
+      let obj = addKey(arr, '1');
       console.log(obj);
     </script>
   </body>

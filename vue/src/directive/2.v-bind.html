@@ -1,33 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <title>Title</title>
+    <script src="../../build/vue.min.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <title>Title</title>
-  <script src="../../build/vue.min.js"></script>
-</head>
-
-<body>
-  <div id="app">
-    <a :href="href" :id="'href-'+title">百度一下</a>
-    <button :disabled="isTrue" @click="btnClicked">按钮</button>
-  </div>
-  <script>
-    var vm = new Vue({
-      el: '#app',
-      data: {
-        title:'baidu',
-        href: 'http://baidu.com',
-        isTrue: false
-      },
-      methods: {
-        btnClicked() {
-          this.isTrue = true
-        }
-      }
-    })
-  </script>
-</body>
-
+  <body>
+    <div id="app">
+      <a :href="href" :id="'href-'+title">百度一下</a>
+      <button :disabled="isTrue" @click="btnClicked">按钮</button>
+    </div>
+    <script>
+      var vm = new Vue({
+        el: '#app',
+        data: {
+          title: 'baidu',
+          href: 'http://baidu.com',
+          isTrue: false,
+        },
+        methods: {
+          btnClicked() {
+            this.isTrue = true;
+          },
+        },
+      });
+    </script>
+  </body>
 </html>

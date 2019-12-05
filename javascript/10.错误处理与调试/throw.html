@@ -1,37 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Document</title>
-</head>
-<body>
-
-<script>
-  test();
-function test (){
- try{
-   //something
-   alert(yue)
- }
- catch(error){
-     if(error instanceof TypeError){
-     //处理类型错误
-     throw new TypeError("TypeError");
-}
-   if(error instanceof ReferenceError){
-   //处理引用类型错误
-   throw new SyntaxError('i dont like your syntax');
-   }else{
-   //处理其他类型错误
-   console.log(error.message)
-   }
- }
- 
- 
-
-}
-</script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      test();
+      function test() {
+        try {
+          //something
+          alert(yue);
+        } catch (error) {
+          if (error instanceof TypeError) {
+            //处理类型错误
+            throw new TypeError('TypeError');
+          }
+          if (error instanceof ReferenceError) {
+            //处理引用类型错误
+            throw new SyntaxError('i dont like your syntax');
+          } else {
+            //处理其他类型错误
+            console.log(error.message);
+          }
+        }
+      }
+    </script>
+  </body>
 </html>

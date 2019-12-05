@@ -23,13 +23,13 @@
           //  console.log('nextProps',nextProps);
         }
         shouldComponentUpdate(nextProps, nextState) {
-          console.log("Child self Props", this.props);
-          console.log("Child nextProps", nextProps);
+          console.log('Child self Props', this.props);
+          console.log('Child nextProps', nextProps);
           return nextProps.value > 10 ? true : false;
         }
 
         render() {
-          console.log("渲染 child 组件,大于10--------------");
+          console.log('渲染 child 组件,大于10--------------');
           return <div>我是child {this.props.value}</div>;
         }
       }
@@ -38,8 +38,8 @@
         constructor(props) {
           super(props);
           this.state = {
-            value: "",
-            year: 20
+            value: '',
+            year: 20,
           };
           this.handleChange = this.handleChange.bind(this);
           this.handleChangeAge = this.handleChangeAge.bind(this);
@@ -55,16 +55,16 @@
 
         handleChange(e) {
           this.setState({
-            value: e.target.value
+            value: e.target.value,
           });
         }
         handleChangeAge(e) {
           this.setState({
-            year: e.target.value
+            year: e.target.value,
           });
         }
         render() {
-          console.log("渲染 Father 组件，大于3--------------");
+          console.log('渲染 Father 组件，大于3--------------');
           return (
             <React.Fragment>
               <input
@@ -85,7 +85,7 @@
           );
         }
       }
-      ReactDOM.render(<Father />, document.getElementById("root"));
+      ReactDOM.render(<Father />, document.getElementById('root'));
     </script>
   </body>
 </html>

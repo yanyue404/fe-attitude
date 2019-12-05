@@ -1,78 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>百度钱包翻转效果</title>
-	<style>
-		*{
-			margin:0;
-			padding:0;
-			list-style: none;
-		}
-		body{
-			background: #febec8;
-		}
+  <head>
+    <meta charset="UTF-8" />
+    <title>百度钱包翻转效果</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      body {
+        background: #febec8;
+      }
 
-		li{
-			position: absolute;
-			backface-visibility:hidden;
-			
-		}
-		.ul1 li:nth-child(1){
-			width:852px;
-			height:660px;
-			background: url(img/bg.png) no-repeat;
-			left:8px;
-			top:-162px;
-		}
-		.ul1 li:nth-child(2){
-			width:310px;
-			height:660px;
-			background: url(img/bg.png) no-repeat -554px -665px;
-			left:50%;
-			margin-left:-120px;
-			top:-160px;
-		}
-		.ul1 li:nth-child(3){
-			width:851px;
-			height:666px;
-			background: url(img/bg.png) no-repeat -555px -1328px;
-			right:-50px;
-			top:-164px;
-		}
-		.ul2 li:nth-child(1){
-			width:300px;
-			height:300px;
-			background: url(img/bg.png) no-repeat 0 -1995px;
-			right:0px;
-			top:0px;
-			transform:rotateY(-180deg);
-			transition:all 0.5s;
-		}
-		.ul2 li:nth-child(2){
-			width:300px;
-			height:300px;
-			background: url(img/bg.png) no-repeat -304px -1995px;
-			right:0px;
-			top:0px;
-			transition:all 0.5s;
-		}
-		.ul2{
-			width:300px;
-			height:300px;
-			position: absolute;
-			right:500px;
-			top:200px;
-			border-radius:50%;
-		}
-		.ul2:hover .li1{
-			transform:rotateY(0deg);
-		}
-		.ul2:hover .li2{
-			transform:rotateY(180deg);
-		}
-	</style>
-	<!--<script src="jquery-1.11.2.min.js"></script>
+      li {
+        position: absolute;
+        backface-visibility: hidden;
+      }
+      .ul1 li:nth-child(1) {
+        width: 852px;
+        height: 660px;
+        background: url(img/bg.png) no-repeat;
+        left: 8px;
+        top: -162px;
+      }
+      .ul1 li:nth-child(2) {
+        width: 310px;
+        height: 660px;
+        background: url(img/bg.png) no-repeat -554px -665px;
+        left: 50%;
+        margin-left: -120px;
+        top: -160px;
+      }
+      .ul1 li:nth-child(3) {
+        width: 851px;
+        height: 666px;
+        background: url(img/bg.png) no-repeat -555px -1328px;
+        right: -50px;
+        top: -164px;
+      }
+      .ul2 li:nth-child(1) {
+        width: 300px;
+        height: 300px;
+        background: url(img/bg.png) no-repeat 0 -1995px;
+        right: 0px;
+        top: 0px;
+        transform: rotateY(-180deg);
+        transition: all 0.5s;
+      }
+      .ul2 li:nth-child(2) {
+        width: 300px;
+        height: 300px;
+        background: url(img/bg.png) no-repeat -304px -1995px;
+        right: 0px;
+        top: 0px;
+        transition: all 0.5s;
+      }
+      .ul2 {
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        right: 500px;
+        top: 200px;
+        border-radius: 50%;
+      }
+      .ul2:hover .li1 {
+        transform: rotateY(0deg);
+      }
+      .ul2:hover .li2 {
+        transform: rotateY(180deg);
+      }
+    </style>
+    <!--<script src="jquery-1.11.2.min.js"></script>
 	<script>
 	$(function() {
 		$('.ul2').hover(function() {
@@ -84,16 +83,16 @@
 		});
 	});
 	</script>-->
-</head>
-<body>
-	<ul class="ul1">
-		<li></li>
-		<li></li>
-		<li></li>
-	</ul>
-	<ul class="ul2">
-		<li class="li1"></li>
-		<li class="li2"></li>
-	</ul>
-</body>
+  </head>
+  <body>
+    <ul class="ul1">
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+    <ul class="ul2">
+      <li class="li1"></li>
+      <li class="li2"></li>
+    </ul>
+  </body>
 </html>

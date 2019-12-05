@@ -27,7 +27,7 @@
         clickFunc: function(e) {
           console.log(e);
           console.log('click' + new Date());
-        }
+        },
       };
       btn.onclick = throttle(fn.clickFunc, 360000); // 禁用第一次执行，只执行最后一次触发
 

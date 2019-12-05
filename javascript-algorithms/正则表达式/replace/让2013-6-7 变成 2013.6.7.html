@@ -1,34 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-
-<body>
-  <script>
-
-    var str = '2013-6-7';
-    /*  var re1 = /\d-+/g;  // 全局匹配数字，横杠，横杠数量至少为1，匹配结果为：  3- 6-
+  <body>
+    <script>
+      var str = '2013-6-7';
+      /*  var re1 = /\d-+/g;  // 全局匹配数字，横杠，横杠数量至少为1，匹配结果为：  3- 6-
  var re2 = /(\d-）+/g;  // 全局匹配数字，横杠，数字和横杠整体数量至少为1   3-6-
  var re3  = /(\d+)(-)/g;   //  全局匹配至少一个数字，匹配一个横杠 匹配结果：2013- 6- */
 
-    var re = /(\d+)(-)/g;
+      var re = /(\d+)(-)/g;
 
-    str = str.replace(re, function ($0, $1, $2) {
-      //replace()中如果有子项，
-      //第一个参数：$0（匹配成功后的整体结果  2013-  6-）,
-      // 第二个参数 : $1(匹配成功的第一个分组，这里指的是\d   2013, 6)
-      //第三个参数 : $1(匹配成功的第二个分组，这里指的是-    - - )   
-      return $1 + '.';  //分别返回2013.   6.
+      str = str.replace(re, function($0, $1, $2) {
+        //replace()中如果有子项，
+        //第一个参数：$0（匹配成功后的整体结果  2013-  6-）,
+        // 第二个参数 : $1(匹配成功的第一个分组，这里指的是\d   2013, 6)
+        //第三个参数 : $1(匹配成功的第二个分组，这里指的是-    - - )
+        return $1 + '.'; //分别返回2013.   6.
+      });
 
-    });
-
-    alert(str);   //2013.6.7
-//整个过程就是利用子项把2013- 6- 分别替换成了2013. 6.  最终弹出2013.6.7</script>
-</body>
-
+      alert(str); //2013.6.7
+      //整个过程就是利用子项把2013- 6- 分别替换成了2013. 6.  最终弹出2013.6.7
+    </script>
+  </body>
 </html>

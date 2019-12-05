@@ -24,12 +24,12 @@
           // 必填的字符串
           propC: {
             type: String,
-            required: true
+            required: true,
           },
           // 带有默认值的数字
           propD: {
             type: Number,
-            default: 100
+            default: 100,
           },
           // 带有默认值的对象
           propE: {
@@ -37,23 +37,23 @@
             // 对象或数组默认值必须从一个工厂函数获取
             default: function() {
               return {
-                message: 'hello'
+                message: 'hello',
               };
-            }
+            },
           },
           // 自定义验证函数
           propF: {
             validator: function(value) {
               // 这个值必须匹配下列字符串中的一个
               return ['success', 'warning', 'danger'].indexOf(value) !== -1;
-            }
-          }
+            },
+          },
         },
-        template: '<h3>{{ postTitle }}</h3>'
+        template: '<h3>{{ postTitle }}</h3>',
       });
       var vm = new Vue({
         el: '#app',
-        data: {}
+        data: {},
       });
     </script>
   </body>

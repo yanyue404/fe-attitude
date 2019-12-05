@@ -30,35 +30,35 @@
     </ul>
     <script>
       var vm = new Vue({
-        el: ".root",
+        el: '.root',
         data: {
           tabIndex: 0,
           menu: [
             {
-              name: "Code"
+              name: 'Code',
             },
             {
-              name: "Issues"
+              name: 'Issues',
             },
             {
-              name: "Pull request"
+              name: 'Pull request',
             },
             {
-              name: "Projects"
+              name: 'Projects',
             },
             {
-              name: "Wiki"
+              name: 'Wiki',
             },
             {
-              name: "Insights"
-            }
-          ]
+              name: 'Insights',
+            },
+          ],
         },
         methods: {
           selectTabIndex: function(index) {
             this.tabIndex = index;
-          }
-        }
+          },
+        },
       });
     </script>
   </body>

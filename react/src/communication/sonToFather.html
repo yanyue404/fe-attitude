@@ -21,14 +21,14 @@
       constructor(props) {
         super(props);
         this.state = {
-          value: ""
+          value: '',
         };
       }
 
       setValue(param) {
         console.log(param);
         this.setState({
-          value: param
+          value: param,
         });
       }
 
@@ -46,7 +46,7 @@
       constructor(props) {
         super(props);
         this.state = {
-          text: ""
+          text: '',
         };
       }
       handleChange(e) {
@@ -63,6 +63,6 @@
         );
       }
     }
-    ReactDOM.render(<Parent />, document.getElementById("root"));
+    ReactDOM.render(<Parent />, document.getElementById('root'));
   </script>
 </html>

@@ -1,31 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
+  <body>
+    <script>
+      function f1() {
+        var n = 999;
 
-<body>
-  <script>
-    function f1() {
-
-      var n = 999;
-
-      function f2() {
-        alert(n);
+        function f2() {
+          alert(n);
+        }
+        return f2;
       }
-      return f2;
-    }
 
-    var result = f1();
-    console.log(result);
+      var result = f1();
+      console.log(result);
 
-
-    result(); // 999
-  </script>
-</body>
-
+      result(); // 999
+    </script>
+  </body>
 </html>

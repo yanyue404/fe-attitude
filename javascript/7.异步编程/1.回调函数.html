@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      // 假定一个 ajax 请求
+      function fetch() {
+        alert('先发起一个异步请求');
+        setTimeout(() => {
+          callback('我是 ajax 请求拿到的数据');
+        }, 500);
+      }
+
+      function callback(data) {
+        alert('data:' + data);
+      }
+      fetch();
+    </script>
+  </body>
+</html>

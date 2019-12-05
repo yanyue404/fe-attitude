@@ -1,26 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
+  <body>
+    <ul id="js-container">
+      <li>第一条</li>
+      <li>第二条</li>
+      <li>第三条</li>
+    </ul>
 
-<body>
+    <script>
+      var ndContainer = document.getElementById('js-container');
+      var liArr = ndContainer.getElementsByTagName('li');
 
-  <ul id="js-container">
-    <li>第一条</li>
-    <li>第二条</li>
-    <li>第三条</li>
-  </ul>
-
-  <script>
-    var ndContainer = document.getElementById('js-container');
-    var liArr = ndContainer.getElementsByTagName('li');
-
-    /*   for (var i = 0; i < liArr.length; i++) {
+      /*   for (var i = 0; i < liArr.length; i++) {
         liArr[i].onclick = function () {
           alert('xiaoyueyue');
         }
@@ -35,14 +33,13 @@
         })()
       } */
 
-    /*    for (var i = 0; i < liArr.length; i++) {
+      /*    for (var i = 0; i < liArr.length; i++) {
          liArr[i].onclick = (function () {
            return setTimeout(function () {
              alert('xiaoyueyue')
            }, 0)
          })
        } */
-  </script>
-</body>
-
+    </script>
+  </body>
 </html>

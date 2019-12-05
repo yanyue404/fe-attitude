@@ -21,21 +21,21 @@
       constructor(props) {
         super(props);
         this.state = {
-          value: ""
+          value: '',
         };
       }
 
       setValue2(param) {
         this.refs.c1.changeState(param);
         this.setState({
-          value: param
+          value: param,
         });
       }
 
       setValue1(param) {
         this.refs.c2.changeState(param);
         this.setState({
-          value: param
+          value: param,
         });
       }
 
@@ -55,7 +55,7 @@
       constructor(props) {
         super(props);
         this.state = {
-          text: ""
+          text: '',
         };
       }
       handleChange(e) {
@@ -81,7 +81,7 @@
       constructor(props) {
         super(props);
         this.state = {
-          text: ""
+          text: '',
         };
       }
       handleChange(e) {
@@ -102,6 +102,6 @@
         );
       }
     }
-    ReactDOM.render(<Parent />, document.getElementById("root"));
+    ReactDOM.render(<Parent />, document.getElementById('root'));
   </script>
 </html>

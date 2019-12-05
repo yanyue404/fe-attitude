@@ -1,32 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-
-<body>
-  <div>
-    <img src="https://www.gstatic.com/webp/gallery3/2.png" alt="">
-  </div>
-  <script>
-    function loadimg(url, callback) {
-      var iImgObj = new Image();
-      iImgObj.onload = function () {
-        iImgObj = null
+  <body>
+    <div>
+      <img src="https://www.gstatic.com/webp/gallery3/2.png" alt="" />
+    </div>
+    <script>
+      function loadimg(url, callback) {
+        var iImgObj = new Image();
+        iImgObj.onload = function() {
+          iImgObj = null;
+        };
+        iImgObj.onerror = function() {
+          iImgObj = null;
+        };
+        iImgObj.src = url;
       }
-        ;
-      iImgObj.onerror = function () {
-        iImgObj = null
-      }
-        ;
-      iImgObj.src = url
-    }
-    // loadimg("https://www.gstatic.com/webp/gallery3/2.png")
-  </script>
-</body>
-
+      // loadimg("https://www.gstatic.com/webp/gallery3/2.png")
+    </script>
+  </body>
 </html>

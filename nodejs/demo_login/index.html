@@ -57,30 +57,30 @@
 </html>
 <script>
   // 注册点击事件,提交密码
-  $("#sub").on("click", function(e) {
+  $('#sub').on('click', function(e) {
     e.preventDefault();
-    var username = $(".username").val();
-    var password = $(".password").val();
-    if (username.trim() == "") {
+    var username = $('.username').val();
+    var password = $('.password').val();
+    if (username.trim() == '') {
       return;
     }
-    if (password.trim() == "") {
+    if (password.trim() == '') {
       return;
     }
     $.post(
-      "/signin",
+      '/signin',
       {
         username: username,
-        password: password
+        password: password,
       },
       function(result) {
-        if (result.err_msg == "ok") {
-          alert("登陆成功");
+        if (result.err_msg == 'ok') {
+          alert('登陆成功');
           // location.href = '/admin/index'
         } else {
-          alert("登陆失败");
+          alert('登陆失败');
         }
-      }
+      },
     );
   });
 </script>

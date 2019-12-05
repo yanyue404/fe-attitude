@@ -13,31 +13,31 @@
         window.MutationObserver ||
         window.WebKitMutationObserver ||
         window.MozMutationObserver;
-      var element = document.querySelector("#test");
+      var element = document.querySelector('#test');
       var observer = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
-          if (mutation.type == "attributes") {
-            console.log("监听到的 mm", new Date().getTime());
-            console.log("监听到的 attributes changed", mutation.attributeName);
+          if (mutation.type == 'attributes') {
+            console.log('监听到的 mm', new Date().getTime());
+            console.log('监听到的 attributes changed', mutation.attributeName);
           }
         });
       });
 
       observer.observe(element, {
-        attributes: true //configure it to listen to attribute changes
+        attributes: true, //configure it to listen to attribute changes
       });
 
       function clickMe() {
-        console.log("111", new Date().getTime());
-        element.style.left = Math.random() * 10 + "px";
-        console.log("222", new Date().getTime());
-        element.style.left = Math.random() * 10 + "px";
+        console.log('111', new Date().getTime());
+        element.style.left = Math.random() * 10 + 'px';
+        console.log('222', new Date().getTime());
+        element.style.left = Math.random() * 10 + 'px';
         setTimeout(function() {
-          console.log("333-timeout", new Date().getTime());
-          element.style.left = Math.random() * 10 + "px";
+          console.log('333-timeout', new Date().getTime());
+          element.style.left = Math.random() * 10 + 'px';
         }, 2000);
 
-        console.log("click-end");
+        console.log('click-end');
       }
     </script>
   </body>

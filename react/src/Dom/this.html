@@ -30,7 +30,7 @@
       class Component1 extends React.Component {
         submit(e) {
           console.log(this);
-          e.target.style.color = "red";
+          e.target.style.color = 'red';
         }
         render() {
           return (
@@ -51,7 +51,7 @@
 
         submit(e) {
           console.log(this);
-          e.target.style.color = "red";
+          e.target.style.color = 'red';
         }
         render() {
           return <input type="button" value="submit2" onClick={this.submit} />;
@@ -61,7 +61,7 @@
       class Component3 extends React.Component {
         submit(e) {
           console.log(this);
-          e.target.style.color = "red";
+          e.target.style.color = 'red';
         }
         render() {
           return (
@@ -78,7 +78,7 @@
         render() {
           const submit = e => {
             console.log(this);
-            e.target.style.color = "red";
+            e.target.style.color = 'red';
           };
           this.submit = submit;
           console.log(this);
@@ -87,7 +87,7 @@
         }
       }
 
-      ReactDOM.render(<Wrapper />, document.getElementById("example"));
+      ReactDOM.render(<Wrapper />, document.getElementById('example'));
     </script>
   </body>
 </html>

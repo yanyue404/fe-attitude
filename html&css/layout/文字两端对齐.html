@@ -1,68 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style>
+      li {
+        list-style: none;
+        display: flex;
+      }
 
-<head>
-  <meta charset="UTF-8">
-  <title>Document</title>
-  <style>
-    li {
-      list-style: none;
-      display: flex;
-    }
+      #test div {
+        width: 90px;
+        height: 21px;
+        border: 1px solid green;
+        text-align: justify;
+      }
 
-    #test div {
-      width: 90px;
-      height: 21px;
-      border: 1px solid green;
-      text-align: justify;
-    }
+      #test div:after {
+        content: ' ';
+        display: inline-block;
+        width: 100%;
+      }
 
-    #test div:after {
-      content: " ";
-      display: inline-block;
-      width: 100%;
-    }
+      .around {
+        width: 90px;
+        border: 1px solid red;
+        text-align-last: justify;
+      }
 
-    .around {
-      width: 90px;
-      border: 1px solid red;
-      text-align-last: justify;
-    }
+      #test2 div {
+        margin: 10px 0;
+        width: 100px;
+        border: 1px solid red;
+        text-align-last: justify;
+      }
+    </style>
+  </head>
 
-    #test2 div {
-      margin: 10px 0;
-      width: 100px;
-      border: 1px solid red;
-      text-align-last: justify;
-    }
-  </style>
-</head>
-
-<body>
-  <!-- https://segmentfault.com/a/1190000011336392 -->
-  <ul>
-    <li>
-      <span class="around">
-        手机号码：
-      </span>
-      <span>1320646170</span>
-    </li>
-    <li>
-      <span class="around">姓名：
-      </span>
-      <span>小越越</span>
-    </li>
-  </ul>
-  <div id="test">
-    <div>手机号码</div>
-    <div>登录</div>
-  </div>
-  <div id="test2">
-    <div>手机号码</div>
-    <div>登录</div>
-    <div>还有谁</div>
-  </div>
-
-</body>
-
+  <body>
+    <!-- https://segmentfault.com/a/1190000011336392 -->
+    <ul>
+      <li>
+        <span class="around">
+          手机号码：
+        </span>
+        <span>1320646170</span>
+      </li>
+      <li>
+        <span class="around">姓名： </span>
+        <span>小越越</span>
+      </li>
+    </ul>
+    <div id="test">
+      <div>手机号码</div>
+      <div>登录</div>
+    </div>
+    <div id="test2">
+      <div>手机号码</div>
+      <div>登录</div>
+      <div>还有谁</div>
+    </div>
+  </body>
 </html>

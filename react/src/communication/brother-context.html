@@ -26,12 +26,12 @@
           }.bind(this),
           changeChildren2: function(text) {
             this.refs.cp2.changeState(text);
-          }.bind(this)
+          }.bind(this),
         };
       },
       childContextTypes: {
         changeChildren1: React.PropTypes.func.isRequired,
-        changeChildren2: React.PropTypes.func.isRequired
+        changeChildren2: React.PropTypes.func.isRequired,
       },
       render: function() {
         return (
@@ -40,18 +40,18 @@
             <Children2 ref="cp2" />
           </div>
         );
-      }
+      },
     });
 
     //子组件1
     var Children1 = React.createClass({
       getInitialState: function() {
         return {
-          text: ""
+          text: '',
         };
       },
       contextTypes: {
-        changeChildren2: React.PropTypes.func.isRequired
+        changeChildren2: React.PropTypes.func.isRequired,
       },
       changeState: function(text) {
         this.setState({ text: text });
@@ -71,17 +71,17 @@
             <p>来自子组件2的调用-{this.state.text}</p>
           </div>
         );
-      }
+      },
     });
     //子组件2
     var Children2 = React.createClass({
       getInitialState: function() {
         return {
-          text: ""
+          text: '',
         };
       },
       contextTypes: {
-        changeChildren1: React.PropTypes.func.isRequired
+        changeChildren1: React.PropTypes.func.isRequired,
       },
       changeState: function(text) {
         this.setState({ text: text });
@@ -101,8 +101,8 @@
             <p>来自子组件1的调用-{this.state.text}</p>
           </div>
         );
-      }
+      },
     });
-    ReactDOM.render(<Parent />, document.getElementById("root"));
+    ReactDOM.render(<Parent />, document.getElementById('root'));
   </script>
 </html>

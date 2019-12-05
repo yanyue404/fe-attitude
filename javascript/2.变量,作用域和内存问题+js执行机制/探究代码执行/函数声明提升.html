@@ -1,33 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-
-<body>
-  <script>  
-  // 最佳方案
-    var sayHello;
-    console.log(typeof (sayHey));//=>undefined   
-    console.log(typeof (sayHo));//=>undefined
-    if (true) {
-      var sayHey =function sayHey() {
-        console.log("sayHey");
+  <body>
+    <script>
+      // 最佳方案
+      var sayHello;
+      console.log(typeof sayHey); //=>undefined
+      console.log(typeof sayHo); //=>undefined
+      if (true) {
+        var sayHey = function sayHey() {
+          console.log('sayHey');
+        };
+      } else {
+        var sayHey = function sayHey() {
+          console.log('sayHey2');
+        };
       }
-     
-    } else {
-      var sayHey =function sayHey() {
-        console.log("sayHey2");
-      }
-     
-    }
-    sayHey();// => sayHey   
-  
-  </script>
-</body>
-
+      sayHey(); // => sayHey
+    </script>
+  </body>
 </html>

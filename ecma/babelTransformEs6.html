@@ -33,7 +33,7 @@
             value: value,
             enumerable: true,
             configurable: true,
-            writable: true
+            writable: true,
           });
         } else {
           obj[key] = value;
@@ -43,16 +43,16 @@
 
       class Yue {
         constructor() {
-          _defineProperty(this, "handleLogByArrow", () => {
+          _defineProperty(this, 'handleLogByArrow', () => {
             var a = {
               b: 1,
-              c: 123
+              c: 123,
             };
             console.log(a);
           });
 
           this.state = {
-            name: "rainbow"
+            name: 'rainbow',
           };
         }
 

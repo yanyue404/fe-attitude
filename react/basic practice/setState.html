@@ -16,7 +16,7 @@
         constructor(props) {
           super(props);
           this.state = {
-            count: 0
+            count: 0,
           };
         }
         componentDidMount() {
@@ -26,7 +26,7 @@
             },
             () => {
               console.log(this.state.count);
-            }
+            },
           );
           this.setState((prevState, props) => {
             return { count: prevState.count + 1 };

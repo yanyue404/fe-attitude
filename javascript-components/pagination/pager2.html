@@ -1,97 +1,95 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <meta charset="utf-8">
-  <title></title>
-  <style>
-    a,
-    a:hover,
-    a:active,
-    a:visited {
-      text-decoration: none;
-    }
-
-    .main {
-      position: absolute;
-      transform: translateX(-50%) translateY(-50%);
-      top: 50%;
-      left: 50%
-    }
-
-    .main .content {
-      text-align: center
-    }
-
-    .page-navigator {
-      margin: 24px 0;
-      text-align: center;
-      font-size: 0
-    }
-
-    .page-navigator li {
-      display: inline-block;
-      vertical-align: middle;
-      margin: 0 4px
-    }
-
-    .page-navigator li a {
-      box-sizing: content-box;
-      display: inline-block;
-      padding: 0 8px;
-      min-width: 20px;
-      height: 32px;
-      line-height: 32px;
-      border-radius: 16px;
-      font-size: 16px;
-      cursor: pointer
-    }
-
-    .page-navigator li a:link {
-      color: #555
-    }
-
-    .page-navigator li a:hover {
-      background-color: #eee;
-      color: #42b983
-    }
-
-    .page-navigator li a.current {
-      color: #42b983;
-      background-color: #eee
-    }
-  </style>
-</head>
-
-<body>
-  <div class="main">
-    <article class="content" id="content1">1</article>
-    <ol class="page-navigator" id="pagelist1"></ol>
-    <article class="content" id="content2">1</article>
-    <ol class="page-navigator" id="pagelist2"></ol>
-  </div>
-  <script src="./js/pager2.js" charset="utf-8"></script>
-  <script type="text/javascript">
-    var option1 = {
-      element: 'pagelist1',
-      dataCount: 162,
-      pageType: 1,
-      pageEvent: function (pageNumber) {
-        document.getElementById('content1').innerHTML = pageNumber;
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+      a,
+      a:hover,
+      a:active,
+      a:visited {
+        text-decoration: none;
       }
-    };
-    var page1 = new Page(option1);
 
-    var option2 = {
-      element: 'pagelist2',
-      dataCount: 162,
-      pageType: 2,
-      pageEvent: function (pageNumber) {
-        document.getElementById('content2').innerHTML = pageNumber;
+      .main {
+        position: absolute;
+        transform: translateX(-50%) translateY(-50%);
+        top: 50%;
+        left: 50%;
       }
-    };
-    var page1 = new Page(option2);
-  </script>
-</body>
 
+      .main .content {
+        text-align: center;
+      }
+
+      .page-navigator {
+        margin: 24px 0;
+        text-align: center;
+        font-size: 0;
+      }
+
+      .page-navigator li {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 4px;
+      }
+
+      .page-navigator li a {
+        box-sizing: content-box;
+        display: inline-block;
+        padding: 0 8px;
+        min-width: 20px;
+        height: 32px;
+        line-height: 32px;
+        border-radius: 16px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .page-navigator li a:link {
+        color: #555;
+      }
+
+      .page-navigator li a:hover {
+        background-color: #eee;
+        color: #42b983;
+      }
+
+      .page-navigator li a.current {
+        color: #42b983;
+        background-color: #eee;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="main">
+      <article class="content" id="content1">1</article>
+      <ol class="page-navigator" id="pagelist1"></ol>
+      <article class="content" id="content2">1</article>
+      <ol class="page-navigator" id="pagelist2"></ol>
+    </div>
+    <script src="./js/pager2.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      var option1 = {
+        element: 'pagelist1',
+        dataCount: 162,
+        pageType: 1,
+        pageEvent: function(pageNumber) {
+          document.getElementById('content1').innerHTML = pageNumber;
+        },
+      };
+      var page1 = new Page(option1);
+
+      var option2 = {
+        element: 'pagelist2',
+        dataCount: 162,
+        pageType: 2,
+        pageEvent: function(pageNumber) {
+          document.getElementById('content2').innerHTML = pageNumber;
+        },
+      };
+      var page1 = new Page(option2);
+    </script>
+  </body>
 </html>

@@ -1,60 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <button>CustomEvent cat</button>
+  <button>CustomEvent dog</button>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<button>CustomEvent cat</button>
-<button>CustomEvent dog</button>
+  <body>
+    <script>
+      var util = {
+        addEvent: function(a, b, c, d) {
+          a.addEventListener
+            ? a.addEventListener(b, c, d)
+            : a.attachEvent('on' + b, c);
+        },
+        // removeEvent(objOverLay, 'click', eMsgClose)
+        removeEvent: function(a, b, c, d) {
+          a.removeEventListener
+            ? a.removeEventListener(b, c, d)
+            : a.detachEvent('on' + b, c);
+        },
+        dispatchEvent: function(element, eventType, detail) {
+          var event = new CustomEvent(eventType, {
+            detail,
+          });
+          element.dispatchEvent(event);
+          return this;
+        },
+      };
 
-<body>
-  <script>
-    var util = {
-      addEvent: function (a, b, c, d) {
-        a.addEventListener ? a.addEventListener(b, c, d) : a.attachEvent("on" + b, c)
-      },
-      // removeEvent(objOverLay, 'click', eMsgClose)
-      removeEvent: function (a, b, c, d) {
-        a.removeEventListener ? a.removeEventListener(b, c, d) : a.detachEvent("on" + b, c)
-      },
-      dispatchEvent: function (element, eventType, detail) {
-        var event = new CustomEvent(eventType, {
-          detail
-        })
-        element.dispatchEvent(event)
-        return this
-      },
-    }
+      var btn = document.querySelectorAll('button');
+      // 添加一个适当的事件监听器
+      util.addEvent(btn[0], 'cat', function(e) {
+        console.log(e.detail);
+      });
 
-    var btn = document.querySelectorAll('button');
-    // 添加一个适当的事件监听器
-    util.addEvent(btn[0], "cat", function (e) {
-      console.log(e.detail)
-    })
+      // 创建并分发事件
+      var event = new CustomEvent('cat', {
+        detail: {
+          cat: '猫神',
+        },
+      });
+      btn[0].dispatchEvent(event); // 直接触发
+      // btn[0].onclick = function () {
+      //   btn[0].dispatchEvent(event); // 直接触发
+      // }
+      btn[1].onclick = function() {
+        util.dispatchEvent(btn[1], 'dog', {
+          name: '伪装',
+        });
+      };
 
-    // 创建并分发事件
-    var event = new CustomEvent("cat", {
-      "detail": {
-        "cat": "猫神"
-      }
-    })
-    btn[0].dispatchEvent(event); // 直接触发
-    // btn[0].onclick = function () {
-    //   btn[0].dispatchEvent(event); // 直接触发
-    // }
-    btn[1].onclick = function () {
-      util.dispatchEvent(btn[1], 'dog', {
-        'name': "伪装"
-      })
-    }
-
-    util.addEvent(btn[1], "dog", function (e) {
-      console.log(e.detail)
-    })
-  </script>
-</body>
-
+      util.addEvent(btn[1], 'dog', function(e) {
+        console.log(e.detail);
+      });
+    </script>
+  </body>
 </html>

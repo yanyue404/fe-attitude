@@ -1,86 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
+  <body>
+    <script src="./data/department.js"></script>
+    <script>
+      Array.prototype.isContains = function(e) {
+        for (i = 0; i < this.length && this[i] != e; i++);
+        return !(i == this.length);
+      };
 
-<body>
-  <script src="./data/department.js"></script>
-  <script> 
-  
-    Array.prototype.isContains = function (e) {
-      for (i = 0; i < this.length && this[i] != e; i++);
-      return !(i == this.length);
-    }
+      function getNewData() {
+        var data = window.data;
 
-    function getNewData() {
-      var data = window.data;
+        for (var i = 0; i < data.items.length; i++) {
+          var value = data.items[i].path.split('/').slice(5);
+          // console.log(value)
+          data.items[i]['id'] = i + 1;
 
-      for (var i = 0; i < data.items.length; i++) {
-        var value = data.items[i].path.split('/').slice(5);
-        // console.log(value)
-        data.items[i]['id'] = i + 1;
-
-        for (var j = 0; j < value.length; j++) {
-          if (j >= 4) {
-            break;
+          for (var j = 0; j < value.length; j++) {
+            if (j >= 4) {
+              break;
+            }
+            data.items[i]['c' + j] = value[j];
+            var change1 = data.items[i]['c' + j];
           }
-          data.items[i]['c' + j] = value[j];
-          var change1 = data.items[i]['c' + j];
         }
-
-      }
-      console.log(data)
-      return data;
-    }
-
-
-
-
-    function changeData(data, str1, str2) {
-      var newItem = data;
-      var yanzheng = [];
-      for (var i = 0; i < newItem.length; i++) {
-        var n1 = newItem[i][str1];
-        if (!yanzheng.isContains(n1)) {
-          yanzheng.push(n1);
-        }
-        if (i + 2 < newItem.length) {
-          n2 = newItem[i + 1][str1];
-          n3 = newItem[i + 2][str1];
-        } else {
-          n2 = '';
-          n3 = '';
-        }
-        if (n1 === n2) {
-          newItem[i + 1][str1] = str2;
-        }
-        if (yanzheng.isContains(n3)) {
-          newItem[i + 2][str1] = str2;
-        }
+        console.log(data);
+        return data;
       }
 
-      console.log(yanzheng)
+      function changeData(data, str1, str2) {
+        var newItem = data;
+        var yanzheng = [];
+        for (var i = 0; i < newItem.length; i++) {
+          var n1 = newItem[i][str1];
+          if (!yanzheng.isContains(n1)) {
+            yanzheng.push(n1);
+          }
+          if (i + 2 < newItem.length) {
+            n2 = newItem[i + 1][str1];
+            n3 = newItem[i + 2][str1];
+          } else {
+            n2 = '';
+            n3 = '';
+          }
+          if (n1 === n2) {
+            newItem[i + 1][str1] = str2;
+          }
+          if (yanzheng.isContains(n3)) {
+            newItem[i + 2][str1] = str2;
+          }
+        }
 
-    }
+        console.log(yanzheng);
+      }
 
-    var data = getNewData();
+      var data = getNewData();
 
-    // 格式化
-    changeData(data.items, 'c0', '--');
-    changeData(data.items, 'c1', '--');
-    changeData(data.items, 'c2', '--');
+      // 格式化
+      changeData(data.items, 'c0', '--');
+      changeData(data.items, 'c1', '--');
+      changeData(data.items, 'c2', '--');
 
-    console.log(data.items);
-
-
-
-
-  </script>
-</body>
-
+      console.log(data.items);
+    </script>
+  </body>
 </html>
