@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      // https://segmentfault.com/a/1190000014940904
+      /*     console.log('script start');
+
+      setTimeout(function() {
+        console.log('setTimeout');
+      }, 0);
+
+      Promise.resolve()
+        .then(function() {
+          console.log('promise1');
+        })
+        .then(function() {
+          console.log('promise2');
+        });
+
+      console.log('script end'); */
+
+      // 一旦一个pormise有了结果，或者早已有了结果（有了结果是指这个promise到了fulfilled或rejected状态），他就会为它的回调产生一个微任务，这就保证了回调异步的执行即使这个promise早已有了结果。所以对一个已经有了结果的promise调用.then(yey, nay)会立即产生一个微任务。这就是为什么‘promise1’,'promise2'会打印在‘script end’之后，因为所有微任务执行的时候，当前执行栈的代码必须已经执行完毕。‘promise1’,'promise2'会打印在‘setTimeout’之前是因为所有微任务总会在下一个宏任务之前全部执行完毕。
+
+      // https://juejin.im/post/59e85eebf265da430d571f89
+      setTimeout(function() {
+        console.log('定时器开始啦');
+      });
+
+      new Promise(function(resolve) {
+        console.log('马上执行for循环啦');
+        for (var i = 0; i < 10000; i++) {
+          i == 99 && resolve();
+        }
+      }).then(function() {
+        console.log('执行then函数啦');
+      });
+
+      console.log('代码执行结束');
+    </script>
+  </body>
+</html>

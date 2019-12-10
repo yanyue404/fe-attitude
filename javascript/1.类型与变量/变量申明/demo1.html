@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      // 第一题
+      /*  var tt = 'aa';
+
+      function test() {
+        alert(tt);
+        var tt = 'dd';
+        alert(tt);
+      }
+      test(); */
+
+      // 第二题
+      /*     var a = 100;
+
+      function test2() {
+        console.log(a);
+        a = 10;
+        console.log(a);
+      }
+      test2();
+      console.log(a); */
+
+      // 第三题
+      var a = 10;
+
+      function aaa() {
+        alert(a);
+      }
+
+      function bbb() {
+        var a = 20;
+        aaa();
+      }
+      bbb();
+
+      // 1. undefined dd
+      // 2. 100 10 10
+      // 3. 10
+    </script>
+  </body>
+</html>

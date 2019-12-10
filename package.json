@@ -23,5 +23,9 @@
   "homepage": "https://github.com/yanyue404/smart#readme",
   "devDependencies": {
     "prettier": "^1.19.1"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.0",
+    "q": "^1.5.1"
   }
 }

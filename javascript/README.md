@@ -7,3 +7,6 @@
 - 5.执行机制
 - 6.模块化
 - 7.异步编程 (进度至 [js-async-tutorial](https://github.com/wangfupeng1988/js-async-tutorial) - `Generator`)
+- 8.函数
+- 9.Bom
+- 10.面向对象

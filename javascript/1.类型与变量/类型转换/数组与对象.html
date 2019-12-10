@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      //类json格式数组
+      var likeJson = [
+        { id: 'String', num: 'Number' },
+        { id: 'String', num: 'Number' },
+        { id: 'String', num: 'Number' },
+      ];
+
+      var objData = {};
+
+      for (var i = 0; i < likeJson.length; i++) {
+        objData[i] = likeJson[i];
+      }
+      console.log(objData);
+
+      var obj = {
+        '0': { id: 'String', num: 'Number' },
+        '1': { id: 'String', num: 'Number' },
+        '2': { id: 'String', num: 'Number' },
+      };
+
+      var arr = [];
+      for (let key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          let val = obj[key];
+          arr.push(val);
+        }
+      }
+      console.log(arr);
+    </script>
+  </body>
+</html>

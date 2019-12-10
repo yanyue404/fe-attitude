@@ -9,30 +9,10 @@
 
   <body>
     <script>
-      var getData = new Promise(function(resolve, reject) {
-        var data1 = 1,
-          data2 = 3;
-
-        if (data) {
-          resolve(data1);
-        } else {
-          reject(err);
-        }
-      });
-
-      // getData
-      //   .then(function(data) {
-      //     // 处理data
-      //     console.log(data);
-      //   })
-      //   .catch(err => {
-      //     console.log(err);
-      //   });
-
       var promise1 = 41;
       var promise2 = 42;
       var promise3 = new Promise(function(resolve, reject) {
-        setTimeout(resolve, 100, 'foo');
+        setTimeout(resolve, 5000, 'foo');
       });
 
       Promise.all([promise1, promise2, promise3]).then(function(values) {

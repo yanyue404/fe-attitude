@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      var arr = ['1', '2', '5', 'yue', 'message'];
+      var str = '1,2,3,4,巴德,merge';
+
+      //数组变字符串
+      var arrToString_1 = arr.join(',');
+      var arrToString_2 = arr.toString();
+      var arrToString_3 = JSON.stringify(arr).slice(1,-1);
+
+      console.log(arrToString_1);
+      console.log(arrToString_2);
+      console.log(arrToString_3);
+
+      //字符串变数组
+
+      var strToArray = str.split(',');
+      console.log(strToArray);
+    </script>
+  </body>
+</html>

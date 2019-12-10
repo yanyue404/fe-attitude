@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      setTimeout(_ => console.log(4));
+
+      async function main() {
+        console.log(1);
+        await Promise.resolve();
+        console.log(3);
+      }
+
+      main();
+
+      console.log(2);
+      // 因为 async/await 本质上还是基于 Promise 的一些封装，而 Promise 是属于微任务的一种。所以在实际使用上效果类似：async 函数在 await 之前的代码都是同步执行的，可以理解为 await 之前的代码属于new Promise时传入的代码，await 之后的所有代码都是在Promise.then中的回调。
+
+      // 这才是你期待已久的 1234
+    </script>
+  </body>
+</html>
