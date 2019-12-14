@@ -8,8 +8,8 @@
     "test": "test"
   },
   "scripts": {
-    "precommit": "lint-staged",
-    "commitmsg": "commitlint -e $GIT_PARAMS",
+    "commit-msg": "commitlint -E GIT_PARAMS",
+    "pre-commit": "lint-staged",
     "prettier": "prettier --write \"./**/*.{js,jsx,css,html,scss,md,json}\""
   },
   "lint-staged": {
