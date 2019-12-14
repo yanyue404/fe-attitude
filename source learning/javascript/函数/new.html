@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
   </head>
+
   <body>
     <script>
       function Person(name) {
@@ -20,7 +21,7 @@
         let obj = new Object();
         // 获得构造函数
         let Con = [].shift.call(arguments);
-        // 构造函数链接到新对象
+        // 链接到原型
         obj.__proto__ = Con.prototype;
         // 绑定 this，执行构造函数
         let result = Con.apply(obj, arguments);
@@ -35,8 +36,8 @@
 
       var a = objectFactory(Person, 'sven');
       console.dir(a);
-      var b = new Person('sven');
-      console.dir(b);
+      // var b = new Person('sven');
+      // console.dir(b);
     </script>
   </body>
 </html>

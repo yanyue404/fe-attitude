@@ -1,26 +1,29 @@
-## F2E Inteview
+## Inteview
 
-## 我的收藏夹
+## my blog
 
-- [掘金-Interview](https://juejin.im/collection/5d01a474f265da06a1999747)
-- [SF-Interview](https://segmentfault.com/bookmark/1230000016339893)
+- [前端基本功 —— 扎马步 ](https://github.com/yanyue404/blog/issues/4)
+- [前端基本功 —— 笔试 ](https://github.com/yanyue404/blog/issues/75)
+
+## CSS
+
+- [50 道 CSS 基础面试题（附答案）](https://segmentfault.com/a/1190000013325778)
+- [《50 道 CSS 基础面试题（附答案）》中的答案真的就只是答案吗？](https://segmentfault.com/a/1190000013860482)
+- [CSS 面试题总结](https://segmentfault.com/a/1190000014459893)
 
 ## Reps
 
+- [front-end-interview-handbook](https://github.com/yangshun/front-end-interview-handbook/blob/master/Translations/Chinese/README.md) 几乎完整的答案可以用来面试潜在的候选人，测试自己或完全忽略“前端工作面试问题”
 - [interview](https://github.com/andreis/interview) - Everything you need to prepare for your technical interview
 - [Interview-Notebook](https://github.com/CyC2018/Interview-Notebook) - 技术面试必备基础知识、Leetcode 题解、Java、C++、Python、后端面试、操作系统、计算机网络、系统设计 https://cyc2018.github.io/CS-Notes
 - [node-interview](https://github.com/ElemeFE/node-interview) How to pass the Node.js interview of ElemeFE. https://elemefe.github.io/node-interview/
 - [CS-Interview-Knowledge-Map](https://github.com/InterviewMap/CS-Interview-Knowledge-Map) - Build the best interview map. The current content includes JS, network, browser related, performance optimization, security, framework, Git, data structure, algorithm, etc. https://yuchengkai.cn/docs/frontend/
-
-## Q&A
-
-- [front-end-interview-handbook](https://github.com/yangshun/front-end-interview-handbook/blob/master/Translations/Chinese/README.md) 几乎完整的答案可以用来面试潜在的候选人，测试自己或完全忽略“前端工作面试问题”
 - [reactjs-interview-questions](https://github.com/sudheerj/reactjs-interview-questions)
 - [react-interview](https://github.com/Pau1fitz/react-interview/blob/master/zh-cn.md)
-- [interview_python](https://github.com/taizilongxu/interview_python) 关于 Python 的面试题
 
 ## Articles
 
+- [30 道 Vue 面试题，内含详细讲解（涵盖入门到精通，自测 Vue 掌握程度）](https://juejin.im/post/5d59f2a451882549be53b170)
 - [蚂蚁金服面试经历-前期准备](https://juejin.im/post/5bbc90e5e51d450e9e445180?utm_source=gold_browser_extension)
 - [阿里、网易、滴滴共十次前端面试碰到的问题](https://segmentfault.com/a/1190000009662029)
 

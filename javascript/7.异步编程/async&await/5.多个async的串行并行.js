@@ -16,14 +16,14 @@ async function getZhihuColumn(id) {
 const showColumnInfo = async () => {
   console.time('showColumnInfo');
   // 串行
-  // const feweekly = await getZhihuColumn('feweekly');
-  // const toolingtips = await getZhihuColumn('toolingtips');
+  const feweekly = await getZhihuColumn('feweekly');
+  const toolingtips = await getZhihuColumn('toolingtips');
 
   // 并行
-  const feweeklyPromise = getZhihuColumn('feweekly');
-  const toolingtipsPromise = getZhihuColumn('toolingtips');
-  const feweekly = await feweeklyPromise;
-  const toolingtips = await toolingtipsPromise;
+  // const feweeklyPromise = getZhihuColumn('feweekly');
+  // const toolingtipsPromise = getZhihuColumn('toolingtips');
+  // const feweekly = await feweeklyPromise;
+  // const toolingtips = await toolingtipsPromise;
 
   console.log(`NAME: ${feweekly.title}`);
   console.log(`INTRO: ${feweekly.intro}`);
@@ -34,3 +34,5 @@ const showColumnInfo = async () => {
   console.timeEnd('showColumnInfo');
 };
 showColumnInfo();
+
+//

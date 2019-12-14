@@ -33,13 +33,11 @@
             someStr: 'World !',
           },
         },
-
         computed: {
           getHelloWord: function() {
             return this.someStr + this.child.someStr;
           },
         },
-
         methods: {
           clickBtn: function(e) {
             var randomStrArr = ['childOne', 'childTwo', 'childThree'];

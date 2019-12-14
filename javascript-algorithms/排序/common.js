@@ -1,5 +1,5 @@
 function checkArray(array) {
-  if (!array || array.length <= 2) return;
+  if (!array) return;
 }
 function swap(array, left, right) {
   let rightValue = array[right];

@@ -8,8 +8,23 @@
     "test": "test"
   },
   "scripts": {
-    "prettier": "prettier --write \"./**/*.{js,jsx,css,html,scss,md,json}\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "precommit": "lint-staged",
+    "commitmsg": "commitlint -e $GIT_PARAMS",
+    "prettier": "prettier --write \"./**/*.{js,jsx,css,html,scss,md,json}\""
+  },
+  "lint-staged": {
+    "**/*.{js,jsx}": [
+      "prettier --write",
+      "git add"
+    ],
+    "**/*.{css,html}": [
+      "prettier --write",
+      "git add"
+    ],
+    "**/*.{md,json}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
@@ -22,6 +37,9 @@
   },
   "homepage": "https://github.com/yanyue404/smart#readme",
   "devDependencies": {
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
+    "husky": "^3.1.0",
     "prettier": "^1.19.1"
   },
   "dependencies": {

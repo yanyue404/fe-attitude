@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      .aside {
+        margin-bottom: 100px;
+        width: 100px;
+        height: 150px;
+        background: #f66;
+      }
+      .main {
+        margin-top: 100px;
+        height: 200px;
+        background: #fcc;
+      }
+      .text {
+        /*盒子main的外面包一个div，通过改变此div的属性使两个盒子分属于两个不同的BFC，以此来阻止margin重叠*/
+        /* overflow: hidden; */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="aside"></div>
+    <div class="text">
+      <div class="main"></div>
+    </div>
+  </body>
+</html>
