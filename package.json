@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "commit-msg": "commitlint -E GIT_PARAMS",
+    "commitmsg": "commitlint -E HUSKY_GIT_PARAMS",
     "pre-commit": "lint-staged",
     "prettier": "prettier --write \"./**/*.{js,jsx,css,html,scss,md,json}\""
   },
