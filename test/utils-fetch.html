@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="../utils/module/fetch.js"></script>
+    <script>
+      _get('https://api.github.com/search/repositories?q=javascript&sort=star')
+        .then(result => {
+          console.log(result);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+
+      _post('http://localhost:3006/records', {
+        date: '2019-12-16',
+        title: 'utils-fetch',
+        amount: 77,
+      })
+        .then(result => {
+          console.log(result);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    </script>
+  </body>
+</html>

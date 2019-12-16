@@ -10,6 +10,7 @@
   "scripts": {
     "commitmsg": "commitlint -E HUSKY_GIT_PARAMS",
     "pre-commit": "lint-staged",
+    "mock": "json-server --watch ./mock/db.json --port 3006",
     "prettier": "prettier --write \"./**/*.{js,jsx,css,html,scss,md,json}\""
   },
   "lint-staged": {
@@ -40,6 +41,7 @@
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
     "husky": "^3.1.0",
+    "json-server": "^0.15.1",
     "prettier": "^1.19.1"
   },
   "dependencies": {
