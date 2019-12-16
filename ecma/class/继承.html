@@ -10,29 +10,28 @@
   <body>
     <script>
       class Father {
-        constructor(x, y) {
-          this.x = x;
-          this.y = y;
+        constructor(props) {
+          this.props = props;
+          console.log(this.props);
         }
         static sayHello() {
           console.log('hello world');
         }
-        p() {
-          return 2;
+        printProps() {
+          return this.props;
         }
       }
 
       class Son extends Father {
-        constructor(x, y, color) {
-          // this.color = color; // ReferenceError 子类自己的this对象，必须先通过父类的构造函数完成塑造
-          super(x, y);
-          this.color = color; // 正确
-          console.log(super.x); // undefined
-          console.log(super.p() === this.p()); // true -> 2 === 2
+        constructor(props) {
+          // this.props = props; // ReferenceError 子类自己的this对象，必须先通过父类的构造函数完成塑造
+          super(props);
+          console.log(this.props);
+          console.log(super.printProps() === this.printProps()); // true -> 2 === 2
         }
       }
       Son.sayHello();
-      let ming = new Son(25, 8, 'green');
+      let ming = new Son({ bgColor: 'red' });
     </script>
   </body>
 </html>
