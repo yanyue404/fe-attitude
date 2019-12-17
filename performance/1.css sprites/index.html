@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      .menu {
+        width: 750px;
+        height: 150px;
+        border: 1px solid #000;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 50px;
+        align-items: center;
+      }
+      .tab {
+        width: 81px;
+        height: 81px;
+        border: 1px solid red;
+        background-repeat: no-repeat;
+      }
+      .tab_home {
+        background-image: url('./sprite.png');
+        background-position: 0px -182px;
+      }
+      .tab_sort {
+        background-image: url('./sprite.png');
+        background-position: 0px -364px;
+      }
+      .tab_shopCart {
+        background-image: url('./sprite.png');
+        background-position: 0px -546px;
+      }
+      .tab_my {
+        background-image: url('./sprite.png');
+        background-position: 3px 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="menu">
+      <div class="tab tab_home"></div>
+      <div class="tab tab_sort"></div>
+      <div class="tab tab_shopCart"></div>
+      <div class="tab tab_my"></div>
+    </div>
+  </body>
+</html>
