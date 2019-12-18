@@ -7,6 +7,28 @@ React 的生命周期可以分为挂载、渲染和卸载几个阶段。当渲�
 - 当组件在挂载或卸载时
 - 当组件接受新的数据时，即组件更新时
 
+## React 16 异步渲染方案
+
+React 花了两年时间祭出 Fiber 渲染机制。
+
+React 将 diff 的过程叫做 Reconciliation（比较阶段）。以前这一过程是一气呵成的（不可打断的同步），Fiber 机制把它改成了异步。由主线程不间断使用(同步比较 + 同步更新)，变成了自由释放主线程（可打断的比较 + 异步更新）
+
+![](http://ww1.sinaimg.cn/large/df551ea5ly1g5zeh390v0j20zz0jw77l.jpg)
+
+Fiber 把任务切成很小的片，每执行一片就把控制权交还给主线程，待主线程忙完手头的活再来执行剩下的任务。当然如果某一片的执行时间就很长(比如死循环)，那就没主线程什么事了，该崩溃崩溃。
+
+这会给生命周期带来什么影响呢？
+
+影响就是 render 之前的生命周期都变的不可靠了。
+
+为什么这么讲？因为 Reconciliation 这个过程有可能暂停然后继续执行，所以挂载和更新之前的生命周期钩子就有可能不执行或者多次执行，它的表现是不可预期的。
+
+因此 16 之后的 React 生命周期迎来了一波大换血，以下生命周期钩子将被逐渐废弃：
+
+- componentWillMount
+- componentWillReceiveProps
+- componentWillUpdate
+
 ## 1.组件挂载和卸载的过程
 
 ### 1.1 组件的挂载
@@ -195,54 +217,74 @@ ReactDOM.render(<UpdatingComponent />, document.getElementById('div2'));
 
 ![](https://github.com/xiaoyueyue165/framework-tutorial/blob/master/screenshot/react-lifecycle.png)
 
-当使用 creactClass 来构造组件时，生命周期有所不同，区别如下表格：
+## 总结
 
-<table width=100% >
-  <tr width=100% >
-    <th width=50% >ES6 class</th>
-    <th width=50% >createClass</th>
-  </tr>
-  <tr>
-    <td>static propTypes</td>
-    <td>propTypes</td>
-  </tr>
-  <tr>
-    <td>static defaultProps</td>
-    <td>getDefaultProps</td>
-  </tr>
-   <tr>
-    <td>constructor(this.state)</td>
-    <td>getInitialState</td>
-  </tr>
-  <tr>
-    <td colspan="3" align="center">componentWillMount</td>
-  </tr>
-  <tr>
-    <td colspan="3" align="center">render</td>
-  </tr>
-   <tr>
-    <td colspan="3" align="center">componentDidMount</td>
-  </tr>
-   <tr>
-    <td colspan="3" align="center">componentWillReceivePorps</td>
-  </tr>
-   <tr>
-    <td colspan="3" align="center">shouldComponentUpdate</td>
-  </tr>
-   <tr>
-    <td colspan="3" align="center">componentWillUpdate</td>
-  </tr>
-   <tr>
-    <td colspan="3" align="center">render</td>
-  </tr>
-  <tr>
-    <td colspan="3" align="center">componentDidUpdate</td>
-  </tr>
-  <tr>
-    <td colspan="3" align="center">componentWillUnmount</td>
-  </tr>
-</table>
+这么多生命周期钩子，实际上总结起来只有三个过程：
 
-初始化方法有所不同，生命周期方法没有变化。 ES6 中静态方法用关键词 `static` 声明即可，如 static sustomMethord() {}; mixin 属性被移除，可以使用高阶组件替代。
+- 挂载
+- 更新
+- 卸载
 
-为推行 ECMAScript 标准，我们更倾向于使用 ES6 classes 的方式来构建组件。
+挂载和卸载只会执行一次，更新会执行多次。
+
+一个完整的 React 组件生命周期会依次调用如下钩子：
+
+#### old lifecycle
+
+- 挂载
+  - constructor
+  - componentWillMount
+  - render
+  - componentDidMount
+- 更新
+
+  - componentWillReceiveProps
+  - shouldComponentUpdate
+  - componentWillUpdate
+  - render
+  - componentDidUpdate
+
+- 卸载
+  - componentWillUnmount
+
+#### new lifecycle
+
+- 挂载
+
+  - constructor
+  - getDerivedStateFromProps
+  - render
+  - componentDidMount
+
+- 更新
+
+  - getDerivedStateFromProps
+  - shouldComponentUpdate
+  - render
+  - getSnapshotBeforeUpdate
+  - componentDidUpdate
+
+- 卸载
+  - componentWillUnmount
+
+## 组件树生命周期调用栈
+
+### 1. 加载渲染过程
+
+应用初次挂载时，我们以 render 和 componentDidMount 为例，React 首先会调用根组件的 render 钩子，如果有子组件的话，依次调用子组件的 render 钩子，调用过程其实就是递归的顺序。
+
+- app.render();
+- child.render();
+- grandson.render();
+- grandson.componentDidMount();
+- child.componentDidMount();
+- app.componentDidMount();
+
+### 2.更新过程
+
+- father componentWillUpdate
+- father render
+- son componentWillUpdate
+- son render
+- son componentDidUpdate
+- father componentDidUpdate

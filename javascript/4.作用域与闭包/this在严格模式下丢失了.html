@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      'use strict';
+      // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Strict_mode
+      // 在严格模式下通过this传递给一个函数的值不会被强制转换为一个对象，而且如果没有指定this的话它值是undefined
+
+      const obj = {
+        something: function() {
+          console.log(this);
+        },
+      };
+      obj.something(); // 打印obj
+
+      const action = obj.something;
+      action(); //(假设严格模式)打印undefined
+    </script>
+  </body>
+</html>

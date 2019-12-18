@@ -9,34 +9,44 @@
 
   <body>
     <script>
-      /*   for (var i = 1; i <= 5; i++) {
-      setTimeout(function timer() {
-        console.log(i);
-      }, i * 1000);
-    } */
+      // for (var i = 1; i <= 5; i++) {
+      //   setTimeout(function timer() {
+      //     console.log(i);
+      //   }, i * 1000);
+      // }
 
       // 第一种解法 使用闭包
-      /*    for (var i = 1; i <= 5; i++) {
-        (function(j) {
-          setTimeout(function timer() {
-            console.log(j);
-          }, j * 1000);
-        })(i);
-      }
- */
+      // for (var i = 1; i <= 5; i++) {
+      //   (function(j) {
+      //     setTimeout(function timer() {
+      //       console.log(j);
+      //     }, j * 1000);
+      //   })(i);
+      // }
+
       // 第二种 使用setTimeout 的第三个参数
       /*  for (var i = 1; i <= 5; i++) {
-      setTimeout(function timer(j) {
-        console.log(j);
-      }, i * 1000, i);
-    } */
+        setTimeout(function timer(j) {
+          console.log(j);
+        }, i * 1000, i);
+      } */
 
       // 第三种 使用 let 定义 i
 
-      for (let i = 1; i <= 5; i++) {
-        setTimeout(function timer() {
-          console.log(i);
-        }, i * 1000);
+      // for (let i = 1; i <= 5; i++) {
+      //   setTimeout(function timer() {
+      //     console.log(i);
+      //   }, i * 1000);
+      // }
+
+      // 如果不需要延时考虑，自执行函数，在你setTimeout函数执行调用时就被执行了，而不是等到定时器到点后被执行
+      for (var i = 0; i <= 3; i++) {
+        setTimeout(
+          (function(a) {
+            console.log(a);
+          })(i),
+          10000,
+        );
       }
     </script>
   </body>

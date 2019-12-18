@@ -146,9 +146,59 @@ function ActionLink() {
 
 ### this 指向
 
-React 组件书写大多使用 class 构造器写成，这里的 this 指向需要确保绑定在 class 类所构造出来的组件上面
+(假装)我们都知道，下面例子的 this 打印出来是 undefined。
 
-#### 1. bind 方法
+关键是为什么？
+
+```js
+import React, { Component } from 'react';
+
+class App extends Component {
+  render() {
+    return <button onClick={this.handleClick}>Click</button>;
+  }
+
+  handleClick() {
+    console.log(this);
+  }
+}
+
+export default App;
+```
+
+先看一个别的例子。
+
+obj.something 是一个函数，action 也是一个函数，区别在于调用者。一个函数一旦被重新赋值，它的调用者就可能发生变化。
+
+```js
+const obj = {
+  something: function() {
+    console.log(this);
+  },
+};
+obj.something(); // 打印obj
+
+const action = obj.something;
+action(); // (假设严格模式)打印undefined
+```
+
+再回到之前的例子，关键在这一句 `onClick={this.handleClick}`，注意回调已经被重新赋值了，不管将来它的调用者是谁，这时它已经和组件实例无关了。
+
+然后，我们要知道，React 会把同一类型的事件 push 到一个队列里，一旦 document 监听到这类事件，就会依次执行队列里的回调，直到冒泡被阻止。
+
+就像这样`[handleDivClick, handleButtonClick]`，想象一下被这样处理之后，执行时调用者是谁。
+
+这就是上面例子打印出来是 undefined 的原因。
+
+其实 React 早期版本，程序会自动绑定 this 到组件实例，但是有人觉得这样会使部分开发者以为 this 指向组件实例就是理所应当的，所以取消了这一操作。
+
+于是呢，开发者要手动绑定 this。我们来看看绑定 this 的花样
+
+#### 1. 在 JSX 里面直接绑定 this
+
+简单粗暴对吧。再怎么狸猫换太子，我都绑的死死的。
+
+不过呢，bind 的性能是堪忧的。而且你发现没有，每一次重新 render 都会重新 bind 一次。
 
 ```js
 class Component3 extends React.Component {
@@ -165,6 +215,10 @@ class Component3 extends React.Component {
 ```
 
 #### 2. 构造器内声明
+
+这也是 React 官方推荐的写法。
+
+此写法的意思是：把一个绑定了 this 的回调赋值给实例的属性。
 
 ```js
 class Component2 extends React.Component {
@@ -185,6 +239,8 @@ class Component2 extends React.Component {
 
 #### 3.箭头函数
 
+箭头函数会继承父作用域的 this，所以回调中的 this 指向组件实例
+
 ```js
 class Component1 extends React.Component {
   submit(e) {
@@ -203,14 +259,11 @@ class Component1 extends React.Component {
 
 ```js
 class Component4 extends React.Component {
-  render() {
-    const submit = e => {
-      console.log(this);
-      e.target.style.color = 'red';
-    };
-    this.submit = submit;
+  submit = e => {
     console.log(this);
-
+    e.target.style.color = 'red';
+  };
+  render() {
     return <input type="button" value="submit4" onClick={this.submit} />;
   }
 }
