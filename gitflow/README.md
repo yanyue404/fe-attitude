@@ -28,8 +28,8 @@ git branch -d feature/demo
 ## 线上版本发布
 
 ```bash
-# 从develop中创建准备发布的release分支
-git checkout -b release-0.1.0 develop
+# 从dev 中创建准备发布的release分支
+git checkout -b release-0.1.0 dev
 
 # 推送到远端共享：
 git push
@@ -39,8 +39,8 @@ git checkout master
 git merge release-0.1.0
 git push
 
-# release分支合并到develop
-git checkout develop
+# release分支合并到 dev
+git checkout dev
 git merge release-0.1.0
 git push
 git branch -d release-0.1.0
