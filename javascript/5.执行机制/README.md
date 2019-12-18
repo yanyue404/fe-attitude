@@ -10,7 +10,7 @@
 
 宏任务：script 代码块，setTimeout，setInterval
 
-微任务：Promise.then()，await，process.nextTick(callback)
+微任务：Promise.resolve().then(task)，await，process.nextTick(callback)
 
 - 了解 promise 什么时候微任务什么时候宏任务
 

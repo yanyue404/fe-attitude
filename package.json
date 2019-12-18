@@ -45,6 +45,7 @@
     "prettier": "^1.19.1"
   },
   "dependencies": {
+    "compression": "^1.7.4",
     "express": "^4.17.1",
     "md5": "^2.2.1",
     "node-fetch": "^2.6.0",

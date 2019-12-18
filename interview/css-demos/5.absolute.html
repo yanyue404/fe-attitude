@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      body {
+        padding: 20px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+      }
+      .box {
+        display: inline-block;
+        background: red;
+        width: 100px;
+        height: 100px;
+        float: left;
+        margin: 20px;
+        color: white;
+      }
+
+      #three {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- absolute：绝对定位 -->
+    <!-- 用法：元素从文档流删除，并相对于包含块定位。元素在原本的空间关闭。元素定位后转化为块级元素。 -->
+    <!-- 定位参照：它会从父类开始一层一层向上找起，寻找position值不是static的祖先元素，直到html根标签为止。 -->
+    <div class="box" id="one">One</div>
+    <div class="box" id="two">Two</div>
+    <div class="box" id="three">Three</div>
+    <div class="box" id="four">Four</div>
+  </body>
+</html>

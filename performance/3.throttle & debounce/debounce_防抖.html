@@ -34,7 +34,10 @@
   </head>
 
   <body>
-    <h1>防抖：</h1>
+    <h1>防抖：最后一个人说了算</h1>
+    <h2>
+      防抖的中心思想在于：我会等你到底。在某段时间内，不管你触发了多少次回调，我都只认最后一次。
+    </h2>
     <h3>
       解决事件频发问题，你尽管触发事件，但是我一定在事件触发 n
       秒后才执行，如果你在一个事件触发的 n
@@ -42,13 +45,6 @@
     </h3>
     <!-- 只有足够的时间，代码才执行一次 -->
     <!-- 比如生活中的坐公交，就是一定时间内，如果有人陆续刷卡上车，司机就不会开车。只有别人没刷卡了，司机才开车 -->
-    <ul>
-      <span>频发的事件,比如：</span>
-      <li>window 的 resize、scroll</li>
-      <li>mousedown、mousemove</li>
-      <li>keyup、keydown</li>
-      <li>...</li>
-    </ul>
     <div id="container"></div>
 
     <div id="box">
@@ -96,29 +92,22 @@
 
       // 第二版 修改this指向
       function debounce(func, wait) {
+        // 定时器
         var timeout;
         return function() {
           var context = this;
-          clearTimeout(timeout);
+          var args = arguments;
+          //  每次事件被触发时，都去清除之前的旧定时器
+          if (timeout) {
+            clearTimeout(timeout);
+          }
+          // 设定新定时器
           timeout = setTimeout(function() {
-            func.apply(context);
+            func.apply(context, args);
           }, wait);
         };
       }
 
-      // 第三版 绑定event对象
-      /* function debounce(func,wait){
-      var timeout,args;
-     
-       return function(){
-         var context = this;
-         args = arguments;
-         clearTimeout(timeout)
-         timeout = setTimeout(function(){
-           func.apply(context,args)
-         }, wait);
-       }
-    } */
       // 第四版 立即执行
       // function debounce(func, wait, immediate) {
 
@@ -147,13 +136,13 @@
 
       // 第五版 返回值  immediate 为 true 的时候返回
       /*   function debounce(func, wait, immediate) {
-  
+
         var timeout, result;
-  
+
         return function () {
           var context = this;
           var args = arguments;
-  
+
           if (timeout) clearTimeout(timeout);
           if (immediate) {
             // 如果已经执行过，不再执行

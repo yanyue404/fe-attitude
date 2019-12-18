@@ -16,9 +16,10 @@
   </head>
 
   <body>
-    <h1>节流：</h1>
+    <h1>节流：第一个人说了算</h1>
     <h3>
-      如果你持续触发事件，每隔一段时间，只执行一次事件。比如人的眨眼睛，就是一定时间内眨一次
+      throttle
+      的中心思想在于：在某段时间内，不管你触发了多少次回调，我都只认第一次，并在计时结束时给予响应。
     </h3>
     <button>点击</button>
     <script>
@@ -33,12 +34,13 @@
 
       // 第一种 时间戳
       function throttle(func, ms) {
-        var content, args;
+        // previous 为 上一次触发回调的时间
         var previous = 0;
         return function() {
           var now = +new Date();
-          context = this;
-          args = arguments;
+          let context = this;
+          let args = arguments;
+          // 判断上次触发的时间和本次触发的时间差是否小于时间间隔的阈值
           if (now - previous > ms) {
             func.apply(context, args);
             previous = now;
