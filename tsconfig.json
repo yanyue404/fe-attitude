@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "outDir": "./typescript/out",
+    "allowJs": true
+  },
+  "include": ["./typescript/src"]
+}

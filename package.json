@@ -9,6 +9,7 @@
   },
   "scripts": {
     "commitmsg": "commitlint -E HUSKY_GIT_PARAMS",
+    "ts": "tsc -w",
     "pre-commit": "lint-staged",
     "mock": "json-server --watch ./mock/db.json --port 3006",
     "prettier": "prettier --write \"./**/*.{js,jsx,css,html,scss,md,json}\""
