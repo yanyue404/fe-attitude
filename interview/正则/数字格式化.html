@@ -53,6 +53,11 @@
       4. (\d{3})+(?!\d)：所以匹配的边界后面必须跟着3*n（n>=1）的数字。
       最终把匹配到的所有边界换成,即可达成目标。 */
 
+      // 最终版
+      const numStr = '1234567890.23132';
+      console.log(numStr.replace(/(?=(\B\d{3})+$)/g, ','));
+      console.log('1234567.132'.toLocaleString());
+
       console.log((234234.23132 + '').replace(/\B(?=(\d{3})+(?=\.))/g, ','));
     </script>
   </body>

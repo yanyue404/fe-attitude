@@ -89,3 +89,10 @@ export function getChineseTextFormHtml(html) {
 // compact([0, false, true, undefined, null, "", 12, 15]); // [true, 12, 15]
 // 使用Boolean过滤数组中的所有假值
 export const compact = arr => arr.filter(Boolean);
+
+export const formatPrice = (number, sign) => {
+  !sign && (sign = ',');
+  var parts = number.toString().split('.');
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, sign);
+  return parts.join('.');
+};

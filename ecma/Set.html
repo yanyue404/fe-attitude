@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let arr = ['123', '123'];
+      let arr2 = [{ name: '123' }, { name: '123' }];
+      // let uniqueArray = [...new Set(arr)];
+      // console.log(uniqueArray);
+
+      function unique(arr) {
+        if (!Array.isArray(arr)) {
+          console.log('type error!');
+          return;
+        }
+        return Array.prototype.filter.call(arr, function(item, index) {
+          return arr.indexOf(item) === index;
+        });
+      }
+
+      function unique2(arr) {
+        if (!Array.isArray(arr)) {
+          console.log('type error!');
+          return;
+        }
+        return arr.filter((v, i, arr) => {
+          console.log(arr.indexOf(v));
+
+          return arr.indexOf(v) === i;
+        });
+      }
+      console.log(unique2(arr));
+    </script>
+  </body>
+</html>

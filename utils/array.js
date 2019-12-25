@@ -132,6 +132,25 @@ function uniqueArrayObj(arr, name) {
   }, []);
 }
 
+function uniqueArray(arr) {
+  if (!Array.isArray(arr)) {
+    console.log('type error!');
+    return;
+  }
+  return [...new set(arr)];
+}
+
+// 利用indexOf检测元素在数组中第一次出现的位置是否和元素现在的位置相等
+function uniqueArray2(arr) {
+  '';
+  if (!Array.isArray(arr)) {
+    console.log('type error!');
+    return;
+  }
+  return Array.prototype.filter.call(arr, function(item, index) {
+    return arr.indexOf(item) === index;
+  });
+}
 /**
  * 为数组添加新的自定义键值以及过滤每个子项的方法
  *
@@ -183,14 +202,6 @@ function sortBy(arr, props, type) {
     }
     return a[props] - b[props];
   });
-}
-// 数组对象根据某一个相同的键去重
-function filterByItemKey(arr, name) {
-  var hash = {};
-  return arr.reduce(function(item, next) {
-    hash[next[name]] ? '' : (hash[next[name]] = true && item.push(next));
-    return item;
-  }, []);
 }
 
 // 根据 stick 排序，同时对每个数据处理

@@ -10,6 +10,8 @@
     <script>
       function styleHyphenFormat(propertyName) {
         function upperToHyphenLower(match) {
+          console.log(match);
+
           return '-' + match.toLowerCase();
         }
         return propertyName.replace(/[A-Z]/g, upperToHyphenLower);

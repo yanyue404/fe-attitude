@@ -18,58 +18,6 @@
         return str.replace(re, ''); //把空格替换成空
       }
 
-      var newStr = {
-        SERVICE: {
-          SERVICE_HEADER: {
-            SERVICE_ID: 'TFCMJPreRepayByTerms',
-            ORG: '000000000001',
-            CHANNEL_ID: 'BANK',
-            ACQ_ID: '10000000',
-            SUB_TERMINAL_TYPE: 'Android',
-            SERVICESN: 'incode',
-            OP_ID: 'None',
-            REQUEST_TIME: '20160817182001',
-            VERSION_ID: '01',
-            MAC: 'None',
-            SERV_RESPONSE: 'None',
-          },
-          SERVICE_BODY: {
-            REQUEST: {
-              CONTR_NBR: 'incode',
-              TERMS: '1,2',
-            },
-            RESPONSE: 'None',
-          },
-        },
-      };
-      // 将字符串json 转换为数组
-      function transToArray(str) {
-        // 由于数组解析错误，导致数据展示不出来 -- lk bug号（MAG-69）
-        if (str) {
-          var obj = JSON.parse(str);
-          var resArr = [];
-          for (var i in obj) {
-            if (obj[i] === 'None') {
-              obj[i] = None;
-            }
-            resArr.push({
-              key: i,
-              value: obj[i],
-            });
-          }
-          return resArr;
-        } else {
-          var resArr = [];
-          resArr.push({
-            key: '',
-            value: '',
-          });
-          return resArr;
-        }
-      }
-      console.log(transToArray(JSON.stringify(newStr)));
-      var newS = 'Node';
-      console.log(newS.replace(/"Node"/g, Node));
     </script>
   </body>
 </html>
