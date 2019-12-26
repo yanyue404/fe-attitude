@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="content"></div>
+    <script src="../utils/2.createStore.js"></script>
+    <script>
+      const store = createStore(appState, updateState);
+
+      function renderApp() {
+        const { content } = store.getState();
+        renderContent(content);
+      }
+
+      function renderContent(content) {
+        const contentDOM = document.getElementById('content');
+        contentDOM.innerHTML = content.text;
+        contentDOM.style.color = content.color;
+      }
+      renderApp(); // 首次渲染页面
+
+      // 如何更新 appState
+      store.dispatch({ type: 'UPDATE_TITLE_TEXT', text: '《React.js 小书》' }); // 修改标题文本
+      store.dispatch({ type: 'UPDATE_TITLE_COLOR', color: 'blue' }); // 修改标题颜色
+
+      // 更新 1.全局数据的导出，全局不可直接改变
+      renderApp();
+    </script>
+  </body>
+</html>

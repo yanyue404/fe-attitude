@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="content"></div>
+    <script src="../utils/3.createStore_listeners.js"></script>
+    <script>
+      const store = createStore(appState, updateState);
+
+      function renderApp(appState) {
+        renderContent(appState.content);
+      }
+
+      function renderContent(content) {
+        const contentDOM = document.getElementById('content');
+        contentDOM.innerHTML = content.text;
+        contentDOM.style.color = content.color;
+      }
+      store.subscribe(() => renderApp(store.getState()));
+      renderApp(store.getState()); // 首次渲染页面
+
+      // 如何更新 appState
+      store.dispatch({ type: 'UPDATE_TITLE_TEXT', text: '《React.js 小书》' }); // 修改标题文本
+      store.dispatch({ type: 'UPDATE_TITLE_COLOR', color: 'blue' }); // 修改标题颜色
+
+      // ...后面不管如何 store.dispatch，都不需要重新调用 renderApp
+    </script>
+  </body>
+</html>

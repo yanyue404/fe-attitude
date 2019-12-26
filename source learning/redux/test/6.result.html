@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+
+   
+              // 定一个 reducer
+            function reducer (state, action) {
+              /* 初始化 state 和 switch case */
+            }
+
+            // 生成 store
+            const store = createStore(reducer)
+
+            // 监听数据变化重新渲染页面
+            store.subscribe(() => renderApp(store.getState()))
+
+            // 首次渲染页面
+            renderApp(store.getState())
+
+            // 后面可以随意 dispatch 了，页面自动更新
+            store.dispatch(...)
+    </script>
+  </body>
+</html>

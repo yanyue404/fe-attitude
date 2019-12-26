@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="title"></div>
+    <div id="content"></div>
+    <script src="../utils/4.createStore_question.js"></script>
+    <script>
+      const store = createStore(appState, updateState);
+
+      function renderApp(appState) {
+        renderContent(appState.content);
+      }
+
+      function renderApp(appState) {
+        console.log('render app...');
+        renderTitle(appState.title);
+        renderContent(appState.content); // 没有更新我也被重新渲染了
+      }
+
+      function renderTitle(title) {
+        console.log('render title...');
+        const titleDOM = document.getElementById('title');
+        titleDOM.innerHTML = title.text;
+        titleDOM.style.color = title.color;
+      }
+
+      function renderContent(content) {
+        console.log('render content...');
+        const contentDOM = document.getElementById('content');
+        contentDOM.innerHTML = content.text;
+        contentDOM.style.color = content.color;
+      }
+
+      store.subscribe(() => renderApp(store.getState())); // 监听
+      renderApp(store.getState()); // 首次渲染页面
+
+      store.dispatch({ type: 'UPDATE_TITLE_TEXT', text: '《React.js 小书》' }); // 修改标题文本
+      store.dispatch({ type: 'UPDATE_TITLE_COLOR', color: 'blue' }); // 修改标题颜色
+
+      // 每次 store.dispatch， renderContent() 都造成了不必要的更新
+      // 解决方案：缓存旧数据 oldState，使用纯函数 http://huziketang.mangojuice.top/books/react/lesson32
+    </script>
+  </body>
+</html>

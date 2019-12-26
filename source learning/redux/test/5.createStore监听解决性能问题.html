@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="title"></div>
+    <div id="content"></div>
+    <script src="../utils/5.create_update.js"></script>
+    <script>
+      const appState = {
+        title: {
+          text: 'React.js 小书',
+          color: 'red',
+        },
+        content: {
+          text: 'React.js 小书内容',
+          color: 'blue',
+        },
+      };
+      // 更新维护
+      function updateState(state, action) {
+        switch (action.type) {
+          // state 不能再直接修改原先的引用，否则无法判断 newAppState, oldAppState
+          // 需要在 dispatch 操作中 重新拷贝并赋值给原始 state（更新）
+          case 'UPDATE_TITLE_TEXT':
+            return {
+              // 构建新的对象并且返回
+              ...state,
+              title: {
+                ...state.title,
+                text: action.text,
+              },
+            };
+            break;
+          case 'UPDATE_TITLE_COLOR':
+            return {
+              // 构建新的对象并且返回
+              ...state,
+              title: {
+                ...state.title,
+                color: action.color,
+              },
+            };
+            break;
+          default:
+            return state;
+        }
+      }
+      const store = createStore(appState, updateState);
+
+      function renderApp(newAppState, oldAppState = {}) {
+        // 防止 oldAppState 没有传入，所以加了默认参数 oldAppState = {}
+        if (newAppState === oldAppState) return; // 数据没有变化就不渲染了
+        console.log('render app...');
+        renderTitle(newAppState.title, oldAppState.title);
+        renderContent(newAppState.content, oldAppState.content); // 没有更新我也被重新渲染了
+      }
+
+      function renderTitle(newTitle, oldTitle = {}) {
+        if (newTitle === oldTitle) return; // 数据没有变化就不渲染了
+        console.log('render title...');
+        const titleDOM = document.getElementById('title');
+        titleDOM.innerHTML = newTitle.text;
+        titleDOM.style.color = newTitle.color;
+      }
+
+      function renderContent(newContent, oldContent = {}) {
+        if (newContent === oldContent) return; // 数据没有变化就不渲染了
+        console.log('render content...');
+        const contentDOM = document.getElementById('content');
+        contentDOM.innerHTML = newContent.text;
+        contentDOM.style.color = newContent.color;
+      }
+      let oldState = store.getState(); // 缓存旧的 state
+      store.subscribe(() => {
+        const newState = store.getState(); // 数据可能变化，获取新的 state
+        renderApp(newState, oldState); // 把新旧的 state 传进去渲染
+        oldState = newState; // 渲染完以后，新的 newState 变成了旧的 oldState，等待下一次数据变化重新渲染
+      }); // 监听
+      renderApp(store.getState()); // 首次渲染页面
+
+      store.dispatch({ type: 'UPDATE_TITLE_TEXT', text: '《React.js 小书》' }); // 修改标题文本
+      store.dispatch({ type: 'UPDATE_TITLE_COLOR', color: 'blue' }); // 修改标题颜色
+
+      // 每次 store.dispatch， renderContent() 都造成了不必要的更新
+      // 解决方案：缓存旧数据 oldState,共享结构化的对象 http://huziketang.mangojuice.top/books/react/lesson33
+    </script>
+  </body>
+</html>
