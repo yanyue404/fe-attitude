@@ -1,11 +1,5 @@
 # TypeScript
 
-## 资料
-
-- [官网](http://www.typescriptlang.org/) / [中文](https://www.tslang.cn/docs/handbook/basic-types.html)
-- [中文手册](https://zhongsp.gitbooks.io/typescript-handbook/content/)
-- [TypeScript 入门教程](https://github.com/xcatliu/typescript-tutorial) https://ts.xcatliu.com/
-
 ## 开始
 
 ```bash
@@ -54,3 +48,11 @@ tsc hello.ts
 - [ts] 无法重新声明块范围变量“myAdd”
 
 整个项目文件夹下函数命名不能重复;
+
+## 参考资料
+
+- [官网](http://www.typescriptlang.org/) / [中文](https://www.tslang.cn/docs/handbook/basic-types.html)
+- [中文手册](https://zhongsp.gitbooks.io/typescript-handbook/content/)
+- [TypeScript 入门教程](https://github.com/xcatliu/typescript-tutorial) https://ts.xcatliu.com/
+- [精读《Typescript2.0 - 2.9》](https://juejin.im/post/5b0b93386fb9a00a202ca9f1)
+- [TYPESCRIPT 简明指南](https://www.todever.com/2017/09/20/typescript简明指南/)

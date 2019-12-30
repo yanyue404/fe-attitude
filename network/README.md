@@ -282,3 +282,4 @@ Etag 的生成过程需要服务器额外付出开销，会影响服务端的性
 - [我知道的 HTTP 请求](https://juejin.im/post/5a757d2f5188254e5c6c404a)
 - [阮一峰 - HTTP 协议入门](http://www.ruanyifeng.com/blog/2016/08/http.html)
 - [知乎 - 为什么 [TCP]连接创建与连接终止要３次握手与４次挥手？](https://www.zhihu.com/question/67772889)
+- [深入了解 HTTP](https://mydearest.cn/2019/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3HTTP.html)
