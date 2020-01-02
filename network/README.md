@@ -61,9 +61,14 @@ TCP 连接的正常创建
 - **POST**：向指定资源提交数据，请求服务器进行处理（例如提交表单或者上传文件）。数据被包含在请求本文中。这个请求可能会创建新的资源或修改现有资源，或二者皆有。每次提交，表单的数据被浏览器用编码到 HTTP 请求的 body 里。浏览器发出的 POST 请求的 body 主要有有两种格式，一种是 `application/x-www-form-urlencoded` 用来传输简单的数据，大概就是`key1=value1&key2=value2`这样的格式。另外一种是传文件，会采用 `multipart/form-data` 格式。采用后者是因为前者对于文件这种二进制的数据非常低效。
 - **DELETE**：请求服务器删除 Request-URI 所标识的资源
 
-Post 和 Get 的区别？
+**Post 和 Get 的区别？**
 
-- [面试 -- 网络 HTTP](https://juejin.im/post/5872309261ff4b005c4580d4#heading-4)
+- Get 请求能缓存，Post 不能
+- Get 多用于无副作用，幂等的场景，例如搜索关键字。Post 多用于副作用，不幂等的场景，例如注册。（副作用指对服务器上的资源做改变）
+- Post 相对 Get 安全一点点，因为 Get 请求都包含在 URL 里，且会被浏览器保存历史纪录，Post 不会，但是在抓包的情况下都是一样的。
+- Post 可以通过 request body 来传输比 Get 更多的数据，Get 没有这个技术
+- Get URL 有长度限制，会影响 Get 请求，但是这个长度限制是浏览器规定的，不是 RFC 规定的
+- Post 支持更多的编码类型且不对数据类型限制
 
 **常见状态码**
 
@@ -283,3 +288,4 @@ Etag 的生成过程需要服务器额外付出开销，会影响服务端的性
 - [阮一峰 - HTTP 协议入门](http://www.ruanyifeng.com/blog/2016/08/http.html)
 - [知乎 - 为什么 [TCP]连接创建与连接终止要３次握手与４次挥手？](https://www.zhihu.com/question/67772889)
 - [深入了解 HTTP](https://mydearest.cn/2019/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3HTTP.html)
+- [面试 -- 网络 HTTP](https://juejin.im/post/5872309261ff4b005c4580d4#heading-4)

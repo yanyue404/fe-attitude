@@ -56,3 +56,4 @@ tsc hello.ts
 - [TypeScript 入门教程](https://github.com/xcatliu/typescript-tutorial) https://ts.xcatliu.com/
 - [精读《Typescript2.0 - 2.9》](https://juejin.im/post/5b0b93386fb9a00a202ca9f1)
 - [TYPESCRIPT 简明指南](https://www.todever.com/2017/09/20/typescript简明指南/)
+- [TypeScript 中高级应用与最佳实践](http://www.alloyteam.com/2019/07/13796/)

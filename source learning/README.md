@@ -5,6 +5,7 @@
 - [vue2.0-source](https://github.com/liutao/vue2.0-source) vue 源码分析 -- 基于 2.2.6 版本
 - [learnVue](https://github.com/answershuto/learnVue) :octocat:Vue.js 源码解析 https://github.com/answershuto/learnVue
 - [mvvm](https://github.com/DMQ/mvvm) 剖析 vue 实现原理，自己动手实现 mvvm
+- [探索 nodeJS 事件机制源码 打造属于自己的事件发布订阅系统](https://zhuanlan.zhihu.com/p/26300877)
 
 ## 工程化能力提升
 
@@ -43,3 +44,4 @@ Rc 是 Ant design 的底层
 - [如何去阅读并学习一些优秀的开源框架的源码？](https://www.zhihu.com/question/26766601/answer/101005467)
 - [前端对 AST（抽象语法树）的应用越来越多，应该看什么书籍才能补充这方面的知识点？](https://www.zhihu.com/question/268622554/answer/384881779)
 - [前端界有哪些值得一读的中大型轮子？](https://www.zhihu.com/question/277068649)
+- [我们不背诵 API，只实现 API](https://juejin.im/post/5ce7cc2c6fb9a07ecb0b8352)

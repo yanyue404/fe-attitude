@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button onclick="model.isShow = true">显示</button>
+    <button onclick="model.isShow = false">隐藏</button>
+    <div v-show="isShow">test</div>
+    <!-- // 实现：
+    data.isShow = false // 隐藏 div
+    data.isShow = true // 显示 div -->
+    <script>
+      // 1. 数据源
+      var model = {
+        isShow: true,
+      };
+      // 2. 更新方法
+      const view = document.querySelector('div');
+      var updateView = function(value) {
+        view.style.display = value ? '' : 'none';
+      };
+      // 3.初始化
+      var directiveKey = view.getAttribute('v-show');
+      updateView(model[directiveKey]);
+      // 4.响应更新
+      Object.defineProperty(model, 'isShow', {
+        set: function(val) {
+          updateView(val);
+        },
+      });
+    </script>
+    <!-- http://www.alloyteam.com/2019/12/14124/ -->
+  </body>
+</html>
