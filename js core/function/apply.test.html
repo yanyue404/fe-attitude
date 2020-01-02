@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./apply.js"></script>
+    <script>
+      // 第一版
+      /*   var foo = {
+              value: 1,
+            };
+
+            function bar() {
+              console.log(this.value);
+            }
+
+            bar.applyFn(foo); // 1 */
+
+      var foo = {
+        value: 1,
+      };
+
+      function bar(name, age) {
+        console.log(name);
+        console.log(age);
+        console.log(this.value);
+      }
+
+      bar.applyFn(foo, ['kevin', 18]);
+    </script>
+    <!-- https://github.com/mqyqingfeng/Blog/issues/11 -->
+  </body>
+</html>

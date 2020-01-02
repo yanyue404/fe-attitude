@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./bind.js"></script>
+    <script>
+      /*  var x = 10;
+      const obj = {
+        x: 42,
+        getX: function(y) {
+          return this.x + y;
+        },
+      };
+      // 基础校验;
+      const unboundGetX = obj.getX;
+      const boundGetX = unboundGetX.bindFn(obj, 10);
+      console.log(boundGetX()); */
+
+      // curry 化支持,预设初始参数
+      /*   function fn(a, b, c) {
+        return a + b + c;
+      }
+
+      var _fn = fn.bindFn(null, 10);
+      var ans = _fn(20, 30); // 60
+      console.log(ans); */
+
+      function Person(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+
+      var _Person = Person.bindFn(null, 'hanzichi');
+      var p = new _Person(30);
+      console.log(p);
+    </script>
+    <!-- https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/bind -->
+    <!-- http://www.webhek.com/post/javascript-bind.html -->
+  </body>
+</html>

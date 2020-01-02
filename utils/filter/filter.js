@@ -96,3 +96,13 @@ export const formatPrice = (number, sign) => {
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, sign);
   return parts.join('.');
 };
+// https://github.com/tj/node-only
+export const only = (obj, keys) => {
+  obj = obj || {};
+  if ('string' == typeof keys) keys = keys.split(/ +/);
+  return keys.reduce(function(ret, key) {
+    if (null == obj[key]) return ret;
+    ret[key] = obj[key];
+    return ret;
+  }, {});
+};

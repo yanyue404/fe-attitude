@@ -1,25 +1,23 @@
-if (!Function.prototype.bind) {
-  Function.prototype.bind = function(oThis) {
+Function.prototype.bindFn =
+  Function.prototype.bindFn ||
+  function(context) {
     if (typeof this !== 'function') {
-      // closest thing possible to the ECMAScript 5 internal IsCallable function
       throw new TypeError(
-        'Function.prototype.bind - what is trying to be bound is not callable',
+        'Function.prototype.bindFn - what is trying to be bound is not callable',
       );
     }
+    var thatFunc = this;
+    // 获取 bind 函数从第二个参数到最后一个参数
+    var argsArray = Array.prototype.slice.call(arguments, 1);
+    return function F() {
+      // 这个时候的arguments是指bind返回的函数传入的参数
 
-    var aArgs = Array.prototype.slice.call(arguments, 1),
-      fToBind = this,
-      fNOP = function() {},
-      fBound = function() {
-        return fToBind.apply(
-          this instanceof fNOP && oThis ? this : oThis || window,
-          aArgs.concat(Array.prototype.slice.call(arguments)),
-        );
-      };
+      if (this instanceof F) {
+        return new thatFunc(...argsArray, ...arguments);
+      }
 
-    fNOP.prototype = this.prototype;
-    fBound.prototype = new fNOP();
-
-    return fBound;
+      let innerArgs = Array.prototype.slice.call(arguments);
+      var finalArgs = argsArray.concat(innerArgs);
+      return thatFunc.apply(context, finalArgs);
+    };
   };
-}

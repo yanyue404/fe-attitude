@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./call.js"></script>
+    <script>
+      // 第一版
+      /*  var foo = {
+        value: 1,
+      };
+
+      function bar() {
+        console.log(this.value);
+      }
+
+      bar.callFn(foo); // 1 */
+      // -------------------- 实现思路改造为 为 foo 添加 bar，执行 foo.bar()
+      // var foo = {
+      //   value: 1,
+      //   bar: function() {
+      //     this.value;
+      //   },
+      // };
+      // 第二版：给定参数执行函数
+      /*   var foo = {
+        value: 1,
+      };
+
+      function bar(name, age) {
+        console.log(name);
+        console.log(age);
+        console.log(this.value);
+      }
+
+      bar.callFn(foo, 'kevin', 18);
+ */
+      // 第三版：this 为 null，有返回值
+      var value = 2;
+
+      var obj = {
+        value: 1,
+      };
+
+      function bar(name, age) {
+        console.log(this.value);
+        return {
+          value: this.value,
+          name: name,
+          age: age,
+        };
+      }
+
+      bar.callFn(null); // 2
+
+      console.log(bar.callFn(obj, 'kevin', 18));
+    </script>
+    <!-- https://github.com/mqyqingfeng/Blog/issues/11 -->
+  </body>
+</html>
