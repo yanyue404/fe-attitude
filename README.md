@@ -1,4 +1,4 @@
-# Studio
+# Salt
 
 ## 路径
 

@@ -92,7 +92,7 @@ class Suspense extends React.Component {
 
 Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。
 
-- [react-conf-2018-hooks-demo](https://github.com/pomber/react-conf-2018-hooks-demo) - [React Conf 2018 上，Dan Abramov 介绍Hook](https://react-conf-2018-hooks-intro.netlify.com/)
+- [react-conf-2018-hooks-demo](https://github.com/pomber/react-conf-2018-hooks-demo) - [React Conf 2018 上，Dan Abramov 介绍 Hook](https://react-conf-2018-hooks-intro.netlify.com/)
 
 **为什么需要 Hook**？
 
@@ -380,3 +380,5 @@ function App() {
 - https://segmentfault.com/a/1190000017483690
 - https://zhuanlan.zhihu.com/advancing-react
 - https://www.robinwieruch.de/react-hooks-fetch-data
+- https://wattenberger.com/blog/react-hooks
+- https://zh-hans.reactjs.org/community/articles.html
