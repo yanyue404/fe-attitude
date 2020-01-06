@@ -97,6 +97,9 @@ export const formatPrice = (number, sign) => {
   return parts.join('.');
 };
 // https://github.com/tj/node-only
+// 只取 obj 中的某项
+// only(obj, 'name last email');
+// only(obj, ['name', 'last', 'email']);
 export const only = (obj, keys) => {
   obj = obj || {};
   if ('string' == typeof keys) keys = keys.split(/ +/);
@@ -105,4 +108,21 @@ export const only = (obj, keys) => {
     ret[key] = obj[key];
     return ret;
   }, {});
+};
+
+// 忽略 obj 中的某项
+export const omit = (obj = {}, props = []) => {
+  if (!Array.isArray(props)) {
+    throw Error('props type error!');
+  }
+  const keys = Object.keys(obj);
+  const res = {};
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+    const value = obj[key];
+    if (!props || !props.includes(key)) {
+      res[key] = value;
+    }
+  }
+  return res;
 };
