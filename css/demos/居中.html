@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      .container {
+        width: 400px;
+        height: 400px;
+        background: lightblue;
+      }
+      .box {
+        width: 200px;
+        height: 200px;
+        background-color: purple;
+      }
+      /* 1. table 布局 */
+      .center-table {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+      }
+      .center-table .box {
+        display: inline-block;
+      }
+      /*  2. flex 居中*/
+      .center-flex {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      /* 3. 定位 */
+      .center-position {
+        position: relative;
+      }
+      .center-position .box {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container center-position">
+      <div class="box"></div>
+    </div>
+  </body>
+</html>

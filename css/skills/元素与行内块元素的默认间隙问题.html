@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      body {
+        margin: 0;
+        /* font-size: 0;*/ /*方案2*/
+      }
+      span {
+        background: red;
+        font-size: 16px;
+        /* float: left; */ /*方案3*/
+      }
+    </style>
+    <!-- 会出现间隙的原因，其实是行内标签元素，行内块元素之间的回车换行带来的影响。只要解决了换行的问题，也就解决了间隙的问题 -->
+    <span>行内元素</span>
+    <span>行内元素</span>
+    <span>行内元素</span>
+
+    <!-- 方案1 -->
+    <!-- <span>行内元素</span><span>行内元素</span><span>行内元素</span> -->
+
+    <!-- 方案2 -->
+    <!-- 把父级font-size设置为0 (最优解) -->
+
+    <!-- 方案3 -->
+    <!-- 为有间隔的元素设置浮动 -->
+  </body>
+</html>

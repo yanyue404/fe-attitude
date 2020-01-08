@@ -98,3 +98,12 @@ var bom = {
     return window.pageYOffset || document.documentElement.scrollTop;
   },
 };
+// 滚动到页面id元素位置
+export const ToAnchor = el =>
+  document.getElementById(el).scrollIntoView({
+    behavior: 'smooth',
+  });
+
+export default {
+  ToAnchor,
+};
