@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 在我自己输入的时候键盘乱按
+      let givenArr = [
+        [1, 2, 2],
+        [3, 4, 5, 5],
+        [6, 7, 8, 9, [11, 12, [12, 13, [14]]]],
+        10,
+      ];
+      let outputArr = [1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 9, 11, 12, 12, 13, 14, 10];
+
+      // 实现flatten方法使得
+      function flatten(arr) {
+        let res = [];
+        for (let i = 0; i < arr.length; i++) {
+          const item = arr[i];
+          if (Array.isArray(item)) {
+            console.log(flatten(item));
+
+            // res = res.concat(flatten(item));
+          } else {
+            res.push(item);
+          }
+        }
+        return res;
+      }
+      console.log(flatten(givenArr));
+    </script>
+  </body>
+</html>

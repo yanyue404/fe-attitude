@@ -10,6 +10,12 @@
 - [知识图谱](https://github.com/yanyue404/blog/issues/85)
 - [awesome-tools](https://github.com/yanyue404/awesome-tools)
 
+## 专题
+
+- [mqyqingfeng](https://github.com/mqyqingfeng/Blog) - 冴羽 JavaScript
+- 33-js-concepts ([英文](https://github.com/leonardomso/33-js-concepts),[中文](https://github.com/stephentian/33-js-concepts)）
+- [horseshoe](https://github.com/veedrin/horseshoe) - 马蹄铁
+
 ## 关注
 
 **个人博客**

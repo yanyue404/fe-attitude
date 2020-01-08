@@ -1,9 +1,18 @@
-## Inteview
+# Inteview
 
-## my blog
+## 目录
 
-- [前端基本功 —— 扎马步 ](https://github.com/yanyue404/blog/issues/4)
-- [前端基本功 —— 笔试 ](https://github.com/yanyue404/blog/issues/75)
+- HTML
+- CSS
+- 原生 JS
+- DOM
+- HTTP
+- 框架 Vue
+- 框架 React
+- 框架原理相关
+- TypeScript
+- 性能优化 / 工程相关
+- 安全
 
 ## CSS
 
@@ -35,7 +44,7 @@ HTML&CSS：
     对Web标准的理解（结构、表现、行为）、浏览器内核、渲染原理、依赖管理、兼容性、CSS语法、层次关系，常用属性、布局、选择器、权重、盒模型、
     Hack、CSS预处理器、CSS3、Flexbox、CSS Modules、Document flow、BFC、HTML5（离线 & 存储、Histoy,多媒体、WebGL\SVG\Canvas）；
 JavaScript：
-    数据类型、运算、对象、Function、继承、闭包、作用域、事件、Prototype、RegExp、JSON、Ajax、DOM、BOM、
+    M数据类型、运算、对象、Function、继承、闭包、作用域、事件、Prototype、RegExp、JSON、Ajax、DOM、BOM、
     内存泄漏、跨域、异步请求、模板引擎、模块化、Flux、同构、算法、ECMAScript6、Nodejs、HTTP、
 
 其他：
@@ -57,7 +66,6 @@ JavaScript：
 
 #### 参考
 
-- [面试题整理归纳](https://mydearest.cn/interview.html)
 - [总结了 17 年初到 18 年初百场前端面试的面试经验(含答案)](https://juejin.im/post/5b44a485e51d4519945fb6b7)
 - [饥人谷 2019 前端押题（讲义）](https://juejin.im/post/5c91bbc96fb9a070c9759a64)
 - https://github.com/koala-coding/goodBlog
