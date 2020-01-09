@@ -9,16 +9,9 @@
 - HTTP
 - 框架 Vue
 - 框架 React
-- 框架原理相关
 - TypeScript
-- 性能优化 / 工程相关
-- 安全
-
-## CSS
-
-- [50 道 CSS 基础面试题（附答案）](https://segmentfault.com/a/1190000013325778)
-- [《50 道 CSS 基础面试题（附答案）》中的答案真的就只是答案吗？](https://segmentfault.com/a/1190000013860482)
-- [CSS 面试题总结](https://segmentfault.com/a/1190000014459893)
+- 性能优化(含安全)
+- 工程化
 
 ## Reps
 
@@ -27,9 +20,7 @@
 - [Interview-Notebook](https://github.com/CyC2018/Interview-Notebook) - 技术面试必备基础知识、Leetcode 题解、Java、C++、Python、后端面试、操作系统、计算机网络、系统设计 https://cyc2018.github.io/CS-Notes
 - [node-interview](https://github.com/ElemeFE/node-interview) How to pass the Node.js interview of ElemeFE. https://elemefe.github.io/node-interview/
 - [CS-Interview-Knowledge-Map](https://github.com/InterviewMap/CS-Interview-Knowledge-Map) - Build the best interview map. The current content includes JS, network, browser related, performance optimization, security, framework, Git, data structure, algorithm, etc. https://yuchengkai.cn/docs/frontend/
-- [reactjs-interview-questions](https://github.com/sudheerj/reactjs-interview-questions)
-- [react-interview](https://github.com/Pau1fitz/react-interview/blob/master/zh-cn.md)
-- [ 以面试官的角度来看 React 工作面试](https://juejin.im/post/5bca74cfe51d450e9163351b)
+
 
 ## Articles
 

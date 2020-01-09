@@ -6,11 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
     <style>
-      .container {
+      .container,
+      .wrap {
         display: flex;
         flex-wrap: wrap;
+        border: 1px solid #ccc;
       }
-      .list {
+      .container .list {
         width: 24%;
         height: 100px;
         background-color: skyblue;
@@ -18,13 +20,33 @@
       }
       /* 固定个数 */
       /* 对于不满足数量为4的倍数的盒子统一设置: 右边距 = 100% -24%*4/3 */
-      .list:not(:nth-child(4n)) {
+      .container .list:not(:nth-child(4n)) {
         margin-right: calc(4% / 3);
+      }
+      .wrap .list {
+        width: 456px;
+        height: 100px;
+        background-color: skyblue;
+        margin-top: 15px;
+      }
+      /* 固定个数，计算 */
+      .wrap .list:not(:nth-child(4n)) {
+        margin-right: calc((1902px - 456px * 4) / 3);
       }
     </style>
   </head>
   <body>
     <div class="container">
+      <div class="list"></div>
+      <div class="list"></div>
+      <div class="list"></div>
+      <div class="list"></div>
+      <div class="list"></div>
+      <div class="list"></div>
+      <div class="list"></div>
+    </div>
+
+    <div class="wrap">
       <div class="list"></div>
       <div class="list"></div>
       <div class="list"></div>

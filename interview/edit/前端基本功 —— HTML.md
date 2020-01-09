@@ -8,7 +8,7 @@
 - meta viewport 是做什么用的，怎么写？
 - 你用过哪些 HTML 5 标签？
 - H5 是什么？
-- 重绘和回流
+- 重绘和回流 eepaint和reflow
 
 - html5 有哪些新特性
   - 语义化标签
