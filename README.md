@@ -15,6 +15,7 @@
 - [mqyqingfeng](https://github.com/mqyqingfeng/Blog) - 冴羽 JavaScript
 - 33-js-concepts ([英文](https://github.com/leonardomso/33-js-concepts),[中文](https://github.com/stephentian/33-js-concepts)）
 - [horseshoe](https://github.com/veedrin/horseshoe) - 马蹄铁
+- [Waking-Up](https://github.com/wolverinn/Waking-Up) - 计算机基础面试问题全面总结
 
 ## 关注
 
