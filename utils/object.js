@@ -93,5 +93,18 @@ export function isEqual(obj, obj2, option = {}) {
   }
   return true;
 }
+// var object = { 'a': [{ 'b': { 'c': 3 } }] };
+
+// _.get(object, 'a[0].b.c');
+// => 3
+function get(obj, href) {
+  if (href.indexOf('.') === -1) {
+    return obj[href];
+  }
+  if (href.indexOf('.') !== -1) {
+    let hrefStr = href.split('.');
+    return getObjectValue(obj[hrefStr[0]], hrefStr.slice(1).join('.'));
+  }
+}
 
 export default { has, deepCopy, only, omit, isEqual, mergeObject };

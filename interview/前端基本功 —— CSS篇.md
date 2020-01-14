@@ -1,5 +1,7 @@
 ## 前言
 
+溫故而知新，可以為師矣 ~
+
 ## 目录
 
 - [盒模型](#盒模型)
@@ -14,7 +16,7 @@
 - [媒体查询](#媒体查询)
 - [rem 布局](#rem布局)
 - [BFC](#BFC)
-- [margin 重叠的问题](#margin-重叠的问题) TODO
+- [margin 重叠的问题](#margin-重叠的问题)
 - [CSS 预处理器优势](#CSS-预处理器优势)
 - [两列布局(左定右不定)](#两列布局) TODO
 - [CSS 动画](#CSS-动画) TODO
@@ -213,6 +215,17 @@ BFC 布局规则：
 ⬆ [返回顶部](#目录)
 
 ## margin-重叠的问题
+
+```html
+<div class="top"></div>
+<div class="bottom"></div>
+```
+
+1. 盒子其一设为 display: inline-block;
+2. 底部的盒子设置浮动 float: left;
+3. 底部的盒子设置定位 position: absolute;
+4. 在一个盒子外套一个盒子并设置 overflow: hidden;
+5. 在设置 margin-top/bottom 值时统一设置上或下。
 
 ⬆ [返回顶部](#目录)
 

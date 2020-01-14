@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      .box {
+        overflow: hidden;
+      }
+      .top {
+        width: 100px;
+        height: 100px;
+        background: royalblue;
+        margin-bottom: 200px;
+      }
+      .bottom {
+        margin-top: 100px;
+        width: 100px;
+        height: 100px;
+        background: seagreen;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top"></div>
+    <div class="bottom"></div>
+  </body>
+  <!-- 1. 盒子其一设为  display: inline-block; -->
+  <!-- 2. 底部的盒子设置浮动  float: left;  -->
+  <!-- 3. 底部的盒子设置定位  position: absolute;  -->
+  <!-- 4. 在一个盒子外套一个盒子并设置  overflow: hidden;  -->
+  <!-- 5. 在设置margin-top/bottom值时统一设置上或下 -->
+</html>
