@@ -7,12 +7,7 @@
     <title>Document</title>
     <style>
       .box {
-        height: 200px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        flex-wrap: wrap;
+        height: 1000px;
       }
 
       .box > div {
@@ -20,22 +15,22 @@
       }
 
       .box-left {
+        float: left;
         width: 200px;
         background-color: blue;
+        margin-right: 20px; /*  形成20px的间隔 */
       }
 
       .box-right {
-        flex: 1;
         overflow: hidden;
-        background-color: red;
+        background-color: green;
       }
     </style>
   </head>
   <body>
     <div class="box">
-      <div class="box-left"></div>
-      <div class="box-right"></div>
+      <div class="box-left">左侧</div>
+      <div class="box-right">右侧</div>
     </div>
-
   </body>
 </html>

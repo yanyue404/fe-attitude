@@ -8,23 +8,17 @@
 - meta viewport 是做什么用的，怎么写？
 - 你用过哪些 HTML 5 标签？
 - H5 是什么？
-- 重绘和回流 eepaint和reflow
+- 重绘和回流 repaint 和 reflow
 
 - html5 有哪些新特性
   - 语义化标签
   - 表单元素
-  - 音频视频
-  - 地理定位，在线离线状态
-  - canvas， WebGL，SVG
-  - data-name
-  - XMLHttpRequest Level 2
+  - 多媒体 <audio> 和 <video>
+  - 3D, 图像 & 效果 canvas， WebGL，SVG
   - History API
-  - Camera API
-  - 拖放
-  - 存储
+  - 存储 sessionStorage localStorage
   - Web Sockets
   - 离线存储
-  - requestAnimationFrame
 
 ### 参考
 

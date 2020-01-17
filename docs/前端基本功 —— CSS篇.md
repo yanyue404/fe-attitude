@@ -18,10 +18,10 @@
 - [BFC](#BFC)
 - [margin 重叠的问题](#margin-重叠的问题)
 - [CSS 预处理器优势](#CSS-预处理器优势)
-- [两列布局(左定右不定)](#两列布局) TODO
+- [两列布局(左定右不定)](#两列布局)
 - [CSS 动画](#CSS-动画) TODO
-- [CSS3 有哪些新特性，你常用哪些](#CSS3-有哪些新特性，你常用哪些) TODO
-- [px/em/rem/vw](#px/em/rem/vw]) TODO
+- [CSS3 有哪些新特性，你常用哪些](#CSS3-有哪些新特性，你常用哪些)
+- [px/em/rem/vw/vh](#px/em/rem/vw/vh])
 - [元素竖向的百分比设定是相对于容器的高度吗？](#元素竖向的百分比设定是相对于容器的高度吗？)
 
 ## 盒模型
@@ -210,7 +210,6 @@ BFC 布局规则：
 
 - 父元素塌陷
 - 外边距重叠
-- 清除浮动
 
 ⬆ [返回顶部](#目录)
 
@@ -254,7 +253,70 @@ BFC 布局规则：
 
 ## 两列布局
 
-- `flex:1` 占满剩余宽度(同样适用于垂直方向)
+1. flex 布局，右边设置`flex:1` 占满剩余宽度(同样适用于垂直方向)
+
+```html
+<style>
+  .box {
+    height: 1000px;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .box > div {
+    height: 100%;
+  }
+
+  .box-left {
+    width: 200px;
+    background-color: blue;
+    margin-right: 20px; /*  形成20px的间隔 */
+  }
+
+  .box-right {
+    flex: 1;
+    background-color: green;
+  }
+</style>
+<body>
+  <div class="box">
+    <div class="box-left">左侧</div>
+    <div class="box-right">右侧</div>
+  </div>
+</body>
+```
+
+2. 左侧 设置左浮动，右侧设置 `overflow: hidden;`
+
+```html
+<style>
+  .box {
+    height: 1000px;
+  }
+
+  .box > div {
+    height: 100%;
+  }
+
+  .box-left {
+    float: left;
+    width: 200px;
+    background-color: blue;
+    margin-right: 20px; /*  形成20px的间隔 */
+  }
+
+  .box-right {
+    overflow: hidden;
+    background-color: green;
+  }
+</style>
+<body>
+  <div class="box">
+    <div class="box-left">左侧</div>
+    <div class="box-right">右侧</div>
+  </div>
+</body>
+```
 
 ⬆ [返回顶部](#目录)
 
@@ -264,11 +326,25 @@ BFC 布局规则：
 
 ## CSS3-有哪些新特性，你常用哪些
 
-圆角，媒体查询，动画，过渡，背景
+- `rem`长度单位
+- 盒子模型模式 `box-sizing`
+- flex 弹性布局
+- 边框圆角 `border-radius`
+- 媒体查询 `@media`
+- 背景 `background-origin`，`background-size`
+- 过渡 `transition`
+- 动画 `transform` `animation`
+- 多列布局
 
 ⬆ [返回顶部](#目录)
 
-## px/em/rem/vw
+## px/em/rem/vw/vh
+
+- px: 像素单位
+- em: 相对参照是父元素的 font-size，具有继承的特点
+- rem: 相对参照是根节点 （`html`）的 font-size, 1rem 等于根节点的 font-size 值
+- vm: css3 新单位，`viewpoint width` 的缩写，视窗宽度，1vw 等于视窗宽度的 1%
+- vh: css3 新单位，`viewpoint height` 的缩写，视窗高度，1vh 等于视窗高度的 1%
 
 ⬆ [返回顶部](#目录)
 
