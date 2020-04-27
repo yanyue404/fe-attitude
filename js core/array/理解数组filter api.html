@@ -11,7 +11,6 @@
     <script>
       Array.prototype.y_filter = function(fn) {
         let result = [];
-        let temp = [];
         for (let i = 0; i < this.length; i++) {
           if (i in this) {
             if (fn.call(undefined, this[i], i, this)) {

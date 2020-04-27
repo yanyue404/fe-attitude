@@ -1,6 +1,25 @@
+# JS
+
 ## 目录
 
-- 尽可能全面正确的解析一个任意 url
+- this 指向
+- 原型，构造函数，实例
+- 原型链
+- Dom 事件流，事件委托
+- new 运算符的执行过程
+- EventLoop
+- [数组 API，哪些改变了原数组，哪些没有改变](#数组-API，哪些改变了原数组，哪些没有改变)
+- ES 6 语法知道哪些，分别怎么用？
+- Promise、Promise.all、Promise.race 分别怎么用？
+- async/await 怎么用，如何捕获异常？
+- 必考：闭包/立即执行函数是什么？
+- 必考：什么是 JSONP，什么是 CORS，什么是跨域？
+- 常考：如何用正则实现 trim()？
+- 常考：不用 class 如何实现继承？用 class 又如何实现？
+
+**手写**
+
+- [尽可能全面正确的解析一个任意 url](#尽可能全面正确的解析一个任意-url)
 - `Event loop` 宏任务，微任务,打印结果？
 - 对象深拷贝
 - 数组排序
@@ -8,10 +27,77 @@
 - 数组扁平化
 - bind 方法
 - apply，call 方法
-- 函数节流防抖
+- [函数节流与防抖](#函数节流与防抖)
 - 发布订阅模式 Event
+- AJAX
 
-## 内容
+## Dom 事件流，事件委托
+
+Dom 事件流分为三个阶段，事件捕获阶段，事件目标阶段，事件冒泡阶段。
+
+在事件发生前是自上而下的捕获阶段，当寻找到事件目标进入事件目标阶段，然后再自下而上的发起事件冒泡。
+
+## new 运算符的执行过程
+
+- 新创建一个对象
+- 对象链接到原型
+- 绑定 this，执行构造函数
+- 返回新对象(如果构造函数有自己 retrun 时，则返回该值)
+
+## 数组 API，哪些改变了原数组，哪些没有改变
+
+- 改变原数组：push,pop,shift,unshift,reverse,sort,splice
+- 未改变原数组:slice,join,concat,indexOf,every,some,forEach,map,filter,reduce,findIndex,includes
+
+## Promise、Promise.all、Promise.race 分别怎么用？
+
+Promise 对象用于表示一个异步操作的最终完成 (或失败), 及其结果值的后续操作。
+
+特点：1. 拥有三个状态进行中，已成功，已失败；2. 一旦状态改变，就不会再变。
+
+```js
+const promise1 = new Promise(function(resolve, reject) {
+  setTimeout(function() {
+    resolve('foo');
+  }, 300);
+});
+
+promise1.then(function(value) {
+  console.log(value);
+  // expected output: "foo"
+});
+```
+
+**实例方法**
+
+Promise.all 方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。只有当所有的参数对象都成功时才会触发成功，一旦任何一个 promise 对象失败则立即触发该 promise 对象的失败。这个新的 promise 对象，所有 promise 参数都执行成功时返回的参数顺序与 promise 对象数组的排列方式一致；失败时会将 promise 参数中第一个触发失败的 promise 对象错误信息作为返回的参数
+
+```js
+const promises = [2, 3, 5, 7, 11, 13].map(function(id) {
+  return getJSON('/post/' + id + '.json');
+});
+
+Promise.all(promises)
+  .then(function(posts) {
+    // ...
+  })
+  .catch(function(reason) {
+    // ...
+  });
+```
+
+Promise.race 方法同样是将多个 Promise 实例，包装成一个新的 Promise 实例。在新的 promise 对象中，promise 对象参数里任何一个子 promise 处理成功或失败后，会作为它的返回参数。
+
+```js
+const p = Promise.race([
+  fetch('/resource-that-may-take-a-while'),
+  new Promise(function(resolve, reject) {
+    setTimeout(() => reject(new Error('request timeout')), 5000);
+  }),
+]);
+
+p.then(console.log).catch(console.error);
+```
 
 ### 尽可能全面正确的解析一个任意 url
 
@@ -23,7 +109,8 @@ var url =
 结果：
 {
    user: 'anonymous',
-   id: [123, 456], // 重复出现的 key 要组装成数组，能被转成数字的就转成数字类型
+   id: [123, 456], // 重复出现的 key 要组装成数组
+   ，能被转成数字的就转成数字类型
    city: '北京', // 中文
    enabled: true, // 未指定值的 key 约定值为 true
 }
@@ -146,20 +233,10 @@ function flatten(arr) {
 console.log(flatten(givenArr));
 ```
 
-### 函数节流防抖
+### 函数节流与防抖
 
 ```js
-// html
-<button>点击</button>;
 // 函数防抖
-document.querySelector('button').onclick = debounce(function() {
-  console.log('click');
-});
-// 函数节流
-document.querySelector('button').onclick = throttle(function() {
-  console.log('click');
-});
-
 function debounce(fn, wait = 1000) {
   let timer;
   return function() {
@@ -173,7 +250,10 @@ function debounce(fn, wait = 1000) {
     }, wait);
   };
 }
+```
 
+```js
+// 函数节流
 function throttle(fn, wait = 1500) {
   let _lastTime;
   return function() {
@@ -254,3 +334,8 @@ event.trigger('test', 'hello world');
 event.off('test');
 event.trigger('test', 'hello world');
 ```
+
+#### 参考链接
+
+- https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array
+- https://zhuanlan.zhihu.com/p/67244840

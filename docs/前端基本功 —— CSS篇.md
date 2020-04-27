@@ -318,6 +318,39 @@ BFC 布局规则：
 </body>
 ```
 
+3. 使用 calc 计算右侧宽度
+
+```html
+<style>
+  .box {
+    width: 100%;
+    height: 1000px;
+  }
+
+  .box > div {
+    height: 100%;
+    float: left;
+  }
+
+  .box-left {
+    width: 200px;
+    background-color: blue;
+    margin-right: 20px;
+  }
+
+  .box-right {
+    width: calc(100% - 220px);
+    background-color: green;
+  }
+</style>
+<body>
+  <div class="box">
+    <div class="box-left">左侧</div>
+    <div class="box-right">右侧</div>
+  </div>
+</body>
+```
+
 ⬆ [返回顶部](#目录)
 
 ## CSS-动画

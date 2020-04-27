@@ -40,7 +40,7 @@
       // box1.onclick = function () {
       //     alert('我是box1')
       // }
-      box1.addEventListener('click', function() {
+      /*  box1.addEventListener('click', function() {
         alert('我是box1');
       });
       box2.addEventListener('click', function() {
@@ -48,21 +48,32 @@
       });
       document.addEventListener('click', function() {
         alert('我是document');
-      });
+      }); */
 
       //2.  事件捕获，事件触发从dom树的最顶端，执行到当前触动者；
       //ie678：不支持捕获，只支持冒泡；
 
-      /*  box1.addEventListener("click", function (event) {
-             alert("我是box1");
- 
-         }, true);
-         box2.addEventListener("click", function () {
-             alert("我是box2");
-         }, true);
-         document.addEventListener("click", function () {
-             alert("我是document");
-         }, true); */
+      box1.addEventListener(
+        'click',
+        function(event) {
+          alert('我是box1');
+        },
+        true,
+      );
+      box2.addEventListener(
+        'click',
+        function() {
+          alert('我是box2');
+        },
+        true,
+      );
+      document.addEventListener(
+        'click',
+        function() {
+          alert('我是document');
+        },
+        true,
+      );
 
       // 3.冒泡与捕获先后执行顺序(先执行事件捕获)
 

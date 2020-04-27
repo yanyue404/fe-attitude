@@ -8,7 +8,70 @@
 - utils 导入方式，按需引入
 - git commit log
 
-## 编写
+## 组件
+
+- Smart 组件 vs Dumb 组件
+  Smart 和 Dumb 组件分开到两个不同的目录，不再在 Dumb 组件内部进行 connect，在 src/ 目录下新建两个文件夹 components/ 和 containers/：
+
+```js
+src/
+  components/
+  containers/
+```
+
+- 组件命名
+
+```js
+// bad
+import Footer from './Footer/Footer';
+
+// bad
+import Footer from './Footer/index';
+
+// good
+import Footer from './Footer';
+```
+
+- 封装时最好提供 demo 以及 README，做好严格的类型检查（能做单元测试更好）
+- 复杂的 state 逻辑, 请抽离成 hooks 函数
+
+```js
+// bad
+
+function TargetComponent({ url, options }) {
+  const [data, setData] = useState([]);
+
+  useEffect(async ()=>{
+    cosnt data = await fetch(url, options);
+    setData(data)
+  }, [])
+
+  function handleOnUpdateData (nextOptions) {
+    cosnt data = await fetch(url, nextOptions);
+    setData(data)
+  }
+
+  return <OtherComponent data={data} onChange={handleOnUpdateData} />
+}
+```
+
+```js
+// best
+
+// 将状态逻辑抽离至 hooks 文件夹内
+import useFetchData from 'src/hooks/useFetchData';
+
+function TargetComponent({ url, options }) {
+  // 复用 state 逻辑, 是 hooks 最重要的意义
+  const [data, updateData] = useFetchData(url, options);
+
+  return <OtherComponent data={data} onChange={updateData} />;
+}
+```
+
+- 组件抽象，好的代码复用，HOC && Hook
+
+## 编码
 
 - 尽量使用`PureComponent`
 - 避免根据 props 去初始化 state
@@ -17,21 +80,6 @@
 - JSX 属性名使用骆驼式风格`camelCase`
 - 仅在实例化生命周期中绑定 window 或 body 事件，在销毁期生命周期中解绑 window 或 body 事件
 - shouldComponentUpdate 优化 immutable?
-
-```js
-// bad
-<Foo
-  UserName="hello"
-  phone_number={12345678}
-/>
-
-// good
-<Foo
-  userName="hello"
-  phoneNumber={12345678}
-/>
-```
-
 - 代码分片(适当情况)
 
 ```js
@@ -50,42 +98,14 @@ function MyComponent() {
 
 - 类组件编写
 
-```js
-class TargetComponent extends Component {
-  static info = {};
-
-  state = {};
-
-  constructor() {}
-
-  static getDerivedStateFromProps() {}
-
-  componentDidMount() {}
-
-  shouldComponentUpdate() {}
-
-  componentDidUpdate() {}
-
-  componentDidCatch() {}
-
-  componentWillUnmount() {}
-
-  // 非 handle 方法
-  fixUserData = () => {};
-
-  // 声明 handle 函数
-  handleOnChange = () => {};
-
-  handleOnClick = () => {};
-
-  // 声明内部render函数
-  renderComponents = () => {};
-
-  // render函数放在最后
-  // render中如果有特别长的 JSX, 应该把它拆开成多个 renderComponents 函数
-  render() {}
-}
-```
+1. static 开头的类属性，如 defaultProps、propTypes。
+2. 构造函数，constructor。
+3. getter/setter（还不了解的同学可以暂时忽略）。
+4. 组件生命周期。
+5. \_ 开头的私有方法。
+6. 事件监听方法，handle\*。
+7. render*开头的方法，有时候 render() 方法里面的内容会分开到不同函数里面进行，这些函数都以 render* 开头。
+8. render() 方法。
 
 - Hooks 的函数组件
 
@@ -130,60 +150,6 @@ export default TargetComponent;
 // 导出 default 对象, 如果需要使用 HOC 处理组件, 请直接返回处理之后的组件
 export default connect(mapStateToProps, mapDispatchToProps)(TargetComponent);
 ```
-
-## 组件
-
-- 组件命名
-
-```js
-// bad
-import Footer from './Footer/Footer';
-
-// bad
-import Footer from './Footer/index';
-
-// good
-import Footer from './Footer';
-```
-
-- 封装时最好提供 demo 以及 read me，做好严格的类型检查（能做单元测试更好）
-- 复杂的 state 逻辑, 请抽离成 hooks 函数
-
-```js
-// bad
-
-function TargetComponent({ url, options }) {
-  const [data, setData] = useState([]);
-
-  �useEffect(async ()=>{
-    cosnt data = await fetch(url, options);
-    setData(data)
-  }, [])
-
-  function handleOnUpdateData (nextOptions) {
-    cosnt data = await fetch(url, nextOptions);
-    setData(data)
-  }
-
-  return <OtherComponent data={data} onChange={handleOnUpdateData} />
-}
-```
-
-```js
-// best
-
-// 将状态逻辑抽离至 hooks 文件夹内
-import useFetchData from 'src/hooks/useFetchData';
-
-function TargetComponent({ url, options }) {
-  // 复用 state 逻辑, 是 hooks 最重要的意义
-  const [data, updateData] = useFetchData(url, options);
-
-  return <OtherComponent data={data} onChange={updateData} />;
-}
-```
-
-- 组件抽象，好的代码复用，HOC && Hook
 
 #### 参考链接
 

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      .code {
+        width: 258px;
+        height: 258px;
+        border: 2px solid blue;
+      }
+    </style>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@16/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+    ></script>
+    <script src="https://cdn.bootcss.com/babel-core/5.8.34/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- 使用移动设备扫描二维码的功能，在点击按钮时显示二维码，点击非二维码区域时将其隐藏起
+来 -->
+    <script type="text/babel">
+      class App extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            active: false,
+          };
+          this.handleClick = this.handleClick.bind(this);
+          this.handleClickQr = this.handleClickQr.bind(this);
+        }
+        componentDidMount() {
+          document.body.addEventListener('click', e => {
+            console.log(e.target.matches('.code')); // 不够精准，兼容性
+            if (
+              e.target &&
+              e.target.contains(document.querySelector('div.code'))
+            ) {
+              this.setState({
+                active: false,
+              });
+            }
+          });
+        }
+        componentWillUnmount() {
+          document.body.removeEventListener('click');
+        }
+        handleClick() {
+          console.log('clock');
+
+          this.setState({
+            active: !this.state.active,
+          });
+        }
+
+        handleClickQr(e) {
+          // e.stopPropagation(); // 合成事件的 stopPropagation无法阻止原生事件的冒泡
+        }
+
+        render() {
+          return (
+            <div className="App">
+              <button onClick={this.handleClick}>二维码</button>
+              <div
+                className="code"
+                style={{ display: this.state.active ? 'block' : 'none' }}
+                onClick={this.handleClickQr}
+              >
+                <img src="https://camo.githubusercontent.com/a6dcc06c89d2ae9cea8b7ea6f11685ff0af02415/687474703a2f2f7777312e73696e61696d672e636e2f6c617267652f64663535316561356c793167327530366e773536656a3230373630373630746e2e6a7067" />
+              </div>
+            </div>
+          );
+        }
+      }
+      ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+  </body>
+</html>
