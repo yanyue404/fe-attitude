@@ -7,141 +7,81 @@
   />
   <title>Tabs</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
-      background: #e2ded2;
+      background: #fff;
       display: flex;
       justify-content: center;
       align-items: flex-start;
       min-height: 100vh;
     }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    .wrapper {
-      margin-top: 3em;
-      position: relative;
-      border-radius: 4px;
-      padding: 8px;
-      width: 460px;
-      background: repeating-linear-gradient(
-        -45deg,
-        #d7d3c7,
-        #d7d3c7 2px,
-        #cecabe 2px,
-        #cecabe 4px
-      );
-    }
-
-    .wrapper::before {
-      content: '';
-      display: block;
-      position: absolute;
-      top: -2px;
-      bottom: -2px;
-      left: -2px;
-      right: -2px;
-      border: 1px solid #cbc7bc;
-      border-radius: 6px;
-      z-index: -1;
-    }
-
     .tabs {
-      background: #f2f1ec;
+      width: 800px;
+      height: 150px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      overflow: hidden;
+      padding: 16px;
     }
-
-    .tabs ol {
-      list-style: none;
-      margin: 0;
-      padding: 0;
+    .tab-header {
+      position: relative;
+      height: 40px;
+      border-bottom: 2px solid #ddd;
     }
-
-    .tabs ol:first-child {
+    .tab-line {
+      width: 44px;
+      position: absolute;
+      top: 100%;
+      height: 2px;
+      background: #333;
+      transition: all 0.3s;
+    }
+    .tab-header {
       display: flex;
-      border: 1px solid #b8b3ae;
-      border-bottom: none;
     }
-
-    .tabs ol:first-child > li {
-      flex-grow: 1;
-      padding: 20px;
-      text-align: center;
-      text-transform: uppercase;
-      background: linear-gradient(to bottom, #e5dfd3 0%, #d0c9b8 100%);
-      color: #847e6f;
-      text-shadow: 1px 1px 1px white;
-      box-shadow: inset 0 0 2px hsla(0, 0%, 0%, 0.15);
+    .tab-item {
+      font-size: 16px;
+      padding: 5px;
+      color: #999;
+      cursor: pointer;
     }
-
-    .tabs ol:first-child > li.active {
-      background: linear-gradient(to bottom, white 0%, #f0ede6 100%);
-      color: #222222;
-      box-shadow: none;
-    }
-
-    .tabs ol:nth-child(2) {
-      border: 1px solid #b8b3ae;
-      border-top: none;
-      background: #f0ede6;
-    }
-
-    .tabs ol:nth-child(2) > li {
-      display: none;
-      min-height: 5em;
-    }
-
-    .tabs ol:nth-child(2) > li.active {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .circle {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: #dfdcd3;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 28px;
+    .selected {
       color: #333;
-      margin: 5em 0;
+    }
+    .tab-panels-box {
+      transition: all 0.3s;
+      transform: translateX(-100%);
+      display: flex;
+      width: 800px;
+      box-sizing: border-box;
+      padding: 10px;
+      height: 100px;
+    }
+    .tab-panel {
+      visibility: hidden;
+      flex-shrink: 0;
+      max-width: 800px;
+      width: 800px;
+      padding: 10px;
+      height: 100px;
+    }
+    .active {
+      visibility: visible !important;
     }
   </style>
 
-  <div class="wrapper">
-    <div class="tabs">
-      <ol data-role="tabs-nav">
-        <li>how buying works</li>
-        <li>how selling works</li>
-        <li>what good works</li>
-      </ol>
-      <ol data-role="tabs-panes">
-        <li>
-          <div class="circle">
-            1
-          </div>
-        </li>
-        <li>
-          <div class="circle">
-            2
-          </div>
-        </li>
-        <li>
-          <div class="circle">
-            3
-          </div>
-        </li>
-      </ol>
-    </div>
+  <div class="tabs" data-tab-active="2">
+    <div data-tab-name="选项卡1" data-tab-key="1">内容1</div>
+    <div data-tab-name="选项卡2" data-tab-key="2">内容2</div>
+    <div data-tab-name="选项卡3" data-tab-key="3">内容3</div>
+    <div data-tab-name="选项卡4" data-tab-key="4">内容4</div>
   </div>
-  <script src="../../tools/dom.js"></script>
   <script src="./js/tabs.js"></script>
   <script>
     new Tabs({
-      element: document.querySelectorAll('.tabs')[0],
+      element: document.querySelector('.tabs'),
     });
   </script>
 </html>

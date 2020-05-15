@@ -51,9 +51,15 @@
           error: null,
         },
         beforeCreate: function() {},
+        created: function() {
+          this.click();
+        },
         methods: {
           gernerateId: function(index) {
             return 'project_' + index;
+          },
+          click: function() {
+            console.log(this);
           },
           getGithubStarData: function() {
             var _this = this;
