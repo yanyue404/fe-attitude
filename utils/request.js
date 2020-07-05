@@ -36,7 +36,7 @@ function GetQueryString(name) {
  * @param {*} obj {'a':1,'b':2}
  * @returns a=1&b=2
  */
-function setUrlPrmt(obj) {
+function setUrlParam(obj) {
   let _rs = [];
   for (let p in obj) {
     if (obj[p] != null && obj[p] != '') {

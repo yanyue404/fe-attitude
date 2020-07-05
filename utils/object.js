@@ -21,6 +21,16 @@ export const deepCopy = function(obj) {
   return newObj;
 };
 
+function deepAssign(to, from) {
+  for (let key in from) {
+    if (!to[key] || typeof to[key] !== 'object') {
+      to[key] = from[key];
+    } else {
+      deepAssign(to[key], from[key]);
+    }
+  }
+}
+
 // https://github.com/tj/node-only
 // 只取 obj 中的某项
 // only(obj, 'name last email');
@@ -40,16 +50,14 @@ export const omit = (obj = {}, props = []) => {
   if (!Array.isArray(props)) {
     throw Error('props type error!');
   }
-  const keys = Object.keys(obj);
-  const res = {};
-  for (let i = 0; i < keys.length; i++) {
-    const key = keys[i];
-    const value = obj[key];
-    if (!props || !props.includes(key)) {
-      res[key] = value;
-    }
+  const shallowCopy = {
+    ...obj,
+  };
+  for (let i = 0; i < props.length; i++) {
+    const key = props[i];
+    delete shallowCopy[key];
   }
-  return res;
+  return shallowCopy;
 };
 
 export function mergeObject(obj1, obj2, newObject) {

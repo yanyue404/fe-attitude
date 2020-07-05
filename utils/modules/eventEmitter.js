@@ -3,7 +3,7 @@ class EventEmitter {
     this._cache = {};
   }
   // 绑定
-  on(type, callback) {
+  $on(type, callback) {
     if (this._cache[type]) {
       this._cache[type].push(callback);
     } else {
@@ -12,7 +12,7 @@ class EventEmitter {
     return this;
   }
   // 触发
-  emit(type, data) {
+  $emit(type, data) {
     let fns = this._cache[type];
     if (Array.isArray(fns)) {
       fns.forEach(fn => {
@@ -22,7 +22,7 @@ class EventEmitter {
     return this;
   }
   // 解绑
-  off(type, callback) {
+  $off(type, callback) {
     let fns = this._cache[type];
     if (Array.isArray(fns)) {
       this._cache[type] = fns.filter(event => {
@@ -31,13 +31,39 @@ class EventEmitter {
     }
     return this;
   }
-  once(type, callback) {
+  $once(type, callback) {
     let that = this;
     function func() {
       var args = Array.prototype.slice.call(arguments, 0);
       callback.apply(that, args);
-      that.off(type, func);
+      that.$off(type, func);
     }
-    this.on(type, func);
+    this.$on(type, func);
   }
 }
+
+var Event = new EventEmitter();
+
+Event.$once('addAddress', function(detail) {
+  console.log(detail);
+});
+
+Event.$emit('addAddress', {
+  location: '北京',
+  longitude: '116°20′',
+  latitude: '39°56′',
+});
+
+Event.$on('once', function(detail) {
+  console.log(detail);
+});
+
+Event.$emit('once', {
+  content: '我希望只能执行一次',
+});
+Event.$emit('once', {
+  content: '我希望只能执行一次',
+});
+Event.$emit('once', {
+  content: '我希望只能执行一次',
+});

@@ -7,7 +7,37 @@
 function getType(a) {
   return Object.prototype.toString.call(a).slice(8, -1);
 }
+// 是否已定义
+function isDefined(val) {
+  return val !== undefined && val !== null;
+}
+function isPromise(val) {
+  return isObject(val) && isFunction(val.then) && isFunction(val.catch);
+}
 
+function isFunction(obj) {
+  return Object.prototype.toString.call(obj).slice(8, -1) === 'Function';
+}
+const isNumber = obj => {
+  return typeof obj === 'number';
+};
+function isArray(arg) {
+  return Array.isArray(arg);
+}
+function isObject(arg) {
+  return arg != null && typeof arg === 'object' && !Array.isArray(arg);
+}
+function isEmptyObject(obj) {
+  if (!obj) {
+    return false;
+  }
+  for (const n in obj) {
+    if (obj.hasOwnProperty(n) && obj[n]) {
+      return false;
+    }
+  }
+  return true;
+}
 /**
  * 对象扩展
  *
@@ -63,30 +93,6 @@ function objClone(jsonObj) {
   } else {
     return jsonObj;
   }
-}
-
-function isFunction(obj) {
-  return Object.prototype.toString.call(obj).slice(8, -1) === 'Function';
-}
-const isNumber = obj => {
-  return typeof obj === 'number';
-};
-function isArray(arg) {
-  return Array.isArray(arg);
-}
-function isObject(arg) {
-  return arg != null && typeof arg === 'object' && !Array.isArray(arg);
-}
-function isEmptyObject(obj) {
-  if (!obj) {
-    return false;
-  }
-  for (const n in obj) {
-    if (obj.hasOwnProperty(n) && obj[n]) {
-      return false;
-    }
-  }
-  return true;
 }
 /**
  * 格式化时间戳

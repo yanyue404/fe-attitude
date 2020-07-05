@@ -1,5 +1,3 @@
-// const formData = new FormData();
-
 /**
  *
  * @param {*} file input.files[0]
@@ -58,20 +56,3 @@ function beforeUpload(file) {
   }
   return isJPG && isLt2M;
 }
-
-const convertObjectUrlToBlob = url => {
-  return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.responseType = 'blob';
-    xhr.onload = function(e) {
-      if (this.status === 200) {
-        resolve(this.response);
-      } else {
-        /* eslint-disable prefer-promise-reject-errors */
-        reject({ status: this.status });
-      }
-    };
-    xhr.send();
-  });
-};
