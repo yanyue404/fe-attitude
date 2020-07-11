@@ -4,27 +4,24 @@
 
 你们的光也当这样照在人前，叫他们看见你们的好行为，便将荣耀归给你们在天上的父。"
 
-## 路径
+## Route
 
 - [前端开发技术之路 —— 资源站](https://github.com/yanyue404/blog/issues/100)
 - [知识图谱](https://github.com/yanyue404/blog/issues/85)
 - [awesome-tools](https://github.com/yanyue404/awesome-tools)
 
-## 专题
-
-- [mqyqingfeng](https://github.com/mqyqingfeng/Blog) - 冴羽 JavaScript
-- 33-js-concepts ([英文](https://github.com/leonardomso/33-js-concepts),[中文](https://github.com/stephentian/33-js-concepts)）
-- [horseshoe](https://github.com/veedrin/horseshoe) - 马蹄铁
-- [Waking-Up](https://github.com/wolverinn/Waking-Up) - 计算机基础面试问题全面总结
-
-## 書籍
+## Resources
 
 - [free-books](https://github.com/ruanyf/free-books) - 互联网上的免费书籍，by [ruanyf](https://github.com/ruanyf)
+- [mqyqingfeng](https://github.com/mqyqingfeng/Blog) - 冴羽 JavaScript
+- 33-js-concepts ([英文](https://github.com/leonardomso/33-js-concepts),[中文](https://github.com/stephentian/33-js-concepts)）
+- [horseshoe](https://github.com/veedrin/horseshoe) - 代号马蹄铁。以专题为单位的学习
+- [Waking-Up](https://github.com/wolverinn/Waking-Up) - 计算机基础面试问题全面总结
+- [javascript.info](https://github.com/javascript-tutorial/zh.javascript.info) - 现代 JavaScript 教程（The Modern JavaScript Tutorial） https://zh.javascript.info
 - [Books](https://github.com/Urinx/Books) - 无它术，唯勤读书而多为之，自工， by [Urinx](https://github.com/Urinx/Books)
 - [free-programming-books-zh_CN](https://github.com/justjavac/free-programming-books-zh_CN) - 免费的计算机编程类中文书籍, by [justjavac](https://github.com/justjavac)
-- [javascript.info](https://github.com/javascript-tutorial/zh.javascript.info) - 现代 JavaScript 教程（The Modern JavaScript Tutorial） https://zh.javascript.info
 
-## 关注
+## Follow
 
 **个人博客**
 
