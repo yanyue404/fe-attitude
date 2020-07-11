@@ -17,6 +17,13 @@
 - [horseshoe](https://github.com/veedrin/horseshoe) - 马蹄铁
 - [Waking-Up](https://github.com/wolverinn/Waking-Up) - 计算机基础面试问题全面总结
 
+## 書籍
+
+- [free-books](https://github.com/ruanyf/free-books) - 互联网上的免费书籍，by [ruanyf](https://github.com/ruanyf)
+- [Books](https://github.com/Urinx/Books) - 无它术，唯勤读书而多为之，自工， by [Urinx](https://github.com/Urinx/Books)
+- [free-programming-books-zh_CN](https://github.com/justjavac/free-programming-books-zh_CN) - 免费的计算机编程类中文书籍, by [justjavac](https://github.com/justjavac)
+- [javascript.info](https://github.com/javascript-tutorial/zh.javascript.info) - 现代 JavaScript 教程（The Modern JavaScript Tutorial） https://zh.javascript.info
+
 ## 关注
 
 **个人博客**
