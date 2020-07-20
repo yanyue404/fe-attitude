@@ -13,21 +13,6 @@ var dom = {
     return Array.prototype.slice.call(el.querySelectorAll(selector));
   },
 
-  // 将NodeList转为数组
-  convertToArray: function(nodeList) {
-    var array = null;
-    try {
-      // IE8-NodeList是COM对象
-      array = Array.prototype.slice.call(nodeList, 0);
-    } catch (err) {
-      array = [];
-      for (var i = 0, len = nodeList.length; i < len; i++) {
-        array.push(nodeList[i]);
-      }
-    }
-    return array;
-  },
-
   index: function(element) {
     var siblings = element.parentNode.children;
     for (var index = 0; index < siblings.length; index++) {

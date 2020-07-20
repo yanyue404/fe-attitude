@@ -30,69 +30,6 @@ function GetQueryString(name) {
   return null;
 }
 
-/**
- *
- * 设置url参数
- * @param {*} obj {'a':1,'b':2}
- * @returns a=1&b=2
- */
-function setUrlParam(obj) {
-  let _rs = [];
-  for (let p in obj) {
-    if (obj[p] != null && obj[p] != '') {
-      _rs.push(p + '=' + obj[p]);
-    }
-  }
-  return _rs.join('&');
-}
-
-/**
- * url 参数转对象
- *
- * @param {*} url
- * @returns
- */
-function parseParam(url) {
-  var paramArr = decodeURI(url)
-      .split('?')[1]
-      .split('&'),
-    obj = {};
-  for (var i = 0; i < paramArr.length; i++) {
-    var item = paramArr[i];
-    if (item.indexOf('=') != -1) {
-      var tmp = item.split('=');
-      obj[tmp[0]] = tmp[1];
-    } else {
-      obj[item] = true;
-    }
-  }
-  return obj;
-}
-
-/**
- *
- * @desc   参数对象序列化
- * @param  {Object} obj
- * @return {String}
- */
-function qsStringify(obj) {
-  var pairs = [];
-  for (var key in obj) {
-    var value = obj[key];
-    if (typeof value === 'function') {
-      continue;
-    }
-    if (value instanceof Array) {
-      for (var i = 0; i < value.length; ++i) {
-        pairs.push(key + '[' + i + ']' + '=' + value[i]);
-      }
-      continue;
-    }
-    pairs.push(key + '=' + obj[key]);
-  }
-  return pairs.join('&');
-}
-
 // form表单序列化 摘自高程
 function serialize(form) {
   var parts = [],

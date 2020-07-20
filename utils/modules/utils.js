@@ -1,23 +1,7 @@
-/**
- * 判断数据类型
- *
- * @param {*} a
- * @returns Boolean String Array Object Function Number Undefined Null
- */
-function getType(a) {
-  return Object.prototype.toString.call(a).slice(8, -1);
-}
-// 是否已定义
-function isDefined(val) {
-  return val !== undefined && val !== null;
-}
 function isPromise(val) {
   return isObject(val) && isFunction(val.then) && isFunction(val.catch);
 }
 
-function isFunction(obj) {
-  return Object.prototype.toString.call(obj).slice(8, -1) === 'Function';
-}
 const isNumber = obj => {
   return typeof obj === 'number';
 };
@@ -38,23 +22,7 @@ function isEmptyObject(obj) {
   }
   return true;
 }
-/**
- * 对象扩展
- *
- * @param {*} target
- * arguments obj ...
- * @returns obj
- */
-function extend(target) {
-  for (var i = 1, len = arguments.length; i < len; i++) {
-    for (var prop in arguments[i]) {
-      if (arguments[i].hasOwnProperty(prop)) {
-        target[prop] = arguments[i][prop];
-      }
-    }
-  }
-  return target;
-}
+
 // https://github.com/lodash/lodash/blob/master/isPlainObject.js
 function isPlainObject(value) {
   if (!isObjectLike(value) || getTag(value) != '[object Object]') {
@@ -136,90 +104,6 @@ function timestampToTime(timestamp, splitStr, hasHour) {
       m: m,
       s: s,
     };
-  }
-}
-
-/**
- * 四舍五入 格式化数字
- *
- * @param {*} number 8440.55
- * @param {*} fractionDigits 1 小数位数
- * @returns 8440.6
- */
-function toFixed(number, fractionDigits) {
-  var times = Math.pow(10, fractionDigits);
-  var roundNum = Math.round(number * times) / times;
-  return roundNum.toFixed(fractionDigits);
-}
-/**
- * 把当前的数字格式化为指定小数位数的金额
- * @param {*} s 价格数字
- * @param {*} n 小数点后位数
- * @returns
- */
-function fmoney(s, n) {
-  //s:传入的float数字 ，n:希望返回小数点几位
-  var n = n > 0 && n <= 20 ? n : 2,
-    s = parseFloat((s + '').replace(/[^\d\.-]/g, '')).toFixed(n) + '',
-    l = s
-      .split('.')[0]
-      .split('')
-      .reverse(),
-    r = s.split('.')[1],
-    t = '';
-  for (i = 0; i < l.length; i++) {
-    t += l[i] + ((i + 1) % 3 == 0 && i + 1 != l.length ? ',' : '');
-  }
-  return (
-    t
-      .split('')
-      .reverse()
-      .join('') +
-    '.' +
-    r
-  );
-}
-
-/**
- * 还原价格
- * @param {*} s 上面方法过滤后的结果
- * @returns
- */
-function rmoney(s) {
-  return parseFloat(s.replace(/[^\d\.-]/g, ''));
-}
-
-/**
- * 为数组添加新的自定义键值以及过滤每个子项的方法
- *
- * @param {*} arr
- * @param {*} obj { isShow:false,isStar:false} 第二个参数为 Function 时
- * @param {*} filterFn 第二个参数为 Object 时
- * @returns Array
- */
-function addKey(sourceArray, extendObj, filterFn) {
-  var getType = function(a) {
-    var typeArray = Object.prototype.toString.call(a).split(' ');
-    return typeArray[1].slice(0, -1);
-  };
-  var secondParamType = getType(arguments[1]);
-
-  if (!getType(sourceArray) == 'Array') {
-    throw new Error('第一个参数必须为数组类型');
-  }
-  if (secondParamType === 'Object') {
-    return sourceArray.forEach((v, index, sourceArray) => {
-      for (var key in extendObj) {
-        v[key] = extendObj[key];
-      }
-      typeof filterFn === 'function' ? filterFn(v, index, sourceArray) : '';
-    });
-  } else if (secondParamType === 'Function') {
-    return sourceArray.forEach((v, index, sourceArray) => {
-      arguments[1](v, index, sourceArray);
-    });
-  } else {
-    return sourceArray;
   }
 }
 

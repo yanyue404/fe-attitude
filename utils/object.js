@@ -1,65 +1,3 @@
-/**
- * Object 在obj中是否有key
- * @param {*} obj
- * @param {*} key
- * @returns
- */
-export const has = function(obj, key) {
-  return obj != null && hasOwnProperty.call(obj, key);
-};
-
-// 对象深拷贝，支持[]和{}
-export const deepCopy = function(obj) {
-  if (typeof obj !== 'object') return;
-  var newObj = obj instanceof Array ? [] : {};
-  for (var key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      newObj[key] =
-        typeof obj[key] === 'object' ? deepCopy(obj[key]) : obj[key];
-    }
-  }
-  return newObj;
-};
-
-function deepAssign(to, from) {
-  for (let key in from) {
-    if (!to[key] || typeof to[key] !== 'object') {
-      to[key] = from[key];
-    } else {
-      deepAssign(to[key], from[key]);
-    }
-  }
-}
-
-// https://github.com/tj/node-only
-// 只取 obj 中的某项
-// only(obj, 'name last email');
-// only(obj, ['name', 'last', 'email']);
-export const only = (obj, keys) => {
-  obj = obj || {};
-  if ('string' == typeof keys) keys = keys.split(/ +/);
-  return keys.reduce(function(ret, key) {
-    if (null == obj[key]) return ret;
-    ret[key] = obj[key];
-    return ret;
-  }, {});
-};
-
-// 忽略 obj 中的某项
-export const omit = (obj = {}, props = []) => {
-  if (!Array.isArray(props)) {
-    throw Error('props type error!');
-  }
-  const shallowCopy = {
-    ...obj,
-  };
-  for (let i = 0; i < props.length; i++) {
-    const key = props[i];
-    delete shallowCopy[key];
-  }
-  return shallowCopy;
-};
-
 export function mergeObject(obj1, obj2, newObject) {
   const wrap = newObject || obj1;
   const keys = new Set(Object.keys(obj1).concat(Object.keys(obj2)));
@@ -115,4 +53,4 @@ function get(obj, href) {
   }
 }
 
-export default { has, deepCopy, only, omit, isEqual, mergeObject };
+export default { hasOwn, deepCopy, only, omit, isEqual, mergeObject };
