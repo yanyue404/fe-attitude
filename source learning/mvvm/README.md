@@ -1,3 +1,4 @@
-## 剖析 Vue 实现原理 - 如何实现双向绑定 mvvm
+## 参考
 
 - https://github.com/DMQ/mvvm
+- https://github.com/zhengguorong/vue-advanced-workshop
