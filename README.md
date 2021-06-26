@@ -1,49 +1,24 @@
-# Salt
+我的 JavaScript 态度。
 
-"你们是世上的盐。盐若失了味，怎能叫它再咸呢？以后无用，不过丢在外面，被人践踏了。
+记录自己的学习考古，会前端真的可以“为所欲为”<sup>maybe</sup>。
 
-你们的光也当这样照在人前，叫他们看见你们的好行为，便将荣耀归给你们在天上的父。"
+______________________________
 
-## Route
+**JavaScript 语言**
 
-- [前端开发技术之路 —— 资源站](https://github.com/yanyue404/blog/issues/100)
-- [知识图谱](https://github.com/yanyue404/blog/issues/85)
-- [awesome-tools](https://github.com/yanyue404/awesome-tools)
+- [jstraining](https://github.com/ruanyf/jstraining) - 全栈工程师培训材料
+- [mqyqingfeng](https://github.com/mqyqingfeng/Blog) - 冴羽 JavaScript系列
+- [ES6 标准入门](https://es6.ruanyifeng.com/)
+- 33-js-concepts ([英文](https://github.com/leonardomso/33-js-concepts),[中文](https://github.com/stephentian/33-js-concepts)）
+- [horseshoe](https://github.com/veedrin/horseshoe) - 代号马蹄铁。以专题为单位的学习
+- [javascript.info](https://github.com/javascript-tutorial/zh.javascript.info) - 现代 JavaScript 教程（The Modern JavaScript Tutorial） https://zh.javascript.info
+- [React.js 小书](http://huziketang.mangojuice.top/books/react/)
+- [Vue 技术内幕](http://caibaojian.com/vue-design/art/)
+- [free-books](https://github.com/ruanyf/free-books) - 互联网上的免费书籍，by [ruanyf](https://github.com/ruanyf)
+- [现代 Web 开发](https://fullstackopen.com/zh/)：Nodejs + React 的在线互动教程。
+- [OAuth 2.0 Servers](https://www.oauth.com/)（英文）
 
-## Interview
+**其他**
 
 - [Daily-Interview-Question](https://github.com/Advanced-Frontend/Daily-Interview-Question)
 - [FE-Interview](https://github.com/lgwebdream/FE-Interview) - 前端面试星球
-
-## Resources
-
-- [free-books](https://github.com/ruanyf/free-books) - 互联网上的免费书籍，by [ruanyf](https://github.com/ruanyf)
-- [mqyqingfeng](https://github.com/mqyqingfeng/Blog) - 冴羽 JavaScript
-- 33-js-concepts ([英文](https://github.com/leonardomso/33-js-concepts),[中文](https://github.com/stephentian/33-js-concepts)）
-- [horseshoe](https://github.com/veedrin/horseshoe) - 代号马蹄铁。以专题为单位的学习
-- [Waking-Up](https://github.com/wolverinn/Waking-Up) - 计算机基础面试问题全面总结
-- [javascript.info](https://github.com/javascript-tutorial/zh.javascript.info) - 现代 JavaScript 教程（The Modern JavaScript Tutorial） https://zh.javascript.info
-- [Books](https://github.com/Urinx/Books) - 无它术，唯勤读书而多为之，自工， by [Urinx](https://github.com/Urinx/Books)
-- [free-programming-books-zh_CN](https://github.com/justjavac/free-programming-books-zh_CN) - 免费的计算机编程类中文书籍, by [justjavac](https://github.com/justjavac)
-
-## Follow
-
-**个人博客**
-
-[<img class="avatar ghh-user-x tooltipstered" height="50" width="50" alt="ruanyf" src="https://avatars1.githubusercontent.com/u/905434?s=88&v=4" style="box-shadow: transparent 0px 0px;"> ](http://www.ruanyifeng.com/blog/archives.html)[<img class="avatar ghh-user-x tooltipstered" height="50" width="50" alt="@cythilya" src="https://avatars0.githubusercontent.com/u/3736018?s=88&amp;v=4" style="box-shadow: transparent 0px 0px;">](https://cythilya.github.io/archieve/) [<img class="avatar ghh-user-x tooltipstered" height="50" width="50" alt="@KieSun" src="https://avatars2.githubusercontent.com/u/11811888?s=88&amp;v=4" style="box-shadow: transparent 0px 0px;">](https://github.com/KieSun/Dream)[<img class="avatar ghh-user-x tooltipstered" height="50" width="50" alt="@berwin" src="https://avatars2.githubusercontent.com/u/3739368?s=88&amp;v=4" style="box-shadow: transparent 0px 0px;">](https://github.com/berwin/Blog)[<img class="avatar ghh-user-x tooltipstered" height="50" width="50" alt="@mqyqingfeng" src="https://avatars1.githubusercontent.com/u/11458263?s=88&amp;v=4" style="box-shadow: transparent 0px 0px;">](https://github.com/mqyqingfeng/Blog)
-[<img class="avatar ghh-user-x tooltipstered" height="50" width="50" alt="@sunyongjian" src="https://avatars0.githubusercontent.com/u/18378034?s=88&amp;v=4" style="box-shadow: transparent 0px 0px;">](https://github.com/sunyongjian/blog)
-[<img class="avatar ghh-user-x tooltipstered" height="50" width="50" alt="@youngwind" src="https://avatars3.githubusercontent.com/u/8401872?s=88&amp;v=4" style="box-shadow: transparent 0px 0px;">](https://github.com/youngwind/blog)
-[<img class="avatar ghh-user-x tooltipstered" height="50" width="50" alt="@dailc" src="https://avatars0.githubusercontent.com/u/6134890?s=88&amp;v=4" style="box-shadow: transparent 0px 0px;">](https://dailc.github.io/blog/archive.html) [<img class="avatar ghh-user-x tooltipstered" height="50" width="50" alt="@veedrin" src="https://avatars2.githubusercontent.com/u/30197905?s=88&amp;v=4" style="box-shadow: transparent 0px 0px;">](https://github.com/veedrin)
-[<img class="avatar ghh-user-x tooltipstered" height="50" width="50" alt="@luuman" src="https://avatars2.githubusercontent.com/u/10662852?s=88&amp;v=4" style="box-shadow: transparent 0px 0px;">](https://blog.luuman.club/archives/)
-[<img class="avatar ghh-user-x tooltipstered" height="50" width="50" alt="@jawil" src="https://avatars1.githubusercontent.com/u/16515708?s=88&amp;v=4" style="box-shadow: transparent 0px 0px;">](https://github.com/jawil/blog)[<img class="avatar ghh-user-x tooltipstered" height="50" width="50" alt="@answershuto" src="https://avatars2.githubusercontent.com/u/17812136?s=88&amp;v=4" style="box-shadow: transparent 0px 0px;">](https://github.com/answershuto/Blog/) [<img alt="" width="50" height="50" class="avatar width-full height-full rounded-2" src="https://avatars2.githubusercontent.com/u/12526493?s=460&amp;v=4">](https://github.com/brickspert/blog) [<img alt="" width="50" height="50" class="avatar width-full height-full avatar-before-user-status" src="https://avatars2.githubusercontent.com/u/13267437?s=460&amp;v=4">](https://github.com/hujiulong/blog) [<img alt="" width="50" height="50" class="avatar width-full height-full rounded-2" src="https://avatars1.githubusercontent.com/u/28055600?s=460&amp;v=4">](https://github.com/fengshi123/blog)[<img alt="" width="50" height="50" class="avatar width-full height-full rounded-2" src="https://avatars2.githubusercontent.com/u/52817889?s=460&amp;v=4">](https://github.com/koala-coding/goodBlog)
-
-**外文博客**
-
-[<img class="avatar ghh-user-x tooltipstered" height="50" width="50" alt="@tanhauhau" src="https://avatars2.githubusercontent.com/u/2338632?s=88&amp;v=4" style="box-shadow: transparent 0px 0px;">](https://lihautan.com/blogs/)[<img class="avatar ghh-user-x tooltipstered" height="50" width="50" alt="@markerikson" src="https://avatars3.githubusercontent.com/u/1128784?s=88&amp;v=4" style="box-shadow: transparent 0px 0px;">](https://blog.isquaredsoftware.com/)[<img class="avatar ghh-user-x tooltipstered" height="50" width="50" alt="@gaearon" src="https://avatars2.githubusercontent.com/u/810438?s=88&amp;v=4" style="box-shadow: transparent 0px 0px;">](https://overreacted.io/zh-hans)
-
-**前端圈**
-
-[<img class="avatar ghh-user-x tooltipstered" height="50" width="50" alt="@FrankFang" src="https://avatars1.githubusercontent.com/u/839559?s=88&amp;v=4" style="box-shadow: transparent 0px 0px;">](https://github.com/FrankFang)[<img itemprop="image" class="TableObject-item avatar flex-shrink-0" src="https://avatars3.githubusercontent.com/u/10482599?s=200&amp;v=4" width="50" height="50" alt="@xitu">](https://github.com/xitu/gold-miner)
-[<img class="avatar ghh-user-x tooltipstered" height="50" width="50" alt="@wangshijun" src="https://avatars1.githubusercontent.com/u/719985?s=88&amp;v=4" style="box-shadow: transparent 0px 0px;">](https://github.com/wangshijun)
-[<img class="avatar ghh-user-x tooltipstered" height="50" width="50" alt="@RubyLouvre" src="https://avatars2.githubusercontent.com/u/190846?s=88&amp;v=4" style="box-shadow: transparent 0px 0px;">](https://github.com/RubyLouvre)
-[<img class="avatar ghh-user-x tooltipstered" height="50" width="50" alt="@Foveluy" src="https://avatars1.githubusercontent.com/u/16814336?s=88&amp;v=4" style="box-shadow: transparent 0px 0px;">](https://github.com/Foveluy)
