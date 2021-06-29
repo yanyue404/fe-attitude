@@ -1,6 +1,7 @@
 class KVue {
   constructor(options) {
     this.$options = options;
+    this.$el = options.el;
     this.$data = options.data;
     //  响应化数据
     this.observe(this.$data);

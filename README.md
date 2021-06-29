@@ -11,7 +11,6 @@
 ├── javascript
 ├── javascript-algorithms
 ├── javascript-components
-├── javascript-plugins
 ├── mini-vue
 ├── must-write-js
 ├── nodejs

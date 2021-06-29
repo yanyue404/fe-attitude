@@ -25,11 +25,11 @@ class Compile {
   compile(el) {
     const childNodes = el.childNodes;
     Array.from(childNodes).forEach(node => {
-      // 元素类型
+      // * 元素类型
       if (node.nodeType === 1) {
         // console.log('编译元素' + node.nodeName);
         this.compileElement(node);
-        // 插值表达式
+        // * 插值表达式
       } else if (this.isInterpolation(node)) {
         this.compileText(node);
       }
@@ -40,21 +40,28 @@ class Compile {
       }
     });
   }
-  isInterpolation(node) {
-    // 是⽂文本且符合{{}}
-    return node.nodeType === 3 && /\{\{(.*)\}\}/.test(node.textContent);
-  }
   compileElement(node) {
     // <div k-model="foo" k-text="test" @click="onClick">
     let nodeAttrs = node.attributes;
     Array.from(nodeAttrs).forEach(attr => {
       const attrName = attr.name;
       const exp = attr.value;
+      // * 指令
       if (this.isDirective(attrName)) {
         const dir = attrName.substring(2);
+        console.log(dir);
         this[dir] && this[dir](node, this.$vm, exp);
       }
+      // * 事件
+      if (this.isEvent(attrName)) {
+        const dir = attrName.substring(1);
+        this.eventHandler(node, this.$vm, exp, dir);
+      }
     });
+  }
+  isInterpolation(node) {
+    // 是⽂文本且符合{{}}
+    return node.nodeType === 3 && /\{\{(.*)\}\}/.test(node.textContent);
   }
   isDirective(attr) {
     return attr.indexOf('k-') === 0;
@@ -81,7 +88,29 @@ class Compile {
   textUpdater(node, val) {
     node.textContent = val;
   }
+  modelUpdater(node, val) {
+    node.value = val;
+  }
+  htmlUpdater(node, val) {
+    node.innerHTML = val;
+  }
+  // 事件处理
+  eventHandler(node, vm, exp, dir) {
+    let fn = vm.$options.methods && vm.$options.methods[exp];
+    if (dir && fn) {
+      node.addEventListener(dir, fn.bind(vm));
+    }
+  }
   text(node, vm, exp) {
     this.update(node, exp, 'text');
+  }
+  model(node, vm, exp) {
+    this.update(node, exp, 'model');
+    node.addEventListener('input', e => {
+      vm[exp] = e.target.value;
+    });
+  }
+  html(node, vm, exp) {
+    this.update(node, exp, 'html');
   }
 }

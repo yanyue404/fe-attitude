@@ -26,7 +26,7 @@
       <p k-text="name"></p>
       <p>{{age}}</p>
       <input type="text" k-model="name" />
-      <button @click="changeName">呵呵</button>
+      <button @click="changeName">更新 name</button>
       <div k-html="html"></div>
     </div>
 
@@ -35,8 +35,8 @@
         el: '#app',
         data: {
           name: 'I am test.',
-          age: 12,
-          html: '<button>这是⼀一个按钮</button>',
+          age: 26,
+          html: '<button style="margin: 15px 0;">这是一个按钮</button>',
         },
         created() {
           console.log('开始啦');
@@ -46,8 +46,8 @@
         },
         methods: {
           changeName() {
-            this.name = '哈喽，开课吧';
-            this.age = 1;
+            this.name = '哈哈，更新了';
+            this.age = 27;
           },
         },
       });
