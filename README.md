@@ -2,12 +2,33 @@
 
 记录自己的学习考古，会前端真的可以“为所欲为”<sup>maybe</sup>。
 
-______________________________
+```
+├── design-pattern
+├── docs
+├── esnext
+├── html
+├── interview
+├── javascript
+├── javascript-algorithms
+├── javascript-components
+├── javascript-plugins
+├── mini-vue
+├── must-write-js
+├── nodejs
+├── react
+├── source learning
+├── test
+├── typescript
+├── utils
+└── vue
+```
+
+---
 
 **JavaScript 语言**
 
 - [jstraining](https://github.com/ruanyf/jstraining) - 全栈工程师培训材料
-- [mqyqingfeng](https://github.com/mqyqingfeng/Blog) - 冴羽 JavaScript系列
+- [mqyqingfeng](https://github.com/mqyqingfeng/Blog) - 冴羽 JavaScript 系列
 - [ES6 标准入门](https://es6.ruanyifeng.com/)
 - 33-js-concepts ([英文](https://github.com/leonardomso/33-js-concepts),[中文](https://github.com/stephentian/33-js-concepts)）
 - [horseshoe](https://github.com/veedrin/horseshoe) - 代号马蹄铁。以专题为单位的学习

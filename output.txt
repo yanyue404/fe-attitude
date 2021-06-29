@@ -1,0 +1,29 @@
+F:\yanyue404\jsattitude
+├── commitlint.config.js
+├── design-pattern
+├── docs
+├── esnext
+├── html
+├── interview
+├── javascript
+├── javascript-algorithms
+├── javascript-components
+├── javascript-plugins
+├── LICENSE
+├── mini-vue
+├── must-write-js
+├── nodejs
+├── package.json
+├── react
+├── README.md
+├── source learning
+├── test
+├── TODO.md
+├── tsconfig.json
+├── typescript
+├── utils
+└── vue
+
+directory: 18 file: 6
+
+ignored: directory (1)
