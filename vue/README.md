@@ -7,6 +7,7 @@
 - [dk-lan/vue](https://github.com/dk-lan/vue)
 - [Vue.js 菜鸟教程](http://www.runoob.com/vue2/vue-tutorial.html)
 - [awesome-vue](https://github.com/vuejs/awesome-vue)
+- [vue-api](https://github.com/lanzhsh/vue-api) vue 中 extend，mixins，extends，components,install 的几个 api 对比
 
 ## 生命周期
 
@@ -47,6 +48,7 @@
 > mobile
 
 - [mint-ui](https://github.com/ElemeFE/mint-ui/)
+- vant
 
 ## Project
 
@@ -58,3 +60,5 @@
 ## Source code Study
 
 - [Vue 技术内幕](http://hcysun.me/vue-design/)
+- [woai3c/mini-vue](https://github.com/woai3c/mini-vue) 模仿 Vue1.0 写的迷你版 Vue
+- [learn-vue2-mvvm](https://github.com/wangfupeng1988/learn-vue2-mvvm)

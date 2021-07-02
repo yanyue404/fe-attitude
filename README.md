@@ -24,7 +24,7 @@
 
 ---
 
-**JavaScript 语言**
+**JavaScript**
 
 - [jstraining](https://github.com/ruanyf/jstraining) - 全栈工程师培训材料
 - [mqyqingfeng](https://github.com/mqyqingfeng/Blog) - 冴羽 JavaScript 系列
@@ -34,9 +34,25 @@
 - [javascript.info](https://github.com/javascript-tutorial/zh.javascript.info) - 现代 JavaScript 教程（The Modern JavaScript Tutorial） https://zh.javascript.info
 - [React.js 小书](http://huziketang.mangojuice.top/books/react/)
 - [Vue 技术内幕](http://caibaojian.com/vue-design/art/)
+- [FE-Advance](https://github.com/junyux/FE-Advance) 前端进阶十日谈
 - [free-books](https://github.com/ruanyf/free-books) - 互联网上的免费书籍，by [ruanyf](https://github.com/ruanyf)
 - [现代 Web 开发](https://fullstackopen.com/zh/)：Nodejs + React 的在线互动教程。
+
+**组件库**
+
+- [any-ui](https://github.com/any86/any-ui) ❄️ 一个移动端组件库
+- [QingUI](https://github.com/veedrin/qing) 🍧 一个 UI 组件库
+- [轱辘 UI](https://github.com/FrankFang/gulu) 轱辘，面向源码阅读者的 UI 框架
+
+**Node.js**
+
 - [OAuth 2.0 Servers](https://www.oauth.com/)（英文）
+- [node-lessons](https://github.com/alsotang/node-lessons) Node.js 包教不包会
+
+**可视化**
+
+- [h5-Dooring](https://github.com/MrXujiang/h5-Dooring)
+- [visual-drag-demo](https://github.com/woai3c/visual-drag-demo)
 
 **其他**
 
