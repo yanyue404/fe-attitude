@@ -50,34 +50,6 @@
       Promise.all__fake([p1(5000), p1(1000)]).then(function(res) {
         console.log(res); //[5000,1000]
       });
-
-      // 所有的 promise 都错误才触发 reject
-      Promise.every = promiseAry => {
-        return new Promise((resolve, reject) => {
-          let resultAry = [],
-            errorAry = [],
-            index = 0,
-            index__error = 0;
-          for (let i = 0; i < promiseAry.length; i++) {
-            Promise.resolve(promiseAry[i])
-              .then(result => {
-                index++;
-                resultAry[i] = result;
-                if (index === promiseAry.length) {
-                  resolve(resultAry);
-                }
-              })
-              .catch(reason => {
-                index__error++;
-                index++;
-                errorAry[i] = reason;
-                if (index__error === promiseAry.length) {
-                  reject(errorAry);
-                }
-              });
-          }
-        });
-      };
     </script>
   </body>
 </html>

@@ -37,6 +37,7 @@
 - [FE-Advance](https://github.com/junyux/FE-Advance) 前端进阶十日谈
 - [free-books](https://github.com/ruanyf/free-books) - 互联网上的免费书籍，by [ruanyf](https://github.com/ruanyf)
 - [现代 Web 开发](https://fullstackopen.com/zh/)：Nodejs + React 的在线互动教程。
+- [前端内参](https://github.com/coffe1891/frontend-hard-mode-interview)
 
 **组件库**
 
@@ -56,5 +57,10 @@
 
 **其他**
 
+- [Code Guide by @AlloyTeam](https://alloyteam.github.io/CodeGuide/) 通过分析 github 代码库总结出来的工程师代码书写习惯
+- [Web 开发规范文档](https://www.kancloud.cn/chandler/css-code-guide/50867)
+- [分类方法 - CSS 规范 - 规范 - NEC : 更好的 CSS 样式解决方案](http://nec.netease.com/standard/css-sort.html)
 - [Daily-Interview-Question](https://github.com/Advanced-Frontend/Daily-Interview-Question)
 - [FE-Interview](https://github.com/lgwebdream/FE-Interview) - 前端面试星球
+- [web.dev/blog](https://web.dev/blog/)
+  - [Using the HTML5 Drag and Drop API](https://web.dev/drag-and-drop/)
