@@ -35,6 +35,7 @@ class KVue {
       set(newVal) {
         if (newVal !== val) {
           val = newVal;
+          console.log(`当前管理依赖项 ${key} 的:`, dep);
           dep.notify();
         }
       },
@@ -76,9 +77,9 @@ class Watcher {
     this.key = key;
     this.cb = cb;
 
-    Dep.target = this;
-    this.vm[this.key]; // 触发依赖收集
-    Dep.target = null; // ! 收集完清空（等待其他 Watcher 实例化，每一个 watcher 只 与自己的 dep 发生关系）
+    Dep.target = this; 
+    this.vm[this.key]; // ! 触发依赖收集 (到这一步 get 调用 target 才有值了 )
+    Dep.target = null; // ! 收集完清空（等待其他 Watcher 实例化，每一个 watcher 只与自己的 dep 发生关系）
   }
   update() {
     // console.log(this.key + '更新了！');

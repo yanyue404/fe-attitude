@@ -8,6 +8,7 @@
 - [Vue.js 菜鸟教程](http://www.runoob.com/vue2/vue-tutorial.html)
 - [awesome-vue](https://github.com/vuejs/awesome-vue)
 - [vue-api](https://github.com/lanzhsh/vue-api) vue 中 extend，mixins，extends，components,install 的几个 api 对比
+- [Vue.js 中文文档 - 深入响应式原理](https://vuejs.bootcss.com/guide/reactivity.html)
 
 ## 生命周期
 
