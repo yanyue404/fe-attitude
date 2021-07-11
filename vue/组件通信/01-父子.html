@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-    <script src="../../build/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
   </head>
 
   <body>
     <fieldset>
       <legend>
-        <h3>父组件向子组件传参数 - props</h3>
+        <h3>父组件=>子组件</h3>
       </legend>
       <div id="app">
         <p>
           <label>父组件</label>
           <input type="text" v-model="txt" />
         </p>
-        <child :txt="txt"></child>
+        <child ref="child" :txt="txt"></child>
       </div>
     </fieldset>
 
@@ -32,7 +32,18 @@
           child: {
             props: ['txt'],
             template: '<h1>子组件-{{this.txt}}</h1>',
+            methods: {
+              sayHello() {
+                console.log('hello');
+              },
+            },
           },
+        },
+        mounted() {
+          this.$refs.child.sayHello();
+          setTimeout(() => {
+            this.$children[0].txt = 'aaa';
+          }, 1000);
         },
       });
     </script>

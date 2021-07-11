@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+  </head>
+
+  <body>
+    <fieldset>
+      <legend>
+        <h3>具名插槽</h3>
+      </legend>
+      <div id="app">
+        <cus-content>
+          <!-- 默认插槽用default做参数 -->
+          <template v-slot:default>具名插槽</template>
+          <!-- 具名插槽用插槽名做参数 -->
+          <template v-slot:content>内容...</template>
+        </cus-content>
+      </div>
+    </fieldset>
+
+    <script type="text/javascript">
+      var vm = new Vue({
+        el: '#app',
+        data: {
+          obj: {
+            title: '标题',
+            desc: '详细描述',
+          },
+        },
+        components: {
+          'cus-content': {
+            template: `<div>
+                 <slot></slot>
+                 <p>中间的一段文本</p>
+                 <slot name="content"></slot>
+              </div>`,
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

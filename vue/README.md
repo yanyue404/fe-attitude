@@ -63,3 +63,4 @@
 - [Vue 技术内幕](http://hcysun.me/vue-design/)
 - [woai3c/mini-vue](https://github.com/woai3c/mini-vue) 模仿 Vue1.0 写的迷你版 Vue
 - [learn-vue2-mvvm](https://github.com/wangfupeng1988/learn-vue2-mvvm)
+- [vue-advanced-workshop](https://vue-course-doc.vercel.app/)

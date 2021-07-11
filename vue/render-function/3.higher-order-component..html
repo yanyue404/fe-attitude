@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>动态渲染标签</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <smart-avatar username="vuejs"></smart-avatar>
+    </div>
+ <script>
+   // 该函数只是用来模拟网络请求
+   function fetchURL (username, cb) {
+      setTimeout(() => {
+        // hard coded, bonus: exercise: make it fetch from gravatar!
+        cb('https://avatars3.githubusercontent.com/u/6128107?v=4&s=200')
+      }, 500)
+    }
+
+    // 基础组件，只负责把传入src属性显示到一个图片标签
+    const Avatar = {
+      props: ['src'],
+      template: `<img :src="src">`
+    }
+
+    function withAvatarURL (InnerComponent) {
+      return {
+        props: ['username'],
+        inheritAttrs: false, // 2.4 only
+        data () {
+          return { url: null }
+        },
+        created () {
+          fetchURL(this.username, url => {
+            this.url = url
+          })
+        },
+        render (h) {
+          return h(InnerComponent, {
+            attrs: this.$attrs, // 2.4 only
+            props: {
+              src: this.url || 'http://via.placeholder.com/200x200'
+            }
+          })
+        }
+      }
+    }
+
+    const SmartAvatar = withAvatarURL(Avatar)
+
+    new Vue({
+      el: '#app',
+      components: { SmartAvatar }
+    })
+ </script>
+</html>

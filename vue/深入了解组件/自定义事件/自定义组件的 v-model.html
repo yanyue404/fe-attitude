@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+    <style>
+      .c-form-base-checkox {
+        display: inline-flex;
+      }
+      .c-form-base-checkox-box {
+        width: 45px;
+        height: 45px;
+        background: url('./img/checkbox.png');
+        background-size: 100% 100%;
+      }
+      .c-form-base-checkox-box.checked {
+        background-image: url('./img/checkbox-checked.png');
+      }
+    </style>
+  </head>
+
+  <body>
+    <fieldset>
+      <div id="app">
+        <h1>checkbox 选中状态：{{this.checkState}}</h1>
+        <base-checkbox v-model="checkState"></base-checkbox>
+      </div>
+    </fieldset>
+    <script>
+      // 这里的 checkState 的值将会传入这个名为 checked 的 prop。
+      // 同时当 <base-checkbox> 触发一个 change 事件并附带一个新的值的时候，这个 checkState 的 property 将会被更新。
+
+      // 注意你仍然需要在组件的 props 选项里声明 checked 这个 prop。
+      var vm = new Vue({
+        el: '#app',
+        data: {
+          checkState: true,
+        },
+        components: {
+          'base-checkbox': {
+            model: {
+              prop: 'checked',
+              event: 'change',
+            },
+            props: {
+              checked: Boolean,
+            },
+            template: `
+              <div class="c-form-base-checkox" @click="$emit('change', !checked)">
+                <slot :checked="checked">
+                  <span class="c-form-base-checkox-box" :class="{checked}"></span>
+                </slot>
+              </div>
+             `,
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

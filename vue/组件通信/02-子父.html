@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-    <script src="../../build/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
   </head>
 
   <body>
@@ -15,7 +15,7 @@
       </legend>
       <div id="app">
         <h1>父组件-{{this.txt}}</h1>
-        <child v-on:parentevent="changeTxt"></child>
+        <child v-on:my-event="changeTxt"></child>
       </div>
     </fieldset>
     <script>
@@ -35,7 +35,8 @@
               '<p><label>子组件</label><input type="text" v-on:input="change"/></p>',
             methods: {
               change: function(event) {
-                this.$emit('parentevent', event.target.value);
+                // ! 推荐你始终使用 kebab-case 的事件名
+                this.$emit('my-event', event.target.value);
               },
             },
           },

@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-    <script src="../../build/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
   </head>
 
   <body>
     <fieldset>
       <legend>
-        <h3>子组件调用父组件的方法 - emit</h3>
+        <h3>任意两个组件之间：事件总线 或 vuex</h3>
       </legend>
       <div id="app">
         {{message}}
@@ -21,12 +21,28 @@
       </div>
     </fieldset>
     <script>
-      var bus = new Vue();
+      // Bus：事件派发、监听和回调管理
+      class Bus {
+        constructor() {
+          this.callbacks = {};
+        }
+        $on(name, fn) {
+          this.callbacks[name] = this.callbacks[name] || [];
+          this.callbacks[name].push(fn);
+        }
+        $emit(name, args) {
+          if (this.callbacks[name]) {
+            this.callbacks[name].forEach(cb => cb(args));
+          }
+        }
+      }
+      Vue.prototype.$bus = new Bus();
+
       Vue.component('my-component', {
         template: '<button @click ="handleEvent">传递事件</button>',
         methods: {
           handleEvent: function() {
-            bus.$emit('on-message', '来自组件my-component的内容');
+            this.$bus.$emit('on-message', '来自组件my-component的内容');
           },
         },
       });
@@ -36,10 +52,9 @@
           message: '',
         },
         mounted: function() {
-          var _this = this;
           // 在实例化组价的时候，监听来自bus实例的事件
-          bus.$on('on-message', function(msg) {
-            _this.message = msg;
+          this.$bus.$on('on-message', msg => {
+            this.message = msg;
           });
         },
       });
