@@ -1,12 +1,9 @@
 {
-  "name": "smart",
+  "name": "jsattitude",
   "version": "1.0.0",
-  "description": "前端开发技术之路！",
-  "main": "index.js",
-  "directories": {
-    "doc": "docs",
-    "test": "test"
-  },
+  "description": "Javascript attitude",
+  "author": "yanyue404",
+  "license": "MIT",
   "scripts": {
     "commitmsg": "commitlint -E HUSKY_GIT_PARAMS",
     "ts": "tsc -w"
@@ -24,14 +21,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yanyue404/smart.git"
+    "url": "git+https://github.com/yanyue404/jsattitude.git"
   },
-  "author": "yanyue404",
-  "license": "MIT",
+
   "bugs": {
-    "url": "https://github.com/yanyue404/smart/issues"
+    "url": "https://github.com/yanyue404/jsattitude/issues"
   },
-  "homepage": "https://github.com/yanyue404/smart#readme",
+  "homepage": "https://github.com/yanyue404/jsattitude#readme",
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
