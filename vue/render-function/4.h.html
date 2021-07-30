@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>动态渲染标签</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+
+  <body>
+    <div id="demo_4_5">
+      <flex-layout @click="handleClick">插槽内容</flex-layout>
+    </div>
+  </body>
+  <script>
+    Vue.component("flex-layout", {
+      props: {
+        justify: {
+          type: String,
+          default: "flex-start" // 默认主轴方向从左到右
+        },
+        align: {
+          type: String,
+          default: "stretch" //
+        }
+      },
+      methods: {
+        handleClick() {
+          alert("点击事件");
+        }
+      },
+
+      render(h) {
+        // 第二参数是可选参数，可接受vnodes类型的数组，数组可以是数字和字符串
+        return h(
+          "div",
+          {
+            // 与 `v-bind:class` 的 API 相同，
+            // 接受一个字符串、对象或字符串和对象组成的数组
+            class: {
+              foo: true,
+              bar: false
+            },
+            // 与 `v-bind:style` 的 API 相同，
+            // 接受一个字符串、对象，或对象组成的数组
+            style: {
+              color: "red",
+              fontSize: "14px"
+            },
+            // 普通的 HTML attribute
+            attrs: {
+              id: "foo"
+            },
+            // 组件 prop
+            props: {
+              myProp: "bar"
+            },
+            // DOM property
+            domProps: {
+              innerHTML: "baz"
+            },
+            // 事件监听器在 `on` 内，
+            // 但不再支持如 `v-on:keyup.enter` 这样的修饰器。
+            // 需要在处理函数中手动检查 keyCode。
+            on: {
+              click: this.clickHandler
+            },
+            // 仅用于组件，用于监听原生事件，而不是组件内部使用
+            // `vm.$emit` 触发的事件。
+            nativeOn: {
+              click: this.nativeClickHandler
+            },
+            // 自定义指令。注意，你无法对 `binding` 中的 `oldValue`
+            // 赋值，因为 Vue 已经自动为你进行了同步。
+            directives: [
+              {
+                name: "my-custom-directive",
+                value: "2",
+                expression: "1 + 1",
+                arg: "foo",
+                modifiers: {
+                  bar: true
+                }
+              }
+            ],
+            // 作用域插槽的格式为
+            // { name: props => VNode | Array<VNode> }
+            scopedSlots: {
+              default: props => createElement("span", props.text)
+            },
+            // 如果组件是其它组件的子组件，需为插槽指定名称
+            slot: "name-of-slot",
+            // 其它特殊顶层 property
+            key: "myKey",
+            ref: "myRef",
+            // 如果你在渲染函数中给多个元素都应用了相同的 ref 名，
+            // 那么 `$refs.myRef` 会变成一个数组。
+            refInFor: true
+          },
+          this.$slots.default // 子节点数组
+        );
+      }
+    });
+    new Vue({ el: "#demo_4_5" });
+  </script>
+</html>

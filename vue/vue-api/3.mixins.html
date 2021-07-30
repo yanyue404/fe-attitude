@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <p>mixin的data值为:{{mixinData}}</p>
+      <button @click="getSum()">点我触发getSum方法</button>
+    </div>
+  </body>
+  <script>
+    var mixin = {
+      data: { mixinData: "我是mixin的data", foo: "abc" },
+      created: function() {
+        console.log("这是mixin的created");
+      },
+      methods: {
+        getSum: function() {
+          console.log("这是mixin的getSum里面的方法");
+        }
+      }
+    };
+
+    var mixinTwo = {
+      data: { mixinData: "我是mixinTwo的data", bar: "def" },
+      created: function() {
+        console.log("这是mixinTwo的created");
+      },
+      methods: {
+        getSum: function() {
+          console.log("这是mixinTwo的getSum里面的方法");
+        }
+      }
+    };
+
+    var vm = new Vue({
+      el: "#app",
+      data: { mixinData: "我是vue实例的data" },
+      // 同名钩子函数将合并为一个数组，因此都将被调用。另外，混入对象的钩子将在组件自身钩子之前调用。
+      created: function() {
+        console.log("这是vue实例的created");
+        // => 这是mixin的created
+        // => 这是mixinTwo的created
+        // => 这是vue实例的created
+        // 当组件和混入对象含有同名选项时，这些选项将以恰当的方式进行“合并”。比如，数据对象在内部会进行递归合并，并在发生冲突时以组件数据优先。
+        console.log(this.$data);
+        // => { mixinData: "我是vue实例的data", foo: "abc", bar: "def" }
+      },
+      mixins: [mixin, mixinTwo],
+      // 值为对象的选项，例如 methods、components 和 directives，将被合并为同一个对象。两个对象键名冲突时，取组件对象的键值对
+      methods: {
+        getSum: function() {
+          console.log("这是vue实例里面getSum的方法");
+          // => 这是vue实例里面getSum的方法
+        }
+      }
+    });
+  </script>
+</html>

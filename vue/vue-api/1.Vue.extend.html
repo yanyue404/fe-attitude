@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.min.js"></script>
+  </head>
+  <body>
+    <div id="app-extend"></div>
+  </body>
+  <script>
+    // 创建构造器
+    var Profile = Vue.extend({
+      template: "<div><p>{{extendData}}</p><p>实例传入的数据为:{{propsExtend}}</p></div>",
+      props: ["propsExtend"],
+      // data 选项是特例，需要注意 - 在 Vue.extend() 中它必须是函数
+      data: function() {
+        return {
+          extendData: "这是extend扩展的数据"
+        };
+      }
+    });
+    // 创建 Profile 实例，并挂载到一个元素上。
+    // propsData: 创建实例时传递 props(只用于 new 创建的实例中。)。主要作用是方便测试。
+    new Profile({ propsData: { propsExtend: "我是实例传入的数据" } }).$mount("#app-extend");
+  </script>
+</html>

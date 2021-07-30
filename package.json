@@ -9,20 +9,15 @@
   },
   "scripts": {
     "commitmsg": "commitlint -E HUSKY_GIT_PARAMS",
-    "ts": "tsc -w",
-    "pre-commit": "lint-staged",
-    "prettier": "prettier --write \"./**/*.{js,jsx,css,html,scss,md,json}\""
+    "ts": "tsc -w"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
-    "**/*.{js,jsx}": [
-      "prettier --write",
-      "git add"
-    ],
-    "**/*.{css,html}": [
-      "prettier --write",
-      "git add"
-    ],
-    "**/*.{md,json}": [
+    "*.{js,jsx,vue,css,html,scss,md,json,wxml,wxss,wxs}": [
       "prettier --write",
       "git add"
     ]
