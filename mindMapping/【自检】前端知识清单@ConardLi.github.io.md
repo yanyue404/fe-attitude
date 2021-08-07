@@ -20,7 +20,7 @@
 
 ![](https://lsqimg-1257917459.cos.ap-beijing.myqcloud.com/blog/知识体系.png)
 
-## 一、JavaScript基础
+## 一、JavaScript 基础
 
 > 前端工程师吃饭的家伙，深度、广度一样都不能差。
 
@@ -94,7 +94,7 @@
 
 - 7.如何在保证页面运行流畅的情况下处理海量数据
 
-### 语法和API
+### 语法和 API
 
 - 1.理解`ECMAScript`和`JavaScript`的关系
 
@@ -110,7 +110,7 @@
 
 - 7.`JavaScript`异常处理的方式，统一的异常处理方案
 
-## 二、HTML和CSS
+## 二、HTML 和 CSS
 
 ### HTML
 
@@ -160,7 +160,6 @@
 
 - 4.实现常用布局（三栏、圣杯、双飞翼、吸顶），可是说出多种方式并理解其优缺点
 
-
 ## 三、计算机基础
 
 > 关于编译原理，不需要理解非常深入，但是最基本的原理和概念一定要懂，这对于学习一门编程语言非常重要
@@ -171,7 +170,7 @@
 
 - 2.正则表达式的匹配原理和性能优化
 
-- 3.如何将`JavaScript`代码解析成抽象语法树(`AST`) 
+- 3.如何将`JavaScript`代码解析成抽象语法树(`AST`)
 
 - 4.`base64`的编码原理
 
@@ -184,7 +183,7 @@
 - 2.三次握手和四次挥手详细原理，为什么要使用这种机制
 
 - 3.有哪些协议是可靠，`TCP`有哪些手段保证可靠交付
- 
+
 - 4.`DNS`的作用、`DNS`解析的详细过程，`DNS`优化原理
 
 - 5.`CDN`的作用和原理
@@ -211,7 +210,7 @@
 
 > 据我了解的大部分前端对这部分知识有些欠缺，甚至抵触，但是，如果突破更高的天花板，这部分知识是必不可少的，而且我亲身经历——非常有用！
 
-### JavaScript编码能力
+### JavaScript 编码能力
 
 - 1.多种方式实现数组去重、扁平化、对比优缺点
 
@@ -249,7 +248,6 @@
 
 - 4.了解`图`、`堆`的基本结构和使用场景
 
-
 ### 算法
 
 - 1.可计算一个算法的时间复杂度和空间复杂度，可估计业务逻辑代码的耗时和内存消耗
@@ -262,18 +260,17 @@
 
 - 5.前端处理海量数据的算法方案
 
-
 ## 五、运行环境
 
 我们需要理清语言和环境的关系：
 
->`ECMAScript`描述了`JavaScript`语言的语法和基本对象规范
+> `ECMAScript`描述了`JavaScript`语言的语法和基本对象规范
 
 > 浏览器作为`JavaScript`的一种运行环境，为它提供了：文档对象模型（`DOM`），描述处理网页内容的方法和接口、浏览器对象模型（`BOM`），描述与浏览器进行交互的方法和接口
 
-> Node也是`JavaScript`的一种运行环境，为它提供了操作`I/O`、网络等`API`
+> Node 也是`JavaScript`的一种运行环境，为它提供了操作`I/O`、网络等`API`
 
-### 浏览器API
+### 浏览器 API
 
 - 1.浏览器提供的符合`W3C`标准的`DOM`操作`API`、浏览器差异、兼容性
 
@@ -327,7 +324,6 @@
 
 - 5.`Node`事件驱动、非阻塞机制的实现原理
 
-
 ## 六、框架和类库
 
 > 轮子层出不穷，从原理上理解才是正道
@@ -344,7 +340,7 @@
 
 ### React
 
-- 1.`React`和`vue `选型和优缺点、核心架构的区别
+- 1.`React`和`vue`选型和优缺点、核心架构的区别
 
 - 2.`React`中`setState`的执行机制，如何有效的管理状态
 
@@ -484,7 +480,6 @@
 
 - 2.掌握数据最终在数据库中是如何落地存储的，能看懂表结构设计、表之间的关联，至少会使用一种数据库
 
-
 ### 性能优化
 
 - 1.了解前端性能衡量指标、性能监控要点，掌握一种前端性能监控方案
@@ -500,7 +495,6 @@
 - 6.`Canvas`性能优化方案
 
 - 7.`React`、`Vue`等框架使用性能优化方案
-
 
 ### 前端安全
 
@@ -523,9 +517,10 @@
 `vczh`大神在知乎问题【如何能以后达到温赵轮三位大神的水平？】下的回答：
 
 这十几年我一共做了三件事：
+
 - 1、不以赚钱为目的选择学习的内容；
 - 2、以自己是否能造出轮子来衡量学习的效果；
-- 3、坚持每天写自己的代码，前10年每天至少6个小时，不包含学习和工作的时间。
+- 3、坚持每天写自己的代码，前 10 年每天至少 6 个小时，不包含学习和工作的时间。
 
 > 上面几点可能有点难，第一点我就做不到，但是做到下面绩点还是比较容易的。
 
@@ -555,7 +550,7 @@
 
 - 6.掌握在繁重的工作和长期的电脑辐射的情况下保持健康的方法，建立正确的养生知识体系
 
-## 十一、资源推荐 
+## 十一、资源推荐
 
 有了知识体系，在阅读一篇技术文章的时候就很容易把它归类，我一直以来就是这样做的。
 
@@ -567,94 +562,132 @@
 
 学习一门知识，最好先阅读官方文档，把所有的`API`大概浏览一遍，再继续看大佬们总结的进阶知识，什么东西是搬运过来的，什么是干货，一目了然。
 
-### 语言基础 
+### 语言基础
 
- *  \[📚\]`JavaScript`高级程序设计（必看）：[book.douban.com/subject/105…][book.douban.com_subject_105]
- *  \[📚\]高性能`JavaScript`：[book.douban.com/subject/536…][book.douban.com_subject_536]
- *  现代`JavaScript`教程：[zh.javascript.info/][zh.javascript.info]
- *  阮一峰的`ECMAScript 6`教程：[es6.ruanyifeng.com/][es6.ruanyifeng.com]
- *  `ECMAScript 6`标准：[www.ecma-international.org/ecma-262/6.…][www.ecma-international.org_ecma-262_6.]
- *  `HTML meta`标签总结与属性使用介绍：[segmentfault.com/a/119000000…][segmentfault.com_a_119000000]
- *  `CSS`编码指导：[github.com/chadluo/CSS…][github.com_chadluo_CSS]
+- \[📚\]`JavaScript`高级程序设计（必看）：https://book.douban.com/subject/10546125/
 
-### 计算机基础 
+- \[📚\]高性能 `JavaScript`：https://book.douban.com/subject/5362856/
+- 现代`JavaScript`教程：https://zh.javascript.info/
 
- *  大前端开发者需要了解的基础编译原理和语言知识：[fullstack.blog/2017/06/24/…][fullstack.blog_2017_06_24]
- *  图解`HTTP`：[book.douban.com/subject/258…][book.douban.com_subject_258]
- *  \[📚\]`JavaScript`设计模式与开发实践：[book.douban.com/subject/263…][book.douban.com_subject_263]
- *  正则表达式30分钟入门教程：[link.juejin.im/?target=htt…][link.juejin.im_target_htt]
+- 阮一峰的 `ECMAScript 6`教程：http://es6.ruanyifeng.com/
 
-### 数据结构和算法 
+- `ECMAScript 6`标准：https://www.ecma-international.org/ecma-262/6.0/
 
- *  数据结构与算法之美：[time.geekbang.org/column/intr…][time.geekbang.org_column_intr]
- *  用动画的形式呈现解`LeetCode`题目的思路：[github.com/MisterBooo/…][github.com_MisterBooo]
- *  `JavaScript`数据结构和算法：[github.com/ConardLi/aw…][github.com_ConardLi_aw]
- *  `30-seconds-of-code`（里面有很多`js`代码非常巧妙，我正在将它翻译成中文）：[github.com/ConardLi/30…][github.com_ConardLi_30]
+- `HTML meta`标签总结与属性使用介绍：https://segmentfault.com/a/1190000004279791
 
-### 运行环境 
+- `CSS`编码指导：https://github.com/chadluo/CSS-Guidelines/blob/master/README.md
 
- *  《重学前端》中的浏览器原理章节：[time.geekbang.org/column/arti…][time.geekbang.org_column_arti]
- *  图解浏览器的基本工作原理：[zhuanlan.zhihu.com/p/47407398][zhuanlan.zhihu.com_p_47407398]
- *  七天学会`NodeJS`：[github.com/nqdeng/7-da…][github.com_nqdeng_7-da]
- *  `Node.js`模块加载与运行原理：[efe.baidu.com/blog/nodejs…][efe.baidu.com_blog_nodejs]
+### 计算机基础
 
-### 框架和类库 
+- 大前端开发者需要了解的基础编译原理和语言知识：[fullstack.blog/2017/06/24/](http://fullstack.blog/2017/06/24/%e5%a4%a7%e5%89%8d%e7%ab%af%e5%bc%80%e5%8f%91%e8%80%85%e9%9c%80%e8%a6%81%e4%ba%86%e8%a7%a3%e7%9a%84%e5%9f%ba%e7%a1%80%e7%bc%96%e8%af%91%e5%8e%9f%e7%90%86%e5%92%8c%e8%af%ad%e8%a8%80%e7%9f%a5%e8%af%86)
 
- *  `TypeScript Handbook`：[zhongsp.gitbooks.io/typescript-…][zhongsp.gitbooks.io_typescript-]
- *  `React.js`小书：[huziketang.mangojuice.top/books/react…][huziketang.mangojuice.top_books_react]
- *  `React`深入系列：[juejin.cn/post/684490…][juejin.cn_post_684490]
- *  `Webpack React`小书：[fakefish.github.io/react-webpa…][fakefish.github.io_react-webpa]
- *  `Vue.js`技术揭秘：[github.com/ustbhuangyi…][github.com_ustbhuangyi]
- *  `Vuex`\-在`Vue`中管理状态：[sabe.io/tutorials/g…][sabe.io_tutorials_g]
- *  你需要`Mobx`还是`Redux`？：[juejin.cn/post/684490…][juejin.cn_post_684490 1]
- *  `Underscore`源码分析：[yoyoyohamapi.gitbooks.io/undersercor…][yoyoyohamapi.gitbooks.io_undersercor]
- *  微信小程序开发资源汇总：[github.com/justjavac/a…][github.com_justjavac_a]
- *  腾讯移动`Web`前端知识库：[github.com/AlloyTeam/M…][github.com_AlloyTeam_M]
+- 图解`HTTP`：https://book.douban.com/subject/25863515/
 
-### 前端工程 
+- \[📚\]`JavaScript`设计模式与开发实践：https://book.douban.com/subject/26382780/
 
- *  一口（很长的）气了解`babel`：[zhuanlan.zhihu.com/p/43249121][zhuanlan.zhihu.com_p_43249121]
- *  `Webpack`傻瓜式指南：[zhuanlan.zhihu.com/p/20367175][zhuanlan.zhihu.com_p_20367175]
- *  `Webpack`原理：[segmentfault.com/a/119000001…][segmentfault.com_a_119000001]
- *  廖雪峰的`git`教程：[www.liaoxuefeng.com/wiki/001373…][www.liaoxuefeng.com_wiki_001373]
- *  图解`Git`：[marklodato.github.io/visual-git-…][marklodato.github.io_visual-git-]
- *  前端开发者必备的`Nginx`知识：[juejin.cn/post/684490…][juejin.cn_post_684490 2]
- *  使用Jenkins进行持续集成：[www.liaoxuefeng.com/article/001…][www.liaoxuefeng.com_article_001]
+- 正则表达式 30 分钟入门教程：https://deerchao.cn/tutorials/regex/regex.htm
 
-### 项目和业务 
+### 数据结构和算法
 
- *  常见六大`Web`安全攻防解析：[github.com/ljianshu/Bl…][github.com_ljianshu_Bl]
- *  深入理解前端性能监控：[juejin.cn/post/1\#head…][juejin.cn_post_1_head]
- *  \[📚\]高性能网站建设指南：[book.douban.com/subject/313…][book.douban.com_subject_313]
- *  新人如何快速融入技术实力强的前端团队：[juejin.cn/post/684490…][juejin.cn_post_684490 3]
+- 数据结构与算法之美：https://time.geekbang.org/column/intro/126
 
-### 学习提升 
+- 用动画的形式呈现解`LeetCode`题目的思路：https://github.com/MisterBooo/LeetCodeAnimation
 
- *  印记中文（各种中文开发文档）：[www.docschina.org/][www.docschina.org]
- *  前端学习方法：[github.com/helloqingfe…][github.com_helloqingfe]
- *  如何在工作内外获得持续的技术成长：[juejin.cn/post/684490…][juejin.cn_post_684490 4]
- *  优秀的前端博客汇总：[github.com/foru17/fron…][github.com_foru17_fron]
+- `JavaScript`数据结构和算法：https://github.com/ConardLi/awesome-coding-js
+
+- `30-seconds-of-code`（里面有很多`js`代码非常巧妙，我正在将它翻译成中文）：https://github.com/ConardLi/30-seconds-of-code-Zh-CN
+
+### 运行环境
+
+- 《重学前端》中的浏览器原理章节：https://time.geekbang.org/column/article/80240
+
+- 图解浏览器的基本工作原理：https://zhuanlan.zhihu.com/p/47407398
+
+- 七天学会`NodeJS` ：https://github.com/nqdeng/7-days-nodejs
+
+- `Node.js` 模块加载与运行原理：https://efe.baidu.com/blog/nodejs-module-analyze/
+
+### 框架和类库
+
+- `TypeScript Handbook` ：https://zhongsp.gitbooks.io/typescript-handbook/content/
+
+- `React.js` 小书：http://huziketang.mangojuice.top/books/react/
+
+- `React` 深入系列：https://juejin.cn/post/6844903815762673671
+
+- `Webpack React` 小书：https://fakefish.github.io/react-webpack-cookbook/index.html
+
+- `Vue.js` 技术揭秘：https://github.com/ustbhuangyi/vue-analysis
+
+- `Vuex` -在`Vue` 中管理状态：https://sabe.io/tutorials/getting-started-with-vuex
+
+- 你需要`Mobx` 还是`Redux` ？：https://juejin.cn/post/6844903562095362056
+
+- `Underscore` 源码分析：https://yoyoyohamapi.gitbooks.io/undersercore-analysis/content/
+
+- 微信小程序开发资源汇总：https://github.com/justjavac/awesome-wechat-weapp
+
+- 腾讯移动`Web` 前端知识库：https://github.com/AlloyTeam/Mars
+
+### 前端工程
+
+- 一口（很长的）气了解`babel` https://zhuanlan.zhihu.com/p/43249121
+
+- `Webpack` 傻瓜式指南：https://zhuanlan.zhihu.com/p/20367175
+
+- `Webpack` 原理：https://segmentfault.com/a/1190000015088834?utm_source=tag-newest
+
+- 廖雪峰的`git` 教程：https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000
+
+- 图解`Git` ：https://marklodato.github.io/visual-git-guide/index-zh-cn.html
+
+- 前端开发者必备的`Nginx` 知识：https://juejin.cn/post/6844903793918738440
+
+- 使用 Jenkins 进行持续集成 https://www.liaoxuefeng.com/article/001463233913442cdb2d1bd1b1b42e3b0b29eb1ba736c5e000
+
+### 项目和业务
+
+- 常见六大`Web` 安全攻防解析：https://github.com/ljianshu/Blog/issues/56
+
+- 深入理解前端性能监控：https://juejin.cn/post/1#heading-5
+
+- \[📚\]高性能网站建设指南：https://book.douban.com/subject/3132277/
+
+- 新人如何快速融入技术实力强的前端团队：https://juejin.cn/post/6844903825992597512
+
+### 学习提升
+
+- 印记中文（各种中文开发文档）https://www.docschina.org/
+
+- 前端学习方法：https://github.com/helloqingfeng/Awsome-Front-End-learning-resource/tree/master/01-FE-learning-master
+
+- 如何在工作内外获得持续的技术成长：https://juejin.cn/post/6844903828333002760
+
+- 优秀的前端博客汇总：https://github.com/foru17/front-end-collect
 
 另外推荐我一直在关注的几位大佬的个人博客：
 
- *  冴羽的博客：[github.com/mqyqingfeng…][github.com_mqyqingfeng]
- *  张鑫旭的博客：[www.zhangxinxu.com/wordpress/][www.zhangxinxu.com_wordpress]
- *  左耳朵耗子：[coolshell.cn/][coolshell.cn]
+- 冴羽的博客：https://github.com/mqyqingfeng/Blog
 
-### 技术之外 
+- 张鑫旭的博客：https://www.zhangxinxu.com/wordpress/
 
- *  互联网术语大全：[www.jianshu.com/p/9a7ca206c…][www.jianshu.com_p_9a7ca206c]
- *  互联网沟通、问答、学习的艺术：[zhuanlan.zhihu.com/p/41431775][zhuanlan.zhihu.com_p_41431775]
- *  经常加班至深夜，怎样才能保持身体健康：[www.zhihu.com/question/21…][www.zhihu.com_question_21]
+- 左耳朵耗子：https://coolshell.cn/
+
+### 技术之外
+
+- 互联网术语大全：https://www.jianshu.com/p/9a7ca206c1ab
+
+- 互联网沟通、问答、学习的艺术：https://zhuanlan.zhihu.com/p/41431775
+
+- 经常加班至深夜，怎样才能保持身体健康：https://www.zhihu.com/question/21790919
 
 其实在这个信息发达的时代最不缺的就是资源，如何从众多的资源中获取到真正精华的部分，是非常重要的，资源在于精不在于多，强烈建议在保证深度的情况下再保证广度。
 
-## 小结 
+## 小结
 
 希望你阅读本篇文章后可以达到以下几点：
 
- *  从知识清单中找到自己的知识盲点与欠缺
- *  具有知识体系化的思想，开始建立自己的知识体系
- *  阅读文章时将知识归类到知识体系中，并不断完善自己的知识体系
- *  从文章中获取到了有用的资源
-
+- 从知识清单中找到自己的知识盲点与欠缺
+- 具有知识体系化的思想，开始建立自己的知识体系
+- 阅读文章时将知识归类到知识体系中，并不断完善自己的知识体系
+- 从文章中获取到了有用的资源
