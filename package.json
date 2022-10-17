@@ -1,11 +1,13 @@
 {
-  "name": "jsattitude",
+  "name": "fe-attitude",
   "version": "1.0.0",
   "description": "Javascript attitude",
   "author": "yanyue404",
   "license": "MIT",
   "scripts": {
+    "mock": "json-server --watch db.json --port 3006",
     "commitmsg": "commitlint -E HUSKY_GIT_PARAMS",
+    "test:node": "node ./test-node/build.js",
     "ts": "tsc -w"
   },
   "husky": {
@@ -14,19 +16,19 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx,vue,css,html,scss,md,json,wxml,wxss,wxs}": [
+    "*.{vue,md}": [
       "prettier --write",
       "git add"
     ]
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yanyue404/jsattitude.git"
+    "url": "git+https://github.com/yanyue404/fe-attitude.git"
   },
   "bugs": {
-    "url": "https://github.com/yanyue404/jsattitude/issues"
+    "url": "https://github.com/yanyue404/fe-attitude/issues"
   },
-  "homepage": "https://github.com/yanyue404/jsattitude#readme",
+  "homepage": "https://github.com/yanyue404/fe-attitude#readme",
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",

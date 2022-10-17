@@ -2,62 +2,64 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
+    <style>
+      .div {
+        display: flex;
+        flex-direction: column;
+      }
+      .top {
+        display: flex;
+        line-height: 100px;
+        height: 100px;
+        z-index: 1;
+      }
+      .top div {
+        width: 50%;
+        text-align: center;
+      }
+      .a {
+        background-color: #ff000036;
+        border-radius: 6px;
+      }
+      .b {
+        border-style: solid;
+        border-width: 1px 1px 0px 1px;
+        border-color: #ff0000 #ff0000 #fff #ff0000;
+        border-radius: 6px 6px 0 0;
+        background: #fff;
+        height: 103px;
+        position: relative;
+      }
+      .b::after {
+        content: '';
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        left: -7px;
+        bottom: 3px;
+        border-radius: 0 0 6px 0;
+        border: 1px solid #ff0000;
+        border-width: 0px 1px 1px 0px;
+        box-shadow: 4px 4px 0px 4px #fff;
+      }
+      .bottom {
+        border: 1px solid #ff0000;
+        height: 200px;
+        padding: 10px;
+        border-radius: 6px;
+      }
+    </style>
   </head>
   <body>
-    <button>点击</button>
-
-    <script>
-      class Event {
-        constructor() {
-          this._cache = {};
-        }
-        // 绑定
-        on(type, callback) {
-          let fns = (this._cache[type] = this._cache[type] || []);
-          if (fns.indexOf(callback) === -1) {
-            fns.push(callback);
-          }
-          return this;
-        }
-        // 触发
-        trigger(type, data) {
-          let fns = this._cache[type];
-          if (Array.isArray(fns)) {
-            fns.forEach(fn => {
-              fn(data);
-            });
-          }
-          return this;
-        }
-        // 解绑
-        off(type, callback) {
-          let fns = this._cache[type];
-          if (Array.isArray(fns)) {
-            if (callback) {
-              let index = fns.indexOf(callback);
-              if (index !== -1) {
-                fns.splice(index, 1);
-              }
-            } else {
-              //全部清空
-              fns.length = 0;
-            }
-          }
-          return this;
-        }
-      }
-      // 测试用例
-      const event = new Event();
-      event.on('test', a => {
-        console.log(a);
-      });
-      event.trigger('test', 'hello world');
-
-      event.off('test');
-      event.trigger('test', 'hello world');
-    </script>
+    <div class="div">
+      <div class="top">
+        <div class="a">第一</div>
+        <div class="b">第二</div>
+      </div>
+      <div class="bottom">xxxxxxxxxxxxxxxxxxxxxx</div>
+    </div>
   </body>
 </html>

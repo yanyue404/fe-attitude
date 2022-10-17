@@ -1,6 +1,16 @@
+// https://www.prettier.cn/docs/options.html
 module.exports = {
-  printWidth: 120, // 超过最大值换行
-  semi: true, //  要分号分号
-  singleQuote: false, //  要单引号
-  htmlWhitespaceSensitivity: "ignore" // HTML 空白敏感度 (闭合标签换行)
-};
+  printWidth: 120,
+  // 缩进级别的空格数
+  tabWidth: 2,
+  // 单引号
+  singleQuote: true,
+  // 尾随逗号
+  trailingComma: 'none',
+  // 对象花括号与内容之间加空格
+  bracketSpacing: true,
+  // 句末分号
+  semi: false,
+  // 制表符缩进
+  useTabs: false,
+}

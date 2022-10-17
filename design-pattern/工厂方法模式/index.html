@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var myImage = (function() {
+        var imgNode = document.createElement("img");
+        document.body.appendChild(imgNode);
+        return {
+          setSrc: function(src) {
+            imgNode.src = src;
+          }
+        };
+      })();
+      var proxyImage = (function() {
+        var img = new Image();
+        img.onload = function() {
+          setTimeout(() => {
+            myImage.setSrc(this.src);
+          }, 500);
+        };
+        return {
+          setSrc: function(src) {
+            myImage.setSrc("https://www.williamlong.info/images/qrcode.gif");
+            img.src = src;
+          }
+        };
+      })();
+
+      proxyImage.setSrc("https://www.wangbase.com/blogimg/asset/202001/bg2020013101.jpg");
+    </script>
+  </body>
+</html>

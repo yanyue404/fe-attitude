@@ -75,7 +75,7 @@ Promise 对象用于表示一个异步操作的最终完成 (或失败), 及其�
 ```js
 const promise1 = new Promise(function(resolve, reject) {
   setTimeout(function() {
-    resolve('foo');
+    resolve("foo");
   }, 300);
 });
 
@@ -91,7 +91,7 @@ Promise.all 方法用于将多个 Promise 实例，包装成一个新的 Promise
 
 ```js
 const promises = [2, 3, 5, 7, 11, 13].map(function(id) {
-  return getJSON('/post/' + id + '.json');
+  return getJSON("/post/" + id + ".json");
 });
 
 Promise.all(promises)
@@ -107,10 +107,10 @@ Promise.race 方法同样是将多个 Promise 实例，包装成一个新的 Pro
 
 ```js
 const p = Promise.race([
-  fetch('/resource-that-may-take-a-while'),
+  fetch("/resource-that-may-take-a-while"),
   new Promise(function(resolve, reject) {
-    setTimeout(() => reject(new Error('request timeout')), 5000);
-  }),
+    setTimeout(() => reject(new Error("request timeout")), 5000);
+  })
 ]);
 
 p.then(console.log).catch(console.error);
@@ -119,8 +119,7 @@ p.then(console.log).catch(console.error);
 ### 尽可能全面正确的解析一个任意 url
 
 ```js
-var url =
-  'http://www.domain.com/?user=anonymous&id=123&id=456&city=%E5%8C%97%E4%BA%AC&d&enabled';
+var url = "http://www.domain.com/?user=anonymous&id=123&id=456&city=%E5%8C%97%E4%BA%AC&d&enabled";
 // parseParam(url);
 /**
 结果：
@@ -135,13 +134,13 @@ var url =
 
 function parseParam(url) {
   var paramArr = decodeURI(url)
-      .split('?')[1]
-      .split('&'),
+      .split("?")[1]
+      .split("&"),
     obj = {};
   for (var i = 0; i < paramArr.length; i++) {
     var item = paramArr[i];
-    if (item.indexOf('=') != -1) {
-      var tmp = item.split('=');
+    if (item.indexOf("=") != -1) {
+      var tmp = item.split("=");
       obj[tmp[0]] = tmp[1];
     } else {
       obj[item] = true;
@@ -177,12 +176,11 @@ console.log(5);
 
 ```js
 function deepCopy(obj) {
-  if (typeof obj !== 'object') return;
+  if (typeof obj !== "object") return;
   var newObj = obj instanceof Array ? [] : {};
   for (var key in obj) {
     if (obj.hasOwnProperty(key)) {
-      newObj[key] =
-        typeof obj[key] === 'object' ? deepCopy(obj[key]) : obj[key];
+      newObj[key] = typeof obj[key] === "object" ? deepCopy(obj[key]) : obj[key];
     }
   }
   return newObj;
@@ -194,7 +192,7 @@ function deepCopy(obj) {
 ```js
 function bubble(arr) {
   if (!Array.isArray(arr)) {
-    throw new Error('arr 参数必须为数组类型');
+    throw new Error("arr 参数必须为数组类型");
   }
   for (var i = 0; i < arr.length; i++) {
     for (var j = 0; j < arr.length - i - 1; j++) {
@@ -217,37 +215,11 @@ function unique(arr) {
 }
 function unique2(arr) {
   return arr.filter(function(item, index, arr) {
-    //当前元素，在原始数组中的第一个索引==当前索引值，否则返回当前元素
     return arr.indexOf(item, 0) === index;
   });
 }
 ```
 
-### 数组扁平化
-
-```js
-let givenArr = [
-  [1, 2, 2],
-  [3, 4, 5, 5],
-  [6, 7, 8, 9, [11, 12, [12, 13, [14]]]],
-  10,
-];
-let outputArr = [1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 9, 11, 12, 12, 13, 14, 10];
-
-// 实现flatten方法使得
-function flatten(arr) {
-  let res = [];
-  for (let i = 0; i < arr.length; i++) {
-    const item = arr[i];
-    if (Array.isArray(item)) {
-      res = res.concat(flatten(item));
-    } else {
-      res.push(item);
-    }
-  }
-  return res;
-}
-console.log(flatten(givenArr));
 ```
 
 ### 函数节流与防抖
@@ -343,13 +315,13 @@ class Event {
 }
 // 测试用例
 const event = new Event();
-event.on('test', a => {
+event.on("test", a => {
   console.log(a);
 });
-event.trigger('test', 'hello world');
+event.trigger("test", "hello world");
 
-event.off('test');
-event.trigger('test', 'hello world');
+event.off("test");
+event.trigger("test", "hello world");
 ```
 
 #### 参考链接

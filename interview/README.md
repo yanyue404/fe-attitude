@@ -21,7 +21,6 @@
 - [node-interview](https://github.com/ElemeFE/node-interview) How to pass the Node.js interview of ElemeFE. https://elemefe.github.io/node-interview/
 - [CS-Interview-Knowledge-Map](https://github.com/InterviewMap/CS-Interview-Knowledge-Map) - Build the best interview map. The current content includes JS, network, browser related, performance optimization, security, framework, Git, data structure, algorithm, etc. https://yuchengkai.cn/docs/frontend/
 
-
 ## Articles
 
 - [30 道 Vue 面试题，内含详细讲解（涵盖入门到精通，自测 Vue 掌握程度）](https://juejin.im/post/5d59f2a451882549be53b170)
@@ -62,3 +61,8 @@ JavaScript：
 - https://github.com/koala-coding/goodBlog
 - [看完跳槽少说涨 5 K，前端面试从准备到谈薪完全指南（近万字精华）](https://juejin.im/post/5dfef50751882512444027eb)
 - [【前端面试题】2018 各大公司最近面试题](https://segmentfault.com/a/1190000016789897)
+- [80% 应聘者都不及格的 JS 面试题](https://juejin.cn/post/6844903470466629640)
+- [破解前端面试（80% 应聘者不及格系列）：从闭包说起](https://juejin.cn/post/6844903474212143117)
+- [破解前端面试（80% 应聘者不及格系列）：从 DOM 说起](https://juejin.cn/post/6844903474547671047)
+- [106 道面向初中级前端的基础面试题](https://juejin.cn/post/6898121476864638989)
+- [中高级前端大厂面试秘籍，为你保驾护航金三银四，直通大厂(上)](https://juejin.cn/post/6844903776512393224)

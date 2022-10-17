@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const p = () =>
+        new Promise(resolve =>
+          setTimeout(() => {
+            let a = Math.random()
+            let flag = a > 0.1 ? 0 : 1
+            console.log('=====', flag)
+            resolve(flag)
+          }, 1000)
+        )
+
+      function tryPromise(
+        all = 3000,
+        delay = 500,
+        asyncFn = undefined,
+        shouldFn = function() {}
+      ) {
+        let cur_retry_num = 0 // 重试次数
+        return new Promise(resolve => {
+          ;(async function main() {
+            // 异步反应
+            let task = asyncFn()
+            let res = await task
+            if (shouldFn(res) || cur_retry_num++ >= all / delay) {
+              resolve()
+            } else {
+              setTimeout(main, delay)
+            }
+          })()
+        })
+      }
+
+      tryPromise(3000, 500, p, res => res === 1).then(() => {
+        console.log('okkk')
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.fullPage.min.js"></script>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="dowebok">
+      <div class="section">第一屏</div>
+      <div class="section">第二屏</div>
+      <div class="section">第三屏</div>
+      <div class="section">第四屏</div>
+    </div>
+
+    <script>
+      // 鼠标滚轮事件
+      document.onmousewheel = function() {
+        alert(1)
+      }
+
+      $(function() {
+        $('#dowebok').fullpage({
+          sectionsColor: ['#0da5d6', '#2AB561', '#DE8910', '#16BA9D', '#0DA5D6']
+        })
+      })
+    </script>
+  </body>
+</html>
+
+<!-- 网址： 
+
+	https://github.com/alvarotrigo/fullPage.js
+
+
+	http://www.dowebok.com/77.html
+-->

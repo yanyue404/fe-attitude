@@ -1,0 +1,19 @@
+{
+  "records": [
+    {
+      "id": "1",
+      "date": "2018-05-17",
+      "title": "JavaScript"
+    },
+    {
+      "id": "2",
+      "date": "2018-05-18",
+      "title": "Vue"
+    },
+    {
+      "id": "3",
+      "date": "2018-05-19",
+      "title": "TypeScript"
+    }
+  ]
+}

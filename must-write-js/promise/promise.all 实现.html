@@ -9,47 +9,7 @@
 
   <body>
     <script>
-      var promise1 = 41;
-      var promise2 = 42;
-      var promise3 = new Promise(function(resolve, reject) {
-        setTimeout(resolve, 5000, 'foo');
-      });
 
-      function p1(time) {
-        return new Promise(function(resolve, reject) {
-          setTimeout(function() {
-            resolve(time);
-          }, time);
-        });
-      }
-
-      // Promise 扩展
-      Promise.all__fake = promiseAry => {
-        return new Promise((resolve, reject) => {
-          let resultAry = [],
-            index = 0;
-          for (let i = 0; i < promiseAry.length; i++) {
-            Promise.resolve(promiseAry[i])
-              .then(result => {
-                index++;
-                resultAry[i] = result;
-                if (index === promiseAry.length) {
-                  resolve(resultAry);
-                }
-              })
-              .catch(reason => {
-                reject(reason);
-              });
-          }
-        });
-      };
-
-      Promise.all__fake([promise1, promise2, promise3]).then(function(values) {
-        console.log(values);
-      });
-      Promise.all__fake([p1(5000), p1(1000)]).then(function(res) {
-        console.log(res); //[5000,1000]
-      });
     </script>
   </body>
 </html>
