@@ -11,6 +11,7 @@
 - 数组排序（多种方法）
 - 数组去重（多种方法）
 - 数组扁平化
+- 将数组扁平化并去除其中重复数据，最终得到一个升序且不重复的数组
 - 深拷贝
 - 函数防抖节流
 - 实现一个 once 函数，传入函数参数只执行一次
@@ -20,6 +21,7 @@
 - 实现函数原型方法 call apply bind
 - 实现 Promise
 - 实现 Promise.all
+- 实现一个简单的模板字符串替换
 
 ## 检测数据类型的方法
 
@@ -142,7 +144,6 @@ console.log(JSON.stringify(getQueryJson(url), null, 2))
   }
   console.log(underline(str)) // apple_orange_pink_boy
 })()
-
 ;(() => {
   let str = 'apple_orange_pink_boy'
   function decamelize(str) {
@@ -344,7 +345,6 @@ var array = [1, 2, 1, 1, '1']
   var unique = a => [...new Set(a)]
   console.log(unique(array)) // [1, 2, "1"]
 })()
-
 ;(() => {
   function unique(array) {
     var res = []
@@ -359,7 +359,6 @@ var array = [1, 2, 1, 1, '1']
 
   console.log(unique(array)) // [1, 2, "1"]
 })()
-
 ;(() => {
   function unique(array) {
     var res = []
@@ -374,7 +373,6 @@ var array = [1, 2, 1, 1, '1']
 
   console.log(unique(array)) // [1, 2, "1"]
 })()
-
 ;(() => {
   function unique(array) {
     var res = array.filter(function(item, index, array) {
@@ -386,7 +384,6 @@ var array = [1, 2, 1, 1, '1']
 
   console.log(unique(array))
 })()
-
 ;(() => {
   function unique(array) {
     var o = new Map()
@@ -420,7 +417,6 @@ let entry = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10
   }
   console.log(flatten(arr)) // [1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 9, 11, 12, 12, 13, 14, 10]
 })()
-
 ;(() => {
   function flatten(arr) {
     return arr.reduce((prev, curr) => {
@@ -429,7 +425,6 @@ let entry = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10
   }
   console.log(flatten(arr))
 })()
-
 ;(() => {
   function flatten(arr) {
     while (arr.some(item => Array.isArray(item))) {
@@ -439,6 +434,34 @@ let entry = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10
   }
   console.log(flatten(arr))
 })()
+```
+
+ES6 增加了扩展运算符，用于取出参数对象的所有可遍历属性，拷贝到当前对象之中：
+
+```js
+var arr = [1, [2, [3, 4]]]
+console.log([].concat(...arr)) // [1, 2, [3, 4]]
+```
+
+## 将数组扁平化并去除其中重复数据，最终得到一个升序且不重复的数组
+
+```js
+Array.prototype.flat = function() {
+  return [].concat(...this.map(item => (Array.isArray(item) ? item.flat() : [item])))
+}
+
+Array.prototype.unique = function() {
+  return [...new Set(this)]
+}
+
+const sort = (a, b) => a - b
+
+console.log(
+  arr
+    .flat()
+    .unique()
+    .sort(sort)
+) // [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 ]
 ```
 
 ## 深拷贝
@@ -684,7 +707,6 @@ console.log(memoizedAdd(1, 2, 4)) // 7
 
   console.log('优化前：' + count) // 453
 })()
-
 ;(() => {
   var count = 0
   var fibonacci = function(n) {
@@ -1067,6 +1089,41 @@ p2.then(
     console.log(res) //[5000,1000]
   })
 })()
+```
+
+## 实现一个简单的模板字符串替换
+
+```js
+const render = function(tpl, data) {
+  // m 参数为 匹配的子串
+  // p1 参数为 (.*?)的匹配结果
+  return tpl.replace(/\{\{(.*?)\}\}/g, function(match, p1) {
+    return data[p1.trim()]
+  })
+}
+
+const text = render('我是{{ name}}，年龄{{age}}，性别{{sex}}', {
+  name: 'yanyue404',
+  age: 18,
+  sex: '男'
+})
+console.log(text)
+```
+
+```js
+const tpl = "Hei, my name is <% name%>, and I'm <%age%> years old."
+
+const render = (tpl, context) =>
+  tpl.replace(/<%(.*?)%>/g, function(_, m) {
+    return data[m.trim()]
+  })
+
+console.log(
+  render(tpl, {
+    name: 'Rainbow',
+    age: '20'
+  })
+)
 ```
 
 ## 参考链接

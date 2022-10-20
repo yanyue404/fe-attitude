@@ -1,4 +1,4 @@
-我的前端态度 —— 前端知识体系。
+[我的前端态度 —— 前端知识体系](https://yanyue404.github.io/fe-attitude/)。
 
 记录自己的学习考古，会前端真的可以“为所欲为”<sup>maybe</sup>。
 
