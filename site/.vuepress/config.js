@@ -9,6 +9,7 @@ module.exports = {
       ['/fe/css', 'CSS'],
       ['/fe/javascript', 'JavaScript'],
       ['/fe/write', '手写代码'],
+      ['/fe/console', '输出结果'],
       ['/fe/algorithm', '算法'],
       ['/fe/vue', 'Vue'],
       ['/fe/browser', '浏览器'],

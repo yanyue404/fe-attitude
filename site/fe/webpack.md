@@ -210,14 +210,41 @@ webpack 做性能优化主要是考虑打包体积和打包速度。
 
 ## webpack 和 rollup 的区别
 
-webpack 优点：
+rollup 从设计之初就是面向 ES module 的，它诞生时 AMD、CMD、UMD 的格式之争还很火热，作者希望充分利用 ES module 机制，构建出结构扁平，性能出众的类库.
+
+```js
+// rollup.config.js
+import resolve from 'rollup-plugin-node-resolve'
+import commonjs from 'rollup-plugin-commonjs'
+import babel from 'rollup-plugin-babel'
+
+export default [
+  {
+    input: 'src/index.js',
+    output: {
+      file: 'dist/bundle.js',
+      format: 'umd',
+      name: 'test'
+    },
+    plugins: [
+      resolve(),
+      commonjs(),
+      babel({
+        exclude: 'node_modules/**'
+      })
+    ]
+  }
+]
+```
+
+webpack 致力于复杂 SPA 的模块化构建，优势在于：
 
 1. 通过 loader 处理各种各样的资源依赖
 2. HMR 模块热替换
-3. 按需加载
+3. 代码按需加载
 4. 提取公共模块
 
-rollup 优点：
+rollup 致力于打造性能出众的类库，有如下优势：
 
 1. 编译出来的代码`可读性好`
 2. rollup 打包后生成的 bundle 内容十分`干净`，没有什么多余的代码。相比 webpack(webpack 打包后会生成**webpack_require**等 runtime 代码)，rollup 拥有无可比拟的性能优势，这是由依赖处理方式决定的，`编译时依赖处理（rollup）自然比运行时依赖处理（webpack）性能更好`
@@ -228,6 +255,7 @@ rollup 优点：
 参考资料：
 
 - [【第九期】Rollup：下一代 ES 模块打包工具](https://zhuanlan.zhihu.com/p/75717476)
+- http://www.caoyuanpeng.com/Webpack/rollup跟webpack打包的区别.html
 
 ## webpack 怎么配置多页应用？
 
@@ -324,3 +352,40 @@ module.exports = {
 1.  对 TS 代码进行类型检查
 
 2.  打包 CSS、SVG
+
+## 谈谈对于工程化的理解
+
+前端工程化，其实是软件工程在前端方面的应用。什么是软件工程？百度百科的定义：
+
+软件工程是一门研究用工程化方法构建和维护有效的、使用的和高质量的软件的学科。
+
+换句话说，工程化的目的就是为了提升团队的开发效率。例如大家所熟悉的构建打包、性能优化、自动化部署等知识，都属于工程化的内容。
+
+### 重要的几个概念
+
+1、模块化：JS 的模块化、css 的模块化、资源的模块化（模块化是在文件层面上，对代码或资源的拆分）
+
+2、组件化：组件化是在设计层面上，对 UI（用户界面）的拆分，组件化更重要是一种分治思想，封装组件需要注意组件之间的依赖关系（继承、扩展、嵌套）
+
+3、规范化：编码规范、前后端接口规范、文档规范、组件规范、git 分支管理、commit 描述规范...
+
+4、自动化：雪碧图、持续集成、自动化构建、自动化部署、自动化测试（任何简单机械的重复劳动都应该让机器去完成）
+
+## 目录
+
+1. 技术选型：如何进行技术选型？
+2. 统一规范
+3. 模块化、组件化
+4. 构建工具
+5. 自动化
+6. 性能优化
+7. 监控
+8. 重构
+9. 项目拆分
+10. 测试
+11. 创造性
+
+参考
+
+- [yanyue404 - 对前端工程化的理解](https://github.com/yanyue404/blog/issues/244)
+- https://woai3c.gitee.io/introduction-to-front-end-engineering/

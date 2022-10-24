@@ -21,7 +21,9 @@
 - 实现函数原型方法 call apply bind
 - 实现 Promise
 - 实现 Promise.all
+- 实现 Promise.allSettled
 - 实现一个简单的模板字符串替换
+- 合并对象 merge
 
 ## 检测数据类型的方法
 
@@ -71,14 +73,14 @@ getMaxString(str2) // 3, ['b']
 ## 实现一个 trim 方法
 
 ```js
-const trim = s => s.replace(/\s/g, '')
+// 删除左右的空格
+const trim = s => s.replace(/(^\s+)|(\s+$)/g, '')
+// 删除所有的空格
+const trimAll = s => s.replace(/\s/g, '')
 const greeting = '   Hello world!   '
 
-console.log(greeting)
-// expected output: "   Hello world!   ";
-
-console.log(trim(greeting))
-// expected output: "Hello world!";
+console.log(trim(greeting)) // Hello world!
+console.log(trimAll(greeting)) // Helloworld!
 ```
 
 ## js 实现一个函数 获得 url 参数的值
@@ -140,6 +142,7 @@ console.log(JSON.stringify(getQueryJson(url), null, 2))
 ;(() => {
   let str = 'appleOrangePinkBoy'
   function underline(str) {
+    // \B 非单词边界，左右占位的字符必须是 \w ([0-9a-zA-Z_])
     return str.replace(/\B([A-Z])/g, (m, p1) => `_${p1.toLowerCase()}`)
   }
   console.log(underline(str)) // apple_orange_pink_boy
@@ -303,6 +306,47 @@ Event.$emit('once', {
 })
 ```
 
+```js
+function mitt(all) {
+  return {
+    all: (all = all || new Map()),
+    on(eventName, callback) {
+      let cbs = all.get(eventName)
+      ;(cbs && cbs.push(callback)) || all.set(eventName, [callback])
+    },
+    emit(eventName, ...args) {
+      let cbs = all.get(eventName)
+      if (cbs.length === 0) {
+        console.error(`no find ${eventName} function.`)
+        return
+      }
+      cbs.forEach(cb => cb(args))
+    },
+    off(eventName, callback) {
+      let cbs = all.get(eventName)
+      cbs &&
+        all.set(
+          eventName,
+          cbs.filter(cb => cb !== callback)
+        )
+    }
+  }
+}
+
+const eventHub = new mitt()
+
+eventHub.on('click', console.log)
+
+setTimeout(() => {
+  eventHub.emit('click', 'yanyue404')
+  eventHub.off('click', console.log)
+}, 1500)
+
+setTimeout(() => {
+  eventHub.emit('click', '1024')
+}, 1500)
+```
+
 ## 数组排序（多种方法）
 
 ```js
@@ -410,7 +454,7 @@ let entry = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10
       if (Array.isArray(item)) {
         res = res.concat(flatten(item))
       } else {
-        res.push(item)
+        res.concat(item)
       }
     }
     return res
@@ -629,11 +673,11 @@ function debounce(fn, wait = 1500, immediate) {
 
 ```js
 function once(func) {
-  var tag = true
+  var flag = true
   return function() {
-    if (tag == true) {
+    if (flag == true) {
       func.apply(null, arguments)
-      tag = false
+      flag = false
     }
     return undefined
   }
@@ -1091,6 +1135,22 @@ p2.then(
 })()
 ```
 
+## 实现 Promise.allSettled
+
+如果任意的 promise reject，则 Promise.all 整个将会 reject。当我们需要 所有 结果都成功时，它对这种“全有或全无”的情况很有用：Promise.allSettled 等待所有的 promise 都被 settle，无论结果如何。结果数组具有：
+
+- {status:"fulfilled", value:result} 对于成功的响应，
+- {status:"rejected", reason:error} 对于 error。
+
+```js
+Promise.allSettled = function(promises) {
+  const rejectHandler = reason => ({ status: 'rejected', reason })
+  const resolveHandler = value => ({ status: 'fulfilled', value })
+  const convertedPromises = promises.map(p => Promise.resolve(p).then(resolveHandler, rejectHandler))
+  return Promise.all(convertedPromises)
+}
+```
+
 ## 实现一个简单的模板字符串替换
 
 ```js
@@ -1124,6 +1184,71 @@ console.log(
     age: '20'
   })
 )
+```
+
+## 合并对象 merge
+
+```js
+const merge = (obj, target = {}) => {
+  Object.keys(obj).forEach(key => {
+    if (isObject(obj[key])) {
+      if (isObject(target[key])) {
+        // 都是对象
+        Object.keys(obj[key]).forEach(prop => {
+          target[key][prop] = obj[key][prop]
+        })
+      } else {
+        // target不是对象 直接重写
+        if (target[key]) {
+          target[key] = {
+            [key]: target[key],
+            ...obj[key]
+          }
+        } else {
+          target[key] = obj[key]
+        }
+      }
+    } else {
+      if (isObject(target[key])) {
+        target[key] = {
+          ...target[key],
+          [key]: obj[key]
+        }
+      } else {
+        target[key] = obj[key]
+      }
+    }
+  })
+  return target
+}
+const obj1 = {
+  pid: 1,
+  signup: '注册',
+  menu: '菜单',
+  headers: {
+    common: 'common'
+  }
+}
+const obj2 = {
+  pid: 2,
+  signup: {
+    sin: 2
+  },
+  menu: {
+    id: 1
+  },
+  headers: {
+    test: 123
+  }
+}
+const result = merge(obj1, obj2)
+// {
+//   pid: 2,
+//   signup: { signup: '注册', sin: 2 },
+//   menu: { menu: '菜单', id: 1 },
+//   headers: { common: 'common', test: 123 }
+// }
+console.log(result)
 ```
 
 ## 参考链接

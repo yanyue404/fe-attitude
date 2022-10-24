@@ -5,9 +5,7 @@
 
 ## BFC
 
-BFC 的全称为 Block Formatting Context，也就是块级格式化上下文的意思。BFC 是 Web 页面的可视化 CSS 渲染的部分，是块级盒布局发生的区域，也是浮动元素与其他元素交互的区域。
-
-**具有 BFC 特性的元素可以看作是隔离了的独立容器，容器里面的元素不会在布局上影响到外面的元素，并且 BFC 具有普通容器所没有的一些特性**。
+BFC（Block Formatting Context），块级格式化上下文，是一个独立的渲染区域，让处于 BFC 内部的元素与外部的元素相互隔离，使内外元素的定位不会相互影响。
 
 通俗一点来讲，可以把 BFC 理解为一个封闭的大箱子，箱子内部的元素无论如何翻江倒海，都不会影响到外部。
 
@@ -95,6 +93,12 @@ BFC 布局规则：
   - `absolute + transform`
   - `flex + align-items: center`
 - 水平垂直居中
+  - `flex`
+  - `position + margin`
+  - `position + calc`
+  - `position + transform`
+  - `grid`
+  - `tabel + tabel-cell`
 
 **flex**
 
@@ -105,7 +109,7 @@ justify-content: center;
 align-items: center;
 ```
 
-**position**
+**position + margin**
 
 ```css
 /* 父容器 */
@@ -118,6 +122,80 @@ top: 0;
 bottom: 0;
 left: 0;
 right: 0;
+```
+
+```html
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  .wrapper {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    background-color: red;
+  }
+  .child {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    background-color: green;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="child"></div>
+</div>
+</body>
+```
+
+**position + calc**
+
+```css
+/* 父容器 */
+position: relative;
+
+/* 子容器 */
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+```
+
+```html
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  .wrapper {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    background-color: red;
+  }
+  .child {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: calc(50% - 50px);
+    top: calc(50% - 50px);
+    background-color: green;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="child"></div>
+</div>
+</body>
 ```
 
 **position + transform**
@@ -133,7 +211,44 @@ left: 50%;
 transform: translate(-50%, -50%);
 ```
 
-**table-cell**
+**grid**
+
+```css
+/* 父容器 */
+display: grid;
+align-items: center;
+justify-content: center;
+```
+
+```html
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  .wrapper {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 300px;
+    background-color: red;
+  }
+  .child {
+    width: 100px;
+    height: 100px;
+    background-color: green;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="child"></div>
+</div>
+</body>
+```
+
+**tabel + table-cell**
 
 ```html
 <div class="box">
@@ -290,7 +405,7 @@ CSS 中的`z-index`属性控制重叠元素的垂直叠加顺序。`z-index`只�
 
 ```css
 .box {
-  flex-direction: column-reverse| column | row | row-reverse;
+  flex-direction: row | column-reverse| column | row-reverse;
 }
 ```
 
@@ -340,16 +455,26 @@ CSS 中的`z-index`属性控制重叠元素的垂直叠加顺序。`z-index`只�
 }
 ```
 
+### 多轴线方向
+
+align-content 属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。
+
+```css
+.box {
+  align-content: flex-start | flex-end | center | space-between | space-around | stretch;
+}
+```
+
 ### Flex 项目属性
 
 有六种属性可运用在 item 项目上:
 
-- order
-- flex-basis
-- flex-grow
-- flex-shrink
-- flex
-- align-self
+- order 属性定义项目的排列顺序。数值越小，排列越靠前，默认为 0
+- flex-basis 属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为 auto，即项目的本来大小。
+- flex-grow 属性定义项目的放大比例，默认为 0，即如果存在剩余空间，也不放大。
+- flex-shrink 属性定义了项目的缩小比例，默认为 1，即如果空间不足，该项目将缩小。
+- flex 属性是 flex-grow, flex-shrink 和 flex-basis 的简写，默认值为 0 1 auto。后两个属性可选。
+- align-self 属性允许单个项目有与其他项目不一样的对齐方式，可覆盖 align-items 属性。默认值为 auto，表示继承父元素的 align-items 属性，如果没有父元素，则等同于 stretch。
 
 参考资料：
 
@@ -401,9 +526,103 @@ rem 响应适配的原理是动态计算为当前页面的 `newFontSize`并赋�
 - 单位转换
 - mixin 复用
 
-## 两列布局
+## 两列自适应布局
 
-- `flex:1` 占满剩余宽度(同样适用于垂直方向)
+**floa + bfc**
+
+在单列定宽单列自适应的两列布局中，经常用 float 和负 margin 配合实现布局效果。但由于 margin 取值只能是固定值，所以在两列都是自适应的布局中就不再适用。而 float 和 overflow 配合可实现两列自适应效果。使用 overflow 属性来触发 bfc，来阻止浮动造成的文字环绕效果。
+
+```css
+.box {
+  width: 100%;
+  height: 800px;
+}
+.box .left {
+  float: left;
+  width: 150px;
+  height: 100%;
+  margin-right: 10px;
+  background-color: green;
+}
+.box .right {
+  background-color: purple;
+  overflow: hidden;
+  height: 100%;
+}
+
+/*这种主要是应用到BFC的一个特性*/
+/*1.浮动元素的块状兄弟元素会无视浮动元素的位置,尽量占满一行,这样该兄弟元素就会被浮动元素覆盖
+  2.若浮动元素的块状兄弟元素为BFC,这不会占满一行,而是根据浮动元素的宽度,占据该行剩下的宽度,避免与浮动元素重叠
+  3.浮动元素与其块状Bfc兄弟元素之间的margin可以生效,这会继续减少兄弟元素的宽度
+
+  并不是一定要用overflow:hidden,只要能触发BFC就好了,另外在ie6也可以触发haslayout特性(推荐用*zoom:1;由于.right的宽度是自动计算的,不需要设置任何与.right相关的css,因此.right的宽度可以不固定)*/
+```
+
+**flex**
+
+`flex:1` 占满剩余宽度(同样适用于垂直方向)
+
+```css
+.box {
+  /*父盒子设为伸缩盒子*/
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.box .left {
+  width: 150px;
+  height: 100%;
+  background-color: green;
+}
+
+.box .right {
+  flex: 1;
+  background-color: purple;
+  height: 100%;
+}
+```
+
+**flex + calc / float + calc**
+
+```css
+/* flex + calc */
+.box {
+  display: flex;
+  width: 100%;
+  height: 800px;
+}
+.box .left {
+  width: 150px;
+  height: 100%;
+  margin-right: 10px;
+  background-color: green;
+}
+.box .right {
+  width: calc(100% - 160px);
+  background-color: purple;
+  height: 100%;
+}
+
+/* floac + calc */
+.box {
+  width: 100%;
+  height: 800px;
+}
+.box .left {
+  float: left;
+  width: 150px;
+  height: 100%;
+  margin-right: 10px;
+  background-color: green;
+}
+.box .right {
+  float: left;
+  width: calc(100% - 160px);
+  background-color: purple;
+  height: 100%;
+}
+```
 
 ## 去除 inline-block 元素间间距的方法
 
@@ -419,8 +638,6 @@ div a {
 ```
 
 更详细的介绍请看:[去除 inline-block 元素间间距的 N 种方法](https://www.zhangxinxu.com/wordpress/2012/04/inline-block-space-remove-%E5%8E%BB%E9%99%A4%E9%97%B4%E8%B7%9D/)
-
-## CSS-动画
 
 ## 元素竖向的百分比设定是相对于容器的高度吗？
 
@@ -465,7 +682,7 @@ div a {
 
 使用了 Normalize.css
 
-3. 使用`@Media` 媒体查询来设置设置布局分界点，这是响应式布局的核心
+3. 使用`@media` 媒体查询来设置设置布局分界点，这是响应式布局的核心
 
 ```css
 /* 超小屏幕（手机，小于 768px） */

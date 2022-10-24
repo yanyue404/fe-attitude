@@ -436,6 +436,27 @@ console.log(zeroMove(x)) // [1,3,12,0,0]
 console.log(zeroMove(y)) // [1,3,12,0,0,0,0]
 ```
 
+## 求多个数组之间的交集
+
+```js
+let array1 = [1, 2, 3, 4, 5, 6, 7, 7]
+let array2 = [2, 3, 4, 5, 6, 7, 7, 8, 9]
+let array3 = [4, 5, 6, 7, 7, 8, 9]
+let array4 = []
+
+function intersection(...args) {
+  return Array.from(
+    new Set(
+      args.reduce((prev, curr) => {
+        return prev.filter(item => curr.includes(item))
+      })
+    )
+  )
+}
+console.log(intersection(array1, array3, array3)) // [4,5,6,7]
+console.log(intersection(array4)) // []
+```
+
 ## 已知数据格式，实现一个函数 fn 找出链条中所有的父级 id
 
 ```js
@@ -484,3 +505,9 @@ const data = [
   }
 ]
 ```
+
+### 参考
+
+- https://github.com/Advanced-Frontend/Daily-Interview-Question
+- https://github.com/sisterAn/JavaScript-Algorithms
+- http://www.caoyuanpeng.com/

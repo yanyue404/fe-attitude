@@ -823,7 +823,69 @@ F2(f1) // 100 undefined
 - 使用 `setTimeout` 包裹，通过第三个参数传入
 - 使用 `块级作用域`，让变量成为自己上下文的属性，避免共享
 
-不正确的无法打印索引：
+例子 1：
+
+```js
+function foo() {
+  var arr = []
+  for (var i = 0; i < 2; i++) {
+    arr[i] = function() {
+      return i
+    }
+  }
+  return arr
+}
+var bar = foo()
+console.log(bar[0]()) //2
+```
+
+犯错原因是在循环的过程中，并没有把函数的返回值赋值给数组元素，而仅仅是把函数赋值给了数组元素。这就使得在调用匿名函数时，通过作用域找到的执行环境中储存的变量的值已经不是循环时的瞬时索引值，而是循环执行完毕之后的索引值。
+
+`ar[0]()` 访问 bar 的第 0 个元素并执行。此时，执行流创建并进入匿名函数执行环境，匿名函数中存在自由变量 i，需要使用其作用域链匿名函数 -> foo()函数 -> 全局作用域进行查找，最终在 foo()函数的作用域找到了 i，然后在 foo()函数的执行环境中找到了 i 的值 2，于是给 i 赋值 2.
+
+解决方案 1:IIFE
+
+由此，可以利用 IIFE 传参和闭包来创建多个执行环境来保存循环时各个状态的索引值。因为函数传参是按值传递的，不同参数的函数被调用时，会创建不同的执行环境
+
+```js
+function foo() {
+  var arr = []
+  for (var i = 0; i < 2; i++) {
+    arr[i] = (function fn(j) {
+      return function test() {
+        return j
+      }
+    })(i)
+  }
+  return arr
+}
+var bar = foo()
+console.log(bar[0]()) //0
+```
+
+解决方案 2:块作用域
+
+使用 IIFE 还是较为复杂，使用块作用域则更为方便
+
+由于块作用域可以将索引值 i 重新绑定到了循环的每一个迭代中，确保使用上一个循环迭代结束时的值重新进行赋值，相当于为每一次索引值都创建一个执行环境
+
+```js
+function foo() {
+  var arr = []
+  for (let i = 0; i < 2; i++) {
+    arr[i] = function() {
+      return i
+    }
+  }
+  return arr
+}
+var bar = foo()
+console.log(bar[0]()) //0
+```
+
+参考: https://www.xiaohuochai.site/JS/ECMA/closure/commonError.html
+
+例子 2： 不正确的无法打印索引：
 
 ```js
 for (var i = 0; i < 5; i++) {
@@ -1046,7 +1108,7 @@ UI事件，当用户与页面上的元素交互时触发，如：load、scroll
 
 ## 如何自定义事件
 
-## 事件列表
+### 事件列表
 
 [事件参考-MDN](https://developer.mozilla.org/zh-CN/docs/Web/Events#%E6%A0%87%E5%87%86%E4%BA%8B%E4%BB%B6)
 
@@ -1123,10 +1185,17 @@ function deepCopy(target) {
   if (typeof target == 'object') {
     const result = Array.isArray(target) ? [] : {}
     for (const key in target) {
-      if (typeof target[key] == 'object') {
-        result[key] = deepCopy(target[key])
+      let item = target[key]
+      // 时间
+      if (item instanceof Date) {
+        result[key] = new Date(item)
+        // 正则
+      } else if (item instanceof RegExp) {
+        result[key] = new RegExp(item.source, item.flags)
+      } else if (typeof item == 'object' && item !== null) {
+        result[key] = deepCopy(item)
       } else {
-        result[key] = target[key]
+        result[key] = item
       }
     }
 
@@ -1134,11 +1203,33 @@ function deepCopy(target) {
   } else if (typeof target == 'function') {
     return eval('(' + target.toString() + ')')
     // 也可以这样克隆函数
-    // return new Function("return " + target.toString())();
+    // return new Function('return ' + target.toString())()
   } else {
     return target
   }
 }
+
+const a = {
+  number: 1,
+  bool: false,
+  str: 'hi',
+  empty1: undefined,
+  empty2: null,
+  array: [
+    { name: 'frank', age: 18 },
+    { name: 'jacky', age: 19 }
+  ],
+  date: new Date(2000, 0, 1, 20, 30, 0),
+  regex: /\.(j|t)sx/i,
+  obj: { name: 'frank', age: 18 },
+  f1: (a, b) => a + b,
+  f2: function(a, b) {
+    return a + b
+  }
+}
+console.log(a)
+var b = deepCopy(a)
+console.log(b) // 支持上面的类型
 ```
 
 参考链接：

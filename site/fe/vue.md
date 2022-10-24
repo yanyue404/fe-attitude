@@ -71,7 +71,7 @@ data.quantity = 10
 console.log('total = ' + data.total)
 ```
 
-数据响应的实现由两部分构成: **观察者\( watcher \)** 和 **依赖收集器\( Dep \)**，其核心是 `defineProperty`这个方法，它可以 **重写属性的 get 与 set** 方法，从而完成监听数据的改变。
+数据响应的实现由两部分构成: **观察者\( Observe \)** 和 **依赖收集器\( Dep \)**，其核心是 `defineProperty`这个方法，它可以 **重写属性的 get 与 set** 方法，从而完成监听数据的改变。
 
 - Observe \(观察者\)观察 props 与 state
   - 遍历 props 与 state，对每个属性创建独立的监听器\( watcher \)
@@ -329,7 +329,7 @@ function mountComponent(vm) {
         this.options.render = render
     }
     // 触发钩子
-    callHook('beforeMounte')
+    callHook('beforeMount')
     // 初始化观察者
     // render 渲染 vdom，
     vdom = vm.render()
@@ -1016,6 +1016,117 @@ React 需要使用 JSX，有一定的上手成本，并且需要一整套的工�
   深层数据的时候再做响应式（惰性）
 - 更多的监听方法
 
+```js
+// Object.defineProperty
+function observer(obj) {
+  if (typeof obj === 'object') {
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        defineReactive(obj, key, obj[key])
+      }
+    }
+  }
+}
+
+function defineReactive(obj, key, value) {
+  //针对value是对象，递归检测
+  observer(value)
+  //劫持对象的key
+  Object.defineProperty(obj, key, {
+    get() {
+      console.log('获取：' + key)
+      return value
+    },
+    set(val) {
+      //针对所设置的val是对象
+      observer(val)
+      console.log(key + '-数据改变了')
+      value = val
+    }
+  })
+}
+
+let obj = {
+  name: '守候',
+  flag: {
+    book: {
+      name: 'js',
+      page: 325
+    },
+    like: ['吃饭']
+  }
+}
+
+observer(obj)
+
+// 1. 新增一个属性，由于在 执行 observer(obj) 的时候没有这个属性，所以无法监听到，删除的属性页无法监听到。
+// 2. 数组的变化无法监听到 (! 数组属性实际修改成功， push， splice，pop)
+// 3. 递归遍历对象，使用 Object.defineProperty 劫持对象属性，如果遍历的对象很深，花费的时间比较久，甚至性能问题
+
+function observerProxy(obj) {
+  const handler = {
+    get(target, prop, receiver) {
+      console.log('正在读取', prop)
+      if (typeof target[prop] === 'object' && target[prop] !== null) {
+        return new Proxy(target[prop], handler)
+      }
+      return Reflect.get(...arguments) // 将操作转发给对象
+    },
+    set(target, prop, val) {
+      console.log('正在写入', prop, val)
+      return Reflect.set(...arguments) // 将操作转发给对象
+    },
+    deleteProperty(target, prop) {
+      console.log('正在删除', prop)
+      delete target[prop]
+    }
+  }
+  return new Proxy(obj, handler)
+}
+let obj = {
+  name: '守候',
+  flag: {
+    book: {
+      name: 'js',
+      page: 325
+    },
+    like: ['吃饭']
+  }
+}
+
+let obj2 = observerProxy(obj)
+// 拦截方式除了 get、set、deleteProperty 还有很多监听方法，
+// 也可以兼容 Object.defineProperty 监听不到的操作，如 监听数组（对数组进行push shift 等操作，会触发对应的方法名称和 length 变化），监听对象属性的新增、删除等
+
+// 使用场景
+// 1. 负索引数组
+// 2. 表单校验
+// 3. 增加附加属性
+// 4. 数据格式化
+```
+
+```js
+let target = [1, 2, 3]
+let proxy = new Proxy(target, {
+  get(target, prop, receiver) {
+    console.log('正在读取', prop)
+    if (target[prop]) {
+      return Reflect.set(...arguments)
+    } else if (prop < 0) {
+      return target[target.length - -prop]
+    } else {
+      throw new ReferenceError(`Property doesn't exist: "${prop}"`)
+    }
+  },
+  set(target, prop, val) {
+    console.log('正在写入', prop, val)
+    return Reflect.set(...arguments) // 将操作转发给对象
+  }
+})
+
+console.log(proxy[-1])
+```
+
 - [MDN Proxy](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
 - https://zh.javascript.info/proxy
 
@@ -1051,9 +1162,11 @@ Vue2.0 中，随着功能的增加，组件变得越来越复杂，越来越难�
 
 更多详情查看[彻底理解服务端渲染 - SSR 原理](https://github.com/yacan8/blog/issues/30)
 
-## TODO
+## vue-cli4、vue-cli43、vue-cli2 的区别
 
-- vue-cli4、vue-cli43、vue-cli2 的区别
+- https://cli.vuejs.org/zh/guide/
+- https://github.com/vuejs/vue-cli/blob/dev/CHANGELOG.md
+- https://juejin.cn/post/7063754985581838367
 
 ## 参考链接
 
