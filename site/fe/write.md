@@ -24,6 +24,9 @@
 - 实现 Promise.allSettled
 - 实现一个简单的模板字符串替换
 - 合并对象 merge
+- 求多个数组之间的交集
+- 实现一个版本比较方法 compareVersion
+- 对象比较
 
 ## 检测数据类型的方法
 
@@ -1249,6 +1252,27 @@ const result = merge(obj1, obj2)
 //   headers: { common: 'common', test: 123 }
 // }
 console.log(result)
+```
+
+## 求多个数组之间的交集
+
+```js
+let array1 = [1, 2, 3, 4, 5, 6, 7, 7]
+let array2 = [2, 3, 4, 5, 6, 7, 7, 8, 9]
+let array3 = [4, 5, 6, 7, 7, 8, 9]
+let array4 = []
+
+function intersection(...args) {
+  return Array.from(
+    new Set(
+      args.reduce((prev, curr) => {
+        return prev.filter(item => curr.includes(item))
+      })
+    )
+  )
+}
+console.log(intersection(array1, array3, array3)) // [4,5,6,7]
+console.log(intersection(array4)) // []
 ```
 
 ## 参考链接

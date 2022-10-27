@@ -1,8 +1,77 @@
-## 两数之和
+> 我的 leetcode: https://leetcode.cn/u/yanyue404/
+
+> Github: https://github.com/yanyue404/leetcode
+
+## 贪心算法
+
+### 455. 分发饼干
+
+> https://leetcode.cn/problems/assign-cookies/
+
+假设你是一位很棒的家长，想要给你的孩子们一些小饼干。但是，每个孩子最多只能给一块饼干。
+
+对每个孩子 i，都有一个胃口值  g[i]，这是能让孩子们满足胃口的饼干的最小尺寸；并且每块饼干 j，都有一个尺寸 s[j] 。如果 s[j] >= g[i]，我们可以将这个饼干 j 分配给孩子 i ，这个孩子会得到满足。你的目标是尽可能满足越多数量的孩子，并输出这个最大数值。
+
+示例  1:
+
+```
+输入: g = [1,2,3], s = [1,1]
+输出: 1
+解释:
+你有三个孩子和两块小饼干，3个孩子的胃口值分别是：1,2,3。
+虽然你有两块小饼干，由于他们的尺寸都是1，你只能让胃口值是1的孩子满足。
+所以你应该输出1。
+```
+
+示例  2:
+
+````
+输入: g = [1,2], s = [1,2,3]
+输出: 2
+
+解释:
+你有两个孩子和三块小饼干，2个孩子的胃口值分别是1,2。
+你拥有的饼干数量和尺寸都足以让所有孩子满足。
+所以你应该输出2.
+``` 
+
+提示：
+
+- 1 <= g.length <= 3 * 104
+- 0 <= s.length <= 3 * 104
+- 1 <= g[i], s[j] <= 231 - 1
+
+
+```js
+/**
+ * @param {number[]} g 孩子的胃口
+ * @param {number[]} s 饼干数量
+ * @return {number}
+ */
+var findContentChildren = function(g, s) {
+  g = g.sort((a, b) => a - b)
+  s = s.sort((a, b) => a - b)
+  let num = 0
+  let cookie = 0
+  let child = 0
+  while (child < g.length && cookie < s.length) {
+    if (g[child] <= s[cookie]) {
+      num++
+      child++
+    }
+    cookie++
+  }
+  return num
+}
+````
+
+## 双指针
+
+### 1. 两数之和
 
 > https://leetcode.cn/problems/two-sum
 
-给定一个整数数组 nums  和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那   两个   整数，并返回它们的数组下标。
+给定一个整数数组 nums  和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那两个整数，并返回它们的数组下标。
 
 你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。
 
@@ -66,13 +135,26 @@ var twoSum2 = function(nums, target) {
   })
   return _result
 }
+
+// 双指针法
+var twoSum3 = function(nums, target) {
+  // Array.from 浅拷贝一个新的排序后的数组
+  let arr = Array.from(nums).sort((a, b) => a - b)
+  let i = 0,
+    j = arr.length - 1
+  while (i < j) {
+    if (arr[i] + arr[j] === target) {
+      return [nums.indexOf(arr[i]), nums.indexOf(arr[j])]
+    } else if (arr[i] + arr[j] > target) {
+      j--
+    } else {
+      i++
+    }
+  }
+}
 ```
 
-## 两数相加
-
-> https://leetcode.cn/problems/add-two-numbers/
-
-## 无重复字符的最长子序
+### 3. 无重复字符的最长子序
 
 > https://leetcode.cn/problems/longest-substring-without-repeating-characters/
 
@@ -196,6 +278,8 @@ var lengthOfLongestSubstring3 = function(s) {
 
 ## 二分查找
 
+### 704. 二分查找
+
 > https://leetcode.cn/problems/binary-search/
 
 给定一个  n  个元素有序的（升序）整型数组  nums 和一个目标值  target  ，写一个函数搜索  nums  中的 target，如果目标值存在返回下标，否则返回 -1。
@@ -309,7 +393,117 @@ function getMax(params) {
 console.log(getMax(arr3))
 ```
 
-## 字符串相加（大数加法）
+## 数据结构
+
+### 283. 移动零
+
+> https://leetcode.cn/problems/move-zeroes/
+
+给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
+
+示例:
+
+```js
+输入: [0, 1, 0, 3, 12]
+输出: [1, 3, 12, 0, 0]
+```
+
+说明:
+
+必须在原数组上操作，不能拷贝额外的数组。
+
+尽量减少操作次数。
+
+```js
+let x = [0, 1, 0, 3, 12]
+let y = [0, 0, 0, 1, 0, 3, 12]
+
+const zeroMove = function(nums) {
+  let j = 0
+  for (let i = 0; i < nums.length - j; i++) {
+    const element = nums[i]
+    if (element === 0) {
+      nums.splice(i, 1)
+      nums.push(0)
+      i--
+      j++
+    }
+  }
+  return nums
+}
+
+console.log(zeroMove(x)) // [1,3,12,0,0]
+console.log(zeroMove(y)) // [1,3,12,0,0,0,0]
+```
+
+### 20. 有效的括号
+
+> https://leetcode.cn/problems/valid-parentheses
+
+给定一个只包括 '('，')'，'{'，'}'，'['，']'  的字符串 s ，判断字符串是否有效。
+
+有效字符串需满足：
+
+1. 左括号必须用相同类型的右括号闭合。
+2. 左括号必须以正确的顺序闭合。
+3. 每个右括号都有一个对应的相同类型的左括号。
+
+示例 1：
+
+```
+输入：s = "()"
+输出：true
+```
+
+示例  2：
+
+```
+输入：s = "()[]{}"
+输出：true
+```
+
+示例  3：
+
+```
+输入：s = "(]"
+输出：false
+```
+
+提示：
+
+- 1 <= s.length <= 104
+- s 仅由括号 '()[]{}' 组成
+
+```js
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid = function(s) {
+  const map = {
+    '{': '}',
+    '[': ']',
+    '(': ')'
+  }
+  const stack = []
+  for (let i = 0; i < s.length; i++) {
+    if (map[s[i]]) {
+      stack.push(s[i])
+    } else if (s[i] !== map[stack.pop()]) {
+      return false
+    }
+  }
+  return stack.length === 0
+}
+
+console.log(isValid('()')) // true
+console.log(isValid('()[]{}')) // true
+console.log(isValid('(]')) // false
+```
+
+## 字符串
+
+### 415. 字符串相加（大数加法）
 
 > https://leetcode.cn/problems/add-strings/
 
@@ -395,119 +589,9 @@ const addStrings = (a, b) => {
 }
 ```
 
-## 移动零
-
-> https://leetcode.cn/problems/move-zeroes/
-
-给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
-
-示例:
-
-```js
-输入: [0, 1, 0, 3, 12]
-输出: [1, 3, 12, 0, 0]
-```
-
-说明:
-
-必须在原数组上操作，不能拷贝额外的数组。
-
-尽量减少操作次数。
-
-```js
-let x = [0, 1, 0, 3, 12]
-let y = [0, 0, 0, 1, 0, 3, 12]
-
-const zeroMove = function(nums) {
-  let j = 0
-  for (let i = 0; i < nums.length - j; i++) {
-    const element = nums[i]
-    if (element === 0) {
-      nums.splice(i, 1)
-      nums.push(0)
-      i--
-      j++
-    }
-  }
-  return nums
-}
-
-console.log(zeroMove(x)) // [1,3,12,0,0]
-console.log(zeroMove(y)) // [1,3,12,0,0,0,0]
-```
-
-## 求多个数组之间的交集
-
-```js
-let array1 = [1, 2, 3, 4, 5, 6, 7, 7]
-let array2 = [2, 3, 4, 5, 6, 7, 7, 8, 9]
-let array3 = [4, 5, 6, 7, 7, 8, 9]
-let array4 = []
-
-function intersection(...args) {
-  return Array.from(
-    new Set(
-      args.reduce((prev, curr) => {
-        return prev.filter(item => curr.includes(item))
-      })
-    )
-  )
-}
-console.log(intersection(array1, array3, array3)) // [4,5,6,7]
-console.log(intersection(array4)) // []
-```
-
-## 已知数据格式，实现一个函数 fn 找出链条中所有的父级 id
-
-```js
-const value = '112'
-const fn = (value) => {
-...
-}
-fn(value) // 输出 [1， 11， 112]
-```
-
-```js
-const data = [
-  {
-    id: '1',
-    name: 'test1',
-    children: [
-      {
-        id: '11',
-        name: 'test11',
-        children: [
-          {
-            id: '111',
-            name: 'test111'
-          },
-          {
-            id: '112',
-            name: 'test112'
-          }
-        ]
-      },
-      {
-        id: '12',
-        name: 'test12',
-        children: [
-          {
-            id: '121',
-            name: 'test121'
-          },
-          {
-            id: '122',
-            name: 'test122'
-          }
-        ]
-      }
-    ]
-  }
-]
-```
-
-### 参考
+## 参考
 
 - https://github.com/Advanced-Frontend/Daily-Interview-Question
 - https://github.com/sisterAn/JavaScript-Algorithms
 - http://www.caoyuanpeng.com/
+- 谷歌高畅的 leetcode 刷题笔记
