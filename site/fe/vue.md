@@ -220,29 +220,23 @@ Vue.js 生命周期 主要有 8 个阶段：
 
 ## 父子组件生命周期执行顺序
 
-```js
-// 渲染
-parent beforeCreate
-parent created
-parent beforeMount
-sub beforeCreate
-sub created
-sub beforeMount
-sub mounted
-parent mounted
+1.加载渲染过程
 
-// 数据更新
-parent beforeUpdate
-sub beforeUpdate
-sub updated
-parent updated
+父 beforeCreate->父 created->父 beforeMount->子 beforeCreate->子 created->子 beforeMount->子 mounted->父 mounted
 
-// 销毁组件
-parent beforeDestroy
-sub beforeDestroy
-sub destroyed
-parent destroyed
-```
+2.子组件更新过程
+
+父 beforeUpdate->子 beforeUpdate->子 updated->父 updated
+
+3.父组件更新过程
+
+父 beforeUpdate->父 updated
+
+4.销毁过程
+
+父 beforeDestroy->子 beforeDestroy->子 destroyed->父 destroyed
+
+> 总结：从外到内，再从内到外
 
 注意 `mounted` 不会保证所有的子组件也都一起被挂载。如果你希望等到整个视图都渲染完毕，可以在 `mounted` 内部使用 `vm.$nextTick`：
 

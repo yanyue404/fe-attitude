@@ -10,26 +10,6 @@
 - [vue-api](https://github.com/lanzhsh/vue-api) vue 中 extend，mixins，extends，components,install 的几个 api 对比
 - [Vue.js 中文文档 - 深入响应式原理](https://vuejs.bootcss.com/guide/reactivity.html)
 
-## 生命周期
-
-### 1.加载渲染过程
-
-父 beforeCreate->父 created->父 beforeMount->子 beforeCreate->子 created->子 beforeMount->子 mounted->父 mounted
-
-### 2.子组件更新过程
-
-父 beforeUpdate->子 beforeUpdate->子 updated->父 updated
-
-### 3.父组件更新过程
-
-父 beforeUpdate->父 updated
-
-### 4.销毁过程
-
-父 beforeDestroy->子 beforeDestroy->子 destroyed->父 destroyed
-
-> 总结：从外到内，再从内到外
-
 ## Vue 生态圈
 
 > https://risingstars.js.org/2017/zh/#section-vue
