@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      class HashTable {
+        constructor() {
+          this.items = {}
+        }
+        put(key, value) {
+          const hash = this.keyToHash(key)
+          this.items[hash] = value
+        }
+        get(key) {
+          return this.items[this.keyToHash(key)]
+        }
+        remove(key) {
+          delete this.items[this.keyToHash(key)]
+        }
+        keyToHash(key) {
+          let hash = 0
+
+          for (let i = 0; i < key.length; i++) {
+            hash += key.charCodeAt(i)
+          }
+          hash = hash % 37 // 为了了避免 hash 的值过⼤大
+          return hash
+        }
+      }
+
+      let info = new HashTable()
+
+      info.put('name', 'yue')
+      info.put('age', '27')
+      console.log(info.get('name'))
+      console.log(info.get('age'))
+      info.remove('name')
+      console.log(info.get('name'))
+    </script>
+  </body>
+</html>

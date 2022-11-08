@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div>123</div>
+      <p>2345</p>
+      <div class="demo">
+        <span>哈喽</span>
+      </div>
+    </div>
+    <script>
+      function walk(node, func = () => {}) {
+        if (node instanceof window.Node) {
+          _walk(node, func)
+        }
+        return node
+      }
+
+      function _walk(node, func) {
+        if (func(node) !== false) {
+          node = node.firstChild
+          while (node) {
+            _walk(node, func)
+            node = node.nextSibling
+          }
+        }
+      }
+      walk(document.getElementById('app'), node => {
+        console.log(node)
+      })
+    </script>
+  </body>
+</html>

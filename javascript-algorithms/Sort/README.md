@@ -9,6 +9,8 @@
 - 时间维度：是指执行当前算法所消耗的时间，我们通常用「时间复杂度」来描述。
 - 空间维度：是指执行当前算法需要占用多少内存空间，我们通常用「空间复杂度」来描述。
 
+因此，评价一个算法的效率主要是看它的时间复杂度和空间复杂度情况。然而，有的时候时间和空间却又是「鱼和熊掌」，不可兼得的，那么我们就需要从中去取一个平衡点。
+
 ### 时间复杂度
 
 常见的时间复杂度量级有：
@@ -26,20 +28,11 @@
 
 ### 空间复杂度
 
-略...
+常见的时间复杂度量级有：
 
-## Utils
-
-```js
-function checkArray(array) {
-  if (!array) return;
-}
-function swap(array, left, right) {
-  let rightValue = array[right];
-  array[right] = array[left];
-  array[left] = rightValue;
-}
-```
+- O(1), 算法执行时所需要的空间和算法的输入值无关, 对于输入数据量来说是一个常数的话，则称该算法为 原地工作
+- O(n), 随着输入数据量 n 的增大，程序申请的临时空间成线性增长
+- O(n2), 随着输入数据量 n 的增大，程序申请的临时空间成 n^2^ 关系增长
 
 ## 冒泡排序
 
@@ -51,26 +44,25 @@ function swap(array, left, right) {
 
 ```js
 function bubble(array) {
-  checkArray(array);
   for (let i = 0; i < array.length - 1; i++) {
-    // console.log('第' + (i + 1) + '轮开始');
-    let flag = true;
-    // 从 0 到 `length - 1 - i` 遍历
+    console.log('第' + (i + 1) + '轮开始')
+    let flag = true
+    // 从 0 到 `length - 1` 遍历
     for (let j = 0; j < array.length - 1 - i; j++) {
       if (array[j] > array[j + 1]) {
-        flag = false;
-        swap(array, j, j + 1);
-        // console.log('第' + (j + 1) + '次：' + array.toString(array));
+        flag = false
+        ;[array[j], array[j + 1]] = [array[j + 1], array[j]]
+        console.log('第' + (j + 1) + '次：' + array.toString(array))
       }
     }
     if (flag) {
-      // console.log('第' + (i + 1) + '轮后数据结束变化更新');
-      break;
+      console.log('第' + (i + 1) + '轮后数据结束变化更新')
+      break
     }
   }
-  return array;
+  return array
 }
-console.log(bubble([3, 2, 1, 4, 8, 6, 7]));
+console.log(bubble([3, 2, 1, 4, 8, 6, 7]))
 ```
 
 **打印：**
@@ -104,26 +96,59 @@ console.log(bubble([3, 2, 1, 4, 8, 6, 7]));
 function quickSort(arr) {
   //如果数组<=1,则直接返回
   if (arr.length <= 1) {
-    return arr;
+    return arr
   }
-  var pivotIndex = Math.floor(arr.length / 2); //向下
+  var pivotIndex = Math.floor(arr.length / 2) //向下
   //找基准，并把基准从原数组删除
-  var pivot = arr.splice(pivotIndex, 1)[0];
+  var pivot = arr.splice(pivotIndex, 1)[0]
   //定义左右数组
-  var left = [];
-  var right = [];
+  var left = []
+  var right = []
 
   //比基准小的放在left，比基准大的放在right
   for (var i = 0; i < arr.length; i++) {
     if (arr[i] <= pivot) {
-      left.push(arr[i]);
+      left.push(arr[i])
     } else {
-      right.push(arr[i]);
+      right.push(arr[i])
     }
   }
   //递归
-  return quickSort(left).concat([pivot], quickSort(right));
+  return quickSort(left).concat([pivot], quickSort(right))
 }
+```
+
+**原地快排**
+
+```js
+function quickSort(arr, low = 0, high = arr.length - 1) {
+  if (low >= high) return
+  let left = low
+  let right = high
+  let flag = arr[left]
+  // 判断左右游标是否重合，如果重合，循环结束
+  while (left < right) {
+    // 右边大,继续向左比较
+    if (flag <= arr[right]) {
+      right--
+    }
+    // 交换下一个可能不合理的位置
+    arr[left] = arr[right]
+    // 左边大,继续向右比较
+    if (flag >= arr[left]) {
+      left++
+    }
+    // 交换下一个
+    arr[right] = arr[left]
+  }
+  //重合之后，交换基准数
+  arr[left] = flag
+  quickSort(arr, low, left - 1)
+  quickSort(arr, left + 1, high)
+
+  return arr
+}
+console.log(quickSort([4, 3, 8, 1, 9, 6, 2]))
 ```
 
 #### 参考

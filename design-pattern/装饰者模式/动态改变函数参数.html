@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      Function.prototype.before = function(beforefn) {
+        var __self = this
+        return function() {
+          beforefn.apply(this, arguments) // (1)
+          return __self.apply(this, arguments) // (2)
+        }
+      }
+      //       通过 Function.prototype.before 方法给函数 func 的参数 param 动态地
+      // 添加属性 b
+      /*       var func = function(param) {
+        console.log(param) // 输出： {a: "a", b: "b"}
+      }
+
+      func = func.before(function(param) {
+        param.b = 'b'
+      })
+
+      func({ a: 'a' }) */
+
+      var ajax = function(type, url, param) {
+        console.log(param) // 发送 ajax 请求的代码略
+      }
+      var getToken = function() {
+        return 'Token'
+      }
+      ajax = ajax.before(function(type, url, param) {
+        param.Token = getToken()
+      })
+      ajax('get', 'http:// xxx.com/userinfo', { name: 'sven' }) // {name: "sven", Token: "Token"}
+    </script>
+  </body>
+</html>

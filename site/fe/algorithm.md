@@ -2,6 +2,14 @@
 
 > Github: https://github.com/yanyue404/leetcode
 
+## 排序
+
+- https://github.com/yanyue404/blog/issues/22
+
+## 递归
+
+- https://github.com/yanyue404/blog/issues/118
+
 ## 贪心算法
 
 ### 455. 分发饼干
@@ -322,7 +330,7 @@ var search = function(nums, target) {
     if (nums[mid] === target) {
       return mid
     } else if (nums[mid] > target) {
-      n = mid
+      n = mid - 1
     } else {
       m = mid + 1
     }
@@ -330,6 +338,7 @@ var search = function(nums, target) {
   return -1
 }
 console.log(search([5], 5))
+console.log(search([1, 2, 3, 4, 5, 7, 9, 11, 14, 16, 17, 22, 33, 55, 65], 4)) // 3
 ```
 
 ```js
@@ -394,6 +403,18 @@ console.log(getMax(arr3))
 ```
 
 ## 数据结构
+
+栈
+
+队列
+
+链表
+
+集合
+
+哈希表
+
+树
 
 ### 283. 移动零
 
@@ -588,6 +609,8 @@ const addStrings = (a, b) => {
   return sum
 }
 ```
+
+## 动态规划
 
 ## 参考
 

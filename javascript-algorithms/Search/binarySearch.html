@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 查找⽐较简单，我们先来看一个经典的二分查找 有点类似幸运52的猜价格，⽐如让你在1和1000之间猜个数字，挨个猜是很蠢的，要先猜500，如果⼤大了了，那就是0~500 ，每次问题减半，很快就能查到
+      var binarySearch = function(nums, target) {
+        let m = 0
+        let n = nums.length - 1
+        // 不是什么时候都可以相等
+        while (m <= n) {
+          let mid = Math.floor((n + m) / 2)
+          if (nums[mid] === target) {
+            return mid
+          } else if (nums[mid] > target) {
+            n = mid - 1
+          } else {
+            m = mid + 1
+          }
+        }
+        return -1
+      }
+
+      console.log(binarySearch([1, 2, 3, 4, 5, 7, 9, 11, 14, 16, 17, 22, 33, 55, 65], 4))
+
+      // 递归版本
+      function binarySearch1(nums, target, low = 0, high = nums.length - 1) {
+        let mid = Math.floor((high + low) / 2)
+        if (nums[mid] === target) {
+          return mid
+        } else if (nums[mid] > target) {
+          return binarySearch1(nums, target, low, mid - 1)
+        } else {
+          return binarySearch1(nums, target, mid + 1, high)
+        }
+        return -1
+      }
+
+      console.log(binarySearch1([1, 2, 3, 4, 5, 7, 9, 11, 14, 16, 17, 22, 33, 55, 65], 4))
+    </script>
+  </body>
+</html>

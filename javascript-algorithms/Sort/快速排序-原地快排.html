@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      function quickSort(arr, low = 0, high = arr.length - 1) {
+        if (low >= high) return
+        let left = low
+        let right = high
+        let flag = arr[left]
+        // 判断左右游标是否重合，如果重合，循环结束
+        while (left < right) {
+          // 右边大,继续向左比较
+          if (flag <= arr[right]) {
+            right--
+          }
+          // 交换下一个可能不合理的位置
+          arr[left] = arr[right]
+          // 左边大,继续向右比较
+          if (flag >= arr[left]) {
+            left++
+          }
+          // 交换下一个
+          arr[right] = arr[left]
+        }
+        //重合之后，交换基准数
+        arr[left] = flag
+        quickSort(arr, low, left - 1)
+        quickSort(arr, left + 1, high)
+
+        return arr
+      }
+      console.log(quickSort([4, 3, 8, 1, 9, 6, 2]))
+    </script>
+  </body>
+</html>
