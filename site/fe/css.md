@@ -378,29 +378,70 @@ CSS 中的`z-index`属性控制重叠元素的垂直叠加顺序。`z-index`只�
 
 ## 常用选择器
 
-TODO:
-
-**基本选择器**
+**简单选择器**
 
 - 通用选择器：`*`
-- `id`、`class`、元素
-- 属性选择器: `E[attr]`、`E[attr="val"]`、`E[attr$="val"]`、`E[attr^="val"]、E[attr*="val"] 、E[attr|="val"]
+- id 选择权: `#idName`
+- class 选择器: `.className`
+- 标签选择器: `p`
+
+**属性选择器**
+
+- `E[attr]`: `input[disabled]`
+- `E[attr="val"]`: `input[type="password"]`
+- `E[attr^="val"]:`a[href^="#"]`
+- `E[attr$="val"]`: `a[href$=".jpg"]`
+- `E[attr*="val"]`: `[class*=" icon-"]` （属性的值包含子字符串）
+- E[attr|="val"]
+
+```html
+<style>
+  [class^='icon-'],
+  [class*=' icon-'] {
+    color: coral;
+    font-family: FontAwesome;
+    font-style: normal;
+    margin-right: 1em;
+  }
+</style>
+<i class="icon-user">用户</i>
+<i class="icon-wifi">WiFi</i>
+<i class="other1 icon-car">汽车</i>
+<i class="icon-heart other2">爱心</i>
+```
+
+**伪选择器**
+
+- 伪类，基于 DOM 之外的信息去（比如根据用户和网页的交互状态）选择元素。`E:hover`、`E:focus`、`E:not()`、 `E:first-child`、 `E:last-child`、 `E:nth-child(n)`、`E:nth-last-child(n)`
+
+**选择器组合**
+
+- 直接组合 `EF`: `p.warning`
+
+```css
+E[foo="bar"]
+E.warning
+E#myid
+#myid.warning
+.warning[foo="bar"]
+```
+
+- 后代组合 `E F`: `div span`, 匹配所有位于任意 `<div>` 元素之内的 `<span>` 元素.
+- 亲子组合 `E > F`: `ul > li`, 匹配直接嵌套在 `<ul>` 元素内的所有 `<li>` 元素。
+- 一般兄弟组合器 `E ~ F`:`p ~ span` 匹配同一父元素下，`<p>` 元素后的所有 `<span>` 元素
+- 紧邻兄弟组合器 `E + F`: `h2 + p` 会匹配所有紧邻在 `<h2>`元素后的 `<p>` 元素
 
 **分组选择器**
 
 - `div, span`，会同时匹配 `<span>` 元素和 `<div>` 元素
 
-**组合器**
-
-- 后代组合器，`div span` 匹配所有位于任意 `<div>` 元素之内的 `<span>` 元素。
-- 直接子代组合器。`ul > li` 匹配直接嵌套在 `<ul>` 元素内的所有 `<li>` 元素。
-- 一般兄弟组合器。`p ~ span` 匹配同一父元素下，`<p>` 元素后的所有 `<span>` 元素
-- 紧邻兄弟组合器。`h2 + p` 会匹配所有紧邻在 `<h2>`元素后的 `<p>` 元素
-
-**伪选择器**
-
-- 伪类，支持按照未被包含在文档树中的状态信息来选择元素。`E:hover`、`E:not()`、 `E:first-child`、 `E:last-child`、 `E:nth-child(n)`、`E:nth-last-child(n)`
-- 伪元素，用于表示无法用 HTML 语义表达的实体。`p::first-line` 匹配所有 `<p>` 元素的第一行。
+```css
+[type='checkbox'],
+[type='radio'] {
+  box-sizing: border-box;
+  padding: 0;
+}
+```
 
 参考链接
 
@@ -413,6 +454,94 @@ TODO:
 其核心就是用来选择那些不能够被普通选择器选择的文档之外的元素，比如`:hover`。
 
 还有`E:hover`、`E:not()`、 `E:first-child`、 `E:last-child`、 `E:nth-child(n)`、`E:nth-last-child(n)`等，作为个性选择器使用。
+
+`:target` 伪类: 表示元素被 hash 匹配时的状态
+
+`:lang` 伪类:元素匹配上指定语言时的状态,浏览器通过 lang 属性获得语言信息
+
+`nth-child(an+b)` 选中某些子元素, `nth-child(odd)` 选中第奇数个子元素，`nth-child(even)` 则为偶数
+
+`:nth-of-type` 按类型选中某些子元素
+
+```html
+<article>
+  <h1>This is a test</h1>
+  <p>Paragraph 1</p>
+  <p>Paragraph 2</p>
+  <p>Paragraph 3</p>
+  <p>Paragraph 4</p>
+</article>
+
+<style>
+  /* 选中第 1 h1,第3个p */
+  article :nth-child(3n + 1) {
+    color: red;
+  }
+  /* 选中第 1 个h1,第1个p，第 4 个 p */
+  article :nth-of-type(3n + 1) {
+    text-decoration: underline;
+  }
+</style>
+```
+
+`E:first-child` 匹配 E 的父元素中的第一个子元素 E, 匹配 <p> 的父元素的第一个<p>元素
+
+```html
+<style>
+  p:first-child {
+    background-color: yellow;
+  }
+</style>
+<body>
+  <p>This paragraph is the first child of its parent (body).</p>
+
+  <h1>Welcome to My Homepage</h1>
+  <p>This paragraph is not the first child of its parent.</p>
+
+  <div>
+    <p>This paragraph is the first child of its parent (div).</p>
+    <p>This paragraph is not the first child of its parent.</p>
+  </div>
+</body>
+```
+
+`E:last-child`: 选择每个 E 元素是其父级的最后一个子级。
+
+`:not()` 排除匹配的元素 比如 `img:not([alt])` 选择没有写 alt 属性的图片
+
+```html
+<p>
+  text 1
+  <button>Button 1</button>
+  <button>Button 2</button>
+  <button>Button 3</button>
+  <button>Button 4</button>
+  text 2
+</p>
+
+<style>
+  /* 除了最后一个元素都有右边距 */
+  button:not(:last-child) {
+    margin-right: 2em;
+  }
+</style>
+```
+
+其他选择器
+
+> https://www.runoob.com/cssref/css-selectors.html
+
+含有 `type` 的按 `type + 顺序 + 元素类型` 选择，没有 `type` 的按 `顺序 + 元素类型` 选择
+
+| 选择器               | 示例                  | 示例说明                                                     |
+| -------------------- | --------------------- | ------------------------------------------------------------ |
+| :nth-last-child(n)   | p:nth-last-child(2)   | 选择每个 p 元素的是其父级的第二个子元素，从最后一个子项计数  |
+| :nth-last-of-type(n) | p:nth-last-of-type(2) | 选择每个 p 元素的是其父级的第二个 p 元素，从最后一个子项计数 |
+| :first-of-type       | p:first-of-type       | 选择每个 p 元素是其父级的第一个 p 元素                       |
+| :last-of-type        | p:last-of-type        | 选择每个 p 元素是其父级的最后一个 p 元素                     |
+| :only-child          | p:only-child          | 选择每个 p 元素是其父级的唯一子元素                          |
+| :only-of-type        | p:only-of-type        | 选择每个 p 元素是其父级的唯一 p 元素                         |
+| :empty               | p:empty               | 选择每个没有任何子级的 p 元素（包括文本节点）                |
 
 ### 伪元素
 
@@ -759,11 +888,9 @@ div a {
 
 ## 如何用 css 或 js 实现多行文本溢出省略效果，考虑兼容性
 
-<!-- TODO: -->
-
 - 单行文本溢出
 
-```java
+```js
 overflow: hidden;            // 溢出隐藏
 text-overflow: ellipsis;      // 溢出用省略号显示
 white-space: nowrap;         // 规定段落中的文本不进行换行
@@ -771,7 +898,7 @@ white-space: nowrap;         // 规定段落中的文本不进行换行
 
 - 多行文本溢出
 
-```java
+```js
 overflow: hidden;            // 溢出隐藏
 text-overflow: ellipsis;     // 溢出用省略号显示
 display:-webkit-box;         // 作为弹性伸缩盒子模型显示。
@@ -934,6 +1061,31 @@ display:-webkit-box;         // 作为弹性伸缩盒子模型显示。
   }
 </style>
 <i class="scroll-down">↓</i>
+```
+
+环形旋转器
+
+```html
+<div class="donut"></div>
+<style>
+  @keyframes donut-spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  .donut {
+    display: inline-block;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #7983ff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: donut-spin 1.2s linear infinite;
+  }
+</style>
 ```
 
 ## CSS3 新特性有哪些？
@@ -1515,25 +1667,25 @@ Modifier（修饰）
 </div>
 ```
 
-## css 原生支持变量
+## css 自定义变量
+
+CSS 变量，其中包含要在整个文档中重用的特定值。
 
 ```html
-<h1>页面标题</h1>
+<p class="custom-variables">CSS is awesome!</p>
 
 <style>
   :root {
-    --primary-color: #f66;
-    --heading-font: Helvetica, 'Microsoft Yahei', Sans-Serif;
+    --some-color: #da7800;
+    --some-keyword: italic;
+    --some-size: 1.25em;
+    --some-complex-value: 1px 1px 2px whitesmoke, 0 0 1em slategray, 0 0 0.2em slategray;
   }
-
-  h1,
-  h2,
-  h3 {
-    font-family: var(--heading-font);
-    color: var(--primary-color);
-  }
-  .btn--primary {
-    background: var(--primary-color);
+  .custom-variables {
+    color: var(--some-color);
+    font-size: var(--some-size);
+    font-style: var(--some-keyword);
+    text-shadow: var(--some-complex-value);
   }
 </style>
 ```
@@ -1542,12 +1694,8 @@ Modifier（修饰）
 
 - https://developer.mozilla.org/zh-CN/docs/Web/CSS
 - https://www.runoob.com/css/css-tutorial.html
-- [50 道 CSS 基础面试题（附答案）](https://segmentfault.com/a/1190000013325778)
-- [《50 道 CSS 基础面试题（附答案）》中的答案真的就只是答案吗？](https://segmentfault.com/a/1190000013860482)
-- [2017-08 面试总结（at,dm）- sunyongjian ](https://github.com/sunyongjian/blog/issues/32)
-- [2019-03 面试总结（alicloud, tikTok, ke, ks）- sunyongjian ](https://github.com/sunyongjian/blog/issues/41)
-- [front-end-interview-handbook - CSS 问题](https://github.com/yangshun/front-end-interview-handbook/blob/master/Translations/Chinese/questions/css-questions.md#css-%E9%97%AE%E9%A2%98)
-- [yck - 前端面试从准备到谈薪完全指南](https://juejin.im/post/5dfef50751882512444027eb)
+- https://www.frontendinterviewhandbook.com/zh/css-questions/
 - [中高级前端大厂面试秘籍，为你保驾护航金三银四，直通大厂(上)](https://juejin.im/post/5c64d15d6fb9a049d37f9c20)
-- https://github.com/webzhao/fe-camp
 - [Daily-Interview-Question - CSS 世界](https://github.com/Advanced-Frontend/Daily-Interview-Question/labels/CSS%E4%B8%96%E7%95%8C)
+- https://github.com/webzhao/fe-camp
+- http://caibaojian.com/30-seconds-of-css/
