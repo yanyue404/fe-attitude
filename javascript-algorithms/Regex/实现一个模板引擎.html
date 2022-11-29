@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>template</title>
+  </head>
+
+  <body>
+    <div id="container"></div>
+    <script type="text/html" id="user_tmpl">
+      <% for(var i = 0; i < posts.length; i++) {
+      var post = posts[i]; %>
+      <% if(!post.expert){ %>
+      <span>post is null</span>
+      <% } else { %>
+      <a href="#"><% post.expert %> at <% post.time %></a>
+      <% } %>
+      <% } %>
+    </script>
+  </body>
+</html>
+<script>
+  var tpl = "Hei, my name is <%name%>, and I'm <%info.age%> years old. I like <%info.likes[0].name%>."
+  var re = {
+    name: 'yanyue404',
+    info: {
+      age: '20',
+      likes: [
+        {
+          id: 1,
+          name: 'basketball'
+        }
+      ]
+    }
+  }
+  /*   var fn = new Function('data', "var r = []; for(var i in data){ r.push(data[i]); } return r.join(' ')")
+  fn({ name: 'barretlee', age: '20' }) // barretlee 20 */
+  var data2 = {
+    posts: [
+      {
+        expert: 'content 1',
+        time: 'yesterday'
+      },
+      {
+        expert: 'content 2',
+        time: 'today'
+      },
+      {
+        expert: 'content 3',
+        time: 'tomorrow'
+      },
+      {
+        expert: '',
+        time: 'eee'
+      }
+    ]
+  }
+  var tplEngine = function(tpl, data) {
+    var reg = /<%([^%>]+)?%>/g,
+      code = 'var r=[];\n',
+      cursor = 0 //主要的作用是定位代码最后一截
+    regOut = /(^( )?(if|for|else|switch|case|break|{|}))(.*)?/g
+    var add = function(line, js) {
+      if (js) {
+        // 表达式原样输出
+        if (line.match(regOut)) {
+          code += line + '\n'
+        }
+        // 变量直接输出
+        else {
+          code += 'r.push(' + line + ');\n'
+        }
+      } else {
+        code += 'r.push("' + line.replace(/"/g, '\\"') + '");\n'
+      }
+    }
+
+    // 改为变量直接注入
+    Object.entries(data).forEach(([key, val]) => {
+      code += `var ${key} = this['${key}'];\n`
+    })
+
+    while ((match = reg.exec(tpl))) {
+      add(tpl.slice(cursor, match.index)) //添加非逻辑部分
+      add(match[1], true) //添加逻辑部分 match[0] = "<%" + match[1] + "%>";
+      cursor = match.index + match[0].length
+    }
+
+    add(tpl.substr(cursor, tpl.length - cursor)) //代码的最后一截 如:" years old."
+
+    code += 'return r.join("");' // 返回结果，在这里我们就拿到了装入数组后的代码
+    return new Function(code.replace(/[\r\t\n]/g, '')).apply(data)
+  }
+
+  alert(tplEngine(tpl, re))
+  /*   var tpl2 =
+    '<% for(var i = 0; i < this.posts.length; i++) {' +
+    'var post = this.posts[i]; %>' +
+    '<% if(!post.expert){ %>' +
+    '<span>post is null</span>' +
+    '<% } else { %>' +
+    '<a href="#"><% post.expert %> at <% post.time %></a>' +
+    '<% } %>' +
+    '<% } %>' */
+
+  // console.log(tplEngine(tpl2, data2))
+
+  var results = document.getElementById('container')
+  console.dir(document.getElementById('user_tmpl').innerText)
+  let str = document.getElementById('user_tmpl').innerText.replace(/^[\n\s]+|[\s\n]+$/g, '')
+
+  results.innerHTML = tplEngine(str, data2)
+</script>

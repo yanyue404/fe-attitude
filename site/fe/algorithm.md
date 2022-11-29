@@ -2,6 +2,22 @@
 
 > Github: https://github.com/yanyue404/leetcode
 
+## 目录
+
+- 排序
+- 递归
+- 贪心算法
+- 双指针
+  - 两数之和
+  - 无重复字符的最长子序
+  - 移动零
+- 二分查找
+- 数据结构
+  - 字符串
+    - 大数相加
+  - 数组
+    - 交集
+
 ## 排序
 
 - https://github.com/yanyue404/blog/issues/22
@@ -9,6 +25,387 @@
 ## 递归
 
 - https://github.com/yanyue404/blog/issues/118
+
+## 搜索
+
+深度优先搜索和广度优先搜索是两种最常见的优先搜索方法，它们被广泛地运用在图和树等结构中进行搜索。
+
+### 将 js 数组对象转化为树形结构
+
+> 类：[#139](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/139)
+
+以下数据结构中，id 代表部门编号，name 是部门名称，parentId 是父部门编号，为 0 代表一级部门，现在要求实现一个 convert 方法，把原始 list 转换成树形结构，parentId 为多少就挂载在该 id 的属性 children 数组下，结构如下：
+
+```js
+// 转换前：
+const list = [
+  { id: 1, name: '部门A', parentId: 0 },
+  { id: 2, name: '部门B', parentId: 0 },
+  { id: 3, name: '部门C', parentId: 1 },
+  { id: 4, name: '部门D', parentId: 1 },
+  { id: 5, name: '部门E', parentId: 2 },
+  { id: 6, name: '部门F', parentId: 3 },
+  { id: 7, name: '部门G', parentId: 2 },
+  { id: 8, name: '部门H', parentId: 4 }
+]
+// 转换为:
+const tree = [
+  {
+    id: 1,
+    name: '部门A',
+    parentId: 0,
+    children: [
+      {
+        id: 3,
+        name: '部门C',
+        parentId: 1,
+        children: [
+          {
+            id: 6,
+            name: '部门F',
+            parentId: 3
+          }
+        ]
+      },
+      {
+        id: 4,
+        name: '部门D',
+        parentId: 1,
+        children: [
+          {
+            id: 8,
+            name: '部门H',
+            parentId: 4
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 2,
+    name: '部门B',
+    parentId: 0,
+    children: [
+      {
+        id: 5,
+        name: '部门E',
+        parentId: 2
+      },
+      {
+        id: 7,
+        name: '部门G',
+        parentId: 2
+      }
+    ]
+  }
+]
+```
+
+```js
+// BFS(Breadth-First Search) 广度搜索优先
+function convert(list) {
+  let res = []
+  // 使用Map保存id和对象的映射
+  const map = list.reduce((res, v) => ((res[v.id] = v), res), {})
+  for (let i = 0; i < list.length; i++) {
+    const item = list[i]
+    if (item.parentId === 0) {
+      res.push(item)
+    }
+    if (item.parentId in map) {
+      const parent = map[item.parentId]
+      parent.children = parent.children || []
+      parent.children.push(item)
+    }
+  }
+  return res
+}
+
+// DFS (Depth-First-Search) 深度优先搜索
+// DFS (Depth-First-Search) 深度优先搜索
+function convert2(source, parentId = 0) {
+  let trees = []
+  for (let item of source) {
+    // 沿着 parentId 一直往下找
+    if (item.parentId === parentId) {
+      console.log('find parentId：', item.id)
+      let children = convert2(source, item['id'])
+      if (children.length > 0) {
+        item.children = children
+      }
+      console.log('set item:', item)
+      trees.push(item)
+    }
+  }
+
+  return trees
+}
+
+console.log(JSON.stringify(convert2(list), null, 2))
+
+// find parentId： 1
+// find parentId： 3
+// find parentId： 6
+// set item: {id: 6, name: '部门F', parentId: 3}
+// set item: {id: 3, name: '部门C', parentId: 1, children: Array(1)}
+// find parentId： 4
+// find parentId： 8
+// set item: {id: 8, name: '部门H', parentId: 4}
+// set item: {id: 4, name: '部门D', parentId: 1, children: Array(1)}
+// set item: {id: 1, name: '部门A', parentId: 0, children: Array(2)}
+// find parentId： 2
+// find parentId： 5
+// set item: {id: 5, name: '部门E', parentId: 2}
+// find parentId： 7
+// set item: {id: 7, name: '部门G', parentId: 2}
+// set item: {id: 2, name: '部门B', parentId: 0, children: Array(2)}
+```
+
+### 将 树形结构转化为 js 数组对象
+
+```js
+const tree = [
+  {
+    id: 1,
+    name: '部门A',
+    parentId: 0,
+    children: [
+      {
+        id: 3,
+        name: '部门C',
+        parentId: 1,
+        children: [
+          {
+            id: 6,
+            name: '部门F',
+            parentId: 3
+          }
+        ]
+      },
+      {
+        id: 4,
+        name: '部门D',
+        parentId: 1,
+        children: [
+          {
+            id: 8,
+            name: '部门H',
+            parentId: 4
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 2,
+    name: '部门B',
+    parentId: 0,
+    children: [
+      {
+        id: 5,
+        name: '部门E',
+        parentId: 2
+      },
+      {
+        id: 7,
+        name: '部门G',
+        parentId: 2
+      }
+    ]
+  }
+]
+
+function convert(tree) {
+  let res = []
+  for (let i = 0; i < tree.length; i++) {
+    const element = tree[i]
+    if (element.children && element.children.length > 0) {
+      const { children, ...item } = element
+      res.push(item)
+      res.push(...convert(element.children))
+    } else {
+      res.push(element)
+    }
+  }
+  return res
+}
+// 参考：https://juejin.cn/post/6952442048708345863
+// BFS: 沿着树的宽度遍历节点。采用队列来辅助完成广度遍历
+function treeTolist(tree) {
+  const list = []
+  const queue = [...tree]
+  while (queue.length) {
+    const node = queue.shift()
+    const childs = node.children
+    if (childs) {
+      queue.push(...childs)
+    }
+    const { children, ...item } = node
+    list.push(item)
+  }
+  return list
+}
+// DFS: 沿着树的深度遍历。采用栈来辅助完成深度遍历。
+function treeTolist2(tree) {
+  const list = []
+  const stack = [...tree]
+  while (stack.length) {
+    const node = stack.pop()
+    const childs = node.children
+    if (childs) {
+      stack.push(...childs)
+    }
+    const { children, ...item } = node
+    list.push(item)
+  }
+  return list
+}
+
+console.log(JSON.stringify(treeTolist2(tree), null, 2))
+```
+
+### 把对象键名以[get](https://www.lodashjs.com/docs/lodash.get/)组合的展开为深层对象结构
+
+> https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/212
+
+```js
+var entry = {
+  'a.b.c.dd': 'abcdd',
+  'a.d.xx': 'adxx',
+  'a.e': 'ae'
+}
+
+// 要求转换成如下对象
+var output = {
+  a: {
+    b: {
+      c: {
+        dd: 'abcdd'
+      }
+    },
+    d: {
+      xx: 'adxx'
+    },
+    e: 'ae'
+  }
+}
+```
+
+```js
+function change2normal(entry) {
+  let o = {}
+  const keys = Object.keys(entry)
+  for (const str of keys) {
+    let val = entry[str]
+    let keysArr = str.split(/[\.\[\]]+/)
+    keysArr.reduce((prev, curr, index, array) => {
+      if (index === array.length - 1) {
+        prev[curr] = val
+      }
+      prev[curr] = prev[curr] || {} // 这里要记录下来
+      return prev[curr]
+    }, o)
+  }
+  return o
+}
+
+console.log(JSON.stringify(change2normal(entry), null, 2))
+```
+
+### 把深层对象结构按对象键名以[get](https://www.lodashjs.com/docs/lodash.get/)组合为普通对象
+
+```js
+var entry = {
+  a: {
+    b: {
+      c: {
+        dd: 'abcdd'
+      }
+    },
+    d: {
+      xx: 'adxx'
+    },
+    e: 'ae'
+  }
+}
+
+// 要求转换成如下对象
+var output = {
+  'a.b.c.dd': 'abcdd',
+  'a.d.xx': 'adxx',
+  'a.e': 'ae'
+}
+```
+
+```js
+function flatObj(entry, startWith = []) {
+  let o = {}
+  const keys = Object.keys(entry)
+  for (const key of keys) {
+    let val = entry[key]
+    if (typeof val === 'object') {
+      let s = flatObj(val, startWith.concat([key]))
+      if (JSON.stringify(s) !== '{}') {
+        o = Object.assign(o, s)
+      }
+    } else {
+      o[startWith.concat(key).join('.')] = val
+    }
+  }
+  return o
+}
+
+function flatObj1(obj, parentKey = '', result = {}) {
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      let keyName = `${parentKey}${key}`
+      if (typeof obj[key] === 'object') flatObj1(obj[key], keyName + '.', result)
+      else result[keyName] = obj[key]
+    }
+  }
+  return result
+}
+const flatObj2 = (obj, prefix = '') =>
+  Object.keys(obj).reduce((acc, k) => {
+    const pre = prefix.length ? prefix + '.' : ''
+    if (typeof obj[k] === 'object') Object.assign(acc, flatObj2(obj[k], pre + k))
+    else acc[pre + k] = obj[k]
+    return acc
+  }, {})
+
+function flatObj3(entry) {
+  function rec(entry, parentKey, result) {
+    Object.keys(entry).forEach(key => {
+      if (typeof entry[key] === 'object') {
+        rec(entry[key], parentKey + key, result)
+      } else {
+        const keyname = parentKey.replace(/(?=\B)/g, '.') + '.' + key
+        result[keyname] = entry[key]
+      }
+    })
+  }
+  rec(entry, (parentKey = ''), (result = {}))
+  return result
+}
+// BSF
+function flatObj4(entry) {
+  const queue = Object.entries(entry)
+  const res = {}
+  while (queue.length) {
+    const [key, obj] = queue.pop()
+    for (const [k, v] of Object.entries(obj)) {
+      if (typeof v !== 'object') {
+        res[`${key}.${k}`] = v
+      } else {
+        queue.push([`${key}.${k}`, v])
+      }
+    }
+  }
+  return res
+}
+
+console.log(JSON.stringify(flatObj4(entry), null, 2))
+```
 
 ## 贪心算法
 
@@ -284,6 +681,49 @@ var lengthOfLongestSubstring3 = function(s) {
 }
 ```
 
+### 283. 移动零
+
+> https://leetcode.cn/problems/move-zeroes/
+
+> https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/132
+
+给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
+
+示例:
+
+```js
+输入: [0, 1, 0, 3, 12]
+输出: [1, 3, 12, 0, 0]
+```
+
+说明:
+
+必须在原数组上操作，不能拷贝额外的数组。
+
+尽量减少操作次数。
+
+```js
+let x = [0, 1, 0, 3, 12]
+let y = [0, 0, 0, 1, 0, 3, 12]
+
+const zeroMove = function(nums) {
+  let j = 0
+  for (let i = 0; i < nums.length - j; i++) {
+    const element = nums[i]
+    if (element === 0) {
+      nums.splice(i, 1)
+      nums.push(0)
+      i--
+      j++
+    }
+  }
+  return nums
+}
+
+console.log(zeroMove(x)) // [1,3,12,0,0]
+console.log(zeroMove(y)) // [1,3,12,0,0,0,0]
+```
+
 ## 二分查找
 
 ### 704. 二分查找
@@ -415,47 +855,6 @@ console.log(getMax(arr3))
 哈希表
 
 树
-
-### 283. 移动零
-
-> https://leetcode.cn/problems/move-zeroes/
-
-给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
-
-示例:
-
-```js
-输入: [0, 1, 0, 3, 12]
-输出: [1, 3, 12, 0, 0]
-```
-
-说明:
-
-必须在原数组上操作，不能拷贝额外的数组。
-
-尽量减少操作次数。
-
-```js
-let x = [0, 1, 0, 3, 12]
-let y = [0, 0, 0, 1, 0, 3, 12]
-
-const zeroMove = function(nums) {
-  let j = 0
-  for (let i = 0; i < nums.length - j; i++) {
-    const element = nums[i]
-    if (element === 0) {
-      nums.splice(i, 1)
-      nums.push(0)
-      i--
-      j++
-    }
-  }
-  return nums
-}
-
-console.log(zeroMove(x)) // [1,3,12,0,0]
-console.log(zeroMove(y)) // [1,3,12,0,0,0,0]
-```
 
 ### 20. 有效的括号
 
@@ -609,6 +1008,12 @@ const addStrings = (a, b) => {
   return sum
 }
 ```
+
+## 数组
+
+### 给定两个数组，写一个方法来计算它们的交集
+
+> https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/102
 
 ## 动态规划
 

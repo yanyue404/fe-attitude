@@ -4,41 +4,49 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link
-      href="https://cdn.bootcss.com/animate.css/3.5.2/animate.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.css" rel="stylesheet" />
     <title>Document</title>
 
     <style>
       div {
         width: 200px;
         height: 200px;
-        background-color: green;
+        background-color: #00e09e;
         border-radius: 100px;
         text-align: center;
         line-height: 200px;
         color: #fff;
         font-weight: 700;
-        transition: background-color 3s, transform 3s;
       }
 
-      .on {
-        transform: translateX(300px);
-        background: red;
+      @keyframes shake {
+        10%,
+        90% {
+          transform: translateX(-2px);
+        }
+        20%,
+        80% {
+          transform: translateX(+4px);
+        }
+        30%,
+        70% {
+          transform: translateX(-8px);
+        }
+        40%,
+        60% {
+          transform: translateX(+8px);
+        }
+        50% {
+          transform: translateX(-10px);
+        }
+      }
+      div:hover {
+        animation: shake 1s ease-in-out;
       }
     </style>
   </head>
 
   <body>
-    <div>xiaoyueyue</div>
-
-    <script>
-      var box = document.querySelector('div')
-
-      box.onmouseenter = function() {
-        box.classList.add('animated', 'shake')
-      }
-    </script>
+    <div>yanyue404</div>
   </body>
 </html>

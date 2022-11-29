@@ -1,3 +1,7 @@
+## 前言
+
+溫故而知新，可以為師矣 ~
+
 ## 两种盒模型
 
 - 两种盒子模型分别为，`box-sizing: content-box`（W3C 标准盒模型，非 IE 浏览器默认）与 `box-sizing: border-box`（IE 盒模型）。
@@ -312,7 +316,7 @@ justify-content: center;
 
 - `static`：默认定位属性值。该关键字指定元素使用正常的布局行为，即元素在文档常规流中当前的布局位置。此时 top, right, bottom, left 和 z-index 属性无效。
 - `relative`: 元素的定位永远是相对于元素自身位置的，和其他元素没关系，也不会影响其他元素（因此会在此元素未添加定位时所在位置留下空白）。
-- `absolute`：绝对定位，它会从父类开始一层一层向上找起，寻找 position 值不是 `static` 的祖先元素，直到 html 根标签为止。
+- `absolute`：绝对定位，相对非 `static` 祖先元素定位，直到 html 根标签为止。
 - `fixed`：不为元素预留空间，而是通过指定元素相对于屏幕视口（viewport）的位置来指定元素位置。元素的位置在屏幕滚动时不会改变
 - `sticky`: 粘性布局，可以看出是 position:relative 和 position:fixed 的结合体——当元素在屏幕内，表现为 relative，就要滚出显示器屏幕的时候，表现为 fixed
 
@@ -326,6 +330,44 @@ CSS 中的`z-index`属性控制重叠元素的垂直叠加顺序。`z-index`只�
 
 ![](https://i0.wp.com/css-tricks.com/wp-content/uploads/2011/09/context.png?w=530&ssl=1)
 
+```html
+<style>
+  .green {
+    width: 500px;
+    height: 200px;
+    position: relative;
+    z-index: 1;
+    background: rgba(0, 229, 37);
+  }
+  .red {
+    width: 300px;
+    height: 100px;
+    position: relative;
+    top: 80px;
+    left: 200px;
+    background: rgba(255, 35, 14);
+    z-index: 100;
+  }
+  .blue {
+    width: 200px;
+    height: 300px;
+    position: relative;
+    top: -140px;
+    left: 320px;
+    background: rgba(22, 147, 253);
+    z-index: 2;
+  }
+</style>
+<body>
+  <div class="container">
+    <div class="green">
+      <div class="red"></div>
+    </div>
+    <div class="blue"></div>
+  </div>
+</body>
+```
+
 每个层叠上下文是自包含的：当元素的内容发生层叠后，整个该元素将会在父层叠上下文中按顺序进行层叠。少数 CSS 属性会触发一个新的层叠上下文，例如`opacity`小于 1，`filter`不是`none`，`transform`不是`none`。
 
 参考资料：
@@ -335,6 +377,8 @@ CSS 中的`z-index`属性控制重叠元素的垂直叠加顺序。`z-index`只�
 - https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context
 
 ## 常用选择器
+
+TODO:
 
 **基本选择器**
 
@@ -380,9 +424,32 @@ CSS 中的`z-index`属性控制重叠元素的垂直叠加顺序。`z-index`只�
 
 ## 哪些属性可以继承
 
+某些属性会自动继承其父元素的计算值，除非显式指定一个值
+
+有继承性的属性
+
 可继承的属性：font-size, font-family, color
 
-不可继承的样式：border, padding, margin, width, height
+1.  字体系列属性
+
+- font-family：字体系列
+- font-weight：字体的粗细
+- font-size：字体的大小
+- font-style：字体的风格
+
+2.  文本系列属性
+
+- text-indent：文本缩进
+- text-align：文本水平对齐
+- line-height：行高
+- word-spacing：单词之间的间距
+- letter-spacing：中文或者字母之间的间距
+- text-transform：控制文本大小写（就是 uppercase、lowercase、capitalize 这三个）
+- color：文本颜色
+
+3.  元素可见性
+
+- visibility：控制元素显示隐藏
 
 ### display:none、visibile:hidden、opacity:0 的区别
 
@@ -515,16 +582,6 @@ rem 响应适配的原理是动态计算为当前页面的 `newFontSize`并赋�
 
 - [margin 合并和塌陷的问题](https://www.jianshu.com/p/3b499982bcb0)
 - [10 分钟理解 BFC 原理](https://zhuanlan.zhihu.com/p/25321647)
-
-## CSS 预处理器(Sass/Less/Postcss)的优势
-
-- 嵌套
-- 变量
-- 循环语句
-- 条件语句
-- 自动前缀
-- 单位转换
-- mixin 复用
 
 ## 两列自适应布局
 
@@ -660,6 +717,70 @@ div a {
 }
 ```
 
+## 如何解决移动端 Retina 屏 1px 像素问题
+
+伪元素 + transform 实现:
+
+```css
+.cus-border-bottom {
+  position: relative;
+}
+.cus-border-bottom::after {
+  content: ' ';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  transform: scale(1, 0.5);
+  transform-origin: left top;
+  box-sizing: border-box;
+  border-bottom: 1px solid #cccccc;
+}
+
+.cus-border-all {
+  position: relative;
+}
+.cus-border-all::after {
+  content: ' ';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  transform: scale(0.5);
+  transform-origin: left top;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+}
+```
+
+- [yanyue404 #147 纪录我可以做的提升用户体验的优化](https://github.com/yanyue404/blog/issues/147)
+
+## 如何用 css 或 js 实现多行文本溢出省略效果，考虑兼容性
+
+<!-- TODO: -->
+
+- 单行文本溢出
+
+```java
+overflow: hidden;            // 溢出隐藏
+text-overflow: ellipsis;      // 溢出用省略号显示
+white-space: nowrap;         // 规定段落中的文本不进行换行
+```
+
+- 多行文本溢出
+
+```java
+overflow: hidden;            // 溢出隐藏
+text-overflow: ellipsis;     // 溢出用省略号显示
+display:-webkit-box;         // 作为弹性伸缩盒子模型显示。
+-webkit-box-orient:vertical; // 设置伸缩盒子的子元素排列方式：从上到下垂直排列
+-webkit-line-clamp:3;        // 显示的行数
+```
+
+注意：由于上面的三个属性都是 CSS3 的属性，没有浏览器可以兼容，所以要在前面加一个`-webkit-` 来兼容一部分浏览器。
+
 ## 响应式布局⽅案
 
 响应式设计的适应性原则：网站应该凭借一份代码，在各种设备上都有良好的显示和使用效果。响应式网站通过使用媒体查询，自适应栅格和响应式图片，基于多种因素进行变化，创造出优良的用户体验。就像一个球通过膨胀和收缩，来适应不同大小的篮圈。
@@ -758,21 +879,19 @@ div a {
 
 ## CSS 动画
 
-- transition: 过渡动画
-  - transition-property: 属性
-  - transition-duration: 间隔
-  - transition-timing-function: 曲线
-  - transition-delay: 延迟
+- transition: 过渡
+  - transition-property: 什么属性发生变化时需要过渡
+  - transition-duration: 过渡持续多长时间 （默认 0）
+  - transition-timing-function: 速度变化是什么样 （默认 ease）
+  - transition-delay: 是否有延迟 （默认 0）
   - 常用钩子: transitionend
 - animation / keyframes
   - animation-name: 动画名称，对应@keyframes
-  - animation-duration: 间隔
-  - animation-timing-function: 曲线
-  - animation-delay: 延迟
-  - animation-iteration-count: 次数
-    - infinite: 循环动画
-  - animation-direction: 方向
-    - alternate: 反向播放
+  - animation-duration: 持续时间 （默认 0）
+  - animation-timing-function: 速度 （默认 ease）
+  - animation-delay: 延迟 （默认 0）
+  - animation-iteration-count: 播放次数 （默认 1、infinite： 循环动画）
+  - animation-direction: 下一周期逆向播放（默认 normal、alternate: 反向播放）
   - animation-fill-mode: 静止模式
     - forwards: 停止时，保留最后一帧
     - backwards: 停止时，回到第一帧
@@ -785,6 +904,174 @@ div a {
   - skew
   - opacity
   - color
+
+来个例子：
+
+```html
+<style>
+  @keyframes down {
+    from {
+      margin-top: 0;
+      opacity: 1;
+    }
+    50% {
+      margin-top: 0.5em;
+      opacity: 0.3;
+    }
+    to {
+      margin-top: 0;
+      opacity: 1;
+    }
+  }
+  .scroll-down {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -0.5em;
+    font: normal normal 48px/1 Helvetica;
+    color: #f66;
+    animation: down 1.5s ease infinite;
+  }
+</style>
+<i class="scroll-down">↓</i>
+```
+
+## CSS3 新特性有哪些？
+
+1、边框（border-radius、box-shadow、border-image）
+
+2、背景（background-image、background-size、background-origin、background-clip）
+
+```
+（1）background-size 裁切(设置)背景图片尺寸
+      1.具体值background-size:200px 200px;
+      2.百分数background-size:100% 100%;
+      3.background-size:100% auto;
+      4.background-size:cover(覆盖,按照一定比例铺满整个父容器)
+      5.background-size:contain(按照一定比例完整的显示整体铺满整个父容器)
+（2）background-origin 原点
+    padding-box(默认值) 以内边距做为参考原点
+    border-box
+    content-box
+（3）background-clip背景区域裁切
+    border-box(默认值) 裁切边框以内为背景区域；
+    padding-box
+    content-box
+（4）background:url(),url(),url();(多背景)
+    总结:使用逗号隔开
+    注意:多背景连写不支持设置背景色,需要在后面单独设置.
+```
+
+3、 渐变
+
+4、 文本效果（text-shadow、box-shadow、text-overflow、word-wrap、word-break）
+
+5、 字体（@font-face）
+
+```css
+@font-face {
+  font-family: myFirstFont;
+  src: url(sansation_light.woff);
+}
+div {
+  font-family: myFirstFont;
+}
+```
+
+6、 2D 转换（transform 属性对元素进行移动 translate、缩放 scale、转动 rotate、拉长或拉伸）
+
+| 功能       | 书写                                           | 补充                                          |
+| ---------- | ---------------------------------------------- | --------------------------------------------- |
+| 1.位移     | translate(x,y)                                 |
+| 2.旋转     | rotate(30deg)                                  | (角度设置正值(顺时针),负值(逆时针))           |
+| 3.缩放     | scale(倍数)                                    | 整数(大于 1)放大 小数(小于 1)缩小             |
+| 4.倾斜     | skew(30deg,45deg)                              | 第一个值垂直方向倾斜,第二个方向代表水平倾斜   |
+| 5.旋转原点 | transform-origin:left top;(以左上角为旋转原点) | 改变旋转原点的位置应该一开始就改变 40px 50px; |
+
+7、3D 转换
+
+```
+perspective:1000px; // 透视
+
+取值为眼睛距离图片的距离 600-1000px 是人眼最舒服的距离
+
+设置有两种方式
+
+1. 给父元素设置
+
+2. 作为 transform 的属性写进 transform 里面
+
+- transform-style:preserve-3d; // 显示出 3D 效果
+
+3D 位移
+
+1. transform:translateX(300px) // 沿着 x 轴移动
+2. transform:translateY(300px) // 沿着 y 轴移动
+3. transform:translateZ(300px) // 沿着 z 轴移动
+
+3D 旋转
+
+1. transform-origin:top/bottom/center; // 沿着哪里旋转
+2. transform:rotateX(10deg) // 沿着 x 轴旋转
+3. transform:rotateY(10deg) // 沿着 y 轴旋转
+4. transform:rotateZ(10deg) // 沿着 z 轴旋转
+
+3D 缩放
+
+1. transform-origin:top/bottom/center; // 沿着哪里缩放
+2. transform:scaleX(10deg) // 沿着 x 轴缩放
+3. transform:rscaleY(10deg) // 沿着 y 轴缩放
+4. transform:scaleZ(10deg) // 沿着 z 轴缩放
+```
+
+8、transition 过渡
+
+```
+1.帧动画
+特点:按照帧单位移动.
+2.补间动画
+
+指定从一个样式状态到另一个状态时如何过渡
+开始状态(动画放在这个状态里面),结束状态
+
+（1）过渡属性 1. transition-property:all(默认值)
+        2. 可以指定要进行过渡的css属性,如果提供多个属性值,以逗号进行分隔;( transition-property: opacity, left, top, width;)
+（2）过渡持续多长时间 transition-duration
+（3）动画执行的速度变化:transition-timing-function:ease(逐渐变慢) 默认值/linear匀速/ease-in(加速)/ease-out(减速)/ease-in-out(先加速后减速)/cubic-bezier贝塞尔曲线(x1,y1,x2,y2)
+（4）动画是否延时执行 transition-delay:2s;
+```
+
+```html
+<style>
+  .box {
+    transition: all 2s ease-in;
+    width: 200px;
+    height: 200px;
+    margin: 1em auto;
+    border-width: 50px;
+    border-style: solid;
+    border-top-color: #f35;
+    border-left-color: #269;
+    border-bottom-color: #649;
+    border-right-color: #fa0;
+  }
+  .box:hover {
+    width: 0;
+    height: 0;
+  }
+</style>
+<div class="box"></div>
+```
+
+- 9、动画 animation
+
+定义关键帧，可以实现更复杂的样式变化效果
+
+- 10、flex 弹性伸缩布局
+- 11、媒体查询
+- 12、多列布局
+
+## css3 了解吗，主要用什么，animation，transition，translate，transform 这四个是干嘛的
 
 ## css 作用域隔离方法
 
@@ -799,13 +1086,468 @@ div a {
 免不必要的重复；最好使⽤表⽰语义的名字。⼀个好的类名应该是描述他是什么⽽不是像什么；避
 免！important，可以选择其他选择器；尽可能的精简规则，你可以合并不同类⾥的重复规则?
 
+## CSS 预处理器(Sass/Less/Postcss)
+
+CSS 预处理器的原理: 是将类 CSS 语言通过 Webpack 编译 转成浏览器可读的真正 CSS。在这层编译之上，便可以赋予 CSS 更多更强大的功能，常用功能:
+
+- 嵌套
+- 变量
+- 循环语句
+- 条件语句
+- 自动前缀
+- 单位转换
+- mixin 复用
+
+## 样式简写
+
+1、margin、padding
+
+外边距和内边距简写方式是一致的，以内边距举例说明：
+
+```
+Padding属性，可以有一到四个值。
+
+（1）padding:25px 50px 75px 100px;
+
+  上填充为25px
+  右填充为50px
+  下填充为75px
+  左填充为100px
+
+（2）padding:25px 50px 75px;
+
+  上填充为25px
+  左右填充为50px
+  下填充为75px
+
+（3）padding:25px 50px;
+
+  上下填充为25px
+  左右填充为50px
+
+（4）padding:25px;
+
+  所有的填充都是25px
+```
+
+2、background 背景
+
+```css
+body {
+  background: #ffffff url('img_tree.png') no-repeat right top;
+}
+```
+
+当使用简写属性时，属性值的顺序为：:
+
+- background-color
+- background-image
+- background-repeat
+- background-attachment
+- background-position
+
+以上属性无需全部使用，你可以按照页面的实际需要使用.
+
+3、CSS3 border-radius 椭圆边框
+
+```html
+<style>
+#rcorners4 {
+    border-radius: 15px 50px 30px 5px;
+    padding: 20px;
+    width: 200px;
+    height: 150px;
+}
+
+#rcorners5 {
+    border-radius: 15px 50px 30px;
+    padding: 20px;
+    width: 200px;
+    height: 150px;
+}
+
+#rcorners6 {
+    border-radius: 15px 50px;
+    padding: 20px;
+    width: 200px;
+    height: 150px;
+}
+
+#rcorners7 {
+    border-radius: 15px;
+    padding: 20px;
+    width: 200px;
+    height: 150px;
+}
+.runoob-color {
+    color: #fff !important;
+    background-color: #73AD21 !important;
+    background-color: #04AA6D !important;
+}
+</style>
+</head>
+<body>
+
+<p>（1）椭圆边框 - border-radius: 15px 50px 30px 5px：第一个值适用于左上角，第二个值适用于右上角，第三个值适用于右下角，第四个值适用于左下角：</p>
+<p id="rcorners4" class="runoob-color"></p>
+
+<p>（2）椭圆边框 - border-radius: 15px 50px 30px：第一个值适用于左上角，第二个值适用于右上角和左下角，第三个值适用于右下角：</p>
+<p id="rcorners5" class="runoob-color"></p>
+
+<p>（3）椭圆边框 - border-radius: 15px 50px：第一个值适用于左上角和右下角，第二个值适用于右上角和左下角</p>
+<p id="rcorners6" class="runoob-color"></p>
+
+<p>（4）椭圆边框 - border-radius: 15px：该值适用于所有四个角，均等圆角</p>
+<p id="rcorners7" class="runoob-color"></p>
+</body>
+```
+
+## CSS 库和自己常用的 css 样式
+
+工程化
+
+- AutoPrefixer
+- StyleLint
+
+normalize.css
+
+设置 HTML 标签的默认样式，使其在各个浏览器表现基本一致，保留标签的默认样式。
+
+CSS reset
+
+设置 HTML 标签的默认样式，使其在各个浏览器表现基本一致，让默认样式归零。
+
+```css
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  font: 16px/1.5 sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+h1,
+h2,
+h3,
+h4,
+p,
+blockquote,
+figure,
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+}
+main,
+li {
+  display: block;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+}
+strong {
+  font-weight: bold;
+}
+a,
+button {
+  color: inherit;
+  transition: 0.3s;
+}
+a {
+  text-decoration: none;
+}
+button {
+  overflow: visible;
+  border: 0;
+  font: inherit;
+  -webkit-font-smoothing: inherit;
+  letter-spacing: inherit;
+  background: none;
+  cursor: pointer;
+}
+::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+:focus {
+  outline: 0;
+}
+img {
+  max-width: 100%;
+  height: auto;
+  border: 0;
+}
+```
+
+flex 样式
+
+```css
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 单行水平垂直 */
+
+.oneLineCenter {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 单行垂直居中，水平向左 */
+
+.oneLineStart {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* 单行垂直居中，水平向右 */
+
+.oneLineEnd {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* 单行垂直居中，水平保持间距 */
+
+.oneLineAround {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* 单行垂直居中，两端对齐 */
+
+.oneLineBetween {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 超过单行设置的最大宽度，允许换行显示 */
+
+.f-wrap {
+  flex-wrap: wrap;
+}
+
+/* 多轴线方向，一般配合  wrap 使用 */
+
+/* 宽度不足换行后，垂直方向靠上排列 */
+
+.mulitLineStart {
+  display: flex;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+/* 宽度不足换行后，垂直方向居中排列 */
+
+.mulitLineCenter {
+  display: flex;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+/* 宽度不足换行后，垂直方向靠下排列 */
+
+.mulitLineEnd {
+  display: flex;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+  align-content: flex-end;
+}
+
+/* 宽度不足换行后，垂直方向上保持间隔排列 */
+
+.mulitLineAround {
+  display: flex;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+}
+
+/* 宽度不足换行后，垂直方向上靠两侧最顶开始间隔排列 */
+
+.mulitLineBetween {
+  display: flex;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+}
+
+/* 纵轴变主轴，垂直靠上，水平居中 */
+
+.columnStart {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* 纵轴变主轴，垂直靠下，水平居中 */
+
+.columnEnd {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* 纵轴变主轴，垂直居中，水平居中 */
+
+.columnCenter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 纵轴变主轴，垂直间隔排列，水平居中 */
+
+.columnAround {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* 纵轴变主轴，垂直上下两侧按间隔排列，水平居中 */
+
+.columnBetween {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+/* 纵轴变主轴，垂直上下两侧按间隔排列，水平靠左 */
+
+.columnBetweenStart {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+/* 纵轴变主轴，垂直上下两侧按间隔排列，水平靠右 */
+
+.columnBetweenEnd {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+```
+
+## BEM
+
+- Block
+- Element
+- Modifier
+
+Block（Module / Component）
+
+```html
+<nav class="tabs">
+  <a href="#">Home</a>
+  <a href="#">JavaScript</a>
+  <a href="#">CSS</a>
+</nav>
+```
+
+Element（Block 内的元素）
+
+```html
+<nav class="tabs">
+  <a class="tabs__item" href="#">Home</a>
+  <a class="tabs__item" href="#">JavaScript</a>
+  <a class="tabs__item" href="#">CSS</a>
+</nav>
+```
+
+Modifier（修饰）
+
+```html
+<nav class="tabs tabs--stacked">
+  <a class="tabs__item--active" href="#">Home</a>
+  <a class="tabs__item" href="#">JavaScript</a>
+  <a class="tabs__item" href="#">CSS</a>
+</nav>
+```
+
+**.block\_\_element--modifier**
+
+```html
+<div class="media media--left">
+  <a class="media__image">
+    <img class="media__object" src="//placehold.it/100x100" alt="" />
+  </a>
+  <div class="media__body">
+    <h3 class="media__title">Title</h3>
+    <p class="media__description">
+      A paragraph about the media
+    </p>
+  </div>
+</div>
+```
+
+## css 原生支持变量
+
+```html
+<h1>页面标题</h1>
+
+<style>
+  :root {
+    --primary-color: #f66;
+    --heading-font: Helvetica, 'Microsoft Yahei', Sans-Serif;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--heading-font);
+    color: var(--primary-color);
+  }
+  .btn--primary {
+    background: var(--primary-color);
+  }
+</style>
+```
+
 ## 参考
 
+- https://developer.mozilla.org/zh-CN/docs/Web/CSS
+- https://www.runoob.com/css/css-tutorial.html
 - [50 道 CSS 基础面试题（附答案）](https://segmentfault.com/a/1190000013325778)
 - [《50 道 CSS 基础面试题（附答案）》中的答案真的就只是答案吗？](https://segmentfault.com/a/1190000013860482)
 - [2017-08 面试总结（at,dm）- sunyongjian ](https://github.com/sunyongjian/blog/issues/32)
-- [面试问别人的一些问题 - sunyongjian ](https://github.com/sunyongjian/blog/issues/24)
 - [2019-03 面试总结（alicloud, tikTok, ke, ks）- sunyongjian ](https://github.com/sunyongjian/blog/issues/41)
 - [front-end-interview-handbook - CSS 问题](https://github.com/yangshun/front-end-interview-handbook/blob/master/Translations/Chinese/questions/css-questions.md#css-%E9%97%AE%E9%A2%98)
 - [yck - 前端面试从准备到谈薪完全指南](https://juejin.im/post/5dfef50751882512444027eb)
 - [中高级前端大厂面试秘籍，为你保驾护航金三银四，直通大厂(上)](https://juejin.im/post/5c64d15d6fb9a049d37f9c20)
+- https://github.com/webzhao/fe-camp
+- [Daily-Interview-Question - CSS 世界](https://github.com/Advanced-Frontend/Daily-Interview-Question/labels/CSS%E4%B8%96%E7%95%8C)
