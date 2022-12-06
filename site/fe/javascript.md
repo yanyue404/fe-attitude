@@ -1,3 +1,44 @@
+## 前言
+
+> 前端工程师吃饭的家伙，深度、广度一样都不能差。
+
+Javascript 基础知识
+
+- 数据类型
+  - 浮点数精度
+- 变量提升
+- 深浅拷贝
+- 原型链
+  - instanceof 原理
+  - new 操作符
+- 继承
+- 作用域
+- 闭包
+  - 柯里化
+- this 的指向
+- 立即执行函数
+- 事件循环机制
+- v8 垃圾回收机制
+- generator 原理
+
+JavaScript 编码能力
+
+- 多种方式实现数组去重、扁平化、对比优缺点
+- 多种方式实现深拷贝、对比优缺点
+- 手写函数柯里化工具函数、并理解其应用场景和优势
+- 手写防抖和节流工具函数、并理解其内部原理和应用场景
+- 实现一个 sleep 函数
+
+手动实现前端轮子
+
+- 手动实现 call、apply、bind
+- 手动实现符合 Promise/A+规范的 Promise、手动实现 async await
+- 手写一个 EventEmitter 实现事件发布、订阅
+- 可以说出两种实现双向绑定的方案、可以手动实现
+- 手写 JSON.stringify、JSON.parse
+- 手写一个模版引擎，并能解释其中原理
+- 手写懒加载、下拉刷新、上拉加载、预加载等效果
+
 ## 原始（Primitive）类型与对象（Object）类型）
 
 **原始类型**
@@ -29,7 +70,7 @@ string 类型是不可变的，无论你在 string 类型上调用何种方法�
 
 **对象类型**
 
-在 JS 中，除了原始类型那么其他的都是对象类型了。对象类型和原始类型不同的是，原始类型存储的是值，对象类型存储的是地址（指针）。当你创建了一个对象类型的时候，计算机会在内存中帮我们开辟一个空间来存放值，但是我们需要找到这个空间，这个空间会拥有一个地址（指针）。
+在 JS 中，除了原始类型那么其他的都是对象类型了。对象类型和原始类型不同的是，原始类型存储的是`值`，对象类型存储的是`地址`（指针）。当你创建了一个对象类型的时候，计算机会在内存中帮我们开辟一个空间来存放值，但是我们需要找到这个空间，这个空间会拥有一个地址（指针）。
 
 ```js
 const a = []
@@ -44,6 +85,23 @@ b.push(1)
 ```
 
 当我们将变量赋值给另外一个变量时，复制的是原本变量的地址（指针），也就是说当前变量 b 存放的地址（指针）也是 #001，当我们进行数据修改的时候，就会修改存放在地址（指针） #001 上的值，也就导致了两个变量的值都发生了改变。
+
+**两种类型的区别**
+
+两种类型的区别在于存储位置的不同：
+
+- 原始数据类型直接存储在栈（stack）中的简单数据段，占据空间小、大小固定，属于被频繁使用数据，所以放入栈中存储；
+- 引用数据类型存储在堆（heap）中的对象，占据空间大、大小不固定。如果存储在栈中，将会影响程序运行的性能；引用数据类型在栈中存储了指针，该指针指向堆中该实体的起始地址。当解释器寻找引用值时，会首先检索其在栈中的地址，取得地址后从堆中获得实体。
+
+堆和栈的概念存在于数据结构和操作系统内存中，在数据结构中：
+
+- 在数据结构中，栈中数据的存取方式为先进后出。
+- 堆是一个优先队列，是按优先级来进行排序的，优先级可以按照大小来规定。
+
+在操作系统中，内存被分为栈区和堆区：
+
+- 栈区内存由编译器自动分配释放，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈。
+- 堆区内存一般由开发着分配释放，若开发者不释放，程序结束时可能由垃圾回收机制回收。
 
 ## 值类型 vs 引用类型
 
@@ -115,7 +173,7 @@ var a = obj.a
 var b = obj.b
 a = 2
 b.push(4)
-console.log(obj, a, b)
+console.log(obj, a, b) // {a: 1, b: Array(4)} 2 (4) [1, 2, 3, 4]
 ```
 
 虽然`obj`本身是个引用类型的变量（对象），但是内部的`a`和`b`一个是值类型一个是引用类型，`a`的赋值不会改变`obj.a`，但是`b`的操作却会反映到`obj`对象上。
@@ -191,6 +249,129 @@ Object.prototype.toString.call(null) // '[object Null]'
 Object.prototype.toString.call([]) // '[object Array]'
 ```
 
+## 类型转换
+
+**隐式转换**
+
+在 JS 中在使用运算符号或者对比符时，会自带隐式转换：
+
+- -、\*、/、% ：一律转换成数值后计算
+- +：
+  - 数字 + 字符串 = 字符串， 运算顺序是从左到右
+  - 数字 + 对象， 优先调用对象的 valueOf -> toString
+  - 数字 + boolean/null -> 数字
+  - 数字 + undefined -> NaN
+- [1].toString() === '1'
+- {}.toString() === '[object object]'
+
+**转 Boolean**
+
+在条件判断时，除了 undefined， null， false， NaN， ''， 0， -0，其他所有值都转为 true，包括所有对象。
+
+**转字符串**
+
+- [1].toString() // '1'
+- [{"a":1}].toString() // '[object Object]'
+- alert({}) String({}) // '[object Object]'
+
+**转数字**
+
+- Number('1') // 1
+- Number('a') // NaN
+- Number([]) // 0
+- Number(['1']) // 1
+- Number(['a']) // NaN
+- Number({}) // NaN
+- Number(Symbol()) // Uncaught TypeError: Cannot convert a Symbol value to a number
+
+## 对象的拷贝
+
+- 浅拷贝: 以赋值的形式拷贝引用对象，仍指向同一个地址，**修改时原对象也会受到影响**
+  - `Object.assign`
+  - 展开运算符\(...\)
+- 深拷贝: 完全拷贝一个新对象，**修改时原对象不再受到任何影响**
+
+  - `JSON.parse(JSON.stringify(obj))`: 性能最快
+    - 具有循环引用的对象时，报错
+    - 当值为函数、`undefined`、或`symbol`时，无法拷贝
+  - 递归进行逐一赋值
+
+这种方法有缺陷，详情请看[关于 JSON.parse(JSON.stringify(obj))实现深拷贝应该注意的坑](https://www.jianshu.com/p/b084dfaad501)
+
+```js
+let o1 = {
+  a: {
+    val: 1
+  },
+  b: function() {
+    alert('b')
+  },
+  c: () => {
+    alert('c')
+  }
+}
+let o2 = JSON.parse(JSON.stringify(o1)) // { a: {val: 1}}
+```
+
+基础版（新增函数函数类型支持），推荐使用 [lodash 的深拷贝函数](https://www.lodashjs.com/docs/lodash.cloneDeep)。
+
+```js
+function deepCopy(target) {
+  if (typeof target == 'object') {
+    const result = Array.isArray(target) ? [] : {}
+    for (const key in target) {
+      let item = target[key]
+      // 时间
+      if (item instanceof Date) {
+        result[key] = new Date(item)
+        // 正则
+      } else if (item instanceof RegExp) {
+        result[key] = new RegExp(item.source, item.flags)
+      } else if (typeof item == 'object' && item !== null) {
+        result[key] = deepCopy(item)
+      } else {
+        result[key] = item
+      }
+    }
+
+    return result
+  } else if (typeof target == 'function') {
+    return eval('(' + target.toString() + ')')
+    // 也可以这样克隆函数
+    // return new Function('return ' + target.toString())()
+  } else {
+    return target
+  }
+}
+
+const a = {
+  number: 1,
+  bool: false,
+  str: 'hi',
+  empty1: undefined,
+  empty2: null,
+  array: [
+    { name: 'frank', age: 18 },
+    { name: 'jacky', age: 19 }
+  ],
+  date: new Date(2000, 0, 1, 20, 30, 0),
+  regex: /\.(j|t)sx/i,
+  obj: { name: 'frank', age: 18 },
+  f1: (a, b) => a + b,
+  f2: function(a, b) {
+    return a + b
+  }
+}
+console.log(a)
+var b = deepCopy(a)
+console.log(b) // 支持上面的类型
+```
+
+参考链接：
+
+- [yanyue404 - #6 Javascript 之深浅拷贝](https://github.com/yanyue404/blog/issues/6)
+- [如何写出一个惊艳面试官的深拷贝?](https://juejin.cn/post/6844903929705136141)
+
 ## null 和 undefined 的区别
 
 `null` 表示一个对象是“没有值”的值，也就是值为“空”
@@ -208,6 +389,52 @@ Object.prototype.toString.call([]) // '[object Array]'
 Javascript 将未赋值的变量默认值设为 `undefined`
 
 Javascript 从来不会将变量设为 `null`。 它是用来让程序员表明某个用 var 声明的变量时没有值的
+
+## 数组(array) API
+
+**改变原数组**
+
+- `unshift / shift`: 头部推入和弹出，改变原数组，`unshift` 返回数组长度，`shift` 返回原数组第一项 ；
+- `push / pop`: 末尾推入和弹出，改变原数组， `push` 返回数组长度, `pop` 返回原数组最后一项；
+- `sort(fn) / reverse`: 排序与反转，改变原数组
+- `splice(start, number, value...)`: 返回删除元素组成的数组，value 为插入项，改变原数组
+
+**不改变原数组**
+
+- `map`: 遍历数组，返回回调返回值组成的新数组
+- `forEach`: 无法`break`，可以用`try/catch`中`throw new Error`来停止
+- `filter`: 过滤
+- `some`: 有一项返回`true`，则整体为`true`
+- `every`: 有一项返回`false`，则整体为`false`
+- `join`: 通过指定连接符生成字符串
+- `concat`: 连接数组，不影响原数组， 浅拷贝
+- `slice(start, end)`: 返回截断后的新数组，不改变原数组
+- `indexOf / lastIndexOf(value, fromIndex)`: 查找数组项，返回对应的下标
+- `reduce / reduceRight(fn(prev, cur)， defaultPrev)`: 两两执行，prev 为上次化简函数的`return`值，cur 为当前值
+  - 当传入 `defaultPrev` 时，从第一项开始；
+  - 当未传入时，则为第二项
+  - 数组乱序：
+
+```
+var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+arr.sort(function () {
+    return Math.random() - 0.5;
+});
+```
+
+- 数组拆解: flat: \[1,\[2,3\]\] --> \[1, 2, 3\]
+
+```js
+Array.prototype.flat = function() {
+  return this.toString()
+    .split(',')
+    .map(item => +item)
+}
+```
+
+参考链接
+
+- [yanyue404 - JavaScript 数组 API](https://github.com/yanyue404/blog/issues/131)
 
 ## 如何判断数组与对象
 
@@ -286,41 +513,6 @@ function unique(arr) {
   return result
 }
 ```
-
-## 类型转换
-
-**隐式转换**
-
-在 JS 中在使用运算符号或者对比符时，会自带隐式转换：
-
-- -、\*、/、% ：一律转换成数值后计算
-- +：
-  - 数字 + 字符串 = 字符串， 运算顺序是从左到右
-  - 数字 + 对象， 优先调用对象的 valueOf -> toString
-  - 数字 + boolean/null -> 数字
-  - 数字 + undefined -> NaN
-- [1].toString() === '1'
-- {}.toString() === '[object object]'
-
-**转 Boolean**
-
-在条件判断时，除了 undefined， null， false， NaN， ''， 0， -0，其他所有值都转为 true，包括所有对象。
-
-**转字符串**
-
-- [1].toString() // '1'
-- [{"a":1}].toString() // '[object Object]'
-- alert({}) String({}) // '[object Object]'
-
-**转数字**
-
-- Number('1') // 1
-- Number('a') // NaN
-- Number([]) // 0
-- Number(['1']) // 1
-- Number(['a']) // NaN
-- Number({}) // NaN
-- Number(Symbol()) // Uncaught TypeError: Cannot convert a Symbol value to a number
 
 ## 原型 / 构造函数 / 实例
 
@@ -1149,94 +1341,6 @@ registerEvent('resize') // 注册 resize 事件
 triggerEvent('resize') // 触发 resize 事件
 ```
 
-## 对象的拷贝
-
-- 浅拷贝: 以赋值的形式拷贝引用对象，仍指向同一个地址，**修改时原对象也会受到影响**
-  - `Object.assign`
-  - 展开运算符\(...\)
-- 深拷贝: 完全拷贝一个新对象，**修改时原对象不再受到任何影响**
-
-  - `JSON.parse(JSON.stringify(obj))`: 性能最快
-    - 具有循环引用的对象时，报错
-    - 当值为函数、`undefined`、或`symbol`时，无法拷贝
-  - 递归进行逐一赋值
-
-这种方法有缺陷，详情请看[关于 JSON.parse(JSON.stringify(obj))实现深拷贝应该注意的坑](https://www.jianshu.com/p/b084dfaad501)
-
-```js
-let o1 = {
-  a: {
-    val: 1
-  },
-  b: function() {
-    alert('b')
-  },
-  c: () => {
-    alert('c')
-  }
-}
-let o2 = JSON.parse(JSON.stringify(o1)) // { a: {val: 1}}
-```
-
-基础版（新增函数函数类型支持），推荐使用 [lodash 的深拷贝函数](https://www.lodashjs.com/docs/lodash.cloneDeep)。
-
-```js
-function deepCopy(target) {
-  if (typeof target == 'object') {
-    const result = Array.isArray(target) ? [] : {}
-    for (const key in target) {
-      let item = target[key]
-      // 时间
-      if (item instanceof Date) {
-        result[key] = new Date(item)
-        // 正则
-      } else if (item instanceof RegExp) {
-        result[key] = new RegExp(item.source, item.flags)
-      } else if (typeof item == 'object' && item !== null) {
-        result[key] = deepCopy(item)
-      } else {
-        result[key] = item
-      }
-    }
-
-    return result
-  } else if (typeof target == 'function') {
-    return eval('(' + target.toString() + ')')
-    // 也可以这样克隆函数
-    // return new Function('return ' + target.toString())()
-  } else {
-    return target
-  }
-}
-
-const a = {
-  number: 1,
-  bool: false,
-  str: 'hi',
-  empty1: undefined,
-  empty2: null,
-  array: [
-    { name: 'frank', age: 18 },
-    { name: 'jacky', age: 19 }
-  ],
-  date: new Date(2000, 0, 1, 20, 30, 0),
-  regex: /\.(j|t)sx/i,
-  obj: { name: 'frank', age: 18 },
-  f1: (a, b) => a + b,
-  f2: function(a, b) {
-    return a + b
-  }
-}
-console.log(a)
-var b = deepCopy(a)
-console.log(b) // 支持上面的类型
-```
-
-参考链接：
-
-- [yanyue404 - #6 Javascript 之深浅拷贝](https://github.com/yanyue404/blog/issues/6)
-- [如何写出一个惊艳面试官的深拷贝?](https://juejin.cn/post/6844903929705136141)
-
 ## this 的指向
 
 1. 在全局环境中使用时候，this 代表全局对象
@@ -1462,52 +1566,6 @@ add(1)(2, 3)
 // 6
 add(1)(2)(3)
 ```
-
-## 数组(array) API
-
-**改变原数组**
-
-- `unshift / shift`: 头部推入和弹出，改变原数组，`unshift` 返回数组长度，`shift` 返回原数组第一项 ；
-- `push / pop`: 末尾推入和弹出，改变原数组， `push` 返回数组长度, `pop` 返回原数组最后一项；
-- `sort(fn) / reverse`: 排序与反转，改变原数组
-- `splice(start, number, value...)`: 返回删除元素组成的数组，value 为插入项，改变原数组
-
-**不改变原数组**
-
-- `map`: 遍历数组，返回回调返回值组成的新数组
-- `forEach`: 无法`break`，可以用`try/catch`中`throw new Error`来停止
-- `filter`: 过滤
-- `some`: 有一项返回`true`，则整体为`true`
-- `every`: 有一项返回`false`，则整体为`false`
-- `join`: 通过指定连接符生成字符串
-- `concat`: 连接数组，不影响原数组， 浅拷贝
-- `slice(start, end)`: 返回截断后的新数组，不改变原数组
-- `indexOf / lastIndexOf(value, fromIndex)`: 查找数组项，返回对应的下标
-- `reduce / reduceRight(fn(prev, cur)， defaultPrev)`: 两两执行，prev 为上次化简函数的`return`值，cur 为当前值
-  - 当传入 `defaultPrev` 时，从第一项开始；
-  - 当未传入时，则为第二项
-  - 数组乱序：
-
-```
-var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-arr.sort(function () {
-    return Math.random() - 0.5;
-});
-```
-
-- 数组拆解: flat: \[1,\[2,3\]\] --> \[1, 2, 3\]
-
-```js
-Array.prototype.flat = function() {
-  return this.toString()
-    .split(',')
-    .map(item => +item)
-}
-```
-
-参考链接
-
-- [yanyue404 - JavaScript 数组 API](https://github.com/yanyue404/blog/issues/131)
 
 ## 自执行函数?用于什么场景？好处?
 
@@ -2108,8 +2166,6 @@ console.log(s1 === s2) // true
 - 混入 mixin
 - 借用 apply/call
 
-## 继承的实现
-
 ## 模块化
 
 模块化开发在现代开发中已是必不可少的一部分，它大大提高了项目的可维护、可拓展和可协作性。通常，我们 在浏览器中使用 ES6 的模块化支持，在 Node 中使用 commonjs 的模块化支持。
@@ -2172,3 +2228,7 @@ obj1.a =  null
 - 对数组进行优化： 在清空一个数组时，最简单的方法就是给其赋值为\[ \]，但是与此同时会创建一个新的空对象，可以将数组的长度设置为 0，以此来达到清空数组的目的。
 - 对`object`进行优化： 对象尽量复用，对于不再使用的对象，就将其设置为 null，尽快被回收。
 - 对函数进行优化： 在循环中的函数表达式，如果可以复用，尽量放在函数的外面。
+
+## 参考
+
+- [一名【合格】前端工程师的自检清单](https://zhuanlan.zhihu.com/p/64098516)

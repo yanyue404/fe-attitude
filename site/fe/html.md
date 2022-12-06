@@ -1,3 +1,25 @@
+## HTML 5 的新特性
+
+（1）标签增删
+
+8 个语义元素 header section footer aside nav main article figure
+
+内容元素 mark 高亮 progress 进度
+
+新的表单控件 calander date time email url search
+
+新的 input 类型 color date datetime datetime-local email
+
+移除过时标签 big font frame frameset
+
+（2）canvas 绘图，支持内联 SVG。支持 MathML
+
+（3）多媒体 audio video source embed track
+
+（4）本地离线存储，把需要离线存储在本地的文件列在一个 manifest 配置文件
+
+（5）web 存储。localStorage、SessionStorag
+
 ## HTML 5 有哪些新标签？
 
 文章相关：header main footer nav section article figure mark
