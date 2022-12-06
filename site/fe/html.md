@@ -1,3 +1,13 @@
+## HTML 5 有哪些新标签？
+
+文章相关：header main footer nav section article figure mark
+
+多媒体相关：video audio svg canvas
+
+表单相关：type=email type=tel
+
+更多标签，[MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element)。
+
 ## HTML5 语义化
 
 什么是语义化？就是用合理、正确的标签来展示内容，比如 h1~h6 定义标题。
@@ -8,6 +18,17 @@
 - 有利于 SEO，搜索引擎根据标签来确定上下文和各个关键字的权重。
 - 方便其他设备解析，如盲人阅读器根据语义渲染网页
 - 有利于开发和维护，语义化更具可读性，代码更好维护，与 CSS3 关系更和谐。
+
+## Canvas 和 SVG 的区别是什么？
+
+Canvas 主要是用笔刷来绘制 2D 图形的。
+
+SVG 主要是用标签来绘制不规则矢量图的。
+
+相同点：都是主要用来画 2D 图形的。
+不同点：Canvas 画的是位图，SVG 画的是矢量图。
+不同点：SVG 节点过多时渲染慢，Canvas 性能更好一点，但写起来更复杂。
+不同点：SVG 支持分层和事件，Canvas 不支持，但是可以用库实现。
 
 ## viewport
 
@@ -103,11 +124,25 @@ Viewport ：字面意思为视图窗口，在移动 web 开发中使用。表示
 - web worker
 - localeStorage 和 sessionStorage
 
-## history 和 hash 两种路由
+## hash 和 history 两种路由
 
-## DOM 树
+前端框架创建创建单页应用做的就是将我们的组件映射到路由上，有两种模式实现路由 HTML5 history 模式或 hash 模式。
 
-## 事件模型
+**hash**
+
+hash 模式是一种把前端路由的路径用井号 `#` 拼接在真实 url 后面的模式。当井号 `#` 后面的路径发生变化时，浏览器并不会重新发起请求，而是会触发 `hashchange` 事件, 浏览器的前进和后退载入网页。
+
+hash 模式的缺点在于不够美观。
+
+**history**
+
+history API 是 H5 提供的新特性，允许开发者直接更改前端路由，即更新浏览器 URL 地址而不重新发起请求。通过 `popstate` 事件监听浏览器的路由的变化。
+
+history 模式的特点：
+
+1. 新的 url 可以是与当前 url 同源的任意 url ，也可以是与当前 url 一样的地址，但是这样会导致的一个问题是，会把重复的这一次操作记录到栈当中
+
+2. 使用 history 模式时，在对当前的页面进行刷新时，此时浏览器会重新发起请求。因此，在使用 history 模式时，需要通过 nginx 服务端来允许地址可访问，如果没有设置，就很容易导致出现 404 的局面。
 
 ## 页面大量图片，如何优化加载，优化用户体验
 
@@ -150,6 +185,18 @@ header,form,ul,ol,table,article,div,hr,aside,figure,canvas,video,audio,footer
 
 块级元素：总是在新行上开始，高度、行高及外边距和内边距都可控制，可以容纳内敛元素和其他元素；行元素转换为块级元素方式：display：block；
 
+## HTML 拖放 API
+
+> [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/HTML_Drag_and_Drop_API)
+
+- dragstart：事件主体是被拖放元素，在开始拖放被拖放元素时触发。
+- darg：事件主体是被拖放元素，在正在拖放被拖放元素时触发。
+- dragenter：事件主体是目标元素，在被拖放元素进入某元素时触发。
+- dragover：事件主体是目标元素，在被拖放在某元素内移动时触发。
+- dragleave：事件主体是目标元素，在被拖放元素移出目标元素是触发。
+- drop：事件主体是目标元素，在目标元素完全接受被拖放元素时触发。
+- dragend：事件主体是被拖放元素，在整个拖放操作结束时触发
+
 ## DOM 和 BOM 有什么区别
 
 **DOM**
@@ -162,6 +209,8 @@ DOM 和文档有关，这里的文档指的是网页，也就是 html 文档。D
 
 DOM 对象：Document、Body、Button、Canvas 等
 
+查看更多 [MDN](https://developer.mozilla.org/zh-CN/docs/Glossary/DOM)
+
 **BOM**
 
 Browser Object Model，浏览器对象模型
@@ -171,3 +220,45 @@ BOM 是为了操作浏览器出现的 API，window 是其的一个对象
 window 对象既为 javascript 访问浏览器提供 API，同时在 ECMAScript 中充当 Global 对象
 
 BOM 对象： Window、Navigator、Screen、History、Location
+
+(1) location 对象
+
+例子为 https://yanyue404.github.io/my-bookmarks/?a=123
+
+```js
+assign: ƒ assign() // 当前文档的 URL
+hash: "" // 返回 URL#后面的内容，如果没有#，返回空
+host: "yanyue404.github.io" // 域名部分
+hostname: "yanyue404.github.io" // 主域名部分
+href: "https://yanyue404.github.io/my-bookmarks/?a=123" // 返回或设置当前文档的 URL
+origin: "https://yanyue404.github.io"
+pathname: "/my-bookmarks/" // 域名后的部分
+port: ""  // 端口部分
+protocol: "https:" // 协议部分
+reload: ƒ reload() // 重载当前页面
+replace: ƒ replace() // 设置当前文档的 URL，并且在 history 对象的地址列表中移除这个
+  URL
+search: "?a=123" // 查询字符串部分, 返回包括(?)后面的内容
+```
+
+(2) history 对象
+
+```js
+history.go() //  前进或后退指定的页面数 history.go(num);
+history.back() //  后退一页
+history.forward() // 前进一页
+```
+
+(3) Navigator 对象
+
+```js
+cookieEnabled // 返回浏览器是否支持(启用)cookie
+language: 'zh-CN' // 浏览器界面语言
+platform: 'Win32' // 标识用户浏览器运行平台的字符串
+sendBeacon: ƒ sendBeacon() // 该方法可用于通过 HTTP POST 将少量数据 异步 传输到 Web 服务器
+userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36' // 浏览器版本信
+```
+
+### 参考
+
+- https://developer.mozilla.org/zh-CN/docs/Web/API
