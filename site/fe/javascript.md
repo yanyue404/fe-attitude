@@ -19,27 +19,22 @@ Javascript 基础知识
 - 立即执行函数
 - 事件循环机制
 - v8 垃圾回收机制
-- generator 原理
 
-JavaScript 编码能力
+## 数据类型
 
-- 多种方式实现数组去重、扁平化、对比优缺点
-- 多种方式实现深拷贝、对比优缺点
-- 手写函数柯里化工具函数、并理解其应用场景和优势
-- 手写防抖和节流工具函数、并理解其内部原理和应用场景
-- 实现一个 sleep 函数
+JavaScript 中的值都具有特定的类型。例如，字符串或数字。
 
-手动实现前端轮子
+在 JavaScript 中有 8 种基本的数据类型（7 种原始类型和 1 种引用类型）。
 
-- 手动实现 call、apply、bind
-- 手动实现符合 Promise/A+规范的 Promise、手动实现 async await
-- 手写一个 EventEmitter 实现事件发布、订阅
-- 可以说出两种实现双向绑定的方案、可以手动实现
-- 手写 JSON.stringify、JSON.parse
-- 手写一个模版引擎，并能解释其中原理
-- 手写懒加载、下拉刷新、上拉加载、预加载等效果
+我们可以将任何类型的值存入变量。例如，一个变量可以在前一刻是个字符串，下一刻就存储一个数字：
 
-## 原始（Primitive）类型与对象（Object）类型）
+```js
+// 没有错误
+let message = 'hello'
+message = 123456
+```
+
+允许这种操作的编程语言，例如 JavaScript，被称为“动态类型”（dynamically typed）的编程语言，意思是虽然编程语言中有不同的数据类型，但是你定义的变量并不会在定义后，被限制为某一数据类型。
 
 **原始类型**
 
@@ -66,7 +61,9 @@ JavaScript 编码能力
 
 string 类型是不可变的，无论你在 string 类型上调用何种方法，都不会对值有改变。
 
-另外对于 null 来说，很多人会认为他是个对象类型，其实这是错误的。虽然 typeof null 会输出 object，但是这只是 JS 存在的一个悠久 Bug。在 JS 的最初版本中使用的是 32 位系统，为了性能考虑使用低位存储变量的类型信息，000 开头代表是对象，然而 null 表示为全零，所以将它错误的判断为 object 。虽然现在的内部类型判断代码已经改变了，但是对于这个 Bug 却是一直流传下来。
+相比较于其他编程语言，JavaScript 中的 null 不是一个“对不存在的 object 的引用”或者 “null 指针”。
+
+JavaScript 中的 null 仅仅是一个代表“无”、“空”或“值未知”的特殊值。用 null 声明的变量表示其是未知的。
 
 **对象类型**
 
@@ -102,6 +99,24 @@ b.push(1)
 
 - 栈区内存由编译器自动分配释放，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈。
 - 堆区内存一般由开发着分配释放，若开发者不释放，程序结束时可能由垃圾回收机制回收。
+
+## null 和 undefined 的区别
+
+`null` 表示一个对象是“没有值”的值，也就是值为“空”
+
+`undefined` 表示一个变量声明了没有初始化(赋值)
+
+`undefined` 和 `null` 在 if 语句中，都会被自动转为 false
+
+`undefined` 不是一个有效的 JSON，而 `null` 是
+
+`undefined` 的类型(typeof)是 `undefined`
+
+`null` 的类型(typeof)是 `object`
+
+Javascript 将未赋值的变量默认值设为 `undefined`
+
+Javascript 从来不会将变量设为 `null`。 它是用来表明某个声明的变量是没有值、未知的
 
 ## 值类型 vs 引用类型
 
@@ -372,24 +387,6 @@ console.log(b) // 支持上面的类型
 - [yanyue404 - #6 Javascript 之深浅拷贝](https://github.com/yanyue404/blog/issues/6)
 - [如何写出一个惊艳面试官的深拷贝?](https://juejin.cn/post/6844903929705136141)
 
-## null 和 undefined 的区别
-
-`null` 表示一个对象是“没有值”的值，也就是值为“空”
-
-`undefined` 表示一个变量声明了没有初始化(赋值)
-
-`undefined` 和 `null` 在 if 语句中，都会被自动转为 false
-
-`undefined` 不是一个有效的 JSON，而 `null` 是
-
-`undefined` 的类型(typeof)是 `undefined`
-
-`null` 的类型(typeof)是 `object`
-
-Javascript 将未赋值的变量默认值设为 `undefined`
-
-Javascript 从来不会将变量设为 `null`。 它是用来让程序员表明某个用 var 声明的变量时没有值的
-
 ## 数组(array) API
 
 **改变原数组**
@@ -415,11 +412,11 @@ Javascript 从来不会将变量设为 `null`。 它是用来让程序员表明�
   - 当未传入时，则为第二项
   - 数组乱序：
 
-```
-var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-arr.sort(function () {
-    return Math.random() - 0.5;
-});
+```js
+var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+arr.sort(function() {
+  return Math.random() - 0.5
+})
 ```
 
 - 数组拆解: flat: \[1,\[2,3\]\] --> \[1, 2, 3\]
@@ -828,140 +825,206 @@ var 会使变量提升，这意味着变量可以在声明之前使用。let 和
 
 变量提升（hoisting）是用于解释代码中变量声明行为的术语。使用 var 关键字声明或初始化的变量，会将声明语句“提升”到当前作用域的顶部。 但是，只有声明才会触发提升，赋值语句（如果有的话）将保持原样。
 
-## 执行上下文
-
-先讲一个关于 **变量提升** 的知识点，面试中可能会遇见下面的问题，很多候选人都回答错误：
-
-> 题目：说出下面执行的结果（这里笔者直接注释输出了）
-
-```js
-console.log(a) // undefined
-var a = 100
-
-fn('zhangsan') // 'zhangsan' 20
-function fn(name) {
-  age = 20
-  console.log(name, age)
-  var age
-}
-
-console.log(b) // 这里报错
-// Uncaught ReferenceError: b is not defined
-b = 100
-```
-
-在一段 JS 脚本（即一个`<script>`标签中）执行之前，要先解析代码（所以说 JS 是解释执行的脚本语言），解析的时候会先创建一个 **全局执行上下文** 环境，先把代码中即将执行的（内部函数的不算，因为你不知道函数何时执行）变量、函数声明都拿出来。变量先暂时赋值为`undefined`，函数则先声明好可使用。这一步做完了，然后再开始正式执行程序。再次强调，这是在代码执行之前才开始的工作。
-
-我们来看下上面的面试小题目，为什么`a`是`undefined`，而`b`却报错了，实际 JS 在代码执行之前，要「全文解析」，发现`var a`，知道有个`a`的变量，存入了执行上下文，而`b`没有找到`var`关键字，这时候没有在执行上下文提前「占位」，所以代码执行的时候，提前报到的`a`是有记录的，只不过值暂时还没有赋值，即为`undefined`，而`b`在执行上下文没有找到，自然会报错（没有找到`b`的引用）。
-
-另外，一个函数在执行之前，也会创建一个 **函数执行上下文** 环境，跟 **全局上下文** 差不多，不过 **函数执行上下文** 中会多出`this` `arguments`和函数的参数。参数和`arguments`好理解，这里的`this`咱们需要专门讲解。
-
-总结一下：
-
-- 范围：一段`<script>`、js 文件或者一个函数
-- 全局上下文：变量定义，函数声明
-- 函数上下文：变量定义，函数声明，`this`，`arguments`
-
-### `this`
-
-先搞明白一个很重要的概念 —— **`this`的值是在执行的时候才能确认，定义的时候不能确认！** 为什么呢 —— 因为`this`是执行上下文环境的一部分，而执行上下文需要在代码执行之前确定，而不是定义的时候。看如下例子
-
-```js
-var a = {
-  name: 'A',
-  fn: function() {
-    console.log(this.name)
-  }
-}
-a.fn() // this === a
-a.fn.call({ name: 'B' }) // this === {name: 'B'}
-var fn1 = a.fn
-fn1() // this === window
-```
-
-`this`执行会有不同，主要集中在这几个场景中
-
-- 作为构造函数执行，构造函数中
-- 作为对象属性执行，上述代码中`a.fn()`
-- 作为普通函数执行，上述代码中`fn1()`
-- 用于`call` `apply` `bind`，上述代码中`a.fn.call({name: 'B'})`
-
-下面再来讲解下什么是作用域和作用域链，作用域链和作用域也是常考的题目。
+函数提升，需要注意函数声明和函数表达式的区别。无论在哪儿定义函数,只要是外层函数并且满足不被包裹，就都可以进行全局范围的调用。而函数表达式需要等到表达式赋值 完成 才可以使用。
 
 ## 作用域
 
-ES6 之前 JS 没有块级作用域。例如
+作用域是指程序源代码中定义变量的区域。
+
+作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。
+
+JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域。
+
+因为 JavaScript 采用的是词法作用域，函数的作用域在函数定义的时候就决定了。
+
+而与词法作用域相对的是动态作用域，函数的作用域是在函数调用的时候才决定的。
 
 ```js
-if (true) {
-  var name = 'zhangsan'
+var value = 1
+
+function foo() {
+  console.log(value)
 }
-console.log(name)
-```
 
-从上面的例子可以体会到作用域的概念，作用域就是一个独立的地盘，让变量不会外泄、暴露出去。上面的`name`就被暴露出去了，因此，**JS 没有块级作用域，只有全局作用域和函数作用域**。
-
-```js
-var a = 100
-function fn() {
-  var a = 200
-  console.log('fn', a)
+function bar() {
+  var value = 2
+  foo()
 }
-console.log('global', a)
-fn()
+
+bar()
+
+// 结果是 ???
 ```
 
-全局作用域就是最外层的作用域，如果我们写了很多行 JS 代码，变量定义都没有用函数包括，那么它们就全部都在全局作用域中。这样的坏处就是很容易撞车、冲突。
+- [JavaScript 深入之词法作用域和动态作用域](https://github.com/mqyqingfeng/Blog/issues/3)
+- [JavaScript 深入之执行上下文栈](https://github.com/mqyqingfeng/Blog/issues/4)
 
-```js
-// 张三写的代码中
-var data = { a: 100 }
+## 执行上下文
 
-// 李四写的代码中
-var data = { x: true }
-```
+当 JavaScript 代码执行一段可执行代码(executable code)时，会创建对应的执行上下文(execution context)。
 
-这就是为何 jQuery、Zepto 等库的源码，所有的代码都会放在`(function(){....})()`中。因为放在里面的所有变量，都不会被外泄和暴露，不会污染到外面，不会对其他的库或者 JS 脚本造成影响。这是函数作用域的一个体现。
+对于每个执行上下文，都有三个重要属性：
 
-附：ES6 中开始加入了块级作用域，使用`let`定义变量即可，如下：
+- 变量对象(Variable object，VO)
+- 作用域链(Scope chain) 词法作用域链，查找变量
+- this
 
-```js
-if (true) {
-  let name = 'zhangsan'
-}
-console.log(name) // 报错，因为let定义的name是在if这个块级作用域
-```
+**全局上下文**
+
+在全局上下文中的变量对象就是全局对象。
+
+**函数上下文**
+
+在函数上下文中，我们用活动对象(activation object, AO)来表示变量对象。
+
+活动对象和变量对象其实是一个东西，只是变量对象是规范上的或者说是引擎实现上的，不可在 JavaScript 环境中访问，只有到当进入一个执行上下文中，这个执行上下文的变量对象才会被激活，所以才叫 activation object 呐，而只有被激活的变量对象，也就是活动对象上的各种属性才能被访问。
+
+活动对象是在进入函数上下文时刻被创建的，它通过函数的 arguments 属性初始化。arguments 属性值是 Arguments 对象。
+
+1. 函数上下文的变量对象初始化只包括 Arguments 对象
+
+2. 在进入执行上下文时会给变量对象添加形参、函数声明、变量声明等初始的属性值
+
+3. 在代码执行阶段，会再次修改变量对象的属性值
+
+- [JavaScript 深入之变量对象](https://github.com/mqyqingfeng/Blog/issues/5)
 
 ## 作用域链
 
-首先认识一下什么叫做 **自由变量** 。如下代码中，`console.log(a)`要得到`a`变量，但是在当前的作用域中没有定义`a`（可对比一下`b`）。当前作用域没有定义的变量，这成为 **自由变量** 。自由变量如何得到 —— 向父级作用域寻找。
+我们知道，我们可以在执行上下文中访问到**父级甚至全局的变量**，这便是作用域链的功劳。作用域链可以理解为一组对象列表，包含 父级和自身的变量对象，因此我们便能通过作用域链访问到父级里声明的变量或者函数，原理和原型链很相似。
+
+由两部分组成:
+
+- [[scope]]属性: 指向父级变量对象和作用域链，也就是包含了父级的[[scope]]和 VO
+- AO: 自身活动对象（当函数被调用者激活，AO 就被创建了）
+
+如此 `[[scope]]`包含`[[scope]]`，便自上而下形成一条链式作用域。
+
+**一个例子**
+
+以下面的例子为例，结合着之前讲的变量对象和执行上下文栈，我们来总结一下函数执行上下文中作用域链和变量对象的创建过程：
 
 ```js
-var a = 100
-function fn() {
-  var b = 200
-  console.log(a)
-  console.log(b)
+var scope = 'global scope'
+function checkscope() {
+  var scope2 = 'local scope'
+  return scope2
 }
-fn()
+checkscope()
 ```
 
-如果父级也没呢？再一层一层向上寻找，直到找到全局作用域还是没找到，就宣布放弃。这种一层一层的关系，就是 **作用域链** 。
+执行过程如下：
+
+1.checkscope 函数被创建，保存作用域链到 内部属性[[scope]]
 
 ```js
-var a = 100
-function F1() {
-  var b = 200
-  function F2() {
-    var c = 300
-    console.log(a) // 自由变量，顺作用域链向父作用域找
-    console.log(b) // 自由变量，顺作用域链向父作用域找
-    console.log(c) // 本作用域的变量
+checkscope.[[scope]] = [
+    globalContext.VO
+];
+```
+
+2.执行 checkscope 函数，创建 checkscope 函数执行上下文，checkscope 函数执行上下文被压入执行上下文栈
+
+```js
+ECStack = [checkscopeContext, globalContext]
+```
+
+3.checkscope 函数并不立刻执行，开始做准备工作，第一步：复制函数[[scope]]属性创建作用域链
+
+```js
+checkscopeContext = {
+    Scope: checkscope.[[scope]],
+}
+
+```
+
+4.第二步：用 arguments 创建活动对象，随后初始化活动对象，加入形参、函数声明、变量声明
+
+```js
+checkscopeContext = {
+    AO: {
+        arguments: {
+            length: 0
+        },
+        scope2: undefined
+    }，
+    Scope: checkscope.[[scope]],
+}
+
+```
+
+5.第三步：将活动对象压入 checkscope 作用域链顶端
+
+```js
+checkscopeContext = {
+  AO: {
+    arguments: {
+      length: 0
+    },
+    scope2: undefined
+  },
+  Scope: [AO, [[Scope]]]
+}
+```
+
+6.准备工作做完，开始执行函数，随着函数的执行，修改 AO 的属性值
+
+```js
+checkscopeContext = {
+  AO: {
+    arguments: {
+      length: 0
+    },
+    scope2: 'local scope'
+  },
+  Scope: [AO, [[Scope]]]
+}
+```
+
+7.查找到 scope2 的值，返回后函数执行完毕，函数上下文从执行上下文栈中弹出
+
+```js
+ECStack = [globalContext]
+```
+
+**思考闭包的作用域链：**
+
+```js
+let value = 'Surprise!'
+
+function f() {
+  let value = 'the closest value'
+
+  function g() {
+    return value
   }
-  F2()
+
+  return g
 }
-F1()
+
+let g = f()
+console.dir(g) // 这里作用域链的顺序是 Closure > Script > Global
+
+// ƒ g()
+//   arguments: null
+//   caller: null
+//   length: 0
+//   name: "g"
+//   prototype: {constructor: ƒ}
+//   [[FunctionLocation]]: aa.html:16
+//   [[Prototype]]: ƒ ()
+//   [[Scopes]]: Scopes[3]
+//   0: Closure (f) {value: 'the closest value'}
+//   1: Script {value: 'Surprise!', g: ƒ}
+//   2: Global {window: Window, self: Window, document: document, name: '', location: Location, …}
+
+console.log(g()) // the closest value
 ```
+
+参考链接
+
+- [冴羽 - JavaScript 深入之作用域链](https://juejin.cn/post/6844903473683628046)
+- [冴羽 - JavaScript 深入之执行上下文](https://juejin.cn/post/6844903474027560968)
 
 ## 闭包
 
@@ -1031,9 +1094,9 @@ var bar = foo()
 console.log(bar[0]()) //2
 ```
 
-犯错原因是在循环的过程中，并没有把函数的返回值赋值给数组元素，而仅仅是把函数赋值给了数组元素。这就使得在调用匿名函数时，通过作用域找到的执行环境中储存的变量的值已经不是循环时的瞬时索引值，而是循环执行完毕之后的索引值。
+犯错原因是在循环的过程中，并没有把函数的返回值赋值给数组元素，而仅仅是把函数赋值给了数组元素。这就使得在调用匿名函数时，通过作用域找到的执行环境中 AO 中查找不到 i 而再往函数外的 VO 查找，这时，变量的值已经不是循环时的瞬时索引值，而是循环执行完毕之后的索引值。
 
-`ar[0]()` 访问 bar 的第 0 个元素并执行。此时，执行流创建并进入匿名函数执行环境，匿名函数中存在自由变量 i，需要使用其作用域链匿名函数 -> foo()函数 -> 全局作用域进行查找，最终在 foo()函数的作用域找到了 i，然后在 foo()函数的执行环境中找到了 i 的值 2，于是给 i 赋值 2.
+`ar[0]()` 访问 bar 的第 0 个元素并执行。此时，执行栈创建并进入匿名函数执行环境，匿名函数中存在自由变量 i，需要使用其作用域链匿名函数 -> foo()函数 -> 全局作用域进行查找，最终在 foo()函数的作用域找到了 i，然后在 foo()函数的执行环境中找到了 i 的值 2，于是给 i 赋值 2.
 
 解决方案 1:IIFE
 
@@ -1343,69 +1406,33 @@ triggerEvent('resize') // 触发 resize 事件
 
 ## this 的指向
 
+先搞明白一个很重要的概念 —— **`this`的值是在执行的时候才能确认，定义的时候不能确认！** 为什么呢 —— 因为`this`是执行上下文环境的一部分，而执行上下文需要在代码执行之前确定，而不是定义的时候。看如下例子
+
+```js
+var a = {
+  name: 'A',
+  fn: function() {
+    console.log(this.name)
+  }
+}
+a.fn() // this === a
+a.fn.call({ name: 'B' }) // this === {name: 'B'}
+var fn1 = a.fn
+fn1() // this === window
+```
+
 1. 在全局环境中使用时候，this 代表全局对象
-2. 在对象方法中使用时，this 代表此对象
-3. 调用无上下文的函数时，this 代表全局对象
+2. 在对象方法中使用时，this 代表此对象 (上述代码中`a.fn()`)
+3. 调用无上下文的函数时，this 代表全局对象 (上述代码中`fn1()`)
 4. 在构造函数内部使用时，this 代表正在构建的新对象
 5. 当在原型链上定义的函数内部使用时， this 代表此对象
-6. 在 call(),apply(),和 bind()函数调用时，this 代表对应方法传入的第一个参数
+6. 在 call(),apply(),和 bind()函数调用时，this 代表对应方法传入的第一个参数 (上述代码中`a.fn.call({name: 'B'})`)
 7. 在事件处理中于 js 中绑定或注册，或在 html 中注册并直接使用 this 关键字（非丢失 this 指向），this 代表 html 元素，在事件处理与元素上直接绑定事件方法名会使得 this 指向 window
 8. 箭头函数中，this 代表其位置外层的 this 对象
 
 参考链接
 
 - [yanyue404 - #18 Javascript 中的 this 指向](https://github.com/yanyue404/blog/issues/18)
-
-## 异步和单线程
-
-JS 需要异步的根本原因是 **JS 是单线程运行的**，即在同一时间只能做一件事，不能“一心二用”。
-
-一个 Ajax 请求由于网络比较慢，请求需要 5 秒钟。如果是同步，这 5 秒钟页面就卡死在这里啥也干不了了。异步的话，就好很多了，5 秒等待就等待了，其他事情不耽误做，至于那 5 秒钟等待是网速太慢，不是因为 JS 的原因。
-
-讲到单线程，我们再来看个真题：
-
-> 题目：讲解下面代码的执行过程和结果
-
-```js
-var a = true
-setTimeout(function() {
-  a = false
-}, 100)
-while (a) {
-  console.log('while执行了')
-}
-```
-
-这是一个很有迷惑性的题目，不少候选人认为`100ms`之后，由于`a`变成了`false`，所以`while`就中止了，实际不是这样，因为 JS 是单线程的，所以进入`while`循环之后，没有「时间」（线程）去跑定时器了，所以这个代码跑起来是个死循环！
-
-## 前端异步的场景
-
-- 定时 `setTimeout` `setInterval`
-- 网络请求，如 `Ajax` `<img>`加载
-
-Ajax 代码示例
-
-```js
-console.log('start')
-$.get('./data1.json', function(data1) {
-  console.log(data1)
-})
-console.log('end')
-```
-
-img 代码示例（常用于打点统计）
-
-```js
-console.log('start')
-var img = document.createElement('img')
-// 或者 img = new Image()
-img.onload = function() {
-  console.log('loaded')
-  img.onload = null
-}
-img.src = '/xxx.png'
-console.log('end')
-```
 
 ## 事件循环机制 Event-Loop
 
@@ -1453,8 +1480,23 @@ console.log('script end')
 
 以上代码虽然 setTimeout 写在 Promise 之前，但是因为 Promise 属于微任务而 setTimeout 属于宏任务，所以会有以上的打印。
 
-- 微任务包括 `process.nextTick` ，`promise` ，`Object.observe` ，`MutationObserver`
-- 宏任务包括 `script代码块` ， `setTimeout` ，`setInterval` ，`setImmediate` ，`I/O` ，`UI rendering`
+属于微任务（microtask）的事件有以下几种：
+
+- Promise.then
+- await 之后的所有代码（等同于在 Promise.then 中的回调）
+- MutationObserver (监视对 DOM 树所做更改)
+- process.nextTick（Node 环境）
+- setImmediate （Node 环境）
+
+属于宏任务（macrotask）的事件有以下几种：
+
+- script 代码块
+- setTimeout
+- setInterval
+- MessageChannel
+- requestAnimationFrame
+- I/O
+- UI 交互事件
 
 很多人有个误区，认为微任务快于宏任务，其实是错误的。因为宏任务中包括了 script ，浏览器会先执行一个宏任务，接下来有异步代码的话就先执行微任务。
 所以正确的一次 Event loop 顺序是这样的
@@ -1471,14 +1513,20 @@ console.log('script end')
 
 - https://juejin.cn/post/6844903598707441672
 
-**详细说明 Event loop**
+## js 脚本加载，阻塞与异步
 
-## js 脚本加载问题，async、defer 问题
+JS 脚本资源的处理有几个特点：
 
-- html 静态 `<script>`引入
-- js 动态插入`<script>`
-- `<script defer>`: 延迟加载，元素解析完成后执行
-- `<script async>`: 异步加载，但执行时会阻塞元素渲染
+- 阻塞浏览器的解析，也就是说发现一个外链脚本时，需等待脚本下载完成并执行后才会继续解析 HTML
+- 浏览器的优化，一般现代浏览器有优化，在脚本阻塞时，也会继续下载其它资源（当然有并发上限），但是虽然脚本可以并行下载，解析过程仍然是阻塞的，也就是说必须这个脚本执行完毕后才会接下来的解析，并行下载只是一种优化而已
+- defer 与 async，普通的脚本是会阻塞浏览器解析的，但是可以加上 defer 或 async 属性，这样脚本就变成异步了，可以等到解析完毕后再执行
+
+注意，defer 和 async 是有区别的： **defer 是延迟执行，而 async 是异步执行。**
+
+简单的说：
+
+- `async`是异步执行，异步下载完毕后就会执行，不确保执行顺序，一定在`onload`前，但不确定在`DOMContentLoaded`事件的前或后
+- `defer`是延迟执行，在浏览器看起来的效果像是将脚本放在了`body`后面一样（虽然按规范应该是在`DOMContentLoaded`事件前，但实际上不同浏览器的优化效果不一样，也有可能在它后面）
 
 ## 节流与防抖
 
@@ -1772,6 +1820,22 @@ fn.call({ a: 100 })
 当然还有其他概念，如`catch`、 `Promise.all/race/allSettled`，这里就不展开了。
 
 ## Async & Await
+
+async/await 是以更舒适的方式使用 promise 的一种特殊语法，同时它也非常易于理解和使用。
+
+函数前面的关键字 async 有两个作用：
+
+1. 让这个函数总是返回一个 promise。
+2. 允许在该函数内使用 await。
+
+Promise 前的关键字 await 使 JavaScript 引擎等待该 promise settle，然后：
+
+2. 如果有 error，就会抛出异常 —— 就像那里调用了 throw error 一样。
+3. 否则，就返回结果。
+
+这两个关键字一起提供了一个很好的用来编写异步代码的框架，这种代码易于阅读也易于编写。
+
+有了 async/await 之后，我们就几乎不需要使用 promise.then/catch，但是不要忘了它们是基于 promise 的，因为有些时候（例如在最外层作用域）我们不得不使用这些方法。并且，当我们需要同时等待需要任务时，Promise.all 是很好用的。
 
 ## Set 和 Map
 
@@ -2079,83 +2143,6 @@ Object 和 Map 的工程级实现在不同浏览器间存在明显差异，但�
 - [JavaScript 高级程序设计（第 4 版）](https://book.douban.com/subject/35175321/?from=tag)
 - [js 能够保证 object 属性的输出顺序吗？](http://jartto.wang/2016/10/25/does-js-guarantee-object-property-order/)
 
-## JavaScript 设计模式
-
-**实现发布/订阅模式**
-
-```js
-class Event {
-  constructor() {
-    this.events = {}
-  }
-
-  on(event, callback) {
-    if (!this.events[event]) {
-      this.events[event] = []
-    }
-
-    this.events[event].push(callback)
-  }
-
-  off(event, callback) {
-    if (this.events[event]) {
-      if (callback) {
-        const cbs = this.events[event]
-        let l = cbs.length
-        while (l--) {
-          if (callback == cbs[l]) {
-            cbs.splice(l, 1)
-          }
-        }
-      } else {
-        this.events[event] = []
-      }
-    }
-  }
-
-  emit(event, ...args) {
-    if (this.events[event]) {
-      for (const func of this.events[event]) {
-        func.call(this, ...args)
-      }
-    }
-  }
-
-  once(event, callback) {
-    const self = this
-
-    function wrap(...args) {
-      callback.call(self, ...args)
-      self.off(event, wrap)
-    }
-
-    this.on(event, wrap)
-  }
-}
-```
-
-**单例模式**
-
-```js
-class Singleton {
-  constructor() {}
-}
-
-Singleton.getInstance = (function() {
-  let instance
-  return function() {
-    if (!instance) {
-      instance = new Singleton()
-    }
-    return instance
-  }
-})()
-
-let s1 = Singleton.getInstance()
-let s2 = Singleton.getInstance()
-console.log(s1 === s2) // true
-```
-
 ## 代码的复用
 
 当你发现任何代码开始写第二遍时，就要开始考虑如何复用。一般有以下的方式:
@@ -2231,4 +2218,6 @@ obj1.a =  null
 
 ## 参考
 
-- [一名【合格】前端工程师的自检清单](https://zhuanlan.zhihu.com/p/64098516)
+- https://zh.javascript.info/
+- https://github.com/mqyqingfeng/Blog
+- https://www.xiaohuochai.site/
