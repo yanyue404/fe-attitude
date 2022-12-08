@@ -1,405 +1,142 @@
 ## 目录
 
-JavaScript 编码能力
+**JavaScript 必写**
 
-- 多种方式实现数组去重、扁平化、对比优缺点
-- 多种方式实现深拷贝、对比优缺点
-- 手写函数柯里化工具函数、并理解其应用场景和优势
-- 手写防抖和节流工具函数、并理解其内部原理和应用场景
-- 实现一个 sleep 函数
-
-手动实现前端轮子
-
-- 手动实现 call、apply、bind
-- 手动实现符合 Promise/A+规范的 Promise、手动实现 async await
-- 手写一个 EventEmitter 实现事件发布、订阅
-- 可以说出两种实现双向绑定的方案、可以手动实现
-- 手写 JSON.stringify、JSON.parse
-- 手写一个模版引擎，并能解释其中原理
-- 手写懒加载、下拉刷新、上拉加载、预加载等效果
-
-- 检测数据类型的方法
-- 计算字符串中出现最多的字母与出现次数
-- 实现一个 trim 方法
-- js 实现一个函数 获得 url 参数的值
-- 驼峰转下划线：appleOrangePinkBoy => apple_orange_pink_boy
-- 实现一个 get 方法通过`.`来取对象的值
-- 封装一下 axios 或者手写封装 ajax
-- 封装事件类（发布订阅者模式）
 - 数组排序（多种方法）
 - 数组去重（多种方法）
 - 数组扁平化
 - 将数组扁平化并去除其中重复数据，最终得到一个升序且不重复的数组
 - 深拷贝
 - 函数防抖节流
-- 实现一个 once 函数，传入函数参数只执行一次
-- 函数柯里化
-- 函数记忆
-- 实现数组原型方法 forEach map filter some reduce
 - 实现函数原型方法 call apply bind
+- 实现数组原型方法 forEach map filter some reduce
 - 实现 Promise
 - 实现 Promise.all
 - 实现 Promise.allSettled
+- 封装事件类 EventEmitter（发布订阅模式）
+
+**JavaScript 编码能力**
+
+- 函数柯里化
+- 函数记忆
+- 对象比较
+- 计算字符串中出现最多的字母与出现次数
+- 实现一个 trim 方法
+- js 实现一个函数 获得 url 参数的值
+- 驼峰转下划线：appleOrangePinkBoy => apple_orange_pink_boy
+- 实现一个 get 方法通过`.`来取对象的值
+- 封装一下 axios 或者手写封装 ajax
+- 实现一个 once 函数，传入函数参数只执行一次
 - 实现一个简单的模板字符串替换
 - 合并对象 merge
 - 求多个数组之间的交集
 - 实现一个版本比较方法 compareVersion
-- 对象比较
 
-## 检测数据类型的方法
+## JavaScript 必写
 
-```js
-/**
- * 判断数据类型
- *
- * @param {*} a
- * @returns Boolean String Array Object Function Number Undefined Null [Object ]
- */
-function getType(a) {
-  return Object.prototype.toString.call(a).slice(8, -1)
-}
-```
-
-## 计算字符串中出现最多的字母与出现次数
-
-```js
-let str = 'configureyourdevicetousewhistleasitsHTTPandHTTPSproxyonIP'
-let str2 = 'aabbcbc'
-
-// o、e 出现了 5 次
-
-function getMaxString(string) {
-  const map = {}
-  let max = 1
-  let maxKeys = []
-  for (let i = 0; i < string.length; i++) {
-    let key = string[i]
-    map[key] ? map[key]++ : (map[key] = 1)
-    if (map[key] > max) {
-      max = map[key]
-      maxKeys = [key]
-    } else if (map[key] === max) {
-      maxKeys.push(key)
-    }
-  }
-
-  console.log('最大值存在多个', maxKeys.join('、') + '出现了 ' + max + '次')
-  return [max, maxKeys]
-}
-
-getMaxString(str) // 5, ['e','o']
-getMaxString(str2) // 3, ['b']
-```
-
-## 实现一个 trim 方法
-
-```js
-// 删除左右的空格
-const trim = s => s.replace(/(^\s+)|(\s+$)/g, '')
-// 删除所有的空格
-const trimAll = s => s.replace(/\s/g, '')
-const greeting = '   Hello world!   '
-
-console.log(trim(greeting)) // Hello world!
-console.log(trimAll(greeting)) // Helloworld!
-```
-
-## js 实现一个函数 获得 url 参数的值
-
-1. 将 `http://www.domain.com/?user=anonymous&id=123&id=456&city=%E5%8C%97%E4%BA%AC&d&enabled`解析为如下格式：
-
-```js
-{
-   user: 'anonymous',
-   id: [123, 456], // 重复出现的 key 要组装成数组，能被转成数字的就转成数字类型
-   city: '北京', // 中文
-   enabled: true, // 未指定值的 key 约定值为 true
-}
-```
-
-```js
-let url = `http://www.domain.com/?user=anonymous&id=123&id=456&city=%E5%8C%97%E4%BA%AC&d&enabled`
-
-function getQueryJson(url = '') {
-  let json = {}
-  url = decodeURIComponent(url || location.href)
-  if (typeof url !== 'string') return json
-  let splits = url.split('?')
-  if (splits && splits.length >= 2) {
-    let paramsArr = splits[1].split('&')
-    if (paramsArr && paramsArr.length > 0) {
-      json = paramsArr.reduce((o, item) => {
-        const [key, value] = item.split('=')
-        if (key && !o[key]) {
-          o[key] = value === undefined ? true : value
-        } else {
-          if (!Array.isArray(o[key])) {
-            o[key] = [o[key]].concat(value)
-          } else {
-            o[key] = o[key].push(value)
-          }
-        }
-        return o
-      }, {})
-    }
-  }
-
-  return json
-}
-console.log(JSON.stringify(getQueryJson(url), null, 2))
-/*  
-    {
-    user: "anonymous",
-    id: ["123", "456"],
-    city: "北京",
-    d: true,
-    enabled: true,
-    }; */
-```
-
-## 驼峰转下划线：appleOrangePinkBoy => apple_orange_pink_boy
-
-```js
-;(() => {
-  let str = 'appleOrangePinkBoy'
-  function underline(str) {
-    // \B 非单词边界，左右占位的字符必须是 \w ([0-9a-zA-Z_])
-    return str.replace(/\B([A-Z])/g, (m, p1) => `_${p1.toLowerCase()}`)
-  }
-  console.log(underline(str)) // apple_orange_pink_boy
-})()
-;(() => {
-  let str = 'apple_orange_pink_boy'
-  function decamelize(str) {
-    return str.replace(/_(\w)/g, (m, p1) => p1.toUpperCase())
-  }
-  console.log(decamelize(str)) // appleOrangePinkBoy
-})()
-```
-
-## 实现一个 get 方法通过`.`来取对象的值
-
-```js
-const obj = { a: [{ b: { c: 3 } }] }
-function get(obj, path, def) {
-  // https://jex.im/regulex/#!flags=&re=%5B%5C.%5C%5B%5C%5D%5D%2B
-  let chain = Array.isArray(path) ? path : path.split(/[\.\[\]]+/)
-  let val = chain.reduce((prev, curr) => {
-    if (prev) {
-      return (prev = prev[curr])
-    } else {
-      return prev
-    }
-  }, obj)
-  return val === undefined ? def : val
-}
-console.log(get(obj, 'a.b', false)) // false
-console.log(get(obj, 'pop_act.pic.aaaaaaaaa')) // undefined
-console.log(get(obj, 'pop_act.pic.aaaaaaaaa', false)) // false
-console.log(get(obj, ['a', 'b', 'c'])) // undefined
-console.log(get(obj, ['a', '0', 'b', 'c'])) // 3
-console.log(get(obj, 'a[0].b.c')) // 3
-```
-
-## 封装一下 axios 或者手写封装 ajax
-
-```js
-/**
- * 将参数对象转换为a=1&b=2字符串格式
- * @param {object} params 待转换的参数对象
- */
-function stringify(params = {}) {
-  let str = ''
-  for (const key of Object.keys(params)) {
-    str += `&${key}=${params[key]}`
-  }
-  return str.substring(1)
-}
-/**
- * ajax请求
- * @param {string} 请求链接
- * @param {string} 方法名，post|get
- * @param {object} 请求头
- * @param {params} 参数
- */
-function ajax({ url = '', method = 'GET', headers = {}, params = {} } = {}) {
-  return new Promise((resolve, reject) => {
-    try {
-      let xhr = new XMLHttpRequest()
-      if (method === 'GET' && JSON.stringify(params) !== '{}') {
-        url = url + '?' + stringify(params)
-      } else if (method === 'POST') {
-        xhr.open('POST', url, true)
-        xhr.setRequestHeader('Content-type', 'application/json')
-      }
-      // true 为一个异步的请求
-      xhr.open(method, url, true)
-      for (const key of Object.keys(headers)) {
-        xhr.setRequestHeader(key, headers[key])
-      }
-      xhr.send(method == 'POST' ? JSON.stringify(params) : '')
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-          let ret = xhr.response
-          try {
-            ret = JSON.parse(ret)
-          } catch (err) {
-            console.log(err)
-          }
-          resolve(ret)
-        } else if (xhr.readyState == 4 && xhr.status != 200) {
-          reject(xhr.response)
-        }
-      }
-    } catch (err) {
-      reject(err)
-    }
-  })
-}
-```
-
-## 封装事件类（发布订阅者模式）
-
-```js
-class EventEmitter {
-  constructor() {
-    this._cache = {}
-  }
-  $on(type, callback) {
-    if (this._cache[type]) {
-      this._cache[type].push(callback)
-    } else {
-      this._cache[type] = [callback]
-    }
-    return this
-  }
-  $emit(type, data) {
-    let fns = this._cache[type]
-    if (Array.isArray(fns)) {
-      fns.forEach(fn => {
-        fn(data)
-      })
-    }
-    return this
-  }
-  $off(type, callback) {
-    let fns = this._cache[type]
-    if (Array.isArray(fns) && callback) {
-      this._cache[type] = fns.filter(event => {
-        return event !== callback
-      })
-    }
-    return this
-  }
-  $once(type, callback) {
-    let that = this
-    function func() {
-      var args = Array.prototype.slice.call(arguments, 0)
-      callback.apply(that, args)
-      that.$off(type, func)
-    }
-    this.$on(type, func)
-  }
-}
-
-var Event = new EventEmitter()
-Event.$once('addAddress', function(address) {
-  console.log(JSON.stringify(address, null, 2))
-})
-
-Event.$emit('addAddress', {
-  location: '北京',
-  longitude: '116°20′',
-  latitude: '39°56′'
-})
-Event.$once('once', function(res) {
-  console.log(JSON.stringify(res, null, 2))
-})
-
-Event.$emit('once', {
-  content: '我希望只能执行一次'
-})
-Event.$emit('once', {
-  content: '我希望只能执行一次'
-})
-Event.$emit('once', {
-  content: '我希望只能执行一次'
-})
-```
-
-```js
-function mitt(all) {
-  return {
-    all: (all = all || new Map()),
-    on(eventName, callback) {
-      let cbs = all.get(eventName)
-      ;(cbs && cbs.push(callback)) || all.set(eventName, [callback])
-    },
-    emit(eventName, ...args) {
-      let cbs = all.get(eventName)
-      if (cbs.length === 0) {
-        console.error(`no find ${eventName} function.`)
-        return
-      }
-      cbs.forEach(cb => cb(args))
-    },
-    off(eventName, callback) {
-      let cbs = all.get(eventName)
-      cbs &&
-        all.set(
-          eventName,
-          cbs.filter(cb => cb !== callback)
-        )
-    }
-  }
-}
-
-const eventHub = new mitt()
-
-eventHub.on('click', console.log)
-
-setTimeout(() => {
-  eventHub.emit('click', 'yanyue404')
-  eventHub.off('click', console.log)
-}, 1500)
-
-setTimeout(() => {
-  eventHub.emit('click', '1024')
-}, 1500)
-```
-
-## 数组排序（多种方法）
+### 数组排序（多种方法）
 
 ```js
 // 冒泡排序
-;(() => {
-  function swap(array, left, right) {
-    let rightValue = array[right]
-    array[right] = array[left]
-    array[left] = rightValue
-  }
-
-  function bubble(array) {
-    for (let i = 0; i < array.length - 1; i++) {
-      let flag = true
-      // 从 0 到 `length - 1` 遍历
-      for (let j = 0; j < array.length - 1 - i; j++) {
-        if (array[j] > array[j + 1]) {
-          flag = false
-          swap(array, j, j + 1)
-        }
-      }
-      if (flag) {
-        break
+// 冒泡排序的原理如下:
+// 从第一个元素开始，把当前元素和下一个元素进行比较。如果当前元素大，那么就交换位置，重复操作直到比较到最后一个元素，那么此时(一轮结束后)最后一个元素就是该数组中最大的数
+// 下一轮重复以上操作，但是此时最后一个元素已经是最大数了，所以不需要再比较最后一个元素，只需要比较到 length - 1 -i  的位置
+function bubble(array) {
+  for (let i = 0; i < array.length - 1; i++) {
+    console.log('第' + (i + 1) + '轮开始')
+    let flag = true
+    // 从 0 到 `length - 1` 遍历
+    for (let j = 0; j < array.length - 1 - i; j++) {
+      if (array[j] > array[j + 1]) {
+        flag = false
+        ;[array[j], array[j + 1]] = [array[j + 1], array[j]]
+        console.log('第' + (j + 1) + '次：' + array.toString(array))
       }
     }
-    return array
+    if (flag) {
+      console.log('第' + (i + 1) + '轮后数据结束变化更新')
+      break
+    }
   }
-  console.log(bubble([3, 2, 1, 4, 8, 6, 7]))
-})()
+  return array
+}
+
+console.log(bubble([3, 2, 1, 4, 8, 6, 7]))
+// 第1轮开始
+// 第1次：2,3,1,4,8,6,7
+// 第2次：2,1,3,4,8,6,7
+// 第5次：2,1,3,4,6,8,7
+// 第6次：2,1,3,4,6,7,8
+// 第2轮开始
+// 第1次：1,2,3,4,6,7,8
+// 第3轮开始
+// 第3轮后数据结束变化更新
+
+// 时间复杂度是 O(n * n)
 ```
 
-## 数组去重（多种方法）
+```js
+// http://www.ruanyifeng.com/blog/2011/04/quicksort_in_javascript.html
+// 快排
+// 快排的原理如下：
+//  第一步，选择中间的元素作为"基准"。（基准值可以任意选择，但是选择中间的值比较容易理解。）
+//  第二步，按照顺序，将每个元素与"基准"进行比较，形成两个子集，一个"小于基准"，另一个"大于基准"。
+//  第三步，对两个子集不断重复第一步和第二步，直到所有子集只剩下一个元素为止。
+function quickSort(arr) {
+  if (arr.length <= 1) {
+    return arr //递归出⼝
+  }
+  var pivotIndex = Math.floor(arr.length / 2)
+  // 取出基准值
+  var pivot = arr.splice(pivotIndex, 1)
+  var left = []
+  var right = []
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i] < pivot) {
+      left.push(arr[i])
+    } else {
+      right.push(arr[i])
+    }
+  }
+  return quickSort(left).concat(pivot, quickSort(right))
+}
+// 该算法的复杂度和归并排序是相同的，但是额外空间复杂度比归并排序少，只需 O(logN)，并且相比归并排序来说，所需的常数时间也更少。
+console.log(quickSort([3, 2, 1, 4, 8, 6, 7]))
+```
+
+```js
+// 原地快排
+function quickSort(arr, low = 0, high = arr.length - 1) {
+  if (low >= high) return
+  let left = low
+  let right = high
+  let flag = arr[left]
+  // 判断左右游标是否重合，如果重合，循环结束
+  while (left < right) {
+    // 右边大,继续向左比较
+    if (flag <= arr[right]) {
+      right--
+    }
+    // 交换下一个可能不合理的位置
+    arr[left] = arr[right]
+    // 左边大,继续向右比较
+    if (flag >= arr[left]) {
+      left++
+    }
+    // 交换下一个
+    arr[right] = arr[left]
+  }
+  //重合之后，交换基准数
+  arr[left] = flag
+  quickSort(arr, low, left - 1)
+  quickSort(arr, left + 1, high)
+
+  return arr
+}
+console.log(quickSort([4, 3, 8, 1, 9, 6, 2]))
+```
+
+### 数组去重（多种方法）
 
 ```js
 //github.com/mqyqingfeng/Blog/issues/27
@@ -459,7 +196,7 @@ var array = [1, 2, 1, 1, '1']
 })()
 ```
 
-## 数组扁平化
+### 数组扁平化
 
 ```js
 let entry = [[1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10]
@@ -508,7 +245,7 @@ var arr = [1, [2, [3, 4]]]
 console.log([].concat(...arr)) // [1, 2, [3, 4]]
 ```
 
-## 将数组扁平化并去除其中重复数据，最终得到一个升序且不重复的数组
+### 将数组扁平化并去除其中重复数据，最终得到一个升序且不重复的数组
 
 ```js
 Array.prototype.flat = function() {
@@ -529,7 +266,7 @@ console.log(
 ) // [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 ]
 ```
 
-## 深拷贝
+### 深拷贝
 
 用 JSON，存在如下缺点：
 
@@ -642,7 +379,7 @@ console.log(b)
 console.log(b.self === b)
 ```
 
-## 函数防抖节流
+### 函数防抖节流
 
 防抖与节流函数是一种最常用的 高频触发优化方式，能对性能有较大的帮助。
 
@@ -690,220 +427,7 @@ function debounce(fn, wait = 1500, immediate) {
 
 - [yanyue404 - 节流与防抖如何区分？](https://github.com/yanyue404/blog/issues/74)
 
-## 实现一个 once 函数，传入函数参数只执行一次
-
-```js
-function once(func) {
-  var flag = true
-  return function() {
-    if (flag == true) {
-      func.apply(null, arguments)
-      flag = false
-    }
-    return undefined
-  }
-}
-```
-
-## 函数柯里化
-
-```js
-const add = (x, y, z) => x + y + z
-const curry = fn => {
-  const fnLength = fn.length
-  return function curried(...args) {
-    if (args.length === fnLength) {
-      return fn.apply(null, args)
-    } else {
-      return function(...reset) {
-        return curried.apply(null, args.concat(reset))
-      }
-    }
-  }
-}
-const curriedAdd = curry(add)
-
-const result = curriedAdd(1)(2)(3)
-const result2 = curriedAdd(1, 2, 3)
-const result3 = curriedAdd(1, 2)(3)
-console.log('result', result) // result 6
-console.log('result2', result2) // result2 6
-console.log('result3', result3) // result3 6
-```
-
-## 函数记忆
-
-```js
-// github.com/mqyqingfeng/Blog/issues/46
-https: var memoize = function(func, hasher) {
-  var memoize = function(key) {
-    var cache = memoize.cache
-    var address = '' + (hasher ? hasher.apply(this, arguments) : key)
-    if (!cache[address]) {
-      cache[address] = func.apply(this, arguments)
-    }
-    return cache[address]
-  }
-  memoize.cache = {}
-  return memoize
-}
-var add = function(a, b, c) {
-  return a + b + c
-}
-// 自定义存储 key
-var memoizedAdd = memoize(add, function() {
-  var args = Array.prototype.slice.call(arguments)
-  return JSON.stringify(args)
-})
-
-console.log(memoizedAdd(1, 2, 3)) // 6
-console.log(memoizedAdd(1, 2, 4)) // 7
-
-// 适用场景：需要大量重复的计算，或者大量计算又依赖于之前的结果
-;(() => {
-  var count = 0
-  var fibonacci = function(n) {
-    count++
-    return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
-  }
-  for (var i = 0; i <= 10; i++) {
-    fibonacci(i)
-  }
-
-  console.log('优化前：' + count) // 453
-})()
-;(() => {
-  var count = 0
-  var fibonacci = function(n) {
-    count++
-    return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
-  }
-
-  fibonacci = memoize(fibonacci)
-
-  for (var i = 0; i <= 10; i++) {
-    fibonacci(i)
-  }
-
-  console.log('优化后：' + count) // 12
-})()
-```
-
-## 实现数组原型方法 forEach map filter some reduce
-
-```js
-// forEach  https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
-;(() => {
-  Array.prototype.forEach__fake = function(fn) {
-    const array = this
-    for (let index = 0; index < array.length; index++) {
-      const element = array[index]
-      fn.call(null, element, index, array)
-    }
-  }
-
-  const array1 = ['a', 'b', 'c']
-
-  array1.forEach__fake((element, i) => console.log(i, element))
-
-  // expected output: 0 'a'
-  // expected output: 1 'b'
-  // expected output: 2 'c'
-})()
-
-// map https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/map
-;(() => {
-  Array.prototype.map__fake = function(fn) {
-    let result = []
-    const array = this
-    for (let index = 0; index < array.length; index++) {
-      const element = array[index]
-      result[index] = fn.call(null, element, index, array)
-    }
-    return result
-  }
-
-  const array1 = [1, 4, 9, 16]
-
-  // pass a function to map
-  const map1 = array1.map__fake(x => x * 2)
-
-  console.log(map1)
-  // expected output: Array [2, 8, 18, 32]
-})()
-```
-
-```js
-// filter https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
-;(() => {
-  Array.prototype.filter__fake = function(fn) {
-    let result = []
-    const array = this
-    for (let index = 0; index < array.length; index++) {
-      const element = array[index]
-      fn.call(null, element, index, array) ? result.push(element) : ''
-    }
-    return result
-  }
-  const words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present']
-
-  const result = words.filter__fake(word => word.length > 6)
-
-  console.log(result)
-  // expected output: Array ["exuberant", "destruction", "present"]
-})()
-```
-
-```js
-// some  https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/some
-;(() => {
-  Array.prototype.some__fake = function(fn) {
-    let flag = false
-    const array = this
-    for (let index = 0; index < array.length; index++) {
-      const element = array[index]
-      if (fn.call(null, element, index, array)) {
-        flag = true
-        break
-      }
-    }
-    return flag
-  }
-  const array = [1, 2, 3, 4, 5]
-
-  // checks whether an element is even
-  const even = element => element % 2 === 0
-
-  console.log(array.some__fake(even))
-  // expected output: true
-})()
-
-// reduce https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
-;(() => {
-  Array.prototype.reduce__fake = function(fn, initialValue) {
-    let result = initialValue || 0
-    const array = this
-    for (let index = 0; index < array.length; index++) {
-      const element = array[index]
-      result = fn.call(null, result, element, index, array)
-    }
-    return result
-  }
-  const array1 = [1, 2, 3, 4]
-
-  // 0 + 1 + 2 + 3 + 4
-  const initialValue = 0
-  const sumWithInitial = array1.reduce__fake(
-    (previousValue, currentValue) => previousValue + currentValue,
-    initialValue
-  )
-
-  console.log(sumWithInitial)
-  // expected output: 10
-})()
-```
-
-## 实现函数原型方法 call apply bind
+### 实现函数原型方法 call apply bind
 
 ```js
 // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/apply
@@ -1022,7 +546,121 @@ console.log(bar.bind__fake(obj, 'kevin', 18)())
 // {value: 1, name: 'kevin', age: 18}
 ```
 
-## 实现 Promise
+### 实现数组原型方法 forEach map filter some reduce
+
+```js
+// forEach  https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+;(() => {
+  Array.prototype.forEach__fake = function(fn) {
+    const array = this
+    for (let index = 0; index < array.length; index++) {
+      const element = array[index]
+      fn.call(null, element, index, array)
+    }
+  }
+
+  const array1 = ['a', 'b', 'c']
+
+  array1.forEach__fake((element, i) => console.log(i, element))
+
+  // expected output: 0 'a'
+  // expected output: 1 'b'
+  // expected output: 2 'c'
+})()
+
+// map https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/map
+;(() => {
+  Array.prototype.map__fake = function(fn) {
+    let result = []
+    const array = this
+    for (let index = 0; index < array.length; index++) {
+      const element = array[index]
+      result[index] = fn.call(null, element, index, array)
+    }
+    return result
+  }
+
+  const array1 = [1, 4, 9, 16]
+
+  // pass a function to map
+  const map1 = array1.map__fake(x => x * 2)
+
+  console.log(map1)
+  // expected output: Array [2, 8, 18, 32]
+})()
+```
+
+```js
+// filter https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+;(() => {
+  Array.prototype.filter__fake = function(fn) {
+    let result = []
+    const array = this
+    for (let index = 0; index < array.length; index++) {
+      const element = array[index]
+      fn.call(null, element, index, array) ? result.push(element) : ''
+    }
+    return result
+  }
+  const words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present']
+
+  const result = words.filter__fake(word => word.length > 6)
+
+  console.log(result)
+  // expected output: Array ["exuberant", "destruction", "present"]
+})()
+```
+
+```js
+// some  https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/some
+;(() => {
+  Array.prototype.some__fake = function(fn) {
+    let flag = false
+    const array = this
+    for (let index = 0; index < array.length; index++) {
+      const element = array[index]
+      if (fn.call(null, element, index, array)) {
+        flag = true
+        break
+      }
+    }
+    return flag
+  }
+  const array = [1, 2, 3, 4, 5]
+
+  // checks whether an element is even
+  const even = element => element % 2 === 0
+
+  console.log(array.some__fake(even))
+  // expected output: true
+})()
+
+// reduce https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+;(() => {
+  Array.prototype.reduce__fake = function(fn, initialValue) {
+    let result = initialValue || 0
+    const array = this
+    for (let index = 0; index < array.length; index++) {
+      const element = array[index]
+      result = fn.call(null, result, element, index, array)
+    }
+    return result
+  }
+  const array1 = [1, 2, 3, 4]
+
+  // 0 + 1 + 2 + 3 + 4
+  const initialValue = 0
+  const sumWithInitial = array1.reduce__fake(
+    (previousValue, currentValue) => previousValue + currentValue,
+    initialValue
+  )
+
+  console.log(sumWithInitial)
+  // expected output: 10
+})()
+```
+
+### 实现 Promise
 
 ```js
 class Promise__fake {
@@ -1102,7 +740,7 @@ p2.then(
 )
 ```
 
-## 实现 Promise.all
+### 实现 Promise.all
 
 ```js
 ;(() => {
@@ -1156,7 +794,7 @@ p2.then(
 })()
 ```
 
-## 实现 Promise.allSettled
+### 实现 Promise.allSettled
 
 如果任意的 promise reject，则 Promise.all 整个将会 reject。当我们需要 所有 结果都成功时，它对这种“全有或全无”的情况很有用：Promise.allSettled 等待所有的 promise 都被 settle，无论结果如何。结果数组具有：
 
@@ -1172,7 +810,495 @@ Promise.allSettled = function(promises) {
 }
 ```
 
-## 实现一个简单的模板字符串替换
+### 封装事件类 EventEmitter（发布订阅模式）
+
+```js
+class EventEmitter {
+  constructor() {
+    this._cache = {}
+  }
+  $on(type, callback) {
+    if (this._cache[type]) {
+      this._cache[type].push(callback)
+    } else {
+      this._cache[type] = [callback]
+    }
+    return this
+  }
+  $emit(type, data) {
+    let fns = this._cache[type]
+    if (Array.isArray(fns)) {
+      fns.forEach(fn => {
+        fn(data)
+      })
+    }
+    return this
+  }
+  $off(type, callback) {
+    let fns = this._cache[type]
+    if (Array.isArray(fns) && callback) {
+      this._cache[type] = fns.filter(event => {
+        return event !== callback
+      })
+    }
+    return this
+  }
+  $once(type, callback) {
+    let that = this
+    function func() {
+      var args = Array.prototype.slice.call(arguments, 0)
+      callback.apply(that, args)
+      that.$off(type, func)
+    }
+    this.$on(type, func)
+  }
+}
+
+var Event = new EventEmitter()
+Event.$once('addAddress', function(address) {
+  console.log(JSON.stringify(address, null, 2))
+})
+
+Event.$emit('addAddress', {
+  location: '北京',
+  longitude: '116°20′',
+  latitude: '39°56′'
+})
+Event.$once('once', function(res) {
+  console.log(JSON.stringify(res, null, 2))
+})
+
+Event.$emit('once', {
+  content: '我希望只能执行一次'
+})
+Event.$emit('once', {
+  content: '我希望只能执行一次'
+})
+Event.$emit('once', {
+  content: '我希望只能执行一次'
+})
+```
+
+```js
+function mitt(all) {
+  return {
+    all: (all = all || new Map()),
+    on(eventName, callback) {
+      let cbs = all.get(eventName)
+      ;(cbs && cbs.push(callback)) || all.set(eventName, [callback])
+    },
+    emit(eventName, ...args) {
+      let cbs = all.get(eventName)
+      if (cbs.length === 0) {
+        console.error(`no find ${eventName} function.`)
+        return
+      }
+      cbs.forEach(cb => cb(args))
+    },
+    off(eventName, callback) {
+      let cbs = all.get(eventName)
+      cbs &&
+        all.set(
+          eventName,
+          cbs.filter(cb => cb !== callback)
+        )
+    }
+  }
+}
+
+const eventHub = new mitt()
+
+eventHub.on('click', console.log)
+
+setTimeout(() => {
+  eventHub.emit('click', 'yanyue404')
+  eventHub.off('click', console.log)
+}, 1500)
+
+setTimeout(() => {
+  eventHub.emit('click', '1024')
+}, 1500)
+```
+
+## JavaScript 编码能力
+
+### 函数柯里化
+
+```js
+const add = (x, y, z) => x + y + z
+const curry = fn => {
+  const fnLength = fn.length
+  return function curried(...args) {
+    if (args.length === fnLength) {
+      return fn.apply(null, args)
+    } else {
+      return function(...reset) {
+        return curried.apply(null, args.concat(reset))
+      }
+    }
+  }
+}
+const curriedAdd = curry(add)
+
+const result = curriedAdd(1)(2)(3)
+const result2 = curriedAdd(1, 2, 3)
+const result3 = curriedAdd(1, 2)(3)
+console.log('result', result) // result 6
+console.log('result2', result2) // result2 6
+console.log('result3', result3) // result3 6
+```
+
+### 函数记忆
+
+```js
+// github.com/mqyqingfeng/Blog/issues/46
+https: var memoize = function(func, hasher) {
+  var memoize = function(key) {
+    var cache = memoize.cache
+    var address = '' + (hasher ? hasher.apply(this, arguments) : key)
+    if (!cache[address]) {
+      cache[address] = func.apply(this, arguments)
+    }
+    return cache[address]
+  }
+  memoize.cache = {}
+  return memoize
+}
+var add = function(a, b, c) {
+  return a + b + c
+}
+// 自定义存储 key
+var memoizedAdd = memoize(add, function() {
+  var args = Array.prototype.slice.call(arguments)
+  return JSON.stringify(args)
+})
+
+console.log(memoizedAdd(1, 2, 3)) // 6
+console.log(memoizedAdd(1, 2, 4)) // 7
+
+// 适用场景：需要大量重复的计算，或者大量计算又依赖于之前的结果
+;(() => {
+  var count = 0
+  var fibonacci = function(n) {
+    count++
+    return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
+  }
+  for (var i = 0; i <= 10; i++) {
+    fibonacci(i)
+  }
+
+  console.log('优化前：' + count) // 453
+})()
+;(() => {
+  var count = 0
+  var fibonacci = function(n) {
+    count++
+    return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
+  }
+
+  fibonacci = memoize(fibonacci)
+
+  for (var i = 0; i <= 10; i++) {
+    fibonacci(i)
+  }
+
+  console.log('优化后：' + count) // 12
+})()
+```
+
+### 函数组合
+
+```js
+/**
+ * 执行从右到左的功能组合
+ */
+function compose(...funcs) {
+  return function(result) {
+    let list = funcs.slice()
+    while (list.length > 0) {
+      // 从列表中取第一个函数并执行
+      result = list.pop()(result)
+    }
+    return result
+  }
+}
+```
+
+```js
+/**
+ * 执行从左到右的功能组合
+ */
+function pipe(initialValue, ...funcs) {
+  return funcs.reduce((preValue, curFunc) => curFunc(preValue), initialValue)
+}
+```
+
+### 对象比较
+
+```js
+function isObject(value) {
+  var type = typeof value
+  return value != null && (type == 'object' || type == 'function')
+}
+/**
+ * form vue
+ * Check if two values are loosely equal - that is,
+ * if they are plain objects, do they have the same shape?
+ */
+function looseEqual(a, b) {
+  if (a === b) return true
+  const isObjectA = isObject(a)
+  const isObjectB = isObject(b)
+  if (isObjectA && isObjectB) {
+    try {
+      const isArrayA = Array.isArray(a)
+      const isArrayB = Array.isArray(b)
+      if (isArrayA && isArrayB) {
+        return (
+          a.length === b.length &&
+          a.every((e, i) => {
+            return looseEqual(e, b[i])
+          })
+        )
+      } else if (a instanceof Date && b instanceof Date) {
+        return a.getTime() === b.getTime()
+      } else if (!isArrayA && !isArrayB) {
+        const keysA = Object.keys(a)
+        const keysB = Object.keys(b)
+        return (
+          keysA.length === keysB.length &&
+          keysA.every(key => {
+            return looseEqual(a[key], b[key])
+          })
+        )
+      } else {
+        return false
+      }
+    } catch (e) {
+      return false
+    }
+  } else if (!isObjectA && !isObjectB) {
+    return String(a) === String(b)
+  } else {
+    return false
+  }
+}
+```
+
+### 计算字符串中出现最多的字母与出现次数
+
+```js
+let str = 'configureyourdevicetousewhistleasitsHTTPandHTTPSproxyonIP'
+let str2 = 'aabbcbc'
+
+// o、e 出现了 5 次
+
+function getMaxString(string) {
+  const map = {}
+  let max = 1
+  let maxKeys = []
+  for (let i = 0; i < string.length; i++) {
+    let key = string[i]
+    map[key] ? map[key]++ : (map[key] = 1)
+    if (map[key] > max) {
+      max = map[key]
+      maxKeys = [key]
+    } else if (map[key] === max) {
+      maxKeys.push(key)
+    }
+  }
+
+  console.log('最大值存在多个', maxKeys.join('、') + '出现了 ' + max + '次')
+  return [max, maxKeys]
+}
+
+getMaxString(str) // 5, ['e','o']
+getMaxString(str2) // 3, ['b']
+```
+
+### 实现一个 trim 方法
+
+```js
+// 删除左右的空格
+const trim = s => s.replace(/(^\s+)|(\s+$)/g, '')
+// 删除所有的空格
+const trimAll = s => s.replace(/\s/g, '')
+const greeting = '   Hello world!   '
+
+console.log(trim(greeting)) // Hello world!
+console.log(trimAll(greeting)) // Helloworld!
+```
+
+### js 实现一个函数 获得 url 参数的值
+
+1. 将 `http://www.domain.com/?user=anonymous&id=123&id=456&city=%E5%8C%97%E4%BA%AC&d&enabled`解析为如下格式：
+
+```js
+{
+   user: 'anonymous',
+   id: [123, 456], // 重复出现的 key 要组装成数组，能被转成数字的就转成数字类型
+   city: '北京', // 中文
+   enabled: true, // 未指定值的 key 约定值为 true
+}
+```
+
+```js
+let url = `http://www.domain.com/?user=anonymous&id=123&id=456&city=%E5%8C%97%E4%BA%AC&d&enabled`
+
+function getQueryJson(url = '') {
+  let json = {}
+  url = decodeURIComponent(url || location.href)
+  if (typeof url !== 'string') return json
+  let splits = url.split('?')
+  if (splits && splits.length >= 2) {
+    let paramsArr = splits[1].split('&')
+    if (paramsArr && paramsArr.length > 0) {
+      json = paramsArr.reduce((o, item) => {
+        const [key, value] = item.split('=')
+        if (key && !o[key]) {
+          o[key] = value === undefined ? true : value
+        } else {
+          if (!Array.isArray(o[key])) {
+            o[key] = [o[key]].concat(value)
+          } else {
+            o[key] = o[key].push(value)
+          }
+        }
+        return o
+      }, {})
+    }
+  }
+
+  return json
+}
+console.log(JSON.stringify(getQueryJson(url), null, 2))
+/*  
+    {
+    user: "anonymous",
+    id: ["123", "456"],
+    city: "北京",
+    d: true,
+    enabled: true,
+    }; */
+```
+
+### 驼峰转下划线：appleOrangePinkBoy => apple_orange_pink_boy
+
+```js
+;(() => {
+  let str = 'appleOrangePinkBoy'
+  function underline(str) {
+    // \B 非单词边界，左右占位的字符必须是 \w ([0-9a-zA-Z_])
+    return str.replace(/\B([A-Z])/g, (m, p1) => `_${p1.toLowerCase()}`)
+  }
+  console.log(underline(str)) // apple_orange_pink_boy
+})()
+;(() => {
+  let str = 'apple_orange_pink_boy'
+  function decamelize(str) {
+    return str.replace(/_(\w)/g, (m, p1) => p1.toUpperCase())
+  }
+  console.log(decamelize(str)) // appleOrangePinkBoy
+})()
+```
+
+### 实现一个 get 方法通过`.`来取对象的值
+
+```js
+const obj = { a: [{ b: { c: 3 } }] }
+function get(obj, path, def) {
+  // https://jex.im/regulex/#!flags=&re=%5B%5C.%5C%5B%5C%5D%5D%2B
+  let chain = Array.isArray(path) ? path : path.split(/[\.\[\]]+/)
+  let val = chain.reduce((prev, curr) => {
+    if (prev) {
+      return (prev = prev[curr])
+    } else {
+      return prev
+    }
+  }, obj)
+  return val === undefined ? def : val
+}
+console.log(get(obj, 'a.b', false)) // false
+console.log(get(obj, 'pop_act.pic.aaaaaaaaa')) // undefined
+console.log(get(obj, 'pop_act.pic.aaaaaaaaa', false)) // false
+console.log(get(obj, ['a', 'b', 'c'])) // undefined
+console.log(get(obj, ['a', '0', 'b', 'c'])) // 3
+console.log(get(obj, 'a[0].b.c')) // 3
+```
+
+### 封装一下 axios 或者手写封装 ajax
+
+```js
+/**
+ * 将参数对象转换为a=1&b=2字符串格式
+ * @param {object} params 待转换的参数对象
+ */
+function stringify(params = {}) {
+  let str = ''
+  for (const key of Object.keys(params)) {
+    str += `&${key}=${params[key]}`
+  }
+  return str.substring(1)
+}
+/**
+ * ajax请求
+ * @param {string} 请求链接
+ * @param {string} 方法名，post|get
+ * @param {object} 请求头
+ * @param {params} 参数
+ */
+function ajax({ url = '', method = 'GET', headers = {}, params = {} } = {}) {
+  return new Promise((resolve, reject) => {
+    try {
+      let xhr = new XMLHttpRequest()
+      if (method === 'GET' && JSON.stringify(params) !== '{}') {
+        url = url + '?' + stringify(params)
+      } else if (method === 'POST') {
+        xhr.open('POST', url, true)
+        xhr.setRequestHeader('Content-type', 'application/json')
+      }
+      // true 为一个异步的请求
+      xhr.open(method, url, true)
+      for (const key of Object.keys(headers)) {
+        xhr.setRequestHeader(key, headers[key])
+      }
+      xhr.send(method == 'POST' ? JSON.stringify(params) : '')
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          let ret = xhr.response
+          try {
+            ret = JSON.parse(ret)
+          } catch (err) {
+            console.log(err)
+          }
+          resolve(ret)
+        } else if (xhr.readyState == 4 && xhr.status != 200) {
+          reject(xhr.response)
+        }
+      }
+    } catch (err) {
+      reject(err)
+    }
+  })
+}
+```
+
+### 实现一个 once 函数，传入函数参数只执行一次
+
+```js
+function once(func) {
+  var flag = true
+  return function() {
+    if (flag == true) {
+      func.apply(null, arguments)
+      flag = false
+    }
+    return undefined
+  }
+}
+```
+
+### 实现一个简单的模板字符串替换
 
 ```js
 const render = function(tpl, data) {
@@ -1207,7 +1333,7 @@ console.log(
 )
 ```
 
-## 合并对象 merge
+### 合并对象 merge
 
 ```js
 const merge = (obj, target = {}) => {
@@ -1272,7 +1398,7 @@ const result = merge(obj1, obj2)
 console.log(result)
 ```
 
-## 求多个数组之间的交集
+### 求多个数组之间的交集
 
 ```js
 let array1 = [1, 2, 3, 4, 5, 6, 7, 7]
@@ -1293,7 +1419,41 @@ console.log(intersection(array1, array3, array3)) // [4,5,6,7]
 console.log(intersection(array4)) // []
 ```
 
+### 实现一个版本比较方法 compareVersion
+
+```js
+//   compareVersion("1.11.0", "1.9.9"); // 1
+function compareVersion(currVersion, comparedVersion) {
+  if (currVersion && comparedVersion) {
+    let v1 = currVersion.split('.')
+    let v2 = comparedVersion.split('.')
+    const len = Math.max(v1.length, v2.length)
+
+    while (v1.length < len) {
+      v1.push('0')
+    }
+    while (v2.length < len) {
+      v2.push('0')
+    }
+
+    for (let i = 0; i < len; i++) {
+      const num1 = parseInt(v1[i])
+      const num2 = parseInt(v2[i])
+
+      if (num1 > num2) {
+        return 1
+      } else if (num1 < num2) {
+        return -1
+      }
+    }
+    return 0
+  }
+  return -1
+}
+```
+
 ## 参考链接
 
 - https://github.com/mqyqingfeng/Blog
 - https://xiedaimala.com/
+- https://github.com/Advanced-Frontend/Daily-Interview-Question

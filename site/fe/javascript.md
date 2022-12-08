@@ -264,6 +264,18 @@ Object.prototype.toString.call(null) // '[object Null]'
 Object.prototype.toString.call([]) // '[object Array]'
 ```
 
+```js
+/**
+ * 判断数据类型
+ *
+ * @param {*} a
+ * @returns Boolean String Array Object Function Number Undefined Null [Object ]
+ */
+function getType(a) {
+  return Object.prototype.toString.call(a).slice(8, -1)
+}
+```
+
 ## 类型转换
 
 **隐式转换**
