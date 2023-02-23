@@ -10,13 +10,16 @@ module.exports = {
       ['/fe/javascript', 'JavaScript'],
       ['/fe/write', '手写代码'],
       ['/fe/console', '输出结果'],
-      ['/fe/algorithm', '算法'],
-      ['/fe/vue', 'Vue'],
       ['/fe/browser', '浏览器'],
       ['/fe/network', '计算机网络'],
-      ['/fe/webpack', '工程化']
+      ['/fe/algorithm', '算法'],
+      ['/fe/vue', 'Vue'],
+      ['/fe/engineering', '工程化']
     ],
     sidebarDepth: 2,
+    editLinks: true,
+    editLinkText: '在 GitHub 上编辑此页',
+    docsDir: 'site',
     displayAllHeaders: true,
     repo: 'https://github.com/yanyue404/fe-attitude',
     repoLabel: '前往 Github！'

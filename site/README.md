@@ -4,11 +4,11 @@
 - [CSS](/fe/css.html)
 - [JavaScript](/fe/javascript.html)
 - [手写代码](/fe/write.html)
-- [算法](/fe/algorithm.html)
 - [输出结果](/fe/console.html)
-- [Vue](/fe/vue.html)
 - [浏览器](/fe/browser.html)
 - [计算机网络](/fe/network.html)
+- [算法](/fe/algorithm.html)
+- [Vue](/fe/vue.html)
 - [工程化](/fe/webpack.html)
 - Node
 
