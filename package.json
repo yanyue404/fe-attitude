@@ -9,6 +9,7 @@
     "commitmsg": "commitlint -E HUSKY_GIT_PARAMS",
     "test:node": "node ./test-node/build.js",
     "site": "vuepress dev site",
+    "build": "vuepress build site",
     "deploy": "bash deploy.sh",
     "ts": "tsc -w"
   },

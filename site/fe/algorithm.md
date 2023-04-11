@@ -1015,6 +1015,43 @@ const addStrings = (a, b) => {
 
 > https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/102
 
+```js
+var nums1 = [1, 2, 2, 1],
+  nums2 = [2, 2, 3, 4]
+
+// 错误解法
+var fn = (num1, num2) =>
+  num1.filter(function(item) {
+    return num2.indexOf(item) > -1
+  })
+console.log(fn([1, 2, 2, 1], [2, 2, 3, 4])) // [2, 2]
+console.log(fn([1, 1], [1])) //反例： [1, 1]
+
+// 正确解法
+const intersect = (nums1, nums2) => {
+  const map = {}
+  const res = []
+  for (let n of nums1) {
+    if (map[n]) {
+      map[n]++
+    } else {
+      map[n] = 1
+    }
+  }
+  for (let n of nums2) {
+    if (map[n] > 0) {
+      res.push(n)
+      map[n]--
+    }
+  }
+  return res
+}
+
+console.log(intersect([1, 2, 2, 1], [2, 2, 3, 4])) // [2, 2]
+console.log(intersect([1, 1], [1])) // [1]
+console.log(intersect([2, 2, 1], [1, 2, 2, 3, 4])) // [1, 2, 2]
+```
+
 ## 动态规划
 
 ## 参考
