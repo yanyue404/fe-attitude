@@ -986,8 +986,59 @@ vue 中 key 值的作用可以分为两种情况来考虑：
 
 key 是为 Vue 中 vnode 的唯一标记，通过这个 key，diff 操作可以更准确、更快速
 
-- 更准确：因为带 key 就不是就地复用了，在 sameNode 函数 a.key === b.key 对比中可以避免就地复用的情况。所以会更加准确。
-- 更快速：利用 key 的唯一性生成 map 对象来获取对应节点，比遍历方式更快
+1. 更准确
+
+因为带 key 就不是就地复用了，在 sameNode 函数 a.key === b.key 对比中可以避免就地复用的情况。所以会更加准确。
+
+2. 更快速
+
+利用 key 的唯一性生成 map 对象来获取对应节点，比遍历方式更快
+
+vue 部分源码如下：
+
+```js
+// vue项目  src/core/vdom/patch.js  -488行
+// 以下是为了阅读性进行格式化后的代码
+
+// oldCh 是一个旧虚拟节点数组
+if (isUndef(oldKeyToIdx)) {
+  oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx)
+}
+if (isDef(newStartVnode.key)) {
+  // map 方式获取
+  idxInOld = oldKeyToIdx[newStartVnode.key]
+} else {
+  // 遍历方式获取
+  idxInOld = findIdxInOld(newStartVnode, oldCh, oldStartIdx, oldEndIdx)
+}
+```
+
+创建 map 函数
+
+```js
+function createKeyToOldIdx(children, beginIdx, endIdx) {
+  let i, key
+  const map = {}
+  for (i = beginIdx; i <= endIdx; ++i) {
+    key = children[i].key
+    if (isDef(key)) map[key] = i
+  }
+  return map
+}
+```
+
+遍历寻找
+
+```js
+// sameVnode 是对比新旧节点是否相同的函数
+function findIdxInOld(node, oldCh, start, end) {
+  for (let i = start; i < end; i++) {
+    const c = oldCh[i]
+
+    if (isDef(c) && sameVnode(node, c)) return i
+  }
+}
+```
 
 ## vue 怎么实现页面的权限控制
 

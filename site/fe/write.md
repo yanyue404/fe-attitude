@@ -31,6 +31,8 @@
 - 合并对象 merge
 - 求多个数组之间的交集
 - 实现一个版本比较方法 compareVersion
+- 实现一个批量请求函数，能够限制并发量？
+- 写出一个函数 trans, 将数字转换成汉语的输出，输入为步炒个股 10000 亿的数字。
 
 ## JavaScript 必写
 
@@ -1451,6 +1453,14 @@ function compareVersion(currVersion, comparedVersion) {
   return -1
 }
 ```
+
+## 实现一个批量请求函数，能够限制并发量？
+
+TODO:
+
+## 写出一个函数 trans, 将数字转换成汉语的输出，输入为步炒个股 10000 亿的数字。
+
+TODO:
 
 ## 参考链接
 

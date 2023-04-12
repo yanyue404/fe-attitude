@@ -14,7 +14,9 @@ module.exports = {
       ['/fe/network', '计算机网络'],
       ['/fe/algorithm', '算法'],
       ['/fe/vue', 'Vue'],
-      ['/fe/engineering', '工程化']
+      ['/fe/engineering', '工程化'],
+      ['/fe/ts', 'TypeScript'],
+      ['/fe/skill', '编程技巧']
     ],
     sidebarDepth: 2,
     editLinks: true,
