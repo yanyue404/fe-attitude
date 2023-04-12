@@ -3,6 +3,16 @@ module.exports = {
   title: '我的前端知识体系',
   description: '记录自己的学习考古，会前端真的可以“为所欲为”maybe',
   themeConfig: {
+    nav: [
+      {
+        text: '首页',
+        link: '/'
+      },
+      {
+        text: '我的博客文章',
+        link: 'https://yanyue404.github.io/blog/'
+      }
+    ],
     sidebar: [
       '/',
       ['/fe/html', 'Html'],
@@ -15,9 +25,11 @@ module.exports = {
       ['/fe/algorithm', '算法'],
       ['/fe/vue', 'Vue'],
       ['/fe/engineering', '工程化'],
+      ['/fe/node', 'Node'],
       ['/fe/ts', 'TypeScript'],
       ['/fe/skill', '编程技巧']
     ],
+
     sidebarDepth: 2,
     editLinks: true,
     editLinkText: '在 GitHub 上编辑此页',

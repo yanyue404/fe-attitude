@@ -10,7 +10,9 @@
 - [算法](/fe/algorithm.html)
 - [Vue](/fe/vue.html)
 - [工程化](/fe/webpack.html)
-- Node
+- [Node](/fe/node.html)
+- [TypeScript](/fe/ts.html)
+- [编程技巧](/fe/skill.html)
 
 ### 参考链接
 
