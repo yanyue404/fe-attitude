@@ -74,3 +74,12 @@ let s1 = Singleton.getInstance()
 let s2 = Singleton.getInstance()
 console.log(s1 === s2) // true
 ```
+
+## 介绍下观察者模式和订阅-发布模式的区别，各自适用于什么场景
+
+观察者模式中主体和观察者是互相感知的，发布-订阅模式是借助第三方来实现调度的，发布者和订阅者之间互不感知
+
+[![image](https://user-images.githubusercontent.com/18718461/53536375-228ba180-3b41-11e9-9737-d71f85040cfc.png)](https://user-images.githubusercontent.com/18718461/53536375-228ba180-3b41-11e9-9737-d71f85040cfc.png)
+
+- reference:
+  - [观察者模式 vs 发布-订阅模式](https://juejin.im/post/5a14e9edf265da4312808d86)

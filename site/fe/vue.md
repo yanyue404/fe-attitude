@@ -1044,7 +1044,7 @@ function findIdxInOld(node, oldCh, start, end) {
 
 利用  `vue-router`  的  `beforeEach`  事件，可以在跳转页面前判断用户的权限（利用 cookie 或 token），是否能够进入此页面，如果不能则提示错误或重定向到其他页面，在后台管理系统中这种场景经常能遇到。
 
-## vue-router
+## vue-router 基础
 
 Vue Router 是 Vue.js 的官方路由。
 
@@ -1117,7 +1117,7 @@ console.log(e.state)
 
 > 拓展：[面试官: 你了解前端路由吗?](https://juejin.im/post/6844903589123457031)。
 
-## vuex
+## vuex 基础
 
 Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。
 
@@ -1444,8 +1444,46 @@ npm run serve
 
 - https://v2.cn.vuejs.org/v2/cookbook/debugging-in-vscode.html
 
+## Vue 中的 computed 是如何实现的
+
+computed 本身是通过代理的方式代理到组件实例上的，所以读取计算属性的时候，执行的是一个内部的 getter，而不是用户定义的方法。
+
+computed 内部实现了一个惰性的 watcher，在实例化的时候不会去求值，其内部通过 dirty 属性标记计算属性是否需要重新求值。当 computed 依赖的任一状态（不一定是 return 中的）发生变化，都会通知这个惰性 watcher，让它把 dirty 属性设置为 true。所以，当再次读取这个计算属性的时候，就会重新去求值。
+
+https://ustbhuangyi.github.io/vue-analysis/v2/reactive/computed-watcher.html#computed
+
+## vue 渲染大量数据时应该怎么优化？
+
+1. 按需加载局部数据, 分页，虚拟列表，无限下拉刷新
+2. js 运行异步处理: 分割任务，实现时间切片处理, 类似 react fiber, 每次执行记录时间, 超过一定执行时间则 settimeout 或 requestAnimation 推迟到下一个时间片,一般一个时间片为 16ms
+3. 大量纯展示的数据,不需要追踪变化的 用 object.freeze 冻结
+4. 利用服务器渲染 SSR，在服务端渲染组件
+
+## vue 如何优化首页的加载速度？vue 首页白屏是什么问题引起的？如何解决呢？
+
+首页白屏的原因：单页面应用的 html 是靠 js 生成，因为首屏需要加载很大的 js 文件(app.js vendor.js)，所以当网速差的时候会产生一定程度的白屏
+
+解决办法：（按优先级划分）
+
+- 整站 ssr/ssg 服务端渲染，在服务端事先拼装好首页所需的 html
+- 使用首屏 SSR + 跳转 SPA 方式来优化，改单页应用为多页应用，需要修改 webpack 的 entry
+- 首页加 loading 或 骨架屏 （仅仅是优化体验）
+- 优化 webpack 减少模块打包体积，code-split 按需加载
+- 使用 Quicklink，在网速好的时候 可以帮助你预加载页面资源
+- 接入 service worker 缓存，和 ssr 一起搭配使用更佳
+- 常规操作：cdn、减少请求、雪碧图、gzip、浏览器缓存什么的就不多说了
+- 非首屏资源，使用 preload、prefetch 避免阻塞渲染进程，减少 FP（首次渲染）时间
+- 借助一些工具进行性能评测，重点调优
+
+## v-if、v-show、v-html 的原理是什么，它是如何封装的？
+
+- v-if 会调用 addIfCondition 方法，生成 vnode 的时候会忽略对应节点，render 的时候就不会渲染；
+- v-show 会生成 vnode，render 的时候也会渲染成真实节点，只是在 render 过程中会在节点的属性中修改 show 属性值，也就是常说的 display；
+- v-html 会先移除节点下的所有节点，调用 html 方法，通过 addProp 添加 innerHTML 属性，归根结底还是设置 innerHTML 为 v-html 的值
+
 ## 参考链接
 
 - https://juejin.cn/post/6844904166742048782
 - https://github.com/haizlin/fe-interview/labels/vue
 - https://github.com/yacan8/blog/issues/31
+- https://github.com/Advanced-Frontend/Daily-Interview-Question/labels/Vue

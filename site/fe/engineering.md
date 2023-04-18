@@ -145,7 +145,8 @@ webpack 做性能优化主要是考虑打包体积和打包速度。
 [构建性能 | webpack 中文文档](https://webpack.docschina.org/guides/build-performance/)
 
 0. speed-measure-webpack-plugin 分析构建时间
-1. 使用 DllPlugin 将不常变化的代码提前打包，并复用，如 vue、react
+1. externals 拆包采用 cdn 方式引入 vue, vue-router 及组件库
+1. 使用 DllPlugin 将不常变化的 node_modules 代码提前打包，并复用，如 echarts 下选用的模块
 1. 使用 thread-loader 进行多线程打包，加速耗时的 loader （例如 babel-loader）
 1. 处于开发环境时，在 webpack config 中 使用 cache-loader 加速 Vue/Babel/TypeScript 编译开启缓存
 1. import 优化，运用这个插件（babel-plugin-dynamic-import-node）能在代码使用了 import 语法的情况下，大大提高代码的编译速度。
@@ -371,7 +372,7 @@ module.exports = {
 
 4、自动化：雪碧图、持续集成、自动化构建、自动化部署、自动化测试（任何简单机械的重复劳动都应该让机器去完成）
 
-## 目录
+### 目录
 
 1. 技术选型：如何进行技术选型？
 2. 统一规范

@@ -1,6 +1,109 @@
-## 1. 异步
+## 打印结果
 
-### 请写出异步输出结果
+## 数据类型转换
+
+### 例 1
+
+```js
+String('11') == new String('11')
+String('11') === new String('11')
+```
+
+<details>
+<summary>解答</summary>
+
+```js
+var str1 = String('11')
+var str2 = new String('11')
+str1 == str2 // true
+str1 === str2 // false
+typeof str1 // "string"
+typeof str2 // "object"
+```
+
+总结：
+
+1. ==时做了隐式转换，调用了 toString, 实际运行的是
+   `String('11') == new String('11').toString()`
+2. 2 者类型不一样，一个是 string，一个是 object
+
+</details>
+
+## 原型与函数
+
+### 例 1
+
+```js
+function Foo() {
+  Foo.a = function() {
+    console.log(1)
+  }
+  this.a = function() {
+    console.log(2)
+  }
+}
+Foo.prototype.a = function() {
+  console.log(3)
+}
+Foo.a = function() {
+  console.log(4)
+}
+Foo.a()
+let obj = new Foo()
+obj.a()
+Foo.a()
+```
+
+<details>
+<summary>解答</summary>
+
+输出顺序是 4 2 1
+
+```js
+function Foo() {
+  Foo.a = function() {
+    console.log(1)
+  }
+  this.a = function() {
+    console.log(2)
+  }
+}
+// 以上只是 Foo 的构建方法，没有产生实例，此刻也没有执行
+
+Foo.prototype.a = function() {
+  console.log(3)
+}
+// 现在在 Foo 上挂载了原型方法 a ，方法输出值为 3
+
+Foo.a = function() {
+  console.log(4)
+}
+// 现在在 Foo 上挂载了直接方法 a ，输出值为 4
+
+Foo.a()
+// 立刻执行了 Foo 上的 a 方法，也就是刚刚定义的，所以
+// # 输出 4
+
+let obj = new Foo()
+/* 这里调用了 Foo 的构建方法。Foo 的构建方法主要做了两件事：
+1. 将全局的 Foo 上的直接方法 a 替换为一个输出 1 的方法。
+2. 在新对象上挂载直接方法 a ，输出值为 2。
+*/
+
+obj.a()
+// 因为有直接方法 a ，不需要去访问原型链，所以使用的是构建方法里所定义的 this.a，
+// # 输出 2
+
+Foo.a()
+// 构建方法里已经替换了全局 Foo 上的 a 方法，所以
+// # 输出 1
+```
+
+</details>
+
+## 异步
+
+### 例 1
 
 > https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/7
 
@@ -47,7 +150,7 @@ console.log('script end')
 
 </details>
 
-### 输出以下代码执行结果
+### 例 2
 
 ```js
 function wait() {
@@ -96,7 +199,124 @@ main()
 
 </details>
 
-## 2. 使用 sort() 对数组 [3, 15, 8, 29, 102, 22] 进行排序，输出结果
+### 例 3
+
+```js
+var date = new Date()
+
+console.log(1, new Date() - date)
+
+setTimeout(() => {
+  console.log(2, new Date() - date)
+}, 500)
+
+Promise.resolve().then(console.log(3, new Date() - date))
+
+while (new Date() - date < 1000) {}
+
+console.log(4, new Date() - date)
+```
+
+<details>
+<summary>解答</summary>
+
+这道题 考察的 两个地方
+
+1. then 的回调参数
+
+Promise.resolve().then(console.log(3, new Date() - date))
+
+2. 主线程 和 异步任务
+
+while(new Date() - date < 1000) {}
+
+```
+1 0
+3 1
+4 1000
+2 1000(大于1秒)
+```
+
+</details>
+
+## 变量及作用域
+
+### 例 1
+
+```js
+let x = 1
+
+function func() {
+  console.log(x) // ?
+
+  let x = 2
+}
+
+func()
+```
+
+<details>
+<summary>解答</summary>
+
+error，暂时性死区
+
+</details>
+
+### 例 2
+
+```js
+var name = 'Tom'
+;(function() {
+  if (typeof name == 'undefined') {
+    name = 'Jack'
+    console.log('Goodbye ' + name)
+  } else {
+    console.log('Hello ' + name)
+  }
+})()
+```
+
+<details>
+<summary>解答</summary>
+
+```
+hello Tom
+1、首先在进入函数作用域当中，获取 name 属性
+2、在当前作用域没有找到 name
+3、通过作用域链找到最外层，得到 name 属性
+4、执行 else 的内容，得到 Hello Tom
+```
+
+</details>
+
+### 例 3
+
+```js
+var name = 'Tom'
+;(function() {
+  if (typeof name == 'undefined') {
+    var name = 'Jack'
+    console.log('Goodbye ' + name)
+  } else {
+    console.log('Hello ' + name)
+  }
+})()
+```
+
+<details>
+<summary>解答</summary>
+
+```
+Goodbye Jack；
+
+IIFE 内的 var 穿透了块作用域，name被提升至if()之前，且此时name 为undefined。
+```
+
+</details>
+
+## 其他
+
+### 1. 使用 sort() 对数组 [3, 15, 8, 29, 102, 22] 进行排序，输出结果
 
 答案：
 
@@ -115,19 +335,3 @@ main()
 [3, 15, 8, 29, 102, 22] .sort((a,b) => a-b) // [3,8,15,22,29,102]
 [3, 15, 8, 29, 102, 22] sort((a,b) => b-a) //[102, 29, 22, 15, 8, 3]
 ```
-
-## 变量
-
-```js
-let x = 1
-
-function func() {
-  console.log(x) // ?
-
-  let x = 2
-}
-
-func()
-```
-
-error，暂时性死区

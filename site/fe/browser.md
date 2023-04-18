@@ -1,11 +1,10 @@
 ## 前言
 
+> [yanyue404 - #223 从输入 URL 到页面加载的过程（上）](https://github.com/yanyue404/blog/issues/223)
+>
+> [yanyue404 - #227 从输入 URL 到页面加载的过程（下）](https://github.com/yanyue404/blog/issues/227)
+
 这一部分涉及事件机制、跨域、存储、缓存机制、渲染原理，性能优化和安全等内容。
-
-## 从输入 URL 到页面加载的过程
-
-- [yanyue404 - #223 从输入 URL 到页面加载的过程（上）](https://github.com/yanyue404/blog/issues/223)
-- [yanyue404 - #227 从输入 URL 到页面加载的过程（下）](https://github.com/yanyue404/blog/issues/227)
 
 ## 浏览器同源策略
 
