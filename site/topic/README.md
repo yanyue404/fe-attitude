@@ -122,3 +122,16 @@
 - 预览组件
 - 属性编辑
 - 产物
+
+## Typescript
+
+
+参考资源：
+
+- [冴羽 - TypeScript4 官方文档翻译](https://ts.yayujs.com/)
+- [TypeScript 教程](https://www.runoob.com/typescript/ts-tutorial.html)
+- [2022年了，我才开始学 typescript ，晚吗？（7.5k字总结）](https://juejin.cn/post/7124117404187099172)
+- [后盾人 - 系统课程 typescript ](https://doc.houdunren.com/%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B/typescript/1%20%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.html)
+- [Daily-Interview-Question - TS 基础](https://github.com/Advanced-Frontend/Daily-Interview-Question/labels/TS%E5%9F%BA%E7%A1%80)
+- [泛型 · TypeScript中文网 · TypeScript——JavaScript的超集](https://www.tslang.cn/docs/handbook/generics.html)
+
