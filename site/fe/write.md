@@ -1454,13 +1454,165 @@ function compareVersion(currVersion, comparedVersion) {
 }
 ```
 
-## 实现一个批量请求函数，能够限制并发量？
+## 实现一个批量请求函数，能够限制并发量？ multiRequest(urls, maxNum)
+
+要求如下：
+
+1. 要求最大并发数 maxNum
+2. 每当有一个请求返回，就留下一个空位，可以增加新的请求
+3. 所有请求完成后，结果按照 urls 里面的顺序依次打出
+
+```js
+const fetch = url => {
+  return new Promise(rs => {
+    const s = Math.random() * 1000
+    console.log('fetch:' + url + ', and wait ' + s)
+    setTimeout(() => {
+      rs(url)
+    }, s)
+  })
+}
+
+const multiRequest = (urls, maxNum) => {
+  let allPromise = []
+  let len = urls.length
+  let resolve
+  let indirectPromise = new Promise(rs => {
+    resolve = rs
+  })
+  let i = 0
+
+  let addFetch = () => {
+    if (i >= len) {
+      console.log('任务攒够了，抛出')
+      return resolve()
+    }
+    let tempP = fetch(urls[i++]).finally(() => {
+      console.log('新任务', i)
+      addFetch()
+    })
+    allPromise.push(tempP)
+  }
+  // 这里需要限定一下
+  while (i < maxNum && i < len) {
+    addFetch()
+  }
+
+  return indirectPromise.then(() => {
+    console.log('allPromise', allPromise)
+    return Promise.all(allPromise)
+  })
+}
+
+multiRequest(['/a', '/b', '/c', '/d', '/e', '/f', '/g', '/h', '/i', '/j', '/k'], 3).then(res => {
+  console.log(res)
+})
+
+/* 
+fetch:/a, and wait 743.1379647505718
+fetch:/b, and wait 379.15112603161805
+fetch:/c, and wait 941.1622508744957
+新任务 3
+fetch:/d, and wait 559.7579622045357
+新任务 4
+fetch:/e, and wait 244.45715600597205
+新任务 5
+fetch:/f, and wait 102.12226770094213
+新任务 6
+fetch:/g, and wait 481.9297045173498
+新任务 7
+fetch:/h, and wait 362.52573025806487
+新任务 8
+fetch:/i, and wait 8.548277259090131
+新任务 9
+fetch:/j, and wait 748.1963492311971
+新任务 10
+fetch:/k, and wait 5.76039997427813
+新任务 11
+任务攒够了，抛出
+allPromise Array(11)
+新任务 11
+任务攒够了，抛出
+新任务 11
+任务攒够了，抛出
+Array(11) 
+*/
+```
 
 TODO:
 
 ## 写出一个函数 trans, 将数字转换成汉语的输出，输入为步炒个股 10000 亿的数字。
 
 TODO:
+
+## 实现一个 Dialog 类，Dialog 可以创建 dialog 对话框，对话框支持可拖拽
+
+```js
+class Dialog {
+  constructor(text) {
+    this.lastX = 0
+    this.lastY = 0
+    this.x
+    this.y
+    this.text = text || ''
+    this.isMoving = false
+    this.dialog
+  }
+  open() {
+    const model = document.createElement('div')
+    model.id = 'model'
+    model.style = `
+        position:absolute;
+        top:0;
+        left:0;
+        bottom:0;
+        right:0;
+        background-color:rgba(0,0,0,.3);
+        display:flex;
+        justify-content: center;
+        align-items: center;`
+    model.addEventListener('click', this.close.bind(this))
+    document.body.appendChild(model)
+    this.dialog = document.createElement('div')
+    this.dialog.style = `
+        padding:20px;
+        background-color:white`
+    this.dialog.innerText = this.text
+    this.dialog.addEventListener('click', e => {
+      e.stopPropagation()
+    })
+    this.dialog.addEventListener('mousedown', this.handleMousedown.bind(this))
+    document.addEventListener('mousemove', this.handleMousemove.bind(this))
+    document.addEventListener('mouseup', this.handleMouseup.bind(this))
+    model.appendChild(this.dialog)
+  }
+  close() {
+    this.dialog.removeEventListener('mousedown', this.handleMousedown)
+    document.removeEventListener('mousemove', this.handleMousemove)
+    document.removeEventListener('mouseup', this.handleMouseup)
+    document.body.removeChild(document.querySelector('#model'))
+  }
+  handleMousedown(e) {
+    this.isMoving = true
+    this.x = e.clientX
+    this.y = e.clientY
+  }
+  handleMousemove(e) {
+    if (this.isMoving) {
+      this.dialog.style.transform = `translate(${e.clientX - this.x + this.lastX}px,${e.clientY -
+        this.y +
+        this.lastY}px)`
+    }
+  }
+  handleMouseup(e) {
+    this.lastX = e.clientX - this.x + this.lastX
+    this.lastY = e.clientY - this.y + this.lastY
+    this.isMoving = false
+  }
+}
+let dialog = new Dialog('Hello')
+dialog.open()
+```
 
 ## 参考链接
 
