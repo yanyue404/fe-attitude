@@ -11,10 +11,13 @@ module.exports = {
       {
         text: '我的博客文章',
         link: 'https://yanyue404.github.io/blog/'
+      },
+      {
+        text: '专题学习计划',
+        link: '/topic/'
       }
     ],
     sidebar: [
-      '/',
       ['/fe/html', 'Html'],
       ['/fe/css', 'CSS'],
       ['/fe/javascript', 'JavaScript'],
@@ -33,6 +36,7 @@ module.exports = {
     sidebarDepth: 2,
     editLinks: true,
     editLinkText: '在 GitHub 上编辑此页',
+    lastUpdated: '上次更新', // string | boolean
     docsDir: 'site',
     displayAllHeaders: true,
     repo: 'https://github.com/yanyue404/fe-attitude',

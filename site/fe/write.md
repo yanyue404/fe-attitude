@@ -33,6 +33,12 @@
 - 实现一个版本比较方法 compareVersion
 - 实现一个批量请求函数，能够限制并发量？
 - 写出一个函数 trans, 将数字转换成汉语的输出，输入为步炒个股 10000 亿的数字。
+- 实现一个 Dialog 类，Dialog 可以创建 dialog 对话框，对话框支持可拖拽
+- 扁平数组转树结构
+
+**考虑加入新的问题：**
+
+- [开个新坑，手摸手解析 63 道 JS 手写面试题](https://juejin.cn/post/7168847564408619044)
 
 ## JavaScript 必写
 
@@ -1612,6 +1618,192 @@ class Dialog {
 }
 let dialog = new Dialog('Hello')
 dialog.open()
+```
+
+## 扁平数组转树结构
+
+```js
+// 转换前：
+const list = [
+  { id: 1, name: '部门A', parentId: 0 },
+  { id: 2, name: '部门B', parentId: 0 },
+  { id: 3, name: '部门C', parentId: 1 },
+  { id: 4, name: '部门D', parentId: 1 },
+  { id: 5, name: '部门E', parentId: 2 },
+  { id: 6, name: '部门F', parentId: 3 },
+  { id: 7, name: '部门G', parentId: 2 },
+  { id: 8, name: '部门H', parentId: 4 }
+]
+// 转换为:
+const tree = [
+  {
+    id: 1,
+    name: '部门A',
+    parentId: 0,
+    children: [
+      {
+        id: 3,
+        name: '部门C',
+        parentId: 1,
+        children: [
+          {
+            id: 6,
+            name: '部门F',
+            parentId: 3
+          }
+        ]
+      },
+      {
+        id: 4,
+        name: '部门D',
+        parentId: 1,
+        children: [
+          {
+            id: 8,
+            name: '部门H',
+            parentId: 4
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 2,
+    name: '部门B',
+    parentId: 0,
+    children: [
+      {
+        id: 5,
+        name: '部门E',
+        parentId: 2
+      },
+      {
+        id: 7,
+        name: '部门G',
+        parentId: 2
+      }
+    ]
+  }
+]
+
+//   例 1; 暴力解开
+function convert(arr) {
+  const map = {}
+  arr.forEach(v => {
+    map[v.id] = v
+  })
+
+  for (const item of arr) {
+    let parent = map[item.parentId]
+    if (parent) {
+      parent.children = Array.isArray(parent.children) ? [...parent.children, item] : [item]
+    }
+  }
+
+  return Object.values(map).filter(v => v.parentId === 0)
+}
+// 利用 对象引用类型，浅拷贝
+function convert1(arr) {
+  let res = []
+  // 使用Map保存id和对象的映射
+  const map = {}
+  arr.forEach(v => {
+    map[v.id] = v
+  })
+
+  for (let i = 0; i < arr.length; i++) {
+    const item = arr[i]
+    if (item.parentId === 0) {
+      res.push(item)
+    }
+    // in 操作符可以用来判断一个属性是否属于一个对象，它的返回值是一个布尔值
+    if (item.parentId in map) {
+      const parent = map[item.parentId]
+      parent.children = parent.children || []
+      parent.children.push(item)
+    }
+  }
+  console.log(map)
+  return res
+}
+
+// 上一版微调
+function convert2(arr) {
+  let res = []
+  // 使用Map保存id和对象的映射
+  const map = {}
+  arr.forEach(v => {
+    map[v.id] = v
+  })
+  // 建立映射表，一次遍历，直接去找父节点，找到对应父节点则把自己 push 进父节点的 children
+
+  // https://juejin.cn/post/7038871147286364173
+  for (let i = 0; i < arr.length; i++) {
+    const item = arr[i]
+    let parent = map[item.parentId]
+    if (parent) {
+      parent.children = parent.children || []
+      parent.children.push(item)
+    } else {
+      res.push(item)
+    }
+  }
+  return res
+}
+
+// 递归
+function convert3(arr) {
+  let res = []
+
+  const getChildren = item => {
+    let children = []
+    arr.forEach((n, index) => {
+      if (n.parentId === item.id) {
+        children.push(n)
+        item['children'] = children
+        getChildren(n)
+      }
+    })
+  }
+
+  arr.forEach((item, index) => {
+    if (item.parentId === 0) {
+      res.push(item)
+      getChildren(item)
+    }
+  })
+
+  return res
+}
+//   console.log(convert3(list))
+// https://juejin.cn/post/7037078362417791007
+function convert4(arr, id) {
+  const res = []
+  for (const item of arr) {
+    if (item.parentId === id) {
+      // 找到当前id的子元素
+      // 插入子元素，每个子元素的children通过回调生成
+      res.push({ ...item, children: convert4(arr, item.id) })
+    }
+  }
+  return res
+}
+
+//   console.log(convert4(list, 0))
+//   https://juejin.cn/post/7098649784562483230
+function convert5(arr, id) {
+  // 利用两层filter实现
+  let data = arr.filter(item => {
+    item.children = arr.filter(e => {
+      return item.id === e.parentId
+    })
+    return item.parentId === 0
+  })
+
+  return data
+}
+
+console.log(convert5(list, 0))
 ```
 
 ## 参考链接
