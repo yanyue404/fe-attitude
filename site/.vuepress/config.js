@@ -40,21 +40,25 @@ module.exports = {
         link: '/topic/'
       }
     ],
-    sidebar: [
-      ['/fe/html', 'Html'],
-      ['/fe/css', 'CSS'],
-      ['/fe/javascript', 'JavaScript'],
-      ['/fe/write', '手写代码'],
-      ['/fe/console', '输出结果'],
-      ['/fe/browser', '浏览器'],
-      ['/fe/network', '计算机网络'],
-      ['/fe/algorithm', '算法'],
-      ['/fe/vue', 'Vue'],
-      ['/fe/engineering', '工程化'],
-      ['/fe/node', 'Node'],
-      ['/fe/ts', 'TypeScript'],
-      ['/fe/skill', '编程技巧']
-    ],
+    sidebar: {
+      '/topic': 'auto',
+      // fallback: 确保 fallback 侧边栏被最后定义。VuePress 会按顺序遍历侧边栏配置来寻找匹配的配置。
+      '/': [
+        ['/fe/html', 'Html'],
+        ['/fe/css', 'CSS'],
+        ['/fe/javascript', 'JavaScript'],
+        ['/fe/write', '手写代码'],
+        ['/fe/console', '输出结果'],
+        ['/fe/browser', '浏览器'],
+        ['/fe/network', '计算机网络'],
+        ['/fe/algorithm', '算法'],
+        ['/fe/vue', 'Vue'],
+        ['/fe/engineering', '工程化'],
+        ['/fe/node', 'Node'],
+        ['/fe/ts', 'TypeScript'],
+        ['/fe/skill', '编程技巧']
+      ]
+    },
     smoothScroll: true,
     sidebarDepth: 2,
     editLinks: true,
