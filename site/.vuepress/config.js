@@ -9,8 +9,31 @@ module.exports = {
         link: '/'
       },
       {
-        text: '我的博客文章',
-        link: 'https://yanyue404.github.io/blog/'
+        text: '静态站点',
+        items: [
+          {
+            text: '原创',
+            items: [
+              { text: '我的博客文章', link: 'https://yanyue404.github.io/blog/' },
+              { text: 'mingdao', link: 'https://yanyue404.github.io/mingdao/' },
+              { text: 'my-bookmarks', link: 'https://yanyue404.github.io/my-bookmarks/' },
+              { text: 'dev-admin', link: 'https://yanyue404.github.io/dev-admin/' }
+            ]
+          },
+          {
+            text: 'Fork',
+            items: [
+              {
+                text: 'vant',
+                link: 'https://yanyue404.github.io/vant/#/zh-CN'
+              },
+              {
+                text: 'element',
+                link: 'https://yanyue404.github.io/element/#/zh-CN/'
+              }
+            ]
+          }
+        ]
       },
       {
         text: '专题学习计划',
@@ -32,14 +55,13 @@ module.exports = {
       ['/fe/ts', 'TypeScript'],
       ['/fe/skill', '编程技巧']
     ],
-
+    smoothScroll: true,
     sidebarDepth: 2,
     editLinks: true,
     editLinkText: '在 GitHub 上编辑此页',
     lastUpdated: '上次更新', // string | boolean
     docsDir: 'site',
     displayAllHeaders: true,
-    repo: 'https://github.com/yanyue404/fe-attitude',
-    repoLabel: '前往 Github！'
+    repo: 'https://github.com/yanyue404/fe-attitude'
   }
 }
