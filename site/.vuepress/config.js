@@ -30,6 +30,10 @@ module.exports = {
               {
                 text: 'element',
                 link: 'https://yanyue404.github.io/element/#/zh-CN/'
+              },
+              {
+                text: 'vue-design',
+                link: 'https://yanyue404.github.io/vue-design/'
               }
             ]
           }
