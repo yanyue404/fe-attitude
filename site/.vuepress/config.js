@@ -1,12 +1,12 @@
 module.exports = {
   base: '/fe-attitude/',
-  title: '我的前端知识体系',
+  title: '我的前端态度',
   description: '记录自己的学习考古，会前端真的可以“为所欲为”maybe',
   themeConfig: {
     nav: [
       {
-        text: '首页',
-        link: '/'
+        text: '构建知识体系',
+        link: '/fe/'
       },
       {
         text: '静态站点',
@@ -47,7 +47,7 @@ module.exports = {
     sidebar: {
       '/topic': 'auto',
       // fallback: 确保 fallback 侧边栏被最后定义。VuePress 会按顺序遍历侧边栏配置来寻找匹配的配置。
-      '/': [
+      '/fe/': [
         ['/fe/html', 'Html'],
         ['/fe/css', 'CSS'],
         ['/fe/javascript', 'JavaScript'],
@@ -69,7 +69,7 @@ module.exports = {
     editLinkText: '在 GitHub 上编辑此页',
     lastUpdated: '上次更新', // string | boolean
     docsDir: 'site',
-    displayAllHeaders: true,
+    // displayAllHeaders: true,
     repo: 'https://github.com/yanyue404/fe-attitude'
   }
 }

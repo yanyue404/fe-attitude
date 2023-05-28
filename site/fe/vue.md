@@ -1335,20 +1335,6 @@ Vue2.0 中，随着功能的增加，组件变得越来越复杂，越来越难�
 
 - [尤雨溪的博客：Vue Function-based API RFC](https://zhuanlan.zhihu.com/p/68477600)
 
-## Vue SSR 有了解吗？原理是什么？
-
-在客户端请求服务器的时候，服务器到数据库中获取到相关的数据，并且在服务器内部将 Vue 组件渲染成 HTML，并且将数据、HTML 一并返回给客户端，这个在服务器将数据和组件转化为 HTML 的过程，叫做服务端渲染 SSR。
-
-而当客户端拿到服务器渲染的 HTML 和数据之后，由于数据已经有了，客户端不需要再一次请求数据，而只需要将数据同步到组件或者 Vuex 内部即可。除了数据意外，HTML 也结构已经有了，客户端在渲染组件的时候，也只需要将 HTML 的 DOM 节点映射到 Virtual DOM 即可，不需要重新创建 DOM 节点，这个将数据和 HTML 同步的过程，又叫做客户端激活。
-
-使用 SSR 的好处：
-
-有利于 SEO：其实就是有利于爬虫来爬你的页面，因为部分页面爬虫是不支持执行 JavaScript 的，这种不支持执行 JavaScript 的爬虫抓取到的非 SSR 的页面会是一个空的 HTML 页面，而有了 SSR 以后，这些爬虫就可以获取到完整的 HTML 结构的数据，进而收录到搜索引擎中。
-
-白屏时间更短：相对于客户端渲染，服务端渲染在浏览器请求 URL 之后已经得到了一个带有数据的 HTML 文本，浏览器只需要解析 HTML，直接构建 DOM 树就可以。而客户端渲染，需要先得到一个空的 HTML 页面，这个时候页面已经进入白屏，之后还需要经过加载并执行 JavaScript、请求后端服务器获取数据、JavaScript 渲染页面几个过程才可以看到最后的页面。特别是在复杂应用中，由于需要加载 JavaScript 脚本，越是复杂的应用，需要加载的 JavaScript 脚本就越多、越大，这会导致应用的首屏加载时间非常长，进而降低了体验感。
-
-更多详情查看[彻底理解服务端渲染 - SSR 原理](https://github.com/yacan8/blog/issues/30)
-
 ## vue-cli4、vue-cli43、vue-cli2 的区别
 
 - <https://cli.vuejs.org/zh/guide/>
@@ -1481,9 +1467,80 @@ https://ustbhuangyi.github.io/vue-analysis/v2/reactive/computed-watcher.html#com
 - v-show 会生成 vnode，render 的时候也会渲染成真实节点，只是在 render 过程中会在节点的属性中修改 show 属性值，也就是常说的 display；
 - v-html 会先移除节点下的所有节点，调用 html 方法，通过 addProp 添加 innerHTML 属性，归根结底还是设置 innerHTML 为 v-html 的值
 
+## Vue SSR 有了解吗？原理是什么？
+
+在客户端请求服务器的时候，服务器到数据库中获取到相关的数据，并且在服务器内部将 Vue 组件渲染成 HTML，并且将数据、HTML 一并返回给客户端，这个在服务器将数据和组件转化为 HTML 的过程，叫做服务端渲染 SSR。
+
+而当客户端拿到服务器渲染的 HTML 和数据之后，由于数据已经有了，客户端不需要再一次请求数据，而只需要将数据同步到组件或者 Vuex 内部即可。除了数据意外，HTML 也结构已经有了，客户端在渲染组件的时候，也只需要将 HTML 的 DOM 节点映射到 Virtual DOM 即可，不需要重新创建 DOM 节点，这个将数据和 HTML 同步的过程，又叫做客户端激活。
+
+> Vue.js 服务器端渲染指南的解释：
+
+> Vue.js 是构建客户端应用程序的框架。默认情况下，可以在浏览器中输出 Vue 组件，进行生成 DOM 和操作 DOM。然而，也可以将同一个组件渲染为服务器端的 HTML 字符串，将它们直接发送到浏览器，最后将这些静态标记"激活"为客户端上完全可交互的应用程序。
+
+> 服务器渲染的 Vue.js 应用程序也可以被认为是"同构"或"通用"，因为应用程序的大部分代码都可以在服务器和客户端上运行。
+
+使用 SSR 的好处：
+
+有利于 SEO：其实就是有利于爬虫来爬你的页面，因为部分页面爬虫是不支持执行 JavaScript 的，这种不支持执行 JavaScript 的爬虫抓取到的非 SSR 的页面会是一个空的 HTML 页面，而有了 SSR 以后，这些爬虫就可以获取到完整的 HTML 结构的数据，进而收录到搜索引擎中。
+
+白屏时间更短：相对于客户端渲染，服务端渲染在浏览器请求 URL 之后已经得到了一个带有数据的 HTML 文本，浏览器只需要解析 HTML，直接构建 DOM 树就可以。而客户端渲染，需要先得到一个空的 HTML 页面，这个时候页面已经进入白屏，之后还需要经过加载并执行 JavaScript、请求后端服务器获取数据、JavaScript 渲染页面几个过程才可以看到最后的页面。特别是在复杂应用中，由于需要加载 JavaScript 脚本，越是复杂的应用，需要加载的 JavaScript 脚本就越多、越大，这会导致应用的首屏加载时间非常长，进而降低了体验感。
+
+使用服务器端渲染 (SSR) 时还需要有一些权衡之处：
+
+- 开发条件所限。浏览器特定的代码，只能在某些生命周期钩子函数 (lifecycle hook) 中使用；一些外部扩展库 (external library) 可能需要特殊处理，才能在服务器渲染应用程序中运行。
+
+- 涉及构建设置和部署的更多要求。与可以部署在任何静态文件服务器上的完全静态单页面应用程序 (SPA) 不同，服务器渲染应用程序，需要处于 Node.js server 运行环境。
+
+- 更多的服务器端负载。在 Node.js 中渲染完整的应用程序，显然会比仅仅提供静态文件的 server 更加大量占用 CPU 资源 (CPU-intensive - CPU 密集)，因此如果你预料在高流量环境 (high traffic) 下使用，请准备相应的服务器负载，并明智地采用缓存策略。
+
+在对你的应用程序使用服务器端渲染 (SSR) 之前，你应该问的第一个问题是，是否真的需要它。这主要取决于内容到达时间 (time-to-content) 对应用程序的重要程度。例如，如果你正在构建一个内部仪表盘，初始加载时的额外几百毫秒并不重要，这种情况下去使用服务器端渲染 (SSR) 将是一个小题大作之举。然而，内容到达时间 (time-to-content) 要求是绝对关键的指标，在这种情况下，服务器端渲染 (SSR) 可以帮助你实现最佳的初始加载性能。
+
+更多详情查看[彻底理解服务端渲染 - SSR 原理](https://github.com/yacan8/blog/issues/30)
+
+## 服务器端渲染 vs 预渲染 (SSR vs Prerendering)
+
+如果你调研服务器端渲染 (SSR) 只是用来改善少数营销页面（例如 `/`, `/about`, `/contact` 等）的 SEO，那么你可能需要**预渲染**。无需使用 web 服务器实时动态编译 HTML，而是使用预渲染方式，在构建时 (build time) 简单地生成针对特定路由的静态 HTML 文件。优点是设置预渲染更简单，并可以将你的前端作为一个完全静态的站点。
+
+如果你使用 webpack，你可以使用 [prerender-spa-plugin](https://github.com/chrisvfritz/prerender-spa-plugin) 轻松地添加预渲染。它已经被 Vue 应用程序广泛测试 - 事实上，[作者](https://github.com/chrisvfritz)是 Vue 核心团队的成员。
+
+## 什么是预渲染(SSG)
+
+预渲染指的是构建时渲染页面 HTML（运行 `$vite build` 时）
+
+如果不使用预渲染，那么页面 HTML 会在请求时渲染（当用户页面导航时）
+
+使用预渲染的话，我们不需要 Node.js 服务：我们的应用程序仅包含静态文件（HTML、JS、CSS、images 等），我们可以将其部署到“静态 host”上，比如： GitHub Pages， Cloudflare Pages， 或 Netlify
+
+如果不使用预渲染，那么我们需要一个 Node.js 生产环境服务，（或类 Node.js 环境，如：Cloudflare Workers 或 Vercel），以便在请求时动态渲染页面 HTML
+
+> Tools that pre-render pages are also known as "SSG" (Static-Site Generators). 预渲染页面也被称为 “SSG” （静态站点生成器）
+
+## SSG vs SSR
+
+SSG 和 SSR 之间唯一的区别是渲染 HTML 的时间点
+
+- SSG：页面在构建时渲染（调用 `$ vite build` 命令时）
+- SSR：页面在请求时渲染（用户进入网页和调用 `renderPage()` 时）
+
+> 客户端代码在用户浏览器中加载执行，始终在请求时执行
+
+## 我应该使用预渲染吗？
+
+简言之：我们应该尽可能使用预渲染
+
+预渲染不需要 Node.js 服务，这使得部署更简单。其性能也明显更好，因为 HTML 不会在每次请求时重新生成
+
+预渲染不能用户所有类型的网站。所以问题来了：我应该使用预渲染吗？
+
+预渲染不能用于内容高度动态的网站，例如：Hacker News 或 Reddit：用户每次发布链接或撰写评论时，内容都会发生改变。这种情况下我们不能使用预渲染：a) 预渲染的 HTML 卡在构建时，b) 如果每秒都有新内容，我们无法重新构建整个网站
+
+预渲染适用于内容偶尔改变的网站，一天更新几次那种。比如：https://vite-plugin-ssr.com 只是偶尔更新，每次 vite-plugin-ssr 维护者改变内容的时候，整个 https://vite-plugin-ssr.com 都重新构建。预渲染支持把 https://vite-plugin-ssr.com 部署到 Github Pages，这比使用 Node.js 生产服务更容易（并且性能更高）一个数量级。
+
 ## 参考链接
 
 - https://juejin.cn/post/6844904166742048782
 - https://github.com/haizlin/fe-interview/labels/vue
 - https://github.com/yacan8/blog/issues/31
 - https://github.com/Advanced-Frontend/Daily-Interview-Question/labels/Vue
+- https://v2.ssr.vuejs.org/zh/
+- https://cn.vite-plugin-ssr.com/pre-rendering
