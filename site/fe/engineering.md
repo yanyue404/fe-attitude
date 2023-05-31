@@ -132,6 +132,22 @@ webpack 在热更新模式下，启动服务后，服务端会与客户端建立
 2. Webpack 监听文件修改，修改后通过长连接通知客户端；
 3. Client 重新请求文件，替换 **webpack_modules** 中对应部分
 
+首先，介绍 webpack-dev-server:\
+webpack-dev-server 主要包含了三个部分：\
+1.webpack: 负责编译代码\
+2.webpack-dev-middleware: 主要负责构建内存文件系统，把 webpack 的 OutputFileSystem 替换成 InMemoryFileSystem。同时作为 Express 的中间件拦截请求，从内存文件系统中把结果拿出来。\
+3.express：负责搭建请求路由服务。
+
+其次，介绍工作流程:\
+1.启动 dev-server，webpack 开始构建，在编译期间会向 entry 文件注入热更新代码；\
+2.Client 首次打开后，Server 和 Client 基于 Socket 建立通讯渠道；\
+3.修改文件，Server 端监听文件发送变动，webpack 开始编译，直到编译完成会触发"Done"事件；\
+4.Server 通过 socket 发送消息告知 Client；\
+5.Client 根据 Server 的消息（hash 值和 state 状态），通过 ajax 请求获取 Server 的 manifest 描述文件；\
+6.Client 对比当前 modules tree ，再次发请求到 Server 端获取新的 JS 模块；\
+7.Client 获取到新的 JS 模块后，会更新 modules tree 并替换掉现有的模块；\
+8.最后调用 module.hot.accept() 完成热更新；
+
 ## 如何利用 webpack 来优化前端性能
 
 webpack 做性能优化主要是考虑打包体积和打包速度。

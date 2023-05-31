@@ -2228,8 +2228,20 @@ obj1.a =  null
 - 对`object`进行优化： 对象尽量复用，对于不再使用的对象，就将其设置为 null，尽快被回收。
 - 对函数进行优化： 在循环中的函数表达式，如果可以复用，尽量放在函数的外面。
 
+## 介绍下观察者模式和订阅-发布模式的区别，各自适用于什么场景
+
+观察者模式中主体和观察者是互相感知的，发布-订阅模式是借助第三方来实现调度的，发布者和订阅者之间互不感知\
+[![image](https://user-images.githubusercontent.com/18718461/53536375-228ba180-3b41-11e9-9737-d71f85040cfc.png)](https://user-images.githubusercontent.com/18718461/53536375-228ba180-3b41-11e9-9737-d71f85040cfc.png)
+
+- reference:
+  - [观察者模式 vs 发布-订阅模式](https://juejin.im/post/5a14e9edf265da4312808d86)
+
+> 可不可以理解 为 观察者模式没中间商赚差价
+> 发布订阅模式 有中间商赚差价
+
 ## 参考
 
 - https://zh.javascript.info/
 - https://github.com/mqyqingfeng/Blog
 - https://www.xiaohuochai.site/
+- https://github.com/Advanced-Frontend/Daily-Interview-Question
