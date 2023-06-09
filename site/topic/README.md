@@ -10,90 +10,25 @@
 
 - [前端常见需求的解决方案 —— 玩转异步](https://yanyue404.github.io/blog/posts/?id=248)
 
-### TODO
+## Vue2 源码内部运行机制
 
-表单
+> exploration Repo: https://github.com/yanyue404/vue
 
-- Form
-  - 输入框 input
-  - 评论框 textarea
-  - 单选 radio
-  - 开关 switch
-  - 步进器 step-number
-  - 自定义选择 picker
-  - 日期选择 datetime
-  - 省市区选择 area
-  - 图片上传 uploader
-  - 手写板
-- 验证器 validator
+- 1. Vue.js 运行机制全局概览
+- 2. 响应式系统的基本原理
+- 3. 响应式系统的依赖收集追踪原理
+- 4. 实现 Virtual DOM 下的一个 VNode 节点
+- [5. Vue 源码级生命周期](https://github.com/yanyue404/vue/blob/rainbow/docs/Vue%20%E6%BA%90%E7%A0%81%E7%BA%A7%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.md)
+- 6. 批量异步更新策略及 nextTick 原理
+- 7. 数据状态更新时的差异 diff 及 patch 机制
+- 8. template 模板是怎样通过 Compile 编译的
+- 9. Vuex 状态管理的工作原理
+- 10. 总结 & 常见问题解答
+- 11. 未来的路，Vue3
 
-效果
+## 组件库源码学习课
 
-- 楼梯导航效果
-- 悬浮吸顶效果
-- 左滑删除
-- 展开折叠展示
-- 进度条加载
-- 点击复制
-
-兼容性问题
-
-- IOS 手机底部安全距离
-- IOS 正则报错
-- IOS 返回页面不刷新
-
-功能点
-
-- 轮播图（支持视频）
-- 图片懒加载
-- 图片点击区域
-- 富文本点击区域
-- 文字滚动
-- 挽留弹窗
-- pdf 预览
-- 二维码生成
-- 富文本 xss 转换
-- loading 加载
-- 精灵图压缩
-- 图片水印
-- 单点登录
-- 大文件断点续传
-- 文件下载
-
-工程化
-
-- 埋点
-- 性能监控
-
-异步
-
-- 优先级
-- 接口拦截
-- 重试次数
-- 无限次错误重试
-- 异步组合
-
-业务向
-
-- 结构化数据筛选展示（费率表）
-- 锚点楼梯 anchor-stairs
-- 提示 recall
-- 身份证生成
-
-## 算法
-
-- 题：两数之和
-- 题：扁平数组与树结构的相互转换
-- 大类：递归
-- 大类：遍历—— DFS、BFS、拓扑排序
-- 二分查找
-- 动态规划
-- 数据结构:链表
-- 数据结构: 二叉树/二叉搜索树（BST）
-
-## 组件库
-
-- vant popup 源码学习
+- [vant popup 源码学习](https://github.com/yanyue404/blog/issues/250)
 
 参考资源：
 
@@ -107,31 +42,3 @@
 - [gulu](https://github.com/FrankFang/gulu)
 - [layui](https://www.layui.com/)
 - [bootstrap](https://www.bootcss.com/)
-
-## 工程化
-
-- 代码规范
-- 脚手架
-- git monorepo
-- 测试
-
-## 低代码
-
-- 开源已有的设计思路
-- 拖拽组件
-- 预览组件
-- 属性编辑
-- 产物
-
-## Typescript
-
-
-参考资源：
-
-- [冴羽 - TypeScript4 官方文档翻译](https://ts.yayujs.com/)
-- [TypeScript 教程](https://www.runoob.com/typescript/ts-tutorial.html)
-- [2022年了，我才开始学 typescript ，晚吗？（7.5k字总结）](https://juejin.cn/post/7124117404187099172)
-- [后盾人 - 系统课程 typescript ](https://doc.houdunren.com/%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B/typescript/1%20%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.html)
-- [Daily-Interview-Question - TS 基础](https://github.com/Advanced-Frontend/Daily-Interview-Question/labels/TS%E5%9F%BA%E7%A1%80)
-- [泛型 · TypeScript中文网 · TypeScript——JavaScript的超集](https://www.tslang.cn/docs/handbook/generics.html)
-

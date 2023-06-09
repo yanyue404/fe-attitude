@@ -15,6 +15,7 @@ module.exports = {
             text: '原创',
             items: [
               { text: '我的博客文章', link: 'https://yanyue404.github.io/blog/' },
+              { text: '我的博客文章(repo)', link: 'https://github.com/yanyue404/blog' },
               { text: 'mingdao', link: 'https://yanyue404.github.io/mingdao/' },
               { text: 'my-bookmarks', link: 'https://yanyue404.github.io/my-bookmarks/' },
               { text: 'dev-admin', link: 'https://yanyue404.github.io/dev-admin/' }
@@ -35,6 +36,19 @@ module.exports = {
                 text: 'vue-design',
                 link: 'https://yanyue404.github.io/vue-design/'
               }
+            ]
+          }
+        ]
+      },
+      {
+        text: 'Use',
+        items: [
+          {
+            text: '资源',
+            items: [
+              { text: '在线网站', link: '/use/website' },
+              { text: '前端库', link: '/use/repos' },
+              { text: '好的文章', link: '/use/articles' }
             ]
           }
         ]
