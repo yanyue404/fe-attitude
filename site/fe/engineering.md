@@ -93,7 +93,49 @@ module.exports = {
 
 不过，如果在 target 下面添加 `secure: false` ，就可以不配置证书且忽略 HTTPS 报错。
 
-总之，记住常用选项就行了。
+### 工作原理
+
+
+`proxy`工作原理实质上是利用`http-proxy-middleware` 这个`http`代理中间件，实现请求转发给其他服务器
+
+举个例子：
+
+在开发阶段，本地地址为`http://localhost:3000`，该浏览器发送一个前缀带有`/api`标识的请求到服务端获取数据，但响应这个请求的服务器只是将请求转发到另一台服务器中
+
+```js
+const express = require('express');
+const proxy = require('http-proxy-middleware');
+
+const app = express();
+
+app.use('/api', proxy({target: 'http://www.example.org', changeOrigin: true}));
+app.listen(3000);
+
+// http://localhost:3000/api/foo/bar -> http://www.example.org/api/foo/bar
+
+```
+
+
+### 跨域
+
+在开发阶段， `webpack-dev-server` 会启动一个本地开发服务器，所以我们的应用在开发阶段是独立运行在 `localhost`的一个端口上，而后端服务又是运行在另外一个地址上
+
+所以在开发阶段中，由于浏览器同源策略的原因，当本地访问后端就会出现跨域请求的问题
+
+通过设置`webpack proxy`实现代理请求后，相当于浏览器与服务端中添加一个代理者
+
+当本地发送请求的时候，代理服务器响应该请求，并将请求转发到目标服务器，目标服务器响应数据后再将数据返回给代理服务器，最终再由代理服务器将数据响应给本地
+
+![](https://static.vue-js.com/65b5e5c0-ace5-11eb-85f6-6fac77c0c9b3.png)
+
+在代理服务器传递数据给本地浏览器的过程中，两者同源，并不存在跨域行为，这时候浏览器就能正常接收数据
+
+注意：服务器与服务器之间请求数据并不会存在跨域行为，跨域行为是浏览器安全策略限制
+
+**参考文献**
+
+- https://vue3js.cn/interview/webpack/proxy.htm
+- https://webpack.docschina.org/configuration/dev-server/#devserverproxy
 
 ## webpack 如何实现 tree-shaking？
 
