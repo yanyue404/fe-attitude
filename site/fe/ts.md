@@ -110,6 +110,59 @@ TypeScript 坚持与 ECMAScript 标准同步发展，并推进了很多 ECMAScri
 
 在老 JavaScript 项目中，如果你想使用 TypeScript，可以使用 TypeScript 编写新文件，老的 JavaScript 文件可以继续使用
 
+## typescript 的数据类型有哪些？
+
+## 对 TypeScript 中接口的理解？应用场景？
+
+- https://vue3js.cn/interview/typescript/interface.html
+
+## 对 TypeScript 中类的理解？应用场景？
+
+## 对 TypeScript 中函数的理解？与 JavaScript 函数的区别？
+
+## 对 TypeScript 中泛型的理解？应用场景？
+
+泛型是指在定义函数、接口或类的时候，不预先指定具体的类型，而在使用的时候再指定类型的一种特性。
+
+比如 Vue3 的 [ref](https://cn.vuejs.org/guide/typescript/composition-api.html#typing-ref) 的类型属性就是泛型:
+
+```ts
+function ref<T>(value: T): Ref<UnwrapRef<T>>
+
+interface Ref<T> {
+  value: T
+}
+```
+
+有时我们可能想为 ref 内的值指定一个更复杂的类型，可以通过使用 Ref 这个类型：
+
+```ts
+import { ref } from 'vue'
+import type { Ref } from 'vue'
+
+const year: Ref<string | number> = ref('2020')
+
+year.value = 2020 // 成功！
+```
+
+或者，在调用 ref() 时传入一个泛型参数，来覆盖默认的推导行为：
+
+```ts
+// 得到的类型：Ref<string | number>
+const year = ref<string | number>('2020')
+
+year.value = 2020 // 成功！
+```
+
+如果你指定了一个泛型参数但没有给出初始值，那么最后得到的就将是一个包含 undefined 的联合类型：
+
+```ts
+// 推导得到的类型：Ref<number | undefined>
+const n = ref<number>()
+```
+
+TODO: 使用方式及应用场景
+
 ## any、never、unknown 和 void 有什么区别？
 
 ![](https://camo.githubusercontent.com/d7a34d6ec94282d47a4b807ee1a8593fbdc51468f045f5c11741d4d8ab662db6/687474703a2f2f7265736f757263652e6d757969792e636e2f696d6167652f32303231303831303037353232382e706e67)
@@ -119,17 +172,17 @@ TypeScript 坚持与 ECMAScript 标准同步发展，并推进了很多 ECMAScri
 `any`  类型用于描述一个我们根本不知道类型的变量，或者说可以是任意类型的变量，不作任何约束，编译时会跳过对其的类型检查
 
 ```ts
-let notSure: any;
+let notSure: any
 
 // 可以被赋值任意类型
-notSure = "sisterAn!";
-notSure = 512;
-notSure = { hello: () => "Hello sisterAn!" };
+notSure = 'sisterAn!'
+notSure = 512
+notSure = { hello: () => 'Hello sisterAn!' }
 
 // 它也兼容任何类型
-let num: number = 12;
-notSure = num;
-num = notSure;
+let num: number = 12
+notSure = num
+num = notSure
 ```
 
 ### unknown
@@ -137,29 +190,29 @@ num = notSure;
 `unknown`  表示未知类型，即写代码的时候还不知道具体会是怎样的数据类型，是  `typescript 3.0`  中引入的新类型，  与  `any`  类似，所有类型都可以分配给`unknown`  类型
 
 ```ts
-let notSure: unknown = "sisterAn!";
+let notSure: unknown = 'sisterAn!'
 
 // 可以被赋值任意类型
-notSure = "sisterAn!";
-notSure = 512;
-notSure = { hello: () => "Hello sisterAn!" };
+notSure = 'sisterAn!'
+notSure = 512
+notSure = { hello: () => 'Hello sisterAn!' }
 ```
 
 但与  `any`  不同的是， `unknown`  类型的变量不允许被  `any`  或  `unknown`  以外的变量赋值，也不允许执行  `unknown`  类型变量的方法
 
 ```ts
-let notSure: unknown = "sisterAn";
-let notSure1: unknown = "Hello";
-let any1: any = 12;
-let num: number = 12;
+let notSure: unknown = 'sisterAn'
+let notSure1: unknown = 'Hello'
+let any1: any = 12
+let num: number = 12
 
-notSure = notSure1;
-notSure = any1;
+notSure = notSure1
+notSure = any1
 
-num = notSure;
+num = notSure
 // error: Type 'unknown' is not assignable to type 'number'.
 
-notSure.toLowerCase();
+notSure.toLowerCase()
 // error: Object is of type 'unknown'.
 ```
 
@@ -168,18 +221,18 @@ notSure.toLowerCase();
 #### 方式一：使用类型断言缩小未知范围
 
 ```ts
-let notSure: unknown = "sisterAn";
+let notSure: unknown = 'sisterAn'
 
-console.log((notSure as string).toLowerCase());
+console.log((notSure as string).toLowerCase())
 ```
 
 #### 方式二：使用类型守卫进行类型收缩
 
 ```ts
-let notSure: unknown = "sisterAn";
+let notSure: unknown = 'sisterAn'
 
-if (typeof notSure === "string") {
-  console.log((notSure as string).toLowerCase());
+if (typeof notSure === 'string') {
+  console.log((notSure as string).toLowerCase())
 }
 // 或使用 instanceof 来缩小变量的类型
 ```
@@ -193,7 +246,7 @@ if (typeof notSure === "string") {
 ```ts
 // 抛出异常
 function error(msg: string): never {
-  throw new Error(msg);
+  throw new Error(msg)
 } // 抛出异常会直接中断程序运行，这样程序就运行不到返回值那一步了，即具有不可达的终点，也就永不存在返回了
 
 // 死循环
@@ -205,18 +258,18 @@ function loopForever(): never {
 变量也可以声明为  `never`  类型，因为它是永不存在值的类型，所以任何类型都不能赋值给  `never`  类型（除了`never`本身之外）。 即使  `any`  也不可以赋值给  `never`
 
 ```ts
-let never1: never;
+let never1: never
 
 // any 也不能分配给 never
-let any1: any = "sisterAn";
-never1 = any1; // Error
+let any1: any = 'sisterAn'
+never1 = any1 // Error
 
 // 作为函数返回类型的 never
 let never2: never = (() => {
-  throw new Error("Throw error");
-})();
+  throw new Error('Throw error')
+})()
 
-never1 = never2;
+never1 = never2
 ```
 
 ### void
@@ -225,21 +278,21 @@ never1 = never2;
 
 ```ts
 function hello(): void {
-  console.log("Hello sisterAn");
+  console.log('Hello sisterAn')
 }
 ```
 
 也可以声明一个  `void`  类型的变量，不过你只能为它赋予  `undefined` 、 `null` （注意，`"strictNullChecks": true`  时会报错）和  `void`  类型的值
 
 ```ts
-let void1: void;
-let null1: null = null;
-let und1: undefined = undefined;
-let void2: void;
+let void1: void
+let null1: null = null
+let und1: undefined = undefined
+let void2: void
 
-void1 = void2;
-void1 = und1;
-void1 = null1; // Type 'null' is not assignable to type 'void'.
+void1 = void2
+void1 = und1
+void1 = null1 // Type 'null' is not assignable to type 'void'.
 ```
 
 ### any、unknown、never、void 区别
@@ -269,54 +322,16 @@ never 与 void 的区别：
 // 如果 T 是 U 的子类型的话，那么就会返回 X，否则返回 Y
 // 构造条件类型 : T extends U ? X : Y
 
-type Exclude<T, U> = T extends U ? never : T;
+type Exclude<T, U> = T extends U ? never : T
 
 // 相当于: type A = 'a'
-type A = Exclude<"x" | "a", "x" | "y" | "z">;
+type A = Exclude<'x' | 'a', 'x' | 'y' | 'z'>
 ```
 
 - `void`  常用于表示函数没有返回值
 
 - [参考原文](https://github.com/sisterAn/blog/issues/128)
 
-## 什么是泛型？
-
-泛型是指在定义函数、接口或类的时候，不预先指定具体的类型，而在使用的时候再指定类型的一种特性。
-
-比如 Vue3 的 [ref](https://cn.vuejs.org/guide/typescript/composition-api.html#typing-ref) 的类型属性就是泛型:
-
-```ts
-function ref<T>(value: T): Ref<UnwrapRef<T>>
-
-interface Ref<T> {
-  value: T
-}
-```
-
-有时我们可能想为 ref 内的值指定一个更复杂的类型，可以通过使用 Ref 这个类型：
-
-```ts
-import { ref } from 'vue'
-import type { Ref } from 'vue'
-
-const year: Ref<string | number> = ref('2020')
-
-year.value = 2020 // 成功！
-```
-或者，在调用 ref() 时传入一个泛型参数，来覆盖默认的推导行为：
-
-```ts
-// 得到的类型：Ref<string | number>
-const year = ref<string | number>('2020')
-
-year.value = 2020 // 成功！
-```
-如果你指定了一个泛型参数但没有给出初始值，那么最后得到的就将是一个包含 undefined 的联合类型：
-
-```ts
-// 推导得到的类型：Ref<number | undefined>
-const n = ref<number>()
-```
 ## interface 与 type 异同点，如何选择？
 
 ### 及格线
@@ -326,21 +341,21 @@ const n = ref<number>()
 ```ts
 // 接口
 interface Sister {
-  name: string;
-  age: number;
+  name: string
+  age: number
 }
 
 interface SetSister {
-  (name: string, age: number): void;
+  (name: string, age: number): void
 }
 
 // 类型别名
 type Sister = {
-  name: string;
-  age: number;
-};
+  name: string
+  age: number
+}
 
-type SetSister = (name: string, age: number) => void;
+type SetSister = (name: string, age: number) => void
 ```
 
 - 在对象扩展情况下，interface 使用 extends 关键字，而 type 使用交叉类型（`&`）。
@@ -353,8 +368,8 @@ interface SisterAn {
 
 // 类型别名
 type SisterRan = {
-  age: number,
-};
+  age: number
+}
 
 // interface 和 type 可以混合扩展，也就是说 interface 可以扩展 type，type 也可以扩展 interface。
 // 接口扩展接口
@@ -363,16 +378,16 @@ interface Sister extends SisterAn {
 }
 // 类型别名扩展类型别名
 type SisterPro = SisterRan & {
-  name: string,
-};
+  name: string
+}
 // 接口扩展类型别名
 interface Sister extends SisterRan {
   name: string;
 }
 // 类型别名扩展接口
 type SisterPro = SisterAn & {
-  age: number,
-};
+  age: number
+}
 ```
 
 - 同名的 interface 会自动合并，并且在合并时会要求兼容原接口的结构, 而 type 类型别名定义多次会报错
@@ -389,9 +404,11 @@ type SisterPro = SisterAn & {
 > 大多数时候，对象类型的简单类型别名的作用与接口非常相似
 >
 > ```ts
-> interface Foo { prop: string }
+> interface Foo {
+>   prop: string
+> }
 >
-> type Bar = { prop: string };
+> type Bar = { prop: string }
 > ```
 >
 > 但是，一旦你需要组合两个或多个类型来实现其他类型时，你就可以选择使用接口扩展这些类型，或者使用类型别名将它们交叉在一个中（交叉类型），这就是差异开始的时候。
@@ -417,11 +434,11 @@ type SisterPro = SisterAn & {
 ```ts
 // 接口扩展
 interface Sister {
-    sex: number;
+  sex: number
 }
 
 interface SisterAn extends Sister {
-    sex: string;
+  sex: string
 }
 // index.ts(5,11): error TS2430: Interface 'SisterAn' incorrectly extends interface 'Sister'.
 //  Types of property 'sex' are incompatible.
@@ -431,14 +448,14 @@ interface SisterAn extends Sister {
 ```ts
 // 交叉类型
 type Sister1 = {
-    sex: number;
+  sex: number
 }
 
 type Sister2 = {
-    sex: string;
+  sex: string
 }
 
-type SisterAn = Sister1 & Sister2;
+type SisterAn = Sister1 & Sister2
 // 不报错，此时的 SisterAn 是一个'number & string'类型，也就是 never
 ```
 
@@ -456,30 +473,30 @@ type SisterAn = Sister1 & Sister2;
 
 ```ts
 interface InObj1 {
-  a: number;
-  x: string;
+  a: number
+  x: string
 }
 interface InObj2 {
-  a: number;
-  y: string;
+  a: number
+  y: string
 }
 function isIn(arg: InObj1 | InObj2) {
   // x 在 arg 打印 x
-  if ("x" in arg) console.log("x");
+  if ('x' in arg) console.log('x')
   // y 在 arg 打印 y
-  if ("y" in arg) console.log("y");
+  if ('y' in arg) console.log('y')
 }
-isIn({ a: 1, x: "xxx" });
-isIn({ a: 1, y: "yyy" });
+isIn({ a: 1, x: 'xxx' })
+isIn({ a: 1, y: 'yyy' })
 ```
 
 - 2、typeof 关键字
 
 ```ts
 function isTypeof(val: string | number) {
-  if (typeof val === "number") return "number";
-  if (typeof val === "string") return "string";
-  return "啥也不是";
+  if (typeof val === 'number') return 'number'
+  if (typeof val === 'string') return 'string'
+  return '啥也不是'
 }
 ```
 
@@ -489,11 +506,11 @@ function isTypeof(val: string | number) {
 
 ```ts
 function creatDate(date: Date | string) {
-  console.log(date);
+  console.log(date)
   if (date instanceof Date) {
-    date.getDate();
+    date.getDate()
   } else {
-    return new Date(date);
+    return new Date(date)
   }
 }
 ```
@@ -502,11 +519,21 @@ function creatDate(date: Date | string) {
 
 ```ts
 function isNumber(num: any): num is number {
-  return typeof num === "number";
+  return typeof num === 'number'
 }
 function isString(str: any): str is string {
-  return typeof str === "string";
+  return typeof str === 'string'
 }
 ```
 
+## 对 TypeScript 中高级类型的理解？有哪些？
 
+## 对 TypeScript 装饰器的理解？应用场景？
+
+## 对 TypeScript 中命名空间与模块的理解？区别？
+
+## 如何在 Vue 项目中应用 TypeScript？
+
+## 参考
+
+- https://vue3js.cn/interview/typescript/data_type.html
