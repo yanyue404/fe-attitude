@@ -10,21 +10,25 @@
 
 - [前端常见需求的解决方案 —— 玩转异步](https://yanyue404.github.io/blog/posts/?id=248)
 
-## Vue2 源码内部运行机制
+## 探索 Vue.js 内部运行机制
 
 > exploration Repo: https://github.com/yanyue404/vue
 
-- 1. Vue.js 运行机制全局概览
-- 2. 响应式系统的基本原理
-- 3. 响应式系统的依赖收集追踪原理
-- 4. 实现 Virtual DOM 下的一个 VNode 节点
-- [5. Vue 源码级生命周期](https://github.com/yanyue404/vue/blob/rainbow/docs/Vue%20%E6%BA%90%E7%A0%81%E7%BA%A7%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.md)
-- 6. 批量异步更新策略及 nextTick 原理
-- 7. 数据状态更新时的差异 diff 及 patch 机制
-- 8. template 模板是怎样通过 Compile 编译的
-- 9. Vuex 状态管理的工作原理
-- 10. 总结 & 常见问题解答
-- 11. 未来的路，Vue3
+- 0.开篇
+- 1.Vue2 运行机制全局概览
+- 2.响应式系统的基本原理
+- 3.响应式系统的依赖收集追踪原理
+- 4.深入响应式原理
+- 5.Vue1 mini-vue
+- 6.Vue2 源码级生命周期
+- 7.批量异步更新策略及 nextTick 原理
+- 8.实现 Virtual DOM 下的一个 VNode 节点
+- 9.数据状态更新时的差异 diff 及 patch 机制
+- 10.template 模板是怎样通过 Compile 编译的
+- 11.Vuex 状态管理的工作原理
+- 12.未来的路，Vue3
+- 13.总结 & 常见问题解答
+- 附录.授之以渔
 
 ## 组件库源码学习课
 

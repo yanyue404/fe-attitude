@@ -35,6 +35,10 @@ module.exports = {
               {
                 text: 'vue-design',
                 link: 'https://yanyue404.github.io/vue-design/'
+              },
+              {
+                text: 'vue2',
+                link: 'https://yanyue404.github.io/vue2/'
               }
             ]
           }
