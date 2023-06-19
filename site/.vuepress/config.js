@@ -39,6 +39,10 @@ module.exports = {
               {
                 text: 'vue2',
                 link: 'https://yanyue404.github.io/vue2/'
+              },
+              {
+                text: 'vue-template-compiler-playground',
+                link: 'https://yanyue404.github.io/vue-template-compiler-playground/'
               }
             ]
           }
