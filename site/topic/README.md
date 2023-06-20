@@ -6,9 +6,9 @@
 
 ## 正则表达式
 
-- [正则手记——语法篇](https://yanyue404.github.io/blog/posts/?id=113)
-- [正则手记——方法篇](https://yanyue404.github.io/blog/posts/?id=245)
-- [正则手记——实例篇](https://yanyue404.github.io/blog/posts/?id=230)
+- [正则手记——语法篇](/topic/regex/正则手记——语法篇.html)
+- [正则手记——方法篇](/topic/regex/正则手记——方法篇.html)
+- [正则手记——实例篇](/topic/regex/正则手记——实例篇.html)
 
 ## 前端常见需求的解决方案
 
