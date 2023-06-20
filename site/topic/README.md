@@ -2,7 +2,7 @@
 
 ## 正则
 
-- [正则手记——语法篇](<(https://yanyue404.github.io/blog/posts/?id=113)>)
+- [正则手记——语法篇](https://yanyue404.github.io/blog/posts/?id=113)
 - [正则手记——方法篇](https://yanyue404.github.io/blog/posts/?id=245)
 - [正则手记——实例篇](https://yanyue404.github.io/blog/posts/?id=230)
 
@@ -20,8 +20,8 @@
 - 3.响应式系统的依赖收集追踪原理
 - 4.深入响应式原理
 - 5.Vue1 mini-vue
-- 6.Vue2 源码级生命周期
-- 7.批量异步更新策略及 nextTick 原理
+- [6.Vue2 源码级生命周期](/topic/vue-explore/6.Vue2%20源码级生命周期.html)
+- [7.批量异步更新策略及 nextTick 原理](/topic/vue-explore/7.批量异步更新策略及%20nextTick%20原理.html)
 - 8.实现 Virtual DOM 下的一个 VNode 节点
 - 9.数据状态更新时的差异 diff 及 patch 机制
 - 10.template 模板是怎样通过 Compile 编译的
