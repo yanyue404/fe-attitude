@@ -22,8 +22,6 @@
 - [**vue-advanced-workshop**](https://github.com/zhengguorong/vue-advanced-workshop) - 尤雨溪亲自讲解 vue 高级特性
 - [**后盾人**](https://doc.houdunren.com/)
 
-> test
-
 ## 框架
 
 ### Vue 生态
@@ -122,6 +120,7 @@
 - [**mammoth.js**](https://github.com/mwilliamson/mammoth.js) - Convert Word documents (.docx files) to HTML
 - [**texme**](https://github.com/susam/texme) - 一个 JS 库，可以将 Markdown 自动渲染成网页内容
 - [any-rule](https://any86.github.io/any-rule/)  正则大全
+- [jsonpath](https://github.com/json-path/JsonPath)  https://www.jsonpath.cn
 
 ## 工程化
 
