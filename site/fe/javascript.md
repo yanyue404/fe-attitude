@@ -682,6 +682,8 @@ newFunc() // Hi! Tom
 
 ## 实现 bind call apply 函数
 
+> 这个更好：http://febook.hzfe.org/awesome-interview/book4/coding-apply-call-bind
+
 ### bind
 
 ```js
@@ -1042,6 +1044,10 @@ console.log(g()) // the closest value
 
 闭包属于一种特殊的作用域，称为 静态作用域。它的定义可以理解为: 父函数被销毁 的情况下，返回出的子函数的`[[scope]]`中仍然保留着父级的单变量对象和作用域链，因此可以继续访问到父级的变量对象，这样的函数称为闭包。
 
+作用：能够在函数定义的作用域外，使用函数定义作用域内的局部变量，并且不会污染全局。
+
+原理：基于词法作用域链和垃圾回收机制，通过维持函数作用域的引用，让函数作用域可以在当前作用域外被访问到。
+
 ```js
 // 函数作为返回值
 function F1() {
@@ -1265,6 +1271,7 @@ const sleep = timeountMS =>
 
 - [yanyue404 - 理解 JS 中的闭包](https://github.com/yanyue404/blog/issues/73)
 - [破解前端面试（80% 应聘者不及格系列）：从闭包说起](https://juejin.cn/post/6844903474212143117)
+- http://febook.hzfe.org/awesome-interview/book1/js-closures
 
 ## 事件触发的流程
 
@@ -2169,14 +2176,21 @@ Object 和 Map 的工程级实现在不同浏览器间存在明显差异，但�
 
 模块化开发在现代开发中已是必不可少的一部分，它大大提高了项目的可维护、可拓展和可协作性。通常，我们 在浏览器中使用 ES6 的模块化支持，在 Node 中使用 commonjs 的模块化支持。
 
-- 分类:
-  - es6: import / export
-  - commonjs: require / module.exports / exports
-  - amd: require / defined
-- require 与 import 的区别
+- CommonJS: 主要是 Node.js 使用，通过 require 同步加载模块，exports 导出内容。
+- AMD: 主要是浏览器端使用，通过 define 定义模块和依赖，require 异步加载模块，推崇依赖前置。
+- CMD: 和 AMD 比较类似，主要是浏览器端使用，通过 require 异步加载模块，exports 导出内容，推崇依赖就近。
+- UMD: 通用模块规范，是 CommonJS、AMD 两个规范的大融合，是跨平台的解决方案。
+- ESM: 官方模块化规范，现代浏览器原生支持，通过 import 异步加载模块，export 导出内容。
+
+  **CommonJS(require) 与 ESM(import) 的区别**
+
   - require 支持 动态导入，import 不支持，正在提案 (babel 下可支持)
-  - require 是 同步 导入，import 属于 异步 导入
+  - require 是 同步 导入(首次加载会缓存结果，后续加载则是直接读取缓存结果)，import 取决于所处的环境，Node.js 同步加载，浏览器端异步加载
   - require 是 值拷贝，导出值变化不会影响导入值；import 指向 内存地址，导入值会随导出值而变化
+
+参考
+
+- http://febook.hzfe.org/awesome-interview/book1/js-module-specs#25-esm-ecmascript-module
 
 ## 浏览器的垃圾回收机制
 

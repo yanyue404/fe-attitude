@@ -1,5 +1,17 @@
 ## 网络篇
 
+## 浏览器从输入网址到页面展示的过程
+
+浏览器从输入网址到渲染页面主要分为以下几个过程
+
+- URL 输入
+- DNS 解析
+- 建立 TCP 连接
+- 发送 HTTP / HTTPS 请求（建立 TLS 连接）
+- 服务器响应请求
+- 浏览器解析渲染页面
+- HTTP 请求结束，断开 TCP 连接
+
 > [yanyue404 - #223 从输入 URL 到页面加载的过程（上）](https://github.com/yanyue404/blog/issues/223)
 >
 > [yanyue404 - #227 从输入 URL 到页面加载的过程（下）](https://github.com/yanyue404/blog/issues/227)

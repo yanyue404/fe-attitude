@@ -12,6 +12,8 @@ ViewModel 负责把 Model 的数据同步到 View 显示出来，还负责把 Vi
 
 ## Vue 的响应式系统原理
 
+![](./imgs/data.png)
+
 Vue 为 MVVM 框架，当数据模型 data 变化时，页面视图会得到响应更新，其原理对 data 的 getter/setter 方法进行拦截（Object.defineProperty 或者 Proxy），利用发布订阅的设计模式，在 getter 方法中进行订阅，在 setter 方法中发布通知，让所有订阅者完成响应。
 
 在响应式系统中，Vue 会为数据模型 `data` 的每一个属性新建一个订阅中心作为发布者，而监听器 `watch`、计算属性 `computed`、视图渲染 `template/render` 三个角色同时作为订阅者，对于监听器 watch，会直接订阅观察监听的属性，对于计算属性 computed 和视图渲染 template/render，如果内部执行获取了 data 的某个属性，就会执行该属性的 getter 方法，然后自动完成对该属性的订阅，当属性被修改时，就会执行该属性的 `setter` 方法，从而完成该属性的发布通知，通知所有订阅者进行更新。
@@ -500,7 +502,7 @@ Vue.mixin({
 
 ## computed 和 watch 的区别
 
-computed 是计算属性，依赖其他属性计算值，并且 computed 的值有缓存，只有当计算值变化才会返回内容。
+computed 是计算属性，依赖其他属性计算值，会创建新的响应式数据,并且 computed 的值有缓存，只有当计算值变化才会返回内容。
 
 watch 监听到值的变化就会执行回调，在回调中可以进行一些逻辑操作。
 
@@ -509,6 +511,37 @@ watch 监听到值的变化就会执行回调，在回调中可以进行一些�
 为什么计算属性不能进行异步操作？因为计算属性必须将计算后的值  `return`  回去，如果在计算属性中使用异步操作，那会返回一个  `undefined`：
 
 所以一般来说需要依赖别的属性来动态获得值的时候可以使用 computed，对于监听到值的变化需要做一些复杂业务逻辑的情况可以使用 watch。
+
+## Vue 中的 computed 是如何实现的
+
+主要分为四个阶段
+
+![](./imgs/computed.png)
+
+1. 初始化：为 computed 属性创建 lazy watcher（此处 watcher 指双向绑定中的监听器，下同）。
+
+2. 首次模板渲染：渲染 watcher 检测到 computed 属性时，会调用 computed 属性的 getter 方法，而 computed 属性的 getter 方法会调用依赖属性的 getter，从而形成链式调用，同时保存引用关系用于更新。取得计算结果后 lazy watcher 会将结果缓存，并返回给渲染 watcher 进行模板渲染。
+
+3. 多次模板渲染：直接取 lazy watcher 中的缓存值给到渲染 watcher 进行渲染。
+
+4. 依赖属性更新：根据首次模板渲染阶段构建的依赖关系向上通知 lazy watcher 进行重新计算，缓存计算结果并通知渲染 watcher 重新渲染更新页面。
+
+computed 本身是通过代理的方式代理到组件实例上的，所以读取计算属性的时候，执行的是一个内部的 getter，而不是用户定义的方法。
+
+computed 内部实现了一个惰性的 watcher，在实例化的时候不会去求值，其内部通过 dirty 属性标记计算属性是否需要重新求值。当 computed 依赖的任一状态（不一定是 return 中的）发生变化，都会通知这个惰性 watcher，让它把 dirty 属性设置为 true。所以，当再次读取这个计算属性的时候，就会重新去求值。
+
+参考链接
+
+- https://ustbhuangyi.github.io/vue-analysis/v2/reactive/computed-watcher.html#computed
+- http://febook.hzfe.org/awesome-interview/book1/frame-vue-computed-watch
+
+## watch 原理
+
+watch 本质上是为每个监听属性 setter 创建了一个 watcher，当被监听的属性更新时，调用传入的回调函数。常见的配置选项有 deep 和 immediate，对应原理如下：
+
+1. deep：深度监听对象，为对象的每一个属性创建一个 watcher，从而确保对象的每一个属性更新时都会触发传入的回调函数。主要原因在于对象属于引用类型，单个属性的更新并不会触发对象 setter，因此引入 deep 能够很好地解决监听对象的问题。同时也会引入判断机制，确保在多个属性更新时回调函数仅触发一次，避免性能浪费。
+
+2. immediate：在初始化时直接调用回调函数，可以通过在 created 阶段手动调用回调函数实现相同的效果。
 
 ## v-show 与 v-if 区别
 
@@ -974,8 +1007,52 @@ const ul = {
 - 如果为相同节点，进行 patchVnode，判断如何对该节点的子节点进行处理，先判断一方有子节点一方没有子节点的情况(如果新的 children 没有子节点，将旧的子节点移除)
 - 比较如果都有子节点，则进行 updateChildren，判断如何对这些新老节点的子节点进行操作（diff 核心）。
 - 匹配时，找到相同的子节点，递归比较子节点
+- 同一层级的一组节点，可以通过唯一标识符进行区分
 
 在 diff 中，只对同层的子节点进行比较，放弃跨级的节点比较，使得时间复杂从 O(n^3)降低值 O(n)，也就是说，只有当新旧 children 都为多个子节点时才需要用核心的 Diff 算法进行同层级比较。
+
+Vue 的 Diff 算法和 React 的类似，只在同一层次进行比较，不进行跨层比较。如果两个元素被判定为不相同，则不继续递归比较。在 Diff 子元素的过程中，采用双端比较的方法，设立 4 个指针：
+
+- oldStartIdx 指向旧子元素列表中，从左边开始 Diff 的元素索引。初始值：第一个元素的索引。
+- newStartIdx 指向新子元素列表中，从左边开始 Diff 的元素索引。初始值：第一个元素的索引。
+- oldEndIdx 指向旧子元素列表中，从右边开始 Diff 的元素索引。初始值：最后一个元素的索引。
+- newEndIdx 指向新子元素列表中，从右边开始 Diff 的元素索引。初始值：最后一个元素的索引。
+
+![](./imgs/vue-diff.png)
+
+Vue 同时遍历新老子元素虚拟 DOM 列表，并采用头尾比较。一般有 4 种情况：
+
+1. **当新老 start 指针指向的是相同节点**
+
+复用节点并按需更新。
+
+新老 start 指针向右移动一位。
+
+2. **当新老 end 指针指向的是相同节点**
+
+复用节点并按需更新。
+
+新老 end 指针向左移动一位。
+
+3. **当老 start 指针和新 end 指针指向的是相同节点**
+
+复用节点并按需更新，将节点对应的真实 DOM 移动到子元素列表队尾。
+
+老 start 指针向右移动一位。
+
+新 end 指针向左移动一位。
+
+4. **当老 end 指针和新 start 指针指向的是相同节点**
+
+复用节点并按需更新，将节点对应的真实 DOM 移动到子元素列表队头。
+
+老 end 指针向左移动一位。
+
+新 start 指针向右移动一位。
+
+在不满足以上情况的前提下，会尝试检查新 start 指针指向的节点是否有唯一标识符 key，如果有且能在旧列表中找到拥有相同 key 的相同类型节点，则可复用并按需更新，且移动节点到新的位置。新 start 指针向右移动一位。如果依旧不满足条件，则新增相关节点。
+
+当新老列表的中任意一个列表的头指针索引大于尾指针索引时，循环遍历结束，按需删除或新增相关节点即可。
 
 ## Vue 中 key 的作用
 
@@ -1429,14 +1506,6 @@ npm run serve
 - 简单的 debugger 语句
 
 - https://v2.cn.vuejs.org/v2/cookbook/debugging-in-vscode.html
-
-## Vue 中的 computed 是如何实现的
-
-computed 本身是通过代理的方式代理到组件实例上的，所以读取计算属性的时候，执行的是一个内部的 getter，而不是用户定义的方法。
-
-computed 内部实现了一个惰性的 watcher，在实例化的时候不会去求值，其内部通过 dirty 属性标记计算属性是否需要重新求值。当 computed 依赖的任一状态（不一定是 return 中的）发生变化，都会通知这个惰性 watcher，让它把 dirty 属性设置为 true。所以，当再次读取这个计算属性的时候，就会重新去求值。
-
-https://ustbhuangyi.github.io/vue-analysis/v2/reactive/computed-watcher.html#computed
 
 ## vue 渲染大量数据时应该怎么优化？
 
