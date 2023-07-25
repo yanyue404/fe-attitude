@@ -907,18 +907,61 @@ var isValid = function(s) {
   }
   const stack = []
   for (let i = 0; i < s.length; i++) {
+    // 遇到左括号，入栈
     if (map[s[i]]) {
-      stack.push(s[i])
-    } else if (s[i] !== map[stack.pop()]) {
+      stack.unshift(s[i])
+      // 遇到右括号，拿栈顶元素与当前匹配，不一样直接退出
+    } else if (s[i] !== map[stack.shift()]) {
       return false
     }
   }
+  // 防止全部为左括号
   return stack.length === 0
 }
 
-console.log(isValid('()')) // true
-console.log(isValid('()[]{}')) // true
-console.log(isValid('(]')) // false
+// 不用栈可以做吗？
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid2 = function(s) {
+  let len = s.length
+  // 长度不是偶数直接返回 false
+  if (len % 2 !== 0) {
+    return false
+  }
+
+  // 是偶数，遍历长度为一半，每次遍历找到对应的括号将它替换成""
+  // 每一轮至少可以替换一对括号
+  let length = len / 2
+  for (let i = 0; i < length; i++) {
+    s = s.replace(/(\(\))|(\[\])|(\{\})/g, '')
+    // 优化轮次
+    if (s.length === 0) {
+      return true
+    }
+  }
+
+  return s.length === 0
+}
+
+// 找到最内层的括号对，消去，重复此过程，若存在无法消去的字符则说明字符串无效。
+var isValid3 = function(s) {
+  if (s.length % 2 !== 0) return false
+  while (s.length) {
+    let temp = s
+    s = s.replace(/(\(\))|(\[\])|(\{\})/g, '')
+    // 消不了直接返回
+    if (s == temp) return false
+  }
+  return true
+}
+
+console.log(isValid3('()')) // true
+console.log(isValid3('()[]{}')) // true
+console.log(isValid3('(]')) // false
+console.log(isValid3('{([])}')) // false
 ```
 
 ## 字符串
