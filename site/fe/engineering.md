@@ -95,30 +95,27 @@ module.exports = {
 
 ### 工作原理
 
-
-`proxy`工作原理实质上是利用`http-proxy-middleware` 这个`http`代理中间件，实现请求转发给其他服务器
+`proxy`工作原理实质上是利用`http-proxy-middleware`  这个`http`代理中间件，实现请求转发给其他服务器
 
 举个例子：
 
 在开发阶段，本地地址为`http://localhost:3000`，该浏览器发送一个前缀带有`/api`标识的请求到服务端获取数据，但响应这个请求的服务器只是将请求转发到另一台服务器中
 
 ```js
-const express = require('express');
-const proxy = require('http-proxy-middleware');
+const express = require('express')
+const proxy = require('http-proxy-middleware')
 
-const app = express();
+const app = express()
 
-app.use('/api', proxy({target: 'http://www.example.org', changeOrigin: true}));
-app.listen(3000);
+app.use('/api', proxy({ target: 'http://www.example.org', changeOrigin: true }))
+app.listen(3000)
 
 // http://localhost:3000/api/foo/bar -> http://www.example.org/api/foo/bar
-
 ```
-
 
 ### 跨域
 
-在开发阶段， `webpack-dev-server` 会启动一个本地开发服务器，所以我们的应用在开发阶段是独立运行在 `localhost`的一个端口上，而后端服务又是运行在另外一个地址上
+在开发阶段， `webpack-dev-server`  会启动一个本地开发服务器，所以我们的应用在开发阶段是独立运行在  `localhost`的一个端口上，而后端服务又是运行在另外一个地址上
 
 所以在开发阶段中，由于浏览器同源策略的原因，当本地访问后端就会出现跨域请求的问题
 

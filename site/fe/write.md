@@ -14,6 +14,7 @@
 - 实现 Promise.all
 - 实现 Promise.allSettled
 - 封装事件类 EventEmitter（发布订阅模式）
+- 模拟 localStorage 时如何实现过期时间功能
 
 **JavaScript 编码能力**
 
@@ -926,6 +927,37 @@ setTimeout(() => {
 setTimeout(() => {
   eventHub.emit('click', '1024')
 }, 1500)
+```
+
+### 模拟 localStorage 时如何实现过期时间功能
+
+扩展 localStorage 支持 expires
+
+```js
+;(function() {
+  var getItem = localStorage.getItem.bind(localStorage)
+  var setItem = localStorage.setItem.bind(localStorage)
+  var removeItem = localStorage.removeItem.bind(localStorage)
+  localStorage.getItem = function(keyName) {
+    var expires = getItem(keyName + '_expires')
+    if (expires && new Date() > new Date(Number(expires))) {
+      removeItem(keyName)
+      removeItem(keyName + '_expires')
+    }
+    return getItem(keyName)
+  }
+  localStorage.setItem = function(keyName, keyValue, expires) {
+    if (typeof expires !== 'undefined') {
+      var expiresDate = new Date(expires).valueOf()
+      setItem(keyName + '_expires', expiresDate)
+    }
+    return setItem(keyName, keyValue)
+  }
+})()
+
+// 使用
+localStorage.setItem('key', 'value', new Date() + 10000) // 10 秒钟后过期
+localStorage.getItem('key')
 ```
 
 ## JavaScript 编码能力

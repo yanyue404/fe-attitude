@@ -1825,6 +1825,8 @@ fn.call({ a: 100 })
 
 `Promise` 可以将回调变成链式调用写法，流程更加清晰，代码更加优雅。
 
+Promise new 的时候会立即执行（同步）构造函数里面的代码， then 方法是异步执行的（微任务）。
+
 简单归纳下 Promise：**三个状态、两个过程、一个方法**，快速记忆方法：**3-2-1**
 
 三个状态：`pending`、`fulfilled`、`rejected`
@@ -1836,7 +1838,12 @@ fn.call({ a: 100 })
 
 一个方法：`then`
 
-当然还有其他概念，如`catch`、 `Promise.all/race/allSettled`，这里就不展开了。
+当然还有其他概念，如`catch`用于错误捕获， `Promise.all/race/allSettled`。
+
+- Promise.all() 所有 promise 都成功才返回结果，若有一个出错则直接阻断执行并返回错误信息。
+- Promise.race() 所有 promise 竞赛，取最先改变的 promise 实例结果返回。
+- Promise.allset() 不管 单个 Promise 请求成功还是失败，都会返回结果。（每个对象都有 status 属性描述请求结果状态）
+- Promise.any() 【提案中】 所有 promise 竞赛，取最先成功 fulfilled 的 promise 实例结果返回，不会因为某个 Promise 变成 rejected 状态而结束。如果所有参数实例都变成 rejected 状态，包装实例就会变成 rejected 状态
 
 ## Async & Await
 
@@ -1855,6 +1862,133 @@ Promise 前的关键字 await 使 JavaScript 引擎等待该 promise settle，�
 这两个关键字一起提供了一个很好的用来编写异步代码的框架，这种代码易于阅读也易于编写。
 
 有了 async/await 之后，我们就几乎不需要使用 promise.then/catch，但是不要忘了它们是基于 promise 的，因为有些时候（例如在最外层作用域）我们不得不使用这些方法。并且，当我们需要同时等待需要任务时，Promise.all 是很好用的。
+
+## async、await 与 promise 的错误处理
+
+1. 一般情况下 async/await 在错误处理方面，主要使用 `try/catch`
+
+```js
+const fetchData = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('fetch data is me')
+    }, 1000)
+  })
+}
+
+;(async () => {
+  try {
+    const data = await fetchData()
+    console.log('data is ->', data)
+  } catch (err) {
+    console.log('err is ->', err)
+  }
+})()
+```
+
+2. 将对 await 处理的方法抽离成公共的方法 awaitWrap
+
+```js
+;(async () => {
+  const fetchData = () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('fetch data is me')
+      }, 1000)
+    })
+  }
+
+  // 抽离成公共方法
+  const awaitWrap = promise => {
+    return promise.then(data => [null, data]).catch(err => [err, null])
+  }
+
+  const [err, data] = await awaitWrap(fetchData())
+  console.log('err', err)
+  console.log('data', data)
+  // err null
+  // data fetch data is me
+})()
+```
+
+3. Promise.all 使用 Promise.allSettled 替代或自己实现一个 Promise 工具函数
+
+```js
+const promise1 = Promise.resolve(3)
+const promise2 = new Promise((resolve, reject) => setTimeout(reject, 100, 'foo'))
+const promises = [promise1, promise2]
+
+Promise.allSettled(promises).then(results => results.forEach(result => console.log(result.status)))
+
+// Expected output:
+// "fulfilled"
+// "rejected"
+```
+
+```js
+Promise.every = promiseAry => {
+  return new Promise((resolve, reject) => {
+    let resultAry = [],
+      errorAry = [],
+      index = 0,
+      index__error = 0
+    for (let i = 0; i < promiseAry.length; i++) {
+      Promise.resolve(promiseAry[i])
+        .then(result => {
+          index++
+          resultAry[i] = result
+          if (index === promiseAry.length) {
+            resolve(resultAry)
+          }
+        })
+        .catch(reason => {
+          index__error++
+          index++
+          errorAry[i] = reason
+          if (index__error === promiseAry.length) {
+            reject(errorAry)
+          }
+        })
+    }
+  })
+}
+```
+
+## JS 异步解决方案的发展历程以及优缺点
+
+1. 回调函数（callback）
+
+缺点：回调地狱，不能用 try catch 捕获错误，不能 return
+
+优点：解决了同步的问题（只要有一个任务耗时很长，后面的任务都必须排队等着，会拖延整个程序的执行。）
+
+2. Promise
+
+优点：解决了回调地狱的问题
+
+缺点：无法取消 Promise ，错误需要通过回调函数来捕获
+
+3. Generator
+
+特点：可以控制函数的执行，可以配合 co 函数库使用
+
+4. Async/await
+
+async、await 是异步的终极解决方案 (await 就是 generator 加上 Promise 的语法糖，且内部实现了自动执行 generator)
+
+优点：代码清晰，不用像 Promise 写一大堆 then 链，处理了回调地狱的问题
+
+缺点：await 将异步代码改造成同步代码，如果多个异步操作没有依赖性而使用 await 会导致性能上的降低。
+
+```js
+async function test() {
+  // 以下代码没有依赖性的话，完全可以使用 Promise.all 的方式
+  // 如果有依赖性的话，其实就是解决回调地狱的例子了
+  await fetch('XXX1')
+  await fetch('XXX2')
+  await fetch('XXX3')
+}
+```
 
 ## Set 和 Map
 
@@ -2176,6 +2310,7 @@ Object 和 Map 的工程级实现在不同浏览器间存在明显差异，但�
 
 模块化开发在现代开发中已是必不可少的一部分，它大大提高了项目的可维护、可拓展和可协作性。通常，我们 在浏览器中使用 ES6 的模块化支持，在 Node 中使用 commonjs 的模块化支持。
 
+- IIFE: 使用自执行函数来编写模块化，特点：在一个单独的函数作用域中执行代码，避免变量冲突。
 - CommonJS: 主要是 Node.js 使用，通过 require 同步加载模块，exports 导出内容。
 - AMD: 主要是浏览器端使用，通过 define 定义模块和依赖，require 异步加载模块，推崇依赖前置。
 - CMD: 和 AMD 比较类似，主要是浏览器端使用，通过 require 异步加载模块，exports 导出内容，推崇依赖就近。
