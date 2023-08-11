@@ -85,6 +85,7 @@
 - [webpack-chain](https://github.com/neutrinojs/webpack-chain) - 通过 chain 风格 api 的方式修改 webpack 配置。
 - [webpack-bundle-analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer) - 构建产物占比分析。
 - [speed-measure-webpack-plugin](https://github.com/stephencookdev/speed-measure-webpack-plugin) - 统计 webpack 各阶段耗时。
+- [webpack-spritesmith](https://github.com/mixtur/webpack-spritesmith/tree/master) - Webpack 插件，可将一组图像转换为 spritesheet 和 SASS/LESS/Stylus mixins
 - [**webpack-to-vite**](https://github.com/originjs/webpack-to-vite) - 将 Webpack 项目转为 Vite 项目
 
 ## 工具库
@@ -152,6 +153,7 @@
 - [**markdown-table**](https://github.com/wooorm/markdown-table) - node.js 生成 markdown table 表
 - [**onchange**](https://github.com/Qard/onchange) - 监听文件变动然后做一些事
 - [**open**](https://github.com/sindresorhus/open) node 打开浏览器
+- [**jsonpath**](https://github.com/dchester/jsonpath) - 使用 JSONPath 表达式查询和操作 JavaScript 对象。适用于 Node.js 的强大 JSONPath 引擎。
 
 ### 命令行
 
