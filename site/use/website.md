@@ -1,5 +1,20 @@
 # 网站
 
+## 日常高频
+
+- 社交账号 [github](https://github.com/yanyue404) / [掘金](https://juejin.cn/user/1099167359041966) /[知乎](https://www.zhihu.com/people/yan-yue-44-30) / [segmentfault](https://segmentfault.com/u/yanyue404)
+- [在线小工具](https://ftest.tk.cn/tk-online/common/smallfunc/#/qrcode/index)
+- 在线项目 [codesandbox](https://codesandbox.io/u/yanyue404) [codepen](https://codepen.io/) 
+- [stackoverflow questions](https://stackoverflow.com/questions)
+- [clipboard2markdown](https://euangoddard.github.io/clipboard2markdown/) / [Html 转 Markdown](http://www.atoolbox.net/Tool.php?Id=715)
+- [**regex101**](https://regex101.com/) - 正则表达式测试
+- [**regulex**](https://jex.im/regulex/) / [ **RegExper**](https://regexper.com/) 正则可视化
+- [**tinypng**](https://tinypng.com/) / [**squoosh**](https://squoosh.app) - 图片压缩
+- [**在线 PS**](https://www.uupoop.com/#/old) / [**photopea**](https://www.photopea.com/)
+- [**astexplorer**](https://github.com/fkling/astexplorer) - 一个在线 ast 生成器 https://astexplorer.net/
+- [**Package Diff**](https://diff.intrinsic.com/)，比较 npm 包两个版本直接的区别
+- [开发者武器库](https://devtool.tech/)
+
 ## 常看的网站
 
 - [**阮一峰的网络日志**](http://www.ruanyifeng.com/blog/) 阮老师出品
@@ -8,19 +23,12 @@
 - [**奇舞周刊**](https://weekly.75.team/)
 - [**每日时报**](https://wubaiqing.github.io/zaobao/) 定期会分享一些库和工具
 - [**DailyJS**](https://medium.com/dailyjs)
-- 我的社交账号 [github](https://github.com/yanyue404) / [掘金](https://juejin.cn/user/1099167359041966) /[知乎](https://www.zhihu.com/people/yan-yue-44-30) / [segmentfault](https://segmentfault.com/u/yanyue404)
 - [**端传媒**](https://theinitium.com/channel/mainland/)
 - [**知乎热搜榜**](https://github.com/justjavac/zhihu-trending-top-search)
 - [**知乎热门话题**](https://github.com/justjavac/zhihu-trending-hot-questions)
-- [**鱼塘**](https://www.printf520.com/hot.html) 收集了很多网站 当天热门文章
 
 ## 前端开发
 
-- [**在线 PS**](https://www.uupoop.com/#/old) / [**photopea**](https://www.photopea.com/)
-- [**tinypng**](https://tinypng.com/) / [**squoosh**](https://squoosh.app) - 图片压缩
-- [**regulex**](https://jex.im/regulex/) / [ **RegExper**](https://regexper.com/) 正则可视化
-- [**regex101**](https://regex101.com/) - 正则表达式测试
-- [**astexplorer**](https://github.com/fkling/astexplorer) - 一个在线 ast 生成器 https://astexplorer.net/
 - [**30 seconds of code**](https://30secondsofcode.org/) 收集了许多有用的代码小片段
 - [**CSS triangle generator**](http://apps.eky.hk/css-triangle-generator/) CSS 三角形产生器
 - [**cssarrowplease**](http://www.cssarrowplease.com/) 帮你做对话框三角的
@@ -29,14 +37,15 @@
 - [**runpkg**](https://github.com/FormidableLabs/runpkg) - 在线 npm 包浏览器 https://runpkg.com/
 - [**Can I use**](https://caniuse.com/) 查询浏览器的特性支持情况
 - [**codesandbox**](https://codesandbox.io/) 一个可以在线编辑且提供在线 demo 的网站 支持 vue react angular 多种框架 神器
-- [**Package Diff**](https://diff.intrinsic.com/)，比较 npm 包两个版本直接的区别
 - [**netlify**](https://www.netlify.com/) - 静态网站托管服务
 - [**carbon**](https://carbon.now.sh/) 在线代码生成图片 https://carbon.now.sh/
-- [**smallfunc**](http://mtest.tkcn.cc/tk-online/common/smallfunc/#/qrcode/index) 小工具
 - [**JavaScript Visualizer**](https://tylermcginnis.com/javascript-visualizer/) 可视化 **ES5** `JavaScript` 执行
 - [**loupe**](https://github.com/latentflip/loupe) - 可视化的 javascript 实时运行,理解异步, Built by [**Philip Roberts**](http://github.com/latentflip)
 - [**RMind**](https://github.com/Mongkii/RMind) - 基于 React Hooks 与 flex 布局 的思维导图 https://mongkii.github.io/RMind/
 - [**visualgo**](https://visualgo.net/zh/) - 数据结构，算法可视化
+- [油猴脚本 - Greasy Fork](https://greasyfork.org/zh-TW)
+- [极简插件 - Chrome 插件/扩展](https://chrome.zzzmh.cn/#/index)
+- [VS Code 离线扩展](https://marketplace.visualstudio.com/)
 
 ### markdown
 
