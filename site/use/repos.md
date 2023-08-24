@@ -2,6 +2,11 @@
 
 ## 教程
 
+
+<details><summary>开启教程 :sunflower:</summary>
+
+- [现代 JavaScript 教程](https://zh.javascript.info/)
+- [Node.js 学习教程](https://dev.nodejs.cn/learn/)
 - [**npx**](https://egghead.io/courses/execute-npm-package-binaries-with-the-npx-package-runner) 教你怎么合理的使用 npx
 - [**mobile-web-best-practice**](https://github.com/mcuking/mobile-web-best-practice) 移动 web 最佳实践
 - [**vanillawebprojects**](https://github.com/bradtraversy/vanillawebprojects) 通过纯前端的手段实现一些小项目，适合入门
@@ -22,19 +27,22 @@
 - [**vue-advanced-workshop**](https://github.com/zhengguorong/vue-advanced-workshop) - 尤雨溪亲自讲解 vue 高级特性
 - [**后盾人**](https://doc.houdunren.com/)
 
+</details>
+
 ## 框架
 
 ### Vue 生态
 
 - [vue](https://github.com/vuejs/vue) - 中文 [vue2](https://v2.cn.vuejs.org/) / [vue3](https://cn.vuejs.org/)
-- [nuxt.js](https://github.com/nuxt/nuxt.js) [英文](https://nuxtjs.org/) / [中文 1](https://www.nuxtjs.cn/) / [中文 2](https://www.w3cschool.cn/nuxtjs/)
+- [nuxt.js](https://github.com/nuxt/nuxt.js) [英文](https://nuxtjs.org/) / [中文 1](https://www.nuxtjs.cn/) / [中文2](https://develop365.gitlab.io/nuxtjs-2.6.x-doc/zh/guide/) /  [中文 3](https://www.w3cschool.cn/nuxtjs/) / [nuxt 模块](https://v2.nuxt.com/docs/directory-structure/modules/)
 - [nuxt3](https://github.com/nuxt/framework) [英文](https://nuxt.com/) / [中文](https://www.nuxtjs.org.cn/)
 - [quasar](https://github.com/quasarframework/quasar) - 基于 vue，一套代码多处适用。[中文文档](http://www.quasarchs.com/)
 - [vue-router](https://github.com/vuejs/vue-router)
 - [vuex](https://github.com/vuejs/vuex)
 - [vueuse](https://github.com/vueuse/vueuse) [文档](https://vueuse.org/)
-- [vant](https://vant-ui.github.io/vant/#/zh-CN/) - 轻量、可靠的移动端 Vue 组件库
-- [element-ui](https://github.com/ElemeFE/element) - Vue 的桌面端组件库
+- [vant](https://github.com/youzan/vant) - 轻量、可靠的移动端 Vue 组件库 [文档](https://vant-ui.github.io/vant/#/zh-CN/)
+- [element-ui](https://github.com/ElemeFE/element) - Vue 的桌面端组件库 [文档](https://element.eleme.cn/#/zh-CN/component/installation)
+- [element-plus](https://github.com/element-plus/element-plus) - 🎉 Element 团队制作的 Vue.js 3 UI 库 [文档](https://element-plus.org/zh-CN/)
 
 ### React 生态
 
@@ -57,6 +65,7 @@
 - [vue-content-placeholders](https://github.com/michalsnik/vue-content-placeholders)  页面龙骨 skeleton
 - [vxe-table](https://github.com/xuliangzhan/vxe-table)vue 表格解决方案，还没具体用过看着的确解决了其它 table 组件的一些问题
 - [Vue 测试指南](https://lmiller1990.github.io/vue-testing-handbook/zh-CN/) vue 测试指南
+- [v-charts](https://github.com/ElemeFE/v-charts) - 基于 Vue2.0 和 ECharts 封装的图表组件📈📊
 
 ## 脚手架
 
@@ -69,8 +78,8 @@
 ## 打包工具
 
 - [webpack](https://github.com/webpack/webpack) - 打包项目
-- [**rollup**](https://github.com/rollup/rollup) - 打包 SDK
-- [**vite**](https://github.com/vitejs/vite) - 下一代前端工具。它很快！
+- [**rollup**](https://github.com/rollup/rollup) - 打包 SDK [文档]((https://rollupjs.org/)
+- [**vite**](https://github.com/vitejs/vite) - 下一代前端工具。它很快！[中文文档](https://cn.vitejs.dev/)
 - [systemjs](https://github.com/systemjs/systemjs) - 动态 ES 模块加载器
 - [microbundle](https://github.com/developit/microbundle) - 基于 rollup，简化配置。
 - [bili](https://github.com/egoist/bili) - 基于 rollup，同上。
@@ -184,3 +193,5 @@
 - [**ndb**](https://github.com/GoogleChromeLabs/ndb) node 调试
 - [**node-in-debugging**](https://github.com/nswbmw/node-in-debugging) node.js 调试指南
 - [**Node.js 最佳实践**](https://github.com/i0natan/nodebestpractices/blob/master/README.chinese.md)
+
+
