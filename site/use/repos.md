@@ -2,7 +2,6 @@
 
 ## 教程
 
-
 <details><summary>开启教程 :sunflower:</summary>
 
 - [现代 JavaScript 教程](https://zh.javascript.info/)
@@ -34,7 +33,7 @@
 ### Vue 生态
 
 - [vue](https://github.com/vuejs/vue) - 中文 [vue2](https://v2.cn.vuejs.org/) / [vue3](https://cn.vuejs.org/)
-- [nuxt.js](https://github.com/nuxt/nuxt.js) [英文](https://nuxtjs.org/) / [中文 1](https://www.nuxtjs.cn/) / [中文2](https://develop365.gitlab.io/nuxtjs-2.6.x-doc/zh/guide/) /  [中文 3](https://www.w3cschool.cn/nuxtjs/) / [nuxt 模块](https://v2.nuxt.com/docs/directory-structure/modules/)
+- [nuxt.js](https://github.com/nuxt/nuxt.js) [英文](https://nuxtjs.org/) / [中文 1](https://www.nuxtjs.cn/) / [中文 2](https://develop365.gitlab.io/nuxtjs-2.6.x-doc/zh/guide/) / [中文 3](https://www.w3cschool.cn/nuxtjs/) / [nuxt 模块](https://v2.nuxt.com/docs/directory-structure/modules/)
 - [nuxt3](https://github.com/nuxt/framework) [英文](https://nuxt.com/) / [中文](https://www.nuxtjs.org.cn/)
 - [quasar](https://github.com/quasarframework/quasar) - 基于 vue，一套代码多处适用。[中文文档](http://www.quasarchs.com/)
 - [vue-router](https://github.com/vuejs/vue-router)
@@ -65,7 +64,7 @@
 - [vue-content-placeholders](https://github.com/michalsnik/vue-content-placeholders)  页面龙骨 skeleton
 - [vxe-table](https://github.com/xuliangzhan/vxe-table)vue 表格解决方案，还没具体用过看着的确解决了其它 table 组件的一些问题
 - [Vue 测试指南](https://lmiller1990.github.io/vue-testing-handbook/zh-CN/) vue 测试指南
-- [v-charts](https://github.com/ElemeFE/v-charts) - 基于 Vue2.0 和 ECharts 封装的图表组件📈📊
+- [v-charts](https://github.com/ElemeFE/v-charts) - 基于 Vue2.0 和 ECharts 封装的图表组件 📈📊
 
 ## 脚手架
 
@@ -130,7 +129,7 @@
 - [**mammoth.js**](https://github.com/mwilliamson/mammoth.js) - Convert Word documents (.docx files) to HTML
 - [**texme**](https://github.com/susam/texme) - 一个 JS 库，可以将 Markdown 自动渲染成网页内容
 - [any-rule](https://any86.github.io/any-rule/)  正则大全
-- [jsonpath](https://github.com/json-path/JsonPath)  https://www.jsonpath.cn
+- [jsonpath](https://github.com/json-path/JsonPath) https://www.jsonpath.cn
 
 ## 工程化
 
@@ -194,4 +193,43 @@
 - [**node-in-debugging**](https://github.com/nswbmw/node-in-debugging) node.js 调试指南
 - [**Node.js 最佳实践**](https://github.com/i0natan/nodebestpractices/blob/master/README.chinese.md)
 
+## Chrome 拓展
 
+- [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)  油猴 神器
+- [扩展管理器](https://chrome.google.com/webstore/detail/extension-manager/gjldcdngmdknpinoemndlidpcabkggco/related?utm_source=chrome-ntp-icon)  轻松管理扩展，就不用担心安装太多扩展了
+- [visbug](https://github.com/GoogleChromeLabs/ProjectVisBug)  它可以帮助你改变 css，移动元素等等一系类强大的功能,页面调试神器。当然有些时候还是 DevTools 更好用
+- [refined-github](https://github.com/sindresorhus/refined-github)  优化 github 默认功能和样式的 chrome 插件
+- [ADB](https://chrome.google.com/webstore/detail/adb/dpngiggdglpdnjdoaefidgiigpemgage) chrome 真机调试安卓神器
+- [Adblock Plus](https://chrome.google.com/webstore/detail/adblock-plus-free-ad-bloc/cfhdojbkjhnklbpkdaibdccddilifddb)  免费广告拦截程序 这个应该不用说了，装机必备
+- [Axure RP Extension](https://chrome.google.com/webstore/detail/axure-rp-extension-for-ch/dogkpdfcklifaemcdfbildhcofnopogp)  看原型必备
+- [JSON Formatter](https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa) JSON 格式化 程序员必备
+- [Lighthouse](https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk)  谷歌出品，检查网页综合性能评分，分析不足
+- [二维码(QR 码)生成器](https://chrome.google.com/webstore/detail/%E4%BA%8C%E7%BB%B4%E7%A0%81qr%E7%A0%81%E7%94%9F%E6%88%90%E5%99%A8qr-code-generato/pflgjjogbmmcmfhfcnlohagkablhbpmg)  手机扫码神器
+- [Octotree](https://chrome.google.com/webstore/detail/octotree/bkhaagjahfmjljalopjnoealnfndnagc) github 上看代码必备神器
+- [OctoLinker](https://chrome.google.com/webstore/detail/octolinker/jlmafbaeoofdegohdhinkhilhclaklkp)  能在 github 上看代码的时候 快速链接跳转到依赖的库
+- [The Great Suspender](https://chrome.google.com/webstore/detail/the-great-suspender/klbibkeccnjlkjkiokjodocebajanakg) chrome 太吃内存了，当页面开的很多时候会很卡，它就完美的解决了这个问题。它将几分钟没浏览过的页面都挂载了，当你想看是再重新加载
+- [WEB 前端助手](https://chrome.google.com/webstore/detail/web%E5%89%8D%E7%AB%AF%E5%8A%A9%E6%89%8Bfehelper/pkgccpejnmalmdinmhkkfafefagiiiad)  支持 JSON 格式化、二维码生成与解码、代码压缩、Markdown 与 HTML 互转、网页滚动截屏、正则表达式、时间转换工具、JSON 比对工具等
+- [掘金](https://chrome.google.com/webstore/detail/%E6%8E%98%E9%87%91/lecdifefmmfjnjjinhaennhdlmcaeeeb)  目前我默认新开 tab 的默认页，可以刷刷新的文章或者项目，还不错。
+- [沙拉查词](https://chrome.google.com/webstore/detail/%E6%B2%99%E6%8B%89%E6%9F%A5%E8%AF%8D-%E8%81%9A%E5%90%88%E8%AF%8D%E5%85%B8%E5%88%92%E8%AF%8D%E7%BF%BB%E8%AF%91/cdonnmffkdaoajfknoeeecmchibpmkmg)  划词翻译插件
+- 沉浸式翻译 - 沉浸式网页双语翻译扩展
+- [npmhub](https://github.com/npmhub/npmhub)在 README 下方显示 npm 依赖信息
+
+## VS Code
+
+- [Import Cost](https://marketplace.visualstudio.com/items?itemName=wix.vscode-import-cost)  查看你引入的依赖模块大小
+- [Auto Close Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-close-tag)  自动补全 html 标签，如输入`<a>`将自动补全`</a>`
+- [Auto Rename Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag)  自动重命名 html 标签，如修改`<a>为<b>`，将自动修改结尾标签`</a>为</b>`
+- [polacode](https://github.com/octref/polacode)  生产代码图片快照插件
+- [vscode-leetcode](https://github.com/jdneo/vscode-leetcode)  一个能让你在 vscode 中刷 LeetCode 的插件 算一个划水神器吧
+- [vscode-icons](https://marketplace.visualstudio.com/items?itemName=robertohuertasm.vscode-icons) VS Code 必备吧，为文件添加炫图标
+- [CodeSnap](https://marketplace.visualstudio.com/items?itemName=adpyke.codesnap)  生产代码截图
+
+### 主题
+
+[官方主题页](https://marketplace.visualstudio.com/search?target=VSCode&category=Themes&sortBy=Installs)  可以选择自己喜欢的主题  [one-monokai](https://marketplace.visualstudio.com/items?itemName=azemoh.one-monokai)  我用的是这个主题，很多年了
+
+### 字体
+
+- [FiraCode](https://github.com/tonsky/firacode)
+- [Dank Mono](https://dank.sh/)
+- [Operator Mono](https://www.typography.com/blog/introducing-operator)

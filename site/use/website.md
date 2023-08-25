@@ -1,10 +1,10 @@
 # 网站
 
-## 日常高频
+## 开发日常高频
 
 - 社交账号 [github](https://github.com/yanyue404) / [掘金](https://juejin.cn/user/1099167359041966) /[知乎](https://www.zhihu.com/people/yan-yue-44-30) / [segmentfault](https://segmentfault.com/u/yanyue404)
 - [在线小工具](https://ftest.tk.cn/tk-online/common/smallfunc/#/qrcode/index)
-- 在线项目 [codesandbox](https://codesandbox.io/u/yanyue404) [codepen](https://codepen.io/) 
+- 在线项目 [codesandbox](https://codesandbox.io/u/yanyue404) [codepen](https://codepen.io/)
 - [stackoverflow questions](https://stackoverflow.com/questions)
 - [clipboard2markdown](https://euangoddard.github.io/clipboard2markdown/) / [Html 转 Markdown](http://www.atoolbox.net/Tool.php?Id=715)
 - [**regex101**](https://regex101.com/) - 正则表达式测试
@@ -14,21 +14,6 @@
 - [**astexplorer**](https://github.com/fkling/astexplorer) - 一个在线 ast 生成器 https://astexplorer.net/
 - [**Package Diff**](https://diff.intrinsic.com/)，比较 npm 包两个版本直接的区别
 - [开发者武器库](https://devtool.tech/)
-
-## 常看的网站
-
-- [**阮一峰的网络日志**](http://www.ruanyifeng.com/blog/) 阮老师出品
-- [**InfoQ**](https://www.infoq.cn/topic/Front-end) 文章的质量比一般网站的高不少
-- [**月光博客**](https://www.williamlong.info/)
-- [**奇舞周刊**](https://weekly.75.team/)
-- [**每日时报**](https://wubaiqing.github.io/zaobao/) 定期会分享一些库和工具
-- [**DailyJS**](https://medium.com/dailyjs)
-- [**端传媒**](https://theinitium.com/channel/mainland/)
-- [**知乎热搜榜**](https://github.com/justjavac/zhihu-trending-top-search)
-- [**知乎热门话题**](https://github.com/justjavac/zhihu-trending-hot-questions)
-
-## 前端开发
-
 - [**30 seconds of code**](https://30secondsofcode.org/) 收集了许多有用的代码小片段
 - [**CSS triangle generator**](http://apps.eky.hk/css-triangle-generator/) CSS 三角形产生器
 - [**cssarrowplease**](http://www.cssarrowplease.com/) 帮你做对话框三角的
@@ -46,6 +31,18 @@
 - [油猴脚本 - Greasy Fork](https://greasyfork.org/zh-TW)
 - [极简插件 - Chrome 插件/扩展](https://chrome.zzzmh.cn/#/index)
 - [VS Code 离线扩展](https://marketplace.visualstudio.com/)
+
+## 常看的网站
+
+- [**阮一峰的网络日志**](http://www.ruanyifeng.com/blog/) 阮老师出品
+- [**InfoQ**](https://www.infoq.cn/topic/Front-end) 文章的质量比一般网站的高不少
+- [**月光博客**](https://www.williamlong.info/)
+- [**奇舞周刊**](https://weekly.75.team/)
+- [**每日时报**](https://wubaiqing.github.io/zaobao/) 定期会分享一些库和工具
+- [**DailyJS**](https://medium.com/dailyjs)
+- [**端传媒**](https://theinitium.com/channel/mainland/)
+- [**知乎热搜榜**](https://github.com/justjavac/zhihu-trending-top-search)
+- [**知乎热门话题**](https://github.com/justjavac/zhihu-trending-hot-questions)
 
 ### markdown
 

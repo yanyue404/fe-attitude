@@ -5,9 +5,19 @@ module.exports = {
   themeConfig: {
     nav: [
       {
-        text: '构建知识体系',
-        link: '/fe/'
+        text: 'Use',
+        items: [
+          {
+            text: '资源',
+            items: [
+              { text: '在线网站', link: '/use/website' },
+              { text: '前端库', link: '/use/repos' },
+              { text: '好的文章', link: '/use/articles' }
+            ]
+          }
+        ]
       },
+
       {
         text: '静态站点',
         items: [
@@ -17,7 +27,6 @@ module.exports = {
               { text: '我的博客文章', link: 'https://yanyue404.github.io/blog/' },
               { text: '我的博客文章(repo)', link: 'https://github.com/yanyue404/blog' },
               { text: 'mingdao', link: 'https://yanyue404.github.io/mingdao/' },
-              { text: 'my-bookmarks', link: 'https://yanyue404.github.io/my-bookmarks/' },
               { text: 'dev-admin', link: 'https://yanyue404.github.io/dev-admin/' }
             ]
           },
@@ -49,17 +58,8 @@ module.exports = {
         ]
       },
       {
-        text: 'Use',
-        items: [
-          {
-            text: '资源',
-            items: [
-              { text: '在线网站', link: '/use/website' },
-              { text: '前端库', link: '/use/repos' },
-              { text: '好的文章', link: '/use/articles' }
-            ]
-          }
-        ]
+        text: '构建知识体系',
+        link: '/fe/'
       },
       {
         text: '专题学习计划',
@@ -67,6 +67,9 @@ module.exports = {
       }
     ],
     sidebar: {
+      '/use/website': 'auto',
+      '/use/repos': 'auto',
+      '/use/articles': 'auto',
       '/topic': 'auto',
       // fallback: 确保 fallback 侧边栏被最后定义。VuePress 会按顺序遍历侧边栏配置来寻找匹配的配置。
       '/fe/': [
@@ -84,7 +87,7 @@ module.exports = {
         ['/fe/node', 'Node'],
         ['/fe/ts', 'TypeScript'],
         ['/fe/skill', '编程技巧'],
-        ['/fe/engineering', '工程化'],
+        ['/fe/engineering', '工程化']
       ]
     },
     smoothScroll: true,
