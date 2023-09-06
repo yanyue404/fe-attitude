@@ -131,6 +131,7 @@
 - **无损音乐** [无损音乐吧](http://www.wsyyb.com/) [超高无损音乐](https://www.sq688.com/)
 - [**lsjgcx**](http://www.lsjgcx.com/) - 历史价格查询
 - [表情包 - 发表情](https://fabiaoqing.com/)
+- [**automa**](https://github.com/automaapp/automa) 自动化 web 操作
 
 **程序员的一天**
 
