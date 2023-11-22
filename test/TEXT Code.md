@@ -487,7 +487,7 @@ const camelize = str => {
 const componentName = pipe(firstUpperCase, camelize)
 const componentName2 = compose(camelize, firstUpperCase)
 console.log(componentName('insure-step-by-step')) // InsureStepByStep
-console.log(componentName2('tk-insurance-mall')) // TkInsuranceMall
+console.log(componentName2('rainbow-insurance-mall')) // RainbowInsuranceMall
 ```
 
 ## 算法

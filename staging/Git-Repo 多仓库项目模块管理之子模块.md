@@ -9,7 +9,6 @@
 - 开发场景，子模块可以区分环境，如使用分支管理
 - 发布场景，子模块提交代码，保留子项目的 `commit id`，npm 需要提交 `publish`,然后主项目更新 `npm install`安装就会下载到最新版本的包（不锁定版本）
 
-
 ## 使用子模块
 
 **给当前项目添加子模块**
@@ -112,7 +111,7 @@ package.json
 build.sh
 
 ```sh
-rm -rf tk-common
+rm -rf rainbow-common
 echo "EXEC npm install"
 npm install
 if [[ $1 == "dev" ]]; then
@@ -151,43 +150,35 @@ package.json
 build.js
 
 ```js
-const { spawnSync } = require("child_process");
+const { spawnSync } = require('child_process')
 // 运行命令
-const execute = function (command, args = [], options = {}) {
-  console.log(`EXEC ${command} ${args.join(" ")}`);
+const execute = function(command, args = [], options = {}) {
+  console.log(`EXEC ${command} ${args.join(' ')}`)
   spawnSync(command, args, {
-    stdio: "inherit",
-    encoding: "utf-8",
-    ...options,
-  });
-};
+    stdio: 'inherit',
+    encoding: 'utf-8',
+    ...options
+  })
+}
 
 try {
-  const isProduction = process.env.PATH_TYPE === "production";
+  const isProduction = process.env.PATH_TYPE === 'production'
   // 自己控制 install
-  execute(process.platform === "win32" ? "npm.cmd" : "npm", ["install"], {});
+  execute(process.platform === 'win32' ? 'npm.cmd' : 'npm', ['install'], {})
   // clone project-common
-  execute(
-    `git clone -b ${
-      isProduction ? "submodule-master" : "dev"
-    } http://gitlab.xxx/project-common.git`,
-    [],
-    { shell: true }
-  );
+  execute(`git clone -b ${isProduction ? 'submodule-master' : 'dev'} http://gitlab.xxx/project-common.git`, [], {
+    shell: true
+  })
   // building
-  console.log(`开始编译${isProduction ? "生产" : "测试"}环境`);
-  execute(
-    process.platform === "win32" ? "npm.cmd" : "npm",
-    ["run", "generate"],
-    {
-      env: {
-        ...process.env,
-        PATH_TYPE: isProduction ? "production" : "trial",
-      },
+  console.log(`开始编译${isProduction ? '生产' : '测试'}环境`)
+  execute(process.platform === 'win32' ? 'npm.cmd' : 'npm', ['run', 'generate'], {
+    env: {
+      ...process.env,
+      PATH_TYPE: isProduction ? 'production' : 'trial'
     }
-  );
+  })
 } catch (err) {
-  console.log(err);
+  console.log(err)
 }
 ```
 

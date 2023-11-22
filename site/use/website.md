@@ -3,7 +3,6 @@
 ## 开发日常高频
 
 - 社交账号 [github](https://github.com/yanyue404) / [掘金](https://juejin.cn/user/1099167359041966) /[知乎](https://www.zhihu.com/people/yan-yue-44-30) / [segmentfault](https://segmentfault.com/u/yanyue404)
-- [在线小工具](https://ftest.tk.cn/tk-online/common/smallfunc/#/qrcode/index)
 - 在线项目 [codesandbox](https://codesandbox.io/u/yanyue404) [codepen](https://codepen.io/)
 - [stackoverflow questions](https://stackoverflow.com/questions)
 - [clipboard2markdown](https://euangoddard.github.io/clipboard2markdown/) / [Html 转 Markdown](http://www.atoolbox.net/Tool.php?Id=715)

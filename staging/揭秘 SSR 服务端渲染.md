@@ -165,10 +165,10 @@ App.vue
   export default {
     data() {
       return {
-        count: 1,
-      };
-    },
-  };
+        count: 1
+      }
+    }
+  }
 </script>
 <style>
   html {
@@ -188,14 +188,14 @@ App.vue
 main.js
 
 ```js
-import Vue from "vue";
-import App from "./App";
+import Vue from 'vue'
+import App from './App'
 
 const app = new Vue({
-  render: (h) => h(App),
-});
+  render: h => h(App)
+})
 
-app.$mount("#app");
+app.$mount('#app')
 ```
 
 运行 npm 命令，点击按钮发现可以正常交互，数字加加。
@@ -210,32 +210,29 @@ npm run serve
 - renderToString() 接收一个 Vue 应用实例作为参数，返回一个 Promise，当 Promise resolve 时得到应用渲染的 HTML
 
 ```ts
-function renderToString(
-  input: App | VNode,
-  context?: SSRContext
-): Promise<string>;
+function renderToString(input: App | VNode, context?: SSRContext): Promise<string>
 ```
 
 ```js
-const express = require("express");
-const Vue = require("vue");
-const app = express();
-const renderer = require("vue-server-renderer").createRenderer();
+const express = require('express')
+const Vue = require('vue')
+const app = express()
+const renderer = require('vue-server-renderer').createRenderer()
 // ⻚页⾯面
 const page = new Vue({
   data: {
-    count: 1,
+    count: 1
   },
-  template: `<button @click="count++">{{count}}</button>`,
-});
-app.get("/", async function (req, res) {
+  template: `<button @click="count++">{{count}}</button>`
+})
+app.get('/', async function(req, res) {
   // renderToString可以将vue实例例转换为html字符串串
-  const html = await renderer.renderToString(page);
-  res.send(html);
-});
+  const html = await renderer.renderToString(page)
+  res.send(html)
+})
 app.listen(3001, () => {
-  console.log("启动成功， http://127.0.0.1:3001/");
-});
+  console.log('启动成功， http://127.0.0.1:3001/')
+})
 ```
 
 运行 npm 命令
@@ -265,35 +262,26 @@ bundle renderer 在调用 renderToString 时，它将自动执行「由 bundle �
 用法示例：
 
 ```js
-const serverBundle = require(path.resolve(
-  __dirname,
-  "../dist/vue-ssr-server-bundle.json"
-));
-const clientManifest = require(path.resolve(
-  __dirname,
-  "../dist/vue-ssr-client-manifest.json"
-));
-const template = fs.readFileSync(
-  path.resolve(__dirname, "../dist/index.ssr.html"),
-  "utf-8"
-);
+const serverBundle = require(path.resolve(__dirname, '../dist/vue-ssr-server-bundle.json'))
+const clientManifest = require(path.resolve(__dirname, '../dist/vue-ssr-client-manifest.json'))
+const template = fs.readFileSync(path.resolve(__dirname, '../dist/index.ssr.html'), 'utf-8')
 
 const renderer = createBundleRenderer(serverBundle, {
   runInNewContext: false,
   template: template, //（可选）页面模板
-  clientManifest: clientManifest, // （可选）客户端构建 manifest
-});
+  clientManifest: clientManifest // （可选）客户端构建 manifest
+})
 
 // 在服务器处理函数中……
-server.get("*", (req, res) => {
-  const context = { url: req.url };
+server.get('*', (req, res) => {
+  const context = { url: req.url }
   // 这里无需传入一个应用程序，因为在执行 bundle 时已经自动创建过。
   // 现在我们的服务器与应用程序已经解耦！
   renderer.renderToString(context, (err, html) => {
     // 处理异常……
-    res.end(html);
-  });
-});
+    res.end(html)
+  })
+})
 ```
 
 #### 构建配置
@@ -313,37 +301,37 @@ server.get("*", (req, res) => {
 于是，我们得到一个服务端的 webpack 构建配置文件 vue.server.config.js
 
 ```js
-const nodeExternals = require("webpack-node-externals");
-const VueSSRServerPlugin = require("vue-server-renderer/server-plugin");
+const nodeExternals = require('webpack-node-externals')
+const VueSSRServerPlugin = require('vue-server-renderer/server-plugin')
 
 module.exports = {
   css: {
     // 不提取 CSS
-    extract: false,
+    extract: false
   },
-  outputDir: "dist/server",
+  outputDir: 'dist/server',
   configureWebpack: () => ({
     // 服务器入口文件
     entry: `./src/server-entry.js`,
-    devtool: "source-map",
+    devtool: 'source-map',
     // 构建目标为nodejs环境
-    target: "node",
+    target: 'node',
     output: {
       // 构建目标加载模式 commonjs
-      libraryTarget: "commonjs2",
+      libraryTarget: 'commonjs2'
     },
     // 跳过 node_mdoules，运行时会自动加载，不需要编译
     externals: nodeExternals({
       // 允许css文件，方便css module
-      allowlist: [/\.css$/],
+      allowlist: [/\.css$/]
     }),
     // 关闭代码切割
     optimization: {
-      splitChunks: false,
+      splitChunks: false
     },
-    plugins: [new VueSSRServerPlugin()],
-  }),
-};
+    plugins: [new VueSSRServerPlugin()]
+  })
+}
 ```
 
 使用 `vue-server-renderer`提供的`server-plugin`，这个插件主要配合下面讲到的`client-plugin`使用，作用主要是用来实现 nodejs 在开发过程中的热加载、source-map、生成 html 文件。
@@ -355,22 +343,22 @@ module.exports = {
 于是我们得到了客户端的构建配置，vue.client.config.js
 
 ```js
-const VueSSRClientPlugin = require("vue-server-renderer/client-plugin");
+const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 
 module.exports = {
-  outputDir: "dist/client",
+  outputDir: 'dist/client',
   configureWebpack: () => ({
     entry: `./src/client-entry.js`,
-    devtool: "source-map",
-    target: "web",
-    plugins: [new VueSSRClientPlugin()],
+    devtool: 'source-map',
+    target: 'web',
+    plugins: [new VueSSRClientPlugin()]
   }),
-  chainWebpack: (config) => {
-    config.plugins.delete("html");
-    config.plugins.delete("preload");
-    config.plugins.delete("prefetch");
-  },
-};
+  chainWebpack: config => {
+    config.plugins.delete('html')
+    config.plugins.delete('preload')
+    config.plugins.delete('prefetch')
+  }
+}
 ```
 
 使用`vue-server-renderer`提供的`client-server`，主要作用是生成构建加过清单`vue-ssr-client-manifest.json`，服务端在渲染页面时，根据这个清单来渲染 HTML 中的 script 标签（JavaScript）和 link 标签（CSS）。
@@ -380,26 +368,26 @@ module.exports = {
 // vue.config.js
 
 ```js
-const isDev = process.env.NODE_ENV === "development";
-const TARGET_NODE = process.env.WEBPACK_TARGET === "node";
-const serverConfig = require("./vue.server.config");
-const clientConfig = require("./vue.client.config");
+const isDev = process.env.NODE_ENV === 'development'
+const TARGET_NODE = process.env.WEBPACK_TARGET === 'node'
+const serverConfig = require('./vue.server.config')
+const clientConfig = require('./vue.client.config')
 
 if (isDev) {
   module.exports = {
     devServer: {
-      open: process.platform === "darwin",
-      host: "0.0.0.0",
+      open: process.platform === 'darwin',
+      host: '0.0.0.0',
       port: 3000,
       https: false,
-      hotOnly: false,
-    },
-  };
+      hotOnly: false
+    }
+  }
 } else {
   if (TARGET_NODE) {
-    module.exports = serverConfig;
+    module.exports = serverConfig
   } else {
-    module.exports = clientConfig;
+    module.exports = clientConfig
   }
 }
 ```
@@ -424,16 +412,16 @@ if (isDev) {
 为了实现模板组件共享，我们需要将获取 Vue 渲染实例写成通用代码，如下 createApp：
 
 ```js
-import Vue from "vue";
-import App from "./App";
+import Vue from 'vue'
+import App from './App'
 
 export default function createApp(context) {
   const app = new Vue({
-    render: (h) => h(App),
-  });
+    render: h => h(App)
+  })
   return {
-    app,
-  };
+    app
+  }
 }
 ```
 
@@ -442,12 +430,12 @@ export default function createApp(context) {
 新建客户端项目的入口文件，client-entry.js
 
 ```js
-import Vue from "vue";
-import createApp from "./createApp";
+import Vue from 'vue'
+import createApp from './createApp'
 
-const { app } = createApp();
+const { app } = createApp()
 
-app.$mount("#app");
+app.$mount('#app')
 ```
 
 client-entry.js 是浏览器渲染的入口文件，在浏览器加载了客户端编译后的代码后，组件会被渲染到 id 为 app 的元素节点上。
@@ -457,12 +445,12 @@ client-entry.js 是浏览器渲染的入口文件，在浏览器加载了客户�
 新建服务端代码的入口文件，server-entry.js
 
 ```js
-import createApp from "./createApp";
+import createApp from './createApp'
 
-export default (context) => {
-  const { app } = createApp(context);
-  return app;
-};
+export default context => {
+  const { app } = createApp(context)
+  return app
+}
 ```
 
 server-entry.js 是提供给服务器渲染 vue 组件的入口文件，在浏览器通过 URL 访问到服务器后，服务器需要使用 server-entry.js 提供的函数，将组件渲染成 html。
@@ -472,37 +460,26 @@ server-entry.js 是提供给服务器渲染 vue 组件的入口文件，在浏�
 所有东西的准备好之后，我们需要修改 nodejs 的 HTTP 服务器的启动文件。首先，加载服务端代码 server-entry.js 的 webpack 构建结果
 
 ```js
-const path = require("path");
-const { createBundleRenderer } = require("vue-server-renderer");
-const serverBundle = path.resolve(
-  process.cwd(),
-  "dist/server",
-  "vue-ssr-server-bundle.json"
-);
+const path = require('path')
+const { createBundleRenderer } = require('vue-server-renderer')
+const serverBundle = path.resolve(process.cwd(), 'dist/server', 'vue-ssr-server-bundle.json')
 ```
 
 加载客户端代码 client-entry.js 的 webpack 构建结果
 
 ```js
-const clientManifestPath = path.resolve(
-  process.cwd(),
-  "dist/client",
-  "vue-ssr-client-manifest.json"
-);
-const clientManifest = JSON.parse(fs.readFileSync(clientManifestPath, "utf-8"));
+const clientManifestPath = path.resolve(process.cwd(), 'dist/client', 'vue-ssr-client-manifest.json')
+const clientManifest = JSON.parse(fs.readFileSync(clientManifestPath, 'utf-8'))
 ```
 
 使用 [vue-server-renderer](https://www.npmjs.com/package/vue-server-renderer) 的`createBundleRenderer`创建一个 html 渲染器：
 
 ```js
-const template = fs.readFileSync(
-  path.resolve(__dirname, "index.html"),
-  "utf-8"
-);
+const template = fs.readFileSync(path.resolve(__dirname, 'index.html'), 'utf-8')
 const renderer = createBundleRenderer(serverBundle, {
   template, // 使用 HTML 模板
-  clientManifest, // 将客户端的构建结果清单传入
-});
+  clientManifest // 将客户端的构建结果清单传入
+})
 ```
 
 创建 HTML 模板，index.html
@@ -523,22 +500,22 @@ const renderer = createBundleRenderer(serverBundle, {
 HTML 准备完成后，我们在 server 中挂起所有路由请求
 
 ```js
-const express = require("express");
-const app = express();
+const express = require('express')
+const app = express()
 
-app.get("*", function (req, res) {
+app.get('*', function(req, res) {
   renderer.renderToString({}, (err, html) => {
     if (err) {
-      res.send("500 server error");
-      return;
+      res.send('500 server error')
+      return
     }
-    res.send(html);
-  });
-});
+    res.send(html)
+  })
+})
 
 app.listen(3003, () => {
-  console.log("listen: http://127.0.0.1:3003/");
-});
+  console.log('listen: http://127.0.0.1:3003/')
+})
 ```
 
 接下来，我们构建客户端、服务端项目，然后执行 `npm run ssr`，打开页面源代码，
@@ -546,7 +523,7 @@ app.listen(3003, () => {
 看起来是符合预期的，但是发现控制台有报错，加载不到客户端构建 css 和 js，报 404，原因很明确，我们没有把客户端的构建结果文件挂载到服务器的静态资源目录，在挂载路由前加入下面代码：
 
 ```js
-app.use(express.static(path.resolve(process.cwd(), "dist/client")));
+app.use(express.static(path.resolve(process.cwd(), 'dist/client')))
 ```
 
 看起来大功告成，点击数字 count 进行了加加，细心的同学会发现根节点有一个`data-server-rendered`属性，这个属性有什么作用呢？
@@ -570,45 +547,45 @@ app.use(express.static(path.resolve(process.cwd(), "dist/client")));
 为了实现复用，与 createApp 一样，我们创建一个 createRouter.js
 
 ```js
-import Vue from "vue";
-import Router from "vue-router";
-import Home from "./views/Home";
-import About from "./views/About";
-Vue.use(Router);
+import Vue from 'vue'
+import Router from 'vue-router'
+import Home from './views/Home'
+import About from './views/About'
+Vue.use(Router)
 const routes = [
   {
-    path: "/",
-    name: "Home",
-    component: Home,
+    path: '/',
+    name: 'Home',
+    component: Home
   },
   {
-    path: "/about",
-    name: "About",
-    component: About,
-  },
-];
+    path: '/about',
+    name: 'About',
+    component: About
+  }
+]
 export default function createRouter() {
   return new Router({
-    mode: "history",
-    routes,
-  });
+    mode: 'history',
+    routes
+  })
 }
 ```
 
 在 createApp.js 中创建 router
 
 ```js
-import Vue from "vue";
-import App from "./App";
-import createRouter from "./createRouter";
+import Vue from 'vue'
+import App from './App'
+import createRouter from './createRouter'
 
 export default function createApp(context) {
-  const router = createRouter(); // 创建 router 实例
+  const router = createRouter() // 创建 router 实例
   const app = new Vue({
     router, // 注入 router 到根 Vue 实例
-    render: (h) => h(App),
-  });
-  return { router, app };
+    render: h => h(App)
+  })
+  return { router, app }
 }
 ```
 
@@ -617,51 +594,51 @@ export default function createApp(context) {
 router 准备好了之后，修改 server-entry.js，将请求的 URL 传递给 router，使得在创建 app 的时候可以根据 URL 匹配到对应的路由，进而可知道需要渲染哪些组件
 
 ```js
-import createApp from "./createApp";
+import createApp from './createApp'
 
-export default (context) => {
+export default context => {
   // 因为有可能会是异步路由钩子函数或组件，所以我们将返回一个 Promise，
   // 以便服务器能够等待所有的内容在渲染前就已经准备就绪。
   return new Promise((resolve, reject) => {
-    const { app, router } = createApp();
+    const { app, router } = createApp()
     // 设置服务器端 router 的位置
-    router.push(context.url);
+    router.push(context.url)
     // onReady 等到 router 将可能的异步组件和钩子函数解析完
     router.onReady(() => {
-      const matchedComponents = router.getMatchedComponents();
+      const matchedComponents = router.getMatchedComponents()
       // 匹配不到的路由，执行 reject 函数，并返回 404
       if (!matchedComponents.length) {
         return reject({
           url: context.url,
-          code: 404,
-        });
+          code: 404
+        })
       }
       // Promise 应该 resolve 应用程序实例，以便它可以渲染
-      resolve(app);
-    }, reject);
-  });
-};
+      resolve(app)
+    }, reject)
+  })
+}
 ```
 
 修改 server.js 的路由，把 url 传递给 renderer
 
 ```js
-app.get("*", function (req, res) {
+app.get('*', function(req, res) {
   const context = {
-    url: req.url,
-  };
+    url: req.url
+  }
   renderer.renderToString(context, (err, html) => {
     if (err) {
-      console.log(err);
-      res.send("500 server error");
-      return;
+      console.log(err)
+      res.send('500 server error')
+      return
     }
-    res.send(html);
-  });
-});
+    res.send(html)
+  })
+})
 app.listen(3004, () => {
-  console.log("listen: http://127.0.0.1:3004/");
-});
+  console.log('listen: http://127.0.0.1:3004/')
+})
 ```
 
 为了测试，我们将 App.vue 修改为 router-view
@@ -726,9 +703,9 @@ About.vue
 4. 在浏览器环境中，通过 Vuex 将 window.**INITIAL_STATE**里面的数据注入到相应组件中。
 
 ```js
-if (typeof window !== "undefined" && window.__INITIAL_STATE__) {
-  console.log("window.__INITIAL_STATE__", window.__INITIAL_STATE__);
-  store.replaceState(window.__INITIAL_STATE__);
+if (typeof window !== 'undefined' && window.__INITIAL_STATE__) {
+  console.log('window.__INITIAL_STATE__', window.__INITIAL_STATE__)
+  store.replaceState(window.__INITIAL_STATE__)
 }
 ```
 
@@ -742,39 +719,39 @@ if (typeof window !== "undefined" && window.__INITIAL_STATE__) {
 首先第一步，与 createApp 类似，创建一个 createStore.js，用来实例化 store，同时提供给客户端和服务端使用
 
 ```js
-import Vue from "vue";
-import Vuex from "vuex";
-import { fetchAll, fetchItem } from "./api";
+import Vue from 'vue'
+import Vuex from 'vuex'
+import { fetchAll, fetchItem } from './api'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 export default function createStore() {
   return new Vuex.Store({
     state: {
       todoList: null,
-      todoItem: null,
+      todoItem: null
     },
     actions: {
       fetchAll({ commit }) {
-        return fetchAll().then((todos) => {
-          commit("setTodoList", todos);
-        });
+        return fetchAll().then(todos => {
+          commit('setTodoList', todos)
+        })
       },
       fetchItem({ commit }, id) {
-        return fetchItem(id).then((item) => {
-          commit("setItem", item);
-        });
-      },
+        return fetchItem(id).then(item => {
+          commit('setItem', item)
+        })
+      }
     },
     mutations: {
       setTodoList(state, items) {
-        state.todoList = items;
+        state.todoList = items
       },
       setItem(state, item) {
-        state.todoItem = item;
-      },
-    },
-  });
+        state.todoItem = item
+      }
+    }
+  })
 }
 ```
 
@@ -784,14 +761,14 @@ actions 封装了请求数据的函数，mutations 用来设置状态。
 
 ```js
 export default function createApp(context) {
-  const router = createRouter();
-  const store = createStore();
+  const router = createRouter()
+  const store = createStore()
   const app = new Vue({
     router,
     store, // 注入 store 到根 Vue 实例
-    render: (h) => h(App),
-  });
-  return { router, store, app };
+    render: h => h(App)
+  })
+  return { router, store, app }
 }
 ```
 
@@ -799,26 +776,26 @@ export default function createApp(context) {
 
 ```js
 const items = [
-  { id: 1, name: "吃饭" },
-  { id: 2, name: "睡觉" },
-  { id: 3, name: "打豆豆" },
-];
+  { id: 1, name: '吃饭' },
+  { id: 2, name: '睡觉' },
+  { id: 3, name: '打豆豆' }
+]
 
 export function fetchAll(id) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      return resolve(items);
-    }, 1500);
-  });
+      return resolve(items)
+    }, 1500)
+  })
 }
 
 export function fetchItem(id) {
-  const item = items.find((i) => i.id == id);
+  const item = items.find(i => i.id == id)
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      return resolve(item);
-    }, 1500);
-  });
+      return resolve(item)
+    }, 1500)
+  })
 }
 ```
 
@@ -845,24 +822,24 @@ export function fetchItem(id) {
   export default {
     asyncData({ store, route }) {
       // 触发 action 后，会返回 Promise
-      console.log("route.query.id", route.query.id);
+      console.log('route.query.id', route.query.id)
       if (route.query.id) {
-        return store.dispatch("fetchItem", route.query.id);
+        return store.dispatch('fetchItem', route.query.id)
       } else {
-        return store.dispatch("fetchAll");
+        return store.dispatch('fetchAll')
       }
     },
     computed: {
       // 从 store 的 state 对象中的获取。
       todoList() {
-        return this.$store.state.todoList;
+        return this.$store.state.todoList
       },
       todoItem() {
-        console.log("数据在此", this.$store.state.todoItem);
-        return this.$store.state.todoItem;
-      },
-    },
-  };
+        console.log('数据在此', this.$store.state.todoItem)
+        return this.$store.state.todoItem
+      }
+    }
+  }
 </script>
 ```
 
@@ -873,48 +850,48 @@ export function fetchItem(id) {
 修改 createApp，在路由组件匹配到了之后，调用 asyncData 方法，获取数据后传递给 renderer
 
 ```js
-import createApp from "./createApp";
+import createApp from './createApp'
 
-export default (context) => {
+export default context => {
   // 因为有可能会是异步路由钩子函数或组件，所以我们将返回一个 Promise，
   // 以便服务器能够等待所有的内容在渲染前就已经准备就绪。
   return new Promise((resolve, reject) => {
-    const { app, router, store } = createApp();
+    const { app, router, store } = createApp()
     // 设置服务器端 router 的位置
-    router.push(context.url);
+    router.push(context.url)
     // onReady 等到 router 将可能的异步组件和钩子函数解析完
     router.onReady(() => {
-      const matchedComponents = router.getMatchedComponents();
-      console.log("matchedComponents", matchedComponents);
+      const matchedComponents = router.getMatchedComponents()
+      console.log('matchedComponents', matchedComponents)
       // 匹配不到的路由，执行 reject 函数，并返回 404
       if (!matchedComponents.length) {
         return reject({
           url: context.url,
-          code: 404,
-        });
+          code: 404
+        })
       }
       // 对所有匹配的路由组件调用 `asyncData()`
       Promise.all(
-        matchedComponents.map((Component) => {
+        matchedComponents.map(Component => {
           if (Component.asyncData) {
-            console.log("Component.asyncData", Component.asyncData);
+            console.log('Component.asyncData', Component.asyncData)
             return Component.asyncData({
               store,
-              route: router.currentRoute,
-            });
+              route: router.currentRoute
+            })
           }
         })
       )
         .then(() => {
-          console.log(" store.state", store.state);
+          console.log(' store.state', store.state)
           // 当使用 template 时，context.state 将作为 window.__INITIAL_STATE__ 自动嵌入到最终的 HTML 中，方便后面客户端激活数据
-          context.state = store.state;
-          resolve(app);
+          context.state = store.state
+          resolve(app)
         })
-        .catch(reject);
-    }, reject);
-  });
-};
+        .catch(reject)
+    }, reject)
+  })
+}
 ```
 
 将 state 存入 context 后，在服务端渲染 HTML 时候，也就是渲染 template 的时候，context.state 会作为 window.\***\*INITIAL_STATE\*\***自动插入到模板 html 中，方便客户端激活数据。
@@ -934,12 +911,7 @@ export default (context) => {
   </head>
   <body>
     <div id="app" data-server-rendered="true">
-      <a
-        href="/"
-        aria-current="page"
-        class="router-link-exact-active router-link-active"
-        >Home</a
-      >
+      <a href="/" aria-current="page" class="router-link-exact-active router-link-active">Home</a>
       <a href="/about">About</a>
       <div>
         <div>
@@ -959,19 +931,19 @@ export default (context) => {
         todoList: [
           {
             id: 1,
-            name: "吃饭",
+            name: '吃饭'
           },
           {
             id: 2,
-            name: "睡觉",
+            name: '睡觉'
           },
           {
             id: 3,
-            name: "打豆豆",
-          },
+            name: '打豆豆'
+          }
         ],
-        todoItem: null,
-      };
+        todoItem: null
+      }
     </script>
     <script src="/js/chunk-vendors.21481cff.js" defer></script>
     <script src="/js/main.a69a758b.js" defer></script>
@@ -982,16 +954,16 @@ export default (context) => {
 可以看到，状态已经被序列化到`window.__INITIAL_STATE__`中，我们需要做的就是将这个`window.__INITIAL_STATE__`在客户端渲染之前，同步到客户端的 store 中，下面修改 client-entry.js
 
 ```js
-const { app, router, store } = createApp();
+const { app, router, store } = createApp()
 
 if (window.__INITIAL_STATE__) {
   // 激活状态数据
-  store.replaceState(window.__INITIAL_STATE__);
+  store.replaceState(window.__INITIAL_STATE__)
 }
 
 router.onReady(() => {
-  app.$mount("#app", true);
-});
+  app.$mount('#app', true)
+})
 ```
 
 通过使用 store 的 replaceState 函数，将`window.__INITIAL_STATE__`同步到 store 内部，完成数据模型的状态同步。
@@ -1004,7 +976,7 @@ router.onReady(() => {
 
 ### 1. nuxt
 
-https://ftest.tk.cn/tkproperty/nprd/N20220009/
+https://xxx.com/comm-url/N20220009/
 
 app.html
 
@@ -1018,10 +990,7 @@ app.html
   <body>
     <div id="app" data-server-rendered="true">
       <div style="border-radius:0">
-        <img
-          src="https://mcdn.tk.cn/tkcms/file/upload/mob/productImg/file_N20220009-gfxyd/banner-1.png"
-          alt=""
-        />
+        <img src="https://xxx.com/tkcms/file/upload/mob/productImg/file_N20220009-gfxyd/banner-1.png" alt="" />
         <video
           playsinline="playsinline"
           webkit-playsinline="true"
@@ -1029,33 +998,31 @@ app.html
           x5-video-player-type="h5"
           x5-video-player-fullscreen="false"
           loop="loop"
-          src="https://mcdn.tk.cn/tkcms/file/upload/NRZY/file_spk/gfxydywx.mp4"
+          src="https://xxx.com/tkcms/file/upload/NRZY/file_spk/gfxydywx.mp4"
           class="video"
           style="display:none"
         ></video>
       </div>
     </div>
     <script>
-      window.__NUXT__ = (function (i) {
+      window.__NUXT__ = (function(i) {
         return {
-          layout: "default",
+          layout: 'default',
           data: [{}],
           error: null,
           state: {
             cmsData: {
               headImages: [
                 {
-                  src:
-                    "https://mcdn.tk.cn/tkcms/file/upload/mob/productImg/file_N20220009-gfxyd/banner-1.png",
-                  link:
-                    "https://mcdn.tk.cn/tkcms/file/upload/NRZY/file_spk/gfxydywx.mp4",
-                  label: i,
-                },
-              ],
-            },
-          },
-        };
-      })("");
+                  src: 'https://xxx.com/tkcms/file/upload/mob/productImg/file_N20220009-gfxyd/banner-1.png',
+                  link: 'https://xxx.com/tkcms/file/upload/NRZY/file_spk/gfxydywx.mp4',
+                  label: i
+                }
+              ]
+            }
+          }
+        }
+      })('')
     </script>
     <script src="/js/chunk-vendors.4de074b7.js" defer></script>
     <script src="/js/main.41c7111d.js" defer></script>
@@ -1068,56 +1035,56 @@ app.html
 entry-server.js
 
 ```js
-import { renderToString } from "vue/server-renderer";
-import { createApp } from "./main";
+import { renderToString } from 'vue/server-renderer'
+import { createApp } from './main'
 
 export async function render(url, manifest) {
-  const { app, router } = await createApp();
+  const { app, router } = await createApp()
   // set the router to the desired URL before rendering
   if (router) {
-    router.push(url);
-    await router.isReady();
+    router.push(url)
+    await router.isReady()
   }
 
   // passing SSR context object which will be available via useSSRContext()
   // @vitejs/plugin-vue injects code into a component's setup() that registers
   // itself on ctx.modules. After the render, ctx.modules would contain all the
   // components that have been instantiated during this render call.
-  const ctx = {};
-  const html = await renderToString(app, ctx);
+  const ctx = {}
+  const html = await renderToString(app, ctx)
   // the SSR manifest generated by Vite contains module -> chunk/asset mapping
   // which we can then use to determine what files need to be preloaded for this
   // request.
-  const preloadLinks = renderPreloadLinks(ctx.modules, manifest);
+  const preloadLinks = renderPreloadLinks(ctx.modules, manifest)
   // const preloadLinks = '';
-  return [html, preloadLinks];
+  return [html, preloadLinks]
 }
 
 function renderPreloadLinks(modules, manifest) {
-  let links = "";
-  const seen = new Set();
-  modules.forEach((id) => {
-    const files = manifest[id];
+  let links = ''
+  const seen = new Set()
+  modules.forEach(id => {
+    const files = manifest[id]
     if (files) {
-      files.forEach((file) => {
+      files.forEach(file => {
         if (!seen.has(file)) {
-          seen.add(file);
-          links += renderPreloadLink(file);
+          seen.add(file)
+          links += renderPreloadLink(file)
         }
-      });
+      })
     }
-  });
-  return links;
+  })
+  return links
 }
 
 function renderPreloadLink(file) {
-  if (file.endsWith(".js")) {
-    return `<link rel="modulepreload" crossorigin href="${file}">`;
-  } else if (file.endsWith(".css")) {
-    return `<link rel="stylesheet" href="${file}">`;
+  if (file.endsWith('.js')) {
+    return `<link rel="modulepreload" crossorigin href="${file}">`
+  } else if (file.endsWith('.css')) {
+    return `<link rel="stylesheet" href="${file}">`
   } else {
     // TODO
-    return "";
+    return ''
   }
 }
 ```
@@ -1128,40 +1095,36 @@ prerender.js
 // Pre-render the app into static HTML.
 // run `npm run generate` and then `dist/static` can be served as a static site.
 
-import fs from "node:fs";
-import path from "node:path";
+import fs from 'node:fs'
+import path from 'node:path'
 
-const toAbsolute = (p) => path.resolve(__dirname, p);
+const toAbsolute = p => path.resolve(__dirname, p)
 
-const manifest = (await import("./dist/static/ssr-manifest.json")).default;
-const template = fs.readFileSync(toAbsolute("dist/static/index.html"), "utf-8");
-const { render } = await import("./dist/server/entry-server.js");
+const manifest = (await import('./dist/static/ssr-manifest.json')).default
+const template = fs.readFileSync(toAbsolute('dist/static/index.html'), 'utf-8')
+const { render } = await import('./dist/server/entry-server.js')
 
 // determine routes to pre-render from src/pages
-const routesToPrerender = fs
-  .readdirSync(toAbsolute("src/pages"))
-  .map((file) => {
-    const name = file.replace(/\.vue$/, "").toLowerCase();
-    return name === "home" ? `/` : `/${name}`;
-  });
+const routesToPrerender = fs.readdirSync(toAbsolute('src/pages')).map(file => {
+  const name = file.replace(/\.vue$/, '').toLowerCase()
+  return name === 'home' ? `/` : `/${name}`
+})
 
-(async () => {
+;(async () => {
   // pre-render each route...
   for (const url of routesToPrerender) {
-    const [appHtml, preloadLinks] = await render(url, manifest);
+    const [appHtml, preloadLinks] = await render(url, manifest)
 
-    const html = template
-      .replace(`<!--preload-links-->`, preloadLinks)
-      .replace(`<!--app-html-->`, appHtml);
+    const html = template.replace(`<!--preload-links-->`, preloadLinks).replace(`<!--app-html-->`, appHtml)
 
-    const filePath = `dist/static${url === "/" ? "/index" : url}.html`;
-    fs.writeFileSync(toAbsolute(filePath), html);
-    console.log("pre-rendered:", filePath);
+    const filePath = `dist/static${url === '/' ? '/index' : url}.html`
+    fs.writeFileSync(toAbsolute(filePath), html)
+    console.log('pre-rendered:', filePath)
   }
 
   // done, delete ssr manifest
-  fs.unlinkSync(toAbsolute("dist/static/ssr-manifest.json"));
-})();
+  fs.unlinkSync(toAbsolute('dist/static/ssr-manifest.json'))
+})()
 ```
 
 ## SSR 模式编码上的改变
@@ -1181,33 +1144,33 @@ const routesToPrerender = fs
 ```js
 /* Nuxt.js 判定代码在服务器端环境运行 */
 export function isServer() {
-  return process.server;
+  return process.server
 }
 // 客户端环境 ：process.browser
 ```
 
 ```js
-global.urlParams = isServer() ? {} : getQueryJson();
-global.envParams = isServer() ? {} : { browserEnv: getEnv() };
+global.urlParams = isServer() ? {} : getQueryJson()
+global.envParams = isServer() ? {} : { browserEnv: getEnv() }
 
 export default {
   computed: {
     applicantName() {
-      return isServer() ? "" : this.applicantData.applicantName;
-    },
+      return isServer() ? '' : this.applicantData.applicantName
+    }
   },
   watch: {
     shareConf: {
       immediate: true,
-      handler: function ({ appShowMenu, wxShare }) {
+      handler: function({ appShowMenu, wxShare }) {
         if (isServer()) {
-          return;
+          return
         }
         // 一会儿在分享
-      },
-    },
-  },
-};
+      }
+    }
+  }
+}
 ```
 
 2. 同构激活不匹配报错

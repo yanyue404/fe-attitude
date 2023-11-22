@@ -34,7 +34,7 @@ Vue 项目的路径 source-map 需要单独映射一下，才能对应到源码�
 }
 ```
 
-> url 设置为项目对应的 baseUrl，如： http://localhost:7711/tkproperty/nprd/N20210033
+> url 设置为项目对应的 baseUrl，如： http://localhost:7711/comm-url/N20210033
 
 **nuxt.config.js**
 

@@ -789,7 +789,7 @@ const camelize = str => {
 const componentName = pipe(firstUpperCase, camelize)
 const componentName2 = compose(camelize, firstUpperCase)
 console.log(componentName('insure-step-by-step')) // InsureStepByStep
-console.log(componentName2('tk-insurance-mall')) // TkInsuranceMall
+console.log(componentName2('rainbow-insurance-mall')) // TkInsuranceMall
 ```
 
 ## 算法
@@ -1546,7 +1546,7 @@ files.keys().forEach(item => {
 })
 // iframe组件，用以加载pdf链接或者第三方链接
 components['iframe-page'] = link => {
-  const component = () => import('tk-components/iframe-page.vue')
+  const component = () => import('rainbow-components/iframe-page.vue')
   return {
     render(h) {
       return h(component, { props: { link } })
@@ -1555,7 +1555,7 @@ components['iframe-page'] = link => {
 }
 // html-wrap组件，用以展示富文本
 components['html-wrap'] = html => {
-  const component = () => import('tk-components/html-wrap.vue')
+  const component = () => import('rainbow-components/html-wrap.vue')
   return {
     render(h) {
       return h(component, { props: { html } })

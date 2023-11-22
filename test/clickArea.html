@@ -26,7 +26,7 @@
   <body>
     <img
       data-clickArea='[{"x":"240","y":"860","w":"250","h":"80","link":"security-detail"},{"x":"285","y":"670","w":"180","h":"40","link":"aaa"}]'
-      src="https://ecuat.tk.cn/tkcms/file/upload/tk/file_ksh/file_N20220010/reprd_pic01.png"
+      src="https://xxx.com/file/upload/tk/file_ksh/file_N20220010/reprd_pic01.png"
       ontouchstart="mousedown(event)"
       ontouchmove="mousemove(event)"
       ontouchend="mouseup(event)"
@@ -67,12 +67,7 @@
 
           let { x, y, w, h, link } = item
           let inArea = () => {
-            return (
-              xx > x &&
-              xx < Number(x) + Number(w) &&
-              yy > y &&
-              yy < Number(y) + Number(h)
-            )
+            return xx > x && xx < Number(x) + Number(w) && yy > y && yy < Number(y) + Number(h)
           }
           if (inArea()) {
             alert('此点击位于' + link + '区域内')

@@ -153,10 +153,7 @@ $ npm install pre-commit lint-staged prettier -D
   },
   "pre-commit": "lint-staged",
   "lint-staged": {
-    "*.{js,jsx,vue,css,html,scss,md,json,wxml,wxss,wxs}": [
-      "prettier --write",
-      "git add"
-    ]
+    "*.{js,jsx,vue,css,html,scss,md,json,wxml,wxss,wxs}": ["prettier --write", "git add"]
   }
 }
 ```
@@ -222,10 +219,7 @@ npm install -D husky
     "lint-staged": "lint-staged"
   },
   "lint-staged": {
-    "*.{js,jsx,vue,css,html,scss,md,json,wxml,wxss,wxs}": [
-      "prettier --write",
-      "git add"
-    ]
+    "*.{js,jsx,vue,css,html,scss,md,json,wxml,wxss,wxs}": ["prettier --write", "git add"]
   }
 }
 ```
@@ -342,13 +336,13 @@ module.exports = {
   // env表示启用ESLint检测的环境
   env: {
     // 在node环境下启动ESLint检测
-    node: true,
+    node: true
   },
   // ESLint中基础配置需要继承的配置
-  extends: ["plugin:vue/vue3-essential", "@vue/standard"],
+  extends: ['plugin:vue/vue3-essential', '@vue/standard'],
   // 解析器
   parserOptions: {
-    parser: "@babel/eslint-parser",
+    parser: '@babel/eslint-parser'
   },
   // 需要修改的启用规则及其各自的错误级别
   /**
@@ -358,11 +352,11 @@ module.exports = {
    * "error" 或 2 - 开启规则，使用错误级别的错误：error (当被触发的时候，程序会退出)
    */
   rules: {
-    "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
-    "space-before-function-paren": "off",
-  },
-};
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'space-before-function-paren': 'off'
+  }
+}
 ```
 
 14:9 error Strings must use singlequote quotes
@@ -414,17 +408,17 @@ module.exports = {
   env: {
     // 在node环境下启动ESLint检测
     node: true,
-    browser: true,
+    browser: true
   },
   // ESLint中基础配置需要继承的配置
-  extends: ["@nuxtjs", "plugin:nuxt/recommended", "prettier"],
+  extends: ['@nuxtjs', 'plugin:nuxt/recommended', 'prettier'],
   // 解析器
   // parser: '@babel/eslint-parser',
   parserOptions: {
-    parser: "@babel/eslint-parser",
+    parser: '@babel/eslint-parser',
     // 指定ES版本，默认为5，某些require引入js会报错，修改为8后正常
     ecmaVersion: 8,
-    requireConfigFile: false,
+    requireConfigFile: false
   },
   // 需要修改的启用规则及其各自的错误级别
   /**
@@ -434,37 +428,37 @@ module.exports = {
    * "error" 或 2 - 开启规则，使用错误级别的错误：error (当被触发的时候，程序会退出)
    */
   rules: {
-    "space-before-function-paren": "off",
-    "nuxt/no-cjs-in-config": "off",
+    'space-before-function-paren': 'off',
+    'nuxt/no-cjs-in-config': 'off',
     // webpack异步import时可以不在最顶层
     // 'import/first': 'off',
     // TODO 兼容老项目关闭部分规则，待修复
     // ===要改成==
-    eqeqeq: "off",
-    "no-prototype-builtins": "off",
-    "vue/multi-word-component-names": "off",
-    "vue/require-default-prop": "off",
+    eqeqeq: 'off',
+    'no-prototype-builtins': 'off',
+    'vue/multi-word-component-names': 'off',
+    'vue/require-default-prop': 'off',
     // 正则相关 减少非必要的转义字符（不太懂）
-    "no-useless-escape": "off",
+    'no-useless-escape': 'off'
   },
   globals: {
     // 全局变量定义 writable 可修改 readonly 只读
-    urlParams: "writable",
-    $nuxt: "readonly",
-    traceRecord: "readonly",
-    weui: "readonly",
-    WeixinJSBridge: "readonly",
-    wx: "readonly",
-  },
-};
+    urlParams: 'writable',
+    $nuxt: 'readonly',
+    traceRecord: 'readonly',
+    weui: 'readonly',
+    WeixinJSBridge: 'readonly',
+    wx: 'readonly'
+  }
+}
 ```
 
 本地开发时开启 eslint
 
 ```js
 export default {
-  buildModules: ["@nuxtjs/eslint-module"],
-};
+  buildModules: ['@nuxtjs/eslint-module']
+}
 ```
 
 package.json 增加配置
@@ -488,7 +482,7 @@ package.json 增加配置
 }
 ```
 
-注：eslintIgnore 是为了配置 eslint 忽略文件，比如 assets 中的 json 和 tk-common 子模块
+注：eslintIgnore 是为了配置 eslint 忽略文件，比如 assets 中的 json 和 rainbow-common 子模块
 执行 lintfix 命令可以修复部分违反 eslint 规则的代码，你也可以设置保存自动修复；
 
 ```json
@@ -533,33 +527,33 @@ npm install @commitlint/config-conventional @commitlint/cli --save-dev
 ```js
 module.exports = {
   // 继承的规则
-  extends: ["@commitlint/config-conventional"],
+  extends: ['@commitlint/config-conventional'],
   // 定义规则类型
   rules: {
     // type 类型定义，表示 git 提交的 type 必须在以下类型范围内
-    "type-enum": [
+    'type-enum': [
       // 0为disable，1为warning，2为error
       2,
       // 在什么情况下需要进行验证 never和always，never无视规则
-      "always",
+      'always',
       // 泛型内容
       [
-        "feat", // 新功能 feature
-        "fix", // 修复 bug
-        "docs", // 文档注释
-        "style", // 代码格式(不影响代码运行的变动)
-        "refactor", // 重构(既不增加新功能，也不是修复bug)
-        "perf", // 性能优化
-        "test", // 增加测试
-        "chore", // 构建过程或辅助工具的变动
-        "revert", // 回退
-        "build", // 打包
-      ],
+        'feat', // 新功能 feature
+        'fix', // 修复 bug
+        'docs', // 文档注释
+        'style', // 代码格式(不影响代码运行的变动)
+        'refactor', // 重构(既不增加新功能，也不是修复bug)
+        'perf', // 性能优化
+        'test', // 增加测试
+        'chore', // 构建过程或辅助工具的变动
+        'revert', // 回退
+        'build' // 打包
+      ]
     ],
     // subject 大小写不做校验
-    "subject-case": [0],
-  },
-};
+    'subject-case': [0]
+  }
+}
 ```
 
 > 注意：commitlint.config.js 的文件要保存为 UTF-8 编码格式的，否则会报错

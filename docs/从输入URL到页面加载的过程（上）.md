@@ -91,7 +91,7 @@ DNS，Domain Name System/域名系统，一个面向互联网的将域名和 IP 
 
 2. `本地名称服务器`收到请求后，`先查询本地缓存`。假设没有查到该域名对应记录，则本地名称服务器向所配置的根名称服务器 `a.rootserver.net` 发出解析请求解析`www.google.com` 域名的 DNS 请求报文(相当于对本地名称服务器说:“请给我 `www.google.com` 所对应的 IP 地址”)。
 
-3. `根名称服务器`收到 客户端的 DNS 查询请求报文后，通过查询得到`.com` 顶级域名所对应的顶级名称服务器，然后向本地名称服务器返回一条应答报文(相当说“我不知道www.google.com 域名所对应的 IP 地址，但我现在告诉你 `.com` 域名所对应的顶级名称服务器地址”)。
+3. `根名称服务器`收到 客户端的 DNS 查询请求报文后，通过查询得到`.com` 顶级域名所对应的顶级名称服务器，然后向本地名称服务器返回一条应答报文(相当说“我不知道 www.google.com 域名所对应的 IP 地址，但我现在告诉你 `.com` 域名所对应的顶级名称服务器地址”)。
 
 4. `本地名称服务器`在收到根名称服务器的 DNS 应答报文，得到`.com` 顶级域名所对应的顶级名称服务器地址后，再次向对应的顶级名称服务器发送一条请求解析 `www.google.com` 域名的 DNS 请求报文。
 
@@ -103,7 +103,7 @@ DNS，Domain Name System/域名系统，一个面向互联网的将域名和 IP 
 
 8. 本地名称服务器在收到 `google.com` 二级名称服务器的 DNS 应答报文，得到 `www.google.com` 三级域名所对应的权威名称服务器地址后，再次向对应的权威名称服务器发送一条请求解析 `www.google.com` 域名的 DNS 请求报文。
 
-9. `www.google.com`权威名称服务器在收到 DNS 请求后，在它的 DNS 区域数据库中查找，最终得出了www.google.com 域名所对应的 IP 地址。然后向本地名称服务器返回到条 DNS 应答报文(相当于对本地名称服务器说：“`www.google.com` 域名的 IP 地址为 xxx.xxx.xxx.xxx”)。
+9. `www.google.com`权威名称服务器在收到 DNS 请求后，在它的 DNS 区域数据库中查找，最终得出了 www.google.com 域名所对应的 IP 地址。然后向本地名称服务器返回到条 DNS 应答报文(相当于对本地名称服务器说：“`www.google.com` 域名的 IP 地址为 xxx.xxx.xxx.xxx”)。
 
 10. 本地名称服务器在收到权威名称服务器的应答报文后，向 DNS 客户端返回一条 DNS 应答报文，告诉 DNS 客户端所得到的`www.google.com` 域名的 `IP 地址`。这样 DNS 客户端就可以正常访问这个网站了。
 
@@ -263,13 +263,13 @@ HTTP 1.x 标准下，浏览器对同一域名下并发的 tcp 连接是有限制
 五层因特网协议栈其实就是：
 
     1.应用层(dns,http) DNS解析成IP并发送http请求
-    
+
     2.传输层(tcp,udp) 建立tcp连接（三次握手）
-    
+
     3.网络层(IP,ARP) IP寻址
-    
+
     4.数据链路层(PPP) 封装成帧
-    
+
     5.物理层(利用物理介质传输比特流) 物理传输（然后传输的时候通过双绞线，电磁波等各种介质）
 
 当然，其实也有一个完整的 OSI 七层框架，与之相比，多了会话层、表示层。
@@ -277,7 +277,7 @@ HTTP 1.x 标准下，浏览器对同一域名下并发的 tcp 连接是有限制
 OSI 七层框架：`物理层`、`数据链路层`、`网络层`、`传输层`、`会话层`、`表示层`、`应用层`
 
     表示层：主要处理两个通信系统中交换信息的表示方式，包括数据格式交换，数据加密与解密，数据压缩与终端类型转换等
-    
+
     会话层：它具体管理不同用户和进程之间的对话，如控制登陆和注销过程
 
 ## 从服务器接收到请求到对应后台接收到请求
@@ -323,7 +323,7 @@ OSI 七层框架：`物理层`、`数据链路层`、`网络层`、`传输层`�
 **通用头部**
 
 ```
-Request URL: https://ftest.tk.cn/tkproperty/nprd/N20210033/ 请求的web服务器地址
+Request URL: https://baidu.com 请求的web服务器地址
 Request Method: GET （请求方式：Get、POST、OPTIONS、PUT、HEAD、DELETE、CONNECT、TRACE）
 Status Code: 200  请求的返回状态码
 Remote Address: 10.161.163.16:443 请求的远程服务器地址（会转为IP）
@@ -369,7 +369,7 @@ Max-age：代表资源在本地缓存多少秒，有效时间内不会请求，�
 If-None-Match：对应服务端的ETag，用来匹配文件内容是否改变（非常精确），http1.1中
 Cookie: 有cookie并且同域访问时会自动带上 (utm_source、RequestId、tkmid、tkmidtoken、tkmname 等)
 Connection: 当浏览器与服务器通信时对于长连接如何进行处理,如keep-alive
-Host：请求的服务器URL，如 f.tk.cn
+Host：请求的服务器URL，如 baidu.com
 Origin：最初的请求是从哪里发起的（只会精确到端口）,Origin比Referer更尊重隐私
 Referer：该页面的来源URL(适用于所有类型的请求，会精确到详细页面地址，csrf拦截常用到这个字段)
 User-Agent：用户客户端的一些必要信息，如UA头部等 （Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1）
@@ -430,11 +430,7 @@ POST 提交的数据必须放在消息主体（entity-body）中，但协议并�
 这又是一个常见的 POST 数据提交的方式。我们使用表单上传文件时，必须让 <form> 表单的 enctype 等于 multipart/form-data。直接来看一个请求示例：
 
 ```html
-<form
-  action="http://localhost:8888/task/"
-  method="POST"
-  enctype="multipart/form-data"
->
+<form action="http://localhost:8888/task/" method="POST" enctype="multipart/form-data">
   First name: <input type="text" name="firstName" value="Mickey&" /><br />
   Last name: <input type="text" name="lastName" value="Mouse " /><br />
   <input type="submit" value="提交" />
@@ -452,24 +448,24 @@ application/json 这个 Content-Type 作为响应头大家肯定不陌生。实�
 ```js
 function addUserXhr(sendData) {
   return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
+    const xhr = new XMLHttpRequest()
     xhr.onreadystatechange = () => {
       if (xhr.readyState == 4 && xhr.status == 200) {
-        const res = JSON.parse(xhr.responseText);
+        const res = JSON.parse(xhr.responseText)
         if (res.code === 0) {
-          resolve(res.data);
+          resolve(res.data)
         }
       }
-    };
-    xhr.open("POST", "/api/users/add", true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.send(sendData);
-  });
+    }
+    xhr.open('POST', '/api/users/add', true)
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.send(sendData)
+  })
 }
 
 // 需要转成字符串后，再发送请求
-const sendData = JSON.stringify({ username: "你好", age: 2, password: "qww" });
-addUserXhr(sendData);
+const sendData = JSON.stringify({ username: '你好', age: 2, password: 'qww' })
+addUserXhr(sendData)
 ```
 
 ![](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5409edf5dc9e4f25b073edc1c6816867~tplv-k3u1fbpfcp-watermark.awebp?)
@@ -483,13 +479,13 @@ cookie 是浏览器的一种本地存储方式，一般用来帮助客户端和�
 场景如下（简述）：
 
     在登陆页面，用户登陆了
-    
+
     此时，服务端会生成一个session，session中有对于用户的信息（如用户名、密码等）
-    
+
     然后会有一个sessionid（相当于是服务端的这个session对应的key）
-    
+
     然后服务端在登录页面中写入cookie，值就是:jsessionid=xxx
-    
+
     然后浏览器本地就有这个cookie了，以后访问同域名下的页面时，自动带上cookie，自动检验，在有效时间内无需二次登陆。
 
 上述就是 cookie 的常用场景简述（当然了，实际情况下得考虑更多因素）
