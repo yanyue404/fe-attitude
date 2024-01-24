@@ -15,16 +15,40 @@ Javascript 基础知识
 - 作用域
 - 闭包
   - 柯里化
-- this 的指向
+- this 指向
 - 立即执行函数
 - 事件循环机制
+- promise 原理
 - v8 垃圾回收机制
+
+## 强类型语言和弱类型语言的区别
+
+- 强类型语言：强类型语言也称为强类型定义语言，是一种总是强制类型定义的语言，要求变量的使用要严格符合定义，所有变量都必须先定义后使用。Java 和 C++等语言都是强制类型定义的，也就是说，一旦一个变量被指定了某个数据类型，如果不经过强制转换，那么它就永远是这个数据类型了。例如你有一个整数，如果不显式地进行转换，你不能将其视为一个字符串。
+- 弱类型语言：弱类型语言也称为弱类型定义语言，与强类型定义相反。JavaScript 语言就属于弱类型语言。简单理解就是一种变量类型可以被忽略的语言。比如 JavaScript 是弱类型定义的，在 JavaScript 中就可以将字符串'12'和整数 3 进行连接得到字符串'123'，在相加的时候会进行强制类型转换。
+
+两者对比：强类型语言在速度上可能略逊色于弱类型语言，但是强类型语言带来的严谨性可以有效地帮助避免许多错误。
+
+## 解释性语言和编译型语言的区别
+
+（1）解释型语言 使用专门的解释器对源程序逐行解释成特定平台的机器码并立即执行。是代码在执行时才被解释器一行行动态翻译和执行，而不是在执行之前就完成翻译。解释型语言不需要事先编译，其直接将源代码解释成机器码并立即执行，所以只要某一平台提供了相应的解释器即可运行该程序。其特点总结如下
+
+- 解释型语言每次运行都需要将源代码解释称机器码并执行，效率较低；
+- 只要平台提供相应的解释器，就可以运行源代码，所以可以方便源程序移植；
+- JavaScript、Python 等属于解释型语言。
+
+（2）编译型语言 使用专门的编译器，针对特定的平台，将高级语言源代码一次性的编译成可被该平台硬件执行的机器码，并包装成该平台所能识别的可执行性程序的格式。在编译型语言写的程序执行之前，需要一个专门的编译过程，把源代码编译成机器语言的文件，如 exe 格式的文件，以后要再运行时，直接使用编译结果即可，如直接运行 exe 文件。因为只需编译一次，以后运行时不需要编译，所以编译型语言执行效率高。其特点总结如下：
+
+- 一次性的编译成平台相关的机器语言文件，运行时脱离开发环境，运行效率高；
+- 与特定平台相关，一般无法移植到其他平台；
+- C、C++等属于编译型语言。
+
+两者主要区别在于： 前者源程序编译后即可在该平台运行，后者是在运行期间才编译。所以前者运行速度快，后者跨平台性好。
 
 ## 数据类型
 
 JavaScript 中的值都具有特定的类型。例如，字符串或数字。
 
-在 JavaScript 中有 8 种基本的数据类型（7 种原始类型和 1 种引用类型）。
+在 JavaScript 中有 8 种基本的数据类型（7 种原始类型 Undefined、Null、Number、Boolean、String（ES6 新增 2 个 Symbol 和 BigInt）和 1 种引用类型 Object）。
 
 我们可以将任何类型的值存入变量。例如，一个变量可以在前一刻是个字符串，下一刻就存储一个数字：
 
@@ -38,17 +62,7 @@ message = 123456
 
 **原始类型**
 
-在 JS 中，存在着 7 种原始值，分别是：
-
-- boolean
-- null
-- undefined
-- number
-- string
-- symbol
-- BigInt
-
-其中 Symbol 和 BigInt 是 ES6 中新增的数据类型：
+Symbol 和 BigInt 是 ES6 中新增的数据类型：
 
 - Symbol 代表创建后独一无二且不可变的数据类型，它主要是为了解决可能出现的全局变量冲突的问题。
 - BigInt 是一种数字类型的数据，它可以表示任意精度格式的整数，使用 BigInt 可以安全地存储和操作大整数，即使这个数已经超出了 Number 能够表示的安全整数范围。
@@ -108,7 +122,7 @@ b.push(1)
 
 `undefined` 和 `null` 在 if 语句中，都会被自动转为 false
 
-`undefined` 不是一个有效的 JSON，而 `null` 是
+`undefined` 不是一个有效的 JSON，而 `null` 是 （JSON.parse(undefined), Uncaught SyntaxError: "undefined" is not valid JSON）
 
 `undefined` 的类型(typeof)是 `undefined`
 
@@ -250,6 +264,8 @@ str1 instanceof String // true
 
 ```js
 // __proto__: 代表原型对象链
+str1 instanceof Object // true
+str1 .__proto__.__proto__ = Object.prototype // true
 instance.[__proto__...] === instance.constructor.prototype
 
 // return true
@@ -340,7 +356,22 @@ let o1 = {
 let o2 = JSON.parse(JSON.stringify(o1)) // { a: {val: 1}}
 ```
 
-基础版（新增函数函数类型支持），推荐使用 [lodash 的深拷贝函数](https://www.lodashjs.com/docs/lodash.cloneDeep)。
+基础版
+
+```js
+var deepCopy = function(obj) {
+  if (typeof obj !== 'object') return
+  var newObj = obj instanceof Array ? [] : {}
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      newObj[key] = typeof obj[key] === 'object' ? deepCopy(obj[key]) : obj[key]
+    }
+  }
+  return newObj
+}
+```
+
+进阶版（新增函数函数类型支持），推荐使用 [lodash 的深拷贝函数](https://www.lodashjs.com/docs/lodash.cloneDeep)。
 
 ```js
 function deepCopy(target) {
@@ -643,7 +674,7 @@ obj.__proto__ = Test.prototype
 Test.call(obj)
 ```
 
-4. 返回新对象(必须是一个对象形式)
+4. 返回新对象(必须是一个对象形式，判断函数的返回值类型，如果是值类型，返回创建的对象。如果是引用类型，就返回这个引用类型的对象。)
 
 **手写一个**
 
@@ -1793,8 +1824,10 @@ ES6 允许使用“箭头”（=>）定义函数。`function name(arg1, arg2) {.
 
 箭头函数的使用注意点：
 
-- 函数体内的 this 对象，就是定义时所在的作用域，而不是使用时所在的作用域
-- 不可以当作构造函数，也就是说，不可以使用 new 命令，否则会抛出一个错误。
+- **箭头函数没有自己的 this**，函数体内的 this 对象，就是定义时所在的作用域，而不是使用时所在的作用域
+- 不可以当作构造函数，也就是说，不可以使用 new 命令，否则会抛出一个错误（Uncaught TypeError: xxx is not a constructor）。
+- **箭头函数继承来的 this 指向永远不会改变**
+- **call()、apply()、bind()等方法不能改变箭头函数中 this 的指向**
 - 不可以使用 arguments 对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。
 - 不可以使用 yield 命令，因此箭头函数不能用作 Generator 函数。
 - 箭头函数没有原型对象 prototype
@@ -1819,6 +1852,37 @@ function fn() {
 fn.call({ a: 100 })
 ```
 
+## 箭头函数的 this 指向哪⾥？
+
+箭头函数不同于传统 JavaScript 中的函数，箭头函数并没有属于⾃⼰的 this，它所谓的 this 是捕获其所在上下⽂的 this 值，作为⾃⼰的 this 值，并且由于没有属于⾃⼰的 this，所以是不会被 new 调⽤的，这个所谓的 this 也不会被改变。
+
+可以⽤ Babel 理解⼀下箭头函数:
+
+```js
+// ES6
+const obj = {
+  getArrow() {
+    return () => {
+      console.log(this === obj)
+    }
+  }
+}
+```
+
+转换后：
+
+```js
+// ES5，由 Babel 转译
+var obj = {
+  getArrow: function getArrow() {
+    var _this = this
+    return function() {
+      console.log(_this === obj)
+    }
+  }
+}
+```
+
 ## Promise
 
 `Promise`是 CommonJS 提出来的这一种规范，有多个版本，在 ES6 当中已经纳入规范，原生支持 Promise 对象，非 ES6 环境可以用类似 Bluebird、Q 这类库来支持。
@@ -1841,7 +1905,7 @@ Promise new 的时候会立即执行（同步）构造函数里面的代码， t
 当然还有其他概念，如`catch`用于错误捕获， `Promise.all/race/allSettled`。
 
 - Promise.all() 所有 promise 都成功才返回结果，若有一个出错则直接阻断执行并返回错误信息。
-- Promise.race() 所有 promise 竞赛，取最先改变的 promise 实例结果返回。
+- Promise.race() 所有 promise 竞赛，取最先改变的 promise 实例结果返回 （不管结果本身是成功状态还是失败状态）。
 - Promise.allset() 不管 单个 Promise 请求成功还是失败，都会返回结果。（每个对象都有 status 属性描述请求结果状态）
 - Promise.any() 【提案中】 所有 promise 竞赛，取最先成功 fulfilled 的 promise 实例结果返回，不会因为某个 Promise 变成 rejected 状态而结束。如果所有参数实例都变成 rejected 状态，包装实例就会变成 rejected 状态
 
@@ -1954,6 +2018,13 @@ Promise.every = promiseAry => {
 }
 ```
 
+## async/await 对比 Promise 的优势
+
+- 代码读起来更加同步，Promise 虽然摆脱了回调地狱，但是 then 的链式调⽤也会带来额外的阅读负担
+- Promise 传递中间值⾮常麻烦，⽽ async/await ⼏乎是同步的写法，⾮常优雅
+- 错误处理友好，async/await 可以⽤成熟的 try/catch，Promise 的错误捕获⾮常冗余
+- 调试友好，Promise 的调试很差，由于没有代码块，你不能在⼀个返回表达式的箭头函数中设置断点，如果你在⼀个.then 代码块中使⽤调试器的步进(step-over)功能，调试器并不会进⼊后续的.then 代码块，因为调试器只能跟踪同步代码的每⼀步。
+
 ## JS 异步解决方案的发展历程以及优缺点
 
 1. 回调函数（callback）
@@ -1976,7 +2047,7 @@ Promise.every = promiseAry => {
 
 async、await 是异步的终极解决方案 (await 就是 generator 加上 Promise 的语法糖，且内部实现了自动执行 generator)
 
-优点：代码清晰，不用像 Promise 写一大堆 then 链，处理了回调地狱的问题
+优点：代码优雅，错误处理友好，调试友好
 
 缺点：await 将异步代码改造成同步代码，如果多个异步操作没有依赖性而使用 await 会导致性能上的降低。
 
@@ -2259,8 +2330,41 @@ dog.eat()
 
 ## Object 与 Map 的区别
 
-1. Object 只能选择字符、数值、符号作为 key，Map 则可以使用任何类型的数据作为 key。
-2. Map 实例会维护键值对的插入顺序，因此可以根据插入顺序执行迭代操作。Chrome Opera 中使用 for-in 语句遍历 Object 属性时会遵循一个规律：它们会先提取所有 key 的 parseFloat 值为非负整数的属性，然后根据数字顺序对属性排序首先遍历出来，然后按照对象定义的顺序遍历余下的所有属性。其它浏览器则完全按照对象定义的顺序遍历属性。
+1. 意外的键
+
+   Map 默认情况不包含任何键，只包含显式插入的键。
+
+   Object 有一个原型, 原型链上的键名有可能和自己在对象上的设置的键名产生冲突。
+
+2. 键的类型
+
+   Map 的键可以是任意值，包括函数、对象或任意基本类型。
+
+   Object 只能选择字符、数值、Symbol、符号作为 key。
+
+3. 键的顺序
+
+   Map 中的 key 是有序的。因此，当迭代的时候， Map 对象以插入的顺序返回键值。
+
+   Object 的键是无序的。
+
+4. Size
+
+   Map 的键值对个数可以轻易地通过 size 属性获取。
+
+   Object 的键值对个数只能手动计算
+
+5. 迭代
+
+   Map 是 iterable 的，所以可以直接被迭代。
+
+   迭代 Object 需要以某种方式获取它的键然后才能迭代。
+
+6. 性能
+
+   Map 在频繁增删键值对的场景下表现更好。
+
+   Object 在频繁添加和删除键值对的场景下未作出优化。
 
 ### 选择 Object 还是 Map
 
@@ -2295,6 +2399,16 @@ Object 和 Map 的工程级实现在不同浏览器间存在明显差异，但�
 
 - [JavaScript 高级程序设计（第 4 版）](https://book.douban.com/subject/35175321/?from=tag)
 - [js 能够保证 object 属性的输出顺序吗？](http://jartto.wang/2016/10/25/does-js-guarantee-object-property-order/)
+
+## for...in 和 for...of 的区别
+
+for…of 是 ES6 新增的遍历方式，允许遍历一个含有 iterator 接口的数据结构（数组、对象等）并且返回各项的值，和 ES3 中的 for…in 的区别如下
+
+- for…of 遍历获取的是对象的键值，for…in 获取的是对象的键名；
+- 对于对象的遍历， for…in 语句以任意顺序迭代对象的可枚举属性（会遍历对象的整个原型链，性能差），而 for … of 只遍历可迭代对象定义要迭代的数据；。
+- 对于数组的遍历，for…in 会返回数组中所有可枚举的属性(包括原型链上可枚举的属性)，for…of 只返回数组的下标对应的属性值；
+
+总结： for...in 循环主要是为了遍历对象而生，不适用于遍历数组；for...of 循环可以用来遍历数组、类数组对象，字符串、Set、Map 以及 Generator 对象。
 
 ## 代码的复用
 
@@ -2376,17 +2490,6 @@ obj1.a =  null
 - 对数组进行优化： 在清空一个数组时，最简单的方法就是给其赋值为\[ \]，但是与此同时会创建一个新的空对象，可以将数组的长度设置为 0，以此来达到清空数组的目的。
 - 对`object`进行优化： 对象尽量复用，对于不再使用的对象，就将其设置为 null，尽快被回收。
 - 对函数进行优化： 在循环中的函数表达式，如果可以复用，尽量放在函数的外面。
-
-## 介绍下观察者模式和订阅-发布模式的区别，各自适用于什么场景
-
-观察者模式中主体和观察者是互相感知的，发布-订阅模式是借助第三方来实现调度的，发布者和订阅者之间互不感知\
-[![image](https://user-images.githubusercontent.com/18718461/53536375-228ba180-3b41-11e9-9737-d71f85040cfc.png)](https://user-images.githubusercontent.com/18718461/53536375-228ba180-3b41-11e9-9737-d71f85040cfc.png)
-
-- reference:
-  - [观察者模式 vs 发布-订阅模式](https://juejin.im/post/5a14e9edf265da4312808d86)
-
-> 可不可以理解 为 观察者模式没中间商赚差价
-> 发布订阅模式 有中间商赚差价
 
 ## 参考
 

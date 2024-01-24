@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const add = (x, y, z) => x + y + z
+
+      const adding = (...args) => args.reduce((pre, cur) => pre + cur, 0)
+
+      // 参数确定
+      const curry = fn => {
+        const fnLength = fn.length
+        return function curried(...args) {
+          if (args.length === fnLength) {
+            return fn.apply(null, args)
+          } else {
+            return function(...reset) {
+              return curried.apply(null, args.concat(reset))
+            }
+          }
+        }
+      }
+      const curriedAdd = curry(add)
+
+      //参数不确定
+      const currying = fn => {
+        let args = []
+
+        return function temp(...newArgs) {
+          if (newArgs.length) {
+            args.push(...newArgs)
+            return temp
+          } else {
+            const val = fn.apply(this, args)
+            args = []
+            return val
+          }
+        }
+      }
+
+      let addCurry = currying(adding)
+      console.log(addCurry(1)(2)(3)(4, 5)()) //15
+      // console.log(addCurry(1)(2)(3, 4, 5)()) //15
+      // console.log(addCurry(1)(2, 3, 4, 5)()) //15
+    </script>
+  </body>
+</html>

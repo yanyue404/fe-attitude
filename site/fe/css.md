@@ -319,6 +319,7 @@ justify-content: center;
 - `absolute`：绝对定位，相对非 `static` 祖先元素定位，直到 html 根标签为止。
 - `fixed`：不为元素预留空间，而是通过指定元素相对于屏幕视口（viewport）的位置来指定元素位置。元素的位置在屏幕滚动时不会改变
 - `sticky`: 粘性布局，可以看出是 position:relative 和 position:fixed 的结合体——当元素在屏幕内，表现为 relative，就要滚出显示器屏幕的时候，表现为 fixed
+- `inherit`: 规定从父元素继承 postion 的值
 
 ## 请阐述`z-index`属性，并说明如何形成层叠上下文（stacking context）。
 
@@ -580,7 +581,7 @@ E#myid
 
 - visibility：控制元素显示隐藏
 
-### display:none、visibile:hidden、opacity:0 的区别
+## display:none、visibile:hidden、opacity:0 的区别
 
 |                  | 是否隐藏 | 是否在文档中占用空间 | 是否会触发事件 |
 | ---------------- | -------- | -------------------- | -------------- |
@@ -823,6 +824,8 @@ div a {
 }
 ```
 
+使用 font-size 时，可通过设置 font-size:0、letter-spacing、word-spacing 解决；
+
 更详细的介绍请看:[去除 inline-block 元素间间距的 N 种方法](https://www.zhangxinxu.com/wordpress/2012/04/inline-block-space-remove-%E5%8E%BB%E9%99%A4%E9%97%B4%E8%B7%9D/)
 
 ## 元素竖向的百分比设定是相对于容器的高度吗？
@@ -848,7 +851,7 @@ div a {
 
 ## 如何解决移动端 Retina 屏 1px 像素问题
 
-伪元素 + transform 实现:
+伪元素 + transform (缩放) 实现:
 
 ```css
 .cus-border-bottom {
@@ -1223,9 +1226,14 @@ perspective:1000px; // 透视
 - 11、媒体查询
 - 12、多列布局
 
-## css3 了解吗，主要用什么，animation，transition，translate，transform 这四个是干嘛的
+## CSS3 了解吗，主要用什么，animation，transition，translate，transform 这四个是干嘛的
 
-## css 作用域隔离方法
+- animation 自定义动画
+- transition 过渡效果
+- transform 2D 转换，允许旋转，缩放，倾斜或平移给定元素
+- translate 2D 位移，translate(x ,y ) 沿着 x 轴移动 x，沿着 y 轴移动 y
+
+## CSS 作用域隔离方法
 
 - 命名空间，加不同的前缀
 - module，例如 vue 的 scoped
@@ -1667,7 +1675,7 @@ Modifier（修饰）
 </div>
 ```
 
-## css 自定义变量
+## CSS 自定义变量
 
 CSS 变量，其中包含要在整个文档中重用的特定值。
 

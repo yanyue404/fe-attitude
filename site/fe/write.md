@@ -964,8 +964,14 @@ localStorage.getItem('key')
 
 ### 函数柯里化
 
+函数柯里化概念： 柯里化（Currying）是把接受多个参数的函数转变为接受一个单一参数的函数，并且返回接受余下的参数且返回结果的新函数的技术。
+
 ```js
 const add = (x, y, z) => x + y + z
+
+const adding = (...args) => args.reduce((pre, cur) => pre + cur, 0)
+
+// 参数确定
 const curry = fn => {
   const fnLength = fn.length
   return function curried(...args) {
@@ -986,6 +992,27 @@ const result3 = curriedAdd(1, 2)(3)
 console.log('result', result) // result 6
 console.log('result2', result2) // result2 6
 console.log('result3', result3) // result3 6
+
+//参数不确定
+const currying = fn => {
+  let args = []
+
+  return function temp(...newArgs) {
+    if (newArgs.length) {
+      args.push(...newArgs)
+      return temp
+    } else {
+      const val = fn.apply(this, args)
+      args = []
+      return val
+    }
+  }
+}
+
+let addCurry = currying(adding)
+console.log(addCurry(1)(2)(3)(4, 5)()) //15
+console.log(addCurry(1)(2)(3, 4, 5)()) //15
+console.log(addCurry(1)(2, 3, 4, 5)()) //15
 ```
 
 ### 函数记忆
