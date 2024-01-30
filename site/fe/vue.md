@@ -1617,6 +1617,24 @@ SSG 和 SSR 之间唯一的区别是渲染 HTML 的时间点
 
 预渲染适用于内容偶尔改变的网站，一天更新几次那种。比如：https://vite-plugin-ssr.com 只是偶尔更新，每次 vite-plugin-ssr 维护者改变内容的时候，整个 https://vite-plugin-ssr.com 都重新构建。预渲染支持把 https://vite-plugin-ssr.com 部署到 Github Pages，这比使用 Node.js 生产服务更容易（并且性能更高）一个数量级。
 
+## 让 Vue 使用指定配置文件进行构建
+
+以 vue-cli 为例, [参考](https://moe.best/gotagota/vue-build-from-specified-config.html)：
+
+```js
+const { spawnSync } = require('child_process')
+const { resolve } = require('path')
+
+spawnSync('npm', ['run', 'build'], {
+  shell: true,
+  env: {
+    ...process.env, // 要记得导入原本的环境变量
+    VUE_CLI_SERVICE_CONFIG_PATH: resolve(\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_dirname, 'my.vue.config.js')
+  },
+  stdio: 'inherit'
+})
+```
+
 ## 参考链接
 
 - https://juejin.cn/post/6844904166742048782

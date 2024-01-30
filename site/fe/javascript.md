@@ -784,12 +784,21 @@ function Animal(legsNumber) {
   this.legsNumber = legsNumber
 }
 Animal.prototype.kind = '动物'
+Animal.prototype.sayHi = function() {
+  console.log('hi，我是' + this.kind)
+}
 
 function Dog(name) {
   this.name = name
   Animal.call(this, 4) // 关键代码1
 }
-Dog.prototype.__proto__ = Animal.prototype // 关键代码2，但这句代码被禁用了，怎么办
+
+Dog.prototype.__proto__ = Animal.prototype // 关键代码2
+
+const huang = new Dog('huang')
+
+console.log(huang)
+huang.sayHi() // hi，我是动物
 
 Dog.prototype.kind = '狗'
 Dog.prototype.say = function() {
@@ -800,26 +809,21 @@ const d1 = new Dog('啸天') // Dog 函数就是一个类
 console.dir(d1)
 ```
 
-被 ban 的代码替换方式
-
-```js
-var f = function() {}
-f.prototype = Animal.prototype
-Dog.prototype = new f()
-```
-
 **方法二：使用 class**
 
 ```js
 class Animal {
   constructor(legsNumber) {
+    this.kind = '动物'
     this.legsNumber = legsNumber
   }
-  run() {}
+  sayHi() {
+    console.log('hi，我是' + this.kind)
+  }
 }
 class Dog extends Animal {
   constructor(name) {
-    super(4)
+    super(4) // 传入 Animal 的 constructor
     this.name = name
   }
   say() {
@@ -828,6 +832,7 @@ class Dog extends Animal {
 }
 
 const d2 = new Dog('旺财') // Dog 函数就是一个类
+d2.sayHi() // hi，我是动物
 console.dir(d2)
 ```
 
