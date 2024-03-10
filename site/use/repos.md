@@ -70,6 +70,10 @@
 
 - [baidu/amis | Github](https://github.com/baidu/amis)
 - [amis 可视化编辑器 | Github](https://github.com/fex-team/amis-editor-demo)
+- [扫盲低代码-vue3实现低代码平台](https://juejin.cn/post/7211420858212925500?searchId=20240301151904F9C466FE5AB63D78D7B3)
+- [基于 vue3 + vite + ts H5 卖场工具平台](https://github.com/Taoshuaixing/vue3-store-tools)
+- [GoView](https://gitee.com/dromara/go-view) 一个Vue3搭建的低代码数据可视化开发平台，将图表或页面元素封装为基础组件，无需编写代码即可完成业务需求。 它的技术栈为：Vue3 + TypeScript4 + Vite2 + NaiveUI + ECharts5 + Axios + Pinia2 + PlopJS
+- [rtvue-lowcod](https://github.com/ZestfulCitrus/uni-lowcode) 一款基于 uniapp 框架和 uview 组件库的低代码开发平台
 
 ## 脚手架
 
