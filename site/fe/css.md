@@ -834,6 +834,30 @@ div a {
 
 ## ⽤纯 CSS 创建⼀个三⻆形的原理是什么？
 
+高宽为 0 的容器 + 透明的 border 实现
+
+一个由于四个 border 三角形组成的正方形
+
+```css
+.box {
+  display: inline-block;
+  border-top: 50px solid yellowgreen;
+  border-bottom: 50px solid deeppink;
+  border-left: 50px solid bisque;
+  border-right: 50px solid chocolate;
+}
+```
+
+一个由于四个 border 三角形组成的正方形，三个 border 设置为投明色，只留一个边的向上三角形
+
+```css
+.box {
+  display: inline-block;
+  border: 50px solid transparent;
+  border-bottom: 50px solid deeppink;
+}
+```
+
 利用伪元素画三角
 
 ```css

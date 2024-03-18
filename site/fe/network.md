@@ -27,7 +27,7 @@
 - 请求长度：浏览器由于对 url 长度的限制，所以会影响 get 请求发送数据时的长度。这个限制是浏览器规定的，并不是 RFC 规定的。
 - 参数类型：post 的参数传递支持更多的数据类型。
 
-![](https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/2/14/168e9d9050b9d08a~tplv-t2oaga2asx-zoom-in-crop-mark:4536:0:0:0.awebp)
+![](./imgs/get&post.awebp)
 
 **post 请求的编码格式**
 
@@ -44,7 +44,7 @@
 
 **三次握手**
 
-![](https://upload-images.jianshu.io/upload_images/9658881-14388ff91eda35c6.png?imageMogr2/auto-orient/strip|imageView2/2/w/855/format/webp)
+![](./imgs/tcp3.webp)
 
 三次握手(Three-way Handshake)，是指建立一个 TCP 连接时，需要客户端和服务器总共发送 3 个包。
 
@@ -74,7 +74,7 @@
 
 然后，待到断开连接时，需要进行四次挥手（因为是全双工的，所以需要四次挥手）
 
-![](https://upload-images.jianshu.io/upload_images/9658881-bee754e3da92d278.png?imageMogr2/auto-orient/strip|imageView2/2/w/835/format/webp)
+![](./imgs/tcp4.webp)
 
 TCP 连接的断开需要发送四个包，所以称为四次挥手。
 
@@ -148,7 +148,7 @@ TCP 连接是双向传输的对等的模式，就是说双方都可以同时向�
 
 协商缓存依赖于服务端与浏览器之间的通信，对于协商缓存，使用`Ctrl + F5` 强制刷新可以使得缓存无效（因为会刷新变成首次请求服务器，不会带有协商缓存的标识）
 
-![](https://pic1.zhimg.com/v2-36d4c9370f9b83c136f8997ce8a85094_r.jpg)
+![](./imgs/304.png)
 
 但是对于强缓存，在未过期时，必须更新资源路径才能发起新的请求（更改了路径相当于是另一个资源了，这也是前端工程化中常用到的技巧）
 
@@ -179,7 +179,7 @@ TCP 连接是双向传输的对等的模式，就是说双方都可以同时向�
 
 过去我们一直使用 Expires 来实现强缓存：当服务器返回响应时，在 Response Headers 中将过期时间写入 `Expires` 字段（服务器端时间）。例如：
 
-![](https://pic3.zhimg.com/v2-7ce099a9315b3a3ac2abd7b88e057e46_r.jpg)
+![](./imgs/expires.jpg)
 
 从上图我们可以看到 Expires 是一个时间戳，接下来如果我们试图再次向服务器请求资源，浏览器就会先对比本地时间和 expires 的时间戳，如果本地时间小于 expires 设定的过期时间，就直接从缓存中获取这个资源。
 
@@ -232,7 +232,7 @@ Cache-Control 包含的值很多：
 
 下面我们来看个例子：
 
-![](https://pic4.zhimg.com/v2-5bd4ebff7cf3c25448c5c2de66d3821b_r.jpg)
+![](./imgs/cache-control.jpg)
 
 从上面的例子我们可以看到，HTTP 响应报文中同时有 `Cache-Control`和`Expires`两个字段，由于`Cache-Control`优先级较高，那么直接根据 Cache-Control 的值进行缓存，也就是说在 `315360000` 秒内重新发起该请求，会直接使用缓存结果，强制缓存生效。
 
@@ -292,7 +292,7 @@ If-None-Match: W/"324023994867772d0dd9fac01f1420bd"
 
 但是如何设置一个可靠的缓存规则，需要根据实际需求决定，绝大部分需求的缓存规则都可以根据 Chrome 官方提供的流程图来进行设置。
 
-![](https://pic3.zhimg.com/v2-cd30ac01c076cbdd9468b5d24d19f1c6_r.jpg)
+![](./imgs/cache-control-rules.jpg)
 
 我们一起来看上面这张流程图：
 
@@ -308,7 +308,7 @@ If-None-Match: W/"324023994867772d0dd9fac01f1420bd"
 
 超文本传输安全协议（Hypertext Transfer Protocol Secure，简称：HTTPS）是一种通过计算机网络进行安全通信的传输协议。HTTPS 经由 HTTP 进行通信，利用 SSL/TLS 来加密数据包。HTTPS 的主要目的是提供对网站服务器的身份认证，保护交换数据的隐私与完整性。
 
-![](https://cdn.nlark.com/yuque/0/2020/png/1500604/1603965685749-8cc21a1b-4277-42b1-aeed-18978c1cdb95.png?x-oss-process=image%2Fresize%2Cw_1500)
+![](./imgs/https.png)
 
 HTTP 协议采用明文传输信息，存在信息窃听、信息篡改和信息劫持的风险，而协议 TLS/SSL 具有**身份验证**、**信息加密**和**完整性校验**的功能，可以避免此类问题发生。
 

@@ -643,6 +643,8 @@ CSRF 中文名为跨站请求伪造。原理就是攻击者构造出一个后端
 
 - http://febook.hzfe.org/awesome-interview/book3/browser-memory-leaks
 
+## prefetch 和 preload 的区别和使用场景
+
 ## 参考链接
 
 - Web 前端面试指南与高频考题解析

@@ -137,6 +137,33 @@ console.log('script end')
 <details>
 <summary>解答</summary>
 
+async1 里的 await
+
+从字面意思上看 await 就是等待，await 等待的是一个表达式，这个表达式的返回值可以是一个 promise 对象也可以是其他值。
+
+很多人以为 await 会一直等待之后的表达式执行完之后才会继续执行后面的代码，实际上 await 是一个让出线程的标志。await 后面的表达式会先执行一遍，将 await 后面的代码加入到 microtask 中，然后就会跳出整个 async 函数来执行后面的代码。
+
+由于因为 async await 本身就是 promise+generator 的语法糖。所以 await 后面的代码是 microtask。所以对于本题中的
+
+```js
+async function async1() {
+  console.log('async1 start')
+  await async2()
+  console.log('async1 end')
+}
+```
+
+等价于
+
+```js
+async function async1() {
+  console.log('async1 start')
+  Promise.resolve(async2()).then(() => {
+    console.log('async1 end')
+  })
+}
+```
+
 ```js
 // script start
 // async1 start
@@ -150,7 +177,58 @@ console.log('script end')
 
 </details>
 
-### 例 2
+### 例子 2
+
+```js
+async function a1() {
+  console.log('a1 start')
+  await a2()
+  console.log('a1 end')
+}
+async function a2() {
+  console.log('a2')
+}
+
+console.log('script start')
+
+setTimeout(() => {
+  console.log('setTimeout')
+}, 0)
+
+Promise.resolve().then(() => {
+  console.log('promise1')
+})
+
+a1()
+
+let promise2 = new Promise(resolve => {
+  resolve('promise2.then')
+  console.log('promise2')
+})
+
+promise2.then(res => {
+  console.log(res)
+  Promise.resolve().then(() => {
+    console.log('promise3')
+  })
+})
+console.log('script end')
+```
+
+```js
+script start
+a1 start
+a2
+promise2
+script end
+promise1
+a1 end
+promise2.then
+promise3
+setTimeout
+```
+
+### 例 3
 
 ```js
 function wait() {
@@ -199,7 +277,7 @@ main()
 
 </details>
 
-### 例 3
+### 例 4
 
 ```js
 var date = new Date()
@@ -239,6 +317,73 @@ while(new Date() - date < 1000) {}
 
 </details>
 
+### 例 5
+
+请说出以下代码打印结果
+
+```js
+console.log(1)
+
+setTimeout(() => {
+  console.log(2)
+
+  setTimeout(() => {
+    console.log(14)
+    new Promise((resolve, reject) => {
+      console.log(15)
+      resolve()
+    }).then(res => {
+      console.log(16)
+    })
+  })
+
+  new Promise((resolve, reject) => {
+    console.log(3)
+    resolve()
+  }).then(res => {
+    console.log(4)
+  })
+})
+
+new Promise((resolve, reject) => {
+  resolve()
+})
+  .then(res => {
+    console.log(5)
+  })
+  .then(res => {
+    console.log(6)
+  })
+
+new Promise((resolve, reject) => {
+  console.log(7)
+  resolve()
+})
+  .then(res => {
+    console.log(8)
+  })
+  .then(res => {
+    console.log(9)
+  })
+
+setTimeout(() => {
+  console.log(10)
+  new Promise((resolve, reject) => {
+    console.log(11)
+    resolve()
+  }).then(res => {
+    console.log(12)
+  })
+})
+console.log(13)
+```
+
+<details>
+<summary>解答</summary>
+
+1 7 13 5 8 6 9 2 3 4 10 11 12 14 15 16
+
+</details>
 ## 变量及作用域
 
 ### 例 1
@@ -310,6 +455,33 @@ var name = 'Tom'
 Goodbye Jack；
 
 IIFE 内的 var 穿透了块作用域，name被提升至if()之前，且此时name 为undefined。
+```
+
+</details>
+
+### 例 4
+
+```js
+var foo = 1
+function fn() {
+  foo = 3
+  console.log(foo) // 打印结果 1
+  return
+  function foo() {
+    // todo
+  }
+}
+fn()
+console.log(foo) // 打印结果 2
+```
+
+<details>
+<summary>解答</summary>
+
+```
+
+打印结果 1：3
+打印结果 2：1
 ```
 
 </details>

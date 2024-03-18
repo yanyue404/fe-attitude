@@ -20,6 +20,7 @@ Javascript 基础知识
 - 事件循环机制
 - promise 原理
 - v8 垃圾回收机制
+- 模块化
 
 ## 强类型语言和弱类型语言的区别
 
@@ -790,10 +791,11 @@ Animal.prototype.sayHi = function() {
 
 function Dog(name) {
   this.name = name
-  Animal.call(this, 4) // 关键代码1
+  Animal.call(this, 4) // 借 call 设置自己的 legsNumber
 }
 
-Dog.prototype.__proto__ = Animal.prototype // 关键代码2
+// 实例的原型指向 Animal，实例的构造函数是 Dog
+Dog.prototype.__proto__ = Animal.prototype
 
 const huang = new Dog('huang')
 
@@ -805,11 +807,48 @@ Dog.prototype.say = function() {
   console.log(`汪汪汪~ 我是${this.name}，我有${this.legsNumber}条腿。`)
 }
 
+huang.say() // 汪汪汪~ 我是huang，我有4条腿。
+
 const d1 = new Dog('啸天') // Dog 函数就是一个类
 console.dir(d1)
 ```
 
-**方法二：使用 class**
+**方法二：寄生组合式继承**
+
+寄生式组合继承通过盗用构造函数继承属性，但使用混合式原型链继承方法。基本思路是不通过调用父类构造函数给子类原型赋值，而是取得父类原型的一个副本。说到底就是使用寄生式继承来继承父类原型，然后将返回的新对象赋值给子类原型。寄生式组合继承的基本模式如下所示：
+
+```js
+function inheritPrototype(subType, superType) {
+  let prototype = Object(superType.prototype) // 创建对象
+  prototype.constructor = subType // 增强对象
+  subType.prototype = prototype // 赋值对象
+}
+```
+
+它主要是基于一个已有的类型，在实例化时对实例化的对象进行扩展。
+
+```js
+function SuperType(name) {
+  this.name = name
+  this.colors = ['red', 'blue', 'green']
+}
+SuperType.prototype.sayName = function() {
+  console.log(this.name)
+}
+function SubType(name, age) {
+  SuperType.call(this, name)
+  this.age = age
+}
+inheritPrototype(SubType, SuperType)
+SubType.prototype.sayAge = function() {
+  console.log(this.age)
+}
+const sub = new SubType('pink', '18')
+sub.sayAge() // 18
+console.dir(sub)
+```
+
+**方法三：使用 class**
 
 ```js
 class Animal {
@@ -870,6 +909,24 @@ console.log(numberepsilon(0.1 + 0.2, 0.3)) // true
 ```
 
 ## 变量提升
+
+JS 为什么要进行变量提升？
+
+首先我们要知道，JS 在拿到一个变量或者一个函数的时候，会有两步操作，即解析和执行。
+
+在解析阶段，JS 会检查语法，并对函数进行预编译。解析的时候会先创建一个全局执行上下文环境，先把代码中即将执行的变量、函数声明都拿出来，变量
+先赋值为 undefined，函数先声明好可使用。在一个函数执行之前，也会创建一个函数执行上下文环境，跟全局执行上下文类似，不过函数执行上下文会多出
+this、arguments 和函数的参数。
+
+- 全局上下文：变量定义，函数声明
+- 函数上下文：变量定义，函数声明，this，arguments
+
+在执行阶段，就是按照代码的顺序依次执行。
+
+那为什么会进行变量提升呢？主要有以下两个原因：
+
+- 提高性能
+- 容错性更好
 
 var 会使变量提升，这意味着变量可以在声明之前使用。let 和 const 不会使变量提升，提前使用会报错。
 
@@ -2237,6 +2294,16 @@ for (let [key, value] of map.entries()) {
 // bbb 200
 ```
 
+## Set 与 WeakSet 区别
+
+WeakSet 是为了解决内存泄漏的问题
+
+WeakSet 的一个作用是存储 DOM 节点，不用担心这些节点从文档移除时候，会引发内存泄漏
+
+## Map 与 WeakMap 区别
+
+TODO:
+
 ## Class
 
 class 其实一直是 JS 的关键字（保留字），但是一直没有正式使用，直到 ES6 。 ES6 的 class 就是取代之前构造函数初始化对象的形式，从语法上更加符合面向对象的写法。例如：
@@ -2425,7 +2492,7 @@ for…of 是 ES6 新增的遍历方式，允许遍历一个含有 iterator 接�
 - 混入 mixin
 - 借用 apply/call
 
-## 模块化
+## 前端模块化机制有哪些、ES module、commonjs 的区别 、AMD 和 CMD 规范的区别？
 
 模块化开发在现代开发中已是必不可少的一部分，它大大提高了项目的可维护、可拓展和可协作性。通常，我们 在浏览器中使用 ES6 的模块化支持，在 Node 中使用 commonjs 的模块化支持。
 
@@ -2436,11 +2503,17 @@ for…of 是 ES6 新增的遍历方式，允许遍历一个含有 iterator 接�
 - UMD: 通用模块规范，是 CommonJS、AMD 两个规范的大融合，是跨平台的解决方案。
 - ESM: 官方模块化规范，现代浏览器原生支持，通过 import 异步加载模块，export 导出内容。
 
-  **CommonJS(require) 与 ESM(import) 的区别**
+**CommonJS(require) 与 ESM(import) 的区别**
 
-  - require 支持 动态导入，import 不支持，正在提案 (babel 下可支持)
-  - require 是 同步 导入(首次加载会缓存结果，后续加载则是直接读取缓存结果)，import 取决于所处的环境，Node.js 同步加载，浏览器端异步加载
-  - require 是 值拷贝，导出值变化不会影响导入值；import 指向 内存地址，导入值会随导出值而变化
+- require 支持 动态导入，import 不支持，正在提案 (babel 下可支持)
+- CommonJS 是 同步 导入(首次加载会缓存结果，后续加载则是直接读取缓存结果)，ESM 取决于所处的环境，Node.js 同步加载，浏览器端异步加载
+- require 是 值拷贝，导出值变化不会影响导入值；import 指向 内存地址，导入值会随导出值而变化
+
+**模块化与工程化：Tree Shaking**
+
+Tree Shaking 是一个通常用于描述移除 JavaScript 上下文中的未引用代码（dead-code）行为的术语。它依赖于 ES2015 中的 import 和 export 语句，用来检测代码模块是否被导出、导入，且被 JavaScript 文件使用。
+
+简单来说，Tree Shaking 是一种依赖 ESM 模块静态分析实现的功能，它可以在编译时安全的移除代码中未使用的部分（webpack 5 对 CommonJS 也进行了支持）。
 
 参考
 
@@ -2472,20 +2545,20 @@ for…of 是 ES6 新增的遍历方式，允许遍历一个含有 iterator 接�
 - 另外一种垃圾回收机制就是引用计数，这个用的相对较少。引用计数就是跟踪记录每个值被引用的次数。当声明了一个变量并将一个引用类型赋值给该变量时，则这个值的引用次数就是 1。相反，如果包含对这个值引用的变量又取得了另外一个值，则这个值的引用次数就减 1。当这个引用次数变为 0 时，说明这个变量已经没有价值，因此，在在机回收期下次再运行时，这个变量所占有的内存空间就会被释放出来。
 - 这种方法会引起循环引用的问题：例如：`obj1`和`obj2`通过属性进行相互引用，两个对象的引用次数都是 2。当使用循环计数时，由于函数执行完后，两个对象都离开作用域，函数执行结束，`obj1`和`obj2`还将会继续存在，因此它们的引用次数永远不会是 0，就会引起循环引用。
 
-```java
+```js
 function fun() {
-    let obj1 = {};
-    let obj2 = {};
-    obj1.a = obj2; // obj1 引用 obj2
-    obj2.a = obj1; // obj2 引用 obj1
+  let obj1 = {}
+  let obj2 = {}
+  obj1.a = obj2 // obj1 引用 obj2
+  obj2.a = obj1 // obj2 引用 obj1
 }
 ```
 
 这种情况下，就要手动释放变量占用的内存：
 
-```java
-obj1.a =  null
- obj2.a =  null
+```js
+obj1.a = null
+obj2.a = null
 ```
 
 #### （3）减少垃圾回收
@@ -2495,6 +2568,124 @@ obj1.a =  null
 - 对数组进行优化： 在清空一个数组时，最简单的方法就是给其赋值为\[ \]，但是与此同时会创建一个新的空对象，可以将数组的长度设置为 0，以此来达到清空数组的目的。
 - 对`object`进行优化： 对象尽量复用，对于不再使用的对象，就将其设置为 null，尽快被回收。
 - 对函数进行优化： 在循环中的函数表达式，如果可以复用，尽量放在函数的外面。
+
+## 在 for， for in 、map、forEach 循环中使用 async 和 await，都有什么表现？
+
+```js
+const skills = ['js', 'vue', 'node', 'react']
+
+function getSkillPromise(value) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(value)
+    }, 1000)
+  })
+}
+
+// for 循环, 支持，可以异步等待
+
+async function test() {
+  for (let i = 0; i < skills.length; i++) {
+    const skill = skills[i]
+    const res = await getSkillPromise(skill)
+    console.log(res)
+  }
+}
+
+// map，返回始终为 promise 数组，需要使用 promise.all() 处理等待返回结果
+async function test() {
+  console.log('start')
+  const res = skills.map(async item => {
+    return await getSkillPromise(item)
+  })
+  const resPromise = await Promise.all(res)
+  console.log(resPromise)
+  console.log('end')
+}
+
+// forEach，不支持异步等待， 在forEach循环等待异步结果返回之前就执行了console.log('end')
+async function test() {
+  console.log('start')
+  skills.forEach(async item => {
+    const res = await getSkillPromise(item)
+    console.log(res)
+  })
+  console.log('end')
+}
+
+// for of 循环, 支持，可以异步等待
+
+async function test() {
+  for (const skill of skills) {
+    const res = await getSkillPromise(skill)
+    console.log(res)
+  }
+}
+
+// reduce 循环, 支持，可以异步等待
+
+async function test() {
+  skills.reduce((prev, skill) => {
+    return prev.then(async () => {
+      const res = await getSkillPromise(skill)
+      return res
+    })
+  }, Promise.resolve())
+}
+
+const object = { a: 'js', b: 'vue', c: 'node', d: 'react' }
+
+// for in 循环对象, 支持，可以异步等待
+
+async function test() {
+  for (const key in object) {
+    if (Object.hasOwnProperty.call(object, key)) {
+      const element = object[key]
+      const res = await getSkillPromise(element)
+      console.log(res)
+    }
+  }
+}
+```
+
+## 解释 requestAnimationFrame/requestIdleCallback，分别有什么用？
+
+**对 requestAnimationframe 的理解**
+
+实现动画效果的方法比较多，Javascript 中可以通过定时器 setTimeout 来实现，CSS3 中可以使用 transition 和 animation 来实现，HTML5 中的 canvas 也可以实现。除此之外，HTML5 提供一个专门用于请求动画的 API，那就是 requestAnimationFrame，顾名思义就是请求动画帧。
+
+MDN 对该方法的描述：
+
+> window.requestAnimationFrame() 告诉浏览器——你希望执行一个动画，并且要求浏览器在下次重绘之前调用指定的回调函数更新动画。该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行。
+
+语法： `window.requestAnimationFrame(callback);` 其中，callback 是下一次重绘之前更新动画帧所调用的函数(即上面所说的回调函数)。该回调函数会被传入 DOMHighResTimeStamp 参数，它表示 requestAnimationFrame() 开始去执行回调函数的时刻。该方法属于宏任务，所以会在执行完微任务之后再去执行。
+
+```html
+<div class="box" style="width: 100px;height: 100px;background:pink"></div>
+```
+
+```js
+let offsetTop = 0
+const box = document.querySelector('.box')
+const run = () => {
+  box.style.transform = `translate3d(0, ${(offsetTop += 10)}px, 0)`
+  window.requestAnimationFrame(run)
+}
+run()
+```
+
+取消动画： 使用 cancelAnimationFrame()来取消执行动画，该方法接收一个参数——requestAnimationFrame 默认返回的 id，只需要传入这个 id 就可以取消动画了。
+
+优势：
+
+- CPU 节能：使用 SetTinterval 实现的动画，当页面被隐藏或最小化时，SetTinterval 仍然在后台执行动画任务，由于此时页面处于不可见或不可用状态，刷新动画是没有意义的，完全是浪费 CPU 资源。而 RequestAnimationFrame 则完全不同，当页面处理未激活的状态下，该页面的屏幕刷新任务也会被系统暂停，因此跟着系统走的 RequestAnimationFrame 也会停止渲染，当页面被激活时，动画就从上次停留的地方继续执行，有效节省了 CPU 开销。
+- 函数节流：在高频率事件( resize, scroll 等)中，为了防止在一个刷新间隔内发生多次函数执行，RequestAnimationFrame 可保证每个刷新间隔内，函数只被执行一次，这样既能保证流畅性，也能更好的节省函数执行的开销，一个刷新间隔内函数执行多次时没有意义的，因为多数显示器每 16.7ms 刷新一次，多次绘制并不会在屏幕上体现出来。
+- 减少 DOM 操作：requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒 60 帧。
+
+setTimeout 执行动画的缺点：它通过设定间隔时间来不断改变图像位置，达到动画效果。但是容易出现卡顿、抖动的现象；原因是：
+
+- settimeout 任务被放入异步队列，只有当主线程任务执行完后才会执行队列中的任务，因此实际执行时间总是比设定时间要晚；
+- settimeout 的固定时间间隔不一定与屏幕刷新间隔时间相同，会引起丢帧。
 
 ## 参考
 
