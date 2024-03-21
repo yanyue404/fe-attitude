@@ -9,19 +9,26 @@
 - 数组
   - 交集
 - 贪心算法
+  - 分发饼干
+  - 最大数
 - 双指针
   - 两数之和
   - 无重复字符的最长子序
   - 移动零
 - 二分查找
 - 排序
+  - 冒泡
+  - 快排
 - 递归
 - 搜索
+  - DFS 深度优先搜索
+  - BFS 广度优先搜索
 - 动态规划
   - 斐波那契数列
   - 爬楼梯
   - 打家劫舍
 - 数据结构
+  - 堆栈队列：判断括号字符串是否有效
 
 ## 字符串
 
@@ -126,10 +133,39 @@ var fn = (num1, num2) =>
   num1.filter(function(item) {
     return num2.indexOf(item) > -1
   })
-console.log(fn([1, 2, 2, 1], [2, 2, 3, 4])) // [2, 2]
-console.log(fn([1, 1], [1])) //反例： [1, 1]
+console.log(fn([1, 2, 2, 1], [2, 2, 3, 4])) // 正确返回： [2, 2]
+console.log(fn([1, 1], [1])) //反例： [1, 1], 应该是 [1]
+```
 
-// 正确解法
+这道题不是工程题，是道算法题。求的是两个数组的最长公共子序列 (子序列要求顺序，交集不需要）。所以上面用一个 filter 一个 includes 或者 indexOf 的都是错的。
+
+反例很简单。
+
+```js
+var nums1 = [1]
+var nums2 = [1, 1]
+```
+
+或者
+
+```js
+var nums1 = [1, 1]
+var nums2 = [1]
+```
+
+交集应该是[1]
+
+跑一下你们的方法就能知道错了。
+
+这道题两种思路，空间换时间，或者不用额外空间就提升时间复杂度。
+
+空间换时间的思路是用个 Hash 表来存数组 1 的元素以及出现的个数（此处需要遍历 n 次，并存一个 n 级别的空间）。
+遍历数组 2，发现数组 2 里有 Hash 表里的值就存到 Result 数组里，并把 Hash 表内该值次数减一（为 0 之后就 Delete）。如果不存在 Hash 表里，就跳过。这样时间复杂度就是(m+n)
+
+不用额外空间，就用遍历 n 的时候，判断值在不在 m 里，如果在，把 m 里的该值 push 到 Result 数组里，并将该值从 m 数组里删掉（用 splice）。这样就是不用额外空间，但是提高了时间复杂度。
+
+```js
+// 正确解法 空间换时间
 const intersect = (nums1, nums2) => {
   const map = {}
   const res = []
@@ -152,7 +188,111 @@ const intersect = (nums1, nums2) => {
 console.log(intersect([1, 2, 2, 1], [2, 2, 3, 4])) // [2, 2]
 console.log(intersect([1, 1], [1])) // [1]
 console.log(intersect([2, 2, 1], [1, 2, 2, 3, 4])) // [1, 2, 2]
+
+// 重复就删除，如果在nums2中找到同样的元素，得把此元素从nums2中剔除，以防下次又匹配成功。
+const nums1 = [1, 2, 2, 1]
+const nums2 = [2, 2]
+
+const doit = (array1, array2) => {
+  const tmp = [...array2] // 避免修改array2，使函数doit变得纯洁
+  return array1.filter(v => {
+    const index = tmp.indexOf(v)
+    if (index > -1) {
+      tmp.splice(index, 1)
+      return true
+    }
+    return false
+  })
+}
+
+console.log(doit(nums1, nums2)) // [2,2]
+console.log(doit([1, 1], [1])) // [1]
+console.log(doit([1], [1, 1])) // [1]
 ```
+
+### 返回数组中第 k 个最大元素
+
+> https://leetcode.cn/problems/kth-largest-element-in-an-array
+
+```js
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+var findKthLargest = function(nums, k) {
+  // 创建一个大小为 k 的小顶堆
+  const minHeap = new Heap(k)
+  // 将所有整数插入到小顶堆中
+  while (nums.length) {
+    minHeap.push(nums.pop())
+  }
+  // 返回小顶堆的堆顶元素
+  return minHeap.pop()
+}
+
+class Heap {
+  constructor(k) {
+    this.arr = []
+    this.k = k
+  }
+
+  // 返回小顶堆当前大小
+  size() {
+    return this.arr.length
+  }
+
+  // 向小顶堆中插入元素
+  push(val) {
+    if (this.size() < this.k) {
+      this.arr.push(val)
+      this._sortBack()
+    } else if (val > this.arr[0]) {
+      this.arr[0] = val
+      this._sortFront()
+    }
+  }
+
+  // 弹出小顶堆的堆顶元素
+  pop() {
+    const val = this.arr[0]
+    const back = this.arr.pop()
+    if (this.arr.length) {
+      this.arr[0] = back
+      this._sortFront()
+    }
+    return val
+  }
+
+  // 从小顶堆尾部向上调整小顶堆的结构
+  _sortBack() {
+    let i = this.arr.length - 1
+    while (i > 0 && this.arr[i] < this.arr[Math.floor((i - 1) / 2)]) {
+      ;[this.arr[i], this.arr[Math.floor((i - 1) / 2)]] = [this.arr[Math.floor((i - 1) / 2)], this.arr[i]]
+      i = Math.floor((i - 1) / 2)
+    }
+  }
+
+  // 从小顶堆顶部向下调整小顶堆的结构
+  _sortFront() {
+    let i = 0
+    while (i * 2 + 1 < this.size()) {
+      let temp = i
+      if (this.arr[temp] > this.arr[i * 2 + 1]) temp = i * 2 + 1
+      if (i * 2 + 2 < this.size() && this.arr[temp] > this.arr[i * 2 + 2]) temp = i * 2 + 2
+      if (temp === i) break
+      ;[this.arr[i], this.arr[temp]] = [this.arr[temp], this.arr[i]]
+      i = temp
+    }
+  }
+}
+```
+
+### 数组总和
+
+找出数组中和为 sum 的 n 个数
+
+> https://leetcode.cn/problems/combination-sum/description/
 
 ## 贪心算法
 
@@ -232,6 +372,107 @@ var findContentChildren = function(g, s) {
   }
   return num
 }
+```
+
+### 179. 最大数
+
+> https://leetcode.cn/problems/largest-number/description/
+
+给定一组非负整数 nums，重新排列每个数的顺序（每个数不可拆分）使之组成一个最大的整数。
+
+注意：输出结果可能非常大，所以你需要返回一个字符串而不是整数。
+
+```
+示例 1：
+
+输入：nums = [10,2]
+输出："210"
+示例 2：
+
+输入：nums = [3,30,34,5,9]
+输出："9534330"
+
+提示：
+
+1 <= nums.length <= 100
+0 <= nums[i] <= 109
+```
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {string}
+ */
+var largestNumber = function(nums) {
+  // 只有一个数直接返回
+  if (nums.length == 1) {
+    return nums[0] + ''
+  }
+  // 判断是否都是 0
+  let isZero = 0
+  nums.sort((a, b) => {
+    if (a !== 0 || b !== 0) {
+      isZero = 1
+    }
+    let strA = a.toString()
+    let strB = b.toString()
+    let changed = strB + strA - (strA + strB)
+    return changed
+  })
+  if (isZero === 1) {
+    return nums.join('')
+  }
+  return '0'
+}
+```
+
+### 1663. 具有给定数值的最小字符串
+
+小写字符 的 数值 是它在字母表中的位置（从 1 开始），因此 a 的数值为 1 ，b 的数值为 2 ，c 的数值为 3 ，以此类推。
+
+字符串由若干小写字符组成，字符串的数值 为各字符的数值之和。例如，字符串 "abe" 的数值等于 1 + 2 + 5 = 8 。
+
+给你两个整数 n 和 k 。返回 长度 等于 n 且 数值 等于 k 的 字典序最小 的字符串。
+
+注意，如果字符串 x 在字典排序中位于 y 之前，就认为 x 字典序比 y 小，有以下两种情况：
+
+- x 是 y 的一个前缀；
+- 如果 i 是 x[i] != y[i] 的第一个位置，且 x[i] 在字母表中的位置比 y[i] 靠前。
+
+```
+示例 1：
+
+输入：n = 3, k = 27
+输出："aay"
+解释：字符串的数值为 1 + 1 + 25 = 27，它是数值满足要求且长度等于 3 字典序最小的字符串。
+示例 2：
+
+输入：n = 5, k = 73
+输出："aaszz"
+```
+
+```js
+// 这里我们用 k-26(n-1)这个公式来推导，假设 n-1 个字符都是 z ，还是比 k 小，即 k-26(n-1) > 0
+// 那么第一个字符只能是 k-26(n-1) 对应的字符了
+// 如果 k-26(n-1) <= 0 ，那么说明第一个字符可以是 a 。然后再进行递归获取第二个字符。依次类推。
+var getSmallestString = function(n, k) {
+  let rest = n
+  let str = ''
+  while (rest) {
+    const temp = k - 26 * (rest - 1)
+    if (temp > 0) {
+      str += String.fromCharCode('a'.charCodeAt() + temp - 1)
+      k -= temp
+    } else {
+      str += 'a'
+      k--
+    }
+    rest--
+  }
+  return str
+}
+
+console.log(getSmallestString(2, 28)) // bz
 ```
 
 ## 双指针
@@ -799,7 +1040,7 @@ console.log(quickSort([4, 3, 8, 1, 9, 6, 2]))
 
 ## 搜索
 
-深度优先搜索和广度优先搜索是两种最常见的优先搜索方法，它们被广泛地运用在图和树等结构中进行搜索。
+深度优先搜索（depth-first seach，DFS）和广度优先搜索（breadth-first search，BFS）是两种最常见的优先搜索方法，它们被广泛地运用在图和树等结构中进行搜索。
 
 ### 将 js 数组对象转化为树形结构
 
