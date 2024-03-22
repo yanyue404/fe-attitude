@@ -1658,7 +1658,7 @@ JS 脚本资源的处理有几个特点：
 
 综上所述，async 和 defer 属性可以提高页面加载性能，并且可以控制脚本加载和执行顺序。如果一个脚本不依赖于其他资源或 DOM 元素，并且可以独立运行，则可以使用 async 属性。如果一个脚本需要等待整个文档解析完成后才能执行，或者依赖于其他资源或 DOM 元素，则应使用 defer 属性。
 
-![](./imgs/script%20load.image)
+![](./imgs/script-load.jpg)
 
 ## 节流与防抖
 
@@ -2314,16 +2314,6 @@ for (let [key, value] of map.entries()) {
 // bbb 200
 ```
 
-## Set 与 WeakSet 区别
-
-WeakSet 是为了解决内存泄漏的问题
-
-WeakSet 的一个作用是存储 DOM 节点，不用担心这些节点从文档移除时候，会引发内存泄漏
-
-## Map 与 WeakMap 区别
-
-TODO:
-
 ## Class
 
 class 其实一直是 JS 的关键字（保留字），但是一直没有正式使用，直到 ES6 。 ES6 的 class 就是取代之前构造函数初始化对象的形式，从语法上更加符合面向对象的写法。例如：
@@ -2491,6 +2481,71 @@ Object 和 Map 的工程级实现在不同浏览器间存在明显差异，但�
 
 - [JavaScript 高级程序设计（第 4 版）](https://book.douban.com/subject/35175321/?from=tag)
 - [js 能够保证 object 属性的输出顺序吗？](http://jartto.wang/2016/10/25/does-js-guarantee-object-property-order/)
+
+## Set 与 WeakSet 区别
+
+WeakSet 是为了解决内存泄漏的问题
+
+WeakSet 的一个作用是存储 DOM 节点，不用担心这些节点从文档移除时候，会引发内存泄漏
+
+## Map 与 WeakMap 区别
+
+> https://zh.javascript.info/weakmap-weakset
+
+WeakMap 是弱引用的数据类型。
+
+如果我们使用对象作为常规 Map 的键，那么当 Map 存在时，该对象也将存在。它会占用内存，并且不会被（垃圾回收机制）回收。
+
+```js
+let john = { name: 'John' }
+
+let map = new Map()
+map.set(john, '...')
+
+john = null // 覆盖引用
+
+// john 被存储在了 map 中，
+// 我们可以使用 map.keys() 来获取它
+```
+
+WeakMap 在这方面有着根本上的不同。它不会阻止垃圾回收机制对作为键的对象（key object）的回收。
+
+1. WeakMap 和 Map 的第一个不同点就是，WeakMap 的键必须是对象，不能是原始值。
+
+```js
+let weakMap = new WeakMap()
+
+let obj = {}
+
+weakMap.set(obj, 'ok') // 正常工作（以对象作为键）
+
+// 不能使用字符串作为键
+weakMap.set('test', 'Whoops') // Error，因为 "test" 不是一个对象
+```
+
+2. 如果我们在 weakMap 中使用一个对象作为键，并且没有其他对这个对象的引用 —— 该对象将会被从内存（和 map）中自动清除
+
+```js
+let john = { name: 'John' }
+
+let weakMap = new WeakMap()
+weakMap.set(john, '...')
+
+john = null // 覆盖引用
+
+// john 被从内存中删除了！
+```
+
+3. WeakMap 不支持迭代以及 keys()，values() 和 entries() 方法。所以没有办法获取 WeakMap 的所有键或值。
+
+WeakMap 只有以下的方法：
+
+- weakMap.get(key)
+- weakMap.set(key, value)
+- weakMap.delete(key)
+- weakMap.has(key)
+
+> 为什么会有这种限制呢？这是技术的原因。如果一个对象丢失了其它所有引用（就像上面示例中的 john），那么它就会被垃圾回收机制自动回收。但是在从技术的角度并不能准确知道 何时会被回收。因此，暂不支持访问 WeakMap 的所有键/值的方法。
 
 ## for...in 和 for...of 的区别
 

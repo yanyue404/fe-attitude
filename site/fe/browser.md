@@ -651,21 +651,13 @@ preload 属性用于指示浏览器在页面加载过程中提前加载指定的
 
 - 对于脚本资源，可以使用 preload 属性来指示浏览器提前下载并缓存脚本文件，以便在稍后执行时能够更快地加载和执行。
 
-html
-
 `<link rel="preload" href="script.js" as="script">`
 
 - 对于样式表资源，可以使用 preload 属性来指示浏览器提前下载并缓存样式表文件，以便在稍后应用到文档时能够更快地渲染页面。
 
-html
-
 `<link rel="preload" href="styles.css" as="style">`
 
 - 对于字体资源，可以使用 preload 属性来指示浏览器提前下载并缓存字体文件，以便在稍后应用到文档时能够更快地显示文本内容。
-
-html
-
-复制代码
 
 `<link rel="preload" href="font.woff2" as="font">`
 
@@ -675,13 +667,11 @@ prefetch 属性用于指示浏览器在空闲时间预先获取未来可能需�
 
 - prefetch 属性适用于那些可能会被用户访问到的资源，但不是当前页面所必需的资源。例如，下一页的 HTML 文件、图片、视频等。
 
-html
-
-复制代码
-
 `<link rel="prefetch" href="next-page.html">`
 
 - prefetch 属性可以帮助浏览器在空闲时间提前下载这些资源，以便在用户访问到它们时能够更快地加载和显示。 需要注意的是，preload 和 prefetch 属性并不会立即执行加载操作，而是在浏览器空闲时自动触发。此外，不同浏览器对 preload 和 prefetch 的支持程度可能有所差异。
+
+**总结：**
 
 preload 属性：用于预加载必需的资源，如脚本、样式表、字体等，以加快后续加载和渲染过程。
 prefetch 属性：用于预先获取未来可能需要的资源，如下一页的 HTML 文件、图片、视频等，以提高用户访问时的加载速度。
