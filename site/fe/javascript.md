@@ -2578,6 +2578,86 @@ for…of 是 ES6 新增的遍历方式，允许遍历一个含有 iterator 接�
 - UMD: 通用模块规范，是 CommonJS、AMD 两个规范的大融合，是跨平台的解决方案。
 - ESM: 官方模块化规范，现代浏览器原生支持，通过 import 异步加载模块，export 导出内容。
 
+### 各种模块化规范的细节
+
+#### CommonJS
+
+CommonJS 主要是  Node.js  使用，通过  `require`  同步加载模块，`exports`  导出内容。在 CommonJS 规范下，每一个 JS 文件都是独立的模块，每个模块都有独立的作用域，模块里的本地变量都是私有的。
+
+示例
+
+```js
+// hzfe.js
+const hzfeMember = 17
+const getHZFEMember = () => {
+  return `HZFE Member: ${hzfeMember}`
+}
+module.exports.getHZFEMember = getHZFEMember
+
+// index.js
+const hzfe = require('./hzfe.js')
+console.log(hzfe.getHZFEMember()) // HZFE Member: 17
+```
+
+使用场景
+
+CommonJS 主要在服务端（如：Node.js）使用，也可通过打包工具打包之后在浏览器端使用。
+
+加载方式
+
+CommonJS 通过同步的方式加载模块，首次加载会缓存结果，后续加载则是直接读取缓存结果。
+
+优缺点
+
+优点
+
+- 简单易用
+- 可以在任意位置  `require`  模块
+- 支持循环依赖
+
+缺点
+
+- 同步的加载方式不适用于浏览器端
+- 浏览器端使用需要打包
+- 难以支持模块静态分析
+
+#### ESM (ECMAScript Module)
+
+ESM，即 ESModule、ECMAScript Module。官方模块化规范，现代浏览器原生支持，通过  `import`  加载模块，`export`  导出内容。  示例
+
+```js
+// hzfe.js
+const hzfeMember = 17
+export const getHZFEMember = () => {
+  return `HZFE Member: ${hzfeMember}`
+}
+
+// index.js
+import * as hzfe from './hzfe.js'
+console.log(hzfe.getHZFEMember()) // HZFE Member: 17
+```
+
+使用场景
+
+ESM 在支持的浏览器环境下可以直接使用，在不支持的端需要编译/打包后使用。
+
+加载方式
+
+ESM 加载模块的方式同样取决于所处的环境，Node.js 同步加载，浏览器端异步加载。
+
+优缺点
+
+优点
+
+- 支持同步/异步加载
+- 语法简单
+- 支持模块静态分析
+- 支持循环引用
+
+缺点
+
+- 兼容性不佳
+
 **CommonJS(require) 与 ESM(import) 的区别**
 
 - require 支持 动态导入，import 不支持，正在提案 (babel 下可支持)
@@ -2727,7 +2807,7 @@ async function test() {
 
 **对 requestAnimationframe 的理解**
 
-实现动画效果的方法比较多，Javascript 中可以通过定时器 setTimeout 来实现，CSS3 中可以使用 transition 和 animation 来实现，HTML5 中的 canvas 也可以实现。除此之外，HTML5 提供一个专门用于请求动画的 API，那就是 requestAnimationFrame，顾名思义就是请求动画帧。
+实现动画效果的方法比较多，Javascript 中可以通过定时器 setInterval 来实现，CSS3 中可以使用 transition 和 animation 来实现，HTML5 中的 canvas 也可以实现。除此之外，HTML5 提供一个专门用于请求动画的 API，那就是 requestAnimationFrame，顾名思义就是请求动画帧。
 
 MDN 对该方法的描述：
 
@@ -2753,14 +2833,20 @@ run()
 
 优势：
 
-- CPU 节能：使用 SetTinterval 实现的动画，当页面被隐藏或最小化时，SetTinterval 仍然在后台执行动画任务，由于此时页面处于不可见或不可用状态，刷新动画是没有意义的，完全是浪费 CPU 资源。而 RequestAnimationFrame 则完全不同，当页面处理未激活的状态下，该页面的屏幕刷新任务也会被系统暂停，因此跟着系统走的 RequestAnimationFrame 也会停止渲染，当页面被激活时，动画就从上次停留的地方继续执行，有效节省了 CPU 开销。
+- CPU 节能：使用 setInterval 实现的动画，当页面被隐藏或最小化时，setInterval 仍然在后台执行动画任务，由于此时页面处于不可见或不可用状态，刷新动画是没有意义的，完全是浪费 CPU 资源。而 RequestAnimationFrame 则完全不同，当页面处理未激活的状态下，该页面的屏幕刷新任务也会被系统暂停，因此跟着系统走的 RequestAnimationFrame 也会停止渲染，当页面被激活时，动画就从上次停留的地方继续执行，有效节省了 CPU 开销。
 - 函数节流：在高频率事件( resize, scroll 等)中，为了防止在一个刷新间隔内发生多次函数执行，RequestAnimationFrame 可保证每个刷新间隔内，函数只被执行一次，这样既能保证流畅性，也能更好的节省函数执行的开销，一个刷新间隔内函数执行多次时没有意义的，因为多数显示器每 16.7ms 刷新一次，多次绘制并不会在屏幕上体现出来。
 - 减少 DOM 操作：requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒 60 帧。
 
-setTimeout 执行动画的缺点：它通过设定间隔时间来不断改变图像位置，达到动画效果。但是容易出现卡顿、抖动的现象；原因是：
+setInterval 执行动画的缺点：它通过设定间隔时间来不断改变图像位置，达到动画效果。但是容易出现卡顿、抖动的现象；原因是：
 
-- settimeout 任务被放入异步队列，只有当主线程任务执行完后才会执行队列中的任务，因此实际执行时间总是比设定时间要晚；
-- settimeout 的固定时间间隔不一定与屏幕刷新间隔时间相同，会引起丢帧。
+- setInterval 任务被放入异步队列，只有当主线程任务执行完后才会执行队列中的任务，因此实际执行时间总是比设定时间要晚；
+- setInterval 的固定时间间隔不一定与屏幕刷新间隔时间相同，会引起丢帧。
+
+在大多数情况下，我们应该使用 requestAnimationFrame 来实现动画效果，因为它可以提供更流畅的动画效果，并避免不必要的重绘和计算资源占用。而 setInterval 则更适合于需要按照指定时间间隔重复执行的操作，例如定时器和计时器等。
+
+另外，我们还可以使用 setTimeout 来模拟 requestAnimationFrame 的效果。具体做法是在每次重绘之前使用 setTimeout 来调用我们的回调函数，从而实现与 requestAnimationFrame 类似的效果。
+
+使用 setTimeout 来模拟 requestAnimationFrame，需要在每次执行回调函数时，根据当前时间和上一次执行回调函数的时间计算出时间间隔，然后将该时间间隔传递给下一个 setTimeout。
 
 ## 参考
 

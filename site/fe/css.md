@@ -97,12 +97,15 @@ BFC 布局规则：
   - `absolute + transform`
   - `flex + align-items: center`
 - 水平垂直居中
-  - `flex`
-  - `position + margin`
-  - `position + calc`
-  - `position + transform`
-  - `grid`
-  - `tabel + tabel-cell`
+  - 父子元素宽高确定
+    - `position + calc`
+    - `position + 负 margin`
+  - 父子元素宽高不定
+    - `flex`
+    - `position + transform`
+    - `position + auto`
+    - `grid`
+    - `tabel + tabel-cell`
 
 **flex**
 
@@ -832,6 +835,51 @@ div a {
 
 当按百分比设定一个元素的宽度时，它是相对于父容器的宽度计算的，但是，对于一些表示竖向距离的属性，例如 padding-top , padding-bottom , margin-top , margin-bottom 等，当按百分比设定它们时，依据的也是父容器的宽度，而不是高度。
 
+```html
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  .wrapper {
+    position: relative;
+    width: 300px;
+    height: 500px;
+    background-color: red;
+    padding-top: 50%; /* 150px */
+  }
+  .child {
+    width: 100px;
+    height: 100px;
+    background-color: green;
+  }
+</style>
+<body>
+  <div class="wrapper">
+    <div class="child"></div>
+  </div>
+</body>
+```
+
+```html
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  .wrapper {
+    position: relative;
+    width: 300px;
+    height: 500px;
+    background-color: red;
+    padding-top: 50%; /* body 的 50% */
+  }
+</style>
+<body>
+  <div class="wrapper"></div>
+</body>
+```
+
 ## ⽤纯 CSS 创建⼀个三⻆形的原理是什么？
 
 高宽为 0 的容器 + 透明的 border 实现
@@ -1059,6 +1107,20 @@ display:-webkit-box;         // 作为弹性伸缩盒子模型显示。
   - opacity
   - color
 
+语法：
+
+```css
+/* @keyframes duration | easing-function | delay |
+iteration-count | direction | fill-mode | play-state | name */
+animation: 3s ease-in 1s 2 reverse both paused slidein;
+
+/* @keyframes duration | easing-function | delay | name */
+animation: 3s linear 1s slidein;
+
+/* two animations */
+animation: 3s linear slidein, 3s ease-out 5s slideout;
+```
+
 来个例子：
 
 ```html
@@ -1084,7 +1146,7 @@ display:-webkit-box;         // 作为弹性伸缩盒子模型显示。
     margin-left: -0.5em;
     font: normal normal 48px/1 Helvetica;
     color: #f66;
-    animation: down 1.5s ease infinite;
+    animation: 1.5s ease 0 infinite down;
   }
 </style>
 <i class="scroll-down">↓</i>

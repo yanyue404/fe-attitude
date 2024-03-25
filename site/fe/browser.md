@@ -6,6 +6,41 @@
 
 这一部分涉及事件机制、跨域、存储、缓存机制、渲染原理，性能优化和安全等内容。
 
+## 进程与线程
+
+**多进程的浏览器**
+
+浏览器是多进程的，有一个主控进程，以及每一个 tab 标签页面都会新开一个进程（某些情况下多个 tab 会合并进程）
+
+进程可能包括浏览器主控进程，插件进程，渲染进程、GPU (图形处理进程)，tab 页（浏览器内核）等等
+
+Browser 进程：浏览器的主进程（负责协调、主控），只有一个
+第三方插件进程：每种类型的插件对应一个进程，仅当使用该插件时才创建
+GPU 进程：最多一个，用于 3D 绘制
+浏览器渲染进程（内核）：默认每个 Tab 页面一个进程，互不影响，控制页面渲染，脚本执行，事件处理等（有时候会优化，如多个空白 tab 会合并成一个进程）
+
+> Shift+Esc 查看进程信息
+
+**多线程的浏览器内核**
+
+每一个 tab 页面可以看作是浏览器内核进程，然后这个进程是多线程的，它有几大类子线程
+
+- GUI 渲染线程
+- JS 引擎线程
+- 事件触发线程
+- 定时器线程
+- 网络请求线程
+
+> GUI 渲染线程 负责渲染浏览器界面（解析 HTML ，CSS，构建 DOM 树 CSSOM 树和 Render 树，布局和绘制等）。 GUI 更新会被保存在一个队列中等到 JS 引擎空闲时立即被执行，当界面需要重绘或由于某种操作引发的重排时，该线程就会执行。 GUI 渲染线程与 JS 引擎线程是互斥的，这也是造成 JS 堵塞的原因所在。
+
+> 可以看到，里面的 JS 引擎是内核进程中的一个线程，这也是为什么常说 JS 引擎是单线程的
+
+**网络请求都是单独的线程**
+
+每次网络请求时都需要开辟单独的线程进行，譬如如果 URL 解析到 http 协议，就会新建一个网络线程去处理资源下载
+
+因此浏览器会根据解析出得协议，开辟一个网络线程，前往请求资源（这里，暂时理解为是浏览器内核开辟的）
+
 ## 浏览器同源策略
 
 同源策略限制了从同一个源加载的文档或脚本如何与来自另一个源的资源进行交互。这是一个用于隔离潜在恶意文件的重要安全机制。如果是两个网页的协议，域名，端口一致，则这两个页面有相同的源。
@@ -33,6 +68,87 @@
 但是请注意，所有的跨域请求方式，最终都需要信息提供方来做出相应的支持和改动，也就是要经过信息提供方的同意才行，否则接收方是无法得到它们的信息的，浏览器是不允许的。
 
 ## 跨域以及解决办法
+
+CORS[1] 同源策略[2]
+
+跨域问题的来源是浏览器为了请求安全而引入的基于同源策略的安全特性。当页面和请求的协议、主机名或端口不同时，浏览器判定两者不同源，即为跨域请求。需要注意的是跨域是浏览器的限制，服务端并不受此影响。当产生跨域时，我们可以通过 JSONP、CORS、postMessage 等方式解决。
+
+### 跨域的解决方案
+
+前端常见的跨域解决方案有 CORS、反向代理（Reverse Proxy）、JSONP 等。
+
+#### 1 CORS (Cross-Origin Resource Sharing)
+
+CORS 是目前最为广泛的解决跨域问题的方案。方案依赖服务端/后端在响应头中添加  `Access-Control-Allow-*`  头，告知浏览器端通过此请求。
+
+涉及到的端
+
+CORS 只需要服务端/后端支持即可，不涉及前端改动。
+
+具体实现方式
+
+CORS 将请求分为简单请求（Simple Requests）和需预检请求（Preflighted requests），不同场景有不同的行为：
+
+简单请求
+
+不会触发预检请求的称为简单请求。当请求满足以下条件时就是一个简单请求：
+
+- 请求方法：`GET`、`HEAD`、`POST`。
+- 请求头：`Accept`、`Accept-Language`、`Content-Language`、`Content-Type`。
+  - Content-Type 仅支持：`application/x-www-form-urlencoded`、`multipart/form-data`、`text/plain`。
+
+需预检请求
+
+当一个请求不满足以上简单请求的条件时，浏览器会自动向服务端发送一个  OPTIONS  请求，通过服务端返回的  `Access-Control-Allow-*`  判定请求是否被允许。
+
+CORS 引入了以下几个以  `Access-Control-Allow-*`  开头：
+
+- `Access-Control-Allow-Origin`  表示允许的来源
+- `Access-Control-Allow-Methods`  表示允许的请求方法
+- `Access-Control-Allow-Headers`  表示允许的请求头
+- `Access-Control-Allow-Credentials`  表示允许携带认证信息
+
+当请求符合响应头的这些条件时，浏览器才会发送并响应正式的请求。
+
+#### 2 反向代理
+
+反向代理解决跨域问题的方案依赖同源的服务端对请求做一个转发处理，将请求从跨域请求转换成同源请求。
+
+涉及到的端
+
+反向代理只需要服务端/后端支持，几乎不涉及前端改动，只用切换接口即可。
+
+具体实现方式
+
+反向代理的实现方式为在页面同域下配置一套反向代理服务，页面请求同域的服务端，服务端请求上游的实际的服务端，之后将结果返回给前端。
+
+#### 3. JSONP
+
+JSONP 是一个相对古老的跨域解决方案，只支持 GET 请求。主要是利用了浏览器加载 JavaScript 资源文件时不受同源策略的限制而实现跨域获取数据。
+
+涉及到的端
+
+JSONP 需要服务端和前端配合实现。
+
+具体实现方式
+
+JSONP 的原理是利用了浏览器加载 JavaScript 资源文件时不受同源策略的限制而实现的。具体流程如下：
+
+1.  全局注册一个函数，例如：`window.getHZFEMember = (num) => console.log('HZFE Member: ' + num);`。
+2.  构造一个请求 URL，例如：`https://hzfe.org/api/hzfeMember?callback=getHZFEMember`。
+3.  生成一个  `<script>`  并把  `src`  设为上一步的请求 URL 并插入到文档中，如  `<script src="https://hzfe.org/api/hzfeMember?callback=getHZFEMember" />`。
+4.  服务端构造一个 JavaScript 函数调用表达式并返回，例如：`getHZFEMember(17)`。
+5.  浏览器加载并执行以上代码，输出  `HZFE Member: 17`。
+
+#### 非常用方式
+
+- postMessage
+  - 即在两个 origin 下分别部署一套页面 A 与 B，A 页面通过  `iframe`  加载 B 页面并监听消息，B 页面发送消息。
+- window.name
+  - 主要是利用  `window.name`  页面跳转不改变的特性实现跨域，即  `iframe`  加载一个跨域页面，设置  `window.name`，跳转到同域页面，可以通过  `$('iframe').contentWindow.name`  拿到跨域页面的数据。
+- document.domain
+  - 可将相同一级域名下的子域名页面的  `document.domain`  设置为一级域名实现跨域。
+  - 可将同域不同端口的  `document.domain`  设置为同域名实现跨域（端口被置为 null）。
 
 参考资料：
 
@@ -480,7 +596,7 @@ XSS 可以分为多种类型，但是总体上我认为分为两类：**持久�
 
 举个例子，如果页面需要从 URL 中获取某些参数作为内容的话，不经过过滤就会导致攻击代码被执行
 
-```
+```bash
 <!-- http://www.domain.com?name=<script>alert(1)</script> --> <div>{{name}}</div>
 ```
 
@@ -525,7 +641,7 @@ console.log(html)
 
 ### CSP
 
-CSP 本质上就是建立白名单，开发者明确告诉浏览器哪些外部资源可以加载和执行。我们只需要配置规则，如何拦截是由浏览器自己实现的。我们可以通过这种方式来尽量减少 XSS 攻击。
+CSP ( Content Security Policy 内容安全策略), 它能帮助开发者保护自己的页面不受外部攻击，和保护资源不被盗用。本质上就是建立白名单，开发者明确告诉浏览器哪些外部资源可以加载和执行。我们只需要配置规则，如何拦截是由浏览器自己实现的。我们可以通过这种方式来尽量减少 XSS 攻击。
 
 通常可以通过两种方式来开启 CSP：
 
@@ -534,19 +650,17 @@ CSP 本质上就是建立白名单，开发者明确告诉浏览器哪些外部�
 
 这里以设置 HTTP Header 来举例
 
-- 只允许加载本站资源
+```bash
+# github.com
 
-      Content-Security-Policy: default-src ‘self’
+Content-Security-Policy: default-src 'none'
+```
 
-- 只允许加载 HTTPS 协议图片
+- 只允许加载本站资源: `Content-Security-Policy: default-src ‘self’`
+- 只允许加载 HTTPS 协议图片: `Content-Security-Policy: img-src https://*`
+- 允许加载任何来源框架: `Content-Security-Policy: child-src 'none'`
 
-      Content-Security-Policy: img-src https://*
-
-- 允许加载任何来源框架
-
-      Content-Security-Policy: child-src 'none'
-
-当然可以设置的属性远不止这些，你可以通过查阅 [文档](https://link.juejin.im/?target=https%3A%2F%2Fdeveloper.mozilla.org%2Fen-US%2Fdocs%2FWeb%2FHTTP%2FHeaders%2FContent-Security-Policy) 的方式来学习，这里就不过多赘述其他的属性了。
+当然可以设置的属性远不止这些，你可以通过查阅 [文档](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy) 的方式来学习，这里就不过多赘述其他的属性了。
 
 对于这种方式来说，只要开发者配置了正确的规则，那么即使网站存在漏洞，攻击者也不能执行它的攻击代码，并且 CSP 的兼容性也不错。
 
@@ -558,7 +672,7 @@ CSRF 中文名为跨站请求伪造。原理就是攻击者构造出一个后端
 
 举个例子，假设网站中有一个通过 `GET` 请求提交用户评论的接口，那么攻击者就可以在钓鱼网站中加入一个图片，图片的地址就是评论接口
 
-    <img src="http://www.domain.com/xxx?comment='attack'"/>
+`<img src="http://www.domain.com/xxx?comment='attack'"/>`
 
 那么你是否会想到使用 `POST` 方式提交请求是不是就没有这个问题了呢？其实并不是，使用这种方式也不是百分百安全的，攻击者同样可以诱导用户进入某个页面，在页面中通过表单提交 `POST` 请求。
 
@@ -573,11 +687,21 @@ CSRF 中文名为跨站请求伪造。原理就是攻击者构造出一个后端
 
 #### SameSite
 
-可以对 Cookie 设置 `SameSite` 属性。该属性表示 Cookie 不随着跨域请求发送，可以很大程度减少 CSRF 的攻击，但是该属性目前并不是所有浏览器都兼容。
+可以对 Cookie 设置 `SameSite` 属性。该属性支持设置（新版默认值 Lax 支持） Cookie 不随着跨域请求发送，可以很大程度减少 CSRF 的攻击，但是该属性目前并不是所有浏览器都兼容。
+
+现代浏览器针对 Cookie 的 SameSite 属性的默认值已经很合理了，作为网站所有者通常不需要手动设置这个属性，一般只有当我们的服务需要和“第三方”对接时才考虑怎么设置更合理。
+
+Strict 最为严格，表示完全禁止“第三方 Cookie”，只有当前网页的 URL 与请求目标一致时，才会带上 Cookie，一般用于保证系统的封闭性和安全性。
+
+Lax 是目前大多数现代浏览器的默认值，他在保证安全性的前提下，也可以避免一些不好的用户体验，比如从别的网站跳转过时会没有登录态。
+
+None 是最为宽松的一种设定，通常用于开放我们的服务给不同的第三方接入，同时又需要追踪用户的场景，比如广告，设置为 None 时需要考虑开放的安全性。
 
 #### 验证 Referer
 
 对于需要防范 CSRF 的请求，我们可以通过验证 Referer 来判断该请求是否为第三方网站发起的。
+
+> 扩展：[如何绕开 referrer 防盗链](https://juejin.cn/post/6844903892170309640?searchId=202403242313176E57D7DF47C7B154B758)
 
 #### Token
 
@@ -594,6 +718,12 @@ CSRF 中文名为跨站请求伪造。原理就是攻击者构造出一个后端
 ### X-FRAME-OPTIONS
 
 `X-FRAME-OPTIONS` 是一个 HTTP 响应头，在现代浏览器有一个很好的支持。这个 HTTP 响应头 就是为了防御用 `iframe` 嵌套的点击劫持攻击。
+
+```bash
+# github.com
+
+X-Frame-Options: deny
+```
 
 该响应头有三个值可选，分别是
 
@@ -637,11 +767,88 @@ CSRF 中文名为跨站请求伪造。原理就是攻击者构造出一个后端
 
 当然防御中间人攻击其实并不难，只需要增加一个安全通道来传输信息。HTTPS 就可以用来防御中间人攻击，但是并不是说使用了 HTTPS 就可以高枕无忧了，因为如果你没有完全关闭 HTTP 访问的话，攻击方可以通过某些方式将 HTTPS 降级为 HTTP 从而实现中间人攻击。
 
+对于开发者来说：
+
+- 支持 HTTPS。
+- 开启 HSTS 策略。（服务器可以通过开启 HSTS（HTTP Strict Transport Security）策略，告知浏览器必须使用 HTTPS 连接。但是有个缺点是用户首次访问时因还未收到 HSTS 响应头而不受保护。）
+
+对于用户来说：
+
+- 尽可能使用 HTTPS 链接。
+- 避免连接不知名的 WiFi 热点。
+- 不忽略不安全的浏览器通知。
+- 公共网络不进行涉及敏感信息的交互。
+- 用可信的第三方 CA 厂商，不下载来源不明的证书。
+
 ## 如何定位内存泄露
+
+`垃圾回收` `DevTools`
+
+内存泄漏是指不再使用的内存，没有被垃圾回收机制回收。当内存泄漏很大或足够频繁时，用户会有所感知：轻则影响应用性能，表现为迟缓卡顿；重则导致应用崩溃，表现为无法正常使用。为了避免内存泄漏带来的不良影响，需要对垃圾回收机制进行了解，掌握内存泄漏分析方法，完善线上相关监控措施。
+
+内存泄漏定位和分析一般需要辅助工具，比如 Chrome DevTools。开发者可以通过 DevTools 记录页面活动概况，生成可视化分析结果，从时间轴中直观了解内存泄漏情况；利用 DevTools 获取若干次内存快照，检查内存堆栈变化；以及使用 Chrome 任务管理器，实时监控内存的使用情况。
+
+### 知识点深入
+
+### 1\. 排查内存泄漏常见问题
+
+在 JavaScript 中，当一些不再需要的数据仍然可达时，V8 会认为这些数据仍在被使用，不会释放内存。为了调试内存泄漏，我们需要找到被错误保留的数据，并确保 V8 能够将其清理掉。
+
+代码量较小时，开发者通常可以基于以下基本原则进行快速自查：
+
+1.  是否滥用全局变量，没有手动回收。
+2.  是否没有正确销毁定时器、闭包。
+3.  是否没有正确监听事件和销毁事件。
+
+除此之外，开发者可以借助外部工具进行内存泄漏排查。
+
+### 2\. 使用 Chrome DevTools 定位内存泄漏
+
+#### Performance
+
+![image](./imgs/Performance.png)
+
+打开准备分析的页面和 DevTools 的 Performance 面板，勾选 Memory 并开始录制，在模拟用户操作一段时间后结束录制，DevTools 会将这段时间内的页面行为活动进行记录和分析。
+
+通过生成的结果可以直观查看到内存时间线，了解内存随时间的占用变化，如果内存占用曲线成阶梯状一直上升，则可能存在内存泄漏。按需选取时间线中的区域片段，检查对应时间段内的活动类型和时间占用，作为排查和定位内存泄漏的辅助办法。
+
+#### Memory
+
+![image](./imgs/Memory.png)
+
+打开准备分析的页面和 DevTools 的 Memory 面板，按需生成快照。每个快照的内容是快照时刻，进行一次垃圾回收后，应用中所有可达的对象。
+
+当开发者明确知道与内存泄漏关联的用户交互步骤时，可以生成多次内存快照进行对比，排查出泄漏的对象：在做用户交互操作之前，进行一次正常内存堆栈信息的快照；在做用户交互操作中或操作结束时，进行内存快照。使用 Comparison 视图或使用 filter 按需查看快照之间的差异。
+
+上面的图中使用 filter 检查快照 2 和快照 3 的差异，通过结果可知在两个快照之间持续被分配 clickCallback 闭包。通过点击文件路径可以定位到内存泄漏的代码。
+
+![image](./imgs/Memory2.png)
+
+### 3\. Node.js 中的内存泄漏定位
+
+如果需要定位 Node.js 中的内存泄漏，启动 Node.js 时带上 --inspect 参数，以便利用 Chrome DevTools 工具生成 Memory 快照数据。如图所示，启动 Node.js 服务后，打开 Chrome DevTools，会有 Node 标识，点击可以打开 Node 专用 DevTools。
+
+![image](./imgs/Node-memory.png)
+
+除此之外，也可以借助第三方包 heapdump 生成快照文件，导入至 Chrome DevTools 中的 Memory 进行快照对比。
+
+启动 Node.js 时带上 --expose-gc 参数以便调用  `global.gc()`  方法触发垃圾回收。借助  `process.memoryUsage().heapUsed`  检查内存大小，作为内存泄漏的辅助判断。
+
+```js
+const heapdump = require('heapdump')
+const capture = function() {
+  global.gc()
+  heapdump.writeSnapshot('./HZFE_HEAPSNAPSHOT/' + Date.now() + '.heapsnapshot')
+  console.log('heapUsed:', process.memoryUsage().heapUsed)
+}
+capture() /* 可能有内存泄漏的代码片段 start */ // code/* 可能有内存泄漏的代码片段 end */capture();
+```
 
 参考链接
 
 - http://febook.hzfe.org/awesome-interview/book3/browser-memory-leaks
+- [Chrome DevTools](https://developer.chrome.com/docs/devtools/)
+- [Fix memory problems](https://developer.chrome.com/docs/devtools/memory-problems/)
 
 ## prefetch 和 preload 的区别和使用场景
 
