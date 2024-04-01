@@ -2567,6 +2567,52 @@ for…of 是 ES6 新增的遍历方式，允许遍历一个含有 iterator 接�
 - 混入 mixin
 - 借用 apply/call
 
+## 模块的理解
+
+> https://zh.javascript.info/modules-intro
+
+下面总结一下模块的核心概念：
+
+1.  一个模块就是一个文件。浏览器需要使用  `<script type="module">`  以使  `import/export`  可以工作。模块（译注：相较于常规脚本）有几点差别：
+    - 默认是延迟解析的（deferred）。
+    - Async 可用于内联脚本。
+    - 要从另一个源（域/协议/端口）加载外部脚本，需要 CORS header。
+    - 重复的外部脚本会被忽略
+2.  模块具有自己的本地顶级作用域，并可以通过  `import/export`  交换功能。
+3.  模块始终使用  `use strict`。
+4.  模块代码只执行一次。导出仅创建一次，然后会在导入之间共享。
+
+当我们使用模块时，每个模块都会实现特定功能并将其导出。然后我们使用  `import`  将其直接导入到需要的地方即可。浏览器会自动加载并解析脚本。
+
+在生产环境中，出于性能和其他原因，开发者经常使用诸如  [Webpack](https://webpack.js.org/)  之类的打包工具将模块打包到一起。
+
+## [构建工具](https://zh.javascript.info/modules-intro#gou-jian-gong-ju)
+
+在实际开发中，浏览器模块很少被以"原始"形式进行使用。通常，我们会使用一些特殊工具，例如  [Webpack](https://webpack.js.org/)，将它们打包在一起，然后部署到生产环境的服务器。
+
+使用打包工具的一个好处是 ------ 它们可以更好地控制模块的解析方式，允许我们使用裸模块和更多的功能，例如 CSS/HTML 模块等。
+
+构建工具做以下这些事儿：
+
+1.  从一个打算放在 HTML 中的  `<script type="module">` "主"模块开始。
+2.  分析它的依赖：它的导入，以及它的导入的导入等。
+3.  使用所有模块构建一个文件（或者多个文件，这是可调的），并用打包函数（bundler function）替代原生的  `import`  调用，以使其正常工作。还支持像 HTML/CSS 模块等"特殊"的模块类型。
+4.  在处理过程中，可能会应用其他转换和优化：
+    - 删除无法访问的代码。
+    - 删除未使用的导出（"tree-shaking"）。
+    - 删除特定于开发的像  `console`  和  `debugger`  这样的语句。
+    - 可以使用  [Babel](https://babeljs.io/)  将前沿的现代的 JavaScript 语法转换为具有类似功能的旧的 JavaScript 语法。
+    - 压缩生成的文件（删除空格，用短的名字替换变量等）。
+
+如果我们使用打包工具，那么脚本会被打包进一个单一文件（或者几个文件），在这些脚本中的  `import/export`  语句会被替换成特殊的打包函数（bundler function）。因此，最终打包好的脚本中不包含任何  `import/export`，它也不需要  `type="module"`，我们可以将其放入常规的  `<script>`：
+
+```html
+<!-- 假设我们从诸如 Webpack 这类的打包工具中获得了 "bundle.js" 脚本 -->
+<script src="bundle.js"></script>
+```
+
+关于构建工具说了这么多，但其实原生模块也是可以用的
+
 ## 前端模块化机制有哪些、ES module、commonjs 的区别 、AMD 和 CMD 规范的区别？
 
 模块化开发在现代开发中已是必不可少的一部分，它大大提高了项目的可维护、可拓展和可协作性。通常，我们 在浏览器中使用 ES6 的模块化支持，在 Node 中使用 commonjs 的模块化支持。
@@ -2579,6 +2625,57 @@ for…of 是 ES6 新增的遍历方式，允许遍历一个含有 iterator 接�
 - ESM: 官方模块化规范，现代浏览器原生支持，通过 import 异步加载模块，export 导出内容。
 
 ### 各种模块化规范的细节
+
+#### UMD (Universal Module Definition)
+
+UMD，即通用模块定义。UMD 主要为了解决 CommonJS 和 AMD 规范下的代码不通用的问题，同时还支持将模块挂载到全局，是跨平台的解决方案。
+
+示例
+
+```js
+// hzfe.js
+;(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD
+    define(['exports', 'hzfe'], factory)
+  } else if (typeof exports === 'object' && typeof exports.nodeName !== 'string') {
+    // CommonJS
+    factory(exports, require('hzfe'))
+  } else {
+    // Browser globals
+    factory((root.commonJsStrict = {}), root.hzfe)
+  }
+})(typeof self !== 'undefined' ? self : this, function(exports, b) {
+  const hzfeMember = 17
+  const getHZFEMember = () => {
+    return `HZFE Member: ${hzfeMember}`
+  }
+
+  exports.getHZFEMember = getHZFEMember
+})
+
+// index.js
+const hzfe = require('./hzfe.js')
+console.log(hzfe.getHZFEMember()) // HZFE Member: 17
+```
+
+**使用场景**
+
+UMD 可同时在服务器端和浏览器端使用。
+
+**加载方式**
+
+UMD 加载模块的方式取决于所处的环境，Node.js 同步加载，浏览器端异步加载。
+
+**优缺点**
+
+优点
+
+- 跨平台兼容
+
+缺点
+
+- 代码量稍大
 
 #### CommonJS
 
@@ -2599,15 +2696,15 @@ const hzfe = require('./hzfe.js')
 console.log(hzfe.getHZFEMember()) // HZFE Member: 17
 ```
 
-使用场景
+**使用场景**
 
 CommonJS 主要在服务端（如：Node.js）使用，也可通过打包工具打包之后在浏览器端使用。
 
-加载方式
+**加载方式**
 
 CommonJS 通过同步的方式加载模块，首次加载会缓存结果，后续加载则是直接读取缓存结果。
 
-优缺点
+**优缺点**
 
 优点
 
@@ -2637,15 +2734,15 @@ import * as hzfe from './hzfe.js'
 console.log(hzfe.getHZFEMember()) // HZFE Member: 17
 ```
 
-使用场景
+**使用场景**
 
 ESM 在支持的浏览器环境下可以直接使用，在不支持的端需要编译/打包后使用。
 
-加载方式
+**加载方式**
 
 ESM 加载模块的方式同样取决于所处的环境，Node.js 同步加载，浏览器端异步加载。
 
-优缺点
+**优缺点**
 
 优点
 
@@ -2661,18 +2758,139 @@ ESM 加载模块的方式同样取决于所处的环境，Node.js 同步加载�
 **CommonJS(require) 与 ESM(import) 的区别**
 
 - require 支持 动态导入，import 不支持，正在提案 (babel 下可支持)
-- CommonJS 是 同步 导入(首次加载会缓存结果，后续加载则是直接读取缓存结果)，ESM 取决于所处的环境，Node.js 同步加载，浏览器端异步加载
-- require 是 值拷贝，导出值变化不会影响导入值；import 指向 内存地址，导入值会随导出值而变化
+
+```diff
+#  https://juejin.cn/post/7129421261444874276
+import Vue from 'vue'
+
+const isUiTest = process.env.VUE_APP_UI_TEST === 'TRUE'
+
+- const etionUIPath = isUiTest ? 'etion-ui/example/dist/etion-ui.umd.js' : 'etion-ui/dist/etion-ui.umd.js'
+- const EtionUI = require(etionUIPath)
++ const prefix = isEtionUiTest() ? 'example/' : ''
++ const EtionUI = require(`etion-ui/${prefix}dist/etion-ui.umd.js`)
+
+Vue.use(EtionUI)
+```
+
+```js
+// 📁 say.js 有默认的导出
+export default function() {
+  alert('Module loaded (export default)!')
+}
+
+let obj = await import('./say.js')
+let say = obj.default
+// or, in one line: let {default: say} = await import('./say.js');
+
+say()
+```
+
+- require 输出是值拷贝（首次加载后会缓存结果，后续加载则是直接读取缓存结果，想让模块再次运行，必须清除缓存），导出值变化不会影响导入值；import 是引用拷贝，指向 内存地址，模块里的变量绑定其所在的模块，导入值会随导出值而变化
+- CommonJS 在服务端模块加载是运行时同步加载，浏览器端模块加载是 提前编译 打包处理；ESM 编译阶段引用服务端和浏览器端通用，加载方式取决于所处的环境，Node.js 同步加载，浏览器端异步加载（目前需要 Babal 将 es6 转 es5）
 
 **模块化与工程化：Tree Shaking**
 
 Tree Shaking 是一个通常用于描述移除 JavaScript 上下文中的未引用代码（dead-code）行为的术语。它依赖于 ES2015 中的 import 和 export 语句，用来检测代码模块是否被导出、导入，且被 JavaScript 文件使用。
+
+_CommonJS 运行时加载，ESModule 编译阶段引用。_
+
+CommonJS 在引入时是加载整个模块，生成一个对象，然后再从这个生成的对象上读取方法和属性。
+
+ESModule 不是对象，而是通过 export 暴露出要输出的代码块，在 import 时使用静态命令的方法引用指定的输出代码块，并在 import 语句处执行这个要输出的代码，而不是直接加载整个模块。
 
 简单来说，Tree Shaking 是一种依赖 ESM 模块静态分析实现的功能，它可以在编译时安全的移除代码中未使用的部分（webpack 5 对 CommonJS 也进行了支持）。
 
 参考
 
 - http://febook.hzfe.org/awesome-interview/book1/js-module-specs#25-esm-ecmascript-module
+
+1.  [Modules: CommonJS modules](https://nodejs.org/api/modules.html#modules_modules_commonjs_modules)
+2.  [Asynchronous module definition](https://en.wikipedia.org/wiki/Asynchronous_module_definition)
+3.  [Common Module Definition](https://github.com/seajs/seajs/issues/242)
+4.  [Universal Module Definition](https://github.com/umdjs/umd/)
+5.  [Modules: ECMAScript modules](https://nodejs.org/api/modules.html#modules_modules_commonjs_modules)
+6.  [Module Semantics](https://tc39.es/ecma262/#sec-modules)
+
+## ES Module 和 CommonJs 混用
+
+```js
+// 例：CJS 兼容 ESM
+;(async function() {
+  const esm = await import('esm')
+  esm.a()
+  esm.b()
+})()
+```
+
+1. 按照 ES Module 规范，指定 "type"
+
+单独指定某些文件使用 CommonJS 模块，或者 ES Module 模块
+
+- 正常情况下，我们不做配置的话，项目默认是 CommonJS 规范
+- 在 package.json 文件中指定 `"type":"module"` 后，就会按照 ES Module 规范
+- 强制的指定文件后缀为 `.cjs` 后，此文件会遵守 CommonJS 规范
+
+2. 按照 CommonJS 规范，不做任何配置情况下
+
+指定需要使用 ES Module 的文件的后缀名为 `.mjs`，那么这个文件会被强制指定使用 ES Module 规范
+
+3. 借助成熟的官方脚手架（vue-cli）或打包工具（rollup）
+
+4. 使用 Babel 完美配置 CommonJS 和 ES Module
+
+#### 安装依赖
+
+```bash
+npm install --save-dev babel-cli babel-preset-env babel-register babel-preset-stage-0
+npm install --save babel-polyfill # babel转码时不能识别一些全局对象的API，例如Object.assign，使用它可以解决这个问题
+
+```
+
+- babel-polyfill babel 转码时不能识别一些全局对象的 API
+- babel-preset-stage-0 es 阶段性提案语法 stage-0 包含 stage1,2,3
+- babel-register 钩子，在程序入口文件引入即可实现转码
+
+#### 在根目录新建 .babelrc
+
+```bash
+{
+    "presets": [
+      "env",
+      "stage-0"
+    ]
+  }
+
+```
+
+#### 配置命令入口，在根目录新建 main.js
+
+```js
+require('babel-polyfill')
+require('babel-register')
+require('./app.js') // 引入您的项目的启动文件
+```
+
+#### 配置命令行
+
+package.json 中加入
+
+```json
+"scripts": {
+    "start": "node main.js",
+  },
+
+```
+
+#### 启动项目
+
+```bash
+npm start
+```
+
+参考
+
+- https://www.cnblogs.com/sugartang/p/17596872.html
 
 ## 浏览器的垃圾回收机制
 
