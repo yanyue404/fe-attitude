@@ -41,7 +41,7 @@
 - [vue](https://github.com/yanyue404/vue)
   - [mini-vue](https://github.com/yanyue404/mini-vue) - 实现迷你版 Vue
 - [leetcode](https://github.com/yanyue404/leetcode) 算法 200 道
-- 可视化拖拽 h5-editer
+- 可视化拖拽 lowcode (visual-editor)
 
 **工具库**
 

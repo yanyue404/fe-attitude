@@ -25,6 +25,7 @@
 - [**hacksplaining-lessons**](https://www.hacksplaining.com/lessons) - 通过课程实例了解安全漏洞
 - [**vue-advanced-workshop**](https://github.com/zhengguorong/vue-advanced-workshop) - 尤雨溪亲自讲解 vue 高级特性
 - [**后盾人**](https://doc.houdunren.com/)
+- [Airbnb JavaScript 风格指南](https://github.com/airbnb/javascript)
 
 </details>
 
@@ -32,27 +33,20 @@
 
 ### Vue 生态
 
-- [vue](https://github.com/vuejs/vue) - 中文 [vue2](https://v2.cn.vuejs.org/) / [vue3](https://cn.vuejs.org/)
+- [vue](https://github.com/vuejs/vue) - 中文 [vue2](https://v2.cn.vuejs.org/) / [vue3 官方中文文档](https://cn.vuejs.org/)
 - [nuxt.js](https://github.com/nuxt/nuxt.js) [英文](https://nuxtjs.org/) / [中文 1](https://www.nuxtjs.cn/) / [中文 2](https://develop365.gitlab.io/nuxtjs-2.6.x-doc/zh/guide/) / [中文 3](https://www.w3cschool.cn/nuxtjs/) / [nuxt 模块](https://v2.nuxt.com/docs/directory-structure/modules/)
-- [nuxt3](https://github.com/nuxt/framework) [英文](https://nuxt.com/) / [中文](https://www.nuxtjs.org.cn/)
-- [quasar](https://github.com/quasarframework/quasar) - 基于 vue，一套代码多处适用。[中文文档](http://www.quasarchs.com/)
-- [vue-router](https://github.com/vuejs/vue-router)
+- [nuxt3](https://github.com/nuxt/framework) [英文](https://nuxt.com/) / [中文文档](https://nuxt.com.cn/)
+- [quasar](https://github.com/quasarframework/quasar) - 基于 vue，一套代码多处适用 [中文文档](http://www.quasarchs.com/)
+- [vue-router](https://github.com/vuejs/vue-router) - [vue-router 官方中文文档](https://router.vuejs.org/zh/)
+- [pinia](https://pinia.vuejs.org/zh/index.html)
 - [vuex](https://github.com/vuejs/vuex)
 - [vueuse](https://github.com/vueuse/vueuse) [文档](https://vueuse.org/)
 - [vant](https://github.com/youzan/vant) - 轻量、可靠的移动端 Vue 组件库 [文档](https://vant-ui.github.io/vant/#/zh-CN/)
 - [element-ui](https://github.com/ElemeFE/element) - Vue 的桌面端组件库 [文档](https://element.eleme.cn/#/zh-CN/component/installation)
-- [element-plus](https://github.com/element-plus/element-plus) - 🎉 Element 团队制作的 Vue.js 3 UI 库 [文档](https://element-plus.org/zh-CN/)
+- [element-plus](https://github.com/element-plus/element-plus) - 🎉 Element 团队制作的 Vue.js 3 UI 库 [文档](https://element-plus.org/zh-CN/) / [gitee 文档](https://element-plus.gitee.io/zh-CN/)
+- [vue-i18n 文档](https://vue-i18n.intlify.dev/)
 
-### React 生态
-
-- [react](https://github.com/facebook/react)
-- [next.js](https://github.com/zeit/next.js)
-
-### 多端
-
-- [taro](https://github.com/NervJS/taro)
-
-## Vue 相关库
+**Vue 相关库**
 
 - [vue-multiselect](https://github.com/shentao/vue-multiselect) select 组件 目前 vue 里面用过最好用的
 - [Vue.Draggable](https://github.com/SortableJS/Vue.Draggable) DnD 拖拽组件 基于 Sortable.js 的 vue 版本
@@ -66,16 +60,12 @@
 - [Vue 测试指南](https://lmiller1990.github.io/vue-testing-handbook/zh-CN/) vue 测试指南
 - [v-charts](https://github.com/ElemeFE/v-charts) - 基于 Vue2.0 和 ECharts 封装的图表组件 📈📊
 
-## 低代码
+### React 生态
 
-- [baidu/amis | Github](https://github.com/baidu/amis)
-- [amis 可视化编辑器 | Github](https://github.com/fex-team/amis-editor-demo)
-- [扫盲低代码-vue3实现低代码平台](https://juejin.cn/post/7211420858212925500?searchId=20240301151904F9C466FE5AB63D78D7B3)
-- [基于 vue3 + vite + ts H5 卖场工具平台](https://github.com/Taoshuaixing/vue3-store-tools)
-- [GoView](https://gitee.com/dromara/go-view) 一个Vue3搭建的低代码数据可视化开发平台，将图表或页面元素封装为基础组件，无需编写代码即可完成业务需求。 它的技术栈为：Vue3 + TypeScript4 + Vite2 + NaiveUI + ECharts5 + Axios + Pinia2 + PlopJS
-- [rtvue-lowcod](https://github.com/ZestfulCitrus/uni-lowcode) 一款基于 uniapp 框架和 uview 组件库的低代码开发平台
+- [react](https://github.com/facebook/react) [React 官方中文文档](https://react.docschina.org/)
+- [next.js](https://github.com/zeit/next.js)
 
-## 脚手架
+### 脚手架
 
 - [vue-cli](https://github.com/vuejs/vue-cli) - vue 命令行工具。 [中文文档](https://cli.vuejs.org/zh/)
 - [create-react-app](https://github.com/facebook/create-react-app) - react 官方脚手架。
@@ -83,11 +73,29 @@
 - [create-vant-cli-app](https://github.com/youzan/vant/tree/main/packages/create-vant-cli-app) - Create Vant CLI App
 - [yeoman-generator](https://github.com/yeoman/generator)  脚手架工具
 
+### 多端
+
+- [taro](https://github.com/NervJS/taro)
+- [electron 官方中文文档](https://www.electronjs.org/zh/docs/latest)
+- [tauri 中文官方文档](https://tauri.app/zh/) 构建跨平台的快速、安全、前端隔离应用
+
+## 低代码
+
+- [baidu/amis | Github](https://github.com/baidu/amis)
+- [amis 可视化编辑器 | Github](https://github.com/fex-team/amis-editor-demo)
+- [扫盲低代码-vue3 实现低代码平台](https://juejin.cn/post/7211420858212925500?searchId=20240301151904F9C466FE5AB63D78D7B3)
+- [基于 vue3 + vite + ts H5 卖场工具平台](https://github.com/Taoshuaixing/vue3-store-tools)
+- [GoView](https://gitee.com/dromara/go-view) 一个 Vue3 搭建的低代码数据可视化开发平台，将图表或页面元素封装为基础组件，无需编写代码即可完成业务需求。 它的技术栈为：Vue3 + TypeScript4 + Vite2 + NaiveUI + ECharts5 + Axios + Pinia2 + PlopJS
+- [rtvue-lowcod](https://github.com/ZestfulCitrus/uni-lowcode) 一款基于 uniapp 框架和 uview 组件库的低代码开发平台
+- [LogicFlow](https://github.com/didi/LogicFlow) - 专注于业务自定义的流程图编辑框架，支持实现脑图、ER 图、UML、工作流等各种图编辑场景
+
 ## 打包工具
 
+- [pnpm 官方中文文档](https://pnpm.io/zh/)
+- [**vite**](https://github.com/vitejs/vite) - 下一代前端工具。它很快！[官方中文文档](https://cn.vitejs.dev/)
+- [vitest 官方中文文档](https://cn.vitest.dev/)
 - [webpack](https://github.com/webpack/webpack) - 打包项目
-- [**rollup**](https://github.com/rollup/rollup) - 打包 SDK [文档]((https://rollupjs.org/)
-- [**vite**](https://github.com/vitejs/vite) - 下一代前端工具。它很快！[中文文档](https://cn.vitejs.dev/)
+- [**rollup**](https://github.com/rollup/rollup) - 打包 SDK [文档]((https://rollupjs.org/) / [rollup 官方中文文档](https://cn.rollupjs.org/)
 - [systemjs](https://github.com/systemjs/systemjs) - 动态 ES 模块加载器
 - [microbundle](https://github.com/developit/microbundle) - 基于 rollup，简化配置。
 - [bili](https://github.com/egoist/bili) - 基于 rollup，同上。
@@ -115,7 +123,7 @@
   - [**json-server**](https://github.com/typicode/json-server) - 最佳 RESTful API Mock
   - [**mockjs**](https://github.com/nuysoft/Mock) - 模拟数据生成器
   - [**mockapi**](https://mockapi.io/) 一个还不错的在线 mock RESTful 服务（可在线可视化编辑），[官方文档](https://mockapi.io/docs)
-- [axios](https://github.com/axios/axios)  目前最常见的请求库
+- [axios](https://github.com/axios/axios)  目前最常见的请求库 [axios 官方中文文档](https://axios-http.com/zh/)
 - [**quicklink**](https://github.com/GoogleChromeLabs/quicklink) - 让浏览器在空闲时间预加载（prefetch）可见界面上的链接来实现让网站体验更好
 - [**fuse.js**](https://github.com/krisk/fuse) - 轻量级模糊搜索
 - [**SortableJS**](https://github.com/SortableJS/Sortable) - 功能强大的 JavaScript 拖拽库
@@ -139,17 +147,20 @@
 - [**texme**](https://github.com/susam/texme) - 一个 JS 库，可以将 Markdown 自动渲染成网页内容
 - [any-rule](https://any86.github.io/any-rule/)  正则大全
 - [jsonpath](https://github.com/json-path/JsonPath) https://www.jsonpath.cn
+- [echarts 官方中文文档](https://echarts.apache.org/zh/index.html)
+- [Tailwind CSS 官方文档](https://tailwindcss.com/docs/installation)
+- [tippy.js 文档](https://atomiks.github.io/tippyjs/)
 
 ## 工程化
 
+- [**TypeScript**](https://github.com/microsoft/TypeScript) - TypeScript 是 JavaScript 的超集，可以编译为干净的 JavaScript 输出。 [typescript 官方中文文档](https://www.tslang.cn/docs/home.html)
+- [babel](https://github.com/babel/babel) [Babel 中文文档](https://babel.docschina.org/docs/)
+- [**eslint**](https://github.com/eslint/eslint) - 静态代码检查 https://eslint.org/docs/rules/ [ESLint 官方中文文档](https://zh-hans.eslint.org/)
 - [nvm](https://github.com/creationix/nvm)  管理 node 版本
 - [np](https://github.com/sindresorhus/np) npm publish 辅助，自动 push、打 tag、升版本等
-- [**TypeScript**](https://github.com/microsoft/TypeScript) - TypeScript 是 JavaScript 的超集，可以编译为干净的 JavaScript 输出。
-- [babel](https://github.com/babel/babel)
 - [**postcss**](https://github.com/postcss/postcss) - 使用 JS 插件转换样式
 - [**cross-env**](https://github.com/kentcdodds/cross-env) - 跨平台的环境变量声明
 - [**prettier**](https://github.com/prettier/prettier/) - 漂亮的代码格式化 https://prettier.io
-- [**eslint**](https://github.com/eslint/eslint) - 静态代码检查 https://eslint.org/docs/rules/
 - [eslint-config-airbnb](https://github.com/airbnb/javascript) airbnb 约束风格
 - [**lint-staged**](https://github.com/okonet/lint-staged) - 在 git 暂存文件上运行 linters
 - [**jest**](https://github.com/facebook/jest) - JavaScript 测试
@@ -161,6 +172,8 @@
 - [**gh-pages**](https://github.com/tschaub/gh-pages) - 将文件发布到 GitHub 上的 `gh-pages` 分支
 
 ## Node
+
+> [nodejs 中文文档](https://nodejs.cn/)
 
 ### 工具库
 
