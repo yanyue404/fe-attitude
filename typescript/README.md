@@ -51,9 +51,16 @@ tsc hello.ts
 
 ## 参考资料
 
-- [官网](http://www.typescriptlang.org/) / [中文](https://www.tslang.cn/docs/handbook/basic-types.html)
+- [官网](http://www.typescriptlang.org/) / [中文](https://www.tslang.cn/docs/handbook/basic-types.html) / [Playground](https://www.typescriptlang.org/play/)
 - [中文手册](https://zhongsp.gitbooks.io/typescript-handbook/content/)
 - [TypeScript 入门教程](https://github.com/xcatliu/typescript-tutorial) https://ts.xcatliu.com/
 - [精读《Typescript2.0 - 2.9》](https://juejin.im/post/5b0b93386fb9a00a202ca9f1)
 - [TYPESCRIPT 简明指南](https://www.todever.com/2017/09/20/typescript简明指南/)
 - [TypeScript 中高级应用与最佳实践](http://www.alloyteam.com/2019/07/13796/)
+
+**文章**
+
+- [2022 年了，我才开始学 typescript ，晚吗？（7.5k 字总结）](https://juejin.cn/post/7124117404187099172?searchId=202404261335264F8E96C7992736770AFD)
+- [https://juejin.cn/post/7344282440725577765](https://juejin.cn/post/7344282440725577765)
+- [看完 zustand 源码后，我的 TypeScript 水平突飞猛进](https://juejin.cn/post/7339364757386264612?searchId=202404261335264F8E96C7992736770AFD)
+- [TypeScript 入门教程 (免费)](https://juejin.cn/book/7288482920602271802)

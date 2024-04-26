@@ -85,7 +85,7 @@ module.exports = {
         ['/fe/vue', 'Vue'],
         ['/fe/react', 'React'],
         ['/fe/node', 'Node'],
-        ['/fe/ts', 'TypeScript'],
+        ['/fe/typescript', 'TypeScript'],
         ['/fe/skill', '编程技巧'],
         ['/fe/engineering', '工程化']
       ]

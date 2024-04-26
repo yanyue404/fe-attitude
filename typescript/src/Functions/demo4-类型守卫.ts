@@ -4,40 +4,40 @@
 // 字面量类型保护
 function padLeft(value: string, padding: string | number) {
   if (typeof padding === 'number') {
-    console.log(padding + 2); //正常
-    return Array(padding + 1).join(' ') + value; //正常
+    console.log(padding + 2) //正常
+    return Array(padding + 1).join(' ') + value //正常
   }
   if (typeof padding === 'string') {
-    return padding + value;
+    return padding + value
   }
 }
 
 class Man {
-  handsome = 'handsome';
+  handsome = 'handsome'
 }
 class Woman {
-  beautiful = 'beautiful';
+  beautiful = 'beautiful'
 }
 
 function Human(arg: Man | Woman) {
   if (arg instanceof Man) {
-    console.log(arg.handsome);
+    console.log(arg.handsome)
     // console.log(arg.beautiful); // error
   } else {
     // 这一块中一定是 Woman
-    console.log(arg.beautiful);
+    console.log(arg.beautiful)
   }
 }
 
 interface B {
-  b: string;
+  b: string
 }
 interface A {
-  a: string;
+  a: string
 }
 function foo(x: A | B) {
   if ('a' in x) {
-    return x.a;
+    return x.a
   }
-  return x.b;
+  return x.b
 }
