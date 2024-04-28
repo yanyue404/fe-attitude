@@ -2,7 +2,11 @@
   "compilerOptions": {
     "target": "es5",
     "outDir": "./typescript/out",
-    "allowJs": true
+    "allowJs": true,
+    "strictNullChecks": true, // 开启严格检查
+    "declaration": true, // 输出声明文件
+    "esModuleInterop": true, // ESM 与 CJS 相关，推荐开启来解决大部分问题
+    "allowSyntheticDefaultImports": true, // ESM 与 CJS 相关，推荐开启来解决大部分问题
   },
   "include": ["./typescript/src"]
 }

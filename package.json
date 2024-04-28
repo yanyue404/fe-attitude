@@ -11,7 +11,8 @@
     "site": "vuepress dev site",
     "build": "vuepress build site",
     "deploy": "bash deploy.sh",
-    "ts": "tsc -w"
+    "build:ts": "tsc",
+    "watch:ts": "tsc -w"
   },
   "husky": {
     "hooks": {
@@ -35,6 +36,7 @@
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
+    "esno": "^4.7.0",
     "husky": "^3.1.0",
     "lint-staged": "^9.5.0",
     "prettier": "^1.19.1",

@@ -18,3 +18,6 @@ function sortByName(a: Person[]) {
 }
 
 sortByName([]);
+
+console.log('test');
+
