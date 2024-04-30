@@ -1937,6 +1937,10 @@ private updateValue(e: React.ChangeEvent<HTMLInputElement>) {
 
 ## 如何在 Vue 项目中应用 TypeScript？
 
+- [搭配 TypeScript 使用 Vue](https://cn.vuejs.org/guide/typescript/overview.html)
+- [TypeScript 与选项式 API](https://cn.vuejs.org/guide/typescript/options-api.html)
+- [TypeScript 与组合式 API](https://cn.vuejs.org/guide/typescript/composition-api.html)
+
 ## 如何将项目从 JavaScript 迁移到 TypeScript？
 
 > 源自 TypeScript 入门教程（掘金小册）
