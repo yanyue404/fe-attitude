@@ -43,6 +43,8 @@ pow('sister')
 
 下图是某错误处理平台收集统计的 JavaScript Top10 错误，其中 7 个 TypeError，1 个 ReferenceError：
 
+![](./imgs/JavaScriptTop10Error.jpg)
+
 而这 8 种问题，我们都能用 TypeScript 在编码早期及时应对
 
 ### TypeScript 相对于 JavaScript 的优势是什么？
@@ -107,6 +109,10 @@ TypeScript 坚持与 ECMAScript 标准同步发展，并推进了很多 ECMAScri
 #### 5\. TypeScript 可以和 JavaScript 共存，这意味着 JavaScript 项目能够渐进式的迁移到 TypeScript
 
 在老 JavaScript 项目中，如果你想使用 TypeScript，可以使用 TypeScript 编写新文件，老的 JavaScript 文件可以继续使用
+
+**参考链接**
+
+- https://github.com/sisterAn/blog/issues/124
 
 ## Typescript 的数据类型有哪些？
 
@@ -1165,31 +1171,35 @@ type A = Exclude<'x' | 'a', 'x' | 'y' | 'z'>
 
 ## interface 与 type 异同点，如何选择？
 
-### 及格线
+相同点：
 
-- interface 与 type 都可以描述对象类型、函数类型、Class 类型，但 interface 无法像 type 那样表达元组、一组联合类型等等。
+1. 都可以描述对象或函数
 
 ```ts
 // 接口
+// * 描述对象
 interface Sister {
   name: string
   age: number
 }
 
+// * 描述函数
 interface SetSister {
   (name: string, age: number): void
 }
 
 // 类型别名
+// * 描述对象
 type Sister = {
   name: string
   age: number
 }
 
+// * 描述函数
 type SetSister = (name: string, age: number) => void
 ```
 
-- 在对象扩展情况下，interface 使用 extends 关键字，而 type 使用交叉类型（`&`）。
+2. 都可以扩展
 
 ```js
 // 接口
@@ -1202,7 +1212,6 @@ type SisterRan = {
   age: number
 }
 
-// interface 和 type 可以混合扩展，也就是说 interface 可以扩展 type，type 也可以扩展 interface。
 // 接口扩展接口
 interface Sister extends SisterAn {
   age: number;
@@ -1221,8 +1230,51 @@ type SisterPro = SisterAn & {
 }
 ```
 
+区别：
+
+1. 不同声明范围，接口声明中，跟着的是具体的结构，type 可以为任意的类型创建类型别名
+
+类型别名的右边可以是任何类型，包括基本类型、元祖、类型表达式（ & 或 | 等）；而在接口声明中，右边必须为变量结构。例如，下面的类型别名就不能转换成接口
+
+```ts
+type Name = string
+type Text = string | { text: string }
+type Coordinates = [number, number]
+```
+
+2. 不同的扩展形式，接口 extends，类型别名 &
+3. 不同的重复定义表现形式，接口自动合并，类型别名报错
+
+如何选择
+
+建议优先选择接口，当接口不满足时再使用类型别名
+
+### 及格线
+
+- interface 与 type 都可以描述对象类型、函数类型、Class 类型，但 interface 无法像 type 那样表达元组、一组联合类型等等。
+- 在对象扩展情况下，interface 使用 extends 关键字，而 type 使用交叉类型（`&`）。interface 和 type 可以混合扩展，也就是说 interface 可以扩展 type，type 也可以扩展 interface
 - 同名的 interface 会自动合并，并且在合并时会要求兼容原接口的结构, 而 type 类型别名定义多次会报错
 - interface 无法使用映射类型等类型工具，也就意味着在类型编程场景中我们还是应该使用 type 。
+
+```ts
+type Person = {
+  name: string
+  age: number
+  hobbies: string[]
+}
+
+// 对索引类型做变换会用到映射类型的语法，它可以对索引类型的索引和值做一些变换，然后产生新的索引类型。
+
+// 比如给每个索引加上 readonly 的修饰：
+type ToReadonly<Obj> = {
+  readonly [Key in keyof Obj]: Obj[Key]
+}
+type res = ToReadonly(Person)
+
+// typeScript 也内置了很多基于映射类型实现的工具类型，比如 Partial、Required 等。
+
+// 总之，会了映射类型就能够对索引类型做各种变换了。
+```
 
 ### 优秀回答
 
