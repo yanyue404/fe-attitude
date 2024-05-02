@@ -173,7 +173,7 @@
 
 ## Node
 
-> [nodejs 中文文档](https://nodejs.cn/)
+> [nodejs 中文文档](https://nodejs.cn/) https://github.com/sindresorhus/awesome-nodejs
 
 ### 工具库
 
@@ -184,18 +184,27 @@
 - [**onchange**](https://github.com/Qard/onchange) - 监听文件变动然后做一些事
 - [**open**](https://github.com/sindresorhus/open) node 打开浏览器
 - [**jsonpath**](https://github.com/dchester/jsonpath) - 使用 JSONPath 表达式查询和操作 JavaScript 对象。适用于 Node.js 的强大 JSONPath 引擎。
+- tsd
 
 ### 命令行
 
+- minimist - 命令行参数解析处理 `const args = require('minimist')(process.argv.slice(2))`
+- [**nodemon**](https://github.com/remy/nodemon/) - 监视 node.js 应用程序中的修改，实时更新
+- [**Inquirer.js**](https://github.com/SBoudrias/Inquirer.js) A collection of common interactive command line user interfaces. 命令行询问库
+- prompts - 交互式命令工具，inquirer 的轻量级版本
 - [**commander.js**](https://github.com/tj/commander.js) node.js 命令行界面变得简单
-- [**consola**](https://github.com/unjs/consola) 优雅的命令行 console logger
 - [**kill-port-process**](https://github.com/hilleer/kill-port-process) - 命令行杀死被占用的端口服务 `kill-port 3000`
 - [**fkill**](https://github.com/sindresorhus/fkill) - 惊人地杀死进程。跨平台。
+- [execa](https://github.com/sindresorhus/execa)一个更强大的子进程管理工具，它提供了更多的选项和功能，例如并发执行、流控制、更好的错误处理等。它是一个跨平台的替代方案，可以替代 Node.js 的 child_process 模块。
 - [**tree-cli**](https://github.com/MrRaindrop/tree-cli) - 生成 tree 目录结构 `tree -l 2 -o output.txt --ignore 'node_modules'`
 - [**tree-node-cli**](https://github.com/yangshun/tree-node-cli) - node 根据目录结构生成 tree
-- [**nodemon**](https://github.com/remy/nodemon/) - 监视 node.js 应用程序中的修改，实时更新
+- [**consola**](https://github.com/unjs/consola) 优雅的命令行 console logger
 - [**ora**](https://github.com/sindresorhus/ora) Elegant terminal spinner 命令行 loading
-- [**Inquirer.js**](https://github.com/SBoudrias/Inquirer.js) A collection of common interactive command line user interfaces. 命令行询问库
+- [progress]() - 用于在命令行中显示进度条，方便展示任务的进度。
+- [chalk]() - 用于给命令行输出添加颜色，可以让输出更具有可读性和吸引力。
+- [cli-table]() - 用于在命令行中创建漂亮的表格，方便展示数据。
+- [boxen]()用于在命令行中创建带边框的框，可以突出显示某些信息。
+- [figlet] - 用于在命令行中生成艺术字体，可以让输出更具有视觉效果。
 - [**node-notifier**](https://github.com/mikaelbr/node-notifier) 在 NodeJS 环境中，可以很方便的唤起 notifier 通知
 
 ### 文件处理
