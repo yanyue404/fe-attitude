@@ -77,18 +77,7 @@
 - 结构化数据筛选展示（费率表）
 - 锚点楼梯 anchor-stairs
 - 提示 recall
-- 身份证生成
-
-## Typescript
-
-参考资源：
-
-- [冴羽 - TypeScript4 官方文档翻译](https://ts.yayujs.com/)
-- [TypeScript 教程](https://www.runoob.com/typescript/ts-tutorial.html)
-- [2022 年了，我才开始学 typescript ，晚吗？（7.5k 字总结）](https://juejin.cn/post/7124117404187099172)
-- [后盾人 - 系统课程 typescript ](https://doc.houdunren.com/%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B/typescript/1%20%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.html)
-- [Daily-Interview-Question - TS 基础](https://github.com/Advanced-Frontend/Daily-Interview-Question/labels/TS%E5%9F%BA%E7%A1%80)
-- [泛型 · TypeScript 中文网 · TypeScript——JavaScript 的超集](https://www.tslang.cn/docs/handbook/generics.html)
+- 身份证生成 ok
 
 ## 工程化
 
@@ -100,7 +89,7 @@
 ## 低代码
 
 - 开源已有的设计思路
-- 拖拽组件
+- 拖拽组件 ok
 - 预览组件
 - 属性编辑
 - 产物

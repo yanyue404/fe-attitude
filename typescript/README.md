@@ -53,10 +53,14 @@ tsc hello.ts
 
 - [官网](http://www.typescriptlang.org/) / [中文](https://www.tslang.cn/docs/handbook/basic-types.html) / [Playground](https://www.typescriptlang.org/play/)
 - [中文手册](https://zhongsp.gitbooks.io/typescript-handbook/content/)
+- [冴羽 - TypeScript4 官方文档翻译](https://ts.yayujs.com/)
 - [TypeScript 入门教程](https://github.com/xcatliu/typescript-tutorial) https://ts.xcatliu.com/
 - [精读《Typescript2.0 - 2.9》](https://juejin.im/post/5b0b93386fb9a00a202ca9f1)
 - [TYPESCRIPT 简明指南](https://www.todever.com/2017/09/20/typescript简明指南/)
 - [TypeScript 中高级应用与最佳实践](http://www.alloyteam.com/2019/07/13796/)
+- [TypeScript 教程](https://www.runoob.com/typescript/ts-tutorial.html)
+- [后盾人 - 系统课程 typescript ](https://doc.houdunren.com/%E7%B3%BB%E7%BB%9F%E8%AF%BE%E7%A8%8B/typescript/1%20%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.html)
+- [Daily-Interview-Question - TS 基础](https://github.com/Advanced-Frontend/Daily-Interview-Question/labels/TS%E5%9F%BA%E7%A1%80)
 
 **文章**
 

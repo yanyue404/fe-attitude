@@ -114,6 +114,14 @@ TypeScript 坚持与 ECMAScript 标准同步发展，并推进了很多 ECMAScri
 
 - https://github.com/sisterAn/blog/issues/124
 
+## TypeScript 的主要特点是什么？
+
+- 跨平台：TypeScript 编译器可以安装在任何操作系统上，包括 Windows、macOS 和 Linux。
+- ES6 特性：TypeScript 包含计划中的 ECMAScript 2015 (ES6) 的大部分特性，例如箭头函数。
+- 面向对象的语言：TypeScript 提供所有标准的 OOP 功能，如类、接口和模块。
+- 静态类型检查：TypeScript 使用静态类型并帮助在编译时进行类型检查。因此，你可以在编写代码时发现编译时错误，而无需运行脚本。
+- 可选的静态类型：如果你习惯了 JavaScript 的动态类型，TypeScript 还允许可选的静态类型。
+
 ## Typescript 的数据类型有哪些？
 
 > 参考： https://www.tslang.cn/docs/handbook/basic-types.html
@@ -200,7 +208,7 @@ let arr: Array<number> = [1, 2]
 arr = ['45', '56']
 ```
 
-### [#](https://vue3js.cn/interview/typescript/data_type.html#tuple)tuple
+### tuple 元组
 
 元祖类型，允许表示一个已知元素数量和类型的数组，各元素的类型不必相同
 
@@ -212,7 +220,7 @@ typleArr = [12, '34'] // no ok
 
 赋值的类型、位置、个数需要和定义（生明）的类型、位置、个数一致
 
-### enum
+### enum 枚举
 
 `enum`类型是对 JavaScript 标准数据类型的一个补充，使用枚举类型可以为一组数值赋予友好的名字
 
@@ -267,6 +275,8 @@ console.log(num) // 正确
 function hello(): void {
   alert('Hello Runoob')
 }
+
+const hello = ():void => alert('Hello Runoob)
 ```
 
 ### never
@@ -705,11 +715,15 @@ const add = (a: number, b: number) => a + b
 ```ts
 // 方式一
 type LongHand = {
-  (a: number): number
+  (a: number, b: number): number
 }
 
+const add: LongHand = (a, b) => a + b
+
 // 方式二
-type ShortHand = (a: number) => number
+type ShortHand = (a: number, b: number) => number
+
+const add: ShortHand = (a, b) => a + b
 ```
 
 当存在函数重载时，只能使用方式一的形式
@@ -781,7 +795,7 @@ function add(arg1: string | number, arg2: string | number) {
 
 泛型程序设计（generic programming）是程序设计语言的一种风格或范式
 
-泛型允许我们在强类型程序设计语言中编写代码时使用一些以后才指定的类型，在实例化时作为参数指明这些类型 在`typescript`中，定义函数，接口或者类的时候，不预先定义好具体的类型，而在使用的时候在指定类型的一种特性
+泛型允许我们在强类型程序设计语言中编写代码时使用一些**以后才指定的类型**，在实例化时作为参数指明这些类型 在`typescript`中，定义函数，接口或者类的时候，**不预先定义好具体的类型，而在使用的时候在指定类型**的一种特性
 
 假设我们用一个函数，它可接受一个  `number`  参数并返回一个`number`  参数，如下写法：
 
@@ -818,9 +832,7 @@ function returnItem<T>(para: T): T {
 泛型通过`<>`的形式进行表述，可以声明：
 
 - 函数
-
 - 接口
-
 - 类
 
 **函数声明**
@@ -849,7 +861,7 @@ swap([7, 'seven']) // ['seven', 7]
 
 ```ts
 interface ReturnItemFn<T> {
-  (para: T): T
+  (param: T): T
 }
 ```
 
@@ -945,6 +957,11 @@ class Demo<T extends ChildInterface> {
     this.genericProperty.doSomethingElse()
   }
 }
+
+const demo = new Demo({
+  doSomething: () => 200,
+  doSomethingElse: () => 'false'
+})
 ```
 
 通过泛型约束就可以达到多类型约束的目的
@@ -1002,7 +1019,7 @@ const n = ref<number>()
 
 ## any、never、unknown 和 void 有什么区别？
 
-![](https://camo.githubusercontent.com/d7a34d6ec94282d47a4b807ee1a8593fbdc51468f045f5c11741d4d8ab662db6/687474703a2f2f7265736f757263652e6d757969792e636e2f696d6167652f32303231303831303037353232382e706e67)
+![](./imgs/any-unknow-never-void.png)
 
 ### any
 
@@ -1075,6 +1092,8 @@ if (typeof notSure === 'string') {
 ```
 
 我们仅在  `notSure`  为  `string`  类型时，才执行  `toLowerCase`  方法，TypeScript 编译器会理解这一点，并假设类型
+
+总结： any 和 unknown 都是顶级类型，但是 unknown 更加严格，不像 any 那样不做类型检查，反而 unknown 因为未知性质，不允许访问属性，不允许赋值给其他有明确类型的变量。
 
 ### never
 
@@ -1165,9 +1184,22 @@ type Exclude<T, U> = T extends U ? never : T
 type A = Exclude<'x' | 'a', 'x' | 'y' | 'z'>
 ```
 
-- `void`  常用于表示函数没有返回值
+- `void`  常用于表示函数没有返回值 (可以被赋值为 null 和 undefined)
 
 - [参考原文](https://github.com/sisterAn/blog/issues/128)
+
+## 使用 TS 实现一个判断传入参数是否是数组类型的方法？
+
+unknown 用于变量类型不确定，但肯定可以确定的情形下，比如下面这个示例中，参数总归会有个值，根据这个值的类型进行不同的处理，这里使用 unknown 替代 any 则会更加类型安全。
+
+```ts
+function isArray(x: unknown): boolean {
+  if (Array.isArray(x)) {
+    return true
+  }
+  return false
+}
+```
 
 ## interface 与 type 异同点，如何选择？
 
@@ -1349,7 +1381,7 @@ type SisterAn = Sister1 & Sister2
 由于 Type 定义的实际是一个别名，所以 Type 可以描述一些基本类型、联合类型和元组的别名。
 
 ```ts
-// 基本类型
+// 基本类型别名
 type HZFEMember = number
 
 // 联合类型
@@ -1658,13 +1690,25 @@ T extends U ? X : Y
 
 ## 对 TypeScript 装饰器的理解？应用场景？
 
+## TypeScript 中的 Declare 关键字有什么作用？
+
+我们知道所有的 JavaScript 库/框架都没有 TypeScript 声明文件，但是我们希望在 TypeScript 文件中使用它们时不会出现编译错误。为此，我们使用 declare 关键字。在我们希望定义可能存在于其他地方的变量的环境声明和方法中，可以使用 declare 关键字。
+
+例如，假设我们有一个名为 myLibrary 的库，它没有 TypeScript 声明文件，在全局命名空间中有一个名为 myLibrary 的命名空间。如果我们想在 TypeScript 代码中使用这个库，我们可以使用以下代码:
+
+```ts
+declare let myLibrary
+```
+
+TypeScript 运行时将把 myLibrary 变量赋值为任意类型(any)。这是一个问题，我们不会得到智能感知在设计时，但我们将能够使用库在我们的代码。
+
 ## 对 TypeScript 中命名空间与模块的理解？区别？
 
 ### 一、模块
 
 `TypeScript`  与`ECMAScript` 2015 一样，任何包含顶级  `import`  或者  `export`  的文件都被当成一个模块
 
-相反地，如果一个文件不带有顶级的`import`或者`export`声明，那么它的内容被视为全局可见的
+相反地，如果一个文件不带有顶级的`import`或者`export`声明，那么它的内容被视为**全局可见的**
 
 例如我们在在一个  `TypeScript`  工程下建立一个文件  `1.ts`，声明一个变量`a`，如下：
 
@@ -1703,7 +1747,7 @@ import { a, Person } from './export'
 
 ### 二、命名空间
 
-命名空间一个最明确的目的就是解决重名问题
+命名空间一个最明确的目的就是解决**重名问题**
 
 命名空间定义了标识符的可见范围，一个标识符可在多个名字空间中定义，它在不同名字空间中的含义是互不相干的
 
@@ -1754,9 +1798,7 @@ var Letter
 ### 三、区别
 
 - 命名空间是位于全局命名空间下的一个普通的带有名字的 JavaScript 对象，使用起来十分容易。但就像其它的全局命名空间污染一样，它很难去识别组件之间的依赖关系，尤其是在大型的应用中
-
 - 像命名空间一样，模块可以包含代码和声明。 不同的是模块可以声明它的依赖
-
 - 在正常的 TS 项目开发过程中并不建议用命名空间，但通常在通过 d.ts 文件标记 js 库类型的时候使用命名空间，主要作用是给编译器编写代码的时候参考使用
 
 **参考文献**
@@ -1976,6 +2018,97 @@ private updateValue(e: React.ChangeEvent<HTMLInputElement>) {
 如果这个项目其实是一套产品的一部分，那么推荐你可以有意识地标记那些可提供给其它项目复用的类型，并将它们的类型定义尽可能完善。这样一来，以后就算你是直接复制粘贴，也能省下一笔功夫了。
 
 总结一下，就是这么几点：选择合适的迁移方案、避免发生逻辑改动、优先补充类型定义与完善工具方法以及有意识地沉淀通用的类型定义。使用这一套组合拳，能让你的迁移过程更加合理与稳定，同时也能帮助你更好地磨炼自己的技巧。
+
+## tsconfig.json 有什么作用？
+
+tsconfig.json 文件是 JSON 格式的文件。
+
+在 tsconfig.json 文件中，可以指定不同的选项来告诉编译器如何编译当前项目。
+
+目录中包含 tsconfig.json 文件，表明该目录是 TypeScript 项目的根目录。
+
+```json
+// 常用配置
+{
+  /*
+      tsconfig.json是ts编译器的配置文件，ts可以根据它的信息来对待吗进行编译 可以再tsconfig中写注释
+      include : 用来指定哪些文件需要被编译
+      exclude : 用来指定哪些文件不需要被编译 ：默认node_module
+      extends : 用来指定继承的配置文件
+      files   : 用来指定被编译的文件列表，只有编译少量文件才使用
+      compilerOptions : 编译器的选项是配置文件中非常重要也是非常复杂的配置选项
+  */
+  "include": [
+    // ** : 任意目录 ， * : 任意文件
+    "./src/**/*"
+  ],
+  "exclude": ["./src/hello/**/*"],
+  // "extends": "./configs/base",
+  "files": [
+    "1.ts"
+    // "2.ts"
+  ],
+  "compilerOptions": {
+    // 用来指定 ES 版本 ESNext : 最新版。 'ES3', 'ES5', 'ES6'/'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', 'ESNext'
+    "target": "ES2020",
+    // 指定要使用模块化的规范 : 'None', 'CommonJS', 'AMD', 'System', 'UMD', 'ES6'/'ES2015', 'ES2020' or 'ESNext'
+    "module": "ESNext",
+    // 用来指定项目中要使用的库 'ES5', 'ES6', 'ES2015', 'ES7', 'ES2016', 'ES2017', 'ES2018', 'ESNext', 'DOM', 'DOM.Iterable',
+    //                          'WebWorker', 'ScriptHost', 'ES2015.Core', 'ES2015.Collection', 'ES2015.Generator', 'ES2015.Iterable',
+    //                          'ES2015.Promise', 'ES2015.Proxy', 'ES2015.Reflect', 'ES2015.Symbol', 'ES2015.Symbol.WellKnown',
+    //                          'ES2016.Array.Include', 'ES2017.object', 'ES2017.Intl', 'ES2017.SharedMemory', 'ES2017.String',
+    //                          'ES2017.TypedArrays', 'ES2018.Intl', 'ES2018.Promise', 'ES2018.RegExp', 'ESNext.AsyncIterable',
+    //                          'ESNext.Array', 'ESNext.Intl', 'ESNext.Symbol'
+    // 运行在浏览器中不用设置，运行在node或其他中才需要设置
+    // "lib":[]，
+    // 用来指定编译后文件的存放位置
+    "outDir": "./dist",
+    // 将代码合并为一个文件,设置之后所有的全局作用域中的代码会合并到同一个文件中 但是只能在  'amd' and 'system' 中才能使用
+    // "outFile": "./dist/app.js",
+    // 是否对js文件进行编译，默认false
+    "allowJs": false,
+    // 是否检查js代码是否符合语法规范，默认false
+    "checkJs": false,
+    // 是否移除注释，默认false
+    "removeComments": false,
+    // 是否不生成编译后文件，默认false
+    "noEmit": false,
+    // 当有错误时是否生成文件，默认false
+    "noEmitOnError": false,
+    // 是否生成sourceMap，默认false  这个文件里保存的，是转换后代码的位置，和对应的转换前的位置。有了它，出错的时候，通过断点工具可以直接显示原始代码，而不是转换后的代码。
+    "sourceMap": false,
+
+    // 所有的严格检查的总开关，默认false
+    "strict": false,
+    // 编译后的文件是否开启严格模式，默认false
+    "alwaysStrict": false,
+    // 不允许隐式的any，默认false(允许)
+    "noImplicitAny": false,
+    // 不允许隐式的this，默认false(允许)
+    "noImplicitThis": false,
+    // 是否严格的检查空值，默认false 检查有可能为null的地方
+    "strictNullChecks": true,
+    // 是否严格检查bind、call和apply的参数列表，默认false  检查是否有多余参数
+    "strictBindCallApply": false,
+    // 是否严格检查函数的类型，
+    "strictFunctionTypes": false,
+    // 是否严格检查属性是否初始化，默认false
+    "strictPropertyInitialization": false,
+
+    // 是否检查switch语句包含正确的break，默认false
+    "noFallthroughCasesInSwitch": false,
+    // 检查函数没有隐式的返回值，默认false
+    "noImplicitReturns": false,
+    // 是否检查检查未使用的局部变量，默认false
+    "noUnusedLocals": false,
+    // 是否检查未使用的参数，默认false
+    "noUnusedParameters": false,
+
+    // 是否检查不可达代码报错，默认false   true，忽略不可达代码 false，不可达代码将引起错误
+    "allowUnreachableCode": false
+  }
+}
+```
 
 ## 参考
 
