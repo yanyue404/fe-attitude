@@ -62,7 +62,7 @@
 
 ### React 生态
 
-- [react](https://github.com/facebook/react) [React 官方中文文档](https://react.docschina.org/)
+- [react](https://github.com/facebook/react) [React 官方中文文档](https://zh-hans.react.dev/)
 - [next.js](https://github.com/zeit/next.js)
 
 ### 脚手架

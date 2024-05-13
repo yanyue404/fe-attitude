@@ -31,13 +31,12 @@
 
 ## Useful links
 
-- [官方文档(中文)](https://doc.react-china.org/)
-  - [新的生命周期](https://react.docschina.org/docs/react-component.html)
+- [官方文档(中文)](https://zh-hans.react.dev/)
 - [BaBel 编译 React](https://url.cn/5q6x24D)
 - [从零搭建 React 全家桶框架教程](https://github.com/brickspert/blog/issues/1)
 - [给 2019 前端的 5 个建议](https://github.com/camsong/blog/issues/11)
 - https://immutable-js.github.io/immutable-js
 - [如何使用 React Hooks 获取数据？](https://www.robinwieruch.de/react-hooks-fetch-data/)
-- [马蹄疾 React 专题](https://github.com/veedrin/horseshoe/tree/master/react)
+- [马蹄疾 React 专题](https://github.com/veedrin/horseshoe/tree/master/react) 404
 - https://zh-hans.reactjs.org/docs/handling-events.html / https://www.smashingmagazine.com/2014/01/understanding-javascript-function-prototype-bind
 - [Personal blog by Dan Abramov](https://overreacted.io/zh-hans)
