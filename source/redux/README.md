@@ -6,9 +6,9 @@
 const appState = {
   content: {
     text: 'React.js',
-    color: 'blue',
-  },
-};
+    color: 'blue'
+  }
+}
 ```
 
 缺点： appState 可以随意被更改，不好捕获错误
@@ -23,28 +23,28 @@ const appState = {
 const appState = {
   content: {
     text: 'React.js',
-    color: 'blue',
-  },
-};
+    color: 'blue'
+  }
+}
 const Bus = (() => {
   return {
     getState() {
-      return appState;
-    },
-  };
-})();
+      return appState
+    }
+  }
+})()
 
 // 更新维护
 function dispatch(action) {
   switch (action.type) {
     case 'UPDATE_TITLE_TEXT':
-      appState.content.text = action.text;
-      break;
+      appState.content.text = action.text
+      break
     case 'UPDATE_TITLE_COLOR':
-      appState.content.color = action.color;
-      break;
+      appState.content.color = action.color
+      break
     default:
-      break;
+      break
   }
 }
 ```

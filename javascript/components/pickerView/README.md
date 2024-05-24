@@ -39,7 +39,7 @@ var pickerView = new PickerView({
 > 字段介绍如上注释，滚轮的数量取决于你 json 嵌套的层数。如下：
 
 ```javascript
-var data = [1, 2, 3];
+var data = [1, 2, 3]
 ```
 
 ![data1](https://github.com/zhouatie/plugin/raw/master/pickerView/data/img1.png)

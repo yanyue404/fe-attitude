@@ -12,5 +12,5 @@ module.exports = {
   // 句末分号
   semi: false,
   // 制表符缩进
-  useTabs: false,
+  useTabs: false
 }

@@ -11,15 +11,11 @@
 
 ```js
 function insertItem(array, action) {
-  return [
-    ...array.slice(0, action.index),
-    action.item,
-    ...array.slice(action.index),
-  ];
+  return [...array.slice(0, action.index), action.item, ...array.slice(action.index)]
 }
 
 function removeItem(array, action) {
-  return [...array.slice(0, action.index), ...array.slice(action.index + 1)];
+  return [...array.slice(0, action.index), ...array.slice(action.index + 1)]
 }
 ```
 
@@ -29,15 +25,15 @@ function removeItem(array, action) {
 
 ```js
 function insertItem(array, action) {
-  let newArray = array.slice();
-  newArray.splice(action.index, 0, action.item);
-  return newArray;
+  let newArray = array.slice()
+  newArray.splice(action.index, 0, action.item)
+  return newArray
 }
 
 function removeItem(array, action) {
-  let newArray = array.slice();
-  newArray.splice(action.index, 1);
-  return newArray;
+  let newArray = array.slice()
+  newArray.splice(action.index, 1)
+  return newArray
 }
 ```
 
@@ -45,7 +41,7 @@ function removeItem(array, action) {
 
 ```js
 function removeItem(array, action) {
-  return array.filter((item, index) => index !== action.index);
+  return array.filter((item, index) => index !== action.index)
 }
 ```
 
@@ -58,15 +54,15 @@ function updateObjectInArray(array, action) {
   return array.map((item, index) => {
     if (index !== action.index) {
       // 这不是我们关心的项-保持原来的值
-      return item;
+      return item
     }
 
     // 否则, 这是我们关心的-返回一个更新的值
     return {
       ...item,
-      ...action.item,
-    };
-  });
+      ...action.item
+    }
+  })
 }
 ```
 
