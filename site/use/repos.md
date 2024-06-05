@@ -25,6 +25,11 @@
 - [**后盾人**](https://doc.houdunren.com/)
 - [Airbnb JavaScript 风格指南](https://github.com/airbnb/javascript)
 
+**GPT AI**
+
+- [GPT-GOD](https://gptgod.online/)
+- 腾讯云 AI 代码助手 （VS Code 插件）
+
 **JavaScript**
 
 - [javascript.info](https://github.com/javascript-tutorial/zh.javascript.info) - 现代 JavaScript 教程（The Modern JavaScript Tutorial） https://zh.javascript.info
@@ -181,7 +186,8 @@
 - [jsonpath](https://github.com/json-path/JsonPath) https://www.jsonpath.cn
 - [echarts 官方中文文档](https://echarts.apache.org/zh/index.html)
 - [Tailwind CSS 官方文档](https://tailwindcss.com/docs/installation)
-- [tippy.js 文档](https://atomiks.github.io/tippyjs/)
+- [tippy.js 文档](https://atomiks.github.io/tippyjs/) - 免费开源且高度可定制的气泡提示独立组件
+- mammoth - docx 文件转 html
 
 ## 工程化
 
