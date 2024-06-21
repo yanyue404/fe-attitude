@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const traceStack = function stackTrace() {
+        var err = new Error()
+
+        caller = err.stack.split('\n')[3].split('at ')[1].split(' (')[0];
+
+        console.log('caller:', caller);
+        
+        console.dir(err);
+        return err.stack
+      }
+
+      // 美化打印实现方法
+      const prettyLog = () => {
+        // const isProduction = import.meta.env.MODE === 'production'
+
+        const isEmpty = value => {
+          return value == null || value === undefined || value === ''
+        }
+        const prettyPrint = (title = '', text = '', color = '') => {
+          //   if (isProduction) return
+          console.log(
+            `%c ${title} %c ${text} %c`,
+            `background:${color};border:1px solid ${color}; padding: 1px; border-radius: 2px 0 0 2px; color: #fff;`,
+            `border:1px solid ${color}; padding: 1px; border-radius: 0 2px 2px 0; color: ${color};`,
+            'background:transparent'
+          )
+        }
+        const info = (textOrTitle = '', content = '') => {
+          const title = isEmpty(content) ? 'Info' : textOrTitle
+          const text = isEmpty(content) ? textOrTitle : content
+          prettyPrint(title, text, '#909399')
+        }
+        const error = (textOrTitle = '', content = '') => {
+          const title = isEmpty(content) ? 'Error' : textOrTitle
+          const text = isEmpty(content) ? textOrTitle : content
+          var line = traceStack()
+          var lines = line.split('\n')
+          prettyPrint(title, text + lines[lines.length - 1], '#F56C6C')
+          
+        }
+        const warning = (textOrTitle = '', content = '') => {
+          const title = isEmpty(content) ? 'Warning' : textOrTitle
+          const text = isEmpty(content) ? textOrTitle : content
+          prettyPrint(title, text, '#E6A23C')
+        }
+        const success = (textOrTitle = '', content = '') => {
+          const title = isEmpty(content) ? 'Success ' : textOrTitle
+          const text = isEmpty(content) ? textOrTitle : content
+          prettyPrint(title, text, '#67C23A')
+        }
+        const picture = (url = '', scale = 1) => {
+          //   if (isProduction) return
+          const img = new Image()
+          img.crossOrigin = 'anonymous'
+          img.onload = () => {
+            const c = document.createElement('canvas')
+            const ctx = c.getContext('2d')
+            if (ctx) {
+              c.width = img.width
+              c.height = img.height
+              ctx.fillStyle = 'red'
+              ctx.fillRect(0, 0, c.width, c.height)
+              ctx.drawImage(img, 0, 0)
+              const dataUri = c.toDataURL('image/png')
+
+              console.log(
+                `%c sup?`,
+                `font-size: 1px;
+                    padding: ${Math.floor((img.height * scale) / 2)}px ${Math.floor((img.width * scale) / 2)}px;
+                    background-image: url(${dataUri});
+                    background-repeat: no-repeat;
+                    background-size: ${img.width * scale}px ${img.height * scale}px;
+                    color: transparent;
+                    `
+              )
+            }
+          }
+          img.src = url
+        }
+
+        // retu;
+        return {
+          info,
+          error,
+          warning,
+          success,
+          picture,
+        }
+      }
+      // 创建打印对象
+      const log = prettyLog()
+      let stack = new Error().stack
+      log.info('info', 122222222222, stack)
+      log.success('success', '代码是写给人看的,附带能在机器上运行')
+      log.warning('warning', '这是一个警告消息！注意不要这样了！')
+      log.error('error', '这是一个错误警告！')
+      log.picture('https://p9-passport.byteacctimg.com/img/user-avatar/99b194433a5e656f5d4b319da29556e1~40x40.awebp', 1.2)
+
+    </script>
+  </body>
+</html>

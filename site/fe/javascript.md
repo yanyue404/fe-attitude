@@ -2613,7 +2613,7 @@ for…of 是 ES6 新增的遍历方式，允许遍历一个含有 iterator 接�
 
 关于构建工具说了这么多，但其实原生模块也是可以用的
 
-## 前端模块化机制有哪些、ES module、commonjs 的区别 、AMD 和 CMD 规范的区别？
+## 前端模块化机制有哪些、ES module、CommonJS 的区别 、AMD 和 CMD 规范的区别？
 
 模块化开发在现代开发中已是必不可少的一部分，它大大提高了项目的可维护、可拓展和可协作性。通常，我们 在浏览器中使用 ES6 的模块化支持，在 Node 中使用 commonjs 的模块化支持。
 
@@ -2689,9 +2689,10 @@ const hzfeMember = 17
 const getHZFEMember = () => {
   return `HZFE Member: ${hzfeMember}`
 }
-module.exports.getHZFEMember = getHZFEMember
-
-// index.js
+module.exports = {
+  getHZFEMember
+}
+// main.js
 const hzfe = require('./hzfe.js')
 console.log(hzfe.getHZFEMember()) // HZFE Member: 17
 ```
@@ -2709,7 +2710,7 @@ CommonJS 通过同步的方式加载模块，首次加载会缓存结果，后�
 优点
 
 - 简单易用
-- 可以在任意位置  `require`  模块
+- 可以在任意位置 `require`  模块
 - 支持循环依赖
 
 缺点
@@ -2720,7 +2721,7 @@ CommonJS 通过同步的方式加载模块，首次加载会缓存结果，后�
 
 #### ESM (ECMAScript Module)
 
-ESM，即 ESModule、ECMAScript Module。官方模块化规范，现代浏览器原生支持，通过  `import`  加载模块，`export`  导出内容。  示例
+ESM，即 ESModule、ECMAScript Module。官方模块化规范，现代浏览器原生支持，通过  `import`  加载模块，`export` 导出内容。示例
 
 ```js
 // hzfe.js
@@ -2729,7 +2730,7 @@ export const getHZFEMember = () => {
   return `HZFE Member: ${hzfeMember}`
 }
 
-// index.js
+// main.js
 import * as hzfe from './hzfe.js'
 console.log(hzfe.getHZFEMember()) // HZFE Member: 17
 ```
@@ -2748,7 +2749,7 @@ ESM 加载模块的方式同样取决于所处的环境，Node.js 同步加载�
 
 - 支持同步/异步加载
 - 语法简单
-- 支持模块静态分析
+- 支持模块静态分析， tree shaking
 - 支持循环引用
 
 缺点
@@ -2758,6 +2759,30 @@ ESM 加载模块的方式同样取决于所处的环境，Node.js 同步加载�
 **CommonJS(require) 与 ESM(import) 的区别**
 
 - require 支持 动态导入，import 不支持，正在提案 (babel 下可支持)
+
+（1）import 动态导入
+
+首先，我们不能动态生成 import 的任何参数。
+
+模块路径必须是原始类型字符串，不能是函数调用，下面这样的 import 行不通：
+
+```js
+import ... from getModuleName(); // Error, only from "string" is allowed
+```
+
+其次，我们无法根据条件或者在运行时导入：
+
+```js
+if(...) {
+  import ...; // Error, not allowed!
+}
+
+{
+  import ...; // Error, we can't put import in any block
+}
+```
+
+`import() 表达式`: `import(module)` 表达式加载模块并返回一个 promise，该 promise resolve 为一个包含其所有导出的模块对象。我们可以在代码中的任意位置调用这个表达式。
 
 ```diff
 #  https://juejin.cn/post/7129421261444874276
@@ -2812,6 +2837,36 @@ ESModule 不是对象，而是通过 export 暴露出要输出的代码块，在
 5.  [Modules: ECMAScript modules](https://nodejs.org/api/modules.html#modules_modules_commonjs_modules)
 6.  [Module Semantics](https://tc39.es/ecma262/#sec-modules)
 
+## ES Module 和 CommonJs 区别
+
+当比较 CommonJS 和 ES 模块时，主要有以下几个不同点：
+
+1. 导入和导出语法：
+
+   - CommonJS 使用`require()`和`module.exports`来导入和导出模块。导入是同步的，需要等待模块加载完成后才能继续执行。
+   - ES 模块使用`import`和`export`来导入和导出模块。导入是异步的，并且支持静态分析，可以在编译时确定依赖关系。
+
+2. 动态与静态导入：
+
+   - CommonJS 支持动态导入，允许在运行时根据条件导入模块。
+   - ES 模块只支持静态导入，所有的导入语句必须在模块的顶层，不能在条件语句或循环中进行导入。
+
+3. 导入的拷贝方式：
+
+   - CommonJS 使用浅拷贝，每次导入得到的是同一个对象的引用。对导入的模块进行修改会影响到其他导入该模块的地方。
+   - ES 模块采用的是动态的只读引用，每次导入都会创建一个新的实例。修改一个实例不会影响其他实例。
+
+4. 导入的时机：
+
+   - CommonJS 是运行时导入，模块在导入时就会执行并返回导出的内容。
+   - ES 模块是编译时导入，模块在解析阶段被导入，但只有在真正使用导入的内容时才会执行模块内的代码。
+
+5. 默认导出和命名导出：
+   - CommonJS 只支持默认导出，一个模块只能导出一个默认值。
+   - ES 模块支持默认导出和命名导出，一个模块可以同时导出多个值，每个值都有一个标识符。
+
+需要注意的是，CommonJS 主要用于服务器端编程，而 ES 模块是 JavaScript 的官方模块系统，在浏览器端和服务器端都得到了广泛支持。
+
 ## ES Module 和 CommonJs 混用
 
 ```js
@@ -2853,14 +2908,10 @@ npm install --save babel-polyfill # babel转码时不能识别一些全局对象
 
 #### 在根目录新建 .babelrc
 
-```bash
+```json
 {
-    "presets": [
-      "env",
-      "stage-0"
-    ]
-  }
-
+  "presets": ["env", "stage-0"]
+}
 ```
 
 #### 配置命令入口，在根目录新建 main.js
@@ -2878,7 +2929,7 @@ package.json 中加入
 ```json
 "scripts": {
     "start": "node main.js",
-  },
+  }
 
 ```
 

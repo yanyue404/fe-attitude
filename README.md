@@ -7,22 +7,12 @@
   <pre><code> 
 ├── articles 我的 blog 文章
 ├── css
-├── design-pattern
 ├── docs
-├── esnext
-├── interview
 ├── javascript
-├── javascript-algorithms
-├── javascript-components
-├── mindMapping
-├── must-write-js
 ├── nodejs
-├── project-guide
 ├── react
 ├── site
-├── source learning
-├── staging
-├── tampermonkey
+├── source 
 ├── test
 ├── typescript
 ├── utils
