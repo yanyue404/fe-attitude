@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      var arr = [1, 2, 3, 4]
+      Array.prototype.y_reduce = function(fn, init) {
+        let result = init || 0 // 初始累计
+        for (let i = 0; i < this.length; i++) {
+          if (i in this) {
+            // result 累计器 结果
+            result = fn.call(undefined, result, this[i], i, this)
+          }
+        }
+        return result
+      }
+      console.log(
+        arr.y_reduce((accumulator, currentValue, index, arr) => {
+          console.log('累计结算结果:' + accumulator, '当前值：' + currentValue, index, arr)
+
+          return accumulator * currentValue
+        }, 1)
+      )
+
+      // 数组扁平化（concat 的可以继续递归）
+      const nestedArray = [
+        [1, 2],
+        [3, 4],
+        [5, 6]
+      ]
+      const flattenedArray = nestedArray.reduce((acc, curr) => acc.concat(curr), [])
+      console.log(flattenedArray) // Output: [1, 2, 3, 4, 5, 6]
+
+      // 对对象进行分组
+      const people = [
+        { name: 'Alice', age: 25 },
+        { name: 'Bob', age: 30 },
+        { name: 'Charlie', age: 25 },
+        { name: 'Dave', age: 30 }
+      ]
+
+      const groupedByAge = people.reduce((acc, curr) => {
+        if (!acc[curr.age]) {
+          acc[curr.age] = []
+        }
+        acc[curr.age].push(curr)
+        return acc
+      }, {})
+
+      console.log(groupedByAge)
+      /*
+                  Output:
+                  {
+                    '25': [{ name: 'Alice', age: 25 }, { name: 'Charlie', age: 25 }],
+                    '30': [{ name: 'Bob', age: 30 }, { name: 'Dave', age: 30 }]
+                  }
+                  */
+
+      // 计数出现次数
+
+      const fruits = ['apple', 'banana', 'apple', 'orange', 'banana', 'apple']
+
+      const fruitCounts = fruits.reduce((acc, curr) => {
+        acc[curr] = (acc[curr] || 0) + 1
+        return acc
+      }, {})
+
+      console.log(fruitCounts)
+      /*
+            Output:
+            {
+              'apple': 3,
+              'banana': 2,
+              'orange': 1
+            }
+            */
+
+      // 组合函数
+
+      const add5 = x => x + 5
+      const multiply3 = x => x * 3
+      const subtract2 = x => x - 2
+
+      const composedFunctions = [add5, multiply3, subtract2]
+
+      const result = composedFunctions.reduce((acc, curr) => curr(acc), 10)
+      console.log(result) // Output: 43
+    </script>
+  </body>
+</html>

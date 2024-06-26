@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>History Router</title>
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        <li><a data-href="/" href="#">home</a></li>
+        <li><a data-href="/about" href="#">about</a></li>
+        <li><a data-href="/topics" href="#">topics</a></li>
+      </ul>
+      <div id="content"></div>
+
+      <div class="btn-wrap">
+        <button onclick="toAbout()">前往 about, （类似小程序 navigateTo 将新页面添加到页面栈中）</button>
+        <button onclick="replaceAbout()">前往 about, （类似小程序 redirectTo 是替换当前页面）</button>
+      </div>
+    </div>
+    <script src="js/router.js"></script>
+    <script>
+      const router = new Router()
+      router.init()
+      router.route('/', function() {
+        document.getElementById('content').innerHTML = 'Home'
+      })
+      router.route('/about', function() {
+        document.getElementById('content').innerHTML = 'About'
+      })
+      router.route('/topics', function() {
+        document.getElementById('content').innerHTML = 'Topics'
+      })
+      router.route('/404', function() {
+        document.getElementById('content').innerHTML = '404'
+      })
+
+      // 手动 history.pushState({}, null, '404')
+      // 同步 currentUrl 并连接视图  router.updateView('/404');
+
+      const toAbout = () => {
+        history.pushState({}, null, '/about')
+      }
+      const replaceAbout = () => {
+        history.replaceState({}, null, '/about')
+      }
+    </script>
+  </body>
+</html>

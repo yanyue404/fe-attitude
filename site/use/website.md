@@ -46,6 +46,13 @@
 - [**知乎热搜榜**](https://github.com/justjavac/zhihu-trending-top-search)
 - [**知乎热门话题**](https://github.com/justjavac/zhihu-trending-hot-questions)
 
+**GPT AI**
+
+- [GPT-GOD](https://gptgod.online/)
+- 腾讯云 AI 代码助手 （VS Code 插件）
+- [问答 PK](https://ai.wx.taikang.com/taikang-gpt.app/quesAnswer)
+- [豆包 AI](https://www.doubao.com/chat/)
+
 ### markdown
 
 - [**clipboard2markdown**](https://euangoddard.github.io/clipboard2markdown/) - 将你所有复制进去的内容都转化为 markdown
@@ -64,6 +71,18 @@
 - [**How-To-Ask-Questions-The-Smart-Way**](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/master/README-zh_CN.md) - 提问的智慧
 - [**awesome-resume**](https://github.com/resumejob/awesome-resume) - 程序员简历例句，简历模版
 - [**github-markdown-css**](https://github.com/sindresorhus/github-markdown-css) - The minimal amount of CSS to replicate the GitHub Markdown style
+
+### 信仰
+
+- [中文圣经在线](http://www.chinesebibleonline.com/)
+
+### 媒体
+
+- 录音
+- 录制视频
+- 视频剪辑 剪映
+- [convertio](https://convertio.co/zh/) 文件转换器
+- [ivcam](https://www.e2esoft.cn/ivcam/) 手机用作电脑摄像头+传声器
 
 ### CSS
 

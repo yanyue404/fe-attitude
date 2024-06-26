@@ -7,22 +7,12 @@
   <pre><code> 
 ├── articles 我的 blog 文章
 ├── css
-├── design-pattern
 ├── docs
-├── esnext
-├── interview
 ├── javascript
-├── javascript-algorithms
-├── javascript-components
-├── mindMapping
-├── must-write-js
 ├── nodejs
-├── project-guide
 ├── react
 ├── site
-├── source learning
-├── staging
-├── tampermonkey
+├── source 
 ├── test
 ├── typescript
 ├── utils
@@ -73,3 +63,12 @@
 - tampermonkey-cli
 - taro-cli
 - vite-cli
+
+## 快速访问
+
+- [我的前端态度](https://yanyue404.github.io/fe-attitude/)
+- [现代 JavaScript 教程](https://zh.javascript.info/)
+- [TypeScript 演练场](https://www.typescriptlang.org/zh/play/) - 一个用于 TypeScript 和 JavaScript 的在线编辑器
+- [二维码生成器 - 小工具](https://ftest.tk.cn/tk-online/common/smallfunc/#/qrcode/index)
+- [regex101](https://regex101.com/) / [正则表达式检测](https://zhengze.bmcx.com/)
+- [下载 YouTube 视频，将 YouTube 快速转换为 MP3](https://www.y2meta.com/zh-cn116) / [另一个](https://y2mate.lol/)
