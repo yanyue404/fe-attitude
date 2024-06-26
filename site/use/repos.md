@@ -25,11 +25,6 @@
 - [**后盾人**](https://doc.houdunren.com/)
 - [Airbnb JavaScript 风格指南](https://github.com/airbnb/javascript)
 
-**GPT AI**
-
-- [GPT-GOD](https://gptgod.online/)
-- 腾讯云 AI 代码助手 （VS Code 插件）
-
 **JavaScript**
 
 - [javascript.info](https://github.com/javascript-tutorial/zh.javascript.info) - 现代 JavaScript 教程（The Modern JavaScript Tutorial） https://zh.javascript.info
@@ -78,6 +73,7 @@
 - [vant](https://github.com/youzan/vant) - 轻量、可靠的移动端 Vue 组件库 [文档](https://vant-ui.github.io/vant/#/zh-CN/)
 - [element-ui](https://github.com/ElemeFE/element) - Vue 的桌面端组件库 [文档](https://element.eleme.cn/#/zh-CN/component/installation)
 - [element-plus](https://github.com/element-plus/element-plus) - 🎉 Element 团队制作的 Vue.js 3 UI 库 [文档](https://element-plus.org/zh-CN/) / [gitee 文档](https://element-plus.gitee.io/zh-CN/)
+- [primevue-v2](https://www.primefaces.org/primevue-v2/#/dock)
 - [vue-i18n 文档](https://vue-i18n.intlify.dev/)
 
 **Vue 相关库**
