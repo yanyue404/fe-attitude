@@ -46,7 +46,7 @@
 - [**知乎热搜榜**](https://github.com/justjavac/zhihu-trending-top-search)
 - [**知乎热门话题**](https://github.com/justjavac/zhihu-trending-hot-questions)
 
-**GPT AI**
+**AI**
 
 - [GPT-GOD](https://gptgod.online/)
 - 腾讯云 AI 代码助手 （VS Code 插件）

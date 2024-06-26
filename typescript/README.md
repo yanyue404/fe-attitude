@@ -68,3 +68,4 @@ tsc hello.ts
 - [https://juejin.cn/post/7344282440725577765](https://juejin.cn/post/7344282440725577765)
 - [看完 zustand 源码后，我的 TypeScript 水平突飞猛进](https://juejin.cn/post/7339364757386264612?searchId=202404261335264F8E96C7992736770AFD)
 - [TypeScript 入门教程 (免费)](https://juejin.cn/book/7288482920602271802)
+- [TypeScript 中提升幸福感的 10 个高级技巧 ](https://github.com/biaochenxuying/blog/issues/80)

@@ -66,6 +66,7 @@
 
 ## 快速访问
 
+- **AI** [GPT-GOD](https://gptgod.online/) / [豆包 AI](https://www.doubao.com/chat/) / [Kimi.ai](https://kimi.moonshot.cn/)
 - [我的前端态度](https://yanyue404.github.io/fe-attitude/)
 - [现代 JavaScript 教程](https://zh.javascript.info/)
 - [TypeScript 演练场](https://www.typescriptlang.org/zh/play/) - 一个用于 TypeScript 和 JavaScript 的在线编辑器

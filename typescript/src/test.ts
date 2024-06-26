@@ -1,4 +1,6 @@
+/** 这是一个人呐 */
 interface Person {
+  /** 这是一个 name */
   name: string;
   age: number;
 }

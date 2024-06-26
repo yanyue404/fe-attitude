@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue 3 Stack Overflow Example</title>
+    <!-- 高版本的 vue 已经规避的了循环调用的问题
+   vue.global.js:1616 [Vue warn]: Maximum recursive updates exceeded. This means you have a reactive effect that is 
+   mutating its own dependencies and thus recursively triggering itself. Possible sources include component template, 
+   render function, updated hook or watcher source function.
+    -->
+    <!-- <script src="https://unpkg.com/vue@3.2.37/dist/vue.global.js"></script> -->
+    <!-- <script src="https://unpkg.com/vue@3.2.9/dist/vue.global.js"></script> -->
+    <script src="./vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{ optionalRiskList }}</h1>
+    </div>
+
+    <script>
+      const { createApp, ref, watch, computed, watchEffect } = Vue
+
+      const App = {
+        setup() {
+          const riskList = ref([])
+          const optionalRiskList = ref([])
+
+          watch(
+            riskList,
+            () => {
+              optionalRiskList.value.push({ name: '附加险1', amount: 3000 })
+            },
+            {
+              immediate: true,
+              deep: true
+            }
+          )
+
+          watch(
+            optionalRiskList,
+            () => {
+              riskList.value.push({ name: '附加险2', amount: 4000 })
+            },
+            {
+              immediate: true,
+              deep: true
+            }
+          )
+
+          return {
+            optionalRiskList
+          }
+        }
+      }
+
+      createApp(App).mount('#app')
+    </script>
+  </body>
+</html>
