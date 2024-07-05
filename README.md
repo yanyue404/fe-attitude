@@ -66,7 +66,7 @@
 
 ## 快速访问
 
-- **AI** [GPT-GOD](https://gptgod.online/) / [豆包 AI](https://www.doubao.com/chat/) / [Kimi.ai](https://kimi.moonshot.cn/)
+- **AI** [GPT-GOD](https://gptgod.online/) / [豆包 AI](https://www.doubao.com/chat/) / [Kimi.ai](https://kimi.moonshot.cn/) / [Monica AI](https://monica.im/) sider、Monica、Docky.AI
 - **关注** [方应杭](https://space.bilibili.com/4349808)/ [AnthonyFu](https://space.bilibili.com/668380) /[冬灰条](https://space.bilibili.com/8212729) / [dev-zuo](https://space.bilibili.com/486840111)
 - [我的前端态度](https://yanyue404.github.io/fe-attitude/)
 - [现代 JavaScript 教程](https://zh.javascript.info/)
