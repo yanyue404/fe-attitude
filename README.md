@@ -55,7 +55,7 @@
 **脚手架**
 
 - vue & nuxt
-  - [vue-boilerplate](https://github.com/yanyue404/vue-boilerplate) (done)
+  - [vue-boilerplate](https://github.com/yanyue404/vue-boilerplate) (自己配置 webpack 版)
   - [fe-boilerplates](https://github.com/rainbow-design/fe-boilerplates)
   - admin-cli (done)
 - [wxapp-template](https://github.com/rainbow-design/wxapp-template) - TODO: 更新 微信小程序脚手架模板（原生）
@@ -66,10 +66,11 @@
 
 ## 快速访问
 
-- **AI** [GPT-GOD](https://gptgod.online/) / [豆包 AI](https://www.doubao.com/chat/) / [Kimi.ai](https://kimi.moonshot.cn/) / [Monica AI](https://monica.im/) sider、Monica、Docky.AI
+- **AI** [GPT-GOD](https://gptgod.online/) / [豆包 AI](https://www.doubao.com/chat/) / [Kimi.ai](https://kimi.moonshot.cn/) / [智普清言](https://chatglm.cn/) / [Monica AI](https://monica.im/) / [Sider](https://sider.ai/)、Docky.AI
 - **关注** [方应杭](https://space.bilibili.com/4349808)/ [AnthonyFu](https://space.bilibili.com/668380) /[冬灰条](https://space.bilibili.com/8212729) / [dev-zuo](https://space.bilibili.com/486840111)
 - [我的前端态度](https://yanyue404.github.io/fe-attitude/)
 - [现代 JavaScript 教程](https://zh.javascript.info/)
+- [JavaScript 教程 by 廖雪峰](https://www.liaoxuefeng.com/wiki/1022910821149312)
 - [TypeScript 演练场](https://www.typescriptlang.org/zh/play/) - 一个用于 TypeScript 和 JavaScript 的在线编辑器
 - [二维码生成器 - 小工具](https://ftest.tk.cn/tk-online/common/smallfunc/#/qrcode/index)
 - [regex101](https://regex101.com/) / [正则表达式检测](https://zhengze.bmcx.com/)
