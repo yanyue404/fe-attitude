@@ -10,13 +10,13 @@
 // @match        *://*.feishu.cn/*
 // @include      /https:\/\/gitlab.(.*?){2}.com\/((\w|-)+\/){2,3}/
 // @match        *://link.juejin.cn/*
+// @match        *://*.csdn.net/*
 // @grant        GM_addStyle
 // @run-at       document-start
 // @require      https://cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js
 /* globals jQuery, $, waitForKeyElements */
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=www.hellofont.cn
 // ==/UserScript==
-
 ;(function() {
   'use strict'
 
@@ -63,5 +63,42 @@
     if (result) {
       location.href = decodeURIComponent(result)
     }
+  }
+
+  // CSDN 可复制文本
+  if (/csdn\.net/.test(url)) {
+    $(document).ready(function() {
+      ;(function openCopy() {
+        const $$ = (Selector, el) => (el || document).querySelectorAll(Selector)
+        $$(
+          'pre, code, div, p, span,a,i, strong,article, h1,h2,h3,h4,h5,h6, table, caption, tbody, tfoot, thead, tr, th, td'
+        ).forEach(el => {
+          // 样式可选
+          ;[
+            'user-select',
+            '-webkit-user-select',
+            '-moz-user-select',
+            '-ms-user-select',
+            '-khtml-user-select',
+            'pointer-events'
+          ].forEach(prop => el.style.setProperty(prop, 'unset', 'important'))
+          // 事件可选
+          ;[
+            'onselect',
+            'onselectstart',
+            'onselectionchange',
+            'oncopy',
+            'onbeforecopy',
+            'onpaste',
+            'onbeforepaste'
+          ].forEach(xcanwin => {
+            el[xcanwin] = e => {
+              // 处理能影响文本的事件
+              e.stopImmediatePropagation()
+            }
+          })
+        })
+      })()
+    })
   }
 })()
