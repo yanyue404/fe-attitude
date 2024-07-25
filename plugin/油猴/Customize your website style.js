@@ -8,7 +8,8 @@
 // @match        https://golden-axe.vercel.app/*
 // @match        https://yanyue404.github.io/*
 // @match        *://*.feishu.cn/*
-// @include        /https:\/\/gitlab.(.*?){2}.com\/((\w|-)+\/){2,3}/
+// @include      /https:\/\/gitlab.(.*?){2}.com\/((\w|-)+\/){2,3}/
+// @match        *://link.juejin.cn/*
 // @grant        GM_addStyle
 // @run-at       document-start
 // @require      https://cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js
@@ -18,20 +19,19 @@
 
 ;(function() {
   'use strict'
-  // github.com 的 字体
-
-  const style_pc = `
-      * { font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji" !important
-       }
-     code, code span, code a {
-      font-family: "JetBrains Mono","Menlo","DejaVu Sans Mono","Liberation Mono","Consolas","Ubuntu Mono","Courier New","andale mono","lucida console",monospace  !important
-       }
-    `
-
-  GM_addStyle(style_pc)
 
   let url = window.location.href
   let pathname = location.pathname
+
+  // github.com 的 字体
+
+  if (/chinadigitaltimes|golden-axe|yanyue404\.github/.test(url)) {
+    const globol_font_style = `
+    * { font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji" !important
+     }
+  `
+    GM_addStyle(globol_font_style)
+  }
 
   // 飞书背景护眼
   if (/\.feishu\.cn/.test(url)) {
@@ -55,5 +55,13 @@
         )
       }
     })
+  }
+
+  // 掘金跳转链接直达，自动跳转链接的中间页面
+  if (/link\.juejin/.test(url)) {
+    const result = new URL(url).searchParams.get('target')
+    if (result) {
+      location.href = decodeURIComponent(result)
+    }
   }
 })()
