@@ -20,3 +20,4 @@
 - [JavaScript. The Core: 2nd Edition](http://dmitrysoshnikov.com/ecmascript/javascript-the-core-2nd-edition/) [译文](http://www.xiaojichao.com/post/jscorev2.html)
 - [專欄文章： JavaScript 語言核心](https://openhome.cc/Gossip/CodeData/EssentialJavaScript/index.html)
 - [JavaScript 技術手冊](https://openhome.cc/Gossip/Books/index.html#JavaScript)
+- https://github.com/WindrunnerMax/EveryDay/tree/master/JavaScript

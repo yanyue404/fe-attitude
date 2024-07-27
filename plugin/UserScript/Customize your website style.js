@@ -7,6 +7,7 @@
 // @match        https://chinadigitaltimes.net/*
 // @match        https://golden-axe.vercel.app/*
 // @match        https://yanyue404.github.io/*
+// @match        https://developer.mozilla.org/*
 // @match        *://*.feishu.cn/*
 // @include      /https:\/\/gitlab.(.*?){2}.com\/((\w|-)+\/){2,3}/
 // @match        *://link.juejin.cn/*
@@ -25,7 +26,7 @@
 
   // github.com 的 字体
 
-  if (/chinadigitaltimes|golden-axe|yanyue404\.github/.test(url)) {
+  if (/chinadigitaltimes|golden-axe|yanyue404\.github|developer\.mozilla/.test(url)) {
     const globol_font_style = `
     * { font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji" !important
      }
