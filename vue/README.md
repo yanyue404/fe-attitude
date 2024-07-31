@@ -6,7 +6,6 @@
 - [vue-stepbystep](https://github.com/malun666/vue-stepbystep) http://aicoder.com/vue/preview/all.html
 - [dk-lan/vue](https://github.com/dk-lan/vue)
 - [Vue.js 菜鸟教程](http://www.runoob.com/vue2/vue-tutorial.html)
-- [awesome-vue](https://github.com/vuejs/awesome-vue)
 - [vue-api](https://github.com/lanzhsh/vue-api) vue 中 extend，mixins，extends，components,install 的几个 api 对比
 - [Vue.js 中文文档 - 深入响应式原理](https://vuejs.bootcss.com/guide/reactivity.html)
 
@@ -14,6 +13,7 @@
 
 > https://risingstars.js.org/2017/zh/#section-vue
 
+- [**awesome-vue**](https://github.com/vuejs/awesome-vue) 与 Vue.js 有关的很棒的事物的清单
 - [vuex](https://github.com/vuejs/vuex)
 - [vue-router](https://github.com/vuejs/vue-router)
 - [vue-cli](https://github.com/vuejs/vue-cli)

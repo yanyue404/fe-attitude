@@ -31,6 +31,7 @@
 
 ## Useful links
 
+- [awesome-react](https://github.com/enaqx/awesome-react) 与 React.js 有关的很棒的事物的清单
 - [官方文档(中文)](https://zh-hans.react.dev/)
 - [BaBel 编译 React](https://url.cn/5q6x24D)
 - [从零搭建 React 全家桶框架教程](https://github.com/brickspert/blog/issues/1)
