@@ -1,33 +1,13 @@
-[我的前端态度 —— 前端知识体系](https://yanyue404.github.io/fe-attitude/)。
+[我的前端日志 —— 记录前端知识体系](https://yanyue404.github.io/fe-log/)。
 
 记录自己的学习考古，会前端真的可以“为所欲为”<sup>maybe</sup>。
-
-<details>
-  <summary>Toc</summary>
-  <pre><code> 
-├── articles 我的 blog 文章
-├── css
-├── docs
-├── javascript
-├── nodejs
-├── react
-├── site
-├── source 
-├── test
-├── typescript
-├── utils
-└── vue
-  </code></pre>
-</details>
-
----
 
 ## 前端工程师的自我修养
 
 **知识库**
 
 - [我的个人博客 online](https://yanyue404.github.io/blog/#/)
-- [我的前端知识体系 online](https://yanyue404.github.io/fe-attitude/)
+- [我的前端知识体系 online](https://yanyue404.github.io/fe-log/)
 - [vue](https://github.com/yanyue404/vue)
   - [mini-vue](https://github.com/yanyue404/mini-vue) - 实现迷你版 Vue
 - [leetcode](https://github.com/yanyue404/leetcode) 算法 200 道
@@ -63,15 +43,17 @@
 - tampermonkey-cli
 - taro-cli
 - vite-cli
+  - vite-react-starter
 
 ## 快速访问
 
 - **AI** [GPT-GOD](https://gptgod.online/) / [豆包 AI](https://www.doubao.com/chat/) / [Kimi.ai](https://kimi.moonshot.cn/) / [智普清言](https://chatglm.cn/) / [Monica AI](https://monica.im/) / [Sider](https://sider.ai/)、Docky.AI
 - **关注** [方应杭](https://space.bilibili.com/4349808)/ [AnthonyFu](https://space.bilibili.com/668380) /[冬灰条](https://space.bilibili.com/8212729) / [dev-zuo](https://space.bilibili.com/486840111)
-- [我的前端态度](https://yanyue404.github.io/fe-attitude/)
+- [我的前端日志](https://yanyue404.github.io/fe-log/)
 - [现代 JavaScript 教程](https://zh.javascript.info/)
 - [JavaScript 教程 by 廖雪峰](https://www.liaoxuefeng.com/wiki/1022910821149312)
 - [TypeScript 演练场](https://www.typescriptlang.org/zh/play/) - 一个用于 TypeScript 和 JavaScript 的在线编辑器
 - [二维码生成器 - 小工具](https://ftest.tk.cn/tk-online/common/smallfunc/#/qrcode/index)
 - [regex101](https://regex101.com/) / [正则表达式检测](https://zhengze.bmcx.com/)
 - [下载 YouTube 视频，将 YouTube 快速转换为 MP3](https://www.y2meta.com/zh-cn116) / [另一个](https://y2mate.lol/)
+- https://roadmap.sh/roadmaps

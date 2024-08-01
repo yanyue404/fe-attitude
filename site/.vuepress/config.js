@@ -1,6 +1,6 @@
 module.exports = {
-  base: '/fe-attitude/',
-  title: '我的前端态度',
+  base: '/fe-log/',
+  title: '我的前端日志',
   description: '记录自己的学习考古，会前端真的可以“为所欲为”maybe',
   themeConfig: {
     nav: [
@@ -97,6 +97,6 @@ module.exports = {
     lastUpdated: '上次更新', // string | boolean
     docsDir: 'site',
     // displayAllHeaders: true,
-    repo: 'https://github.com/yanyue404/fe-attitude'
+    repo: 'https://github.com/yanyue404/fe-log'
   }
 }

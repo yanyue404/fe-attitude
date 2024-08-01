@@ -1,6 +1,6 @@
 ## 前言
 
-> GitHub Pages 在线访问最新：[我的前端态度 —— 前端知识体系](https://yanyue404.github.io/fe-attitude/)。
+> GitHub Pages 在线访问最新：[我的前端日志 —— 前端知识体系](https://yanyue404.github.io/fe-log/)。
 
 ## 什么是 mvvm
 
