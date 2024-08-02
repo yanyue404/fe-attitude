@@ -184,6 +184,8 @@
 - [Tailwind CSS 官方文档](https://tailwindcss.com/docs/installation)
 - [tippy.js 文档](https://atomiks.github.io/tippyjs/) - 免费开源且高度可定制的气泡提示独立组件
 - mammoth - docx 文件转 html
+- [攒个钱](https://z.article.cool/) 免费的手机记账 App，支持 iOS 和安卓。
+- [StatiCrypt](https://github.com/robinmoisson/staticrypt) 这个工具可以对网页加密，生成一个新网页。打开新网页需要输入一个密码，才能看到内容。
 
 ## 工程化
 
@@ -278,6 +280,7 @@
 - [沙拉查词](https://chrome.google.com/webstore/detail/%E6%B2%99%E6%8B%89%E6%9F%A5%E8%AF%8D-%E8%81%9A%E5%90%88%E8%AF%8D%E5%85%B8%E5%88%92%E8%AF%8D%E7%BF%BB%E8%AF%91/cdonnmffkdaoajfknoeeecmchibpmkmg)  划词翻译插件
 - 沉浸式翻译 - 沉浸式网页双语翻译扩展
 - [npmhub](https://github.com/npmhub/npmhub)在 README 下方显示 npm 依赖信息
+- [code-box](https://github.com/027xiguapi/code-box) 一个开源的浏览器插件，用来解除 CSDN/知乎/脚本之家/博客园/博客园/51CTO 博客等网站的限制（比如要求登录）。
 
 ## VS Code
 

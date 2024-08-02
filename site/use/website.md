@@ -83,6 +83,7 @@
 - 视频剪辑 剪映
 - [convertio](https://convertio.co/zh/) 文件转换器
 - [ivcam](https://www.e2esoft.cn/ivcam/) 手机用作电脑摄像头+传声器
+- [Luvvoice](https://luvvoice.com/) 免费的在线文本转语音服务，提供各种语言的超过 200 种语音。
 
 ### CSS
 
