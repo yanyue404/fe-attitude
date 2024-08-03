@@ -12,6 +12,29 @@ React 框架的问题是，它的关注重点不是让事情变得简单，而�
 - 组件化, state 与 props 构成的单向数据流
 - 虚拟 DOM，是轻量的 js 对象，只保留了原生 dom 的一些常用的属性和方法
 
+## React Hooks 
+
+React Hooks 的意思是，组件尽量写成纯函数，如果需要外部功能和副作用，就用钩子把外部代码"钩"进来。 React Hooks 就是那些钩子。
+
+你需要什么功能，就使用什么钩子。React 默认提供了一些常用钩子，你也可以封装自己的钩子。
+
+所有的钩子都是为函数引入外部功能，所以 React 约定，钩子一律使用use前缀命名，便于识别。你要使用 xxx 功能，钩子就命名为 usexxx。
+
+下面是 React 默认提供的四个最常用的钩子。
+
+- useState() 状态钩子，为函数组件引入状态（state）。纯函数不能有状态，所以把状态放在钩子里面。
+- useContext() 共享状态钩子，用于为子组件创建可以共享的状态（`React.createContext({});`）, 子组件可以通过该钩子取用。
+- useReducer() action 钩子，`const [state, dispatch] = useReducer(reducer, initialState)`, dispatch 是用来触发 action 的函数。但是，它没法提供中间件（middleware）和时间旅行（time travel），如果你需要这两个功能，还是要用 Redux。
+- useEffect() 副作用钩子，为函数组件引入副作用。最常见的就是向服务器请求数据。`useEffect(()  =>  {// Async Action}, [dependencies])`
+- useRef() 引用钩子，为函数组件引入引用。`const refContainer = useRef(initialValue)`, ref 的内容 refContainer.current 就指向这个对象。refContainer.current 会随着组件重新渲染而更新。
+- memo() 缓存组件钩子，为函数组件引入缓存组件。`const MemoizedComponent = memo(Component)`
+    - 如果子组件用了 memo，那给它传递的对象、函数类的 props 就需要用 useMemo、useCallback 包裹，否则，每次 props 都会变，memo 就没用了。
+    - 反之，如果 props 使用 useMemo、useCallback，但是子组件没有被 memo 包裹，那也没意义，因为不管 props 变没变都会重新渲染，只是做了无用功。
+    - memo + useCallback、useMemo 是搭配着来的，少了任何一方，都会使优化失效。
+    - 但 useMemo 和 useCallback 也不只是配合 memo 用的。
+- useMemo() 缓存钩子，为函数组件引入缓存。`const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b])`
+- useCallback 缓存函数钩子，为函数组件引入缓存函数。`const memoizedCallback = useCallback(() => { doSomething(a, b); }, [a, b])`
+
 ### 光速教程
 
 - [英文原版](https://github.com/airbnb/javascript/tree/master/react) / [中文版](https://github.com/JasonBoy/javascript/tree/master/react)
@@ -29,9 +52,11 @@ React 框架的问题是，它的关注重点不是让事情变得简单，而�
 
 - [为什么我们需要中间件来处理 redux 的异步流](http://www.xiaojichao.com/post/why-do-we-need-middleware-for-async-flow-in-redux.html)
 
-### 周边
+### React 状态管理和数据获取
 
-- https://github.com/jamiebuilds/unstated
+- [zustand](https://github.com/pmndrs/zustand/) 轻便、简洁、强大的 React 状态管理工具
+- [immer](https://github.com/immerjs/immer) immutable 相关库,可以用其提供的 produce Api（`produce(obj, (obj) => {obj.a.c.e ++;})`） 来优化复杂的深层对象的修改。
+- [swr](https://github.com/vercel/swr) - 用于数据获取的 React Hooks
 
 ## Useful links
 

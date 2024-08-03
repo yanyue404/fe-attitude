@@ -5,6 +5,7 @@
 ## useContext
 
 `React Context`适用于父子组件以及隔代组件通信，`React Context`提供了一个无需为每层组件手动添加`props`就能在组件树间进行数据传递的方法。一般情况下在`React`应用中数据是通过`props`属性自上而下即由父及子进行传递的，而一旦需要传递的层次过多，那么便会特别麻烦，例如主题配置`theme`、地区配置`locale`等等。`Context`提供了一种在组件之间共享此类值的方式，而不必显式地通过组件树的逐层传递`props`。例如`React-Router`就是使用这种方式传递数据，这也解释了为什么`<Router>`要在所有`<Route`>的外面。  
+
 当然在这里我们还是要额外讨论下是不是需要使用`Context`，使用`Context`可能会带来一些性能问题，因为当`Context`数据更新时，会导致所有消费`Context`的组件以及子组件树中的所有组件都发生`re-render`。那么，如果我们需要类似于多层嵌套的结构，应该去如何处理，一种方法是我们直接在当前组件使用已经准备好的`props`渲染好组件，再直接将组件传递下去。
 
 ```js
@@ -32,6 +33,7 @@ export const Page: React.FC<{
 ```
 
 这种对组件的控制反转减少了在应用中要传递的`props`数量，这在很多场景下可以使得代码更加干净，使得根组件可以有更多的把控。但是这并不适用于每一个场景，这种将逻辑提升到组件树的更高层次来处理，会使得这些高层组件变得更复杂，并且会强行将低层组件适应这样的形式，这可能不会是你想要的。这样的话，就需要考虑使用`Context`了。  
+
 说回`Context`，`Context`提供了类似于服务提供者与消费者模型，在通过`React.createContext`创建`Context`后，可以通过`Context.Provider`来提供数据，最后通过`Context.Consumer`来消费数据。在`React 16.8`之后，`React`提供了`useContext`来消费`Context`，`useContext`接收一个`Context`对象并返回该`Context`的当前值。
 
 ```js

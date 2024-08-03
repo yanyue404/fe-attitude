@@ -6,7 +6,7 @@
 
 `useMemo`的`TS`定义可以看出，范型`T`在`useMemo`中是一个返回的值类型。
 
-```
+```ts
 type DependencyList = ReadonlyArray<any>;
 
 function useMemo<T>(factory: () => T, deps: DependencyList | undefined): T;
@@ -27,7 +27,7 @@ const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b])
 
 `useCallback`的`TS`定义可以看出，范型`T`在`useCallback`中是一个返回的函数类型。
 
-```
+```ts
 type DependencyList = ReadonlyArray<any>;
 
 function useCallback<T extends (...args: any[]) => any>(callback: T, deps: DependencyList): T;
@@ -45,7 +45,7 @@ const memoizedCallback = useCallback(() => {
 `eslint`的`eslint-plugin-react-hooks`中的`exhaustive-deps`规则可以在添加错误依赖时发出警告并给出修复建议。  
 在`useCallback`的应用方面，在这里引用一下 @松松 给出的例子，一般`Js`上创建一个函数需要的时间并不至于要缓存的程度，那为什么要专门给缓存函数的创建做一个语法糖呢，这就跟`React.memo`有关系了。`React.memo`的默认第二参数是浅对比`shallow compare`上次渲染的`props`和这次渲染的`props`，如果你的组件的`props`中包含一个回调函数，并且这个函数是在父组件渲染的过程中创建的(见下例)，那么每次父组件(下例中的`<MyComponent />`）渲染时，`React`是认为你的子组件(下例中的`<Button />`)`props`是有变化的，不管你是否对这个子组件用了`React.memo`，都无法阻止重复渲染。这时就只能用`useCallback`来缓存这个回调函数，才会让`React`(或者说`Js`)认为这个`prop`和上次是相同的。
 
-```
+```js
 // 下面三种方法都会在MyComponent渲染的过程中重新创建这个回调函数
 // 这样都会引起Button的重新渲染 因为Button的props变化了
 function MyComponent() {
