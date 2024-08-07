@@ -1,7 +1,7 @@
 {
-  "name": "fe-log",
+  "name": "fe-attitude",
   "version": "0.0.7",
-  "description": "FE Log — Record front-end knowledge system",
+  "description": "FE Attitude — Record front-end knowledge system",
   "author": "yanyue404",
   "license": "MIT",
   "scripts": {
@@ -27,12 +27,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yanyue404/fe-log.git"
+    "url": "git+https://github.com/yanyue404/fe-attitude.git"
   },
   "bugs": {
-    "url": "https://github.com/yanyue404/fe-log/issues"
+    "url": "https://github.com/yanyue404/fe-attitude/issues"
   },
-  "homepage": "https://github.com/yanyue404/fe-log#readme",
+  "homepage": "https://github.com/yanyue404/fe-attitude#readme",
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",

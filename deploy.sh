@@ -17,6 +17,6 @@ git add -A
 git commit -m 'build: deploy site docs'
 
 # # 如果发布到 https://<USERNAME>.github.io
-git push -f https://github.com/yanyue404/fe-log.git master:gh-pages
+git push -f https://github.com/yanyue404/fe-attitude.git master:gh-pages
 
 cd -

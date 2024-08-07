@@ -231,6 +231,351 @@ https://zh-hans.react.dev/reference/react/Component
 
 https://zh-hans.react.dev/reference/react/Component#alternatives
 
+将 React 的类组件迁移为函数组件（使用 Hooks）是一项常见的任务。下面是一个逐步的指南，帮助你完成这个过程。
+
+### 步骤 1: 创建函数组件
+
+首先，将类组件的 `class` 声明替换为一个函数声明：
+
+```jsx
+// 类组件
+class MyComponent extends React.Component {
+  render() {
+    return <div>Hello, {this.props.name}!</div>
+  }
+}
+
+// 函数组件
+const MyComponent = props => {
+  return <div>Hello, {props.name}!</div>
+}
+```
+
+### 步骤 2: 处理状态
+
+如果类组件使用了状态，使用 `useState` Hook 来替代 `this.state` 和 `this.setState`。例如：
+
+```jsx
+// 类组件
+class Counter extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { count: 0 }
+  }
+
+  increment = () => {
+    this.setState(prevState => ({ count: prevState.count + 1 }))
+  }
+
+  render() {
+    return (
+      <div>
+        <p>Count: {this.state.count}</p>
+        <button onClick={this.increment}>Increment</button>
+      </div>
+    )
+  }
+}
+
+// 函数组件
+import React, { useState } from 'react'
+
+const Counter = () => {
+  const [count, setCount] = useState(0)
+
+  const increment = () => {
+    setCount(prevCount => prevCount + 1)
+  }
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={increment}>Increment</button>
+    </div>
+  )
+}
+```
+
+### 步骤 3: 处理生命周期方法
+
+类组件中的生命周期方法可以通过 `useEffect` Hook 来处理。例如：
+
+```jsx
+// 类组件
+class Timer extends React.Component {
+  componentDidMount() {
+    this.interval = setInterval(() => {
+      console.log('Tick')
+    }, 1000)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval)
+  }
+
+  render() {
+    return <div>Timer!</div>
+  }
+}
+
+// 函数组件
+import React, { useEffect } from 'react'
+
+const Timer = () => {
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log('Tick')
+    }, 1000)
+
+    return () => clearInterval(interval) // 清理函数
+  }, []) // 空依赖数组，表示组件挂载和卸载时运行
+
+  return <div>Timer!</div>
+}
+```
+
+另外一个例子：
+
+App.js
+
+```jsx
+import { useState } from 'react'
+import ChatRoom from './ChatRoom.js'
+
+export default function App() {
+  const [roomId, setRoomId] = useState('general')
+  const [show, setShow] = useState(false)
+  return (
+    <>
+      <label>
+        Choose the chat room:{' '}
+        <select value={roomId} onChange={e => setRoomId(e.target.value)}>
+          <option value="general">general</option>
+          <option value="travel">travel</option>
+          <option value="music">music</option>
+        </select>
+      </label>
+      <button onClick={() => setShow(!show)}>{show ? 'Close chat' : 'Open chat'}</button>
+      {show && <hr />}
+      {show && <ChatRoom roomId={roomId} />}
+    </>
+  )
+}
+```
+
+chat.js
+
+```js
+export function createConnection(serverUrl, roomId) {
+  // 真正的实现将实际连接到服务器
+  return {
+    connect() {
+      console.log('✅ 成功连接到 "' + roomId + '" 号聊天室，服务端 Url：' + serverUrl + '...')
+    },
+    disconnect() {
+      console.log('❌ 无法连接到 "' + roomId + '" 号聊天室，服务端 Url：' + serverUrl)
+    }
+  }
+}
+```
+
+假设你要将具有生命周期方法的 ChatRoom 类式组件转换为函数：
+
+ChatRoom.js (类式组件)
+
+```jsx
+import { Component } from 'react'
+import { createConnection } from './chat.js'
+
+export default class ChatRoom extends Component {
+  state = {
+    serverUrl: 'https://localhost:1234'
+  }
+
+  componentDidMount() {
+    this.setupConnection()
+  }
+
+  // 2. 更新时重新连接
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.roomId !== prevProps.roomId || this.state.serverUrl !== prevState.serverUrl) {
+      this.destroyConnection()
+      this.setupConnection()
+    }
+  }
+
+  componentWillUnmount() {
+    this.destroyConnection()
+  }
+
+  // 1. 建立连接
+  setupConnection() {
+    this.connection = createConnection(this.state.serverUrl, this.props.roomId)
+    this.connection.connect()
+  }
+
+  // 3. 卸载时断开连接
+  destroyConnection() {
+    this.connection.disconnect()
+    this.connection = null
+  }
+
+  render() {
+    return (
+      <>
+        <label>
+          Server URL:{' '}
+          <input
+            value={this.state.serverUrl}
+            onChange={e => {
+              this.setState({
+                serverUrl: e.target.value
+              })
+            }}
+          />
+        </label>
+        <h1>欢迎俩到 {this.props.roomId} 聊天室！</h1>
+      </>
+    )
+  }
+}
+```
+
+ChatRoom.js (hooks 版本)
+
+```jsx
+import { useState, useEffect } from 'react'
+import { createConnection } from './chat.js'
+
+export default function ChatRoom({ roomId }) {
+  const [serverUrl, setServerUrl] = useState('https://localhost:1234')
+
+  useEffect(() => {
+    const connection = createConnection(serverUrl, roomId)
+    connection.connect()
+    return () => {
+      connection.disconnect()
+    }
+  }, [roomId, serverUrl])
+
+  return (
+    <>
+      <label>
+        Server URL: <input value={serverUrl} onChange={e => setServerUrl(e.target.value)} />
+      </label>
+      <h1>Welcome to the {roomId} room!</h1>
+    </>
+  )
+}
+```
+
+### 步骤 4: 处理上下文和 refs
+
+如果类组件使用 `context` 或 `refs`，那么可以使用 `useContext` 和 `useRef` Hooks。
+
+App.js (类组件)
+
+```jsx
+import { createContext, Component } from 'react'
+
+const ThemeContext = createContext(null)
+
+class Panel extends Component {
+  static contextType = ThemeContext
+
+  render() {
+    const theme = this.context
+    const className = 'panel-' + theme
+    return (
+      <section className={className}>
+        <h1>{this.props.title}</h1>
+        {this.props.children}
+      </section>
+    )
+  }
+}
+
+class Button extends Component {
+  static contextType = ThemeContext
+
+  render() {
+    const theme = this.context
+    const className = 'button-' + theme
+    return <button className={className}>{this.props.children}</button>
+  }
+}
+
+function Form() {
+  return (
+    <Panel title="Welcome">
+      <Button>注册</Button>
+      <Button>登录</Button>
+    </Panel>
+  )
+}
+
+export default function MyApp() {
+  return (
+    <ThemeContext.Provider value="dark">
+      <Form />
+    </ThemeContext.Provider>
+  )
+}
+```
+
+当你将它们转换为函数式组件时，将 this.context 用调用 useContext 来替换：
+
+```js
+import { createContext, useContext } from 'react'
+
+const ThemeContext = createContext(null)
+
+function Panel({ title, children }) {
+  const theme = useContext(ThemeContext)
+  const className = 'panel-' + theme
+  return (
+    <section className={className}>
+      <h1>{title}</h1>
+      {children}
+    </section>
+  )
+}
+
+function Button({ children }) {
+  const theme = useContext(ThemeContext)
+  const className = 'button-' + theme
+  return <button className={className}>{children}</button>
+}
+
+function Form() {
+  return (
+    <Panel title="Welcome">
+      <Button>注册</Button>
+      <Button>登录</Button>
+    </Panel>
+  )
+}
+
+export default function MyApp() {
+  return (
+    <ThemeContext.Provider value="dark">
+      <Form />
+    </ThemeContext.Provider>
+  )
+}
+```
+
+### 总结
+
+迁移类组件到函数组件的基本步骤如下：
+
+1. 创建函数组件。
+2. 使用 `useState` 管理状态。
+3. 使用 `useEffect` 处理副作用（如生命周期方法）。
+4. 使用 `useContext` 和 `useRef` 来处理上下文和引用。
+
+通过这些步骤，你可以将类组件转换为函数组件，充分利用 Hooks 的优点。
+
 ## 参考
 
 - [ React 进阶实践指南](https://juejin.cn/book/6945998773818490884)

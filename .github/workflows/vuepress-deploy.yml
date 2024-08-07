@@ -2,9 +2,9 @@ name: Build and Deploy
 on:
   push:
     branches:
-     - master
+      - master
 jobs:
-   build-and-deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -21,14 +21,14 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@main
         with:
-          node-version:  ${{ matrix.node }}
+          node-version: ${{ matrix.node }}
       - name: npm Install
         run: npm install
       - name: Build VuePress
         run: npm run build
       - name: Deploy to Pages
         env:
-         TZ: Asia/Shanghai
+          TZ: Asia/Shanghai
         run: |
           cd site/.vuepress/dist
           git init
@@ -37,5 +37,5 @@ jobs:
           git add .
           git commit -m 'Deploying to gh-pages from Github actions'
 
-          git push -f https://ACCESS_TOKEN:${{secrets.ACCESS_TOKEN }}@github.com/yanyue404/fe-log.git master:gh-pages
+          git push -f https://ACCESS_TOKEN:${{secrets.ACCESS_TOKEN }}@github.com/yanyue404/fe-attitude.git master:gh-pages
           cd -

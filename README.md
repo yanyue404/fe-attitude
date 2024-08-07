@@ -1,4 +1,4 @@
-[我的前端日志 —— 记录前端知识体系](https://yanyue404.github.io/fe-log/)。
+[我的前端态度 —— 记录前端知识体系](https://yanyue404.github.io/fe-attitude/)。
 
 记录自己的学习考古，会前端真的可以“为所欲为”<sup>maybe</sup>。
 
@@ -7,7 +7,7 @@
 **知识库**
 
 - [我的个人博客 online](https://yanyue404.github.io/blog/#/)
-- [我的前端知识体系 online](https://yanyue404.github.io/fe-log/)
+- [我的前端知识体系 online](https://yanyue404.github.io/fe-attitude/)
 - [vue](https://github.com/yanyue404/vue)
   - [mini-vue](https://github.com/yanyue404/mini-vue) - 实现迷你版 Vue
 - [leetcode](https://github.com/yanyue404/leetcode) 算法 200 道
@@ -49,7 +49,6 @@
 
 - **AI** [GPT-GOD](https://gptgod.online/) / [豆包 AI](https://www.doubao.com/chat/) / [Kimi.ai](https://kimi.moonshot.cn/) / [智普清言](https://chatglm.cn/) / [Monica AI](https://monica.im/) / [Sider](https://sider.ai/)、Docky.AI
 - **关注** [方应杭](https://space.bilibili.com/4349808)/ [AnthonyFu](https://space.bilibili.com/668380) /[冬灰条](https://space.bilibili.com/8212729) / [dev-zuo](https://space.bilibili.com/486840111)
-- [我的前端日志](https://yanyue404.github.io/fe-log/)
 - [现代 JavaScript 教程](https://zh.javascript.info/)
 - [JavaScript 教程 by 廖雪峰](https://www.liaoxuefeng.com/wiki/1022910821149312)
 - [TypeScript 演练场](https://www.typescriptlang.org/zh/play/) - 一个用于 TypeScript 和 JavaScript 的在线编辑器
