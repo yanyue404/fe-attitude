@@ -11,7 +11,7 @@ let obj1: object = []
 let obj2: object = { a: 1, b: 2 }
 
 // 任意的对象
-type AnyObjectType = Record<string, any>
+type AnyObjectType1 = Record<string, any>
 let normal: Record<string, any> = {}
 normal.foo
 
@@ -26,7 +26,7 @@ type shareArrayType = {
 //带出信息返回类型接口
 interface LoginInfotype {
   isLogin: Boolean
-  customerInfo: AnyObjectType
+  customerInfo: AnyObjectType1
   [prop: string]: any
 }
 

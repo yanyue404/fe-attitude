@@ -676,7 +676,6 @@ export default class Props {
 
 ```ts
 public static defaultProps = new Props()
-
 ```
 
 `Props`  的实例就是  `defaultProps`  的初始值，这就是  `class`作为接口的实际应用，我们用一个  `class`  起到了接口和设置初始值两个作用，方便统一管理，减少了代码量
@@ -1701,6 +1700,23 @@ declare let myLibrary
 ```
 
 TypeScript 运行时将把 myLibrary 变量赋值为任意类型(any)。这是一个问题，我们不会得到智能感知在设计时，但我们将能够使用库在我们的代码。
+
+还有更多的声明用法：
+
+- [`declare var`](https://ts.xcatliu.com/basics/declaration-files.html#declare-var)  声明全局变量
+- [`declare function`](https://ts.xcatliu.com/basics/declaration-files.html#declare-function)  声明全局方法
+- [`declare class`](https://ts.xcatliu.com/basics/declaration-files.html#declare-class)  声明全局类
+- [`declare enum`](https://ts.xcatliu.com/basics/declaration-files.html#declare-enum)  声明全局枚举类型
+- [`declare namespace`](https://ts.xcatliu.com/basics/declaration-files.html#declare-namespace)  声明（含有子属性的）全局对象
+- [`interface`  和  `type`](https://ts.xcatliu.com/basics/declaration-files.html#interface-%E5%92%8C-type)  声明全局类型
+- [`export`](https://ts.xcatliu.com/basics/declaration-files.html#export)  导出变量
+- [`export namespace`](https://ts.xcatliu.com/basics/declaration-files.html#export-namespace)  导出（含有子属性的）对象
+- [`export default`](https://ts.xcatliu.com/basics/declaration-files.html#export-default) ES6 默认导出
+- [`export =`](https://ts.xcatliu.com/basics/declaration-files.html#export-1) commonjs 导出模块
+- [`export as namespace`](https://ts.xcatliu.com/basics/declaration-files.html#export-as-namespace) UMD 库声明全局变量
+- [`declare global`](https://ts.xcatliu.com/basics/declaration-files.html#declare-global)  扩展全局变量
+- [`declare module`](https://ts.xcatliu.com/basics/declaration-files.html#declare-module)  扩展模块
+- [`/// <reference />`](https://ts.xcatliu.com/basics/declaration-files.html#san-xie-xian-zhi-ling)  三斜线指令
 
 ## 对 TypeScript 中命名空间与模块的理解？区别？
 
