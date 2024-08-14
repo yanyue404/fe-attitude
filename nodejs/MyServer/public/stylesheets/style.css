@@ -1,0 +1,17 @@
+body {
+  padding: 50px;
+  font-size: 13.3333vw;
+  font-family: 'Lucida Grande', Helvetica, Arial, sans-serif;
+}
+
+h1 {
+  font-size: 4.8rem;
+}
+
+p {
+  font: 2rem sans-serif;
+}
+
+a {
+  color: #00b7ff;
+}

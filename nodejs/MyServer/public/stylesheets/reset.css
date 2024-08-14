@@ -1,0 +1,63 @@
+/* reset.css */
+
+/* 
+  1. Remove default margin and padding from all elements 
+  2. Set box-sizing to border-box for a more intuitive layout handling
+*/
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Set default font size and family */
+html {
+  font-size: 100%; /* 16px default */
+  line-height: 1.5;
+}
+
+body {
+  font-family: sans-serif; /* or your preferred font */
+  font-size: 1rem; /* 16px when html's font-size is 100% */
+  color: #333; /* Default text color */
+  background-color: #fff; /* Default background color */
+}
+
+/* Remove lists styling */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Remove default link underline */
+a {
+  text-decoration: none;
+  color: inherit; /* inherit color from parent */
+}
+
+/* Set images to be responsive */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Remove default table spacing */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Add default styles for form elements */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Make sure buttons have the same styles */
+button {
+  cursor: pointer;
+}
