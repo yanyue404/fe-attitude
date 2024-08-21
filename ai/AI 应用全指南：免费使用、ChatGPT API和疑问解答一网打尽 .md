@@ -22,8 +22,10 @@
 ### 编程
 
 - [GitHub Copliot](https://github.com/features/copilot)
+  - [VS Code: GitHub Copilot](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)
+- [腾讯云 AI 代码助手]()
+  - [VS Code: Tencent Cloud AI Code Assistant](https://marketplace.visualstudio.com/publishers/Tencent-Cloud)
 - [CodeFuse(蚂蚁百灵)](https://codefuse.alipay.com/) 免费
-- 腾讯云 AI 代码助手
 
 ## 免费 ChatGPT API
 
@@ -98,47 +100,47 @@ getChatGptResponse("gpt-3.5-turbo 、gpt-3.5-turbo-16k 、 gpt-4 版本的模型
 **2. 流接入**
 
 ```js
-import es from "event-stream";
-import axios from "axios";
+import es from 'event-stream'
+import axios from 'axios'
 
 async function chat() {
   const res = await axios({
-    url: "https://api.gptgod.online/v1/chat/completions",
-    method: "post",
+    url: 'https://api.gptgod.online/v1/chat/completions',
+    method: 'post',
     headers: {
       Authorization: `Bearer ${process.env.OPENAI_API_KEY}`
     },
     // gpt-3.5-turbo
     data: {
-      model: "gpt-3.5-turbo",
+      model: 'gpt-3.5-turbo',
       messages: [
-        { role: "system", content: "You are a helpful assistant." },
-        { role: "user", content: "Hello, how are you?" }
+        { role: 'system', content: 'You are a helpful assistant.' },
+        { role: 'user', content: 'Hello, how are you?' }
       ],
       stream: true
     },
-    responseType: "stream"
-  });
+    responseType: 'stream'
+  })
   res.data
     .pipe(es.split())
     .pipe(es.split(/\r?\n\r?\n/))
-    .on("data", (chunk: any) => {
-      const dataStr = chunk.replace("data: ", "");
-      if (dataStr === "[DONE]") {
-        return;
+    .on('data', (chunk: any) => {
+      const dataStr = chunk.replace('data: ', '')
+      if (dataStr === '[DONE]') {
+        return
       }
-      const data = JSON.parse(dataStr);
+      const data = JSON.parse(dataStr)
       const [
         {
-          delta: { content = "" },
+          delta: { content = '' },
           finish_reason
         }
-      ] = data.choices;
-      console.log(`recv content: ${content}`);
+      ] = data.choices
+      console.log(`recv content: ${content}`)
     })
-    .on("close", () => {
-      console.log("stream end");
-    });
+    .on('close', () => {
+      console.log('stream end')
+    })
 }
 ```
 

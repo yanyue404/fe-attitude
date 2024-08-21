@@ -44,3 +44,9 @@
 - [woai3c/mini-vue](https://github.com/woai3c/mini-vue) 模仿 Vue1.0 写的迷你版 Vue
 - [learn-vue2-mvvm](https://github.com/wangfupeng1988/learn-vue2-mvvm)
 - [vue-advanced-workshop](https://vue-course-doc.vercel.app/)
+
+## 规范
+
+- [浅读 Vue3 代码 10 万行，总结出 30 个代码规范](https://juejin.cn/post/7402811750771851275)
+- https://gist.github.com/yyx990803/8854f8f6a97631576c14b63c8acd8f2e
+  - [原始 FolderExplorer.vue](https://github.com/vuejs/vue-cli/blob/a09407dd5b9f18ace7501ddb603b95e31d6d93c0/packages/@vue/cli-ui/src/components/folder/FolderExplorer.vue#L198-L404)

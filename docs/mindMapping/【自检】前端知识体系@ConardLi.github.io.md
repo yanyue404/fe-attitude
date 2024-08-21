@@ -649,7 +649,7 @@
 
 - 常见六大`Web` 安全攻防解析：https://github.com/ljianshu/Blog/issues/56
 
-- 深入理解前端性能监控：https://juejin.cn/post/1#heading-5
+- 深入理解前端性能监控：https://juejin.cn/post/6899430989404045320
 
 - \[📚\]高性能网站建设指南：https://book.douban.com/subject/3132277/
 
