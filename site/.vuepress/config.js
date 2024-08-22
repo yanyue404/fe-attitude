@@ -5,14 +5,14 @@ module.exports = {
   themeConfig: {
     nav: [
       {
-        text: 'Use',
+        text: '使用资源',
         items: [
           {
-            text: '资源',
+            text: '推荐资源',
             items: [
-              { text: '在线网站', link: '/use/website' },
-              { text: '前端库', link: '/use/repos' },
-              { text: '好的文章', link: '/use/articles' }
+              { text: '在线工具', link: '/use/website' },
+              { text: '前端库与框架', link: '/use/repos' },
+              { text: '优秀文章', link: '/use/articles' }
             ]
           }
         ]
@@ -22,35 +22,23 @@ module.exports = {
         text: '静态站点',
         items: [
           {
-            text: '原创',
+            text: '我的原创作品',
             items: [
-              { text: '我的博客文章', link: 'https://yanyue404.github.io/blog/' },
-              { text: '我的博客文章(repo)', link: 'https://github.com/yanyue404/blog' },
-              { text: 'mingdao', link: 'https://yanyue404.github.io/mingdao/' },
-              { text: 'dev-admin', link: 'https://yanyue404.github.io/dev-admin/' }
+              { text: '个人博客', link: 'https://yanyue404.github.io/blog/' },
+              { text: '博客代码库', link: 'https://github.com/yanyue404/blog' },
+              { text: 'Mingdao 项目', link: 'https://yanyue404.github.io/mingdao/' },
+              { text: '开发者后台演示', link: 'https://yanyue404.github.io/dev-admin/' }
             ]
           },
           {
-            text: 'Fork',
+            text: '开源项目 Fork',
             items: [
+              { text: 'Vant 组件库', link: 'https://yanyue404.github.io/vant/#/zh-CN' },
+              { text: 'Element 组件库', link: 'https://yanyue404.github.io/element/#/zh-CN/' },
+              { text: 'Vue 技术内幕', link: 'https://yanyue404.github.io/vue-design/' },
+              { text: 'Vue 2 官方文档', link: 'https://yanyue404.github.io/vue2/' },
               {
-                text: 'vant',
-                link: 'https://yanyue404.github.io/vant/#/zh-CN'
-              },
-              {
-                text: 'element',
-                link: 'https://yanyue404.github.io/element/#/zh-CN/'
-              },
-              {
-                text: 'vue-design',
-                link: 'https://yanyue404.github.io/vue-design/'
-              },
-              {
-                text: 'vue2',
-                link: 'https://yanyue404.github.io/vue2/'
-              },
-              {
-                text: 'vue-template-compiler-playground',
+                text: 'Vue 模板编译器 Playground',
                 link: 'https://yanyue404.github.io/vue-template-compiler-playground/'
               }
             ]

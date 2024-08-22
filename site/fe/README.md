@@ -1,4 +1,4 @@
-## 前端知识体系分类
+## 分类
 
 - [HTML](/fe/html.html)
 - [CSS](/fe/css.html)
