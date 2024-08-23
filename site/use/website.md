@@ -1,6 +1,6 @@
 # 网站
 
-## 开发日常高频
+## 开发日常
 
 > 社交账号 [github](https://github.com/yanyue404) / [掘金](https://juejin.cn/user/1099167359041966) /[知乎](https://www.zhihu.com/people/yan-yue-44-30) / [segmentfault](https://segmentfault.com/u/yanyue404) / [leetcode](https://leetcode.cn/u/yanyue404/)
 
