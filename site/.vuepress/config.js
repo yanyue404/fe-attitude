@@ -89,22 +89,26 @@ module.exports = {
             text: '原创作品',
             items: [
               { text: '个人博客', link: 'https://github.com/yanyue404/blog/issues' },
-              { text: '记录王明道先生的文字', link: 'https://yanyue404.github.io/mingdao/' },
+              { text: 'node 爬虫自用工具', link: 'https://github.com/yanyue404/node-crawler' },
               { text: 'beyond-ui', link: 'https://github.com/yanyue404/beyond-ui' },
               { text: '用于开发的管理工具', link: 'https://yanyue404.github.io/dev-admin/' },
-              { text: '油猴脚本 & 浏览器扩展', link: 'https://github.com/yanyue404/build-my-own-extension' }
+              { text: 'GitHub Issue 博客静态站点生成', link: 'https://github.com/yanyue404/nuxt-issue-blog' },
+              { text: '油猴脚本 & 浏览器扩展', link: 'https://github.com/yanyue404/build-my-own-extension' },
+              { text: 'VS Code 快速语音笔记插件', link: 'https://github.com/yanyue404/vscode-extension-ts' }
             ]
           },
           {
             text: 'Npm',
             items: [
-              { text: '个人博客', link: 'https://github.com/yanyue404/blog/issues' },
-              { text: '记录王明道先生的文字', link: 'https://yanyue404.github.io/mingdao/' },
-              { text: '用于开发的管理工具', link: 'https://yanyue404.github.io/dev-admin/' }
+              { text: 'rainbow 的 实用函数', link: 'https://github.com/yanyue404/rainbow-shared' },
+              {
+                text: 'Export Github Issues to markdown file',
+                link: 'https://github.com/yanyue404/issues2md'
+              }
             ]
           },
           {
-            text: '开源项目 Fork',
+            text: '开源项目文档（Fork)',
             items: [
               { text: 'Vant 组件库', link: 'https://yanyue404.github.io/vant/#/zh-CN' },
               { text: 'Element 组件库', link: 'https://yanyue404.github.io/element/#/zh-CN/' },
@@ -114,6 +118,13 @@ module.exports = {
                 text: 'Vue 模板编译器 Playground',
                 link: 'https://yanyue404.github.io/vue-template-compiler-playground/'
               }
+            ]
+          },
+          {
+            text: '其他兴趣',
+            items: [
+              { text: '记录王明道先生的文字', link: 'https://yanyue404.github.io/mingdao/' },
+              { text: 'How to Cook', link: 'https://github.com/yanyue404/cook' }
             ]
           }
         ]
