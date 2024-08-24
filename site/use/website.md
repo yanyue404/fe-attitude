@@ -4,36 +4,6 @@
 
 > 社交账号 [github](https://github.com/yanyue404) / [掘金](https://juejin.cn/user/1099167359041966) /[知乎](https://www.zhihu.com/people/yan-yue-44-30) / [segmentfault](https://segmentfault.com/u/yanyue404) / [leetcode](https://leetcode.cn/u/yanyue404/)
 
-- [ChatGPT](https://chat.openai.com/) | [Google](https://www.google.com.tw/) | [kaifa.baidu](https://kaifa.baidu.com/)
-- 在线项目 [codesandbox](https://codesandbox.io/u/yanyue404) [codepen](https://codepen.io/)
-- [smallfunc](https://ftest.tk.cn/tk-online/common/smallfunc/#/qrcode/index)
-- [stackoverflow questions](https://stackoverflow.com/questions)
-- [clipboard2markdown](https://euangoddard.github.io/clipboard2markdown/) / [Html 转 Markdown](http://www.atoolbox.net/Tool.php?Id=715)
-- [**regex101**](https://regex101.com/) - 正则表达式测试
-- [**regulex**](https://jex.im/regulex/) / [ **RegExper**](https://regexper.com/) 正则可视化
-- [**tinypng**](https://tinypng.com/) / [**squoosh**](https://squoosh.app) - 图片压缩
-- [**在线 PS**](https://www.uupoop.com/#/old) / [**photopea**](https://www.photopea.com/)
-- [**astexplorer**](https://github.com/fkling/astexplorer) - 一个在线 ast 生成器 https://astexplorer.net/
-- [**Package Diff**](https://diff.intrinsic.com/)，比较 npm 包两个版本直接的区别
-- [开发者武器库](https://devtool.tech/)
-- [**30 seconds of code**](https://30secondsofcode.org/) 收集了许多有用的代码小片段
-- [**CSS triangle generator**](http://apps.eky.hk/css-triangle-generator/) CSS 三角形产生器
-- [**cssarrowplease**](http://www.cssarrowplease.com/) 帮你做对话框三角的
-- [**clippy**](http://bennettfeely.com/clippy/) 在线帮你使用 css clip-path 做出各种形状的图形
-- [**turndown**](https://github.com/mixmark-io/turndown/) - 将 HTML 转换为 Markdown https://mixmark-io.github.io/turndown/
-- [**runpkg**](https://github.com/FormidableLabs/runpkg) - 在线 npm 包浏览器 https://runpkg.com/
-- [**Can I use**](https://caniuse.com/) 查询浏览器的特性支持情况
-- [**codesandbox**](https://codesandbox.io/) 一个可以在线编辑且提供在线 demo 的网站 支持 vue react angular 多种框架 神器
-- [**netlify**](https://www.netlify.com/) - 静态网站托管服务
-- [**carbon**](https://carbon.now.sh/) 在线代码生成图片 https://carbon.now.sh/
-- [**JavaScript Visualizer**](https://tylermcginnis.com/javascript-visualizer/) 可视化 **ES5** `JavaScript` 执行
-- [**loupe**](https://github.com/latentflip/loupe) - 可视化的 javascript 实时运行,理解异步, Built by [**Philip Roberts**](http://github.com/latentflip)
-- [**RMind**](https://github.com/Mongkii/RMind) - 基于 React Hooks 与 flex 布局 的思维导图 https://mongkii.github.io/RMind/
-- [**visualgo**](https://visualgo.net/zh/) - 数据结构，算法可视化
-- [油猴脚本 - Greasy Fork](https://greasyfork.org/zh-TW)
-- [极简插件 - Chrome 插件/扩展](https://chrome.zzzmh.cn/#/index)
-- [VS Code 离线扩展](https://marketplace.visualstudio.com/)
-
 ## 常看的网站
 
 - [**阮一峰的网络日志**](http://www.ruanyifeng.com/blog/) 阮老师出品
@@ -53,9 +23,50 @@
 - [问答 PK](https://ai.wx.taikang.com/taikang-gpt.app/quesAnswer)
 - [豆包 AI](https://www.doubao.com/chat/)
 
+**工具**
+
+- [Google](https://www.google.com.tw/) | [kaifa.baidu](https://kaifa.baidu.com/)
+- 文档编写
+  - [clipboard2markdown](https://euangoddard.github.io/clipboard2markdown/) / [Html 转 Markdown](http://www.atoolbox.net/Tool.php?Id=715)
+  - [**turndown**](https://github.com/mixmark-io/turndown/) - 将 HTML 转换为 Markdown https://mixmark-io.github.io/turndown/
+- 在线写代码
+  - 在线项目 [codesandbox](https://codesandbox.io/u/yanyue404) [codepen](https://codepen.io/)
+  - [**codesandbox**](https://codesandbox.io/) 一个可以在线编辑且提供在线 demo 的网站 支持 vue react angular 多种框架 神器
+  - [**jsfiddle**](https://jsfiddle.net/) - 在线编辑和运行代码
+- 正则表达式
+  - [**regex101**](https://regex101.com/) - 正则表达式测试
+  - [**regulex**](https://jex.im/regulex/) / [ **RegExper**](https://regexper.com/) 正则可视化
+- NPM
+  - [**runpkg**](https://github.com/FormidableLabs/runpkg) - 在线 npm 包浏览器 https://runpkg.com/
+  - [**Package Diff**](https://diff.intrinsic.com/)，比较 npm 包两个版本直接的区别
+- [stackoverflow questions](https://stackoverflow.com/questions)
+- [**tinypng**](https://tinypng.com/) / [**squoosh**](https://squoosh.app) - 图片压缩
+- [**在线 PS**](https://www.uupoop.com/#/old) / [**photopea**](https://www.photopea.com/)
+- [**30 seconds of code**](https://30secondsofcode.org/) 收集了许多有用的代码小片段
+- CSS 生成
+  - [**CSS triangle generator**](http://apps.eky.hk/css-triangle-generator/) CSS 三角形产生器
+  - [**cssarrowplease**](http://www.cssarrowplease.com/) 帮你做对话框三角的
+  - [**clippy**](http://bennettfeely.com/clippy/) 在线帮你使用 css clip-path 做出各种形状的图形
+- [**Can I use**](https://caniuse.com/) 查询浏览器的特性支持情况
+- [中文版的 lighthouse (opens new window)](https://developers.google.com/speed/pagespeed/insights/)测试网页性能
+- [Autoprefixer (opens new window)](https://autoprefixer.github.io/)为 css 加上浏览器前缀，配套 webpack 相关插件
+- [**netlify**](https://www.netlify.com/) - 静态网站托管服务
+- [**carbon**](https://carbon.now.sh/) 在线代码生成图片 https://carbon.now.sh/
+- [**JavaScript Visualizer**](https://tylermcginnis.com/javascript-visualizer/) 可视化 **ES5** `JavaScript` 执行
+- [**astexplorer**](https://github.com/fkling/astexplorer) - 一个在线 ast 生成器 https://astexplorer.net/
+- [**loupe**](https://github.com/latentflip/loupe) - 可视化的 javascript 实时运行,理解异步, Built by [**Philip Roberts**](http://github.com/latentflip)
+- [**RMind**](https://github.com/Mongkii/RMind) - 基于 React Hooks 与 flex 布局 的思维导图 https://mongkii.github.io/RMind/
+- [**visualgo**](https://visualgo.net/zh/) - 数据结构，算法可视化
+
+**综合**
+
+- [开发者武器库](https://devtool.tech/)
+- [油猴脚本 - Greasy Fork](https://greasyfork.org/zh-TW)
+- [极简插件 - Chrome 插件/扩展](https://chrome.zzzmh.cn/#/index)
+- [VS Code 离线扩展](https://marketplace.visualstudio.com/)
+
 ### markdown
 
-- [**clipboard2markdown**](https://euangoddard.github.io/clipboard2markdown/) - 将你所有复制进去的内容都转化为 markdown
 - [**resumd**](https://github.com/timqian/resumd) - 使用 markdown 写简历，支持自定义主题，`html`,`pdf`,`md`导出 https://resumd.t9t.io
 - [**waifu2x**](https://github.com/nagadomi/waifu2x) - 图片进行放大操作 http://waifu2x.udp.jp/index.zh-CN.html
 - [**Picas**](https://github.com/djyde/Picas) - Google 字体生成的项目徽标 https://picas.now.sh/
@@ -98,8 +109,8 @@
 
 ## 设计
 
-- [设计师必备网站](https://www.meigong8.com/)
 - [**remove bg**](https://www.remove.bg/zh/upload) - 为上传的图片消除背景 / [**bgremover**](http://www.aigei.com/bgremover)
+- [设计师必备网站](https://www.meigong8.com/)
 - [**Lorem Picsum**](https://picsum.photos/) 提供免费的占位图
 - [**中国传统颜色手册**](https://colors.ichuantong.cn/)
 - [**draw**](https://www.draw.io/) 在线 web 画流程图
@@ -155,10 +166,6 @@
 - [**lsjgcx**](http://www.lsjgcx.com/) - 历史价格查询
 - [表情包 - 发表情](https://fabiaoqing.com/)
 - [**automa**](https://github.com/automaapp/automa) 自动化 web 操作
-
-**程序员的一天**
-
-- [法国 @cocoysatis4264](https://www.youtube.com/@cocoysatis4264/videos)
 
 ## 参考链接
 

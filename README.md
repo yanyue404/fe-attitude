@@ -6,7 +6,7 @@
 
 **知识库**
 
-- [我的个人博客 online](https://yanyue404.github.io/blog/#/)
+- [我的个人博客 online](https://yanyue404.github.io/blog/#/
 - [我的前端知识体系 online](https://yanyue404.github.io/fe-attitude/)
 - [vue](https://github.com/yanyue404/vue)
   - [mini-vue](https://github.com/yanyue404/mini-vue) - 实现迷你版 Vue

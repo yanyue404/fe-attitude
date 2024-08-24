@@ -118,23 +118,28 @@
 - [**nprogress**](https://github.com/rstacruz/nprogress) - 异步请求进度条
 - [**async-validator**](https://github.com/yiminghe/async-validator) - 异步表单验证
 - [**popperjs**](https://github.com/popperjs/popper-core) - 定位工具提示和弹出窗口
-- [**mammoth.js**](https://github.com/mwilliamson/mammoth.js) - Convert Word documents (.docx files) to HTML
+- [**mammoth.js**](https://github.com/mwilliamson/mammoth.js) - docx 文件转 html
 - [**texme**](https://github.com/susam/texme) - 一个 JS 库，可以将 Markdown 自动渲染成网页内容
 - [any-rule](https://any86.github.io/any-rule/)  正则大全
+- [**crypto-js**](https://github.com/brix/crypto-js) - JavaScript 加密标准库。
+- [**node-rsa**](https://github.com/rzcoder/node-rsa) - Node.js RSA 库。
 - [jsonpath](https://github.com/json-path/JsonPath) https://www.jsonpath.cn
 - [echarts 官方中文文档](https://echarts.apache.org/zh/index.html)
 - [Tailwind CSS 官方文档](https://tailwindcss.com/docs/installation)
+- mitt 事件流库
 - [tippy.js 文档](https://atomiks.github.io/tippyjs/) - 免费开源且高度可定制的气泡提示独立组件
-- mammoth - docx 文件转 html
-- [攒个钱](https://z.article.cool/) 免费的手机记账 App，支持 iOS 和安卓。
 - [StatiCrypt](https://github.com/robinmoisson/staticrypt) 这个工具可以对网页加密，生成一个新网页。打开新网页需要输入一个密码，才能看到内容。
+- [fingerprintjs](https://github.com/fingerprintjs/fingerprintjs) 浏览器设备指纹
+- [**nanoid**](https://github.com/ai/nanoid) - 小巧、安全、URL 友好、唯一的字符串 ID 生成器。
 
 ## 工程化
 
 - [**TypeScript**](https://github.com/microsoft/TypeScript) - TypeScript 是 JavaScript 的超集，可以编译为干净的 JavaScript 输出。 [typescript 官方中文文档](https://www.tslang.cn/docs/home.html)
 - [babel](https://github.com/babel/babel) [Babel 中文文档](https://babel.docschina.org/docs/)
 - [**eslint**](https://github.com/eslint/eslint) - 静态代码检查 https://eslint.org/docs/rules/ [ESLint 官方中文文档](https://zh-hans.eslint.org/)
-- [nvm](https://github.com/creationix/nvm)  管理 node 版本
+- [standard](https://github.com/standard/standard) 代码规范工具 https://standardjs.com/readme-zhcn.html
+- [nvm](https://github.com/creationix/nvm)  安装/切换不同 node 版本
+- [nrm](https://github.com/Pana/nrm)  切换不同的 npm 源
 - [np](https://github.com/sindresorhus/np) npm publish 辅助，自动 push、打 tag、升版本等
 - [**postcss**](https://github.com/postcss/postcss) - 使用 JS 插件转换样式
 - [**cross-env**](https://github.com/kentcdodds/cross-env) - 跨平台的环境变量声明
@@ -166,15 +171,20 @@
 
 ### 命令行
 
-- minimist - 命令行参数解析处理 `const args = require('minimist')(process.argv.slice(2))`
+- npx 使用 npx 来让我们可以方便的调用项目的依赖模块
+  `npx eslint --fix <file-pattern>`
+- minimist - 命令行参数解析处理, 还有另一个 optimist
+  - `const args = require('minimist')(process.argv.slice(2))`
 - [**nodemon**](https://github.com/remy/nodemon/) - 监视 node.js 应用程序中的修改，实时更新
 - [**Inquirer.js**](https://github.com/SBoudrias/Inquirer.js) A collection of common interactive command line user interfaces. 命令行询问库
 - prompts - 交互式命令工具，inquirer 的轻量级版本
 - [**commander.js**](https://github.com/tj/commander.js) node.js 命令行界面变得简单
-- [**kill-port-process**](https://github.com/hilleer/kill-port-process) - 命令行杀死被占用的端口服务 `kill-port 3000`
+- [**kill-port-process**](https://github.com/hilleer/kill-port-process) - 命令行杀死被占用的端口服务
+  - `kill-port 3000`
 - [**fkill**](https://github.com/sindresorhus/fkill) - 惊人地杀死进程。跨平台。
 - [execa](https://github.com/sindresorhus/execa)一个更强大的子进程管理工具，它提供了更多的选项和功能，例如并发执行、流控制、更好的错误处理等。它是一个跨平台的替代方案，可以替代 Node.js 的 child_process 模块。
-- [**tree-cli**](https://github.com/MrRaindrop/tree-cli) - 生成 tree 目录结构 `tree -l 2 -o output.txt --ignore 'node_modules'`
+- [**tree-cli**](https://github.com/MrRaindrop/tree-cli) - 生成 tree 目录结构
+  - `tree -l 2 -o output.txt --ignore 'node_modules'`
 - [**tree-node-cli**](https://github.com/yangshun/tree-node-cli) - node 根据目录结构生成 tree
 - [**consola**](https://github.com/unjs/consola) 优雅的命令行 console logger
 - [**ora**](https://github.com/sindresorhus/ora) Elegant terminal spinner 命令行 loading
@@ -184,6 +194,14 @@
 - [boxen]()用于在命令行中创建带边框的框，可以突出显示某些信息。
 - [figlet] - 用于在命令行中生成艺术字体，可以让输出更具有视觉效果。
 - [**node-notifier**](https://github.com/mikaelbr/node-notifier) 在 NodeJS 环境中，可以很方便的唤起 notifier 通知
+- [zhlint](https://github.com/zhlint-project/zhlint) - 用于检查中文排版是否规范的 lint 工具
+  - `zhlint <file-pattern> --fix`
+- [dclone](https://github.com/zhangyuang/dclone) 用来下载某个特定的 github 仓库的文件夹，而不是下载整个项目，可以缩短下载时间
+  - `dclone https://github.com/ykfe/egg-react-ssr/tree/dev/example/ssr-with-loadable`
+- [http-server](https://www.npmjs.com/package/http-server) - 一个简单的命令行 http 服务器
+  - `http-server . -p 8080 # 监听8080端口，以当前目录作为静态资源目录`
+- cloc - 使用 cloc 快速统计某文件夹下代码的数据
+  - `cloc --exclude-dir=node_modules . --exclude-ext=json,html # 统计文件类型，排除node_modules,排除json，html文件`
 
 ### 文件处理
 

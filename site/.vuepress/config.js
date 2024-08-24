@@ -69,14 +69,21 @@ module.exports = {
           {
             text: '打造舒适、高效、时尚的前端开发环境',
             items: [
-              { text: '开发环境的搭建', link: 'https://github.com/yanyue404/blog/issues/3' },
-              { text: 'Git', link: 'https://github.com/yanyue404/blog/issues?q=is%3Aissue+is%3Aopen+in%3Atitle+git' },
+              { text: '开发环境的搭建（含 Chrome 配置）', link: 'https://github.com/yanyue404/blog/issues/3' },
+              {
+                text: 'Git 协作',
+                link: 'https://github.com/yanyue404/blog/issues?q=is%3Aissue+is%3Aopen+in%3Atitle+git'
+              },
               { text: '玩好 Terminal 终端 ', link: 'https://github.com/yanyue404/blog/issues/42' },
               { text: 'VS Code 编辑器配置 ', link: 'https://github.com/yanyue404/blog/issues/185' },
               { text: 'Whistle 代理抓包 ', link: 'https://github.com/yanyue404/blog/issues/204' },
               {
-                text: 'Node.js',
+                text: 'Node.js 相关',
                 link: 'https://github.com/yanyue404/blog/issues?q=is%3Aissue+is%3Aopen+in%3Atitle+node'
+              },
+              {
+                text: '拥抱 AI',
+                link: 'https://github.com/yanyue404/blog/issues/278'
               }
             ]
           }
