@@ -11,6 +11,7 @@ module.exports = {
           { text: 'Html', link: '/fe/html' },
           { text: 'CSS', link: '/fe/css' },
           { text: 'JavaScript', link: '/fe/javascript' },
+          { text: 'TypeScript', link: '/fe/typescript' },
           { text: '手写代码', link: '/fe/write' },
           { text: '输出结果', link: '/fe/console' },
           { text: '设计模式', link: '/fe/design' },
@@ -20,7 +21,6 @@ module.exports = {
           { text: 'Vue', link: '/fe/vue' },
           { text: 'React', link: '/fe/react' },
           { text: 'Node', link: '/fe/node' },
-          { text: 'TypeScript', link: '/fe/typescript' },
           { text: '编程技巧', link: '/fe/skill' },
           { text: '工程化', link: '/fe/engineering' }
         ]

@@ -1,3 +1,5 @@
+# Node.js
+
 ## 对 Node.js 的理解？优缺点？应用场景？
 
 ![](https://static.vue-js.com/b565d240-c1e6-11eb-ab90-d9ae814b240d.png)
@@ -1430,6 +1432,41 @@ const leak = []
 - https://segmentfault.com/a/1190000039327565
 - https://zhuanlan.zhihu.com/p/50055740
 - https://segmentfault.com/a/1190000010231628
+
+## package.json 中 scripts 的 postinstall, install， preinstall
+
+在前端开发中，`package.json`  文件是一个非常核心的组成部分，特别是在使用 Node.js 和 npm 管理项目依赖时。`package.json`  中的  `scripts`  字段允许开发者定义在特定时机自动运行的脚本。这些脚本在项目的生命周期中的特定阶段被执行，例如安装、测试、启动等。
+
+对于  `postinstall`、`install`  和  `preinstall`  这三个脚本，它们主要关联于依赖项的安装过程。下面是每个脚本的详细说明：
+
+### preinstall
+
+- 触发时机：在 npm 开始安装当前项目的依赖之前执行。
+- 用途：通常用于执行一些必要的准备工作，比如设置环境变量，检查系统环境是否符合特定要求等。
+
+### install
+
+- 触发时机：在  `npm install`  命令执行时，这个脚本被触发。
+- 用途：`install`  脚本通常是用来编译或构建项目。它可以被用作自动触发编译过程，例如对 TypeScript 项目进行编译或执行其他构建任务。不过，在实践中，`install`  通常不需要显式定义，因为 npm 默认行为已经涵盖了安装依赖的操作。
+
+### postinstall
+
+- 触发时机：在 npm 安装项目依赖后执行。
+- 用途：这是最常用的脚本之一，用于在依赖安装完成后执行一些后处理操作，例如执行数据库迁移、本地化的构建脚本或者其他需要在依赖完全安装后执行的任务。
+
+这些脚本在自动化和简化开发流程中扮演了重要的角色，可以显著提高开发效率和项目的可维护性。它们是自动化部署流程的重要组成部分，特别是在持续集成/持续部署 (CI/CD) 环境中。
+
+**参考**
+
+- https://www.ruanyifeng.com/blog/2016/10/npm_scripts.html
+
+## PM2
+
+PM2 是 Node.js 的优秀运行时管理工具，专为简化和优化 Node.js 应用程序的生产部署与运行而设计。
+
+pm2 官网 https://pm2.keymetrics.io/
+
+https://docs.ffffee.com/nodejs/pm2-quickstart.html
 
 ## 参考
 

@@ -1,6 +1,8 @@
-## 为什么要使用 TypeScript ? TypeScript 相对于 JavaScript 的优势是什么？
+# TypeScript
 
-### 为什么要使用 Typescript？
+## Why TypeScript ? 相对于 JavaScript 的优势是什么？
+
+### Why Typescript？
 
 在没有  `Typescript`  以前，大部分项目都是使用原生  `Javascript`  开发。而  `Javascript`  天生是一门"灵活"的语言。所谓所谓"灵活"，表现在：
 
