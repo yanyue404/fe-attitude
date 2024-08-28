@@ -19,7 +19,7 @@ Function.prototype.after = function(afterfn) {
 // 执行从右到左的功能组合 https://github.com/30-seconds/30-seconds-of-code#compose
 // const compose = (...fns) => fns.reduce((f, g) => (...args) => f(g(...args)));
 // 摘自 https://github.com/reduxjs/redux/blob/master/src/compose.js
-function compose(...funcs) {
+export function compose(...funcs) {
   if (funcs.length === 0) {
     return arg => arg
   }
@@ -32,8 +32,7 @@ function compose(...funcs) {
 }
 // 摘自 https://github.com/30-seconds/30-seconds-of-code#composeright
 // 执行从左到右的功能组合
-const composeRight = (...fns) =>
-  fns.reduce((f, g) => (...args) => g(f(...args)))
+export const composeRight = (...fns) => fns.reduce((f, g) => (...args) => g(f(...args)))
 
 /**
  * 防抖 一定时间内连续调用只允许执行一次
@@ -43,7 +42,7 @@ const composeRight = (...fns) =>
  * @param {*} immediate 传 true，首次调用即立即执行
  * @returns
  */
-function debounce(func, wait, immediate) {
+export function debounce(func, wait, immediate) {
   var timeout
   return function() {
     var context = this
@@ -63,7 +62,7 @@ function debounce(func, wait, immediate) {
   }
 }
 
-function throttle(fn, gapTime = 1500) {
+export function throttle(fn, gapTime = 1500) {
   let _lastTime = null
   // 返回新的函数
   return function() {
@@ -79,7 +78,7 @@ function throttle(fn, gapTime = 1500) {
  * @param {*} fn
  * @returns
  */
-function once(fn) {
+export function once(fn) {
   return function() {
     if (typeof fn === 'function') {
       var ret = fn.apply(this, arguments)
@@ -90,3 +89,62 @@ function once(fn) {
     }
   }
 }
+
+// 尝试使用提供的参数调用函数，返回结果或捕获的错误对象。
+// 示例
+/* var elements = attempt(function(selector) {
+  return document.querySelectorAll(selector);
+}, '>_>');
+if (elements instanceof Error) elements = []; // elements = [] */
+
+export const attempt = (fn, ...args) => {
+  try {
+    return fn(...args)
+  } catch (e) {
+    return e instanceof Error ? e : new Error(e)
+  }
+}
+
+// 创建一个使用给定上下文调用 fn 的函数，可以选择将任何其他提供的参数添加到参数的开头。
+/* function greet(greeting, punctuation) {
+  return greeting + ' ' + this.user + punctuation;
+}
+const freddy = { user: 'fred' };
+const freddyBound = bind(greet, freddy);
+console.log(freddyBound('hi', '!')); // 'hi fred!' */
+export const bind = (fn, context, ...boundArgs) => (...args) => fn.apply(context, [...boundArgs, ...args])
+
+// 链式异步函数。
+// 循环遍历包含异步事件的函数数组，在每个异步事件完成时调用 next。
+
+/* chainAsync([
+  next => {
+    console.log('0 seconds')
+    setTimeout(next, 1000)
+  },
+  next => {
+    console.log('1 second')
+    setTimeout(next, 1000)
+  },
+  () => {
+    console.log('2 second')
+  }
+]) */
+export const chainAsync = fns => {
+  let curr = 0
+  const last = fns[fns.length - 1]
+  const next = () => {
+    const fn = fns[curr++]
+    fn === last ? fn() : fn(next)
+  }
+  next()
+}
+
+// 函数柯里化
+// curry(Math.pow)(2)(10) // 1024
+// curry(Math.min, 3)(10)(50)(2) // 2
+export const curry = (fn, arity = fn.length, ...args) =>
+  arity <= args.length ? fn(...args) : curry.bind(null, fn, arity, ...args)
+
+// 运行承诺系列
+export const runPromisesInSeries = ps => ps.reduce((p, next) => p.then(next), Promise.resolve());

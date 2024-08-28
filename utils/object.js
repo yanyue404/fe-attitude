@@ -114,4 +114,19 @@ function get(obj, href) {
   }
 }
 
+// 比较两个对象相等
+export const equals = (a, b) => {
+  if (a === b) return true
+  if (a instanceof Date && b instanceof Date) return a.getTime() === b.getTime()
+  if (!a || !b || (typeof a !== 'object' && typeof b !== 'object')) return a === b
+  if (a === null || a === undefined || b === null || b === undefined) return false
+  if (a.prototype !== b.prototype) return false
+  let keys = Object.keys(a)
+  if (keys.length !== Object.keys(b).length) return false
+  return keys.every(k => equals(a[k], b[k]))
+}
+
+// deep merge
+// https://www.30secondsofcode.org/js/s/merge-objects/
+
 export default { has, deepCopy, only, omit, isEqual, mergeObject, get }
