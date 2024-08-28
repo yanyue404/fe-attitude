@@ -1271,7 +1271,7 @@ React 需要使用 JSX，有一定的上手成本，并且需要一整套的工�
 - destroyed 被改名为 unmounted 了（before 当然也改了）
 - 渲染函数 API h
 
-> [https://v3.cn.vuejs.org/guide/migration/introduction.html#非兼容的变更](https://v3.cn.vuejs.org/guide/migration/introduction.html#%E9%9D%9E%E5%85%BC%E5%AE%B9%E7%9A%84%E5%8F%98%E6%9B%B4)
+> [非兼容的变更](https://v3.cn.vuejs.org/guide/migration/introduction.html#非兼容的变更)
 
 ## Proxy 相比于 defineProperty 的优势
 
@@ -1739,6 +1739,123 @@ function h(type: string | Record<string, unknown>, options: Options & any = {}, 
 }
 
 export default h
+```
+
+## Vue3 的渲染函数做了如何变化
+
+> https://v3-migration.vuejs.org/zh/breaking-changes/render-function-api.html
+
+以下是更改的简要总结：
+
+- h 现在是全局导入，而不是作为参数传递给渲染函数
+- 更改渲染函数参数，使其在有状态组件和函数组件的表现更加一致
+- VNode 现在有一个扁平的 prop 结构
+
+### 渲染函数参数
+
+**2.x 语法**
+
+在 2.x 中，render 函数会自动接收 h 函数 (它是 createElement 的惯用别名) 作为参数：
+
+```js
+// Vue 2 渲染函数示例
+export default {
+  render(h) {
+    return h('div')
+  }
+}
+```
+
+**3.x 语法**
+
+在 3.x 中，h 函数现在是全局导入的，而不是作为参数自动传递。
+
+```js
+// Vue 3 渲染函数示例
+import { h } from 'vue'
+
+export default {
+  render() {
+    return h('div')
+  }
+}
+```
+
+### VNode Prop 格式化
+
+**2.x 语法**
+
+在 2.x 中，domProps 包含 VNode prop 中的嵌套列表：
+
+```js
+// 2.x
+{
+staticClass: 'button',
+class: { 'is-outlined': isOutlined },
+staticStyle: { color: '#34495E' },
+style: { backgroundColor: buttonColor },
+attrs: { id: 'submit' },
+domProps: { innerHTML: '' },
+on: { click: submitForm },
+key: 'submit-button'
+}
+
+```
+
+**3.x 语法**
+
+在 3.x 中，整个 VNode prop 的结构都是扁平的。使用上面的例子，来看看它现在的样子。
+
+```js
+// 3.x 语法
+{
+class: ['button', { 'is-outlined': isOutlined }],
+style: [{ color: '#34495E' }, { backgroundColor: buttonColor }],
+id: 'submit',
+innerHTML: '',
+onClick: submitForm,
+key: 'submit-button'
+}
+```
+
+### 注册组件
+
+**2.x 语法**
+
+在 2.x 中，注册一个组件后，把组件名作为字符串传递给渲染函数的第一个参数，它可以正常地工作：
+
+```js
+// 2.x
+Vue.component('button-counter', {
+  data() {
+    return {
+      count: 0
+    }
+  },
+  template: `<button @click="count++"> Clicked {{ count }} times. </button>`
+})
+
+export default {
+  render(h) {
+    return h('button-counter')
+  }
+}
+```
+
+**3.x 语法**
+
+在 3.x 中，由于 VNode 是上下文无关的，不能再用字符串 ID 隐式查找已注册组件。取而代之的是，需要使用一个导入的 resolveComponent 方法：
+
+```js
+// 3.x
+import { h, resolveComponent } from 'vue'
+
+export default {
+  setup() {
+    const ButtonCounter = resolveComponent('button-counter')
+    return () => h(ButtonCounter)
+  }
+}
 ```
 
 ## 参考链接
