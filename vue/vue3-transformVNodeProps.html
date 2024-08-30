@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let isVue2 = true
+
+      function transformVNodeProps(props) {
+        if (!isVue2) {
+          return props
+        }
+
+        // 创建需转移的结构
+        const on = {}
+        const attrs = {}
+        const domProps = {}
+
+        // 处理 class
+        let staticClass = '',
+          classNames = {}
+        if (props.class) {
+          staticClass = props.class.filter(v => typeof v === 'string').join(' ') || ''
+
+          props.class
+            .filter(v => typeof v === 'object')
+            .forEach(o => {
+              classNames = Object.assign(classNames, o)
+            })
+        }
+        // 处理 style
+        const staticStyle = props.style ? Object.assign({}, ...props.style) : {}
+
+        // 处理 onClick 事件
+        Object.keys(props).forEach(key => {
+          if (key.startsWith('on') && key.length > 2) {
+            const eventName = key[2].toLowerCase() + key.substring(3)
+            on[eventName] = props[key]
+            delete props[key]
+          }
+        })
+
+        // 处理 attrs 和 domProps
+        Object.keys(props).forEach(key => {
+          if (key === 'innerHTML') {
+            domProps.innerHTML = props[key]
+            delete props[key]
+          } else if (['id', 'src'].includes(key)) {
+            attrs[key] = props[key]
+            delete props[key]
+          }
+        })
+
+        // 组装最终结构
+        return {
+          staticClass,
+          class: classNames,
+          staticStyle,
+          attrs,
+          domProps,
+          on,
+          key: props.key
+        }
+      }
+
+      //    {
+      //       staticClass: 'button',
+      //       class: { 'is-outlined': 'isOutlined' },
+      //       staticStyle: { color: '#34495E'，backgroundColor: 'buttonColor' },
+      //       attrs: { id: 'submit'，src: 'xxx' },
+      //       domProps: { innerHTML: '' },
+      //       on: { click: submitForm },
+      //       key: 'submit-button'
+      //   }
+
+      console.log(
+        transformVNodeProps({
+          class: ['button', { 'is-outlined': 'isOutlined' }],
+          style: [{ color: '#34495E' }, { backgroundColor: 'buttonColor' }],
+          src: 'xxx',
+          id: 'submit',
+          innerHTML: '',
+          onClick: () => {},
+          key: 'submit-button'
+        })
+      )
+    </script>
+  </body>
+</html>
