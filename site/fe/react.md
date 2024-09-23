@@ -39,6 +39,76 @@ class Example extends React.Component {
 
 > https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/17
 
+## useState 一个有趣的挑战
+
+> https://juejin.cn/post/7349542148733599763
+
+点击按钮 A、按钮 B、按钮 C、按钮 D 后，各自按钮上的数字分别是什么，为什么？
+
+```js
+import { useState } from 'react'
+
+export default function Counter() {
+  const [number1, setNumber1] = useState(0)
+  const [number2, setNumber2] = useState(0)
+  const [number3, setNumber3] = useState(0)
+  const [number4, setNumber4] = useState(0)
+
+  return (
+    <>
+      <button
+        onClick={() => {
+          setNumber1(number1 + 1)
+          setNumber1(number1 + 1)
+          setNumber1(number1 + 1)
+        }}
+      >
+        按钮A{number1}
+      </button>
+
+      <button
+        onClick={() => {
+          setNumber2(n => n + 1)
+          setNumber2(n => n + 1)
+          setNumber2(n => n + 1)
+        }}
+      >
+        按钮B{number2}
+      </button>
+
+      <button
+        onClick={() => {
+          setNumber3(number3 + 5)
+          setNumber3(n => n + 1)
+        }}
+      >
+        按钮C{number3}
+      </button>
+
+      <button
+        onClick={() => {
+          setNumber4(number4 + 5)
+          setNumber4(n => n + 1)
+          setNumber4(42)
+        }}
+      >
+        按钮D{number4}
+      </button>
+    </>
+  )
+}
+```
+
+点击按钮 A、按钮 B、按钮 C、按钮 D 后，各自按钮上的数字分别是 1、3、6、42。
+
+因为在 React 中有以下几点规则：
+
+- useState 返回的更新函数 仅更新下一次渲染的状态变量，不会更新当前渲染的状态变量（旧值）；
+- 等到事件处理函数中的所有代码都运行完毕才会处理 state 更新；
+- 传递给更新 state 函数的参数可以是一个值、一个算术表达式、一个函数，不管是什么都会被添加到队列中，以便在事件处理函数中的所有其他代码运行后进行处理。如果是一个值或者算术表达式会先执行得到结果后，转变成一个伪函数 n => x 添加到队列中，其中 X 是执行结果。此外不同更新函数的参数添加到不同的对应队列中；
+- 在下一次渲染期间，React 会遍历队列计算出最终的 state 并更新；
+- 在遍历队列过程中，React 会获取上一个队列的返回值，并将其传递给下一个队列，用不用由下一个队列决定是否使用。
+
 ## React 和 Vue 的 diff 时间复杂度从 O(n^3) 优化到 O(n) ，那么 O(n^3) 和 O(n) 是如何计算出来的？
 
 > https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/151
@@ -136,6 +206,8 @@ React 没有提供一种将可重用行为“附加”到组件的方法（例�
 
 > https://zh-hans.react.dev/learn/reusing-logic-with-custom-hooks
 
+> https://juejin.cn/post/7022777747722207269
+
 - 自定义 Hook 让你可以在组件间共享逻辑。
 - 自定义 Hook 命名必须以后跟一个大写字母的 use 开头。
 - 自定义 Hook 共享的只是状态逻辑，不是状态本身。
@@ -231,9 +303,10 @@ https://zh-hans.react.dev/reference/react/Component
 
 ## 从类组件迁移至 Hook
 
-https://zh-hans.react.dev/reference/react/Component#alternatives
+- https://zh-hans.react.dev/reference/react/Component#alternatives
 
-将 React 的类组件迁移为函数组件（使用 Hooks）是一项常见的任务。下面是一个逐步的指南，帮助你完成这个过程。
+- [从 Vue2.0 到 React17——React 函数组件的生命周期](https://juejin.cn/post/6976997792652722207)
+  将 React 的类组件迁移为函数组件（使用 Hooks）是一项常见的任务。下面是一个逐步的指南，帮助你完成这个过程。
 
 ### 步骤 1: 创建函数组件
 
@@ -578,6 +651,11 @@ export default function MyApp() {
 
 通过这些步骤，你可以将类组件转换为函数组件，充分利用 Hooks 的优点。
 
+## VUE 语法转换为 REACT
+
+- [并排比较 React.js/Next.js 和 Vue.js/Nuxt.js 的语法](https://github.com/yanyue404/react-vue-comparison?tab=readme-ov-file)
+
 ## 参考
 
 - [ React 进阶实践指南](https://juejin.cn/book/6945998773818490884)
+- https://juejin.cn/user/254742429175352/posts
