@@ -163,7 +163,7 @@
 - [**Temporary Email Address**](https://temp-mail.org) - 临时邮件使用
 - [**Temp**](https://temp.pm/) - 短信息（可加密）
 - **无损音乐** [无损音乐吧](http://www.wsyyb.com/) [超高无损音乐](https://www.sq688.com/)
-- [**lsjgcx**](http://www.lsjgcx.com/) - 历史价格查询
+- [**lsjgcx**](http://www.lsjgcx.com/) - 历史价格查询 （例：https://p.zwjhl.com/price.aspx?url=https://item.jd.com/100019851795.html）
 - [表情包 - 发表情](https://fabiaoqing.com/)
 - [**automa**](https://github.com/automaapp/automa) 自动化 web 操作
 
