@@ -3117,6 +3117,41 @@ setInterval 执行动画的缺点：它通过设定间隔时间来不断改变�
 
 使用 setTimeout 来模拟 requestAnimationFrame，需要在每次执行回调函数时，根据当前时间和上一次执行回调函数的时间计算出时间间隔，然后将该时间间隔传递给下一个 setTimeout。
 
+## 确定 HTML 元素是否已动态添加到 DOM
+
+> https://www.v2ex.com/t/1079110#reply3
+>
+> https://stackoverflow.com/questions/16618876/determining-if-a-html-element-has-been-added-to-the-dom-dynamically/16618904#16618904
+
+### [使用变更观察器检测 DOM 更改](https://developer.chrome.com/blog/detect-dom-changes-with-mutation-observers?hl=zh-cn)
+
+以下示例展示了如何列出包含变更事件的插入节点：
+
+```js
+var insertedNodes = []
+document.addEventListener(
+  'DOMNodeInserted',
+  function(e) {
+    insertedNodes.push(e.target)
+  },
+  false
+)
+console.log(insertedNodes)
+```
+
+使用 Mutation Observer 时，界面如下所示：
+
+```js
+var insertedNodes = []
+var observer = new MutationObserver(function(mutations) {
+  mutations.forEach(function(mutation) {
+    for (var i = 0; i < mutation.addedNodes.length; i++) insertedNodes.push(mutation.addedNodes[i])
+  })
+})
+observer.observe(document.documentElement, { childList: true })
+console.log(insertedNodes)
+```
+
 ## 参考
 
 - https://zh.javascript.info/
