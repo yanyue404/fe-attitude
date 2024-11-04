@@ -1,45 +1,97 @@
 # React
 
-## React setState 笔试题，下面的代码输出什么？
+## React 的版本了解
 
-> https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/18
+- v16.0： 为了解决之前大型 React 应用一次更新遍历大量虚拟 DOM 带来的卡顿问题，React 重写了核心模块 Reconciler ，启用了 Fiber 架构；为了在让节点渲染到指定容器内，更好的实现弹窗功能，推出 createPortal API；为了捕获渲染中的异常，引入 componentDidCatch 钩子，划分了错误边界。
 
-```js
-class Example extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      val: 0
-    }
-  }
+- v16.2：推出 Fragment ，解决数组元素问题。
 
-  componentDidMount() {
-    this.setState({ val: this.state.val + 1 })
-    console.log(this.state.val) // 第 1 次 log
+- v16.3：增加 React.createRef() API，可以通过 React.createRef 取得 Ref 对象。增加 React.forwardRef() API，解决高阶组件 ref 传递问题；推出新版本 context api，迎接 Provider / Consumer 时代；增加 getDerivedStateFromProps 和 getSnapshotBeforeUpdate 生命周期 。
 
-    this.setState({ val: this.state.val + 1 })
-    console.log(this.state.val) // 第 2 次 log
+- v16.6：增加 React.memo() API，用于控制子组件渲染；增加 React.lazy() API 实现代码分割；增加 contextType 让类组件更便捷的使用 context；增加生命周期 getDerivedStateFromError 代替 componentDidCatch 。
 
-    setTimeout(() => {
-      this.setState({ val: this.state.val + 1 })
-      console.log(this.state.val) // 第 3 次 log
+- v16.8：全新 React-Hooks 支持，使函数组件也能做类组件的一切事情。
 
-      this.setState({ val: this.state.val + 1 })
-      console.log(this.state.val) // 第 4 次 log
-    }, 0)
-  }
+- v17： 事件绑定由 document 变成 container ，移除事件池等。
 
-  render() {
-    return null
-  }
-}
-```
+- v18：新的 root API [How to Upgrade to React 18](https://zh-hans.react.dev/blog/2022/03/08/react-18-upgrade-guide)
 
-## React 中 setState 什么时候是同步的，什么时候是异步的？
+## 什么是 React Fiber?
 
-> https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/17
+Fiber 是 React v16 中新的协调引擎或核心算法的重新实现。 React Fiber 的目标是提高其对动画、布局、手势、暂停、中止或重用工作的能力以及为不同类型的更新分配优先级等领域的适用性；旨在提高 React 应用的性能和响应能力。
+
+**React Fiber 的主要目标**
+
+React Fiber 的目标是提高其对动画、布局和手势等领域的适用性。它的主要功能是增量渲染：能够将渲染工作分割成块并将其分布在多个帧上。
+
+其主要目标是：
+
+- 能够将可中断的工作分成多个块。
+- 能够对正在进行的工作进行优先级排序、调整基准和重用。
+- 能够在父母和孩子之间来回屈服以支持 React 中的布局。
+- 能够从 render() 返回多个元素。
+- 更好地支持错误边界
+
+**React Fiber 工作原理**
+
+Fiber 通过增量渲染、可中断与恢复、链表结构和优先级调度等机制，使得 React 可以更灵活地处理大量更新和复杂组件树。
+
+调度：Fiber 引入了新的调度机制，允许 React 根据任务的优先级来调度任务。React 会根据任务的紧急程度将任务放入不同的队列中，并按照队列的顺序执行任务。
+
+渲染：在渲染阶段，React 会遍历组件树，并构建一个 Fiber 树。Fiber 树中的每个节点代表一个组件，并包含组件的状态、属性等信息。
+
+更新：当组件的状态或属性发生变化时，React 会触发更新。Fiber 会根据变化的类型和优先级来决定如何更新组件。
+
+提交：在更新阶段完成后，React 会将 Fiber 树转换为实际的 DOM 树，并提交给浏览器进行渲染。
+
+## Virtual DOM 真的比操作原生 DOM 快吗？谈谈你的想法。
+
+> https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/47
+
+React 提出的一种解决方案，它是一个轻量级的 JavaScript 对象，用来描述真实 DOM 的结构和属性。
+React 通过比较虚拟 DOM 的差异，计算出需要更新的部分，然后再将这些部分更新到真实 DOM 上。
+React 虚拟 DOM 的原理是：
+
+1. 首先，React 将组件的状态和属性传入组件的 render 方法，得到一个虚拟 DOM 树。
+2. 当组件的状态或属性发生变化时，React 会再次调用 render 方法得到新的虚拟 DOM 树。
+3. React 会将新旧两棵虚拟 DOM 树进行比较，得到它们的不同之处。
+4. React 会将这些不同之处记录下来，然后批量的更新到真实的 DOM 树上。
+
+React 通过虚拟 DOM 树的比较，避免了直接操作真实 DOM 树带来的性能问题，因为直接操作真实 DOM 树会带来大量的重排和重绘，而 React 的虚拟 DOM 树的比较和更新是基于 JavaScript 对象进行的，不会导致页面的重排和重绘。
+
+总结起来，React 虚拟 DOM 的原理就是：通过比较虚拟 DOM 树的不同，批量的更新真实的 DOM 树，从而提高页面的性能。
+
+## React Diff 算法
+
+React Diff 是 React 中用于更新 Virtual DOM 的算法它的目的是在最小化 DOM 操作的同时，尽可能快地更新组件。它通过比较 Virtual DOM 树的前后两个状态来确定哪些部分需要更新。
+
+React Diff 算法的核心思想是尽可能地复用已有的 DOM 节点。当 Virtual DOM 中的某个节点发生变化时，React 会先比较该节点的属性和子节点是否有变化，如果没有变化，则直接复用该节点。如果有变化，则会在该节点的父节点下创建一个新的节点，并将新的属性和子节点赋值给该节点。
+
+React Diff 算法的具体实现有两种方式：深度优先遍历和广度优先遍历。深度优先遍历是指先比较父节点的子节点，如果子节点有变化，则递归比较子节点的子节点。广度优先遍历是指先比较同级节点，如果同级节点有变化，则递归比较子节点。
+
+React Diff 算法的优化策略包括：key 属性的使用、组件的 shouldComponentUpdate 方法、使用 Immutable.js 等。其中，key 属性的使用是最常用的优化策略，它可以帮助 React 更准确地判断哪些节点需要更新，从而减少不必要的 DOM 操作。
+
+React Diff 算法具有以下特点：
+
+1. 先判断两个节点是否相等，如果相等，就不需要更新。
+2. 如果两个节点类型不同，则直接替换节点。
+3. 如果节点类型相同，但是节点属性不同，则更新节点属性。
+4. 如果节点类型相同，但是子节点不同，则使用递归的方式进行更新。
+   React Diff 算法的时间复杂度是 O(n)，其中 n 为 Virtual DOM 树中节点的数量。
+
+**实例：** 在 React 中，渲染数组时将数组的第一项移动到最后渲染的开销通常比将最后一项移动到第一项渲染的开销要大：
+
+这是因为 React 使用了虚拟 DOM（Virtual DOM）来进行高效的 DOM 操作。
+当数组中的元素发生变化时，React 会比较新旧虚拟 DOM 树的差异，并只更新需要更新的部分。
+如果将数组的第一项移动到最后，React 需要重新计算并比较整个数组的差异，这可能会导致更多的 DOM 操作。
+相比之下，将最后一项移动到第一项只会影响数组的第一项和最后一项，而不会影响其他元素的位置。
+因此，React 只需要比较这两个元素的差异，并进行相应的 DOM 操作，这通常比重新计算整个数组的差异要更高效。
 
 ## useState 一个有趣的挑战
+
+> 废弃：[React 中 setState 什么时候是同步的，什么时候是异步的？](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/17)
+
+> 废弃：[React setState 笔试题，下面的代码输出什么？](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/18)
 
 > https://juejin.cn/post/7349542148733599763
 
@@ -116,42 +168,6 @@ export default function Counter() {
 ## redux 为什么要把 reducer 设计成纯函数
 
 > https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/107
-
-## Virtual DOM 真的比操作原生 DOM 快吗？谈谈你的想法。
-
-> https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/47
-
-## React 的版本了解
-
-- v16.0： 为了解决之前大型 React 应用一次更新遍历大量虚拟 DOM 带来个卡顿问题，React 重写了核心模块 Reconciler ，启用了 Fiber 架构；为了在让节点渲染到指定容器内，更好的实现弹窗功能，推出 createPortal API；为了捕获渲染中的异常，引入 componentDidCatch 钩子，划分了错误边界。
-
-- v16.2：推出 Fragment ，解决数组元素问题。
-
-- v16.3：增加 React.createRef() API，可以通过 React.createRef 取得 Ref 对象。增加 React.forwardRef() API，解决高阶组件 ref 传递问题；推出新版本 context api，迎接 Provider / Consumer 时代；增加 getDerivedStateFromProps 和 getSnapshotBeforeUpdate 生命周期 。
-
-- v16.6：增加 React.memo() API，用于控制子组件渲染；增加 React.lazy() API 实现代码分割；增加 contextType 让类组件更便捷的使用 context；增加生命周期 getDerivedStateFromError 代替 componentDidCatch 。
-
-- v16.8：全新 React-Hooks 支持，使函数组件也能做类组件的一切事情。
-
-- v17： 事件绑定由 document 变成 container ，移除事件池等。
-
-- v18：新的 root API [How to Upgrade to React 18](https://zh-hans.react.dev/blog/2022/03/08/react-18-upgrade-guide)
-
-## 什么是 React Fiber?
-
-Fiber 是 React v16 中新的协调引擎或核心算法的重新实现。 React Fiber 的目标是提高其对动画、布局、手势、暂停、中止或重用工作的能力以及为不同类型的更新分配优先级等领域的适用性；和新的并发原语。
-
-**React Fiber 的主要目标**
-
-React Fiber 的目标是提高其对动画、布局和手势等领域的适用性。它的主要功能是增量渲染：能够将渲染工作分割成块并将其分布在多个帧上。
-
-其主要目标是：
-
-- 能够将可中断的工作分成多个块。
-- 能够对正在进行的工作进行优先级排序、调整基准和重用。
-- 能够在父母和孩子之间来回屈服以支持 React 中的布局。
-- 能够从 render() 返回多个元素。
-- 更好地支持错误边界
 
 ## React 中为什么要引入 Hooks 呢？
 
@@ -651,11 +667,179 @@ export default function MyApp() {
 
 通过这些步骤，你可以将类组件转换为函数组件，充分利用 Hooks 的优点。
 
-## VUE 语法转换为 REACT
+## Vue 语法转换为 React
 
 - [并排比较 React.js/Next.js 和 Vue.js/Nuxt.js 的语法](https://github.com/yanyue404/react-vue-comparison?tab=readme-ov-file)
+
+## React 中什么是受控组件和非控组件？
+
+（1）受控组件 在使用表单来收集用户输入时，例如`<input><select><textearea>`等元素都要绑定一个 change 事件，当表单的状态发生变化，就会触发 onChange 事件，更新组件的 state。这种组件在 React 中被称为受控组件，在受控组件中，组件渲染出的状态与它的 value 或 checked 属性相对应，react 通过这种方式消除了组件的局部状态，使整个状态可控。react 官方推荐使用受控表单组件。
+
+受控组件更新 state 的流程：
+
+- 可以通过初始 state 中设置表单的默认值
+- 每当表单的值发生变化时，调用 onChange 事件处理器
+- 事件处理器通过事件对象 e 拿到改变后的状态，并更新组件的 state
+- 一旦通过 setState 方法更新 state，就会触发视图的重新渲染，完成表单组件的更新
+
+受控组件缺陷： 表单元素的值都是由 React 组件进行管理，当有多个输入框，或者多个这种组件时，如果想同时获取到全部的值就必须每个都要编写事件处理函数，这会让代码看着很臃肿，所以为了解决这种情况，出现了非受控组件。
+
+```js
+//内容可以由我们自己来控制的组件，必须要有value和onChange
+import React, { Component } from "react";
+class App extends Component {
+  state = {
+    valueText: 1
+  }
+  handleChange = (e) => {
+    this.setState({
+      valueText: e.target.value,    //输入的值
+    });
+  }
+  handleClick = () => {
+    console.log(this.state.valueText);
+  }
+  render() {
+    return (
+      <>
+        <input
+          type="text"
+          value={this.state.valueText}
+          onChange={this.handleChange}
+        />
+        <button onClick={this.handleClick}>btn</button>
+      </>
+      <p>输入的值是：{this.state.valueText}</p>   //实现双向绑定效果
+    );
+  }
+}
+
+//函数组件 useState
+ const setUserName = (e) => {
+    setUserRealName(e.target.value)
+ }
+```
+
+（2）非受控组件 如果一个表单组件没有 value props（单选和复选按钮对应的是 checked props）时，就可以称为非受控组件。在非受控组件中，可以使用一个 ref 来从 DOM 获得表单值。而不是为每个状态更新编写一个事件处理程序。
+
+React 官方的解释：
+
+> 要编写一个非受控组件，而不是为每个状态更新都编写数据处理函数，你可以使用 ref 来从 DOM 节点中获取表单数据。 因为非受控组件将真实数据储存在 DOM 节点中，所以在使用非受控组件时，有时候反而更容易同时集成 React 和非 React 代码。如果你不介意代码美观性，并且希望快速编写代码，使用非受控组件往往可以减少你的代码量。否则，你应该使用受控组件。
+
+例如，下面的代码在非受控组件中接收单个属性：
+
+```java
+class NameForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleSubmit(event) {
+    alert('A name was submitted: ' + this.input.value);
+    event.preventDefault();
+  }
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Name:
+          <input type="text" ref={(input) => this.input = input} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
+}
+
+
+// 新语法： 解构createRef，创建Refs并通过ref属性联系到React组件。Refs通常当组件被创建时被分配给实例变量，这样它们就能在组件中被引用。
+import React, { Component, createRef } from "react";
+class App extends Component {
+  num = createRef();       //current 属性是唯一可用的属性
+  handleClick2 = (ipt) => {
+    console.log(this.num.current.value);
+  }
+  render() {
+    return (
+      <>
+        <input type="text" ref={this.num} />
+        <button onClick={this.handleClick2}>btn</button>
+      </>
+    );
+  }
+}
+```
+
+总结： 页面中所有输入类的 DOM 如果是现用现取的称为非受控组件，而通过 setState 将输入的值维护到了 state 中，需要时再从 state 中取出，这里的数据就受到了 state 的控制，称为受控组件。
+
+## React 中的样式和类
+
+1、组件中的内联样式
+
+```js
+class Header extends React.Component {
+  render() {
+    return <header style={{ color: 'red' }}>这是头</header> //外层{}为 jsx 语法，内层{}为对象写法
+  }
+}
+```
+
+2、直接导入 css
+
+```js
+import 'XXX.css' //导入定义过的 css 文件
+const Main = () => {
+  return <main className="orange big">这是身体</main> //class 为关键字，必须使用 className
+}
+```
+
+3、不同的条件添加不同的样式-使用 classnames 这个包
+
+```js
+//下载安装 classnames 包
+// $npm i classnames
+//引入 classnames 包
+import classNames from 'classNames/bind'
+//引入 CSS 文件
+import styles from './classNames.css'
+let cx = classNames.bind(styles)
+
+function Footer() {
+  let className = cx({
+    blue: true,
+    red: false
+  })
+  return <footer className={className}>这是脚</footer>
+}
+```
+
+4、在 js 中写 css 改变样式
+
+```js
+//安装包
+// $npm i styled-components
+//新建含有 css 的 js 文件，导入模块并导出样式
+import styled from 'styled-components'
+const Pstyled = styled.h1`//h1为标签名，后面接模板字符串 color: red; font-size: ${props => props.size + 'px'};` //可以通过 props 传值
+export { Pstyled }
+//组件中使用
+import React, { Component } from 'react'
+import { Pstyled } from './scc-in-js.js'
+
+class App extends Component {
+  render() {
+    return (
+      <>
+        <Pstyled size="60">styled-components</Pstyled>
+      </>
+    )
+  }
+}
+export default App
+```
 
 ## 参考
 
 - [ React 进阶实践指南](https://juejin.cn/book/6945998773818490884)
 - https://juejin.cn/user/254742429175352/posts
+- https://www.yuque.com/yuqueyonghua2m9wj/web_food/tpo1np
