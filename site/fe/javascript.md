@@ -2633,6 +2633,7 @@ UMD，即通用模块定义。UMD 主要为了解决 CommonJS 和 AMD 规范下�
 示例
 
 ```js
+// eg: https://www.npmjs.com/package/crypto-js
 // hzfe.js
 ;(function(root, factory) {
   if (typeof define === 'function' && define.amd) {

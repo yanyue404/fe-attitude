@@ -309,6 +309,10 @@ React 中的一个核心概念是保持纯粹。一个纯组件或 Hook 应该�
 
 ## React 18 生命周期如何使用？
 
+类组件中可以使用生命周期方法，常见的有 `componentDidMount`、`componentDidUpdate`、跟`componentWillUnmount`，它们分别对应 Vue3 中的 `onMounted`、`onUpdated` 跟 `onBeforeUnmount`。
+
+这个网站可以很清楚看到 React 的生命周期，[React 生命周期](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)，这里就不过多赘述。
+
 ![](https://skillgroup.cn/images/react/10.png)
 
 ![](https://skillgroup.cn/images/react/11.png)
@@ -316,6 +320,32 @@ React 中的一个核心概念是保持纯粹。一个纯组件或 Hook 应该�
 https://skillgroup.cn/framework/react/life-cycle.html
 
 https://zh-hans.react.dev/reference/react/Component
+
+```js
+import { Component } from 'react'
+class ChatRoom extends Component {
+  state = {
+    serverUrl: 'https://localhost:1234'
+  }
+
+  componentDidMount() {
+    this.setupConnection()
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.roomId !== prevProps.roomId || this.state.serverUrl !== prevState.serverUrl) {
+      this.destroyConnection()
+      this.setupConnection()
+    }
+  }
+
+  componentWillUnmount() {
+    this.destroyConnection()
+  }
+
+  // ...
+}
+```
 
 ## 从类组件迁移至 Hook
 
@@ -838,8 +868,47 @@ class App extends Component {
 export default App
 ```
 
+## useEffect Hook
+
+`useEffect`是 React 中用于执行副作用操作的 Hook，并且具有类似于生命周期方法的功能。
+
+`useEffect` 接受两个参数：副作用函数和依赖数组。
+
+1.  **副作用函数**：第一个参数是一个函数，用于执行副作用操作。
+2.  **依赖数组**：第二个参数是一个数组，包含了副作用函数中所依赖的变量。如果省略这个参数，那么副作用函数会在每次组件重新渲染时都执行，可以充当`componentDidMount` + `componentDidUpdate`这两个生命周期；如果传入空数组 `[]`，则副作用函数只会在组件挂载时执行，相当于 `componentDidMount`；如果依赖数组中包含了某些变量，则只有这些变量发生变化时，副作用函数才会重新执行，这样也相当于充当 `componentDidMount` + `componentDidUpdate`这两个生命周期 。如果我们在其中`return`一个函数，这个函数将会在组件卸载时除非，相当于新增了 `componentWillUnmount`。
+
+我总结了一下副作用函数执行时机与依赖项的关系如下：
+
+| 依赖项         | 副作用函数执行时机                  |
+| -------------- | ----------------------------------- |
+| 没有依赖项     | 组件初始渲染 + 组件更新时执行       |
+| 空数组依赖项   | 只在初次渲染时执行一次              |
+| 添加特定依赖项 | 组件初始渲染 + 特定依赖项变化时执行 |
+
+```jsx
+import { useState, useEffect } from 'react'
+export function useDemo() {
+  const [count, setCount] = useState(0)
+  useEffect(() => {
+    console.log('组件更新')
+    return () => {
+      console.log('组件卸载')
+    }
+  }, [count])
+
+  // React 的 Hooks 主要是用于维护组件的状态、处理副作用等，但你可以通过 Hooks 返回 JSX 内容。虽然在 Hooks 中不直接返回 JSX，而是通常在组件内使用 Hooks 然后返回 JSX。
+  return (
+    <div>
+      <p>点击了 {count} 次</p>
+      <button onClick={() => setCount(count + 1)}>点击</button>
+    </div>
+  )
+}
+```
+
 ## 参考
 
 - [ React 进阶实践指南](https://juejin.cn/book/6945998773818490884)
 - https://juejin.cn/user/254742429175352/posts
 - https://www.yuque.com/yuqueyonghua2m9wj/web_food/tpo1np
+- https://juejin.cn/post/7377320107929829388
