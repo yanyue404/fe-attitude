@@ -1,27 +1,25 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from 'react'
 
 async function queryData() {
-  const data = await new Promise<number>((resolve) => {
+  const data = await new Promise<number>(resolve => {
     setTimeout(() => {
-      resolve(666);
-    }, 2000);
+      resolve(666)
+    }, 2000)
   })
-  return data;
+  return data
 }
 
 function App() {
-  const [num, setNum] = useState(0);
+  const [num, setNum] = useState(0)
 
   useLayoutEffect(() => {
-    console.log('xxx');
+    console.log('xxx')
     queryData().then(data => {
-      setNum(data);
-    }, [])
-  }, [1, 2, 3, 'xxx', Date.now()]);
+      setNum(data)
+    })
+  }, [1, 2, 3, 'xxx', Date.now()])
 
-  return (
-    <div onClick={() => setNum((prevNum) => prevNum + 1)}>{num}</div>
-  );
+  return <div onClick={() => setNum(prevNum => prevNum + 1)}>{num}</div>
 }
 
-export default App;
+export default App

@@ -1,44 +1,43 @@
-import { Reducer, useReducer } from "react";
+import { Reducer, useReducer } from 'react'
 
 interface Data {
-    result: number;
+  result: number
 }
 
 interface Action {
-    type: 'add' | 'minus',
-    num: number
+  type: 'add' | 'minus'
+  num: number
 }
 function reducer(state: Data, action: Action) {
-
-    switch(action.type) {
-        case 'add':
-            return {
-                result: state.result + action.num
-            }
-            // state.result += action.num
-            // return state;
-        case 'minus': 
-            return {
-                result: state.result - action.num
-            }
-    }
-    return state;
+  switch (action.type) {
+    case 'add':
+      return {
+        result: state.result + action.num
+      }
+    // state.result += action.num
+    // return state;
+    case 'minus':
+      return {
+        result: state.result - action.num
+      }
+  }
+  return state
 }
 
 function App() {
-  const [res, dispatch] = useReducer<Reducer<Data, Action>, string>(reducer, 'zero', (param) => {
+  const [res, dispatch] = useReducer<Reducer<Data, Action>, string>(reducer, 'zero', param => {
     return {
-        result: param === 'zero' ? 0 : 1
+      result: param === 'zero' ? 0 : 1
     }
-  });
+  })
 
   return (
     <div>
-        <div onClick={() => dispatch({ type: 'add', num: 2 })}>加</div>
-        <div onClick={() => dispatch({ type: 'minus', num: 1 })}>减</div>
-        <div>{res.result}</div>
+      <div onClick={() => dispatch({ type: 'add', num: 2 })}>加</div>
+      <div onClick={() => dispatch({ type: 'minus', num: 1 })}>减</div>
+      <div>{res.result}</div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

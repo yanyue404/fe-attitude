@@ -1,17 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
 function App() {
+  const [count, setCount] = useState(0)
 
-    const [count,setCount] = useState(0);
+  useEffect(() => {
+    setInterval(() => {
+      console.log(count)
+      setCount(count + 1)
+    }, 1000)
+  }, [])
 
-    useEffect(() => {
-        setInterval(() => {
-            console.log(count);
-            setCount(count + 1);
-        }, 1000);
-    }, []);
-
-    return <div>{count}</div>
+  return <div>{count}</div>
 }
 
-export default App;
+export default App

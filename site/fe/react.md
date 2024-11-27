@@ -703,6 +703,8 @@ export default function MyApp() {
 
 ## React 中什么是受控组件和非控组件？
 
+value 由用户控制就是非受控模式，由代码控制就是受控模式。
+
 （1）受控组件 在使用表单来收集用户输入时，例如`<input><select><textearea>`等元素都要绑定一个 change 事件，当表单的状态发生变化，就会触发 onChange 事件，更新组件的 state。这种组件在 React 中被称为受控组件，在受控组件中，组件渲染出的状态与它的 value 或 checked 属性相对应，react 通过这种方式消除了组件的局部状态，使整个状态可控。react 官方推荐使用受控表单组件。
 
 受控组件更新 state 的流程：
@@ -750,7 +752,7 @@ class App extends Component {
  }
 ```
 
-（2）非受控组件 如果一个表单组件没有 value props（单选和复选按钮对应的是 checked props）时，就可以称为非受控组件。在非受控组件中，可以使用一个 ref 来从 DOM 获得表单值。而不是为每个状态更新编写一个事件处理程序。
+（2）非受控组件 如果一个表单组件没有 value props（单选和复选按钮对应的是 checked props）时，就可以称为非受控组件。在非受控组件中，可以使用 onChange 事件 event.target 拿到 value 或一个 ref 来从 DOM 获得表单值。而不是为每个状态更新编写一个事件处理程序。
 
 React 官方的解释：
 

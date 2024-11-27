@@ -1,41 +1,41 @@
-import { useEffect, useState, useRef, useCallback, useLayoutEffect } from 'react';
+import { useEffect, useState, useRef, useCallback, useLayoutEffect } from 'react'
 
 function useInterval(fn: Function, time: number) {
-    const ref = useRef(fn);
+  const ref = useRef(fn)
 
-    useLayoutEffect(() => {
-        ref.current = fn;
-    });
+  useLayoutEffect(() => {
+    ref.current = fn
+  })
 
-    let cleanUpFnRef = useRef<Function>();
-    
-    const clean = useCallback(() =>{
-        cleanUpFnRef.current?.();
-    }, []);
+  let cleanUpFnRef = useRef<Function>()
 
-    useEffect(() => {
-        const timer = setInterval(() => ref.current(), time);
+  const clean = useCallback(() => {
+    cleanUpFnRef.current?.()
+  }, [])
 
-        cleanUpFnRef.current = ()=> {
-            clearInterval(timer);
-        }
+  useEffect(() => {
+    const timer = setInterval(() => ref.current(), time)
 
-        return clean;
-    }, []);
+    cleanUpFnRef.current = () => {
+      clearInterval(timer)
+    }
 
-    return clean;
+    return clean
+  }, [])
+
+  return clean
 }
 
 function App() {
-    const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
 
-    const updateCount = () => {
-        setCount(count + 1);
-    };
+  const updateCount = () => {
+    setCount(count + 1)
+  }
 
-    useInterval(updateCount, 1000);
+  useInterval(updateCount, 1000)
 
-    return <div>{count}</div>;
+  return <div>{count}</div>
 }
 
-export default App;
+export default App

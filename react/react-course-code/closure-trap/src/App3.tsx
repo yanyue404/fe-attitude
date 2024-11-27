@@ -1,26 +1,26 @@
-import { useEffect, useState, useRef, useLayoutEffect } from 'react';
+import { useEffect, useState, useRef, useLayoutEffect } from 'react'
 
 function App() {
-    const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
 
-    const updateCount = () => {
-        setCount(count + 1);
-    };
-    const ref = useRef(updateCount);
+  const updateCount = () => {
+    setCount(count + 1)
+  }
+  const ref = useRef(updateCount)
 
-    useLayoutEffect(() => {
-        ref.current = updateCount;
-    });
+  useLayoutEffect(() => {
+    ref.current = updateCount
+  })
 
-    useEffect(() => {
-        const timer = setInterval(() => ref.current(), 1000);
+  useEffect(() => {
+    const timer = setInterval(() => ref.current(), 1000)
 
-        return () => {
-            clearInterval(timer);
-        }
-    }, []);
+    return () => {
+      clearInterval(timer)
+    }
+  }, [])
 
-    return <div>{count}</div>;
+  return <div>{count}</div>
 }
 
-export default App;
+export default App

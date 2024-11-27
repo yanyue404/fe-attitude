@@ -37,7 +37,7 @@ function useMergeState<T>(
   } 
 
   const setState = useCallback((value: SetStateAction<T>) => {
-    let res = isFunction(value) ? value(stateValue) : value
+    const res = isFunction(value) ? value(stateValue) : value
 
     if (propsValue === undefined) {
       setStateValue(res);

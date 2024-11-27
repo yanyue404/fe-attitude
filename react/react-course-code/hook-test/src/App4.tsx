@@ -1,17 +1,17 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react'
 
 function App() {
-    const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null)
 
-    useEffect(() => {
-        inputRef.current?.focus();
-    });
+  useEffect(() => {
+    inputRef.current?.focus()
+  })
 
-    return (
-        <div>
-            <input ref={inputRef}></input>
-        </div>
-    );
+  return (
+    <div>
+      <input ref={inputRef}></input>
+    </div>
+  )
 }
 
-export default App;
+export default App
