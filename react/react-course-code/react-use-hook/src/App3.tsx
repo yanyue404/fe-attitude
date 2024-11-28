@@ -1,17 +1,13 @@
-import { useEffect, useState } from 'react';
-import {useMountedState} from 'react-use';
+// import {useLifecycles} from 'react-use';
+import useLifecycles from './useLifecycles'
 
 const App = () => {
-    const isMounted = useMountedState();
-    const [,setNum ] = useState(0);
+  useLifecycles(
+    () => console.log('MOUNTED'),
+    () => console.log('UNMOUNTED')
+  )
 
-    useEffect(() => {
-        setTimeout(() => {
-            setNum(1);
-        }, 1000);
-    }, []);
+  return null
+}
 
-    return <div>{ isMounted() ? 'mounted' : 'pending' }</div>
-};
-
-export default App;
+export default App

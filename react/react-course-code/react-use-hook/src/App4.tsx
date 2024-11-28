@@ -1,16 +1,17 @@
-import { useEffect } from "react";
-import { useCookie } from "react-use";
+import { useEffect } from 'react'
+// import { useCookie } from 'react-use'
+import useCookie from './useCookie'
 
 const App = () => {
-  const [value, updateCookie, deleteCookie] = useCookie("guang");
+  const [value, updateCookie, deleteCookie] = useCookie('guang')
 
   useEffect(() => {
-    deleteCookie();
-  }, []);
+    deleteCookie()
+  }, [])
 
   const updateCookieHandler = () => {
-    updateCookie("666");
-  };
+    updateCookie('666')
+  }
 
   return (
     <div>
@@ -19,6 +20,6 @@ const App = () => {
       <br />
       <button onClick={deleteCookie}>删除 Cookie</button>
     </div>
-  );
-};
-export default App;
+  )
+}
+export default App
