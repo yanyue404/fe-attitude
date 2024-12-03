@@ -4,7 +4,8 @@
 
 ## Install
 
-```
+```bash
+# https://www.npmjs.com/package/guang-components
 npm install --save guang-components@latest
 ```
 

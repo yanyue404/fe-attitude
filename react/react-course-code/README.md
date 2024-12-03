@@ -82,6 +82,8 @@
 
 [手写 mini react](./mini-react/)
 
+[React 组件库都是怎么构建的](./component-lib-test/)
+
 [React 组件库构建并发布 npm 仓库](./guang-components/)
 
 [对比 webpack 学习 Rollup](./rollup-test/)
@@ -93,3 +95,7 @@
 [React Flow 振荡器调音](./audio-flow/)
 
 [AudioContext 在线钢琴](./online-piano/)
+
+### NPM
+
+- https://www.npmjs.com/~quark-gluon-plasma
