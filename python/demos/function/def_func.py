@@ -23,4 +23,11 @@ x, y = move(100, 100, 60, math.pi / 6)
 print(x, y)
 
 # TypeError: bad operand type:
-my_abs('123')
+# my_abs('123')
+
+
+def Foo(op, n1, n2) :
+ return eval( "%d %s %d" % (n1, op, n2) )
+
+print(Foo("+", 2, 4) )    # 返回 6
+print(Foo("*", 3, 5))     # 返回 15
