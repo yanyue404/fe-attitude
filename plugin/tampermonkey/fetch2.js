@@ -4,10 +4,11 @@
 // @version      0.1
 // @description  try to take over the world!
 // @author       You
-// @match        http://127.0.0.1:5500/test/fetch.html
+// @match        http://127.0.0.1:5500/plugin/tampermonkey/fetch.html
 // @grant        unsafeWindow
 // ==/UserScript==
 
+// https://juejin.cn/post/6844903781990137864 基于原生fetch封装一个带有拦截器功能的fetch，类似axios的拦截器
 ;(function() {
   'use strict'
   // Your code here...
@@ -35,9 +36,7 @@
           ](input, init);
         }, init); */
         interceptors_req.forEach(interceptor => {
-          init = c_fetch.interceptors.interceptors.requestInterceptors[
-            interceptor
-          ](input, init)
+          init = c_fetch.interceptors.interceptors.requestInterceptors[interceptor](input, init)
         })
       }
 
@@ -62,9 +61,7 @@
 
               interceptors_res.reduce((interceptorRes, interceptor) => {
                 //拦截器对响应结果做处理，把处理后的结果返回给响应结果。
-                return c_fetch.interceptors.interceptors.responseInterceptors[
-                  interceptor
-                ](input, interceptorRes)
+                return c_fetch.interceptors.interceptors.responseInterceptors[interceptor](input, interceptorRes)
               }, resolvedRes)
 
               return resolvedRes
@@ -99,6 +96,11 @@
               console.log(err)
             }
           }
+        },
+        eject: data => {
+          if (interceptors_req.indexOf(data) !== -1) {
+            interceptors_req.splice(interceptors_req.indexOf(data), 1)
+          }
         }
       },
       response: {
@@ -111,6 +113,11 @@
             } catch (err) {
               console.log(err)
             }
+          }
+        },
+        eject: data => {
+          if (interceptors_res.indexOf(data) !== -1) {
+            interceptors_res.splice(interceptors_res.indexOf(data), 1)
           }
         }
       }
