@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        // 冒泡排序算法
+        function bubbleSort(arr) {
+            // 添加参数检查
+            if (!Array.isArray(arr)) {
+                throw new Error('参数必须是数组类型');
+            }
+            
+            if (arr.length === 0) {
+                return arr;
+            }
+
+            for (let i = 0; i < arr.length; i++) {
+                for (let j = 0; j < arr.length - i - 1; j++) {
+                    if (arr[j] > arr[j + 1]) {
+                        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]
+                    }
+                }
+            }
+            return arr
+        }
+        console.log(bubbleSort([1, 2, 3, 4, 5]))
+
+        // 使用更好的测试用例
+        const testArray = [64, 34, 25, 12, 22, 11, 90];
+        console.log('排序前：', testArray);
+        console.log('排序后：', bubbleSort([...testArray]));
+
+        // 错误处理示例
+        try {
+            console.log(bubbleSort()); // 会抛出错误
+        } catch (error) {
+            console.error('错误：', error.message);
+        }
+    </script>
+</body>
+</html> 
