@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./jsBridge.js"></script>
+    <script>
+      /**
+       * 测试 jsBridge
+       */
+      async function testJsBridge() {
+        // 1. 模拟获取用户信息
+        const userInfoPromise = jsBridge.getUserInfo()
+
+        console.log('userInfoPromise', userInfoPromise)
+
+        // 模拟 App 返回用户数据
+        setTimeout(() => {
+          // 从 Promise 对象中获取 callbackId
+          const callbackId = globalMessage.callbackId
+          window.fromApp(callbackId, {
+            code: 0,
+            data: {
+              userId: '12345',
+              nickname: '张三',
+              avatar: 'https://example.com/avatar.jpg'
+            }
+          })
+        }, 500)
+
+        // 等待 Promise 完成
+        const userInfo = await userInfoPromise
+        console.log('userInfo:', userInfo)
+
+        // 2. 模拟设置分享信息
+        const sharePromise = jsBridge.setShareInfo({
+          title: '测试分享',
+          desc: '分享描述',
+          link: 'https://example.com',
+          imgUrl: 'https://example.com/image.jpg'
+        })
+        // 模拟 App 返回分享结果
+        setTimeout(() => {
+          const callbackId = globalMessage.callbackId
+          window.fromApp(callbackId, {
+            code: 0,
+            data: {
+              success: true
+            }
+          })
+        }, 500)
+
+        // 等待分享结果
+        const shareResult = await sharePromise
+        console.log('shareResult:', shareResult)
+      }
+
+      // 模拟失败情况
+      function testError() {
+        const promise = jsBridge.getUserInfo()
+
+        // 模拟失败响应
+        setTimeout(() => {
+          const callbackId = globalMessage.callbackId
+          window.fromApp(callbackId, {
+            code: -1,
+            message: '获取用户信息失败'
+          })
+        }, 500)
+
+        return promise.catch(err => {
+          console.error('错误信息:', err)
+        })
+      }
+
+      // 运行测试
+      testJsBridge()
+      //   testError()
+    </script>
+  </body>
+</html>
