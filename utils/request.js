@@ -1,4 +1,4 @@
-function myJsonp(url, data, callback) {
+export function myJsonp(url, data, callback) {
   var fnName =
     'myJsonp_' +
     Math.random()
@@ -23,7 +23,7 @@ function myJsonp(url, data, callback) {
  * @param {*} name
  * @returns
  */
-function GetQueryString(name) {
+export function GetQueryString(name) {
   const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
   const r = window.location.search.substr(1).match(reg)
   if (r != null) return unescape(r[2])
@@ -36,7 +36,7 @@ function GetQueryString(name) {
  * @param {*} obj {'a':1,'b':2}
  * @returns a=1&b=2
  */
-function setUrlParam(obj) {
+export function setUrlParam(obj) {
   let _rs = []
   for (let p in obj) {
     if (obj[p] != null && obj[p] != '') {
@@ -52,7 +52,7 @@ function setUrlParam(obj) {
  * @param {*} url
  * @returns
  */
-function parseParam(url) {
+export function parseParam(url) {
   var paramArr = decodeURI(url)
       .split('?')[1]
       .split('&'),
@@ -75,7 +75,7 @@ function parseParam(url) {
  * @param  {Object} obj
  * @return {String}
  */
-function qsStringify(obj) {
+export function qsStringify(obj) {
   var pairs = []
   for (var key in obj) {
     var value = obj[key]
@@ -94,7 +94,7 @@ function qsStringify(obj) {
 }
 
 // form表单序列化 摘自高程
-function serialize(form) {
+export function serialize(form) {
   var parts = [],
     field = null,
     i,
@@ -116,19 +116,11 @@ function serialize(form) {
             if (option.selected) {
               optValue = ''
               if (option.hasAttribute) {
-                optValue = option.hasAttribute('value')
-                  ? option.value
-                  : option.text
+                optValue = option.hasAttribute('value') ? option.value : option.text
               } else {
-                optValue = option.attributes['value'].specified
-                  ? option.value
-                  : option.text
+                optValue = option.attributes['value'].specified ? option.value : option.text
               }
-              parts.push(
-                encodeURIComponent(field.name) +
-                  '=' +
-                  encodeURIComponent(optValue)
-              )
+              parts.push(encodeURIComponent(field.name) + '=' + encodeURIComponent(optValue))
             }
           }
         }
@@ -151,11 +143,7 @@ function serialize(form) {
       default:
         //don't include form fields without names
         if (field.name.length) {
-          parts.push(
-            encodeURIComponent(field.name) +
-              '=' +
-              encodeURIComponent(field.value)
-          )
+          parts.push(encodeURIComponent(field.name) + '=' + encodeURIComponent(field.value))
         }
     }
   }

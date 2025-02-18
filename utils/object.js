@@ -128,5 +128,3 @@ export const equals = (a, b) => {
 
 // deep merge
 // https://www.30secondsofcode.org/js/s/merge-objects/
-
-export default { has, deepCopy, only, omit, isEqual, mergeObject, get }

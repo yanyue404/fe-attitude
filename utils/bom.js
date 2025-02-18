@@ -1,109 +1,115 @@
-var bom = {
+class BOM {
   /**
    * 获取页面最大高度
-   * @return 属性样式
+   * @return {number} 页面最大高度
    */
-  getMaxH: function() {
-    return this.getPageHeight() > this.getWinHeight()
-      ? this.getPageHeight()
-      : this.getWinHeight();
-  },
+  static getMaxHeight() {
+    return Math.max(BOM.getPageHeight(), BOM.getWinHeight())
+  }
 
   /**
    * 获取页面最大宽度
-   * @return 属性样式
+   * @return {number} 页面最大宽度
    */
-  getMaxW: function() {
-    return this.getPageWidth() > this.getWinWidth()
-      ? this.getPageWidth()
-      : this.getWinWidth();
-  },
+  static getMaxWidth() {
+    return Math.max(BOM.getPageWidth(), BOM.getWinWidth())
+  }
 
   /**
    * 网页内容高度
-   * @return {int} 网页内容高度
+   * @return {number} 网页内容高度
    */
-  getPageHeight: function() {
-    var h =
-      window.innerHeight && window.scrollMaxY
-        ? window.innerHeight + window.scrollMaxY
-        : document.body.scrollHeight > document.body.offsetHeight
-        ? document.body.scrollHeight
-        : document.body.offsetHeight;
-    return h > document.documentElement.scrollHeight
-      ? h
-      : document.documentElement.scrollHeight;
-  },
+  static getPageHeight() {
+    const body = document.body
+    const html = document.documentElement
+    const height = Math.max(
+      body.scrollHeight,
+      body.offsetHeight,
+      html.clientHeight,
+      html.scrollHeight,
+      html.offsetHeight
+    )
+    return height
+  }
 
   /**
    * 网页内容宽度
-   * @return {int} 网页内容宽度
+   * @return {number} 网页内容宽度
    */
-  getPageWidth: function() {
-    return window.innerWidth && window.scrollMaxX
-      ? window.innerWidth + window.scrollMaxX
-      : document.body.scrollWidth > document.body.offsetWidth
-      ? document.body.scrollWidth
-      : document.body.offsetWidth;
-  },
+  static getPageWidth() {
+    const body = document.body
+    const html = document.documentElement
+    const width = Math.max(body.scrollWidth, body.offsetWidth, html.clientWidth, html.scrollWidth, html.offsetWidth)
+    return width
+  }
 
   /**
    * 浏览器可视区域高度
-   * @return {int} 网可视区域高度
+   * @return {number} 浏览器可视区域高度
    */
-  getWinHeight: function() {
-    return window.innerHeight
-      ? window.innerHeight
-      : document.documentElement && document.documentElement.clientHeight
-      ? document.documentElement.clientHeight
-      : document.body.offsetHeight;
-  },
+  static getWinHeight() {
+    return window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+  }
 
   /**
    * 浏览器可视区域宽度
-   * @return {int} 网可视区域宽度
+   * @return {number} 浏览器可视区域宽度
    */
-  getWinWidth: function() {
-    return window.innerWidth
-      ? window.innerWidth
-      : document.documentElement && document.documentElement.clientWidth
-      ? document.documentElement.clientWidth
-      : document.body.offsetWidth;
-  },
+  static getWinWidth() {
+    return window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+  }
 
   /**
    * 获取页面中对象的绝对X位置
-   * @param {dom} e dom对象
-   * @return {int}
+   * @param {HTMLElement} element DOM对象
+   * @return {number} 绝对X位置
    */
-  getX: function(e) {
-    var t = e.offsetLeft;
-    while ((e = e.offsetParent)) t += e.offsetLeft;
-    return t;
-  },
+  static getX(element) {
+    let x = element.offsetLeft
+    while ((element = element.offsetParent)) {
+      x += element.offsetLeft
+    }
+    return x
+  }
+
   /**
    * 获取页面中对象的绝对Y位置
-   * @param {dom} e dom对象
-   * @return {int}
+   * @param {HTMLElement} element DOM对象
+   * @return {number} 绝对Y位置
    */
-  getY: function(e) {
-    var t = e.offsetTop;
-    while ((e = e.offsetParent)) t += e.offsetTop;
-    return t;
-  },
-  getScrollLeft: function() {
-    return window.pageXOffset || document.documentElement.scrollLeft;
-  },
-  getScrollTop: function() {
-    return window.pageYOffset || document.documentElement.scrollTop;
-  },
-};
-// 滚动到页面id元素位置
-export const ToAnchor = el =>
-  document.getElementById(el).scrollIntoView({
-    behavior: 'smooth',
-  });
+  static getY(element) {
+    let y = element.offsetTop
+    while ((element = element.offsetParent)) {
+      y += element.offsetTop
+    }
+    return y
+  }
 
-export default {
-  ToAnchor,
-};
+  /**
+   * 获取页面滚动左偏移量
+   * @return {number} 滚动左偏移量
+   */
+  static getScrollLeft() {
+    return window.pageXOffset || document.documentElement.scrollLeft
+  }
+
+  /**
+   * 获取页面滚动上偏移量
+   * @return {number} 滚动上偏移量
+   */
+  static getScrollTop() {
+    return window.pageYOffset || document.documentElement.scrollTop
+  }
+
+  /**
+   * 滚动到页面ID元素位置
+   * @param {string} elementId 元素ID
+   */
+  static scrollToAnchor(elementId) {
+    document.getElementById(elementId).scrollIntoView({
+      behavior: 'smooth'
+    })
+  }
+}
+
+export default BOM

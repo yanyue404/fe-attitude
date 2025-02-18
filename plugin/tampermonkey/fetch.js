@@ -10,6 +10,7 @@
 
 ;(function() {
   'use strict'
+  
   // Your code here...
   console.log(window.unsafeWindow)
   const dom = document.createElement('div')

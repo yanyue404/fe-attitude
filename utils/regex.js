@@ -1,12 +1,7 @@
 // 验证规则
 const VerificationRules = {
   empty: function(str) {
-    return (
-      str == null ||
-      str == '' ||
-      str == undefined ||
-      typeof str == typeof undefined
-    )
+    return str == null || str == '' || str == undefined || typeof str == typeof undefined
   },
   email: function(str) {
     return /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(str)
@@ -84,12 +79,6 @@ export function getChineseTextFormHtml(html) {
     content = '点击查看详情'
   }
   return content
-}
-
-export default {
-  checkType,
-  escape2Html,
-  getChineseTextFormHtml
 }
 
 // 参考

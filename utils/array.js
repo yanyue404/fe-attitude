@@ -191,17 +191,25 @@ orderWith(users, 'language', ['Javascript', 'TypeScript', 'Java']) */
 ]
 */
 
-export default {
-  isArrayLike,
-  isArray,
-  toArray,
-  isContains,
-  arrayIndex,
-  randomOne,
-  compact,
-  uniqueArrayObj,
-  uniqueArray,
-  addKey,
-  sortBy,
-  shuffle
+/**
+ * Splits an array into chunks of a specified size.
+ * create by https://github.com/copilot/
+ *
+ * @param {Array} array - The array to be split.
+ * @param {number} size - The size of each chunk.
+ * @returns {Array} - An array containing the chunks.
+ */
+export function splitArray(array, size) {
+  if (!Array.isArray(array)) {
+    throw new TypeError('Input should be an array')
+  }
+  if (typeof size !== 'number' || size <= 0) {
+    throw new TypeError('Size should be a positive number')
+  }
+
+  const result = []
+  for (let i = 0; i < array.length; i += size) {
+    result.push(array.slice(i, i + size))
+  }
+  return result
 }

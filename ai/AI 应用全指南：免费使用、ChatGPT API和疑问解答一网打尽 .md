@@ -18,20 +18,32 @@
 - [智谱清言](https://chatglm.cn/) 智谱 A
 - [讯飞星火](https://xinghuo.xfyun.cn/)
 - [通义千问](https://tongyi.aliyun.com/qianwen/)
+- [**deepseek**](https://chat.deepseek.com/)
 
 ### 编程
 
-- [GitHub Copliot](https://github.com/features/copilot)
+- [GitHub Copliot](https://github.com/copilot/)
   - [VS Code: GitHub Copilot](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)
 - [腾讯云 AI 代码助手]()
   - [VS Code: Tencent Cloud AI Code Assistant](https://marketplace.visualstudio.com/publishers/Tencent-Cloud)
 - [CodeFuse(蚂蚁百灵)](https://codefuse.alipay.com/) 免费
+- [Cursor](https://www.cursor.com/cn) —— AI 代码编辑器
+- [AI 代码助手](https://www.ai-code-assistant.com/) 免费
 
 ## 免费 ChatGPT API
 
 - [GPT-GOD](https://gptgod.online/)
 - [GPT_API_free](https://github.com/chatanywhere/GPT_API_free) [文档](https://chatanywhere.apifox.cn/)
 - [kimi-free-api](https://github.com/LLM-Red-Team/kimi-free-api) / [智谱清言 ChatGLM4 大模型在线使用](https://udify.app/chat/Pe89TtaX3rKXM8NS) / [讯飞星火大模型在线使用](https://udify.app/chat/xsLvQf9U0QJRIkmN)
+- [SiliconCloud](https://cloud.siliconflow.cn/models)
+
+## 常用
+
+- 编辑器： Cursor + gpt3.5/4/deepseek
+- 问答
+  - GPT-GOD
+  - chatbox：gpt3.5/4/deepseek
+  - [github copilot](https://github.com/copilot/)
 
 **1. 非流接入**
 
