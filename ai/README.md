@@ -11,7 +11,7 @@
 
 > [LLM Leaderboard](https://www.vellum.ai/llm-leaderboard)
 
-> [artificialanalysis.ai](https://artificialanalysis.ai/leaderboards/models)
+> [artificialanalysis.ai](https://artificialanalysis.ai)
 
 > [🏆 大模型综合能力评测对比表](https://www.datalearner.com/ai-models/leaderboard/datalearner-llm-leaderboard)
 
