@@ -8,7 +8,7 @@ function getType(a) {
   return Object.prototype.toString.call(a).slice(8, -1)
 }
 // 是否已定义
-function isDefined(val) {
+function isDef(val) {
   return val !== undefined && val !== null
 }
 function isPromise(val) {
@@ -187,63 +187,4 @@ function fmoney(s, n) {
  */
 function rmoney(s) {
   return parseFloat(s.replace(/[^\d\.-]/g, ''))
-}
-
-/**
- * 为数组添加新的自定义键值以及过滤每个子项的方法
- *
- * @param {*} arr
- * @param {*} obj { isShow:false,isStar:false} 第二个参数为 Function 时
- * @param {*} filterFn 第二个参数为 Object 时
- * @returns Array
- */
-function addKey(sourceArray, extendObj, filterFn) {
-  var getType = function(a) {
-    var typeArray = Object.prototype.toString.call(a).split(' ')
-    return typeArray[1].slice(0, -1)
-  }
-  var secondParamType = getType(arguments[1])
-
-  if (!getType(sourceArray) == 'Array') {
-    throw new Error('第一个参数必须为数组类型')
-  }
-  if (secondParamType === 'Object') {
-    return sourceArray.forEach((v, index, sourceArray) => {
-      for (var key in extendObj) {
-        v[key] = extendObj[key]
-      }
-      typeof filterFn === 'function' ? filterFn(v, index, sourceArray) : ''
-    })
-  } else if (secondParamType === 'Function') {
-    return sourceArray.forEach((v, index, sourceArray) => {
-      arguments[1](v, index, sourceArray)
-    })
-  } else {
-    return sourceArray
-  }
-}
-
-//----------------------------------------- 事件相关------------------------------------------
-/**
- *
- *
- * @param {*} a dom 元素
- * @param {*} b 事件类型 click change scroll
- * @param {*} c function
- * @param {*} d  参数默认false=》冒泡，true为捕获
- */
-function addEvent(a, b, c, d) {
-  a.addEventListener ? a.addEventListener(b, c, d) : a.attachEvent('on' + b, c)
-}
-// removeEvent(objOverLay, 'click', eMsgClose)
-function removeEvent(a, b, c, d) {
-  a.removeEventListener
-    ? a.removeEventListener(b, c, d)
-    : a.detachEvent('on' + b, c)
-}
-
-function setStyle(ele, styleObj) {
-  for (var i in styleObj) {
-    ele.style[i] = styleObj[i]
-  }
 }

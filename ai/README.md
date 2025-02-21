@@ -1,7 +1,8 @@
 # README
 
-## awesome-ai
+## Awesome AI
 
+- [Awesome AI Tools](https://github.com/ikaijua/Awesome-AITools) - 收藏 AI 相关的实用工具
 - https://github.com/sourcegraph/awesome-code-ai - AI 编码工具的列表（助理，完成，重构等）
 - https://github.com/armankhondker/awesome-ai-ml-resources - 通过路线图和免费资源学习 AI/机器学习
 - [chinese-llm-benchmark](https://github.com/jeinlee1991/chinese-llm-benchmark) - 中文大模型能力评测榜单

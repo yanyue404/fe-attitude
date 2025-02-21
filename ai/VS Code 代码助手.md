@@ -204,3 +204,29 @@
      - `Copilot.AdvancedAutoCompletions`: 多行建议模式
 
 **注意**：需要有效的 GitHub Copilot 订阅（个人版 \$10/月，学生免费）。若遇到建议延迟，可检查网络连接或尝试重启 VS Code。
+
+## Continue
+
+https://www.continue.dev/
+
+## 豆包 MarsCode 编程助手
+
+字节跳动旗下的 AI 代码助手，提供智能补全、智能预测、智能问答等能力
+
+在 VS Code 编辑器，怎么使用 DeepSeek 模型？
+
+国内用户的最简单方法，大概就是  [MarsCode 编程助手](https://zjsms.com/iPg5wXhX/)。
+
+它最新的 VSCode 插件（1.1.62 版本）和 JetBrains 插件（1.2.1.15 版本），都支持 DeepSeek。已经安装的朋友，IDE 内直接更新，新安装可以去[官网下载](https://zjsms.com/iPg5wXhX/)。
+
+![](https://cdn.beekka.com/blogimg/asset/202502/bg2025021906.webp)
+
+使用时，在 AI 对话框下方，点击模型按钮，目前有三个模型：doubao-1.5-pro、DeepSeek R1/V3（满血版）。不需要任何配置，全部免费使用。
+
+这三个模型的能力都很强，插件效果（代码解释、注释、修复、优化、上下文问答）都表现更好了，大家可以自己比较。其中，DeepSeek R1 模型在后台由火山方舟部署，TPS（每秒 Token 生成速度）、TTFT（首 token 出现等待时间）等指标，[第三方测评结果](https://mp.weixin.qq.com/s?__biz=Mzg5NTc0MjgwMw==&mid=2247514264&idx=1&sn=d3ffa53fce70b6dc148c4a6e9df3537a&scene=58&subscene=0)称，其 DS 方案性能排名表现优异。
+
+![](https://cdn.beekka.com/blogimg/asset/202502/bg2025021907.webp)
+
+## 参考
+
+- https://www.ruanyifeng.com/blog/2025/02/weekly-issue-338.html
