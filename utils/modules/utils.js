@@ -1,190 +1,181 @@
 /**
- * 判断数据类型
- *
- * @param {*} a
- * @returns Boolean String Array Object Function Number Undefined Null
+ * 获取数据类型
+ * @param {*} value - 要判断类型的值
+ * @returns {string} - 返回类型字符串：Boolean|String|Array|Object|Function|Number|Undefined|Null
  */
-function getType(a) {
-  return Object.prototype.toString.call(a).slice(8, -1)
-}
-// 是否已定义
-function isDef(val) {
-  return val !== undefined && val !== null
-}
-function isPromise(val) {
-  return isObject(val) && isFunction(val.then) && isFunction(val.catch)
+const getType = value => Object.prototype.toString.call(value).slice(8, -1)
+
+/**
+ * 判断值是否已定义
+ * @param {*} value - 要判断的值
+ * @returns {boolean}
+ */
+const isDef = value => value !== undefined && value !== null
+
+/**
+ * 判断是否为 Promise
+ * @param {*} value - 要判断的值
+ * @returns {boolean}
+ */
+const isPromise = value => isObject(value) && isFunction(value.then) && isFunction(value.catch)
+
+/**
+ * 判断是否为函数
+ * @param {*} value - 要判断的值
+ * @returns {boolean}
+ */
+const isFunction = value => getType(value) === 'Function'
+
+/**
+ * 判断是否为数字
+ * @param {*} value - 要判断的值
+ * @returns {boolean}
+ */
+const isNumber = value => typeof value === 'number'
+
+/**
+ * 判断是否为数组
+ * @param {*} value - 要判断的值
+ * @returns {boolean}
+ */
+const isArray = Array.isArray
+
+/**
+ * 判断是否为对象
+ * @param {*} value - 要判断的值
+ * @returns {boolean}
+ */
+const isObject = value => value != null && typeof value === 'object' && !Array.isArray(value)
+
+/**
+ * 判断是否为空对象
+ * @param {Object} obj - 要判断的对象
+ * @returns {boolean}
+ */
+const isEmptyObject = obj => {
+  if (!obj) return false
+  return !Object.keys(obj).some(key => obj[key])
 }
 
-function isFunction(obj) {
-  return Object.prototype.toString.call(obj).slice(8, -1) === 'Function'
-}
-const isNumber = obj => {
-  return typeof obj === 'number'
-}
-function isArray(arg) {
-  return Array.isArray(arg)
-}
-function isObject(arg) {
-  return arg != null && typeof arg === 'object' && !Array.isArray(arg)
-}
-function isEmptyObject(obj) {
-  if (!obj) {
-    return false
-  }
-  for (const n in obj) {
-    if (obj.hasOwnProperty(n) && obj[n]) {
-      return false
-    }
-  }
-  return true
-}
 /**
  * 对象扩展
- *
- * @param {*} target
- * arguments obj ...
- * @returns obj
+ * @param {Object} target - 目标对象
+ * @param {...Object} sources - 源对象
+ * @returns {Object}
  */
-function extend(target) {
-  for (var i = 1, len = arguments.length; i < len; i++) {
-    for (var prop in arguments[i]) {
-      if (arguments[i].hasOwnProperty(prop)) {
-        target[prop] = arguments[i][prop]
+const extend = (target, ...sources) => {
+  sources.forEach(source => {
+    Object.keys(source).forEach(key => {
+      if (source.hasOwnProperty(key)) {
+        target[key] = source[key]
       }
-    }
-  }
+    })
+  })
   return target
 }
-// https://github.com/lodash/lodash/blob/master/isPlainObject.js
-function isPlainObject(value) {
-  if (!isObjectLike(value) || getTag(value) != '[object Object]') {
+
+/**
+ * 判断是否为纯对象
+ * @param {*} value - 要判断的值
+ * @returns {boolean}
+ */
+const isPlainObject = value => {
+  if (!isObject(value) || Object.prototype.toString.call(value) !== '[object Object]') {
     return false
   }
-  if (Object.getPrototypeOf(value) === null) {
-    return true
-  }
-  let proto = value
-  while (Object.getPrototypeOf(proto) !== null) {
-    proto = Object.getPrototypeOf(proto)
-  }
-  return Object.getPrototypeOf(value) === proto
+  const proto = Object.getPrototypeOf(value)
+  return proto === null || proto === Object.prototype
 }
 
 /**
- * JSON 克隆
- * @param {Object | Json} jsonObj json对象
- * @return {Object | Json} 新的json对象
+ * 深克隆对象
+ * @param {*} value - 要克隆的值
+ * @returns {*}
  */
-function objClone(jsonObj) {
-  let buf
-  if (Array.isArray(jsonObj)) {
-    buf = []
-    let i = jsonObj.length
-    while (i--) {
-      buf[i] = objClone(jsonObj[i])
-    }
-    return buf
-  } else if (isPlainObject(jsonObj)) {
-    buf = {}
-    for (const k in jsonObj) {
-      buf[k] = objClone(jsonObj[k])
-    }
-    return buf
-  } else {
-    return jsonObj
+const deepClone = value => {
+  if (Array.isArray(value)) {
+    return value.map(deepClone)
   }
+  if (isPlainObject(value)) {
+    return Object.fromEntries(Object.entries(value).map(([key, val]) => [key, deepClone(val)]))
+  }
+  return value
 }
+
 /**
  * 格式化时间戳
- *
- * @param {*} timestamp "1562585040" 只第一个参数，返回时间信息 obj { D: "08",M: "07",Y: 2019,h: "19:",m: "24:",s: "00"}
- * @param {*} splitStr 指定分割符(年月日) '/' "2019/07/08"
- * @param {*} hasHour/type true "2019-07-08 19:24:00"
- * @returns
+ * @param {string|number} timestamp - 时间戳
+ * @param {string} [separator='-'] - 日期分隔符
+ * @param {boolean} [showTime=false] - 是否显示时间
+ * @returns {string|Object}
  */
-function timestampToTime(timestamp, splitStr, hasHour) {
-  var date = (function() {
-      if (timestamp.length === 10) {
-        return new Date(timestamp * 1000)
-      } else if (timestamp.length === 13) {
-        return new Date(Number(timestamp))
-      } else {
-        throw new Error('请检验传入的时间戳')
-      }
-    })(),
-    // 补 0
-    addZero = function(str) {
-      return Number(str) < 10 ? '0' + str : str
-    }
-  var Y = date.getFullYear(),
-    M = addZero(date.getMonth() + 1),
-    D = addZero(date.getDate()),
-    h = addZero(date.getHours()) + ':',
-    m = addZero(date.getMinutes()) + ':',
-    s = addZero(date.getSeconds())
+const formatTimestamp = (timestamp, separator = '-', showTime = false) => {
+  const date = new Date(String(timestamp).length === 10 ? timestamp * 1000 : Number(timestamp))
+  const pad = num => String(num).padStart(2, '0')
 
-  if (hasHour === true) {
-    return Y + splitStr + M + splitStr + D + ' ' + h + m + s
-  } else if (splitStr) {
-    return Y + splitStr + M + splitStr + D
-  } else {
-    return {
-      Y: Y,
-      M: M,
-      D: D,
-      h: h,
-      m: m,
-      s: s
-    }
+  const dateInfo = {
+    Y: date.getFullYear(),
+    M: pad(date.getMonth() + 1),
+    D: pad(date.getDate()),
+    h: pad(date.getHours()),
+    m: pad(date.getMinutes()),
+    s: pad(date.getSeconds())
   }
-}
 
-/**
- * 四舍五入 格式化数字
- *
- * @param {*} number 8440.55
- * @param {*} fractionDigits 1 小数位数
- * @returns 8440.6
- */
-function toFixed(number, fractionDigits) {
-  var times = Math.pow(10, fractionDigits)
-  var roundNum = Math.round(number * times) / times
-  return roundNum.toFixed(fractionDigits)
-}
-/**
- * 把当前的数字格式化为指定小数位数的金额
- * @param {*} s 价格数字
- * @param {*} n 小数点后位数
- * @returns
- */
-function fmoney(s, n) {
-  //s:传入的float数字 ，n:希望返回小数点几位
-  var n = n > 0 && n <= 20 ? n : 2,
-    s = parseFloat((s + '').replace(/[^\d\.-]/g, '')).toFixed(n) + '',
-    l = s
-      .split('.')[0]
-      .split('')
-      .reverse(),
-    r = s.split('.')[1],
-    t = ''
-  for (i = 0; i < l.length; i++) {
-    t += l[i] + ((i + 1) % 3 == 0 && i + 1 != l.length ? ',' : '')
+  if (showTime) {
+    return `${dateInfo.Y}${separator}${dateInfo.M}${separator}${dateInfo.D} ${dateInfo.h}:${dateInfo.m}:${dateInfo.s}`
   }
-  return (
-    t
-      .split('')
-      .reverse()
-      .join('') +
-    '.' +
-    r
-  )
+
+  return separator ? `${dateInfo.Y}${separator}${dateInfo.M}${separator}${dateInfo.D}` : dateInfo
 }
 
 /**
- * 还原价格
- * @param {*} s 上面方法过滤后的结果
- * @returns
+ * 格式化数字为指定小数位
+ * @param {number} number - 要格式化的数字
+ * @param {number} decimals - 小数位数
+ * @returns {string}
  */
-function rmoney(s) {
-  return parseFloat(s.replace(/[^\d\.-]/g, ''))
+const formatNumber = (number, decimals = 2) => {
+  const factor = Math.pow(10, decimals)
+  return (Math.round(number * factor) / factor).toFixed(decimals)
+}
+
+/**
+ * 格式化金额
+ * @param {number} amount - 金额数字
+ * @param {number} decimals - 小数位数
+ * @returns {string}
+ */
+const formatMoney = (amount, decimals = 2) => {
+  const num = parseFloat(String(amount).replace(/[^\d.-]/g, ''))
+  const parts = formatNumber(num, decimals).split('.')
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  return parts.join('.')
+}
+
+/**
+ * 解析格式化后的金额字符串
+ * @param {string} formattedAmount - 格式化后的金额字符串
+ * @returns {number}
+ */
+const parseMoney = formattedAmount => {
+  return parseFloat(String(formattedAmount).replace(/[^\d.-]/g, ''))
+}
+
+export {
+  getType,
+  isDef,
+  isPromise,
+  isFunction,
+  isNumber,
+  isArray,
+  isObject,
+  isEmptyObject,
+  extend,
+  isPlainObject,
+  deepClone,
+  formatTimestamp,
+  formatNumber,
+  formatMoney,
+  parseMoney
 }

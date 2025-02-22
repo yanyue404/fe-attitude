@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>正则表达式测试工具</title>
+    <style>
+      body {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .regex-input {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #f5f5f5;
+        padding: 15px;
+        border-radius: 4px;
+      }
+      .regex-input input[type='text'] {
+        flex: 1;
+        padding: 8px;
+        font-family: monospace;
+        font-size: 16px;
+      }
+      .flags {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .flag-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .test-area {
+        display: flex;
+        gap: 20px;
+      }
+      .input-panel,
+      .result-panel {
+        flex: 1;
+      }
+      textarea {
+        width: 100%;
+        height: 300px;
+        font-family: monospace;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        resize: vertical;
+      }
+      .result-container {
+        position: relative;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        min-height: 300px;
+        background: white;
+        overflow: auto;
+      }
+      .result-text {
+        white-space: pre-wrap;
+        padding: 10px;
+        font-family: monospace;
+      }
+      .highlight {
+        background-color: #ffeb3b;
+      }
+      .match-info {
+        margin-top: 10px;
+        padding: 10px;
+        background: #f5f5f5;
+        border-radius: 4px;
+      }
+      .match-item {
+        margin: 5px 0;
+        padding: 5px;
+        background: white;
+        border-radius: 2px;
+      }
+      h2 {
+        margin: 0 0 10px 0;
+      }
+      .error {
+        color: red;
+        margin-top: 10px;
+      }
+      .tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      .tab {
+        padding: 8px 16px;
+        background: #f5f5f5;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .tab.active {
+        background: #2196f3;
+        color: white;
+      }
+      .panel {
+        display: none;
+      }
+      .panel.active {
+        display: block;
+      }
+      .replace-input {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+        padding: 10px;
+        background: #f5f5f5;
+        border-radius: 4px;
+      }
+      .replace-input input {
+        flex: 1;
+        padding: 8px;
+        font-family: monospace;
+      }
+      .match-details {
+        font-family: monospace;
+        background: #f8f9fa;
+        padding: 10px;
+        border-radius: 4px;
+        margin-top: 5px;
+      }
+      .match-position {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 5px;
+      }
+      .position-marker {
+        height: 20px;
+        border-left: 2px solid #2196f3;
+        margin-left: 10px;
+      }
+      .match-value {
+        color: #2196f3;
+        font-weight: bold;
+      }
+      .common-patterns {
+        margin: 10px 0;
+      }
+      .regex-select {
+        width: 100%;
+        padding: 8px;
+        font-size: 14px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background-color: white;
+        cursor: pointer;
+      }
+      .regex-select optgroup {
+        font-weight: bold;
+        color: #666;
+      }
+      .regex-select option {
+        padding: 8px;
+        color: #333;
+      }
+      .regex-select:focus {
+        outline: none;
+        border-color: #2196f3;
+        box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>正则表达式测试工具</h1>
+    <div class="container">
+      <div class="regex-input">
+        <span>/</span>
+        <input type="text" id="regex" placeholder="输入正则表达式" value="test" />
+        <span>/</span>
+        <div class="flags">
+          <label class="flag-item">
+            <input type="checkbox" id="flag-g" checked />
+            <span>g (全局)</span>
+          </label>
+          <label class="flag-item">
+            <input type="checkbox" id="flag-i" />
+            <span>i (忽略大小写)</span>
+          </label>
+          <label class="flag-item">
+            <input type="checkbox" id="flag-m" />
+            <span>m (多行)</span>
+          </label>
+          <label class="flag-item">
+            <input type="checkbox" id="flag-s" />
+            <span>s (点号匹配所有)</span>
+          </label>
+          <label class="flag-item">
+            <input type="checkbox" id="flag-y" />
+            <span>y (粘性)</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="common-patterns">
+        <select class="regex-select" id="regexSelect">
+          <option value="">-- 常用正则表达式 --</option>
+          <optgroup label="常用字符">
+            <option value="/[\u4e00-\u9fa5]/gm">匹配中文字符</option>
+            <option value="/[^\x00-\xff]/igm">匹配双字节字符</option>
+            <option value="/(^\s*)|(\s*$)/">匹配行尾行首空白</option>
+            <option value="/^\d+$/">只能输入数字</option>
+            <option value="/^\d{n}$/">只能输入n个数字</option>
+            <option value="/^\d{n,}$/">至少输入n个以上的数字</option>
+            <option value="/^\d{m,n}$/">只能输入m到n个数字</option>
+            <option value="/^[a-z]+$/i">只能由英文字母组成</option>
+            <option value="/^[A-Z]+$/">只能由大写英文字母组成</option>
+            <option value="/^[a-z0-9]+$/i">只能由英文和数字组成</option>
+            <option value="/^\w+$/">只能由英文、数字、下划线组成</option>
+          </optgroup>
+          <optgroup label="常用表单">
+            <option value="/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/">匹配Email地址</option>
+            <option value="/^https?:\/\/(([a-zA-Z0-9_-])+(\.)?)*(:\d+)?(\/((\.)?(\?)?=?&?[a-zA-Z0-9_-](\?)?)*)*$/i"
+              >匹配URL地址</option
+            >
+            <option value="/^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57])[0-9]{8}$/"
+              >匹配手机号码</option
+            >
+            <option
+              value="/^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/"
+              >匹配身份证号</option
+            >
+            <option value="/^[1-9]\d{5}(?!\d)$/">匹配邮编号</option>
+            <option value="/^[1-2][0-9][0-9][0-9]-[0-1]{0,1}[0-9]-[0-3]{0,1}[0-9]$/">匹配日期(yyyy-MM-dd)</option>
+          </optgroup>
+          <optgroup label="浏览器navigator.userAgent">
+            <option value="/msie (\d+\.\d+)/i">从UA判断是否为IE浏览器</option>
+            <option value="/webkit/i">从UA判断是否为webkit内核</option>
+            <option value="/chrome\/(\d+\.\d+)/i">从UA判断是否为chrome浏览器</option>
+            <option value="/firefox\/(\d+\.\d+)/i">从UA判断是否为firefox浏览器</option>
+            <option value="/opera(\/| )(\d+(\.\d+)?)(.+?(version\/(\d+(\.\d+)?)))?/i">从UA判断是否为opera浏览器</option>
+            <option value="/(\d+\.\d)?(?:\.\d)?\s+safari\/?(\d+\.\d+)?/i">从UA判断是否为Safari浏览器</option>
+            <option value="/android/i">从UA中判断是否为Android系统</option>
+            <option value="/ipad/i">从UA中判断是否为iPad</option>
+            <option value="/iphone/i">从UA中判断是否为iPhone</option>
+            <option value="/macintosh/i">从UA判断是否为Mac OS平台</option>
+            <option value="/windows/i">从UA中判断是否为Windows平台</option>
+            <option
+              value="/(nokia|iphone|android|ipad|motorola|^mot\-|softbank|foma|docomo|kddi|up\.browser|up\.link|htc|dopod|blazer|netfront|helio|hosin|huawei|novarra|CoolPad|webos|techfaith|palmsource|blackberry|alcatel|amoi|ktouch|nexian|samsung|^sam\-|s[cg]h|^lge|ericsson|philips|sagem|wellcom|bunjalloo|maui|symbian|smartphone|midp|wap|phone|windows ce|iemobile|^spice|^bird|^zte\-|longcos|pantech|gionee|^sie\-|portalmmm|jig\s browser|hiptop|^ucweb|^benq|haier|^lct|opera\s*mobi|opera\*mini|320x320|240x320|176x220)/i"
+              >从UA中判断是否为移动终端</option
+            >
+          </optgroup>
+          <optgroup label="HTML相关">
+            <option value="/\<link\s(.*?)\s*(([^&]>)|(\/\>)|(\<\/link\>))/gi">匹配link标签</option>
+            <option value="/<(\S*?) [^>]*>.*?</\1>|<.*?/>/gm">匹配HTML标签</option>
+            <option value="/^[^<>`~!/@\#}$%:;)(_^{&*=|'+]+$/">匹配非HTML标签</option>
+            <option value="/<script[^>]*>[\s\S]*?<\/[^>]*script>/gi">匹配script标签</option>
+            <option value="/<!--[\s\S]*?--\>/g">匹配HTML注释</option>
+            <option value="/\[\s*if\s+[^\]][\s\w]*\]/i">匹配HTML条件注释</option>
+            <option value="/^\[if\s+(!IE|false)\]>.*<!\[endif\]$/i">匹配非IE的条件注释</option>
+            <option value="/expression[\s\r\n ]?\(/gi">匹配CSS expression</option>
+            <option value="/<\W+>/gi">匹配不合法的HTML标签</option>
+            <option value="/<textarea[^>]*>[\s\S]*?<\/[^>]*textarea>/gi">匹配textarea标签</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" data-panel="match">匹配</button>
+        <button class="tab" data-panel="replace">替换</button>
+      </div>
+
+      <div class="replace-input panel" id="replace-panel">
+        <span>替换为：</span>
+        <input type="text" id="replace-input" placeholder="输入替换文本" />
+      </div>
+
+      <div class="test-area">
+        <div class="input-panel">
+          <h2>测试文本</h2>
+          <textarea id="test-input" placeholder="输入要测试的文本">
+This is a test text.
+Another test line.
+TEST in uppercase.</textarea
+          >
+        </div>
+        <div class="result-panel">
+          <h2>匹配结果</h2>
+          <div class="result-container">
+            <div id="result-text" class="result-text"></div>
+          </div>
+          <div id="match-info" class="match-info"></div>
+          <div id="error-message" class="error"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const regexInput = document.getElementById('regex')
+      const testInput = document.getElementById('test-input')
+      const resultText = document.getElementById('result-text')
+      const matchInfo = document.getElementById('match-info')
+      const errorMessage = document.getElementById('error-message')
+      const flagCheckboxes = {
+        g: document.getElementById('flag-g'),
+        i: document.getElementById('flag-i'),
+        m: document.getElementById('flag-m'),
+        s: document.getElementById('flag-s'),
+        y: document.getElementById('flag-y')
+      }
+      const replaceInput = document.getElementById('replace-input')
+      const tabs = document.querySelectorAll('.tab')
+      const panels = document.querySelectorAll('.panel')
+      let currentMode = 'match'
+
+      function escapeHtml(text) {
+        return text
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;')
+      }
+
+      function getFlags() {
+        return Object.entries(flagCheckboxes)
+          .filter(([_, checkbox]) => checkbox.checked)
+          .map(([flag]) => flag)
+          .join('')
+      }
+
+      function formatMatchDetails(match) {
+        return `{
+    value: "${escapeHtml(match.text)}",
+    index: ${match.index},
+    input: "${escapeHtml(match.input)}",
+    groups: ${match.groups ? JSON.stringify(match.groups) : 'undefined'}
+}`
+      }
+
+      function updateResult() {
+        const pattern = regexInput.value
+        const text = testInput.value
+        const flags = getFlags()
+        const replaceText = replaceInput.value
+
+        errorMessage.textContent = ''
+
+        try {
+          // 添加安全检查，防止空正则表达式
+          if (!pattern) {
+            resultText.innerHTML = escapeHtml(text)
+            matchInfo.innerHTML = '<div>请输入正则表达式</div>'
+            return
+          }
+
+          const regex = new RegExp(pattern, flags)
+
+          if (currentMode === 'replace') {
+            // 替换模式
+            try {
+              const result = text.replace(regex, replaceText)
+              resultText.innerHTML = escapeHtml(result)
+              matchInfo.innerHTML = '<div>替换后的结果如上所示</div>'
+            } catch (e) {
+              errorMessage.textContent = `替换错误: ${e.message}`
+            }
+            return
+          }
+
+          // 匹配模式
+          let match
+          let lastIndex = 0
+          let html = ''
+          const matches = []
+          let safetyCounter = 0
+          const maxMatches = 10000
+
+          if (flags.includes('g')) {
+            while ((match = regex.exec(text)) !== null) {
+              safetyCounter++
+              if (safetyCounter > maxMatches) {
+                errorMessage.textContent = '匹配次数过多，可能存在性能问题。请检查你的正则表达式。'
+                break
+              }
+
+              // 防止零长度匹配导致的无限循环
+              if (match.index === regex.lastIndex) {
+                regex.lastIndex++
+                continue
+              }
+
+              const beforeMatch = text.slice(lastIndex, match.index)
+              html += escapeHtml(beforeMatch)
+              html += `<span class="highlight">${escapeHtml(match[0])}</span>`
+              lastIndex = regex.lastIndex
+
+              matches.push({
+                text: match[0],
+                index: match.index,
+                input: text,
+                groups: match.groups || match.slice(1)
+              })
+            }
+            html += escapeHtml(text.slice(lastIndex))
+          } else {
+            match = regex.exec(text)
+            if (match) {
+              html += escapeHtml(text.slice(0, match.index))
+              html += `<span class="highlight">${escapeHtml(match[0])}</span>`
+              html += escapeHtml(text.slice(match.index + match[0].length))
+
+              matches.push({
+                text: match[0],
+                index: match.index,
+                input: text,
+                groups: match.groups || match.slice(1)
+              })
+            } else {
+              html = escapeHtml(text)
+            }
+          }
+
+          resultText.innerHTML = html
+
+          // 显示匹配信息
+          let matchInfoHtml = `<div>找到 ${matches.length} 个匹配</div>`
+          // 限制显示的匹配项数量
+          const maxDisplayMatches = 100
+          const displayMatches = matches.slice(0, maxDisplayMatches)
+
+          displayMatches.forEach((match, index) => {
+            matchInfoHtml += `
+                <div class="match-item">
+                    <strong>匹配 ${index + 1}:</strong>
+                    <div class="match-position">
+                        <span>位置: ${match.index}</span>
+                        <div class="position-marker"></div>
+                    </div>
+                    <div class="match-value">匹配值: "${escapeHtml(match.text)}"</div>
+                    <div class="match-details">${formatMatchDetails(match)}</div>
+                </div>
+            `
+          })
+
+          if (matches.length > maxDisplayMatches) {
+            matchInfoHtml += `<div>（仅显示前 ${maxDisplayMatches} 个匹配项）</div>`
+          }
+
+          matchInfo.innerHTML = matchInfoHtml
+        } catch (e) {
+          errorMessage.textContent = `正则表达式错误: ${e.message}`
+          resultText.innerHTML = escapeHtml(text)
+          matchInfo.innerHTML = ''
+        }
+      }
+
+      // 添加防抖处理，避免频繁更新
+      function debounce(func, wait) {
+        let timeout
+        return function executedFunction(...args) {
+          const later = () => {
+            clearTimeout(timeout)
+            func(...args)
+          }
+          clearTimeout(timeout)
+          timeout = setTimeout(later, wait)
+        }
+      }
+
+      // 使用防抖包装 updateResult 函数
+      const debouncedUpdateResult = debounce(updateResult, 300)
+
+      // 更新事件监听器
+      regexInput.addEventListener('input', debouncedUpdateResult)
+      testInput.addEventListener('input', debouncedUpdateResult)
+      Object.values(flagCheckboxes).forEach(checkbox => {
+        checkbox.addEventListener('change', debouncedUpdateResult)
+      })
+      replaceInput.addEventListener('input', debouncedUpdateResult)
+
+      // Tab 切换处理
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'))
+          tab.classList.add('active')
+
+          const panelId = tab.dataset.panel
+          currentMode = panelId
+
+          panels.forEach(p => p.classList.remove('active'))
+          document.getElementById(`${panelId}-panel`)?.classList.add('active')
+
+          updateResult()
+        })
+      })
+
+      // 初始化
+      updateResult()
+
+      document.getElementById('regexSelect').addEventListener('change', function() {
+        const selectedValue = this.value
+        if (!selectedValue) return
+
+        // 解析正则表达式和标志
+        const match = selectedValue.match(/^\/(.+)\/([gimsy]*)$/)
+        if (match) {
+          const [_, pattern, flags] = match
+
+          // 更新正则输入
+          regexInput.value = pattern
+
+          // 更新标志
+          Object.keys(flagCheckboxes).forEach(flag => {
+            flagCheckboxes[flag].checked = flags.includes(flag)
+          })
+
+          // 触发更新
+          updateResult()
+        }
+      })
+
+      // 添加正则表达式说明数据
+      const patternExplanations = {
+        '^1[3-9]\\d{9}$': {
+          title: '手机号码',
+          explanation: '匹配中国大陆手机号码格式：\n- 以1开头\n- 第二位是3-9\n- 后面是9位数字',
+          examples: ['13812345678', '19912345678']
+        },
+        '[\\u4e00-\\u9fa5]': {
+          title: '中文字符',
+          explanation: '匹配任意中文字符（简体和繁体）',
+          examples: ['你好', '中文']
+        }
+        // ... 可以继续添加其他正则表达式的说明
+      }
+
+      // 添加悬浮提示功能
+      function showPatternInfo(pattern) {
+        const info = patternExplanations[pattern]
+        if (!info) return
+
+        // 可以在这里实现显示正则表达式详细说明的逻辑
+        // 比如显示一个包含说明和示例的弹窗
+      }
+    </script>
+  </body>
+</html>

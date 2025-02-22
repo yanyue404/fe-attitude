@@ -20,7 +20,7 @@ export const deepCopy = function(obj) {
   return newObj
 }
 
-function deepAssign(to, from) {
+export function deepAssign(to, from) {
   for (let key in from) {
     if (!to[key] || typeof to[key] !== 'object') {
       to[key] = from[key]
@@ -100,18 +100,26 @@ export function isEqual(obj, obj2, option = {}) {
   }
   return true
 }
-// var object = { 'a': [{ 'b': { 'c': 3 } }] };
 
-// _.get(object, 'a[0].b.c');
-// => 3
-function get(obj, href) {
-  if (href.indexOf('.') === -1) {
-    return obj[href]
-  }
-  if (href.indexOf('.') !== -1) {
-    let hrefStr = href.split('.')
-    return getObjectValue(obj[hrefStr[0]], hrefStr.slice(1).join('.'))
-  }
+/**
+ *
+ *
+ * @export
+ * @param {Object} obj 要检索的对象。
+ * @param {Array|string} path 要获取属性的路径。
+ * @param {*} defaultValue 如果解析值是 undefined ，这值会被返回
+ * @return {*}
+ */
+export function get(obj, path, defaultValue) {
+  let chain = Array.isArray(path) ? path : path.split(/[\.\[\]]+/)
+  let val = chain.reduce((prev, curr) => {
+    if (prev) {
+      return (prev = prev[curr])
+    } else {
+      return prev
+    }
+  }, obj)
+  return val === undefined ? defaultValue : val
 }
 
 // 比较两个对象相等
@@ -128,3 +136,46 @@ export const equals = (a, b) => {
 
 // deep merge
 // https://www.30secondsofcode.org/js/s/merge-objects/
+
+export const deepMerge = (a, b, fn) =>
+  [...new Set([...Object.keys(a), ...Object.keys(b)])].reduce(
+    (acc, key) => ({ ...acc, [key]: fn(key, a[key], b[key]) }),
+    {}
+  )
+
+const obj1 = {
+  a: true,
+  b: [1, 2, 3],
+  c: { d: 4, e: 5 },
+  f: 'foo'
+}
+const obj2 = {
+  a: false,
+  b: [4, 5, 6],
+  c: { d: 6, g: 7 },
+  f: 'bar'
+}
+
+const concatFn = (key, a, b) => {
+  if (Array.isArray(a) && Array.isArray(b)) return a.concat(b)
+  if (typeof a === 'object' && typeof b === 'object') return deepMerge(a, b, concatFn)
+  if (typeof a === 'string' && typeof b === 'string') return [a, b].join(' ')
+  return b ?? a
+}
+
+deepMerge(obj1, obj2, concatFn)
+// {
+//   a: false,
+//   b: [ 1, 2, 3, 4, 5, 6 ]
+//   c: { d: 6, e: 5, g: 7 },
+//   f: 'foo bar'
+// }
+
+// 简化的条件对象合并
+// 条件合并示例
+/* const a = { a: 1 }
+const b = {
+  ...mergeIf(a.a, { a: 2 })
+}
+// 等价于原来的写法：...(a.a ? { a: 2 } : {}) */
+export const mergeIf = (condition, obj) => (condition ? obj : {})

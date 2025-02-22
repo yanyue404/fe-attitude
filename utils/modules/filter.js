@@ -1,45 +1,39 @@
-// console.log((new Date(dateStr)).formate("yyyy-MM-dd"))
-// (new Date()).formate("yyyy-MM-dd hh:mm:ss")   ==>  2018-07-18 10:01:49
-Date.prototype.formate = function(format) {
+/**
+ * 日期格式化函数示例:
+ * formatDate(new Date(dateStr), "yyyy-MM-dd")
+ * formatDate(new Date(), "yyyy-MM-dd hh:mm:ss") => 2018-07-18 10:01:49
+ */
+
+function formatDate(date, format) {
   const o = {
-    'M+': this.getMonth() + 1, // month
-    'd+': this.getDate(), // day
-    'h+': this.getHours(), // hour
-    'm+': this.getMinutes(), // minute
-    's+': this.getSeconds(), // second
-    'q+': Math.floor((this.getMonth() + 3) / 3), // quarter
-    S: this.getMilliseconds(),
-    // millisecond
-  };
+    'M+': date.getMonth() + 1, // month
+    'd+': date.getDate(), // day
+    'h+': date.getHours(), // hour
+    'm+': date.getMinutes(), // minute
+    's+': date.getSeconds(), // second
+    'q+': Math.floor((date.getMonth() + 3) / 3), // quarter
+    S: date.getMilliseconds() // millisecond
+  }
 
   if (/(y+)/.test(format)) {
-    format = format.replace(
-      RegExp.$1,
-      `${this.getFullYear()}`.substr(4 - RegExp.$1.length),
-    );
+    format = format.replace(RegExp.$1, `${date.getFullYear()}`.substr(4 - RegExp.$1.length))
   }
 
   for (const k in o) {
     if (new RegExp(`(${k})`).test(format)) {
-      format = format.replace(
-        RegExp.$1,
-        RegExp.$1.length == 1 ? o[k] : `00${o[k]}`.substr(`${o[k]}`.length),
-      );
+      format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : `00${o[k]}`.substr(`${o[k]}`.length))
     }
   }
-  return format;
-};
+  return format
+}
 
 export function parseCtime(str, showHoursMinutes) {
-  var temp = str;
+  var temp = str
   if (typeof temp === 'string') {
-    temp = Number(str) * 1000;
+    temp = Number(str) * 1000
   }
-  if (!showHoursMinutes) {
-    return new Date(temp).formate('yyyy-MM-dd');
-  } else {
-    return new Date(temp).formate('yyyy-MM-dd hh:mm');
-  }
+  const date = new Date(temp)
+  return showHoursMinutes ? formatDate(date, 'yyyy-MM-dd hh:mm') : formatDate(date, 'yyyy-MM-dd')
 }
 
 /**
@@ -49,16 +43,16 @@ export function parseCtime(str, showHoursMinutes) {
  */
 
 export function dateAddZero(str) {
-  return str.replace(/(?=\b\d\b)/g, '0');
+  return str.replace(/(?=\b\d\b)/g, '0')
 }
 
 // compact([0, false, true, undefined, null, "", 12, 15]); // [true, 12, 15]
 // 使用Boolean过滤数组中的所有假值
-export const compact = arr => arr.filter(Boolean);
+export const compact = arr => arr.filter(Boolean)
 
 export const formatPrice = (number, sign) => {
-  !sign && (sign = ',');
-  var parts = number.toString().split('.');
-  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, sign);
-  return parts.join('.');
-};
+  !sign && (sign = ',')
+  var parts = number.toString().split('.')
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, sign)
+  return parts.join('.')
+}

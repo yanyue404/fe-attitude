@@ -213,3 +213,119 @@ export function splitArray(array, size) {
   }
   return result
 }
+
+/**
+ * 数组扁平化 - 将多维数组转换为一维数组
+ * @param {Array} arr - 要扁平化的数组
+ * @param {number} depth - 扁平化的深度，默认为 Infinity
+ * @returns {Array} - 扁平化后的数组
+ */
+export function flatten(arr, depth = Infinity) {
+  return Array.isArray(arr)
+    ? arr.reduce((flat, toFlat) => {
+        return flat.concat(depth > 1 && Array.isArray(toFlat) ? flatten(toFlat, depth - 1) : toFlat)
+      }, [])
+    : arr
+}
+
+/**
+ * 查找数组中符合条件的最后一个元素的索引
+ * @param {Array} array - 要搜索的数组
+ * @param {Function} predicate - 判断函数
+ * @returns {number} - 找到的元素索引，未找到返回 -1
+ */
+export function findLastIndex(array, predicate) {
+  for (let i = array.length - 1; i >= 0; i--) {
+    if (predicate(array[i], i, array)) {
+      return i
+    }
+  }
+  return -1
+}
+
+/**
+ * 获取数组的交集
+ * @param {...Array} arrays - 要计算交集的数组列表
+ * @returns {Array} - 包含所有数组共有元素的新数组
+ */
+export function intersection(...arrays) {
+  return arrays.reduce((result, array) => {
+    return result.filter(item => array.includes(item))
+  })
+}
+
+/**
+ * 数组差集 - 返回第一个数组中存在但其他数组中不存在的元素
+ * @param {Array} array - 主数组
+ * @param {...Array} others - 其他数组
+ * @returns {Array} - 差集数组
+ */
+export function difference(array, ...others) {
+  const combined = [].concat(...others)
+  return array.filter(item => !combined.includes(item))
+}
+
+/**
+ * 数组分组 - 根据条件将数组元素分组
+ * @param {Array} array - 要分组的数组
+ * @param {Function} iteratee - 分组条件函数
+ * @returns {Object} - 分组后的对象
+ */
+/**
+ * 数组分组 - 根据条件将数组元素分组
+ * @param {Array} array - 要分组的数组
+ * @param {Function} iteratee - 分组条件函数
+ * @returns {Object} - 分组后的对象
+ * @example
+ * // 按照数字的奇偶性分组
+ * groupBy([1, 2, 3, 4], num => num % 2 === 0 ? '偶数' : '奇数')
+ * // 返回: { '奇数': [1, 3], '偶数': [2, 4] }
+ * 
+ * // 按照对象的某个属性分组
+ * groupBy([
+ *   { name: '张三', age: 20 },
+ *   { name: '李四', age: 20 },
+ *   { name: '王五', age: 25 }
+ * ], 'age')
+ * // 返回: { '20': [{name:'张三',age:20}, {name:'李四',age:20}], '25': [{name:'王五',age:25}] }
+ */
+export function groupBy(array, iteratee) {
+  return array.reduce((result, item) => {
+    const key = typeof iteratee === 'function' ? iteratee(item) : item[iteratee]
+    ;(result[key] || (result[key] = [])).push(item)
+    return result
+  }, {})
+}
+
+/**
+ * 移除数组中的指定元素
+ * @param {Array} array - 要操作的数组
+ * @param {...*} values - 要移除的元素列表
+ * @returns {Array} - 新数组
+ */
+export function without(array, ...values) {
+  return array.filter(item => !values.includes(item))
+}
+
+/**
+ * 获取数组中指定范围的元素
+ * @param {Array} array - 源数组
+ * @param {number} start - 起始索引
+ * @param {number} end - 结束索引
+ * @returns {Array} - 新数组
+ */
+export function slice(array, start, end) {
+  const length = array.length
+  start = start == null ? 0 : start
+  end = end == null ? length : end
+
+  if (start < 0) {
+    start = -start > length ? 0 : length + start
+  }
+  if (end < 0) {
+    end += length
+  }
+  end = start > end ? 0 : end
+
+  return array.slice(start, end)
+}
