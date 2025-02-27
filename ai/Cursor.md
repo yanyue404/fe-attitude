@@ -13,6 +13,8 @@
 
 **使用教程**
 
+- [菜鸟 —— Cursor 教程](https://www.runoob.com/cursor/cursor-tutorial.html) / [VS Code AI 扩展](https://www.runoob.com/vscode/vscode-ai-extensions.html)
+- [10 分钟带你解锁 Cursor 的全部潜力：从基础操作到高级技巧](https://www.ifb.me/zh/blog/backend/10-fen-zhong-jie-suo)
 - [Cursor 完全使用指南](https://juejin.cn/post/7319433201163042850) - 掘金
 - [Cursor AI 编辑器使用教程](https://www.bilibili.com/video/BV1Fh4y1X7zR/) - B 站视频教程
 - [Cursor 编辑器高级功能详解](https://zhuanlan.zhihu.com/p/621644542)
