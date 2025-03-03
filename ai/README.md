@@ -150,3 +150,13 @@ graph TD
 ---
 
 如需进一步测试数据或部署方案，可参考知乎技术解析[《DeepSeek-V3 技术解析》](https://zhuanlan.zhihu.com/p/20240802247)及 SegmentFault 的 API 集成指南。
+
+
+## 部署
+
+- [五分钟让你本地部署一个 DeepSeek](https://juejin.cn/post/7469309881238192128)
+- [Ollama 教程](https://www.runoob.com/ollama/ollama-intro.html)
+
+
+
+
