@@ -16,7 +16,8 @@
 
 1. 根据 box-sizing 属性值的不同将盒子模型分为 contont-box 与 border-box；
 2. 差异在于，content-box 的实际宽高 = width/height + border + padding，border-box 的实际宽高 = width/height（包含了 border、padding）
-   </details>
+
+</details>
 
 - 居中布局的⽅案有哪些？
 
@@ -278,8 +279,10 @@ console.log('script end')
 </details>
 
 - Promise，Promise.all 错误捕获
-  <details>
-  <summary>解答</summary>
+
+<details>
+
+<summary>解答</summary>
 
 简单归纳下 Promise：三个状态、两个过程、一个方法，当然还有其他概念，如 catch、 Promise.all/race/allSettled。
 

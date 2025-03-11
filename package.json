@@ -33,19 +33,15 @@
     "url": "https://github.com/yanyue404/fe-attitude/issues"
   },
   "homepage": "https://github.com/yanyue404/fe-attitude#readme",
-  "dependencies": {
-    "@vue-demi/use-mouse": "^0.0.1",
-    "@vue/composition-api": "^1.0.0-beta.10",
-    "vue-demi": "^0.14.10"
-  },
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
     "axios": "^1.7.2",
-    "esno": "^4.7.0",
+    "html-loader": "^1.0.0",
     "husky": "^3.1.0",
     "lint-staged": "^9.5.0",
     "prettier": "^1.19.1",
-    "vuepress": "1.9.7"
+    "vuepress": "1.9.7",
+    "webpack": "4.46.0"
   }
 }

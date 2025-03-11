@@ -3,6 +3,25 @@ module.exports = {
   title: '我的前端态度',
   meta: '我的前端态度',
   description: '记录自己的学习考古，会前端真的可以“为所欲为”maybe',
+  // 允许加载HTML文件
+  chainWebpack: config => {
+    config.module
+      .rule('html')
+      .test(/\.html$/)
+      .use('html-loader')
+      .loader('html-loader')
+      .end()
+  },
+  // 添加路由回退配置
+  configureWebpack: {
+    devServer: {
+      historyApiFallback: {
+        rewrites: [{ from: /\/tools\/.*/, to: '/tools/[name].html' }]
+      }
+    }
+  },
+  // 添加公共文件目录
+  public: '/public',
   themeConfig: {
     nav: [
       {
@@ -85,6 +104,14 @@ module.exports = {
                 text: '拥抱 AI',
                 link: 'https://github.com/yanyue404/blog/issues/278'
               }
+            ]
+          },
+          {
+            text: '工具',
+            items: [
+              { text: 'Markdown 格式化工具', link: '/tools/format-Markdown.html' },
+              { text: 'docx 转 html', link: '/tools/docx-to-html.html' },
+              { text: '正则表达式生成器', link: '/tools/regex.html' }
             ]
           }
         ]
