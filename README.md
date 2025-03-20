@@ -2,6 +2,22 @@
 
 记录自己的学习考古，会前端真的可以“为所欲为”<sup>maybe</sup>。
 
+## 快速访问
+
+- **AI**
+  - [GPT-GOD](https://gptgod.online/) / [Grok 3](https://grok.com/?referrer=website) / [Cursor](https://www.cursor.com/cn) / [github copilot](https://github.com/copilot)
+  - [deepseek](https://chat.deepseek.com/) / [豆包 AI](https://www.doubao.com/chat/) / [Kimi.ai](https://kimi.moonshot.cn/) / [智普清言](https://chatglm.cn/) / [Monica AI](https://monica.im/) / [Sider](https://sider.ai/)、Docky.AI
+- **关注** [方应杭](https://space.bilibili.com/4349808)/ [AnthonyFu](https://space.bilibili.com/668380) /[冬灰条](https://space.bilibili.com/8212729) / [dev-zuo](https://space.bilibili.com/486840111)
+- [现代 JavaScript 教程](https://zh.javascript.info/)
+- [JavaScript 教程 by 廖雪峰](https://www.liaoxuefeng.com/wiki/1022910821149312)
+- [Python 教程 by 廖雪峰](https://liaoxuefeng.com/books/python/introduction/index.html)
+- [TypeScript 演练场](https://www.typescriptlang.org/zh/play/) - 一个用于 TypeScript 和 JavaScript 的在线编辑器
+- [ESlint 演练场](https://zh-hans.eslint.org/play/)， `eslint-disable-next-line`
+- [二维码生成器 - 小工具](https://ftest.tk.cn/tk-online/common/smallfunc/#/qrcode/index)
+- [regex101](https://regex101.com/) / [正则表达式检测](https://zhengze.bmcx.com/)
+- [下载 YouTube 视频，将 YouTube 快速转换为 MP3](https://www.y2meta.com/zh-cn116) / [另一个](https://y2mate.lol/)
+- https://roadmap.sh/roadmaps
+
 ## 前端工程师的自我修养
 
 **知识库**
@@ -44,16 +60,3 @@
 - taro-cli
 - vite-cli
   - vite-react-starter
-
-## 快速访问
-
-- **AI** [GPT-GOD](https://gptgod.online/) / [豆包 AI](https://www.doubao.com/chat/) / [Kimi.ai](https://kimi.moonshot.cn/) / [智普清言](https://chatglm.cn/) / [Monica AI](https://monica.im/) / [Sider](https://sider.ai/)、Docky.AI
-- **关注** [方应杭](https://space.bilibili.com/4349808)/ [AnthonyFu](https://space.bilibili.com/668380) /[冬灰条](https://space.bilibili.com/8212729) / [dev-zuo](https://space.bilibili.com/486840111)
-- [现代 JavaScript 教程](https://zh.javascript.info/)
-- [JavaScript 教程 by 廖雪峰](https://www.liaoxuefeng.com/wiki/1022910821149312)
-- [TypeScript 演练场](https://www.typescriptlang.org/zh/play/) - 一个用于 TypeScript 和 JavaScript 的在线编辑器
-- [ESlint 演练场](https://zh-hans.eslint.org/play/)， `eslint-disable-next-line`
-- [二维码生成器 - 小工具](https://ftest.tk.cn/tk-online/common/smallfunc/#/qrcode/index)
-- [regex101](https://regex101.com/) / [正则表达式检测](https://zhengze.bmcx.com/)
-- [下载 YouTube 视频，将 YouTube 快速转换为 MP3](https://www.y2meta.com/zh-cn116) / [另一个](https://y2mate.lol/)
-- https://roadmap.sh/roadmaps
