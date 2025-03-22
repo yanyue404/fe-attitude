@@ -82,6 +82,8 @@
 - [**How-To-Ask-Questions-The-Smart-Way**](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/master/README-zh_CN.md) - 提问的智慧
 - [**awesome-resume**](https://github.com/resumejob/awesome-resume) - 程序员简历例句，简历模版
 - [**github-markdown-css**](https://github.com/sindresorhus/github-markdown-css) - The minimal amount of CSS to replicate the GitHub Markdown style
+- [免费的封面图制作网站](https://www.coverpage.one/image)
+- [制作内容分享卡片的免费网站](https://mono.cards/zh)
 
 ### 信仰
 
@@ -166,6 +168,17 @@
 - [**lsjgcx**](http://www.lsjgcx.com/) - 历史价格查询 （例：https://p.zwjhl.com/price.aspx?url=https://item.jd.com/100019851795.html）
 - [表情包 - 发表情](https://fabiaoqing.com/)
 - [**automa**](https://github.com/automaapp/automa) 自动化 web 操作
+- [免费的临时邮箱服务](https://minmail.app/cn)
+- [Fake Mail](https://github.com/CH563/fakemail) - 开源的一次性电子邮件服务，使用 Cloudflare worker + Astro 开发，收到的邮件存在 Cloudflare KV，2 小时后自动删除
+- [DeepSRT](https://chromewebstore.google.com/detail/deepsrt-experience-the-fa/mdaaadlpcanoofcoeanghbmpbdbhladd) - 一个 Chrome 插件，观看 Youtube 视频时，在浏览器侧边栏展示视频总结和字幕
+- [Staying](https://staying.fun/zh) - 代码可视化网站，可以将 Python 和 JS 代码的运行步骤，以动画形式展示，内置了许多常见算法的演示
+- [K2pdfopt](https://www.willus.com/k2pdfopt/) - 一个 PDF 工具，将 PDF 文件重排成 Kindle 和手机可以阅读的页面大小。
+- [Raccoon](https://raccoon.onyxbits.de/) - 从 Google Play 将安卓 apk 安装包下载到桌面的工具
+- [HTTP Toolkit](https://httptoolkit.com/) - 这个工具可以拦截和查看 HTTP/HTTPS 请求，并且可以 mock 服务器的回应
+- [Kate](https://kate-editor.org/zh-cn/) - KDE 项目里面的多文档编辑器，可以在一个窗口编辑多个文档，具有 IDE 的功能
+- [Awesome Open Source](https://awesomeopensource.com/) - 该网站对 GitHub 上的开源项目进行分类，共有 7000 多个类别
+- [awesome-icons](https://github.com/vkarampinis/awesome-icons) - 这个仓库收集免费的图标资源
+- [linkding](https://github.com/sissbruecker/linkding) - 一个自己架设的网址书签服务
 
 ## 参考链接
 
