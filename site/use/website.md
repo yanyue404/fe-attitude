@@ -57,6 +57,9 @@
 - [**loupe**](https://github.com/latentflip/loupe) - 可视化的 javascript 实时运行,理解异步, Built by [**Philip Roberts**](http://github.com/latentflip)
 - [**RMind**](https://github.com/Mongkii/RMind) - 基于 React Hooks 与 flex 布局 的思维导图 https://mongkii.github.io/RMind/
 - [**visualgo**](https://visualgo.net/zh/) - 数据结构，算法可视化
+- [network-plus](https://github.com/ClearStudio/network-plus) - 一款浏览器插件，可以修改浏览器发出的网络请求，相当于简易版的 Postman
+- [chii](https://github.com/liriliri/chii) - 一个远程调试网页的工具，只要在网页里面加载这个库，就可以远程打开 Chrome 开发者工具，主要用于调试手机端网页
+- [lightproxy](https://github.com/alibaba/lightproxy) - 一个本地的代理服务器，用于本地数据包捕获，可以实时 hosts 绑定、设置规则转发、mock 接口、修改请求和响应的内容等
 
 **综合**
 
@@ -84,6 +87,11 @@
 - [**github-markdown-css**](https://github.com/sindresorhus/github-markdown-css) - The minimal amount of CSS to replicate the GitHub Markdown style
 - [免费的封面图制作网站](https://www.coverpage.one/image)
 - [制作内容分享卡片的免费网站](https://mono.cards/zh)
+- [Zettlr](https://github.com/Zettlr/Zettlr) - 一个桌面 Markdown 编辑器，界面美观
+- [trilium](https://github.com/zadam/trilium/tree/master) - 一个 Markdown 格式的笔记软件，使用目录层级整理笔记。可以下载安装桌面版，也可以自己架设在线版
+- [markmap](https://github.com/markmap/markmap) - 一个将 Markdown 转为思维导图的开源工具
+- [sitdown](https://github.com/mdnice/sitdown) - 一个将 HTML 源码转换为 Markdown 的 JS 库，可以定制规则
+- [texme](https://github.com/susam/texme#texme) - 一个轻量级的 JavaScript 脚本，可以把 Markdown + LaTeX 文档直接渲染成网页
 
 ### 信仰
 
@@ -179,6 +187,11 @@
 - [Awesome Open Source](https://awesomeopensource.com/) - 该网站对 GitHub 上的开源项目进行分类，共有 7000 多个类别
 - [awesome-icons](https://github.com/vkarampinis/awesome-icons) - 这个仓库收集免费的图标资源
 - [linkding](https://github.com/sissbruecker/linkding) - 一个自己架设的网址书签服务
+- [PasteMe.cn](https://pasteme.cn/#/) - 一个文本分享网站，不需要注册，会对输入的文本或代码生成 URL，支持密码和阅后即焚
+- [Wiki.js](https://github.com/Requarks/wiki) - 架设个人 Wiki 的 Node.js 应用
+- [remark42](https://github.com/umputun/remark42) - 开源的评论服务，可以用来为静态网页加上留言功能
+- [换脸视频生成服务](https://myvoiceyourface.com/) - 一个在线服务，用户可以上传一张照片和一段视频，网站会将照片里的人脸，替换视频里面的人脸
+- [Unscreen](https://www.unscreen.com/) - 一个在线工具，可以免费删除视频背景
 
 ## 参考链接
 
