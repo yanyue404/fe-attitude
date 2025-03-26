@@ -71,6 +71,7 @@
 ### markdown
 
 - [**resumd**](https://github.com/timqian/resumd) - 使用 markdown 写简历，支持自定义主题，`html`,`pdf`,`md`导出 https://resumd.t9t.io
+- [Faultier-CV](https://github.com/i5heu/Faultier-CV) - 通过 Markdown 格式编写简历，并能实时预览 https://i5heu.github.io/Faultier-CV/dist/index.html
 - [**waifu2x**](https://github.com/nagadomi/waifu2x) - 图片进行放大操作 http://waifu2x.udp.jp/index.zh-CN.html
 - [**Picas**](https://github.com/djyde/Picas) - Google 字体生成的项目徽标 https://picas.now.sh/
 - [**wechat-format**](https://github.com/lyricat/wechat-format) - [微信公众号排版编辑器](https://lab.lyric.im/wxformat)
@@ -87,11 +88,17 @@
 - [**github-markdown-css**](https://github.com/sindresorhus/github-markdown-css) - The minimal amount of CSS to replicate the GitHub Markdown style
 - [免费的封面图制作网站](https://www.coverpage.one/image)
 - [制作内容分享卡片的免费网站](https://mono.cards/zh)
+- [流光卡片](https://fireflycard.shushiai.com/zh/) - 一个在线工具，生成文字分享的卡片图
 - [Zettlr](https://github.com/Zettlr/Zettlr) - 一个桌面 Markdown 编辑器，界面美观
+- [marktext](https://github.com/marktext/marktext) - 一个跨平台的桌面 Markdown 编辑器
 - [trilium](https://github.com/zadam/trilium/tree/master) - 一个 Markdown 格式的笔记软件，使用目录层级整理笔记。可以下载安装桌面版，也可以自己架设在线版
 - [markmap](https://github.com/markmap/markmap) - 一个将 Markdown 转为思维导图的开源工具
 - [sitdown](https://github.com/mdnice/sitdown) - 一个将 HTML 源码转换为 Markdown 的 JS 库，可以定制规则
 - [texme](https://github.com/susam/texme#texme) - 一个轻量级的 JavaScript 脚本，可以把 Markdown + LaTeX 文档直接渲染成网页
+- [mdq](https://github.com/yshavit/mdq) - 一个从 Markdown 文件提取信息的命令行工具，类似 处理 Markdown 文件的 jq 命令
+- [MarkItDown](https://github.com/microsoft/markitdown) - 微软官方推出的工具，将各种格式的文件（主要是 Office 文件）转成 Markdown 格式。标题是 GitHub 仓库链接，下面是[线上体验](https://markitdown.pro/)。
+- [封面图片生成器](https://spacexcode.com/coverview/) - 一个制作简单封面图的 Web 工具
+- [marker](https://github.com/VikParuchuri/marker) - 一个命令行工具，将 PDF、EPUB、MOBI 文档转成 Markdown 文件，必要时会进行 OCR（文字识别）
 
 ### 信仰
 
@@ -178,6 +185,8 @@
 - [**automa**](https://github.com/automaapp/automa) 自动化 web 操作
 - [免费的临时邮箱服务](https://minmail.app/cn)
 - [Fake Mail](https://github.com/CH563/fakemail) - 开源的一次性电子邮件服务，使用 Cloudflare worker + Astro 开发，收到的邮件存在 Cloudflare KV，2 小时后自动删除
+- [moemail](https://github.com/beilunyang/moemail) - 一个基于 NextJS + Cloudflare 技术栈构建的可爱临时邮箱服务
+- [TempMail](https://tempmail100.com/) - 临时邮箱服务，支持 iOS 和网页端
 - [DeepSRT](https://chromewebstore.google.com/detail/deepsrt-experience-the-fa/mdaaadlpcanoofcoeanghbmpbdbhladd) - 一个 Chrome 插件，观看 Youtube 视频时，在浏览器侧边栏展示视频总结和字幕
 - [Staying](https://staying.fun/zh) - 代码可视化网站，可以将 Python 和 JS 代码的运行步骤，以动画形式展示，内置了许多常见算法的演示
 - [K2pdfopt](https://www.willus.com/k2pdfopt/) - 一个 PDF 工具，将 PDF 文件重排成 Kindle 和手机可以阅读的页面大小。
@@ -192,6 +201,20 @@
 - [remark42](https://github.com/umputun/remark42) - 开源的评论服务，可以用来为静态网页加上留言功能
 - [换脸视频生成服务](https://myvoiceyourface.com/) - 一个在线服务，用户可以上传一张照片和一段视频，网站会将照片里的人脸，替换视频里面的人脸
 - [Unscreen](https://www.unscreen.com/) - 一个在线工具，可以免费删除视频背景
+- [Chrome remote desktop](https://remotedesktop.google.com/home?pli=1) - 谷歌推出了远程桌面软件，可以在手机和桌面浏览器里面，访问远程电脑的桌面，进行各种操作
+- [Screen Sharing](https://screensharing.net/) - 从浏览器分享你的屏幕给其他人，适合用来演示
+- [Graphite](https://github.com/GraphiteEditor/Graphite) - 一款在线版的图像编辑器，代码开源
+- [PDFMathTranslate](https://github.com/Byaidu/PDFMathTranslate) - 开源的命令行工具，使用 AI 翻译 PDF 文件，完整保留排版
+- [typing-practice](https://github.com/wincatcher/typing-practice.toolsnav.top) - 开源的英文打字练习工具
+- [dazhengTools](https://github.com/dazhengs/tools) - 开源的纯前端在线加/解密工具箱，可以离线使用
+- [codess](https://codess.dumogu.top/) - 快速生成和在线管理 VS Code 代码片段
+- [Compress JPG](https://compressjpg.io/zh-CN) - 一个基于谷歌的 squoosh 算法、一次性压缩多张图片的网站
+- [Stirling-PDF](https://github.com/Stirling-Tools/Stirling-PDF) - 一个开源工具，用来完成各种 PDF 操作，基于 Web，需要自己架设
+- [深蹲计数器](https://github.com/zhaoolee/sport) - 一个开源的 Web 应用，通过移动设备的加速度计，实现深蹲计数
+- [一个下载各种流媒体视频的在线工具，支持 Youtube 和 TikTok](https://www.fastdownload.io/)
+- [cobalt](https://github.com/imputnet/cobalt) - 一个开源的视频下载网址，支持多个视频网站，包括 B 站、Youtube、instagram 和 Twitter
+- [SirTunnel](https://github.com/anderspitman/SirTunnel) - 一个开源软件，只需要 50 行代码，就能建立一条隧道，将你的内网电脑可以被公网访问，这里有一篇[教程](https://eighty-twenty.org/2023/01/27/sirtunnel-personal-ngrok)
+- [code-inspector](https://github.com/zh-lx/code-inspector) - 一个 JS 打包器的插件，点击网页 DOM，就会自动打开 IDE，并定位到相应的源码位置，目前支持 webpack/vite/rspack 打包器
 
 ## 参考链接
 
