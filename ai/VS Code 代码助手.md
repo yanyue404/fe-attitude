@@ -209,6 +209,25 @@
 
 https://www.continue.dev/
 
+安装完成后点击左侧 continue 插件图标，点击上方齿轮标志进入 config.json 设置
+
+在 config.json 中添加
+
+```json
+{
+  "title": "DeepSeek-r1:32b",
+  "provider": "ollama",
+  "model": "deepseek-r1:32b",
+  "apiBase": "http://xxx/deepseek/"
+}
+```
+
+ctrl+S 保存，然后即可在对话界面选择内部部署 32b 模型
+
+### 开始使用
+
+选择一段代码，ctrl+L 即可导入插件并发出指令如：帮我优化这段代码/解释这段代码，Enter 发送代码和命令，稍等片刻得到分析结果
+
 ## 豆包 MarsCode 编程助手
 
 字节跳动旗下的 AI 代码助手，提供智能补全、智能预测、智能问答等能力
@@ -230,3 +249,7 @@ https://www.continue.dev/
 ## 参考
 
 - https://www.ruanyifeng.com/blog/2025/02/weekly-issue-338.html
+
+```
+
+```

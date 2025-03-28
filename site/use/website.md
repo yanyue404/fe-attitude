@@ -22,6 +22,7 @@
 - 腾讯云 AI 代码助手 （VS Code 插件）
 - [问答 PK](https://ai.wx.taikang.com/taikang-gpt.app/quesAnswer)
 - [豆包 AI](https://www.doubao.com/chat/)
+- [v0](https://v0.dev/) - Vercel 推出的一个实验性产品，使用 AI 网页生成网页 (页面基于 React + Tailwind CSS 实现，并允许不断微调)
 
 **工具**
 
@@ -60,8 +61,9 @@
 - [network-plus](https://github.com/ClearStudio/network-plus) - 一款浏览器插件，可以修改浏览器发出的网络请求，相当于简易版的 Postman
 - [chii](https://github.com/liriliri/chii) - 一个远程调试网页的工具，只要在网页里面加载这个库，就可以远程打开 Chrome 开发者工具，主要用于调试手机端网页
 - [lightproxy](https://github.com/alibaba/lightproxy) - 一个本地的代理服务器，用于本地数据包捕获，可以实时 hosts 绑定、设置规则转发、mock 接口、修改请求和响应的内容等
+- [DevToys](https://github.com/DevToys-app/DevToys) - 一款 Windows 的小工具集合，收入了开发者会用到的许多小工具
 
-**综合**
+  **综合**
 
 - [开发者武器库](https://devtool.tech/)
 - [油猴脚本 - Greasy Fork](https://greasyfork.org/zh-TW)
@@ -99,6 +101,8 @@
 - [MarkItDown](https://github.com/microsoft/markitdown) - 微软官方推出的工具，将各种格式的文件（主要是 Office 文件）转成 Markdown 格式。标题是 GitHub 仓库链接，下面是[线上体验](https://markitdown.pro/)。
 - [封面图片生成器](https://spacexcode.com/coverview/) - 一个制作简单封面图的 Web 工具
 - [marker](https://github.com/VikParuchuri/marker) - 一个命令行工具，将 PDF、EPUB、MOBI 文档转成 Markdown 文件，必要时会进行 OCR（文字识别）
+- [mdBook](https://github.com/rust-lang/mdBook) - 制作电子书的命令行工具，从 Markdown 生成 PDF 和 EPUB 文件
+- [DeepPDF](https://deeppdf.ai/pdf-translator) - 免费的 PDF 文件翻译网站，比如英文 PDF 翻译成中文，保留排版不变。
 
 ### 信仰
 
@@ -215,6 +219,9 @@
 - [cobalt](https://github.com/imputnet/cobalt) - 一个开源的视频下载网址，支持多个视频网站，包括 B 站、Youtube、instagram 和 Twitter
 - [SirTunnel](https://github.com/anderspitman/SirTunnel) - 一个开源软件，只需要 50 行代码，就能建立一条隧道，将你的内网电脑可以被公网访问，这里有一篇[教程](https://eighty-twenty.org/2023/01/27/sirtunnel-personal-ngrok)
 - [code-inspector](https://github.com/zh-lx/code-inspector) - 一个 JS 打包器的插件，点击网页 DOM，就会自动打开 IDE，并定位到相应的源码位置，目前支持 webpack/vite/rspack 打包器
+- [Webrecorder](https://webrecorder.net/) - 一个工具包，用来保存交互式网页，做到离线时也能尽可能准确地重现它
+- [Automa](https://www.automa.site/) - Chrome 浏览器插件，用来设置任务自动化。另外，Chrome 有内置的用户行为录制
+- [Accessibility](https://github.com/ranbuch/accessibility) - 一个 JS 库，用来增强网页的可用性。只要插入这个库，网页就会出现一个工具栏，让用户自己选择增大字体、加深对比色、增大间隔、朗读文本等等
 
 ## 参考链接
 

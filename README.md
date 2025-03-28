@@ -5,7 +5,7 @@
 ## 快速访问
 
 - **AI**
-  - [GPT-GOD](https://gptgod.online/) / [Grok 3](https://grok.com/?referrer=website) / [Cursor](https://www.cursor.com/cn) / [github copilot](https://github.com/copilot)
+  - [GPT-GOD](https://gptgod.online/) / [Grok 3](https://grok.com/?referrer=website) / [Gemini](https://gemini.google.com/app/) [Cursor](https://www.cursor.com/cn) / [github copilot](https://github.com/copilot)
   - [deepseek](https://chat.deepseek.com/) / [豆包 AI](https://www.doubao.com/chat/) / [Kimi.ai](https://kimi.moonshot.cn/) / [智普清言](https://chatglm.cn/) / [Monica AI](https://monica.im/) / [Sider](https://sider.ai/)、Docky.AI
 - **关注** [方应杭](https://space.bilibili.com/4349808)/ [AnthonyFu](https://space.bilibili.com/668380) /[冬灰条](https://space.bilibili.com/8212729) / [dev-zuo](https://space.bilibili.com/486840111)
 - [现代 JavaScript 教程](https://zh.javascript.info/)
