@@ -153,6 +153,9 @@
 - [**vuepress**](https://github.com/vuejs/vuepress) - vue 官方出品的文档工具
 - [readme-md-generator](https://github.com/kefranabg/readme-md-generator)  一个命令行脚本帮你快速的创建一个 README
 - [**gh-pages**](https://github.com/tschaub/gh-pages) - 将文件发布到 GitHub 上的 `gh-pages` 分支
+- [code-inspector](https://github.com/zh-lx/code-inspector) - 一个 JS 打包器的插件，点击网页 DOM，就会自动打开 IDE，并定位到相应的源码位置，目前支持 webpack/vite/rspack 打包器
+- [codess](https://codess.dumogu.top/) - 快速生成和在线管理 VS Code 代码片段
+- [Accessibility](https://github.com/ranbuch/accessibility) - 一个 JS 库，用来增强网页的可用性。只要插入这个库，网页就会出现一个工具栏，让用户自己选择增大字体、加深对比色、增大间隔、朗读文本等等
 
 ## Node
 
