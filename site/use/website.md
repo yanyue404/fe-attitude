@@ -49,6 +49,7 @@
   - [lightproxy](https://github.com/alibaba/lightproxy) - 一个本地的代理服务器，用于本地数据包捕获，可以实时 hosts 绑定、设置规则转发、mock 接口、修改请求和响应的内容等 (基于 whistle)
   - [chii](https://github.com/liriliri/chii) - 一个远程调试网页的工具，只要在网页里面加载这个库，就可以远程打开 Chrome 开发者工具，主要用于调试手机端网页
   - [HTTP Toolkit](https://httptoolkit.com/) - 这个工具可以拦截和查看 HTTP/HTTPS 请求，并且可以 mock 服务器的回应
+  - [SwitchHosts](https://github.com/oldj/SwitchHosts) - 一个管理 hosts 文件的应用
 - [stackoverflow questions](https://stackoverflow.com/questions)
 - [**tinypng**](https://tinypng.com/) / [**squoosh**](https://squoosh.app) - 图片压缩
 - [**在线 PS**](https://www.uupoop.com/#/old) / [**photopea**](https://www.photopea.com/)
