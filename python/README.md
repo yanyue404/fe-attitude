@@ -86,3 +86,13 @@ python hello.py
 ```
 
 3、集成开发环境（IDE）
+
+vscode
+
+```json
+{
+  "code-runner.executorMap": {
+    "python": "set PYTHONIOENCODING=utf8 && python -u"
+  }
+}
+```

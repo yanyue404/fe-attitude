@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 s1 = set([1, 1, 2, 2, 3, 3])

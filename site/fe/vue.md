@@ -1858,6 +1858,70 @@ export default {
 }
 ```
 
+## 调试线上 vue 组件
+
+> https://mp.weixin.qq.com/s/kO97IkQ17bSuKSsVq-J_cA
+
+vue2
+
+```
+// vue devtools 6.6.3，同时支持vue2和vue3
+
+var Vue, walker, node;
+walker = document.createTreeWalker(document.body,1);
+while ((node = walker.nextNode())) {
+  if (node.__vue__) {
+    Vue = node.__vue__.$options._base;
+    if (!Vue.config.devtools) {
+      Vue.config.devtools = true;
+      if (window.__VUE_DEVTOOLS_GLOBAL_HOOK__) {
+        window.__VUE_DEVTOOLS_GLOBAL_HOOK__.emit("init", Vue);
+        console.log("==> vue devtools now is enabled");
+      }
+    }
+    break;
+  }
+}
+```
+
+vue3
+
+```
+// 纯vue3项目，看不到pinia
+
+const el = document.querySelector('#app') || document.querySelector('#__nuxt')
+if (!el) {
+  console.error('==> #app element not found')
+}
+
+const vm = el.__vue_app__
+if (!vm) {
+  console.error('==> Vue app instance not found on #app')
+}
+
+setTimeout(() => {
+  if (window.__VUE_DEVTOOLS_GLOBAL_HOOK__) {
+    window.__VUE_DEVTOOLS_GLOBAL_HOOK__.apps.push({
+      app: vm,
+      version: vm.version,
+      types: {
+        Comment: Symbol('Comment'),
+        Fragment: Symbol('Fragment'),
+        Static: Symbol('Static'),
+        Text: Symbol('Text')
+      }
+    })
+    window.__VUE_DEVTOOLS_GLOBAL_HOOK__.emit('init', vm)
+    console.log('==> Vue DevTools now is enabled')
+  } else {
+    console.error(
+      '==> Vue DevTools hook not found, ensure the extension is installed'
+    )
+  }
+}, 1000) // 延迟 1 秒，确保 Vue 挂载完成
+
+```
+
 ## 参考链接
 
 - https://juejin.cn/post/6844904166742048782

@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # metaclass是创建类，所以必须从`type`类型派生：
