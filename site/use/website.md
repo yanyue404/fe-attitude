@@ -73,7 +73,7 @@
 
 - Proxy SwitchySharp 1.10.4
 - FeHelper(前端助手)
-- Vimium C
+- Vimium C - 全键盘操作浏览器(`?` 显示帮助界面)
 - 篡改猴
 - AdBlock - 拦截整个网络的广告
 - Clear Cache
@@ -121,8 +121,9 @@
 - [Faultier-CV](https://github.com/i5heu/Faultier-CV) - 通过 Markdown 格式编写简历，并能实时预览 https://i5heu.github.io/Faultier-CV/dist/index.html
 - [**waifu2x**](https://github.com/nagadomi/waifu2x) - 图片进行放大操作 http://waifu2x.udp.jp/index.zh-CN.html
 - [**Picas**](https://github.com/djyde/Picas) - Google 字体生成的项目徽标 https://picas.now.sh/
-- [**wechat-format**](https://github.com/lyricat/wechat-format) - [微信公众号排版编辑器](https://lab.lyric.im/wxformat)
-- [**md**](https://github.com/doocs/md) - 微信公众号 Markdown 编辑器，基于 wechat-format 进行了二次开发
+- 在线编辑器
+  - [**wechat-format**](https://github.com/lyricat/wechat-format) - [微信公众号排版编辑器](https://lab.lyric.im/wxformat)
+  - [**md**](https://github.com/doocs/md) - 微信公众号 Markdown 编辑器，基于 wechat-format 进行了二次开发
 - [**logoly**](https://github.com/bestony/logoly) - A Pornhub Flavour Logo Generator https://www.logoly.pro/
 - [**markdown-it**](https://github.com/markdown-it/markdown-it) - Markdown 转 HTML
 - [**tui.editor**](https://github.com/nhn/tui.editor) - Markdown 所见即所得编辑器

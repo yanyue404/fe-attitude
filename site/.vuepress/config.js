@@ -27,6 +27,7 @@ module.exports = {
       {
         text: '构建前端知识体系',
         items: [
+          { text: '自检', link: '/fe/self-check.html' },
           { text: 'Html', link: '/fe/html' },
           { text: 'CSS', link: '/fe/css' },
           { text: 'JavaScript', link: '/fe/javascript' },

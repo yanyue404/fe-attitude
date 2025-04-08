@@ -1,4 +1,4 @@
-## 面试手册
+## 自检（面试手册）
 
 **简历**
 
@@ -21,7 +21,6 @@
 4. 有时会有面试官会刻意施加压力，这时不在于问题回答的是否正确，而在于是否能在这些压力下仍然能够理性思考，面对面试官的每个问题，可以尝试想下面试官问这个问题的背后目的是什么
 
 ## 面试要点解析
-
 
 ### 前端基础
 
@@ -341,3 +340,229 @@
 - 重构的手段有哪些
 - 数组去重
 - 你比较擅长哪一块，不足的地方在哪里
+
+## 回答
+
+### Node
+
+#### **1. 模块机制**
+
+**核心要点**：
+
+- **CommonJS 规范**：每个文件是一个模块，通过 `require` 导入，`module.exports/exports` 导出
+- **模块类型**：
+  - 核心模块（内置模块，如 `fs`, `http`）
+  - 文件模块（用户自定义模块）
+  - 第三方模块（`node_modules`）
+- **加载过程**：
+  1. 路径解析（优先缓存 → 核心模块 → 路径查找）
+  2. 文件定位（自动补全 `.js`, `.json`, `.node` 扩展名）
+  3. 编译执行（不同扩展名使用不同编译器）
+  4. 加入缓存（`require.cache`）
+
+**示例**：
+
+```javascript
+// 查找顺序示例
+require('http') → 核心模块
+require('./mod') → 当前目录的 mod.js
+require('lodash') → node_modules/lodash
+```
+
+---
+
+#### **2. `require` 原理**
+
+**执行流程**：
+
+1. 解析路径为绝对路径
+2. 检查 `require.cache` 是否存在缓存
+3. 创建 `Module` 实例（包含 `exports`, `id`, `loaded` 等属性）
+4. 根据文件类型加载：
+   - `.js`：包裹成函数 `(function(exports, require, module, __filename, __dirname) { ... })`
+   - `.json`：直接解析为 `JSON.parse`
+5. 执行模块代码，填充 `exports` 对象
+6. 返回 `module.exports`
+
+**关键特性**：
+
+- 同步加载
+- 缓存机制（相同模块只加载一次）
+- 循环依赖处理（未完成的 `exports` 会被提前暴露）
+
+---
+
+#### **3. 事件循环**
+
+**六个阶段（libuv 实现）**：
+
+1. **Timers**：执行 `setTimeout`/`setInterval` 回调
+2. **Pending callbacks**：执行系统操作回调（如 TCP 错误）
+3. **Idle/Prepare**：内部使用
+4. **Poll**：
+   - 检索新的 I/O 事件
+   - 执行 I/O 相关回调
+   - 阻塞在此阶段等待新事件（当没有 check 阶段的回调时）
+5. **Check**：执行 `setImmediate` 回调
+6. **Close callbacks**：执行关闭事件回调（如 `socket.on('close')`）
+
+**关键要点**：
+
+- `process.nextTick` 在阶段切换前执行（微任务）
+- `setImmediate` 在 Check 阶段执行
+- I/O 回调在 Poll 阶段执行
+
+---
+
+#### **4. Cluster 原理**
+
+**核心机制**：
+
+- Master 进程通过 `cluster.fork()` 创建 Worker 进程
+- 共享服务器端口（底层使用 `round-robin` 负载均衡）
+- IPC 通信通道（通过 `process.send` 和 `message` 事件）
+
+**代码示例**：
+
+```javascript
+const cluster = require('cluster')
+if (cluster.isMaster) {
+  // Fork workers
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork()
+  }
+} else {
+  // Worker 代码
+  http.createServer().listen(3000)
+}
+```
+
+**优化策略**：
+
+- 心跳检测（防止 Worker 僵死）
+- 优雅重启（`disconnect` + `exit` 事件配合）
+
+---
+
+#### **5. 流机制**
+
+**四种流类型**：
+| 类型 | 特性 | 示例 |
+|------|------|------|
+| Readable | 数据生产 | 文件读取流 |
+| Writable | 数据消费 | HTTP 响应 |
+| Duplex | 双向流 | TCP socket |
+| Transform | 数据转换 | Gzip 压缩 |
+
+**关键概念**：
+
+- **背压（Backpressure）**：通过 `highWaterMark` 控制缓冲区大小
+- **流动模式**：`data` 事件驱动
+- **暂停模式**：`read()` 方法手动控制
+
+---
+
+#### **6. `pipe` 原理**
+
+**核心实现**：
+
+```javascript
+readable.pipe(writable) = {
+  readable.on('data', (chunk) => {
+    if (!writable.write(chunk)) {
+      readable.pause();
+    }
+  });
+  writable.on('drain', () => {
+    readable.resume();
+  });
+}
+```
+
+**特性**：
+
+- 自动处理背压
+- 错误传播（需手动处理）
+- 可链式调用（`a.pipe(b).pipe(c)`）
+
+---
+
+#### **7. 守护进程**
+
+**创建步骤**：
+
+1. 创建子进程
+2. 脱离控制终端（`setsid`）
+3. 改变工作目录
+4. 重定向标准 I/O
+5. 错误处理与日志记录
+
+**代码示例**：
+
+```javascript
+const spawn = require('child_process').spawn
+const daemon = spawn(process.argv[0], ['app.js'], {
+  detached: true,
+  stdio: 'ignore'
+})
+daemon.unref()
+```
+
+---
+
+#### **8. 进程通信**
+
+**通信方式**：
+| 方式 | 适用场景 |
+|------|----------|
+| 管道（pipe） | 父子进程间简单通信 |
+| 消息队列 | 跨机器通信 |
+| 共享内存 | 大数据量传输 |
+| Socket | 网络通信 |
+| Signal | 进程控制 |
+
+**Node.js 实现**：
+
+- `child_process` 使用 IPC 通道
+- `worker.send()` 和 `process.on('message')`
+- 底层基于 libuv 的跨平台实现（Unix domain socket / Windows named pipe）
+
+---
+
+#### **9. 异常处理**
+
+**分层处理策略**：
+
+1. **Try/Catch**：同步代码
+2. **Promise.catch**：异步代码
+3. **EventEmitter 错误事件**：
+   ```javascript
+   const stream = createReadStream('file')
+   stream.on('error', err => {
+     /* 处理错误 */
+   })
+   ```
+4. **进程级捕获**：
+   ```javascript
+   process.on('uncaughtException', err => {
+     logger.error(err)
+     process.exit(1)
+   })
+   ```
+
+**最佳实践**：
+
+- 避免阻塞在 `uncaughtException`
+- 使用 domain 模块（已废弃，仅旧项目使用）
+- 结合 PM2 等进程管理器实现自动重启
+
+---
+
+### **总结回答示例**
+
+"Node.js 的模块机制基于 CommonJS 规范，通过 `require` 实现依赖加载，其核心原理包括路径解析、缓存和函数包裹。事件循环分为六个阶段，理解 timers、poll 和 check 阶段的执行顺序至关重要。Cluster 模块通过主进程管理多个 Worker 实现了多核利用，底层使用 IPC 通信。流机制通过背压控制优化了大数据处理性能，`pipe` 方法则封装了流对接的细节。守护进程需要处理进程分离和日志管理，异常处理要分层级覆盖同步/异步场景。这些机制共同支撑了 Node.js 的高性能服务能力。"
+
+### 参考
+
+- [前端面试真题，会 80% 直接进大厂](https://m26bxrpatp.feishu.cn/base/appcn5mUun8tTLsaFG0jrTeUnBg?table=tbllAUETZhGVTWMA&view=vewJHSwJVd)
+- [专科如何进入互联网大厂 ](https://github.com/xuya227939/blog/issues/134)

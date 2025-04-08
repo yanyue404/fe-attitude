@@ -728,6 +728,140 @@ keep-alive 有以下三个属性：
 
 - [https://cn.vuejs.org/v2/guide/components-dynamic-async.html#在动态组件上使用-keep-alive](https://cn.vuejs.org/v2/guide/components-dynamic-async.html#%E5%9C%A8%E5%8A%A8%E6%80%81%E7%BB%84%E4%BB%B6%E4%B8%8A%E4%BD%BF%E7%94%A8-keep-alive)
 
+## Vue `keep-alive` 组件原理详解
+
+`keep-alive` 是 Vue 的内置组件，用于 **缓存组件实例**，避免重复渲染和销毁。以下是其核心原理的分步解析：
+
+---
+
+#### **一、核心作用**
+
+1. **状态保留**：保留被包裹组件的状态（如数据、DOM 结构）
+2. **性能优化**：避免重复执行以下操作：
+   - 组件销毁 (`beforeDestroy/destroyed`)
+   - 重新创建实例 (`created/mounted`)
+3. **生命周期管理**：触发特有的 `activated/deactivated` 钩子
+
+---
+
+#### **二、实现原理**
+
+**1. 缓存机制**
+
+```javascript
+// 伪代码示例
+const cache = new Map() // 使用缓存对象存储组件实例
+
+function render() {
+  const key = getComponentKey(this)
+  const cachedComponent = cache.get(key)
+
+  if (cachedComponent) {
+    // 从缓存恢复实例
+    return cachedComponent.componentInstance
+  } else {
+    // 创建新实例并缓存
+    const component = createComponent()
+    cache.set(key, component)
+    return component
+  }
+}
+```
+
+**2. 键值生成**
+
+- 默认使用组件 `name` + `tag` 生成唯一标识
+- 可通过 `include/exclude` 过滤组件
+- `max` 属性控制最大缓存数量（LRU 淘汰策略）
+
+**3. 生命周期管理**
+
+```javascript
+// 组件激活时
+function activated() {
+  // 恢复滚动位置
+  // 重新触发某些副作用（如定时器）
+}
+
+// 组件停用时
+function deactivated() {
+  // 保存滚动位置
+  // 暂停副作用
+}
+```
+
+---
+
+#### **三、工作流程**
+
+```mermaid
+graph TD
+  A[组件首次渲染] -->|创建实例| B[缓存实例]
+  B --> C[返回实例]
+  D[组件再次进入] -->|匹配缓存| E[直接复用实例]
+  E --> F[触发 activated 钩子]
+  G[超出 max 限制] --> H[淘汰最久未使用的实例]
+```
+
+---
+
+#### **四、源码关键点分析**
+
+1. **`render` 方法** ([源码位置](https://github.com/vuejs/vue/blob/dev/src/core/components/keep-alive.js))
+
+   ```javascript
+   render () {
+     const vnode = getFirstComponentChild(this.$slots.default)
+     const key = vnode.key ?? getComponentKey(vnode)
+
+     if (cache[key]) {
+       vnode.componentInstance = cache[key].componentInstance
+     } else {
+       cache[key] = vnode
+     }
+
+     return vnode
+   }
+   ```
+
+2. **LRU 缓存淘汰** (当超过 `max` 时)
+   ```javascript
+   if (this.max && keys.length > parseInt(this.max)) {
+     pruneCacheEntry(cache, keys[0], keys, this._vnode)
+   }
+   ```
+
+---
+
+#### **五、使用场景**
+
+| 场景         | 优势         |
+| ------------ | ------------ |
+| 标签页切换   | 保留表单数据 |
+| 列表详情页   | 保持滚动位置 |
+| 复杂组件切换 | 提升渲染性能 |
+
+---
+
+#### **六、注意事项**
+
+1. **必须设置组件 `name`**：否则无法正确缓存
+2. **避免动态组件滥用**：不需要缓存的组件不要包裹
+3. **内存管理**：合理设置 `max` 属性
+4. **不适用场景**：频繁更新数据的组件可能反而降低性能
+
+---
+
+#### **七、调试技巧**
+
+```javascript
+// 查看当前缓存实例
+console.log(this.$parent.$refs.keepAliveRef.cache)
+
+// 强制清除缓存
+this.$parent.$refs.keepAliveRef.pruneCache()
+```
+
 ## 如何强制刷新 Vue 组件
 
 - 使用 key

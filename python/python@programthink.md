@@ -20,7 +20,7 @@
 
 ### 1.1.1 正则表达式
 
-#### re
+#### [re](https://docs.python.org/zh-cn/3/library/re.html)
 
 【标准库】
 
@@ -45,7 +45,7 @@ print(chardet.detect(bytes))
 
 ### 1.1.3 （其它）
 
-#### StringIO & cStringIO
+#### [StringIO](https://docs.python.org/zh-cn/3/library/io.html) & cStringIO
 
 【标准库】
 
@@ -53,7 +53,7 @@ print(chardet.detect(bytes))
 
 cStringIO 是 C 语言实现的，性能更高；而 StringIO 是 Python 实现的，提供 Unicode 兼容性。
 
-#### difflib
+#### [difflib](https://docs.python.org/zh-cn/3/library/difflib.html)
 
 【标准库】
 
@@ -155,13 +155,20 @@ time = libc.time(None)
 代码示例——调用 Windows 系统的 API，弹出消息提示框：
 
 ```python
-from ctypes import c_int, WINFUNCTYPE, windll
-from ctypes.wintypes import HWND, LPCSTR, UINT
+from ctypes import WINFUNCTYPE, windll, c_int
+from ctypes.wintypes import HWND, LPCWSTR, UINT
 
-prototype = WINFUNCTYPE(c_int, HWND, LPCSTR, LPCSTR, UINT)
-paramflags = (1, "hwnd", 0), (1, "text", "Hi"), (1, "caption", None), (1, "flags", 0)
-MessageBox = prototype(("MessageBoxA", windll.user32), paramflags)
-MessageBox(text="Hello, world", flags=2)
+# 使用 W 版本的 Unicode API
+prototype = WINFUNCTYPE(c_int, HWND, LPCWSTR, LPCWSTR, UINT)
+paramflags = (
+    (1, "hwnd", 0),
+    (1, "text", "Hello, world"),  # 直接使用 Unicode 字符串
+    (1, "caption", "Python提示"),
+    (1, "flags", 0x40)  # 0x40 对应 MB_ICONINFORMATION (信息图标)
+)
+
+MessageBox = prototype(("MessageBoxW", windll.user32), paramflags)
+MessageBox()
 ```
 
 #### SWIG（Simplified Wrapper and Interface Generator）
@@ -224,7 +231,7 @@ Home: [http://pyobjc.sourceforge.net/](http://pyobjc.sourceforge.net/)
 
 ## 3.1 文件和目录操作
 
-#### os
+#### [os](https://docs.python.org/zh-cn/3/library/os.html)
 
 【标准库】
 

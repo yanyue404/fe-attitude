@@ -1,5 +1,6 @@
 ## 分类
 
+- [自检](/fe/self-check.html)
 - [HTML](/fe/html.html)
 - [CSS](/fe/css.html)
 - [JavaScript](/fe/javascript.html)
@@ -20,6 +21,7 @@
 
 - [前端面试之道](http://caibaojian.com/interview-map/frontend/)
 - [Daily-Interview-Question](https://github.com/Advanced-Frontend/Daily-Interview-Question)
+  - [前端 100 问：能搞懂 80%的请把简历给我 ](https://github.com/yygmind/blog/issues/43)
 - [web 前端面试 - 面试官系列](https://github.com/febobo/web-interview)
 - [剑指前端 Offer](https://github.com/HZFE/awesome-interview)
 - [现代 JavaScript 教程](https://zh.javascript.info/)
@@ -31,4 +33,4 @@
 - [106 道面向初中级前端的基础面试题](https://juejin.cn/post/6898121476864638989)
 - [小火柴的前端小册子](https://www.xiaohuochai.site/)
 - [后盾人 - 在线文档](https://doc.houdunren.com/)
-- https://roadmap.sh/roadmaps
+- [roadmaps](https://roadmap.sh/roadmaps)
