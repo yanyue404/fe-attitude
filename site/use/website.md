@@ -90,6 +90,7 @@
 ### 综合
 
 - [DevToys](https://github.com/DevToys-app/DevToys) - 一款 Windows 的小工具集合，收入了开发者会用到的许多小工具
+- [it-tools](https://github.com/CorentinTh/it-tools) - 为开发人员收集方便的在线工具，具有很好的用户体验 https://it-tools.tech
 - [开发者武器库](https://devtool.tech/)
 - [油猴脚本 - Greasy Fork](https://greasyfork.org/zh-TW)
 - [极简插件 - Chrome 插件/扩展](https://chrome.zzzmh.cn/#/index)
