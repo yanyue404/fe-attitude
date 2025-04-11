@@ -61,13 +61,19 @@
 - [**Can I use**](https://caniuse.com/) 查询浏览器的特性支持情况
 - [中文版的 lighthouse (opens new window)](https://developers.google.com/speed/pagespeed/insights/)测试网页性能
 - [Autoprefixer (opens new window)](https://autoprefixer.github.io/)为 css 加上浏览器前缀，配套 webpack 相关插件
-- [**netlify**](https://www.netlify.com/) - 静态网站托管服务
 - [**carbon**](https://carbon.now.sh/) 在线代码生成图片 https://carbon.now.sh/
 - [**JavaScript Visualizer**](https://tylermcginnis.com/javascript-visualizer/) 可视化 **ES5** `JavaScript` 执行
 - [**astexplorer**](https://github.com/fkling/astexplorer) - 一个在线 ast 生成器 https://astexplorer.net/
 - [**loupe**](https://github.com/latentflip/loupe) - 可视化的 javascript 实时运行,理解异步, Built by [**Philip Roberts**](http://github.com/latentflip)
 - [**RMind**](https://github.com/Mongkii/RMind) - 基于 React Hooks 与 flex 布局 的思维导图 https://mongkii.github.io/RMind/
 - [**visualgo**](https://visualgo.net/zh/) - 数据结构，算法可视化
+- **静态网站托管服务**
+  - [Cloudflare Pages](https://dash.cloudflare.com/)
+  - GitHub Pages
+  - [netlify](https://www.netlify.com/)
+  - [YourWare.so](https://www.yourware.so/)
+  - [Vercel](https://vercel.com/)
+  - 腾讯云 EdgeOne Pages
 
 ### Chrome 插件
 
