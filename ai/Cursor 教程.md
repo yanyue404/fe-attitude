@@ -102,6 +102,8 @@ Cursor 的最大亮点在于其内置的 AI 辅助编程功能，它可以帮助
 - [菜鸟 —— Cursor 教程](https://www.runoob.com/cursor/cursor-tutorial.html) / [VS Code AI 扩展](https://www.runoob.com/vscode/vscode-ai-extensions.html)
 - [10 分钟带你解锁 Cursor 的全部潜力：从基础操作到高级技巧](https://www.ifb.me/zh/blog/backend/10-fen-zhong-jie-suo)
 - [cursor 教程](https://www.youtube.com/watch?v=lypPoT8lZ2M&list=PLZ81M_gt1CZdlEQqug70vMGhthMwXOJRB)
+- [Cursor 学习指南 (v2ex 网友分享)](https://flowus.cn/share/58da5f2b-f741-446e-8046-3a73e5dae836)
+- [Cursor Hub](https://cursorhub.org/tutorials/basics/getting-started/introduction)
 
 **知乎话题**
 

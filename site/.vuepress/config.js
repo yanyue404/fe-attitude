@@ -25,24 +25,29 @@ module.exports = {
   themeConfig: {
     nav: [
       {
-        text: '构建前端知识体系',
+        text: '构建知识体系',
         items: [
-          { text: '自检', link: '/fe/self-check.html' },
-          { text: 'Html', link: '/fe/html' },
-          { text: 'CSS', link: '/fe/css' },
-          { text: 'JavaScript', link: '/fe/javascript' },
-          { text: 'TypeScript', link: '/fe/typescript' },
-          { text: '手写代码', link: '/fe/write' },
-          { text: '输出结果', link: '/fe/console' },
-          { text: '设计模式', link: '/fe/design' },
-          { text: '浏览器', link: '/fe/browser' },
-          { text: '计算机网络', link: '/fe/network' },
-          { text: '算法', link: '/fe/algorithm' },
-          { text: 'Vue', link: '/fe/vue' },
-          { text: 'React', link: '/fe/react' },
-          { text: 'Node', link: '/fe/node' },
-          { text: '编程技巧', link: '/fe/skill' },
-          { text: '工程化', link: '/fe/engineering' }
+          {
+            text: '前端',
+            items: [
+              { text: '自检', link: '/fe/self-check.html' },
+              { text: 'Html', link: '/fe/html' },
+              { text: 'CSS', link: '/fe/css' },
+              { text: 'JavaScript', link: '/fe/javascript' },
+              { text: 'TypeScript', link: '/fe/typescript' },
+              { text: '手写代码', link: '/fe/write' },
+              { text: '输出结果', link: '/fe/console' },
+              { text: '设计模式', link: '/fe/design' },
+              { text: '浏览器', link: '/fe/browser' },
+              { text: '计算机网络', link: '/fe/network' },
+              { text: '算法', link: '/fe/algorithm' },
+              { text: 'Vue', link: '/fe/vue' },
+              { text: 'React', link: '/fe/react' },
+              { text: 'Node', link: '/fe/node' },
+              { text: '编程技巧', link: '/fe/skill' },
+              { text: '工程化', link: '/fe/engineering' }
+            ]
+          }
         ]
       },
       {
