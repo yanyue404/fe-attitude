@@ -1,4 +1,36 @@
 /**
+ * 通用数组生成器
+ * @param {number} length - 数组的长度
+ * @param {function} callback - 用于生成每个元素的回调函数，接收当前索引作为参数
+ * @returns {Array} - 生成的数组
+ */
+export function generateArray(length, callback) {
+  if (length <= 0) {
+    throw new Error('数组长度必须大于 0')
+  }
+  if (typeof callback !== 'function') {
+    throw new Error('请提供一个回调函数用于生成数组内容')
+  }
+  return Array.from({ length }, (_, index) => callback(index))
+}
+
+// 示例用法 1: 生成一个从 1 到 10 的数组
+const array1 = generateArray(10, index => index + 1)
+console.log(array1) // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+// 示例用法 2: 生成一个包含随机数的数组
+const array2 = generateArray(5, () => Math.floor(Math.random() * 100))
+console.log(array2) // [随机数, 随机数, 随机数, 随机数, 随机数]
+
+// 示例用法 3: 生成一个重复固定值的数组
+const array3 = generateArray(5, () => '固定值')
+console.log(array3) // ["固定值", "固定值", "固定值", "固定值", "固定值"]
+
+// 示例用法 4: 生成一个二维数组
+const array4 = generateArray(3, row => generateArray(3, col => `(${row}, ${col})`))
+console.log(array4) // [["(0, 0)", "(0, 1)", "(0, 2)"], ["(1, 0)", "(1, 1)", "(1, 2)"], ["(2, 0)", "(2, 1)", "(2, 2)"]]
+
+/**
  *
  * @isArrayLike
  * @param {*} value
@@ -280,7 +312,7 @@ export function difference(array, ...others) {
  * // 按照数字的奇偶性分组
  * groupBy([1, 2, 3, 4], num => num % 2 === 0 ? '偶数' : '奇数')
  * // 返回: { '奇数': [1, 3], '偶数': [2, 4] }
- * 
+ *
  * // 按照对象的某个属性分组
  * groupBy([
  *   { name: '张三', age: 20 },

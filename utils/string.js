@@ -76,3 +76,18 @@ export function upperCaseFirstLetter(string) {
   if (typeof string !== 'string') return string
   return string.replace(/^./, match => match.toUpperCase())
 }
+
+// 压缩或截断字符串
+export function truncateString(str, maxLength) {
+    return str.length > maxLength ? str.substring(0, maxLength) + '...' : str;
+}
+
+// 生成随机颜色代码
+export function getRandomColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}

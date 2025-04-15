@@ -219,6 +219,37 @@ function formatTime(date) {
     .padStart(2, '0')}:${minute.toString().padStart(2, '0')}:${second.toString().padStart(2, '0')}`
 }
 
+// // 示例调用
+// const year = 2025
+// const month = 4 // 四月
+// const dates = generateMonthArray(year, month)
+// console.log(dates)
+
+function generateMonthArray(year, month) {
+  const dateArray = []
+  const daysInWeek = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
+
+  // 获取该月的天数
+  const daysInMonth = new Date(year, month, 0).getDate()
+
+  // 遍历每一天
+  for (let day = 1; day <= daysInMonth; day++) {
+    const currentDate = new Date(year, month - 1, day)
+    const weekDay = currentDate.getDay() // 获取星期几
+    const isWeekend = weekDay === 0 || weekDay === 6 // 判断是否为周末
+    const weekNumber = Math.ceil((day + new Date(year, month - 1, 1).getDay()) / 7) // 计算第几周
+
+    dateArray.push({
+      date: `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`,
+      dayOfWeek: daysInWeek[weekDay],
+      isWeekend,
+      weekNumber
+    })
+  }
+
+  return dateArray
+}
+
 export {
   getTimestamp,
   formatDate,
@@ -234,5 +265,6 @@ export {
   dateAddZero,
   isBeforeDate,
   isAfterDate,
-  formatTime
+  formatTime,
+  generateMonthArray
 }
