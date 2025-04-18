@@ -4,154 +4,154 @@
 
 > A curated list of awesome things related to Vue.js
 
-- [Resources](#resources)
-  - [Official Resources](#official-resources)
-  - [External Resources](#external-resources)
-  - [Job Portal](#job-portal)
-  - [Community](#community)
-  - [Conferences](#conferences)
-  - [Podcasts](#podcasts)
-  - [Youtube Channels](#youtube-channels)
-  - [Official Examples](#official-examples)
-  - [Tutorials](#tutorials)
-  - [Examples](#examples)
-  - [Books](#books)
-  - [Blog Posts](#blog-posts)
-  - [Courses](#courses)
-  - [Documentaries](#documentaries)
-- [Projects Using Vue.js](#projects-using-vuejs)
-  - [Open Source](#open-source)
-  - [Commercial Products](#commercial-products)
-  - [Apps/Websites](#appswebsites)
-  - [Interactive Experiences](#interactive-experiences)
-  - [Enterprise Usage](#enterprise-usage)
-  - [A11y](#a11y)
-- [Components & Libraries](#components--libraries)
-  - [Frameworks](#frameworks)
-    - [Responsive](#responsive)
-    - [Mobile](#mobile)
-    - [Component Collections](#component-collections)
-    - [Admin Template](#admin-template)
-    - [Server-side rendering](#server-side-rendering)
-    - [Static website generator](#static-website-generator)
-    - [Other](#other)
-  - [UI Layout](#ui-layout)
-  - [UI Components](#ui-components)
-    - [Table](#table)
-    - [Notification](#notification)
-    - [Loader](#loader)
-      - [Progress Bar](#progress-bar)
-    - [Tooltip](#tooltip)
-    - [Overlay](#overlay)
-    - [Parallax](#parallax)
-    - [Icons](#icons)
-    - [Marquee](#marquee)
-    - [Menu](#menu)
-    - [Minus Plus Input](#minus-plus-input)
-    - [Carousel](#carousel)
-    - [Charts](#charts)
-    - [Time](#time)
-    - [Calendar](#calendar)
-    - [Map](#map)
-    - [Audio / Video](#audio--video)
-    - [Infinite Scroll](#infinite-scroll)
-    - [Pull-to-refresh](#pull-to-refresh)
-    - [Markdown](#markdown)
-    - [PDF](#pdf)
-    - [Tree](#tree)
-    - [Graph](#graph)
-    - [Social Sharing](#social-sharing)
-    - [QR Code](#qr-code)
-    - [Search](#search)
-    - [Miscellaneous](#miscellaneous)
-    - [Tabs](#tabs)
-    - [Form](#form)
-      - [Phone Number Input Formatter](#phone-number-input-formatter)
-      - [Pincode Input](#pincode-input)
-      - [Picker](#picker)
-      - [Generator](#generator)
-        - [Date Picker](#date-picker)
-      - [Select](#select)
-      - [Slider](#slider)
-      - [Drag and Drop](#drag-and-drop)
-      - [Autocomplete](#autocomplete)
-      - [Type Select](#type-select)
-      - [Color Picker](#color-picker)
-      - [Switch](#switch)
-      - [Masked Input](#masked-input)
-      - [Rich Text Editing](#rich-text-editing)
-      - [Image Manipulation](#image-manipulation)
-      - [Video Manipulation](#video-manipulation)
-      - [File Upload](#file-upload)
-      - [Context Menu](#context-menu)
-      - [Miscellaneous](#miscellaneous-1)
-      - [Wizard](#wizard)
-      - [CSV](#csv)
-      - [Comment System](#comment-system)
-    - [Canvas](#canvas)
-    - [Link Preview](#link-preview)
-    - [Tour](#tour)
-    - [Data Masking](#data-masking)
-    - [Authentication](#authentication)
-  - [UI Utilities](#ui-utilities)
-    - [Event Handling](#event-handling)
-    - [Responsive Design](#responsive-design)
+- [Resources](#resources) 资源
+  - [Official Resources](#official-resources) 官方资源
+  - [External Resources](#external-resources) 外部资源
+  - [Job Portal](#job-portal) 工作门户
+  - [Community](#community) 社区
+  - [Conferences](#conferences) 会议
+  - [Podcasts](#podcasts) 播客
+  - [Youtube Channels](#youtube-channels) 视频频道
+  - [Official Examples](#official-examples) 官方示例
+  - [Tutorials](#tutorials) 教程
+  - [Examples](#examples) 示例
+  - [Books](#books) 书籍
+  - [Blog Posts](#blog-posts) 博客文章
+  - [Courses](#courses) 课程
+  - [Documentaries](#documentaries) 纪录片
+- [Projects Using Vue.js](#projects-using-vuejs) 使用 Vue.js 的项目
+  - [Open Source](#open-source) 开源
+  - [Commercial Products](#commercial-products) 商业产品
+  - [Apps/Websites](#appswebsites) 应用/网站
+  - [Interactive Experiences](#interactive-experiences) 交互体验
+  - [Enterprise Usage](#enterprise-usage) 企业使用
+  - [A11y](#a11y) 无障碍
+- [Components & Libraries](#components--libraries) 组件和库
+  - [Frameworks](#frameworks) 框架
+    - [Responsive](#responsive) 响应式
+    - [Mobile](#mobile) 移动
+    - [Component Collections](#component-collections) 组件集合
+    - [Admin Template](#admin-template) 管理模板
+    - [Server-side rendering](#server-side-rendering) 服务器端渲染
+    - [Static website generator](#static-website-generator) 静态网站生成器
+    - [Other](#other) 其他
+  - [UI Layout](#ui-layout) UI 布局
+  - [UI Components](#ui-components) UI 组件
+    - [Table](#table) 表格
+    - [Notification](#notification) 通知
+    - [Loader](#loader) 加载器
+      - [Progress Bar](#progress-bar) 进度条
+    - [Tooltip](#tooltip) 提示
+    - [Overlay](#overlay) 覆盖
+    - [Parallax](#parallax) 视差
+    - [Icons](#icons) 图标
+    - [Marquee](#marquee) 跑马灯
+    - [Menu](#menu) 菜单
+    - [Minus Plus Input](#minus-plus-input) 减加输入
+    - [Carousel](#carousel) 轮播图
+    - [Charts](#charts) 图表
+    - [Time](#time) 时间
+    - [Calendar](#calendar) 日历
+    - [Map](#map) 地图
+    - [Audio / Video](#audio--video) 音频/视频
+    - [Infinite Scroll](#infinite-scroll) 无限滚动
+    - [Pull-to-refresh](#pull-to-refresh) 下拉刷新
+    - [Markdown](#markdown) markdown
+    - [PDF](#pdf) pdf
+    - [Tree](#tree) 树
+    - [Graph](#graph) 图
+    - [Social Sharing](#social-sharing) 社交分享
+    - [QR Code](#qr-code) 二维码
+    - [Search](#search) 搜索
+    - [Miscellaneous](#miscellaneous) 杂项
+    - [Tabs](#tabs) 标签
+    - [Form](#form) 表单
+      - [Phone Number Input Formatter](#phone-number-input-formatter) 电话号码输入格式化
+      - [Pincode Input](#pincode-input) 密码输入
+      - [Picker](#picker) 选择器
+      - [Generator](#generator) 生成器
+        - [Date Picker](#date-picker) 日期选择器
+      - [Select](#select) 选择
+      - [Slider](#slider) 滑块
+      - [Drag and Drop](#drag-and-drop) 拖放
+      - [Autocomplete](#autocomplete) 自动完成
+      - [Type Select](#type-select) 类型选择
+      - [Color Picker](#color-picker) 颜色选择器
+      - [Switch](#switch) 开关
+      - [Masked Input](#masked-input) 掩码输入
+      - [Rich Text Editing](#rich-text-editing) 富文本编辑
+      - [Image Manipulation](#image-manipulation) 图像处理
+      - [Video Manipulation](#video-manipulation) 视频处理
+      - [File Upload](#file-upload) 文件上传
+      - [Context Menu](#context-menu) 上下文菜单
+      - [Miscellaneous](#miscellaneous-1) 杂项
+      - [Wizard](#wizard) 向导
+      - [CSV](#csv) csv
+      - [Comment System](#comment-system) 评论系统
+    - [Canvas](#canvas) 画布
+    - [Link Preview](#link-preview) 链接预览
+    - [Tour](#tour) 导游
+    - [Data Masking](#data-masking) 数据掩码
+    - [Authentication](#authentication) 认证
+  - [UI Utilities](#ui-utilities) UI 工具
+    - [Event Handling](#event-handling) 事件处理
+    - [Responsive Design](#responsive-design) 响应式设计
     - [Form](#form-1)
-      - [Validation](#validation)
-    - [Resize](#resize)
-    - [Scroll](#scroll)
-    - [Routing](#routing)
-    - [Lazy Load](#lazy-load)
-    - [Pagination](#pagination)
-    - [Animation](#animation)
-    - [Meta Tags](#meta-tags)
-    - [Portal](#portal)
-    - [Filters](#filters)
-    - [SVG](#svg)
-    - [Miscellaneous](#miscellaneous-2)
-    - [WebGL](#webgl)
-    - [Fullscreen](#fullscreen)
-    - [Page visibility](#page-visibility)
-    - [Printing](#printing)
-  - [Utilities](#utilities)
-    - [Typescript](#typescript)
-    - [HTTP Requests](#http-requests)
-    - [i18n](#i18n)
-    - [Custom Events](#custom-events)
-    - [Persistence](#persistence)
-    - [State Management](#state-management)
+      - [Validation](#validation) 验证
+    - [Resize](#resize) 调整大小
+    - [Scroll](#scroll) 滚动
+    - [Routing](#routing) 路由
+    - [Lazy Load](#lazy-load) 懒加载
+    - [Pagination](#pagination) 分页
+    - [Animation](#animation) 动画
+    - [Meta Tags](#meta-tags) 元标签
+    - [Portal](#portal) 门户
+    - [Filters](#filters) 过滤器
+    - [SVG](#svg) svg
+    - [Miscellaneous](#miscellaneous-2) 杂项
+    - [WebGL](#webgl) webgl
+    - [Fullscreen](#fullscreen) 全屏
+    - [Page visibility](#page-visibility) 页面可见性
+    - [Printing](#printing) 打印
+  - [Utilities](#utilities) 工具
+    - [Typescript](#typescript) typescript
+    - [HTTP Requests](#http-requests) http 请求
+    - [i18n](#i18n) 国际化
+    - [Custom Events](#custom-events) 自定义事件
+    - [Persistence](#persistence) 持久化
+    - [State Management](#state-management) 状态管理
       - [Redux](#redux)
       - [Mobx](#mobx)
       - [Pinia](#pinia)
       - [Authentication/Authorization](#authenticationauthorization)
       - [Vuex Utilities](#vuex-utilities)
-        - [Sync Between Tabs](#sync-between-tabs)
-    - [GraphQL](#graphql)
-    - [Concurrency Management](#concurrency-management)
-    - [Code Style](#code-style)
-    - [CSS](#css)
-    - [Asset Management](#asset-management)
-    - [Page Navigation](#page-navigation)
-    - [Miscellaneous](#miscellaneous-3)
-    - [Web Workers](#web-workers)
-    - [JSX](#jsx)
-    - [Migration](#migration)
-    - [Web Sockets](#web-sockets)
-    - [Server-Sent Events](#server-sent-events)
-    - [Payment](#payment)
+        - [Sync Between Tabs](#sync-between-tabs) 同步
+    - [GraphQL](#graphql) graphql
+    - [Concurrency Management](#concurrency-management) 并发管理
+    - [Code Style](#code-style) 代码风格
+    - [CSS](#css) css
+    - [Asset Management](#asset-management) 资产管理
+    - [Page Navigation](#page-navigation) 页面导航
+    - [Miscellaneous](#miscellaneous-3) 杂项
+    - [Web Workers](#web-workers) web 工作者
+    - [JSX](#jsx) jsx
+    - [Migration](#migration) 迁移
+    - [Web Sockets](#web-sockets) web 套接字
+    - [Server-Sent Events](#server-sent-events) 服务器发送事件
+    - [Payment](#payment) 支付
       - [Stripe](#stripe)
       - [Paypal](#paypal)
       - [Plaid](#plaid)
-  - [Integrations](#integrations)
-    - [Vue CLI Plugins](#vue-cli-plugins)
-      - [Google Analytics](#google-analytics)
-      - [Yandex Metrika](#yandex-metrika)
-  - [Dev Tools](#dev-tools)
-    - [Inspect](#inspect)
-    - [Docs](#docs)
-    - [Test](#test)
-      - [Browser-less require](#browser-less-require)
-    - [Source Code Editing](#source-code-editing)
+  - [Integrations](#integrations) 集成
+    - [Vue CLI Plugins](#vue-cli-plugins) vue cli 插件
+      - [Google Analytics](#google-analytics) 谷歌分析
+      - [Yandex Metrika](#yandex-metrika) 雅虎分析
+  - [Dev Tools](#dev-tools) 开发工具
+    - [Inspect](#inspect) 检查
+    - [Docs](#docs) 文档
+    - [Test](#test) 测试
+      - [Browser-less require](#browser-less-require) 浏览器无关的 require
+    - [Source Code Editing](#source-code-editing) 源代码编辑
       - [Atom](#atom)
       - [Sublime Text](#sublime-text)
       - [Vim](#vim)
@@ -161,15 +161,15 @@
       - [Intellij](#intellij)
       - [Emacs](#emacs)
       - [Kate](#kate)
-  - [Scaffold](#scaffold)
-    - [Client](#client)
-    - [Universal](#universal)
-    - [Server](#server)
-    - [Electron](#electron)
-    - [Parts](#parts)
-  - [Runtime](#runtime)
-    - [Command Line / Terminal](#command-line--terminal)
-  - [Prerendering](#prerendering)
+  - [Scaffold](#scaffold) 脚手架
+    - [Client](#client) 客户端
+    - [Universal](#universal) 通用
+    - [Server](#server) 服务器
+    - [Electron](#electron) electron
+    - [Parts](#parts) 部分
+  - [Runtime](#runtime) 运行时
+    - [Command Line / Terminal](#command-line--terminal) 命令行/终端
+  - [Prerendering](#prerendering) 预渲染
 
 <!-- md-parser-start -->
 
@@ -3331,7 +3331,7 @@ _Utilities for building / compiling / bundling / loading assets_
 - [vite-svg-loader](https://github.com/jpkleemans/vite-svg-loader) - Vite plugin to load SVG files as Vue components
 - [vue-sfc-split](https://github.com/gVguy/vue-sfc-split) - Convert SFCs for native browser use without build
 - [webpack-plugin-qiniu-upload](https://github.com/cduyzh/webpack-plugin-qiniu-upload) - Vue3,webpack-plugin-qiniu-upload for qiniu(七牛)|aws(亚马逊) cloud upload. support @vue/cli-service 5.0.x
-- [vite-plugin-svg-sfc](https://github.com/Kaciras/vite-plugin-svg-sfc) Vite plugin to load SVG file as vue SFC, supports HMR & <style> block.
+- [vite-plugin-svg-sfc](https://github.com/Kaciras/vite-plugin-svg-sfc) Vite plugin to load SVG file as vue SFC
 
 #### Page Navigation
 

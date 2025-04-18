@@ -4,22 +4,22 @@ A collection of awesome browser-side [JavaScript](https://developer.mozilla.org/
 
 - [Awesome JavaScript](#awesome-javascript)
   - [Package Managers](#package-managers)
-  - [Component management](#component-management)
+  - [Component management](#component-management) 组件管理
   - [Loaders](#loaders)
-  - [Transpilers](#transpilers)
+  - [Transpilers](#transpilers) 转译器
   - [Bundlers](#bundlers)
   - [Minimizers](#minimizers)
   - [Type Checkers](#type-checkers)
   - [Testing Frameworks](#testing-frameworks)
   - [QA Tools](#qa-tools)
   - [MVC Frameworks and Libraries](#mvc-frameworks-and-libraries)
-  - [Node-Powered CMS Frameworks](#node-powered-cms-frameworks)
-  - [Templating Engines](#templating-engines)
-  - [Game Engines](#game-engines)
-  - [Articles/Posts](#articles-and-posts)
-  - [Data Visualization](#data-visualization)
-    - [Timeline](#timeline)
-    - [Spreadsheet](#spreadsheet)
+  - [Node-Powered CMS Frameworks](#node-powered-cms-frameworks) Node 驱动的 CMS 框架
+  - [Templating Engines](#templating-engines) 模板引擎
+  - [Game Engines](#game-engines) 游戏引擎
+  - [Articles/Posts](#articles-and-posts) 文章/帖子
+  - [Data Visualization](#data-visualization) 数据可视化
+    - [Timeline](#timeline) 时间线
+    - [Spreadsheet](#spreadsheet) 电子表格
   - [Editors](#editors)
   - [Documentation](#documentation)
   - Utilities
@@ -33,31 +33,31 @@ A collection of awesome browser-side [JavaScript](https://developer.mozilla.org/
     - [Storage](#storage)
     - [Color](#color)
     - [I18n And L10n](#i18n-and-l10n)
-    - [Control Flow](#control-flow)
+    - [Control Flow](#control-flow) 控制流
     - [Routing](#routing)
-    - [Security](#security)
-    - [Log](#log)
+    - [Security](#security) 安全
+    - [Log](#log) 日志
     - [RegExp](#regexp)
-    - [Media](#videoaudio)
-    - [Voice Command](#voice-command)
+    - [Media](#videoaudio) 媒体
+    - [Voice Command](#voice-command) 语音命令
     - [API](#api)
     - [Streaming](#streaming)
-    - [Vision Detection](#vision-detection)
-    - [Browser Detection](#browser-detection)
-    - [Operating System](#operating-system)
-    - [Benchmark](#benchmark)
-    - [Machine Learning](#machine-learning)
+    - [Vision Detection](#vision-detection) 视觉检测
+    - [Browser Detection](#browser-detection) 浏览器检测
+    - [Operating System](#operating-system) 操作系统
+    - [Benchmark](#benchmark) 基准
+    - [Machine Learning](#machine-learning) 机器学习
     - [Web Worker](#web-worker)
   - UI
     - [Code Highlighting](#code-highlighting)
     - [Loading Status](#loading-status)
     - [Validation](#validation)
     - [Keyboard Wrappers](#keyboard-wrappers)
-    - [Tours And Guides](#tours-and-guides)
+    - [Tours And Guides](#tours-and-guides) 旅游和导游
     - [Notifications](#notifications)
     - [Sliders](#sliders)
     - [Range Sliders](#range-sliders)
-    - [Form Widgets](#form-widgets)
+    - [Form Widgets](#form-widgets) 表单小部件
     - [Tips](#tips)
     - [Modals and Popups](#modals-and-popups)
     - [Scroll](#scroll)
@@ -66,17 +66,17 @@ A collection of awesome browser-side [JavaScript](https://developer.mozilla.org/
     - [Frameworks](#frameworks-1)
     - [Boilerplates](#boilerplates)
     - [Image](#image)
-  - [Gesture](#gesture)
+  - [Gesture](#gesture) 手势
   - [Maps](#maps)
-  - [Typography](#typography)
+  - [Typography](#typography) 排版
   - [Animations](#animations)
-  - [Image processing](#image-processing)
+  - [Image processing](#image-processing) 图像处理
   - [ES6](#es6)
-  - [Generators](#generators)
-  - [Full Text Search](#full-text-search)
+  - [Generators](#generators) 生成器
+  - [Full Text Search](#full-text-search) 全文搜索
   - [SDK](#sdk)
-  - [Misc](#misc)
-- [Worth Reading](#worth-reading)
+  - [Misc](#misc) 杂项
+- [Worth Reading](#worth-reading) 值得一读
 - [Other Awesome Lists](#other-awesome-lists)
 - [Contributing](#contributing)
 

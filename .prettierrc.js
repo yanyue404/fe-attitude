@@ -12,5 +12,7 @@ module.exports = {
   // 句末分号
   semi: false,
   // 制表符缩进
-  useTabs: false
+  useTabs: false,
+  proseWrap: 'preserve',
+  editorconfig: false // 禁用 .editorconfig 干扰
 }

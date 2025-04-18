@@ -5,27 +5,27 @@
 A collection of awesome things regarding the React ecosystem.
 
 - [React](#react)
-  - [React General Resources](#react-general-resources)
-  - [React Tutorials](#react-tutorials)
-  - [React Frameworks](#react-frameworks)
-  - [React Component Libraries](#react-component-libraries)
-  - [React State Management and Data Fetching](#react-state-management-and-data-fetching)
-  - [React Styling](#react-styling)
-  - [React Routing](#react-routing)
-  - [React Development Tools](#react-development-tools)
-  - [React Libraries](#react-libraries)
-  - [React Testing](#react-testing)
-  - [React Awesome Components](#react-awesome-components)
-  - [React Components Sandboxes](#react-components-sandboxes)
-  - [React Forms](#react-forms)
-  - [React Tables and Grids](#react-tables-and-grids)
-  - [React Maps](#react-maps)
-  - [React Charts](#react-charts)
-  - [React Renderers](#react-renderers)
-  - [React Internationalization](#react-internationalization)
-  - [React Graphics and Animations](#react-graphics-and-animations)
-  - [React Integration](#react-integration)
-  - [React Real Apps](#react-real-apps)
+  - [React General Resources](#react-general-resources) 通用资源
+  - [React Tutorials](#react-tutorials) 教程
+  - [React Frameworks](#react-frameworks) 框架
+  - [React Component Libraries](#react-component-libraries) 组件库
+  - [React State Management and Data Fetching](#react-state-management-and-data-fetching) 状态管理和数据获取
+  - [React Styling](#react-styling) 样式
+  - [React Routing](#react-routing) 路由
+  - [React Development Tools](#react-development-tools) 开发工具
+  - [React Libraries](#react-libraries) 库
+  - [React Testing](#react-testing) 测试
+  - [React Awesome Components](#react-awesome-components) 组件
+  - [React Components Sandboxes](#react-components-sandboxes) 组件沙盒
+  - [React Forms](#react-forms) 表单
+  - [React Tables and Grids](#react-tables-and-grids) 表格和网格
+  - [React Maps](#react-maps) 地图
+  - [React Charts](#react-charts) 图表
+  - [React Renderers](#react-renderers) 渲染器
+  - [React Internationalization](#react-internationalization) 国际化
+  - [React Graphics and Animations](#react-graphics-and-animations) 图形和动画
+  - [React Integration](#react-integration) 集成
+  - [React Real Apps](#react-real-apps) 真实应用
 - [React Native](#react-native)
   - [React Native General Resources](#react-native-general-resources)
   - [React Native Navigation](#react-native-navigation)

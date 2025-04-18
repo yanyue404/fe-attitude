@@ -4,70 +4,70 @@
 
 - [Official](#official)
 - [Packages](#packages)
-  - [Mad science](#mad-science)
-  - [Command-line apps](#command-line-apps)
-  - [Functional programming](#functional-programming)
-  - [HTTP](#http)
-  - [Debugging / Profiling](#debugging--profiling)
-  - [Logging](#logging)
-  - [Command-line utilities](#command-line-utilities)
-  - [Build tools](#build-tools)
-  - [Hardware](#hardware)
-  - [Templating](#templating)
-  - [Web frameworks](#web-frameworks)
-  - [Documentation](#documentation)
-  - [Filesystem](#filesystem)
-  - [Control flow](#control-flow)
-  - [Streams](#streams)
-  - [Real-time](#real-time)
-  - [Image](#image)
-  - [Text](#text)
-  - [Number](#number)
-  - [Math](#math)
-  - [Date](#date)
-  - [URL](#url)
-  - [Data validation](#data-validation)
-  - [Parsing](#parsing)
-  - [Humanize](#humanize)
-  - [Compression](#compression)
-  - [Network](#network)
-  - [Database](#database)
-  - [Testing](#testing)
-  - [Security](#security)
-  - [Benchmarking](#benchmarking)
-  - [Minifiers](#minifiers)
-  - [Authentication](#authentication)
-  - [Authorization](#authorization)
-  - [Email](#email)
-  - [Job queues](#job-queues)
-  - [Node.js management](#nodejs-management)
-  - [Cross-platform integration](#cross-platform-integration)
-  - [Natural language processing](#natural-language-processing)
-  - [Process management](#process-management)
-  - [Automation](#automation)
+  - [Mad science](#mad-science) 疯狂科学
+  - [Command-line apps](#command-line-apps) 命令行应用
+  - [Functional programming](#functional-programming) 函数式编程
+  - [HTTP](#http) HTTP
+  - [Debugging / Profiling](#debugging--profiling) 调试/性能分析
+  - [Logging](#logging) 日志
+  - [Command-line utilities](#command-line-utilities) 命令行工具
+  - [Build tools](#build-tools) 构建工具
+  - [Hardware](#hardware) 硬件
+  - [Templating](#templating) 模板
+  - [Web frameworks](#web-frameworks) Web 框架
+  - [Documentation](#documentation) 文档
+  - [Filesystem](#filesystem) 文件系统
+  - [Control flow](#control-flow) 控制流
+  - [Streams](#streams) 流
+  - [Real-time](#real-time) 实时
+  - [Image](#image) 图像
+  - [Text](#text) 文本
+  - [Number](#number) 数字
+  - [Math](#math) 数学
+  - [Date](#date) 日期
+  - [URL](#url) URL
+  - [Data validation](#data-validation) 数据验证
+  - [Parsing](#parsing) 解析
+  - [Humanize](#humanize) 人类化
+  - [Compression](#compression) 压缩
+  - [Network](#network) 网络
+  - [Database](#database) 数据库
+  - [Testing](#testing) 测试
+  - [Security](#security) 安全
+  - [Benchmarking](#benchmarking) 基准测试
+  - [Minifiers](#minifiers) 最小化
+  - [Authentication](#authentication) 认证
+  - [Authorization](#authorization) 授权
+  - [Email](#email) 邮件
+  - [Job queues](#job-queues) 任务队列
+  - [Node.js management](#nodejs-management) Node.js 管理
+  - [Cross-platform integration](#cross-platform-integration) 跨平台集成
+  - [Natural language processing](#natural-language-processing) 自然语言处理
+  - [Process management](#process-management) 进程管理
+  - [Automation](#automation) 自动化
   - [AST](#ast)
-  - [Static site generators](#static-site-generators)
-  - [Content management systems](#content-management-systems)
-  - [Forum](#forum)
-  - [Blogging](#blogging)
-  - [Weird](#weird)
-  - [Serialization](#serialization)
-  - [Miscellaneous](#miscellaneous)
-- [Package Manager](#package-manager)
-- [Resources](#resources)
-  - [Tutorials](#tutorials)
-  - [Discovery](#discovery)
-  - [Articles](#articles)
-  - [Newsletters](#newsletters)
-  - [Videos](#videos)
-  - [Books](#books)
-  - [Blogs](#blogs)
-  - [Courses](#courses)
-  - [Cheatsheets](#cheatsheets)
-  - [Tools](#tools)
-  - [Community](#community)
-  - [Miscellaneous](#miscellaneous-1)
-- [Related lists](#related-lists)
+  - [Static site generators](#static-site-generators) 静态网站生成器
+  - [Content management systems](#content-management-systems) 内容管理系统
+  - [Forum](#forum) 论坛
+  - [Blogging](#blogging) 博客
+  - [Weird](#weird) 奇怪
+  - [Serialization](#serialization) 序列化
+  - [Miscellaneous](#miscellaneous) 杂项
+- [Package Manager](#package-manager) 包管理器
+- [Resources](#resources) 资源
+  - [Tutorials](#tutorials) 教程
+  - [Discovery](#discovery) 发现
+  - [Articles](#articles) 文章
+  - [Newsletters](#newsletters) 新闻
+  - [Videos](#videos) 视频
+  - [Books](#books) 书籍
+  - [Blogs](#blogs) 博客
+  - [Courses](#courses) 课程
+  - [Cheatsheets](#cheatsheets) 速查表
+  - [Tools](#tools) 工具
+  - [Community](#community) 社区
+  - [Miscellaneous](#miscellaneous-1) 杂项
+- [Related lists](#related-lists) 相关列表
 
 ## Official
 

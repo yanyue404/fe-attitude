@@ -35,12 +35,12 @@ class Dep {
     }
   }
   notify() {
-    this.subscribers.forEach(sub => sub())
+    this.subscribers.forEach((sub) => sub())
   }
 }
 
 // Go through each of our data properties
-Object.keys(data).forEach(key => {
+Object.keys(data).forEach((key) => {
   let internalValue = data[key]
 
   // Each property gets a dependency instance
@@ -112,7 +112,7 @@ function updateComponent() {
 // 监视对象
 function observe(obj) {
   // 遍历对象，使用 get/set 重新定义对象的每个属性值
-  Object.keys(obj).map(key => {
+  Object.keys(obj).map((key) => {
     defineReactive(obj, key, obj[key])
   })
 }
@@ -151,7 +151,7 @@ class Dep {
     this.subs.push(sub)
   }
   notify() {
-    this.subs.map(sub => {
+    this.subs.map((sub) => {
       sub.update()
     })
   }
@@ -409,13 +409,14 @@ Vue.prototype.$destory = function() {
 <body>
   <div id="app-extend"></div>
 </body>
+
 <script>
   // 创建构造器
   var Profile = Vue.extend({
     template: '<div><p>{{extendData}}</p><p>实例传入的数据为:{{propsExtend}}</p></div>',
     props: ['propsExtend'],
     // data 选项是特例，需要注意 - 在 Vue.extend() 中它必须是函数
-    data: function() {
+    data: function () {
       return {
         extendData: '这是extend扩展的数据'
       }
@@ -659,7 +660,8 @@ props 一般不能在组件内修改，它是通过父级修改的，因此实�
 ```html
 <custom-component v-model="value"></custom-component>
 
-<input :value="message" @input="message = $event.targer.value" />`
+<input :value="message" @input="message = $event.targer.value" />
+`
 ```
 
 ```html
@@ -669,6 +671,7 @@ props 一般不能在组件内修改，它是通过父级修改的，因此实�
     <button @click="handleClick">Click</button>
   </div>
 </template>
+
 <script>
   export default {
     props: {
@@ -705,6 +708,7 @@ props 一般不能在组件内修改，它是通过父级修改的，因此实�
 
 ```html
 <!-- 失活的组件将会被缓存！-->
+
 <keep-alive>
   <component v-bind:is="currentTabComponent"></component>
 </keep-alive>
@@ -888,7 +892,7 @@ var vm = new Vue({
 })
 vm.message = 'new message' // 更改数据
 vm.$el.textContent === 'new message' // false
-Vue.nextTick(function() {
+Vue.nextTick(function () {
   vm.$el.textContent === 'new message' // true
 })
 ```
@@ -935,9 +939,11 @@ export default {
 <template>
   <div>
     <div>{{ number }}</div>
+
     <div @click="handleClick">click</div>
   </div>
 </template>
+
 <script>
   export default {
     data() {
@@ -2055,6 +2061,121 @@ setTimeout(() => {
 }, 1000) // 延迟 1 秒，确保 Vue 挂载完成
 
 ```
+
+## 当我们在写 vue2 和 vue3 的代码时，使用 `nextTick(() => {})` 时意味着什么
+
+在 Vue2 和 Vue3 中，`nextTick(() => {})` 的作用是**将回调函数推迟到下一个 DOM 更新周期之后执行**，以确保在 DOM 更新完成后运行某些操作。以下是对其含义的详细解释：
+
+---
+
+### **1. 背景：Vue 的响应式更新机制**
+
+Vue 是响应式框架，当数据（`data` 或 `reactive`/`ref`）发生变化时，Vue 不会立即更新 DOM，而是将更新任务放入一个**异步队列**（通常基于 `Promise` 或 `setTimeout`），并在当前事件循环的微任务阶段批量执行 DOM 更新。这种机制提高了性能，避免了不必要的重复渲染。
+
+然而，这也意味着在修改数据后，DOM 不会立刻反映最新的状态。如果需要在 DOM 更新后执行某些操作（比如获取最新的 DOM 元素或其属性），直接在修改数据后操作可能会获取到旧的 DOM 状态。这时就需要使用 `nextTick`。
+
+---
+
+### **2. `nextTick` 的作用**
+
+`nextTick` 是一个工具函数，允许开发者在 DOM 更新完成后执行回调。它本质上是将回调函数推迟到**下一个微任务（microtask）**执行，确保在数据变化触发 DOM 更新后，DOM 已经完成渲染。
+
+- **Vue2**：`this.$nextTick(() => {})`
+  - 在实例方法中通过 `this.$nextTick` 调用。
+  - 全局 API 是 `Vue.nextTick`。
+- **Vue3**：`nextTick(() => {})`
+  - Vue3 中，`nextTick` 是一个全局导入的函数，通常从 `vue` 包中导入：`import { nextTick } from 'vue'`。
+  - Composition API 和 Options API 都可以使用。
+
+---
+
+### **3. 具体含义**
+
+当你调用 `nextTick(() => {})` 时：
+
+- **延迟执行**：回调函数不会立即执行，而是被放入微任务队列，等待当前事件循环的同步代码执行完毕，并在 DOM 更新完成后运行。
+- **确保 DOM 更新**：在回调执行时，Vue 已完成对 DOM 的重新渲染，你可以安全地访问最新的 DOM 状态。
+- **异步特性**：`nextTick` 通常基于 `Promise.resolve().then()` 实现（在不支持 Promise 的环境中可能降级为 `setTimeout`）。
+
+---
+
+### **4. 使用场景**
+
+以下是 `nextTick` 的常见使用场景：
+
+#### **(1) 获取更新后的 DOM**
+
+当你修改了响应式数据后，DOM 不会立即更新。如果需要操作最新的 DOM 状态，可以使用 `nextTick`：
+
+```javascript
+// Vue2
+this.message = '新内容'
+this.$nextTick(() => {
+  console.log(this.$refs.myElement.innerText) // 确保获取更新后的 DOM 内容
+})
+
+// Vue3
+import { ref, nextTick } from 'vue'
+const message = ref('旧内容')
+message.value = '新内容'
+nextTick(() => {
+  console.log(document.querySelector('.my-element').innerText) // 获取更新后的 DOM
+})
+```
+
+#### **(2) 解决异步渲染导致的逻辑问题**
+
+在某些复杂组件中，数据更新可能导致 DOM 的多次渲染，使用 `nextTick` 可以确保逻辑在 DOM 稳定后执行：
+
+```javascript
+// Vue3 示例
+const count = ref(0)
+count.value++
+count.value++
+nextTick(() => {
+  console.log(count.value) // 确保 DOM 已更新到 count 的最新值
+})
+```
+
+#### **(3) 在单元测试中**
+
+在测试环境中，`nextTick` 常用于等待 DOM 更新完成，以便验证渲染结果：
+
+```javascript
+await nextTick() // 等待 DOM 更新
+expect(wrapper.text()).toContain('新内容')
+```
+
+---
+
+### **5. Vue2 和 Vue3 的差异**
+
+虽然 `nextTick` 的核心功能在 Vue2 和 Vue3 中一致，但有一些细微差异：
+
+- **调用方式**：
+  - Vue2：`this.$nextTick`（实例方法）或 `Vue.nextTick`（全局）。
+  - Vue3：统一使用全局 `nextTick` 函数（`import { nextTick } from 'vue'`）。
+- **实现细节**：
+  - Vue2 和 Vue3 都优先使用 `Promise` 实现 `nextTick`，但 Vue3 的代码更现代化，且与 Composition API 集成更紧密。
+- **上下文**：
+  - 在 Vue2 中，`this.$nextTick` 的回调函数中的 `this` 自动绑定到当前组件实例。
+  - 在 Vue3 中，`nextTick` 的回调是普通函数，需手动管理上下文（例如通过 `ref` 或 `reactive` 访问数据）。
+
+---
+
+### **6. 注意事项**
+
+- **不要滥用 `nextTick`**：只有在需要明确等待 DOM 更新时才使用 `nextTick`，否则可能增加代码复杂性。
+- **异步行为**：`nextTick` 是异步的，回调不会立即执行。如果需要同步操作，请直接操作数据或 DOM。
+- **性能考虑**：`nextTick` 的回调会在微任务队列中执行，通常很快，但如果回调中包含复杂逻辑，可能影响性能。
+
+---
+
+### **7. 总结**
+
+`nextTick(() => {})` 的核心含义是**延迟回调到 DOM 更新完成后执行**，用于确保在数据变化后操作最新的 DOM 状态。它在 Vue2 和 Vue3 中功能一致，但在调用方式和上下文管理上略有不同。典型场景包括获取更新后的 DOM、处理异步渲染逻辑或在测试中等待渲染完成。
+
+如果你有具体的代码案例或更详细的问题，可以提供进一步分析！
 
 ## 参考链接
 
