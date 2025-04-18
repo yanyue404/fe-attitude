@@ -191,11 +191,11 @@
 - [**tree-node-cli**](https://github.com/yangshun/tree-node-cli) - node 根据目录结构生成 tree
 - [**consola**](https://github.com/unjs/consola) 优雅的命令行 console logger
 - [**ora**](https://github.com/sindresorhus/ora) Elegant terminal spinner 命令行 loading
-- [progress]() - 用于在命令行中显示进度条，方便展示任务的进度。
-- [chalk]() - 用于给命令行输出添加颜色，可以让输出更具有可读性和吸引力。
-- [cli-table]() - 用于在命令行中创建漂亮的表格，方便展示数据。
-- [boxen]()用于在命令行中创建带边框的框，可以突出显示某些信息。
-- [figlet] - 用于在命令行中生成艺术字体，可以让输出更具有视觉效果。
+- [progress](https://github.com/visionmedia/node-progress) - 用于在命令行中显示进度条，方便展示任务的进度。
+- [chalk](https://github.com/chalk/chalk) - 用于给命令行输出添加颜色，可以让输出更具有可读性和吸引力。
+- [cli-table](https://github.com/Automattic/cli-table) - 用于在命令行中创建漂亮的表格，方便展示数据。
+- [boxen](https://github.com/sindresorhus/boxen)用于在命令行中创建带边框的框，可以突出显示某些信息。
+- [figlet](https://github.com/patorjk/figlet) - 用于在命令行中生成艺术字体，可以让输出更具有视觉效果。
 - [**node-notifier**](https://github.com/mikaelbr/node-notifier) 在 NodeJS 环境中，可以很方便的唤起 notifier 通知
 - [zhlint](https://github.com/zhlint-project/zhlint) - 用于检查中文排版是否规范的 lint 工具
   - `zhlint <file-pattern> --fix`

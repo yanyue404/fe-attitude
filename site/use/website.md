@@ -1,264 +1,322 @@
-# 网站
+# 网站导航宝典
 
-## 开发日常
+## 目录
 
-> 社交账号 [github](https://github.com/yanyue404) / [掘金](https://juejin.cn/user/1099167359041966) /[知乎](https://www.zhihu.com/people/yan-yue-44-30) / [segmentfault](https://segmentfault.com/u/yanyue404) / [leetcode](https://leetcode.cn/u/yanyue404/)
+- [个人信息](#个人信息)
+- [信仰相关](#信仰相关)
+- [常用网站](#常用网站)
+- [AI 工具](#ai-工具)
+- [开发工具](#开发工具)
+  - [常用工具](#常用工具)
+  - [代码相关](#代码相关)
+  - [正则表达式](#正则表达式)
+  - [NPM 相关](#npm-相关)
+  - [代理工具](#代理工具)
+  - [图像处理](#图像处理)
+  - [CSS 工具](#css-工具)
+  - [开发辅助](#开发辅助)
+  - [静态网站托管](#静态网站托管)
+- [Chrome 插件](#chrome-插件)
+- [综合工具集](#综合工具集)
+- [媒体工具](#媒体工具)
+  - [Markdown 工具](#markdown-工具)
+  - [下载工具](#下载工具)
+  - [文件处理](#文件处理)
+- [产品设计](#产品设计)
+  - [CSS 资源](#css-资源)
+  - [色彩方案](#色彩方案)
+  - [图库资源](#图库资源)
+  - [开放 API](#开放-api)
+- [趣味工具](#趣味工具)
+- [参考资源](#参考资源)
 
-## 光与盐
+## 个人信息 {#个人信息}
+
+> 社交账号 [github](https://github.com/yanyue404) / [掘金](https://juejin.cn/user/1099167359041966) / [知乎](https://www.zhihu.com/people/yan-yue-44-30) / [segmentfault](https://segmentfault.com/u/yanyue404) / [leetcode](https://leetcode.cn/u/yanyue404/)
+
+## 信仰相关 {#信仰相关}
 
 - [中文圣经在线](http://www.chinesebibleonline.com/)
 
-## 常看的网站
+## 常用网站 {#常用网站}
 
-- [**阮一峰的网络日志**](http://www.ruanyifeng.com/blog/) 阮老师出品
-- [**InfoQ**](https://www.infoq.cn/topic/Front-end) 文章的质量比一般网站的高不少
-- [**月光博客**](https://www.williamlong.info/)
-- [**奇舞周刊**](https://weekly.75.team/)
-- [**每日时报**](https://wubaiqing.github.io/zaobao/) 定期会分享一些库和工具
-- [**DailyJS**](https://medium.com/dailyjs)
-- [**端传媒**](https://theinitium.com/channel/mainland/)
-- [**知乎热搜榜**](https://github.com/justjavac/zhihu-trending-top-search)
-- [**知乎热门话题**](https://github.com/justjavac/zhihu-trending-hot-questions)
+- [**阮一峰的网络日志**](http://www.ruanyifeng.com/blog/) - 阮老师出品
+- [**InfoQ**](https://www.infoq.cn/topic/Front-end) - 文章的质量比一般网站的高不少
+- [**月光博客**](https://www.williamlong.info/) - 科技博客
+- [**奇舞周刊**](https://weekly.75.team/) - 前端技术周刊
+- [**每日时报**](https://wubaiqing.github.io/zaobao/) - 定期会分享一些库和工具
+- [**DailyJS**](https://medium.com/dailyjs) - JavaScript 相关资讯
+- [**端传媒**](https://theinitium.com/channel/mainland/) - 新闻媒体
+- [**知乎热搜榜**](https://github.com/justjavac/zhihu-trending-top-search) - 知乎热门搜索
+- [**知乎热门话题**](https://github.com/justjavac/zhihu-trending-hot-questions) - 知乎热门问题
 
-### AI+
+## AI 工具 {#ai-工具}
 
-- [GPT-GOD](https://gptgod.online/)
-- 腾讯云 AI 代码助手 （VS Code 插件）
-- [问答 PK](https://ai.wx.taikang.com/taikang-gpt.app/quesAnswer)
-- [豆包 AI](https://www.doubao.com/chat/)
-- [v0](https://v0.dev/) - Vercel 推出的一个实验性产品，使用 AI 网页生成网页 (页面基于 React + Tailwind CSS 实现，并允许不断微调)
+- [GPT-GOD](https://gptgod.online/) - AI 助手
+- 腾讯云 AI 代码助手（VS Code 插件）- 编程助手
+- [问答 PK](https://ai.wx.taikang.com/taikang-gpt.app/quesAnswer) - AI 问答
+- [豆包 AI](https://www.doubao.com/chat/) - 国内 AI 助手
+- [v0](https://v0.dev/) - Vercel 推出的实验性产品，使用 AI 生成网页 (基于 React + Tailwind CSS 实现)
 
-### 工具
+## 开发工具 {#开发工具}
 
-- [Google](https://www.google.com.tw/) | [kaifa.baidu](https://kaifa.baidu.com/)
-- 文档编写
-  - [clipboard2markdown](https://euangoddard.github.io/clipboard2markdown/) / [Html 转 Markdown](http://www.atoolbox.net/Tool.php?Id=715)
-  - [**turndown**](https://github.com/mixmark-io/turndown/) - 将 HTML 转换为 Markdown https://mixmark-io.github.io/turndown/
+### 常用工具 {#常用工具}
+
+- [Google](https://www.google.com.tw/) | [kaifa.baidu](https://kaifa.baidu.com/) - 搜索引擎
+- [stackoverflow questions](https://stackoverflow.com/questions) - 程序员问答社区
+- [**Can I use**](https://caniuse.com/) - 查询浏览器的特性支持情况
+- [中文版的 lighthouse](https://developers.google.com/speed/pagespeed/insights/) - 测试网页性能
+- [Autoprefixer](https://autoprefixer.github.io/) - 为 CSS 加上浏览器前缀
+
+### 代码相关 {#代码相关}
+
 - 在线写代码
-  - 在线项目 [codesandbox](https://codesandbox.io/u/yanyue404) [codepen](https://codepen.io/)
-  - [**codesandbox**](https://codesandbox.io/) 一个可以在线编辑且提供在线 demo 的网站 支持 vue react angular 多种框架 神器
+  - [codesandbox](https://codesandbox.io/u/yanyue404) - 在线代码编辑器
+  - [codepen](https://codepen.io/) - 前端代码分享社区
   - [**jsfiddle**](https://jsfiddle.net/) - 在线编辑和运行代码
-- 正则表达式
-  - [**regex101**](https://regex101.com/) - 正则表达式测试
-  - [**regulex**](https://jex.im/regulex/) / [ **RegExper**](https://regexper.com/) 正则可视化
-- NPM
-  - [**runpkg**](https://github.com/FormidableLabs/runpkg) - 在线 npm 包浏览器 https://runpkg.com/
-  - [**Package Diff**](https://diff.intrinsic.com/)，比较 npm 包两个版本直接的区别
-- 代理工具
-  - [whistle-client](https://github.com/avwo/whistle-client) - Whistle 客户端
-  - [lightproxy](https://github.com/alibaba/lightproxy) - 一个本地的代理服务器，用于本地数据包捕获，可以实时 hosts 绑定、设置规则转发、mock 接口、修改请求和响应的内容等 (基于 whistle)
-  - [chii](https://github.com/liriliri/chii) - 一个远程调试网页的工具，只要在网页里面加载这个库，就可以远程打开 Chrome 开发者工具，主要用于调试手机端网页
-  - [HTTP Toolkit](https://httptoolkit.com/) - 这个工具可以拦截和查看 HTTP/HTTPS 请求，并且可以 mock 服务器的回应
-  - [SwitchHosts](https://github.com/oldj/SwitchHosts) - 一个管理 hosts 文件的应用
-- [stackoverflow questions](https://stackoverflow.com/questions)
-- [**tinypng**](https://tinypng.com/) / [**squoosh**](https://squoosh.app) - 图片压缩
-- [**在线 PS**](https://www.uupoop.com/#/old) / [**photopea**](https://www.photopea.com/)
-- [**30 seconds of code**](https://30secondsofcode.org/) 收集了许多有用的代码小片段
-- CSS 生成
-  - [**CSS triangle generator**](http://apps.eky.hk/css-triangle-generator/) CSS 三角形产生器
-  - [**cssarrowplease**](http://www.cssarrowplease.com/) 帮你做对话框三角的
-  - [**clippy**](http://bennettfeely.com/clippy/) 在线帮你使用 css clip-path 做出各种形状的图形
-- [**Can I use**](https://caniuse.com/) 查询浏览器的特性支持情况
-- [中文版的 lighthouse (opens new window)](https://developers.google.com/speed/pagespeed/insights/)测试网页性能
-- [Autoprefixer (opens new window)](https://autoprefixer.github.io/)为 css 加上浏览器前缀，配套 webpack 相关插件
-- [**carbon**](https://carbon.now.sh/) 在线代码生成图片 https://carbon.now.sh/
-- [**JavaScript Visualizer**](https://tylermcginnis.com/javascript-visualizer/) 可视化 **ES5** `JavaScript` 执行
-- [**astexplorer**](https://github.com/fkling/astexplorer) - 一个在线 ast 生成器 https://astexplorer.net/
-- [**loupe**](https://github.com/latentflip/loupe) - 可视化的 javascript 实时运行,理解异步, Built by [**Philip Roberts**](http://github.com/latentflip)
-- [**RMind**](https://github.com/Mongkii/RMind) - 基于 React Hooks 与 flex 布局 的思维导图 https://mongkii.github.io/RMind/
+- [**30 seconds of code**](https://30secondsofcode.org/) - 收集了许多有用的代码小片段
+- [**carbon**](https://carbon.now.sh/) - 在线代码生成图片
+- [**JavaScript Visualizer**](https://tylermcginnis.com/javascript-visualizer/) - 可视化 **ES5** JavaScript 执行
+- [**astexplorer**](https://github.com/fkling/astexplorer) - 一个在线 AST 生成器 https://astexplorer.net/
+- [**loupe**](https://github.com/latentflip/loupe) - 可视化的 JavaScript 实时运行，理解异步
 - [**visualgo**](https://visualgo.net/zh/) - 数据结构，算法可视化
-- **静态网站托管服务**
-  - [Cloudflare Pages](https://dash.cloudflare.com/)
-  - GitHub Pages
-  - [netlify](https://www.netlify.com/)
-  - [YourWare.so](https://www.yourware.so/)
-  - [Vercel](https://vercel.com/)
-  - 腾讯云 EdgeOne Pages
+- [**RMind**](https://github.com/Mongkii/RMind) - 基于 React Hooks 与 flex 布局的思维导图
 
-### Chrome 插件
+### 正则表达式 {#正则表达式}
 
-- Proxy SwitchySharp 1.10.4
-- FeHelper(前端助手)
+- [**regex101**](https://regex101.com/) - 正则表达式测试
+- [**regulex**](https://jex.im/regulex/) / [**RegExper**](https://regexper.com/) - 正则可视化工具
+
+### NPM 相关 {#npm-相关}
+
+- [**runpkg**](https://github.com/FormidableLabs/runpkg) - 在线 npm 包浏览器 https://runpkg.com/
+- [**Package Diff**](https://diff.intrinsic.com/) - 比较 npm 包两个版本之间的区别
+
+### 代理工具 {#代理工具}
+
+- [whistle-client](https://github.com/avwo/whistle-client) - Whistle 客户端
+- [lightproxy](https://github.com/alibaba/lightproxy) - 本地代理服务器，用于数据包捕获，实时 hosts 绑定等
+- [chii](https://github.com/liriliri/chii) - 远程调试网页的工具
+- [HTTP Toolkit](https://httptoolkit.com/) - 拦截和查看 HTTP/HTTPS 请求
+- [SwitchHosts](https://github.com/oldj/SwitchHosts) - 管理 hosts 文件的应用
+
+### 图像处理 {#图像处理}
+
+- [**tinypng**](https://tinypng.com/) / [**squoosh**](https://squoosh.app) - 图片压缩
+- [**在线 PS**](https://www.uupoop.com/#/old) / [**photopea**](https://www.photopea.com/) - 在线图像编辑
+
+### CSS 工具 {#css-工具}
+
+- [**CSS triangle generator**](http://apps.eky.hk/css-triangle-generator/) - CSS 三角形生成器
+- [**cssarrowplease**](http://www.cssarrowplease.com/) - 帮你做对话框三角形
+- [**clippy**](http://bennettfeely.com/clippy/) - 在线使用 CSS clip-path 做各种形状图形
+
+### 开发辅助 {#开发辅助}
+
+- ToMarkdown 文档编写
+  - [clipboard2markdown](https://euangoddard.github.io/clipboard2markdown/) - 剪贴板转 Markdown
+  - [Html 转 Markdown](http://www.atoolbox.net/Tool.php?Id=715) - HTML 转 Markdown
+  - [HTML 转换为 Markdown](https://devtool.tech/html-md) - 将 HTML 代码或网页 URL 转换为 Markdown
+  - [**to_markdown**](https://github.com/liangtengyu/to_markdown) - 一键解析多平台文章地址链接为 Markdown
+  - [**turndown**](https://github.com/mixmark-io/turndown/) - 将 HTML 转换为 Markdown
+
+### 静态网站托管 {#静态网站托管}
+
+- [Cloudflare Pages](https://dash.cloudflare.com/) - Cloudflare 静态网站托管
+- [GitHub Pages](https://pages.github.com/) - GitHub 提供的网站托管服务
+- [netlify](https://www.netlify.com/) - 流行的静态网站托管平台
+- [YourWare.so](https://www.yourware.so/) - 网站托管服务
+- [Vercel](https://vercel.com/) - 专注前端部署的托管平台
+- 腾讯云 EdgeOne Pages - 腾讯云静态网站托管
+
+## Chrome 插件 {#chrome-插件}
+
+- Proxy SwitchySharp 1.10.4 - 代理切换工具
+- FeHelper(前端助手) - 前端开发工具集
 - Vimium C - 全键盘操作浏览器(`?` 显示帮助界面)
-- 篡改猴
+- 篡改猴 - 用户脚本管理器
 - AdBlock - 拦截整个网络的广告
-- Clear Cache
-- Force Copy
-- Octotree - GitHub code tree
-- Wappalyzer - Technology profiler
-- 沉浸式翻译
-- 沙拉查词
-- Enhanced GitHub
-- [Automa](https://www.automa.site/) - Chrome 浏览器插件，用来设置任务自动化。另外，Chrome 有内置的用户行为录制
-- [DeepSRT](https://chromewebstore.google.com/detail/deepsrt-experience-the-fa/mdaaadlpcanoofcoeanghbmpbdbhladd) - 一个 Chrome 插件，观看 Youtube 视频时，在浏览器侧边栏展示视频总结和字幕
-- [network-plus](https://github.com/ClearStudio/network-plus) - 一款浏览器插件，可以修改浏览器发出的网络请求，相当于简易版的 Postman
+- Clear Cache - 快速清除缓存
+- Force Copy - 强制复制
+- Octotree - GitHub 代码树展示
+- Wappalyzer - 网站技术栈检测
+- 沉浸式翻译 - 网页翻译工具
+- 沙拉查词 - 划词翻译
+- Enhanced GitHub - GitHub 功能增强
+- [Automa](https://www.automa.site/) - 浏览器任务自动化工具
+- [DeepSRT](https://chromewebstore.google.com/detail/deepsrt-experience-the-fa/mdaaadlpcanoofcoeanghbmpbdbhladd) - Youtube 视频总结和字幕工具
+- [network-plus](https://github.com/ClearStudio/network-plus) - 修改浏览器网络请求的插件
 
-### 综合
+## 综合工具集 {#综合工具集}
 
-- [DevToys](https://github.com/DevToys-app/DevToys) - 一款 Windows 的小工具集合，收入了开发者会用到的许多小工具
-- [it-tools](https://github.com/CorentinTh/it-tools) - 为开发人员收集方便的在线工具，具有很好的用户体验 https://it-tools.tech
-- [开发者武器库](https://devtool.tech/)
-- [油猴脚本 - Greasy Fork](https://greasyfork.org/zh-TW)
-- [极简插件 - Chrome 插件/扩展](https://chrome.zzzmh.cn/#/index)
-- [VS Code 离线扩展](https://marketplace.visualstudio.com/)
+- [DevToys](https://github.com/DevToys-app/DevToys) - Windows 开发者工具集合
+- [it-tools](https://github.com/CorentinTh/it-tools) - 开发人员在线工具集合 https://it-tools.tech
+- [开发者武器库](https://devtool.tech/) - 开发工具合集
+- [油猴脚本 - Greasy Fork](https://greasyfork.org/zh-TW) - 用户脚本资源
+- [极简插件 - Chrome 插件/扩展](https://chrome.zzzmh.cn/#/index) - Chrome 插件下载
+- [VS Code 离线扩展](https://marketplace.visualstudio.com/) - VS Code 插件下载
 
-## 媒体
+## 媒体工具 {#媒体工具}
 
-- 录音
-- 录制视频
-- 视频剪辑 剪映
-- [convertio](https://convertio.co/zh/) 文件转换器
-- [ivcam](https://www.e2esoft.cn/ivcam/) 手机用作电脑摄像头+传声器
-- [Luvvoice](https://luvvoice.com/) 免费的在线文本转语音服务，提供各种语言的超过 200 种语音。
-- [换脸视频生成服务](https://myvoiceyourface.com/) - 一个在线服务，用户可以上传一张照片和一段视频，网站会将照片里的人脸，替换视频里面的人脸
+- 录音 - 音频录制
+- 录制视频 - 视频录制
+- 视频剪辑 剪映 - 视频编辑
+- [convertio](https://convertio.co/zh/) - 文件格式转换器
+- [ivcam](https://www.e2esoft.cn/ivcam/) - 手机用作电脑摄像头+传声器
+- [Luvvoice](https://luvvoice.com/) - 免费的在线文本转语音服务
+- [换脸视频生成服务](https://myvoiceyourface.com/) - 替换视频中的人脸
 
-### Markdown
+### Markdown 工具 {#markdown-工具}
 
 - 制作封面
-  - [免费的封面图制作网站](https://www.coverpage.one/image)
-  - [制作内容分享卡片的免费网站](https://mono.cards/zh)
-  - [流光卡片](https://fireflycard.shushiai.com/zh/) - 一个在线工具，生成文字分享的卡片图
-  - [封面图片生成器](https://spacexcode.com/coverview/) - 一个制作简单封面图的 Web 工具
+  - [免费的封面图制作网站](https://www.coverpage.one/image) - 封面图制作
+  - [制作内容分享卡片的免费网站](https://mono.cards/zh) - 分享卡片制作
+  - [流光卡片](https://fireflycard.shushiai.com/zh/) - 文字分享卡片图生成
+  - [封面图片生成器](https://spacexcode.com/coverview/) - 简单封面图制作
+  - [**logoly**](https://github.com/bestony/logoly) - Logo 生成器
 - 编辑器
-  - [Zettlr](https://github.com/Zettlr/Zettlr) - 一个桌面 Markdown 编辑器，界面美观
-  - [marktext](https://github.com/marktext/marktext) - 一个跨平台的桌面 Markdown 编辑器
-  - [trilium](https://github.com/zadam/trilium/tree/master) - 一个 Markdown 格式的笔记软件，使用目录层级整理笔记。可以下载安装桌面版，也可以自己架设在线版
-  - [Kate](https://kate-editor.org/zh-cn/) - KDE 项目里面的多文档编辑器，可以在一个窗口编辑多个文档，具有 IDE 的功能
-- [**resumd**](https://github.com/timqian/resumd) - 使用 markdown 写简历，支持自定义主题，`html`,`pdf`,`md`导出 https://resumd.t9t.io
-- [Faultier-CV](https://github.com/i5heu/Faultier-CV) - 通过 Markdown 格式编写简历，并能实时预览 https://i5heu.github.io/Faultier-CV/dist/index.html
-- [**waifu2x**](https://github.com/nagadomi/waifu2x) - 图片进行放大操作 http://waifu2x.udp.jp/index.zh-CN.html
-- [**Picas**](https://github.com/djyde/Picas) - Google 字体生成的项目徽标 https://picas.now.sh/
+  - [Zettlr](https://github.com/Zettlr/Zettlr) - 桌面 Markdown 编辑器
+  - [marktext](https://github.com/marktext/marktext) - 跨平台的桌面 Markdown 编辑器
+  - [trilium](https://github.com/zadam/trilium/tree/master) - Markdown 格式的笔记软件
+  - [Kate](https://kate-editor.org/zh-cn/) - KDE 项目多文档编辑器
+- 简历工具
+  - [**resumd**](https://github.com/timqian/resumd) - 使用 Markdown 写简历
+  - [Faultier-CV](https://github.com/i5heu/Faultier-CV) - Markdown 格式编写简历并实时预览
+- 图像处理
+  - [**waifu2x**](https://github.com/nagadomi/waifu2x) - 图片放大工具
+  - [**Picas**](https://github.com/djyde/Picas) - Google 字体生成项目徽标
 - 在线编辑器
   - [**wechat-format**](https://github.com/lyricat/wechat-format) - [微信公众号排版编辑器](https://lab.lyric.im/wxformat)
-  - [**md**](https://github.com/doocs/md) - 微信公众号 Markdown 编辑器，基于 wechat-format 进行了二次开发
-- [**logoly**](https://github.com/bestony/logoly) - A Pornhub Flavour Logo Generator https://www.logoly.pro/
-- [**markdown-it**](https://github.com/markdown-it/markdown-it) - Markdown 转 HTML
-- [**tui.editor**](https://github.com/nhn/tui.editor) - Markdown 所见即所得编辑器
-- [**to_markdown**](https://github.com/liangtengyu/to_markdown) - 一键解析多平台文章地址链接 为 Markdown http://markdown.liangtengyu.com:9999/#/
-- [**图片转文字**](https://drive.google.com/drive/my-drive) - [借助 Google 云端硬盘](https://www.youtube.com/watch?v=cbORCzg2nIM)
-- [**ruanyf/document-style-guide**](https://github.com/ruanyf/document-style-guide) - 中文技术文档的写作规范，by [ruanyf](https://github.com/ruanyf)
-- [**ruanyf/articles**](https://github.com/ruanyf/articles) - personal articles，by [ruanyf](https://github.com/ruanyf)
-- [**How-To-Ask-Questions-The-Smart-Way**](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/master/README-zh_CN.md) - 提问的智慧
-- [**awesome-resume**](https://github.com/resumejob/awesome-resume) - 程序员简历例句，简历模版
-- [**github-markdown-css**](https://github.com/sindresorhus/github-markdown-css) - The minimal amount of CSS to replicate the GitHub Markdown style
-- [markmap](https://github.com/markmap/markmap) - 一个将 Markdown 转为思维导图的开源工具
-- [sitdown](https://github.com/mdnice/sitdown) - 一个将 HTML 源码转换为 Markdown 的 JS 库，可以定制规则
-- [texme](https://github.com/susam/texme#texme) - 一个轻量级的 JavaScript 脚本，可以把 Markdown + LaTeX 文档直接渲染成网页
-- [mdq](https://github.com/yshavit/mdq) - 一个从 Markdown 文件提取信息的命令行工具，类似 处理 Markdown 文件的 jq 命令
-- [MarkItDown](https://github.com/microsoft/markitdown) - 微软官方推出的工具，将各种格式的文件（主要是 Office 文件）转成 Markdown 格式。标题是 GitHub 仓库链接，下面是[线上体验](https://markitdown.pro/)。
-- [marker](https://github.com/VikParuchuri/marker) - 一个命令行工具，将 PDF、EPUB、MOBI 文档转成 Markdown 文件，必要时会进行 OCR（文字识别）
-- [mdBook](https://github.com/rust-lang/mdBook) - 制作电子书的命令行工具，从 Markdown 生成 PDF 和 EPUB 文件
+  - [**md**](https://github.com/doocs/md) - 微信公众号 Markdown 编辑器
+- 转换工具
+  - [**markdown-it**](https://github.com/markdown-it/markdown-it) - Markdown 转 HTML
+  - [**tui.editor**](https://github.com/nhn/tui.editor) - Markdown 所见即所得编辑器
+  - [**图片转文字**](https://drive.google.com/drive/my-drive) - [借助 Google 云端硬盘](https://www.youtube.com/watch?v=cbORCzg2nIM)
+- 文档规范
+  - [**ruanyf/document-style-guide**](https://github.com/ruanyf/document-style-guide) - 中文技术文档的写作规范
+  - [**ruanyf/articles**](https://github.com/ruanyf/articles) - personal articles，by ruanyf
+  - [**How-To-Ask-Questions-The-Smart-Way**](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/master/README-zh_CN.md) - 提问的智慧
+- 其他工具
+  - [**awesome-resume**](https://github.com/resumejob/awesome-resume) - 程序员简历例句，简历模版
+  - [**github-markdown-css**](https://github.com/sindresorhus/github-markdown-css) - GitHub Markdown 样式的 CSS
+  - [markmap](https://github.com/markmap/markmap) - 将 Markdown 转为思维导图
+  - [sitdown](https://github.com/mdnice/sitdown) - HTML 源码转换为 Markdown 的库
+  - [texme](https://github.com/susam/texme#texme) - 渲染 Markdown + LaTeX 文档为网页
+  - [mdq](https://github.com/yshavit/mdq) - 从 Markdown 文件提取信息的命令行工具
+  - [MarkItDown](https://github.com/microsoft/markitdown) - 将各种格式文件转成 Markdown
+  - [marker](https://github.com/VikParuchuri/marker) - 将 PDF、EPUB、MOBI 文档转成 Markdown
+  - [mdBook](https://github.com/rust-lang/mdBook) - 从 Markdown 生成 PDF 和 EPUB 文件
 
-### 下载
+### 下载工具 {#下载工具}
 
-- [一个下载各种流媒体视频的在线工具，支持 Youtube 和 TikTok](https://www.fastdownload.io/)
-- [cobalt](https://github.com/imputnet/cobalt) - 一个开源的视频下载网址，支持多个视频网站，包括 B 站、Youtube、instagram 和 Twitter
-- [yt-dlp](https://github.com/yt-dlp/yt-dlp) - 功能丰富的命令行音频 / 视频下载器
-- [you-get](https://github.com/soimort/you-get) - 一个命令行程序，提供便利的方式来下载网络上的媒体信息
-- [douyin-downloader](https://github.com/jiji262/douyin-downloader) - 抖音批量下载工具，去水印，支持视频、图集、合集、音乐(原声)。免费！免费！免费！
-- [bilivideo_down](https://github.com/kangpeiqin/bilivideo_down) - 一款基于 Flutter 开发的桌面端 B 站视频下载器
+- [视频下载工具](https://www.fastdownload.io/) - 支持 Youtube 和 TikTok 的在线视频下载
+- [cobalt](https://github.com/imputnet/cobalt) - 开源视频下载工具，支持多个视频网站
+- [yt-dlp](https://github.com/yt-dlp/yt-dlp) - 功能丰富的命令行音视频下载器
+- [you-get](https://github.com/soimort/you-get) - 命令行网络媒体下载工具
+- [douyin-downloader](https://github.com/jiji262/douyin-downloader) - 抖音批量下载工具，去水印
+- [bilivideo_down](https://github.com/kangpeiqin/bilivideo_down) - 基于 Flutter 的 B 站视频下载器
 
-### 文件
+### 文件处理 {#文件处理}
 
-- [Graphite](https://github.com/GraphiteEditor/Graphite) - 一款在线版的图像编辑器，代码开源
-- [DeepPDF](https://deeppdf.ai/pdf-translator) - 免费的 PDF 文件翻译网站，比如英文 PDF 翻译成中文，保留排版不变。
-- [Wiki.js](https://github.com/Requarks/wiki) - 架设个人 Wiki 的 Node.js 应用
-- [PDFMathTranslate](https://github.com/Byaidu/PDFMathTranslate) - 开源的命令行工具，使用 AI 翻译 PDF 文件，完整保留排版
-- [K2pdfopt](https://www.willus.com/k2pdfopt/) - 一个 PDF 工具，将 PDF 文件重排成 Kindle 和手机可以阅读的页面大小。
-- [Compress JPG](https://compressjpg.io/zh-CN) - 一个基于谷歌的 squoosh 算法、一次性压缩多张图片的网站
-- [Stirling-PDF](https://github.com/Stirling-Tools/Stirling-PDF) - 一个开源工具，用来完成各种 PDF 操作，基于 Web，需要自己架设
+- [Graphite](https://github.com/GraphiteEditor/Graphite) - 开源在线图像编辑器
+- [DeepPDF](https://deeppdf.ai/pdf-translator) - 免费 PDF 文件翻译网站
+- [Wiki.js](https://github.com/Requarks/wiki) - 架设个人 Wiki 的应用
+- [PDFMathTranslate](https://github.com/Byaidu/PDFMathTranslate) - 使用 AI 翻译 PDF 文件
+- [K2pdfopt](https://www.willus.com/k2pdfopt/) - PDF 文件重排工具
+- [Compress JPG](https://compressjpg.io/zh-CN) - 一次性压缩多张图片的网站
+- [Stirling-PDF](https://github.com/Stirling-Tools/Stirling-PDF) - 开源 PDF 操作工具
 
-## 产品设计
+## 产品设计 {#产品设计}
 
-- [**产品大牛**](http://www.pmdaniu.com/) 什么有很多完整的产品原型可以借鉴
-- [**remove bg**](https://www.remove.bg/zh/upload) - 为上传的图片消除背景 / [**bgremover**](http://www.aigei.com/bgremover)
-- [Unscreen](https://www.unscreen.com/) - 一个在线工具，可以免费删除视频背景
-- [设计师必备网站](https://www.meigong8.com/)
-- [**Lorem Picsum**](https://picsum.photos/) 提供免费的占位图
-- [**中国传统颜色手册**](https://colors.ichuantong.cn/)
-- [**draw**](https://www.draw.io/) 在线 web 画流程图
-- [excalidraw](https://excalidraw.com/) 手绘风格流程图，强推
-- [**processon**](https://www.processon.com/) 免费在线作图，支持流程图、思维导图、原型图、UML、网络拓扑图、组织结构图等
+- [**产品大牛**](http://www.pmdaniu.com/) - 产品原型参考网站
+- [**remove bg**](https://www.remove.bg/zh/upload) - 图片背景消除 / [**bgremover**](http://www.aigei.com/bgremover)
+- [Unscreen](https://www.unscreen.com/) - 免费删除视频背景
+- [设计师必备网站](https://www.meigong8.com/) - 设计资源集合
+- [**Lorem Picsum**](https://picsum.photos/) - 免费占位图
+- [**中国传统颜色手册**](https://colors.ichuantong.cn/) - 中国传统色彩
+- [**draw**](https://www.draw.io/) - 在线流程图工具
+- [excalidraw](https://excalidraw.com/) - 手绘风格流程图
+- [**processon**](https://www.processon.com/) - 在线作图工具
 
-### CSS
+### CSS 资源 {#css-资源}
 
 - [**animate.css**](https://github.com/animate-css/animate.css) - 最有名的动画效果库
 - [**grabient**](https://www.grabient.com/) - 生成漂亮的 CSS 渐变
 - [**animista**](https://animista.net/) - 在线生成 CSS 动画
 - [**easings**](https://easings.net/) - 缓动函数速查表
-- [**css-triangle-generator**](http://apps.eky.hk/css-triangle-generator/zh-hant) - CSS 三角形产生器
-- [**materialize.css**](https://github.com/Dogfalo/materialize) - [A CSS Framework based on Material Design](https://materializecss.com/)
-- [direction-reveal](https://github.com/NigelOToole/direction-reveal) - 根据鼠标进入位置，展现从不同方向 展现 hover 效果
-- [**micron**](https://github.com/webkul/micron) - 通过在元素上绑定属性从而实现动画效果的库
+- [**css-triangle-generator**](http://apps.eky.hk/css-triangle-generator/zh-hant) - CSS 三角形生成器
+- [**materialize.css**](https://github.com/Dogfalo/materialize) - 基于 Material Design 的 CSS 框架
+- [direction-reveal](https://github.com/NigelOToole/direction-reveal) - 鼠标方向感知的 hover 效果
+- [**micron**](https://github.com/webkul/micron) - 通过元素属性绑定实现动画效果
 
-### 色彩方案
+### 色彩方案 {#色彩方案}
 
-- [Brand Colors](https://brandcolors.net/) - 各大热门社交网站的配色方案
-- [Material Palette](https://www.materialpalette.com/) - 提供 Material Design 配色的线上工具（从自选两种颜色开始）
-- [Material UI Colors](https://www.materialui.co/colors) - Material UI Colors 是为 Material Design 而生的配色模板
-- [0 to 255](https://www.0to255.com/) - 一个作为出发点的颜色（起始颜色），有序呈现色彩变化的颜色列表
-- [Adobe Color CC](https://color.adobe.com/zh/create/color-wheel) - 快速创建 5 色的新色彩主题
+- [Brand Colors](https://brandcolors.net/) - 各大热门网站的配色方案
+- [Material Palette](https://www.materialpalette.com/) - Material Design 配色工具
+- [Material UI Colors](https://www.materialui.co/colors) - Material Design 配色模板
+- [0 to 255](https://www.0to255.com/) - 色彩变化列表生成器
+- [Adobe Color CC](https://color.adobe.com/zh/create/color-wheel) - 创建色彩主题
 
-### 图库站点
+### 图库资源 {#图库资源}
 
 > 下面都是图库网站，提供免费的商业级高清晰度图片下载。
 
-- [Unsplash](https://unsplash.com/)
-- [Pexels](https://www.pexels.com/)
-- [Gratisography](https://gratisography.com/)
-- [picjumbo](https://picjumbo.com/)
-- [Pixabay](https://pixabay.com/)
-- [Canva](https://www.canva.com/photos/free/)
-- [reshot](https://www.reshot.com/)
-- [rawpixel](https://www.rawpixel.com/)
-- [Morguefile](https://morguefile.com/)
-- [pxhere](https://pxhere.com/)
-- [ISO Republic](https://isorepublic.com/)
-- [泼辣有图](https://www.polaxiong.com/)
+- [Unsplash](https://unsplash.com/) - 高质量免费图片
+- [Pexels](https://www.pexels.com/) - 免费素材图片
+- [Gratisography](https://gratisography.com/) - 免费高分辨率图片
+- [picjumbo](https://picjumbo.com/) - 免费图片素材
+- [Pixabay](https://pixabay.com/) - 免费图片和视频
+- [Canva](https://www.canva.com/photos/free/) - 设计工具提供的免费照片
+- [reshot](https://www.reshot.com/) - 免费图库
+- [rawpixel](https://www.rawpixel.com/) - 免费素材资源
+- [Morguefile](https://morguefile.com/) - 免费图片资源
+- [pxhere](https://pxhere.com/) - 免费 CC0 图片
+- [ISO Republic](https://isorepublic.com/) - 免费高质量图片
+- [泼辣有图](https://www.polaxiong.com/) - 中文图片素材
 
-### 开放 API
+### 开放 API {#开放-api}
 
-- [**jsonplaceholder**](https://github.com/typicode/jsonplaceholder) A simple online fake REST API server https://jsonplaceholder.typicode.com
-- [**GitHub API v3**](https://developer.github.com/v3/)
-- [**cnode**](https://cnodejs.org/api)
-- [**douban-api-proxy**](https://github.com/zce/douban-api-proxy) https://douban.uieee.com/
-- [**和风天气**](https://dev.heweather.com/docs/api/weather)
-- [**Twilio API Docs**](https://www.twilio.com/docs/)
-- [**paperplane**](https://docs.paperplane.app/) High quality HTML to PDF conversion API
-- [**Awesome_APIs**](https://github.com/TonnyL/Awesome_APIs/blob/master/README-zh.md)
+- [**jsonplaceholder**](https://github.com/typicode/jsonplaceholder) - 在线模拟 REST API 服务
+- [**GitHub API v3**](https://developer.github.com/v3/) - GitHub API
+- [**cnode**](https://cnodejs.org/api) - CNode 社区 API
+- [**douban-api-proxy**](https://github.com/zce/douban-api-proxy) - 豆瓣 API 代理
+- [**和风天气**](https://dev.heweather.com/docs/api/weather) - 天气 API
+- [**Twilio API Docs**](https://www.twilio.com/docs/) - 通信 API
+- [**paperplane**](https://docs.paperplane.app/) - HTML 转 PDF API
+- [**Awesome_APIs**](https://github.com/TonnyL/Awesome_APIs/blob/master/README-zh.md) - API 资源列表
 
-## 有趣
+## 趣味工具 {#趣味工具}
 
 - 临时邮箱
-  - [免费的临时邮箱服务](https://minmail.app/cn)
-  - [Fake Mail](https://github.com/CH563/fakemail) - 开源的一次性电子邮件服务，使用 Cloudflare worker + Astro 开发，收到的邮件存在 Cloudflare KV，2 小时后自动删除
-  - [moemail](https://github.com/beilunyang/moemail) - 一个基于 NextJS + Cloudflare 技术栈构建的可爱临时邮箱服务
-  - [TempMail](https://tempmail100.com/) - 临时邮箱服务，支持 iOS 和网页端
-- [**Server 酱**](https://sct.ftqq.com/)
+  - [免费的临时邮箱服务](https://minmail.app/cn) - 临时邮箱
+  - [Fake Mail](https://github.com/CH563/fakemail) - 开源一次性电子邮件服务
+  - [moemail](https://github.com/beilunyang/moemail) - 基于 NextJS 的临时邮箱
+  - [TempMail](https://tempmail100.com/) - 临时邮箱服务
+- [**Server 酱**](https://sct.ftqq.com/) - 推送服务
 - [**Temporary Email Address**](https://temp-mail.org) - 临时邮件使用
 - [**Temp**](https://temp.pm/) - 短信息（可加密）
 - **无损音乐** [无损音乐吧](http://www.wsyyb.com/) [超高无损音乐](https://www.sq688.com/)
-- [**lsjgcx**](http://www.lsjgcx.com/) - 历史价格查询 （例：https://p.zwjhl.com/price.aspx?url=https://item.jd.com/100019851795.html）
-- [表情包 - 发表情](https://fabiaoqing.com/)
-- [Staying](https://staying.fun/zh) - 代码可视化网站，可以将 Python 和 JS 代码的运行步骤，以动画形式展示，内置了许多常见算法的演示
-- [Raccoon](https://raccoon.onyxbits.de/) - 从 Google Play 将安卓 apk 安装包下载到桌面的工具
-- [Awesome Open Source](https://awesomeopensource.com/) - 该网站对 GitHub 上的开源项目进行分类，共有 7000 多个类别
-- [awesome-icons](https://github.com/vkarampinis/awesome-icons) - 这个仓库收集免费的图标资源
-- [linkding](https://github.com/sissbruecker/linkding) - 一个自己架设的网址书签服务
-- [PasteMe.cn](https://pasteme.cn/#/) - 一个文本分享网站，不需要注册，会对输入的文本或代码生成 URL，支持密码和阅后即焚
-- [remark42](https://github.com/umputun/remark42) - 开源的评论服务，可以用来为静态网页加上留言功能
-- [Chrome remote desktop](https://remotedesktop.google.com/home?pli=1) - 谷歌推出了远程桌面软件，可以在手机和桌面浏览器里面，访问远程电脑的桌面，进行各种操作
-- [Screen Sharing](https://screensharing.net/) - 从浏览器分享你的屏幕给其他人，适合用来演示
-- [typing-practice](https://github.com/wincatcher/typing-practice.toolsnav.top) - 开源的英文打字练习工具
-- [dazhengTools](https://github.com/dazhengs/tools) - 开源的纯前端在线加/解密工具箱，可以离线使用
-- [深蹲计数器](https://github.com/zhaoolee/sport) - 一个开源的 Web 应用，通过移动设备的加速度计，实现深蹲计数
-- [SirTunnel](https://github.com/anderspitman/SirTunnel) - 一个开源软件，只需要 50 行代码，就能建立一条隧道，将你的内网电脑可以被公网访问，这里有一篇[教程](https://eighty-twenty.org/2023/01/27/sirtunnel-personal-ngrok)
-- [Webrecorder](https://webrecorder.net/) - 一个工具包，用来保存交互式网页，做到离线时也能尽可能准确地重现它
+- [**lsjgcx**](http://www.lsjgcx.com/) - 历史价格查询
+- [表情包 - 发表情](https://fabiaoqing.com/) - 表情包网站
+- [Staying](https://staying.fun/zh) - 代码可视化网站
+- [Raccoon](https://raccoon.onyxbits.de/) - 安卓 apk 下载工具
+- [Awesome Open Source](https://awesomeopensource.com/) - GitHub 开源项目分类
+- [awesome-icons](https://github.com/vkarampinis/awesome-icons) - 免费图标资源
+- [linkding](https://github.com/sissbruecker/linkding) - 自架设书签服务
+- [PasteMe.cn](https://pasteme.cn/#/) - 文本分享网站
+- [remark42](https://github.com/umputun/remark42) - 开源评论服务
+- [Chrome remote desktop](https://remotedesktop.google.com/home?pli=1) - 谷歌远程桌面
+- [Screen Sharing](https://screensharing.net/) - 浏览器屏幕分享
+- [typing-practice](https://github.com/wincatcher/typing-practice.toolsnav.top) - 英文打字练习工具
+- [dazhengTools](https://github.com/dazhengs/tools) - 开源在线加解密工具箱
+- [深蹲计数器](https://github.com/zhaoolee/sport) - 基于加速度计的深蹲计数工具
+- [SirTunnel](https://github.com/anderspitman/SirTunnel) - 内网穿透工具
+- [Webrecorder](https://webrecorder.net/) - 交互式网页保存工具
 
-## 参考链接
+## 参考资源 {#参考资源}
 
 - [awesome-f2e-libs](https://github.com/sorrycc/awesome-f2e-libs) - 🎉 整理我平时关注的前端库 by [sorrycc](https://github.com/sorrycc)
 - [my-development-tools](https://github.com/adoyle-h/my-development-tools) - [我的开发工具箱](https://adoyle.me/my-development-tools/)
 - [awesome-bookmarks](https://github.com/PanJiaChen/awesome-bookmarks) - [💖 A curated list of awesome things](https://panjiachen.github.io/awesome-bookmarks/)
-- [awesome-windows](https://github.com/Awesome-Windows/Awesome/blob/master/README-cn.md)
+- [awesome-windows](https://github.com/Awesome-Windows/Awesome/blob/master/README-cn.md) - Windows 上优秀的软件和工具
 - [reading-list](https://github.com/ruanyf/reading-list) - Some books I read，by [ruanyf](https://github.com/ruanyf)
