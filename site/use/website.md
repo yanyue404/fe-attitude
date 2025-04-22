@@ -125,6 +125,8 @@
 
 ### 静态网站托管
 
+- [ngrok](https://ngrok.com/) - ngrok 是一个将本地服务暴露到公网的工具，适合临时测试。
+- [frp](https://github.com/fatedier/frp/releases) - frp 是一个开源的内网穿透工具，适合有服务器的用户，配置稍复杂但更灵活。
 - [Cloudflare Pages](https://dash.cloudflare.com/) - Cloudflare 静态网站托管
 - [GitHub Pages](https://pages.github.com/) - GitHub 提供的网站托管服务
 - [netlify](https://www.netlify.com/) - 流行的静态网站托管平台
