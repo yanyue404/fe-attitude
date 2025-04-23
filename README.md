@@ -73,7 +73,8 @@
 - **性能优化** - 大型前端应用的性能瓶颈分析与优化策略
 - **跨端开发** - 小程序、H5、桌面应用的统一开发方案
 - **低代码平台** - 可视化编辑器的核心技术与实现思路
+- **Python 学习** - 基于 Python 的实用工具与项目实践
 
 ---
 
-💡 **技术栈**：Vue | React | TypeScript | Node.js | 微信小程序 | Vite | Webpack | Rollup
+💡 **技术栈**：Vue | React | TypeScript | Node.js | 微信小程序 | Vite | Webpack | Rollup | Python

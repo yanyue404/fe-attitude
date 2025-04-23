@@ -1,4 +1,13 @@
 /**
+ * 创建一个从 1 到 length 的数组
+ * @param {number} length - 数组的长度
+ * @returns {Array} - 生成的数组
+ */
+export function createNumberList(length) {
+  return Array.from({ length }, (_, index) => index + 1)
+}
+
+/**
  * 通用数组生成器
  * @param {number} length - 数组的长度
  * @param {function} callback - 用于生成每个元素的回调函数，接收当前索引作为参数
@@ -11,11 +20,12 @@ export function generateArray(length, callback) {
   if (typeof callback !== 'function') {
     throw new Error('请提供一个回调函数用于生成数组内容')
   }
+  // 使用 Array.from 方法生成数组，第二个参数是回调函数，用于生成数组内容（mapFn(element, index)）
   return Array.from({ length }, (_, index) => callback(index))
 }
 
 // 示例用法 1: 生成一个从 1 到 10 的数组
-const array1 = generateArray(10, index => index + 1)
+const array1 = generateArray(10, (index) => index + 1)
 console.log(array1) // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 // 示例用法 2: 生成一个包含随机数的数组
@@ -27,7 +37,7 @@ const array3 = generateArray(5, () => '固定值')
 console.log(array3) // ["固定值", "固定值", "固定值", "固定值", "固定值"]
 
 // 示例用法 4: 生成一个二维数组
-const array4 = generateArray(3, row => generateArray(3, col => `(${row}, ${col})`))
+const array4 = generateArray(3, (row) => generateArray(3, (col) => `(${row}, ${col})`))
 console.log(array4) // [["(0, 0)", "(0, 1)", "(0, 2)"], ["(1, 0)", "(1, 1)", "(1, 2)"], ["(2, 0)", "(2, 1)", "(2, 2)"]]
 
 /**
@@ -41,12 +51,7 @@ export function isArrayLike(value) {
 }
 
 export function isArray(obj) {
-  return (
-    Object.prototype.toString
-      .call(obj)
-      .split(' ')[1]
-      .slice(0, -1) === 'Array'
-  )
+  return Object.prototype.toString.call(obj).split(' ')[1].slice(0, -1) === 'Array'
 }
 
 // 将一组类数组转换为数组
@@ -108,7 +113,7 @@ export function compact(arr) {
  */
 export function uniqueArrayObj(arr, name) {
   var hash = {}
-  return arr.reduce(function(item, next) {
+  return arr.reduce(function (item, next) {
     hash[next[name]] ? '' : (hash[next[name]] = true && item.push(next))
     return item
   }, [])
@@ -121,7 +126,7 @@ export function uniqueArray(arr) {
   try {
     return [...new set(arr)]
   } catch (error) {
-    return Array.prototype.filter.call(arr, function(item, index) {
+    return Array.prototype.filter.call(arr, function (item, index) {
       return arr.indexOf(item) === index
     })
   }
@@ -136,7 +141,7 @@ export function uniqueArray(arr) {
  * @returns Array
  */
 export function addKey(sourceArray, extendObj, filterFn) {
-  var getType = function(a) {
+  var getType = function (a) {
     var typeArray = Object.prototype.toString.call(a).split(' ')
     return typeArray[1].slice(0, -1)
   }
@@ -169,7 +174,7 @@ export function addKey(sourceArray, extendObj, filterFn) {
  * @returns
  */
 export function sortBy(arr, props, type) {
-  return arr.sort(function(a, b) {
+  return arr.sort(function (a, b) {
     if (type === 'desc') {
       return b[props] - a[props]
     }
@@ -282,7 +287,7 @@ export function findLastIndex(array, predicate) {
  */
 export function intersection(...arrays) {
   return arrays.reduce((result, array) => {
-    return result.filter(item => array.includes(item))
+    return result.filter((item) => array.includes(item))
   })
 }
 
@@ -294,7 +299,7 @@ export function intersection(...arrays) {
  */
 export function difference(array, ...others) {
   const combined = [].concat(...others)
-  return array.filter(item => !combined.includes(item))
+  return array.filter((item) => !combined.includes(item))
 }
 
 /**
@@ -336,7 +341,7 @@ export function groupBy(array, iteratee) {
  * @returns {Array} - 新数组
  */
 export function without(array, ...values) {
-  return array.filter(item => !values.includes(item))
+  return array.filter((item) => !values.includes(item))
 }
 
 /**

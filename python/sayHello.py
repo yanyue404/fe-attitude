@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 import sys
 
-print("Hello, World!")
+name = input("请输入你的名字：")
+print(f"你好，{name}！")
 
 print('命令行参数如下:')
 for i in sys.argv:
