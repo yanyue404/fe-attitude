@@ -122,6 +122,8 @@
   - [sitdown](https://github.com/mdnice/sitdown) - HTML 源码转换为 Markdown 的库
   - [MarkItDown](https://github.com/microsoft/markitdown) - 将各种格式文件转成 Markdown
   - [marker](https://github.com/VikParuchuri/marker) - 将 PDF、EPUB、MOBI 文档转成 Markdown
+- 转换 pdf
+  - [DeepPDF 保留排版不变的 PDF 翻译在线免费工具](https://deeppdf.ai/pdf-translator) 无需登录，支持上传 200MB 的 PDF 文件，保留排版不变的 PDF 翻译器，下载无水印。
 
 ### 静态网站托管
 
@@ -157,6 +159,7 @@
 - [DevToys](https://github.com/DevToys-app/DevToys) - Windows 开发者工具集合
 - [it-tools](https://github.com/CorentinTh/it-tools) - 开发人员在线工具集合 https://it-tools.tech
 - [开发者武器库](https://devtool.tech/) - 开发工具合集
+- [UFreeTools - 你的免费工具集](https://www.ufreetools.com/zh)
 - [油猴脚本 - Greasy Fork](https://greasyfork.org/zh-TW) - 用户脚本资源
 - [极简插件 - Chrome 插件/扩展](https://chrome.zzzmh.cn/#/index) - Chrome 插件下载
 - [VS Code 离线扩展](https://marketplace.visualstudio.com/) - VS Code 插件下载
