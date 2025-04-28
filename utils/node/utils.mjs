@@ -1,13 +1,14 @@
-const fs = require('fs').promises
-const path = require('path')
-const { exec } = require('child_process')
+import fs from 'fs/promises'
+import path from 'path'
+import util from 'util'
+import { exec, spawn, execSync } from 'child_process'
 
 /**
  * 异步读取目录的所有文件
  * @param {string} dirPath - 目录路径
  * @returns {Promise<string[]>} - 文件列表
  */
-async function readDirectory(dirPath) {
+export async function readDirectory(dirPath) {
   try {
     return await fs.readdir(dirPath)
   } catch (err) {
@@ -21,7 +22,7 @@ async function readDirectory(dirPath) {
  * @param {string} filePath - 文件或目录路径
  * @returns {Promise<boolean>} - 是否存在
  */
-async function fileExists(filePath) {
+export async function fileExists(filePath) {
   try {
     await fs.access(filePath)
     return true
@@ -35,7 +36,7 @@ async function fileExists(filePath) {
  * @param {string} relativePath - 相对路径
  * @returns {string} - 绝对路径
  */
-function getAbsolutePath(relativePath) {
+export function getAbsolutePath(relativePath) {
   return path.resolve(relativePath)
 }
 
@@ -44,7 +45,7 @@ function getAbsolutePath(relativePath) {
  * @param {string} command - 命令
  * @returns {Promise<string>} - 命令输出
  */
-function executeCommand(command) {
+export function executeCommand(command) {
   return new Promise((resolve, reject) => {
     exec(command, { encoding: 'utf-8' }, (error, stdout, stderr) => {
       if (error) {
@@ -65,8 +66,7 @@ function executeCommand(command) {
  * @example  const result = await runCommand("echo", ["Hello"]);
  * @example: const result = await runCommand("npx", ["prettier", "--write", ...stagedFiles]);
  */
-async function runCommand(command, args) {
-  const { spawn } = require('child_process')
+export async function runCommand(command, args) {
   return new Promise((resolve, reject) => {
     const proc = spawn(command, args, { stdio: 'pipe', shell: true })
     let stdout = ''
@@ -80,7 +80,6 @@ async function runCommand(command, args) {
 }
 
 // 示例用法
-// const runCommand = require("./runCommand");
 // (async () => {
 //   const result = await runCommand("echo", ["Hello"]);
 //   console.log("输出:", result.stdout);
@@ -92,7 +91,7 @@ async function runCommand(command, args) {
  * @param {string} message - 错误信息
  * @param {number} [code=1] - 退出码
  */
-function exitWithError(message, code = 1) {
+export function exitWithError(message, code = 1) {
   console.error(message)
   process.exit(code)
 }
@@ -101,7 +100,7 @@ function exitWithError(message, code = 1) {
  * 获取当前 Node.js 版本
  * @returns {string} - Node.js 版本
  */
-function getNodeVersion() {
+export function getNodeVersion() {
   return process.version
 }
 
@@ -110,7 +109,7 @@ function getNodeVersion() {
  * @param {string} dirPath - 目录路径
  * @returns {Promise<void>}
  */
-async function createDirectoryIfNotExists(dirPath) {
+export async function createDirectoryIfNotExists(dirPath) {
   try {
     await fs.mkdir(dirPath, { recursive: true })
   } catch (err) {
@@ -124,7 +123,7 @@ async function createDirectoryIfNotExists(dirPath) {
  * @param {string} targetPath - 文件或目录路径
  * @returns {Promise<void>}
  */
-async function deleteFileOrDirectory(targetPath) {
+export async function deleteFileOrDirectory(targetPath) {
   try {
     await fs.rm(targetPath, { recursive: true, force: true })
   } catch (err) {
@@ -137,8 +136,7 @@ async function deleteFileOrDirectory(targetPath) {
  * 检查当前目录是否为 Git 仓库
  * @returns {boolean} 是否为 Git 仓库
  */
-function isGitRepository() {
-  const { execSync } = require('child_process')
+export function isGitRepository() {
   try {
     execSync('git rev-parse --is-inside-work-tree', { stdio: 'ignore' })
     return true
@@ -152,8 +150,7 @@ function isGitRepository() {
  * @param {string} arg Git rev-parse 参数（如 "--git-dir" 或 "--show-toplevel"）
  * @returns {string} Git 根目录路径，或空字符串（失败时）
  */
-function getGitRoot(arg = '--show-toplevel') {
-  const { execSync } = require('child_process')
+export function getGitRoot(arg = '--show-toplevel') {
   try {
     return execSync(`git rev-parse ${arg}`, { encoding: 'utf8' }).trim()
   } catch {
@@ -162,7 +159,6 @@ function getGitRoot(arg = '--show-toplevel') {
 }
 
 // 示例用法
-// const getGitRoot = require("./getGitRoot");
 // const gitRoot = getGitRoot("--show-toplevel");
 // console.log(`Git 根目录: ${gitRoot}`);
 
@@ -171,7 +167,7 @@ function getGitRoot(arg = '--show-toplevel') {
  * @param {string} filePath 文件路径
  * @param {string} content 文件内容
  */
-function writeExecutableFile(filePath, content) {
+export function writeExecutableFile(filePath, content) {
   const { writeFileSync } = require('fs')
   writeFileSync(filePath, content, { mode: 0o755 })
 }
@@ -185,9 +181,7 @@ function writeExecutableFile(filePath, content) {
  * 获取 Git 暂存区的文件列表
  * @returns {string[]} 暂存文件路径数组
  */
-async function getStagedFiles() {
-  const { exec } = require('child_process')
-  const util = require('util')
+export async function getStagedFiles() {
   const execPromise = util.promisify(exec)
 
   try {
@@ -204,19 +198,3 @@ async function getStagedFiles() {
 //   const files = await getStagedFiles();
 //   console.log("暂存文件:", files);
 // })();
-
-module.exports = {
-  readDirectory,
-  fileExists,
-  getAbsolutePath,
-  executeCommand,
-  runCommand,
-  exitWithError,
-  getNodeVersion,
-  createDirectoryIfNotExists,
-  deleteFileOrDirectory,
-  isGitRepository,
-  getGitRoot,
-  writeExecutableFile,
-  getStagedFiles
-}

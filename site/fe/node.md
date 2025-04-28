@@ -2,8 +2,6 @@
 
 ## 对 Node.js 的理解？优缺点？应用场景？
 
-![](https://static.vue-js.com/b565d240-c1e6-11eb-ab90-d9ae814b240d.png)
-
 ### 一、是什么
 
 `Node.js` 是一个开源与跨平台的 `JavaScript` 运行时环境
@@ -488,7 +486,7 @@ console.log(data) // Hello world
 ```js
 const fs = require('fs')
 
-fs.writeFile('2.txt', 'Hello world', err => {
+fs.writeFile('2.txt', 'Hello world', (err) => {
   if (!err) {
     fs.readFile('2.txt', 'utf8', (err, data) => {
       console.log(data) // Hello world
@@ -521,7 +519,7 @@ let data = fs.readFileSync('3.txt', 'utf8')
 ```js
 const fs = require('fs')
 
-fs.appendFile('3.txt', ' world', err => {
+fs.appendFile('3.txt', ' world', (err) => {
   if (!err) {
     fs.readFile('3.txt', 'utf8', (err, data) => {
       console.log(data) // Hello world
@@ -575,7 +573,7 @@ fs.mkdirSync('a/b/c')
 异步创建，第二个参数为回调函数
 
 ```js
-fs.mkdir('a/b/c', err => {
+fs.mkdir('a/b/c', (err) => {
   if (!err) console.log('创建成功')
 })
 ```
@@ -665,11 +663,11 @@ async function async2() {
 
 console.log('script start')
 
-setTimeout(function() {
+setTimeout(function () {
   console.log('setTimeout0')
 }, 0)
 
-setTimeout(function() {
+setTimeout(function () {
   console.log('setTimeout2')
 }, 300)
 
@@ -681,11 +679,11 @@ async1()
 
 process.nextTick(() => console.log('nextTick2'))
 
-new Promise(function(resolve) {
+new Promise(function (resolve) {
   console.log('promise1')
   resolve()
   console.log('promise2')
-}).then(function() {
+}).then(function () {
   console.log('promise3')
 })
 
@@ -868,13 +866,8 @@ class UserController {
       })
     }
     const result = userList.find(
-      item =>
-        item.name === data.name &&
-        item.password ===
-          crypto
-            .createHash('md5')
-            .update(data.password)
-            .digest('hex')
+      (item) =>
+        item.name === data.name && item.password === crypto.createHash('md5').update(data.password).digest('hex')
     )
     if (result) {
       // 生成token
@@ -907,7 +900,7 @@ module.exports = UserController
 在前端接收到`token`后，一般情况会通过`localStorage`进行缓存，然后将`token`放到`HTTP`请求头`Authorization` 中，关于`Authorization` 的设置，前面要加上 Bearer ，注意后面带有空格
 
 ```js
-axios.interceptors.request.use(config => {
+axios.interceptors.request.use((config) => {
   const token = localStorage.getItem('token')
   config.headers.common['Authorization'] = 'Bearer ' + token // 留意这里的 Authorization
   return config
@@ -1194,7 +1187,7 @@ SELECT COUNT(*) FROM record
 代码如下所示：
 
 ```js
-router.all('/api', function(req, res, next) {
+router.all('/api', function (req, res, next) {
   var param = ''
   // 获取参数
   if (req.method == 'POST') {
@@ -1209,9 +1202,9 @@ router.all('/api', function(req, res, next) {
   const pageSize = param.pageSize || 10
   const start = (param.page - 1) * pageSize
   const sql = `SELECT * FROM record limit ${pageSize} OFFSET ${start};`
-  pool.getConnection(function(err, connection) {
+  pool.getConnection(function (err, connection) {
     if (err) throw err
-    connection.query(sql, function(err, results) {
+    connection.query(sql, function (err, results) {
       connection.release()
       if (err) {
         throw err
@@ -1360,14 +1353,14 @@ const http = require('http')
 const fs = require('fs')
 
 // bad
-http.createServer(function(req, res) {
-  fs.readFile(__dirname + '/data.txt', function(err, data) {
+http.createServer(function (req, res) {
+  fs.readFile(__dirname + '/data.txt', function (err, data) {
     res.end(data)
   })
 })
 
 // good
-http.createServer(function(req, res) {
+http.createServer(function (req, res) {
   const stream = fs.createReadStream(__dirname + '/data.txt')
   stream.pipe(res)
 })
@@ -1408,7 +1401,7 @@ for user_id in userIds
 const buffer = fs.readFileSync(__dirname + '/source/index.htm')
 
 app.use(
-  mount('/', async ctx => {
+  mount('/', async (ctx) => {
     ctx.status = 200
     ctx.type = 'html'
     ctx.body = buffer
@@ -1467,6 +1460,244 @@ PM2 是 Node.js 的优秀运行时管理工具，专为简化和优化 Node.js �
 pm2 官网 https://pm2.keymetrics.io/
 
 https://docs.ffffee.com/nodejs/pm2-quickstart.html
+
+## 对 Node 中 CommonJS 和 ES Modules，及 Node 发展的理解
+
+### 一、Node.js 中 `require` 和 `.mjs` 的使用
+
+Node.js 提供了两种模块系统：**CommonJS**（使用 `require`）和 **ES 模块**（使用 `import/export`，通常与 `.mjs` 文件关联）。这两种系统在 Node.js 中并存，但适用场景和配置方式不同。
+
+#### 1. CommonJS（`require` 和 `module.exports`）
+
+- **概述**：
+  - CommonJS 是 Node.js 传统的模块系统，默认使用 `.js` 文件。
+  - 使用 `require` 引入模块，`module.exports` 或 `exports` 导出模块。
+  - 同步加载模块，适合服务器端开发。
+- **使用场景**：
+  - 传统 Node.js 项目（如 Express 应用）。
+  - 需要兼容旧代码或依赖 CommonJS 格式的第三方库（如 `fs`、`http`）。
+- **代码示例**：
+
+  ```javascript
+  // math.js
+  module.exports = {
+    add: (a, b) => a + b
+  }
+
+  // index.js
+  const math = require('./math')
+  console.log(math.add(2, 3)) // 输出: 5
+  ```
+
+  - 示例结合正则表达式验证邮箱：
+
+    ```javascript
+    // validate.js
+    const regex = /^(\S+)@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\.)+[a-zA-Z]{2,}$/
+    module.exports = {
+      validateEmail: (email) => regex.test(email)
+    }
+
+    // index.js
+    const validate = require('./validate')
+    console.log(validate.validateEmail('user@domain.com')) // true
+    console.log(validate.validateEmail('invalid@domain.commfdhaosdfjasda')) // false
+    ```
+
+- **注意事项**：
+  - `require` 是同步的，适合加载本地模块，但不适合浏览器环境。
+  - 默认情况下，Node.js 将 `.js` 文件视为 CommonJS，除非配置了 `type: "module"`。
+  - 不能直接在 CommonJS 中使用 `import/export`，否则会抛出语法错误。
+
+#### 2. ES 模块（`.mjs` 和 `import/export`）
+
+- **概述**：
+  - ES 模块是 ECMAScript 标准化的模块系统，Node.js 从 12.x 开始实验性支持，14.x 后稳定。
+  - 使用 `import` 引入模块，`export` 导出模块。
+  - 默认异步加载，支持动态导入，适合现代 JavaScript 项目。
+  - 使用 `.mjs` 文件扩展名明确表示 ES 模块，或者在 `package.json` 中设置 `"type": "module"`。
+- **使用场景**：
+  - 现代 Node.js 项目，特别是在需要与前端代码（React、Vue 等）保持一致时。
+  - 使用支持 ES 模块的库（如 `node-fetch` 3.x）。
+  - 需要动态导入或 tree-shaking 优化。
+- **代码示例**：
+
+  ```javascript
+  // math.mjs
+  export const add = (a, b) => a + b
+
+  // index.mjs
+  import { add } from './math.mjs'
+  console.log(add(2, 3)) // 输出: 5
+  ```
+
+  - 示例结合正则表达式验证邮箱：
+
+    ```javascript
+    // validate.mjs
+    const regex = /^(\S+)@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\.)+[a-zA-Z]{2,}$/
+    export const validateEmail = (email) => regex.test(email)
+
+    // index.mjs
+    import { validateEmail } from './validate.mjs'
+    console.log(validateEmail('user@domain.com')) // true
+    console.log(validateEmail('invalid@domain.commfdhaosdfjasda')) // false
+    ```
+
+- **配置 ES 模块**：
+
+  - **使用 `.mjs` 文件**：Node.js 自动将 `.mjs` 文件视为 ES 模块，无需额外配置。
+    ```bash
+    node index.mjs
+    ```
+  - **使用 `.js` 文件**：在 `package.json` 中添加 `"type": "module"`，使所有 `.js` 文件默认使用 ES 模块：
+
+    ```json
+    {
+      "type": "module"
+    }
+    ```
+
+    示例：
+
+    ```javascript
+    // validate.js
+    const regex = /^(\S+)@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\.)+[a-zA-Z]{2,}$/
+    export const validateEmail = (email) => regex.test(email)
+
+    // index.js
+    import { validateEmail } from './validate.js'
+    console.log(validateEmail('user@domain.com')) // true
+    ```
+
+  - 如果 `package.json` 中没有 `"type": "module"`，`.js` 文件默认使用 CommonJS。
+
+- **动态导入**：
+
+  - ES 模块支持动态导入，适合按需加载模块：
+    ```javascript
+    // index.mjs
+    const { validateEmail } = await import('./validate.mjs')
+    console.log(validateEmail('user@domain.com')) // true
+    ```
+
+- **注意事项**：
+  - `.mjs` 文件不能使用 `require` 或 `module.exports`，否则会抛出错误。
+  - 部分第三方库仍只支持 CommonJS，可能需要额外配置（如使用 `createRequire`）。
+  - 异步导入可能增加复杂性，但更灵活。
+
+#### 3. CommonJS 和 ES 模块的互操作
+
+- **从 ES 模块导入 CommonJS**：
+
+  - ES 模块可以直接导入 CommonJS 模块：
+
+    ```javascript
+    // commonjs-module.js
+    module.exports = { foo: 'bar' }
+
+    // index.mjs
+    import commonjsModule from './commonjs-module.js'
+    console.log(commonjsModule.foo) // bar
+    ```
+
+- **从 CommonJS 导入 ES 模块**：
+
+  - CommonJS 不能直接使用 `import`，但可以使用动态导入或 `createRequire`：
+
+    ```javascript
+    // es-module.mjs
+    export const foo = 'bar'
+
+    // index.js (CommonJS)
+    const { createRequire } = require('module')
+    const require = createRequire(import.meta.url)
+    const esModule = require('./es-module.mjs')
+    console.log(esModule.foo) // bar
+    ```
+
+  - 或者使用动态导入：
+    ```javascript
+    // index.js
+    ;(async () => {
+      const { foo } = await import('./es-module.mjs')
+      console.log(foo) // bar
+    })()
+    ```
+
+- **注意**：互操作可能导致兼容性问题，建议尽量统一模块系统（例如全用 ES 模块）。
+
+#### 4. 如何选择 `require` 和 `.mjs`
+
+- **使用 CommonJS（`require`）**：
+  - 项目依赖大量 CommonJS 库（如老版本的 `express`）。
+  - 团队熟悉 CommonJS，迁移成本高。
+  - 简单项目，不需要 ES 模块的动态导入或 tree-shaking。
+- **使用 ES 模块（`.mjs` 或 `"type": "module"`）**：
+  - 新项目，追求现代 JavaScript 标准。
+  - 与前端代码共享模块（如使用 Vite 或 Rollup 打包）。
+  - 需要动态导入或支持新顶级域名（如结合正则表达式验证复杂邮箱）。
+- **混合使用**：
+  - 在过渡期，使用 `createRequire` 或动态导入处理兼容性问题。
+  - 逐步将 CommonJS 模块重写为 ES 模块。
+
+---
+
+### 二、Node.js 当前发展现状（截至 2025年4月28日）
+
+Node.js 作为服务器端 JavaScript 运行时，近年来持续快速发展，社区活跃，生态系统庞大。以下是从功能更新、社区动态和行业采用等方面对 Node.js 发展的总结，部分信息基于 X 平台和网络搜索的最新动态。
+
+#### 1. 版本和功能更新
+
+- **最新版本**：
+  - 截至 2025年4月，Node.js 的最新 LTS（长期支持）版本为 20.x（2023年10月发布，维护至 2026年4月），最新当前版本为 22.x（2024年10月发布）。
+  - Node.js 保持每半年发布一个新版本（偶数版本，如 22、24），奇数版本为实验性版本。
+- **关键功能更新**：
+  - **ES 模块支持**：ES 模块已完全稳定，Node.js 22.x 进一步优化了模块加载性能，支持 `.mjs` 和 `"type": "module"` 成为主流。
+  - **V8 引擎升级**：Node.js 22.x 使用 V8 12.x，支持最新的 JavaScript 特性（如 `Array.fromAsync`、WebAssembly 增强），对正则表达式性能有优化。
+  - **内置测试框架**：Node.js 18.x 引入了内置测试模块（`node:test`），22.x 增强了测试覆盖率报告，减少对 Mocha/Jest 的依赖。
+  - **HTTP/2 和 Web 标准**：Node.js 强化了对 HTTP/2 和 Web API（如 `fetch`、`Web Streams`）的支持，与浏览器环境更接近。
+  - **性能优化**：22.x 改进了事件循环和垃圾回收，适合高并发应用（如实时聊天、API 服务器）。
+  - **单文件可执行文件**：Node.js 20.x 引入了实验性的单文件打包功能，22.x 进一步完善，方便部署。
+
+#### 2. 社区和生态
+
+- **活跃社区**：
+  - Node.js 在 GitHub（https://github.com/nodejs/node）有超过 100k 星标，社区贡献者众多。
+  - X 平台上，@nodejs 账号定期发布更新，开发者讨论聚焦性能优化、ES 模块迁移和微服务架构。
+  - 2024 年 Node.js Conf（线上/线下）吸引了大量开发者，讨论了 AI 驱动开发和 Node.js 在边缘计算的应用。
+- **生态系统**：
+  - **框架**：Express 仍是最流行的 Web 框架，但 Fastify 和 NestJS 因性能和 TypeScript 支持快速增长。
+  - **工具**：Vite、esbuild 等现代构建工具与 Node.js 集成紧密，支持 ES 模块。
+  - **库**：大多数新库（如 `node-fetch` 3.x）默认支持 ES 模块，推动了模块系统现代化。
+- **文档改进**：
+  - 官方文档（https://nodejs.org/en/docs/）持续优化，新增了更多 ES 模块示例。
+  - 社区项目（如上文提到的 GPT-4 重写文档）提供了更简洁的替代文档。
+
+#### 3. 行业采用
+
+- **广泛应用**：
+  - Node.js 被广泛用于 Web 开发（Netflix、LinkedIn）、微服务（Uber）、实时应用（Discord）、CLI 工具（Vite、ESLint）等。
+  - X 平台上，开发者提到 Node.js 在边缘计算（如 Cloudflare Workers）和 AI 后端（与 TensorFlow.js 集成）中的使用增加。
+- **挑战**：
+  - CommonJS 到 ES 模块的迁移仍是痛点，许多旧项目依赖 CommonJS，导致兼容性问题。
+  - 性能瓶颈在极高并发场景下仍需优化，部分开发者转向 Bun 或 Deno（但 Node.js 生态更成熟）。
+- **竞争与替代**：
+  - **Deno**：强调安全性和内置 TypeScript 支持，但生态远不如 Node.js。
+  - **Bun**：以性能为卖点，2024 年达到 1.0，但在生产环境稳定性仍需验证。
+  - Node.js 凭借成熟生态和广泛采用，短期内仍是服务器端 JavaScript 的首选。
+
+### 三、总结与建议
+
+#### `require` 和 `.mjs` 使用建议
+
+- **新项目**：优先使用 ES 模块（`.mjs` 或 `"type": "module"`），因为它符合现代 JavaScript 标准，易于与前端生态集成。
+- **旧项目**：继续使用 CommonJS，但考虑逐步迁移到 ES 模块，使用 `createRequire` 或动态导入过渡。
+- **正则表达式场景**：无论是 CommonJS 还是 ES 模块，都可以将正则表达式逻辑封装为独立模块（如上文示例），提高复用性。
+- **最佳实践**：
+  - 始终在 `package.json` 中明确 `"type"`，避免模块类型混淆。
+  - 使用工具（如 `esbuild`）检查模块兼容性。
+  - 测试模块加载性能，特别是在动态导入大量正则表达式逻辑时。
 
 ## 参考
 
