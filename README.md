@@ -14,7 +14,7 @@
 ### 📚 学习资源
 
 - **技术教程**：[现代 JavaScript 教程](https://zh.javascript.info/) | [JavaScript 教程 by 廖雪峰](https://www.liaoxuefeng.com/wiki/1022910821149312) | [Python 教程 by 廖雪峰](https://liaoxuefeng.com/books/python/introduction/index.html)
-- **在线工具**：[TypeScript 演练场](https://www.typescriptlang.org/zh/play/) | [ESlint 演练场](https://zh-hans.eslint.org/play/) | [正则表达式测试](https://regex101.com/) | [二维码生成器](https://ftest.tk.cn/tk-online/common/smallfunc/#/qrcode/index) | Youtube[视频](https://123videotool.com/zh-cn/youtube-downloader)/[音频](https://ytmp3.la/9OYg/) 下载 | [视频解析下载](https://yt.snapmail100.com/)
+- **在线工具**：[TypeScript 演练场](https://www.typescriptlang.org/zh/play/) | [ESlint 演练场](https://zh-hans.eslint.org/play/) | [正则表达式测试](https://regex101.com/) | [二维码生成器](https://ftest.tk.cn/tk-online/common/smallfunc/#/qrcode/index) | Youtube[视频](https://123videotool.com/zh-cn/youtube-downloader)/[音频](https://ytmp3.la/9OYg/) 下载 | [视频解析下载](https://yt.snapmail100.com/) | [y2btools](https://y2btools.org/) | [youtube-convert](https://youtube-convert.com/)
 - **技术博主**：[方应杭](https://space.bilibili.com/4349808) | [AnthonyFu](https://space.bilibili.com/668380) | [冬灰条](https://space.bilibili.com/8212729) | [dev-zuo](https://space.bilibili.com/486840111)
 - **职业规划**：[Roadmap](https://roadmap.sh/roadmaps)
 

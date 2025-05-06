@@ -160,6 +160,10 @@
 - [it-tools](https://github.com/CorentinTh/it-tools) - 开发人员在线工具集合 https://it-tools.tech
 - [开发者武器库](https://devtool.tech/) - 开发工具合集
 - [UFreeTools - 你的免费工具集](https://www.ufreetools.com/zh)
+- [kilotools - 程序员常用工具网站](https://github.com/C-Nikola/kilotools) https://kilotools.com/zh-CN/
+- [MikuTools - 一个轻量级的在线工具集合](https://github.com/Ice-Hazymoon/MikuTools) https://tools.miku.ac/
+- [程序员盒子-编程工具](https://www.coderutil.com/)
+- [程序员在线工具站](https://cxytools.com/)
 - [油猴脚本 - Greasy Fork](https://greasyfork.org/zh-TW) - 用户脚本资源
 - [极简插件 - Chrome 插件/扩展](https://chrome.zzzmh.cn/#/index) - Chrome 插件下载
 - [VS Code 离线扩展](https://marketplace.visualstudio.com/) - VS Code 插件下载
@@ -214,10 +218,13 @@
 
 ### 下载工具
 
+- Youtube[视频](https://123videotool.com/zh-cn/youtube-downloader)/[音频](https://ytmp3.la/9OYg/) 下载 | [视频解析下载](https://yt.snapmail100.com/) | [y2btools](https://y2btools.org/) | [youtube-convert](https://youtube-convert.com/)
 - [视频下载工具](https://www.fastdownload.io/) - 支持 Youtube 和 TikTok 的在线视频下载
-- [cobalt](https://github.com/imputnet/cobalt) - 开源视频下载工具，支持多个视频网站
-- [yt-dlp](https://github.com/yt-dlp/yt-dlp) - 功能丰富的命令行音视频下载器
-- [you-get](https://github.com/soimort/you-get) - 命令行网络媒体下载工具
+- [cobalt](https://github.com/imputnet/cobalt) - 开源视频下载工具，支持多个视频网站 https://cobalt.tools/
+- [Hitomi-Downloader](https://github.com/KurtBestor/Hitomi-Downloader) - 界面简单使用方便音视频下载工具
+- 命令行
+  - [yt-dlp](https://github.com/yt-dlp/yt-dlp) - 功能丰富的命令行音视频下载器
+  - [you-get](https://github.com/soimort/you-get) - 命令行网络媒体下载工具
 - [douyin-downloader](https://github.com/jiji262/douyin-downloader) - 抖音批量下载工具，去水印
 - [bilivideo_down](https://github.com/kangpeiqin/bilivideo_down) - 基于 Flutter 的 B 站视频下载器
 
