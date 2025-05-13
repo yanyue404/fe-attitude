@@ -1,4 +1,4 @@
-**/*.html
+# **/*.html
 **/*.txt
 **/*.yaml
 **/*.svg

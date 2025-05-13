@@ -19,6 +19,9 @@ devDependencies:
   lint-staged:
     specifier: ^15.5.1
     version: 15.5.1
+  pdf2json:
+    specifier: ^3.1.5
+    version: 3.1.5
   prettier:
     specifier: ^3.5.3
     version: 3.5.3
@@ -7765,6 +7768,14 @@ packages:
       safe-buffer: 5.2.1
       sha.js: 2.4.11
     dev: true
+
+  /pdf2json@3.1.5:
+    resolution: {integrity: sha512-djZPInDLNuJU+o6GaJNvcoUh6MtUAx3IYTQCTxywHzeg1jC5YWgz/XzlgmduxxBblpMTqY2fjcWwvyRdGPTyrQ==}
+    engines: {node: '>=20.18.0', npm: '>=10.8.2'}
+    hasBin: true
+    dev: true
+    bundledDependencies:
+      - '@xmldom/xmldom'
 
   /performance-now@2.1.0:
     resolution: {integrity: sha512-7EAHlyLHI56VEIdK57uwHdHKIaAGbnXPiw0yWbarQZOKaKpvUIgW0jWRVLiatnM+XXlSwsanIBH/hzGMJulMow==}
