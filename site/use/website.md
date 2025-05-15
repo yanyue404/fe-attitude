@@ -187,6 +187,7 @@
   - [封面图片生成器](https://spacexcode.com/coverview/) - 简单封面图制作
   - [**logoly**](https://github.com/bestony/logoly) - Logo 生成器
 - 编辑器
+  - [yn](https://github.com/purocean/yn/tree/develop) - 一款适合程序员的 本地 Markdown 笔记工具
   - [Zettlr](https://github.com/Zettlr/Zettlr) - 桌面 Markdown 编辑器
   - [marktext](https://github.com/marktext/marktext) - 跨平台的桌面 Markdown 编辑器
   - [trilium](https://github.com/zadam/trilium/tree/master) - Markdown 格式的笔记软件
