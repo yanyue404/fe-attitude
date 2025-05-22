@@ -133,7 +133,7 @@
 - [GitHub Pages](https://pages.github.com/) - GitHub 提供的网站托管服务
 - [netlify](https://www.netlify.com/) - 流行的静态网站托管平台
 - [YourWare.so](https://www.yourware.so/) - 网站托管服务
-- [Vercel](https://vercel.com/) - 专注前端部署的托管平台
+- [Vercel](https://vercel.com/) - 专注前端部署的托管平台 (支持使用 Next.js 等框架进行服务器端渲染 (SSR)，可以部署 Node.js 项目)
 - 腾讯云 EdgeOne Pages - 腾讯云静态网站托管
 
 ## Chrome 插件
