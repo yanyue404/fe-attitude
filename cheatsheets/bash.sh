@@ -119,6 +119,22 @@ lprm <jobnumber>              # removes something from the printer queue
 genscript                     # converts plain text files into postscript for printing and gives you some options for formatting
 dvips <filename>              # prints .dvi files (i.e. files produced by LaTeX)
 grep <pattern> <filenames>    # looks for the string in the files
+
+grep -nri 自学 docs | cat --number    # 阮一峰周刊搜索
+  # - **`grep -nri css docs`**：
+  #   - `grep`：文本搜索工具。
+  #   - `-n`：显示匹配行的行号。
+  #   - `-r`：递归搜索子目录。
+  #   - `-i`：忽略大小写。
+  #   - `css`：搜索目标关键词。
+  #   - `docs`：搜索的目录。
+  #   - **作用**：在`docs`目录及子目录中，递归搜索所有包含`css`（不区分大小写）的文本文件，并输出文件名、行号和匹配内容。
+
+  # - **`| cat --number`**：
+  #   - `|`：管道符，将前一个命令的输出作为后一个命令的输入。
+  #   - `cat --number`：为输入内容添加全局行编号（类似`nl`命令）。
+  #   - **作用**：对`grep`的搜索结果逐行编号，形成连续的序号列表。
+  
 grep -r <pattern> <dir>       # search recursively for pattern in directory
 head -n file_name | tail +n   # Print nth line from file.
 head -y lines.txt | tail +x   # want to display all the lines from x to y. This includes the xth and yth lines.

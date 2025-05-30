@@ -107,6 +107,7 @@ module.exports = function(width) {
 
 process.on('exit', function(code) {});              // Emitted when the process is about to exit
 process.on('uncaughtException', function(err) {});  // Emitted when an exception bubbles all the way back to the event loop. (should not be used)
+process.on('unhandledRejection', function(err) {});  // 未处理的 Promise 拒绝
 
 process.stdout;           // A writable stream to stdout.
 process.stderr;           // A writable stream to stderr.
