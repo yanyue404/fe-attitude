@@ -28,6 +28,7 @@
   - [图库资源](#图库资源)
   - [开放 API](#开放-api)
 - [趣味工具](#趣味工具)
+- [网络资讯](#网络资讯)
 - [参考资源](#参考资源)
 
 ## 个人信息
@@ -153,6 +154,7 @@
 - [Automa](https://www.automa.site/) - 浏览器任务自动化工具
 - [DeepSRT](https://chromewebstore.google.com/detail/deepsrt-experience-the-fa/mdaaadlpcanoofcoeanghbmpbdbhladd) - Youtube 视频总结和字幕工具
 - [network-plus](https://github.com/ClearStudio/network-plus) - 修改浏览器网络请求的插件
+- [DualPiP](https://chromewebstore.google.com/detail/ddkmobcljbfggkmibabekgpbighaogpn) - 双语字幕画中画播放器
 
 ## 综合工具集
 
@@ -325,6 +327,10 @@
 - [深蹲计数器](https://github.com/zhaoolee/sport) - 基于加速度计的深蹲计数工具
 - [SirTunnel](https://github.com/anderspitman/SirTunnel) - 内网穿透工具
 - [Webrecorder](https://webrecorder.net/) - 交互式网页保存工具
+
+## 网络资讯
+
+- [适合独立开发者的reddit 聚合站](https://reddit-top.pages.dev/)
 
 ## 参考资源
 
