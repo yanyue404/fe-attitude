@@ -169,6 +169,7 @@
 - [油猴脚本 - Greasy Fork](https://greasyfork.org/zh-TW) - 用户脚本资源
 - [极简插件 - Chrome 插件/扩展](https://chrome.zzzmh.cn/#/index) - Chrome 插件下载
 - [VS Code 离线扩展](https://marketplace.visualstudio.com/) - VS Code 插件下载
+- [CS 自学指南 - 实用工具箱](https://csdiy.wiki/%E5%BF%85%E5%AD%A6%E5%B7%A5%E5%85%B7/tools/)
 
 ## 媒体工具
 
