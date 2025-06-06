@@ -161,6 +161,7 @@
 - [DevToys](https://github.com/DevToys-app/DevToys) - Windows 开发者工具集合
 - [it-tools](https://github.com/CorentinTh/it-tools) - 开发人员在线工具集合 https://it-tools.tech
 - [开发者武器库](https://devtool.tech/) - 开发工具合集
+- [tools.fun](https://tools.fun/) - 在线工具合集
 - [UFreeTools - 你的免费工具集](https://www.ufreetools.com/zh)
 - [kilotools - 程序员常用工具网站](https://github.com/C-Nikola/kilotools) https://kilotools.com/zh-CN/
 - [MikuTools - 一个轻量级的在线工具集合](https://github.com/Ice-Hazymoon/MikuTools) https://tools.miku.ac/
@@ -300,9 +301,11 @@
 - [**Twilio API Docs**](https://www.twilio.com/docs/) - 通信 API
 - [**paperplane**](https://docs.paperplane.app/) - HTML 转 PDF API
 - [**Awesome_APIs**](https://github.com/TonnyL/Awesome_APIs/blob/master/README-zh.md) - API 资源列表
+- [**public-apis**](https://github.com/public-apis/public-apis) - 公共 API 合集列表
 
 ## 趣味工具
 
+- [HelloGitHub](https://hellogithub.com/) - 分享 GitHub 上有趣、入门级的开源项目]
 - 临时邮箱
   - [免费的临时邮箱服务](https://minmail.app/cn) - 临时邮箱
   - [Fake Mail](https://github.com/CH563/fakemail) - 开源一次性电子邮件服务
