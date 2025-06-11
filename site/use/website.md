@@ -38,10 +38,12 @@
 ## 信仰相关
 
 - [中文圣经在线](http://www.chinesebibleonline.com/)
+- [chinesefamily 免费资源](https://www.chinesefamily.org/resources/)
 
 ## 常用网站
 
-- [**阮一峰的网络日志**](http://www.ruanyifeng.com/blog/) - 阮老师出品
+- [**阮一峰的网络日志**](https://github.com/ruanyf/weekly) - 科技爱好者周刊
+- [**湾区日报**](https://www.wanqu.co/)
 - [**InfoQ**](https://www.infoq.cn/topic/Front-end) - 文章的质量比一般网站的高不少
 - [**月光博客**](https://www.williamlong.info/) - 科技博客
 - [**奇舞周刊**](https://weekly.75.team/) - 前端技术周刊
