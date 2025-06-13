@@ -1,175 +1,175 @@
 /* *******************************************************************************************
- * GLOBAL OBJECTS > OBJECT
+ * 全局对象 > OBJECT
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
  * ******************************************************************************************* */
 
-// Global object: properties
-Object.length                                        // length is a property of a function object, and indicates how many arguments the function expects, i.e. the number of formal parameters. This number does not include the rest parameter. Has a value of 1.
-Object.prototype                                     // Represents the Object prototype object and allows to add new properties and methods to all objects of type Object.
+// 全局对象：属性
+Object.length                                        // length 是函数对象的属性，表示函数期望的参数个数，即形参的数量。此数字不包括剩余参数。值为1。
+Object.prototype                                     // 表示 Object 原型对象，允许向所有 Object 类型的对象添加新的属性和方法。
 
-// Methods of the Object constructor
-Object.assign(target, ...sources)                    // Copies the values of all enumerable own properties from one or more source objects to a target object. method is used to copy the values of all enumerable own properties from one or more source objects to a target object. It will return the target object
-Object.create(MyObject)                              // Creates a new object with the specified prototype object and properties. The object which should be the prototype of the newly-created object.
-Object.defineProperty(obj, prop, descriptor)         // Adds the named property described by a given descriptor to an object.
-Object.defineProperties(obj, props)                  // Adds the named properties described by the given descriptors to an object.
-Object.entries(obj)                                  // Returns an array containing all of the [key, value] pairs of a given object's own enumerable string properties.
-Object.freeze(obj)                                   // Freezes an object: other code can't delete or change any properties.
-Object.getOwnPropertyDescriptor(obj, prop)           // Returns a property descriptor for a named property on an object.
-Object.getOwnPropertyDescriptors(obj)                // Returns an object containing all own property descriptors for an object.
-Object.getOwnPropertyNames(obj)                      // Returns an array containing the names of all of the given object's own enumerable and non-enumerable properties.
-Object.getOwnPropertySymbols(obj)                    // Returns an array of all symbol properties found directly upon a given object.
-Object.getPrototypeOf(obj)                           // Returns the prototype of the specified object.
-Object.is(value1, value2);                           // Compares if two values are the same value. Equates all NaN values (which differs from both Abstract Equality Comparison and Strict Equality Comparison).
-Object.isExtensible(obj)                             // Determines if extending of an object is allowed.
-Object.isFrozen(obj)                                 // Determines if an object was frozen.
-Object.isSealed(obj)                                 // Determines if an object is sealed.
-Object.keys(obj)                                     // Returns an array containing the names of all of the given object's own enumerable string properties.
-Object.preventExtensions(obj)                        // Prevents any extensions of an object.
-Object.seal(obj)                                     // Prevents other code from deleting properties of an object.
-Object.setPrototypeOf(obj, prototype)                // Sets the prototype (i.e., the internal [[Prototype]] property).
-Object.values(obj)                                   // Returns an array containing the values that correspond to all of a given object's own enumerable string properties.
-Object.hasOwn(obj, prop)                             // Checks if a object has a property of its own (not inherited).
-Object.fromEntries(iterable)                         // Transforms a list of key values pairs into a onject.
+// Object 构造函数的方法
+Object.assign(target, ...sources)                    // 将所有可枚举的自有属性的值从一个或多个源对象复制到目标对象。返回目标对象
+Object.create(MyObject)                              // 使用指定的原型对象和属性创建一个新对象。
+Object.defineProperty(obj, prop, descriptor)         // 通过给定的描述符为对象添加指定的属性。
+Object.defineProperties(obj, props)                  // 通过给定的描述符为对象添加指定的属性。
+Object.entries(obj)                                  // 返回一个包含给定对象所有可枚举字符串属性的 [key, value] 对数组。
+Object.freeze(obj)                                   // 冻结对象：其他代码不能删除或更改任何属性。
+Object.getOwnPropertyDescriptor(obj, prop)           // 返回对象上指定属性的属性描述符。
+Object.getOwnPropertyDescriptors(obj)                // 返回包含对象所有自有属性描述符的对象。
+Object.getOwnPropertyNames(obj)                      // 返回包含给定对象所有可枚举和不可枚举属性名称的数组。
+Object.getOwnPropertySymbols(obj)                    // 返回直接在给定对象上找到的所有 Symbol 属性的数组。
+Object.getPrototypeOf(obj)                           // 返回指定对象的原型。
+Object.is(value1, value2);                           // 比较两个值是否相同。等同所有 NaN 值（不同于抽象相等比较和严格相等比较）。
+Object.isExtensible(obj)                             // 判断对象是否可扩展。
+Object.isFrozen(obj)                                 // 判断对象是否被冻结。
+Object.isSealed(obj)                                 // 判断对象是否被密封。
+Object.keys(obj)                                     // 返回包含给定对象所有可枚举字符串属性名称的数组。
+Object.preventExtensions(obj)                        // 阻止对象的任何扩展。
+Object.seal(obj)                                     // 阻止其他代码删除对象的属性。
+Object.setPrototypeOf(obj, prototype)                // 设置原型（即内部 [[Prototype]] 属性）。
+Object.values(obj)                                   // 返回包含给定对象所有可枚举字符串属性值的数组。
+Object.hasOwn(obj, prop)                             // 检查对象是否具有自己的属性（非继承）。
+Object.fromEntries(iterable)                         // 将键值对列表转换为对象。
 
-// Object instances and Object prototype object (Object.prototype.property or Object.prototype.method())
-// Properties
-obj.constructor                                      // Specifies the function that creates an object's prototype.
-obj.__proto__                                        // Points to the object which was used as prototype when the object was instantiated.
+// 对象实例和 Object 原型对象 (Object.prototype.property 或 Object.prototype.method())
+// 属性
+obj.constructor                                      // 指定创建对象原型的函数。
+obj.__proto__                                        // 指向实例化对象时用作原型的对象。
 
-// Methods
-obj.hasOwnProperty(prop)                             // Returns a boolean indicating whether an object contains the specified property as a direct property of that object and not inherited through the prototype chain.
-prototypeObj.isPrototypeOf(object)                   // Returns a boolean indicating whether the object this method is called upon is in the prototype chain of the specified object.
-obj.propertyIsEnumerable(prop)                       // Returns a boolean indicating if the internal ECMAScript [[Enumerable]] attribute is set.
-obj.toLocaleString()                                 // Calls toString().
-obj.toString()                                       // Returns a string representation of the object.
-object.valueOf()                                     // Returns the primitive value of the specified object.
+// 方法
+obj.hasOwnProperty(prop)                             // 返回布尔值，指示对象是否包含指定属性作为该对象的直接属性，而不是通过原型链继承。
+prototypeObj.isPrototypeOf(object)                   // 返回布尔值，指示调用此方法的对象是否在指定对象的原型链中。
+obj.propertyIsEnumerable(prop)                       // 返回布尔值，指示是否设置了内部 ECMAScript [[Enumerable]] 属性。
+obj.toLocaleString()                                 // 调用 toString()。
+obj.toString()                                       // 返回对象的字符串表示。
+object.valueOf()                                     // 返回指定对象的原始值。
 
 /* *******************************************************************************************
- * GLOBAL OBJECTS > ARRAY
+ * 全局对象 > ARRAY
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
  * ******************************************************************************************* */
 
-// Global object: properties
-Array.length                                         // Reflects the number of elements in an array.
-Array.prototype                                      // Represents the prototype for the Array constructor and allows to add new properties and methods to all Array objects.
+// 全局对象：属性
+Array.length                                         // 反映数组中元素的个数。
+Array.prototype                                      // 表示 Array 构造函数的原型，允许向所有 Array 对象添加新的属性和方法。
 
-// Global object: methods
-Array.from(arrayLike[, mapFn[, thisArg]])            // Creates a new Array instance from an array-like or iterable object.
-Array.isArray(obj)                                   // Returns true if a variable is an array, if not false.
-Array.of(element0[, element1[, ...[, elementN]]])    // Creates a new Array instance with a variable number of arguments, regardless of number or type of the arguments.
+// 全局对象：方法
+Array.from(arrayLike[, mapFn[, thisArg]])            // 从类数组或可迭代对象创建新的 Array 实例。
+Array.isArray(obj)                                   // 如果变量是数组则返回 true，否则返回 false。
+Array.of(element0[, element1[, ...[, elementN]]])    // 创建具有可变数量参数的新 Array 实例，无论参数的数量或类型如何。
 
-// Instance: properties
-arr.length                                           // Reflects the number of elements in an array.
+// 实例：属性
+arr.length                                           // 反映数组中元素的个数。
 
-// Instance: mutator methods
-arr.copyWithin(target, start, end)                   // Copies a sequence of array elements within the array.
-arr.fill(value, start, end)                          // Fills all the elements of an array from a start index to an end index with a static value.
-arr.pop()                                            // Removes the last element from an array and returns that element.
-arr.flat()                                           // merges nested array into one single array
-arr.push([element1[, ...[, elementN]]])              // Adds one or more elements to the end of an array and returns the new length of the array.
-arr.reverse()                                        // Reverses the order of the elements of an array in place — the first becomes the last, and the last becomes the first.
-arr.shift()                                          // Removes the first element from an array and returns that element.
-arr.sort()                                           // Sorts the elements of an array in place and returns the array.
-array.splice(start, deleteCount, item1, item2, ...)  // Adds and/or removes elements from an array.
-arr.unshift([element1[, ...[, elementN]]])           // Adds one or more elements to the front of an array and returns the new length of the array.
+// 实例：变更方法
+arr.copyWithin(target, start, end)                   // 在数组内复制一系列数组元素。
+arr.fill(value, start, end)                          // 用静态值填充数组从开始索引到结束索引的所有元素。
+arr.pop()                                            // 从数组中删除最后一个元素并返回该元素。
+arr.flat()                                           // 将嵌套数组合并为单个数组
+arr.push([element1[, ...[, elementN]]])              // 向数组末尾添加一个或多个元素，并返回数组的新长度。
+arr.reverse()                                        // 就地反转数组元素的顺序——第一个变成最后一个，最后一个变成第一个。
+arr.shift()                                          // 从数组中删除第一个元素并返回该元素。
+arr.sort()                                           // 就地对数组元素进行排序并返回数组。
+array.splice(start, deleteCount, item1, item2, ...)  // 从数组中添加和/或删除元素。
+arr.unshift([element1[, ...[, elementN]]])           // 向数组开头添加一个或多个元素，并返回数组的新长度。
 
-// Instance: accessor methods
-arr.at(index)                                        // Returns the element at the specified index in the array.
-arr.concat(value1[, value2[, ...[, valueN]]])        // Returns a new array comprised of this array joined with other array(s) and/or value(s).
-arr.includes(searchElement, fromIndex)               // Determines whether an array contains a certain element, returning true or false as appropriate.
-arr.indexOf(searchElement[, fromIndex])              // Returns the first (least) index of an element within the array equal to the specified value, or -1 if none is found.
-arr.join(separator)                                  // Joins all elements of an array into a string.
-arr.lastIndexOf(searchElement, fromIndex)            // Returns the last (greatest) index of an element within the array equal to the specified value, or -1 if none is found.
-arr.slice(begin, end)                                // Extracts a section of an array and returns a new array.
-arr.toString()                                       // Returns a string representing the array and its elements. Overrides the Object.prototype.toString() method.
-arr.toLocaleString(locales, options)                 // Returns a localized string representing the array and its elements. Overrides the Object.prototype.toLocaleString() method.
+// 实例：访问方法
+arr.at(index)                                        // 返回数组中指定索引处的元素。
+arr.concat(value1[, value2[, ...[, valueN]]])        // 返回由此数组与其他数组和/或值连接而成的新数组。
+arr.includes(searchElement, fromIndex)               // 判断数组是否包含某个元素，适当地返回 true 或 false。
+arr.indexOf(searchElement[, fromIndex])              // 返回数组中第一个等于指定值的元素的索引，如果未找到则返回 -1。
+arr.join(separator)                                  // 将数组的所有元素连接成字符串。
+arr.lastIndexOf(searchElement, fromIndex)            // 返回数组中最后一个等于指定值的元素的索引，如果未找到则返回 -1。
+arr.slice(begin, end)                                // 提取数组的一部分并返回新数组。
+arr.toString()                                       // 返回表示数组及其元素的字符串。重写 Object.prototype.toString() 方法。
+arr.toLocaleString(locales, options)                 // 返回表示数组及其元素的本地化字符串。重写 Object.prototype.toLocaleString() 方法。
 
-// Instance: iteration methods
-arr.entries()                                        // Returns a new Array Iterator object that contains the key/value pairs for each index in the array.
-arr.every(callback[, thisArg])                       // Returns true if every element in this array satisfies the provided testing function.
-arr.filter(callback[, thisArg])                      // Creates a new array with all of the elements of this array for which the provided filtering function returns true.
-arr.find(callback[, thisArg])                        // Returns the found value in the array, if an element in the array satisfies the provided testing function or undefined if not found.
-arr.findIndex(callback[, thisArg])                   // Returns the found index in the array, if an element in the array satisfies the provided testing function or -1 if not found.
-arr.flatMap(callback[, thisArg]) // Apply the callback function for each element in array and flatten the result in a new array
-arr.group() //arr.group(callback) / Groups the elements of an array based on the callback's return value.
-arr.forEach(callback[, thisArg])                     // Calls a function for each element in the array.
-arr.keys()                                           // Returns a new Array Iterator that contains the keys for each index in the array.
-arr.map(callback[, initialValue])                    // Creates a new array with the results of calling a provided function on every element in this array.
-arr.reduce(callback[, initialValue])                 // Apply a function against an accumulator and each value of the array (from left-to-right) as to reduce it to a single value.
-arr.reduceRight(callback[, initialValue])            // Apply a function against an accumulator and each value of the array (from right-to-left) as to reduce it to a single value.
-arr.some(callback[, initialValue])                   // Returns true if at least one element in this array satisfies the provided testing function.
-arr.values()                                         // Returns a new Array Iterator object that contains the values for each index in the array.
+// 实例：迭代方法
+arr.entries()                                        // 返回包含数组中每个索引的键/值对的新 Array Iterator 对象。
+arr.every(callback[, thisArg])                       // 如果此数组中的每个元素都满足提供的测试函数，则返回 true。
+arr.filter(callback[, thisArg])                      // 创建一个新数组，其中包含通过提供的过滤函数测试的此数组的所有元素。
+arr.find(callback[, thisArg])                        // 返回数组中满足提供的测试函数的第一个元素的值，如果未找到则返回 undefined。
+arr.findIndex(callback[, thisArg])                   // 返回数组中满足提供的测试函数的第一个元素的索引，如果未找到则返回 -1。
+arr.flatMap(callback[, thisArg])                     // 对数组中的每个元素应用回调函数并将结果平铺到新数组中
+arr.group()                                          // 根据回调的返回值对数组元素进行分组。
+arr.forEach(callback[, thisArg])                     // 为数组中的每个元素调用函数。
+arr.keys()                                           // 返回包含数组中每个索引的键的新 Array Iterator。
+arr.map(callback[, initialValue])                    // 创建一个新数组，其中包含对此数组中每个元素调用提供函数的结果。
+arr.reduce(callback[, initialValue])                 // 对累加器和数组中的每个值（从左到右）应用函数，以将其减少为单个值。
+arr.reduceRight(callback[, initialValue])            // 对累加器和数组中的每个值（从右到左）应用函数，以将其减少为单个值。
+arr.some(callback[, initialValue])                   // 如果此数组中至少有一个元素满足提供的测试函数，则返回 true。
+arr.values()                                         // 返回包含数组中每个索引的值的新 Array Iterator 对象。
 
 /* *******************************************************************************************
- * GLOBAL OBJECTS > STRING
+ * 全局对象 > STRING
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
  * ******************************************************************************************* */
 
-// Global object: properties
-str.length                                           // Returns the number of characters in string
+// 全局对象：属性
+str.length                                           // 返回字符串中的字符数
 
-// Methods of the Object constructor
-String.fromCharCode(num1[, ...[, numN]])             // Returns a string created from the specified sequence of UTF-16 code units.
-String.fromCodePoint(num1[, ...[, numN]])            // Returns a string created by using the specified sequence of code points
-String.raw(strings, ...substitutions)                // It's used to get the raw string form of template literals that is, substitutions (e.g. ${foo}) are processed, but escape sequences (e.g. \n) are not.
+// Object 构造函数的方法
+String.fromCharCode(num1[, ...[, numN]])             // 返回由指定的 UTF-16 代码单元序列创建的字符串。
+String.fromCodePoint(num1[, ...[, numN]])            // 返回使用指定的代码点序列创建的字符串
+String.raw(strings, ...substitutions)                // 用于获取模板字面量的原始字符串形式，即处理替换（如 ${foo}），但不处理转义序列（如 \n）。
 
-// Methods
-str.charAt(index)                                    // Takes an integer and return the character in position passed, if not found returns an empty string
-str.charCodeAt(index)                                // Takes an integer that corresponds to a position in the string and returns Unicode of the character at that position
-str.codePointAt(index)                               // Takes an integer and returns the Unicode of the position passed as an argument
-str.concat(string2[, ...stringN])                    // Receives an N number of strings and returns their concatenation
-str.endsWith(searchString[, endPosition])            // Checks if the string ends with one or more characters, returning a boolean
-str.includes(searchString[, position])               // Checks if the characters passed as an argument are present in the string
-str.indexOf(searchValue[, fromIndex])                // Returns the index of the first occurrence of the value provided as an argument in the searchValue
-str.lastIndexOf(searchValue[, fromIndex])            // Returns the index of the last occurrence of the value provided as an argument in the searchValue
-str.localeCompare(compareString[,locales[,options]]) // Checks if the reference string comes before or after the one passed as an argument 
-str.match(regexp)                                    // Retrieves the result of matching a string against a regular expression.
-str.matchAll(regexp)                                 // Returns an iterator of all results matching a string against a regular expression, including capturing groups
-str.normalize([form])                                // Returns the Unicode Normalization Form of the string
-str.padEnd(targetLength [, padString])               // Returns a new string padded from the right end with the character or group of characters specified in padString
-str.padStart(targetLength [, padString])             // Returns a new string padded from the beginning with the character or group of characters specified in padString
-str.repeat(count)                                    // Constructs and returns a new string which contains the specified number of copies of the string on which it was called, concatenated together
-str.replace(regexp|substr, newSubStr|func)           // Takes as first argument a string or a Regex that the match or matches are replaced, the second argument is a new string or a function that the return will replace the occurrences, and returns a new string with the replacements
-str.replaceAll(regexp|substr, newSubStr|func)        // It takes as the first argument a string or a Regex that matches will be replaced, the second argument is a new string or a function that the return will replace the occurrences, and returns a new string with the replacements
-str.search(regexp)                                   // It takes a regexp as an argument and returns the index of the position that satisfies it
-str.slice(start, end)                                // Remove a part of the string and return a new string
-str.split([separator[, limit]])                      // Splits the string from a separator defined in the first argument and returns an array of strings
-str.startsWith(searchString[, position])             // Checks if the string starts with one or more characters, returning a boolean
-str.toLocaleLowerCase(locale)                        // Converts all letters to lowercase and return the string with the converted values according to the locale specified as an argument
-str.toLocaleUpperCase(locale)                        // Converte todas as letras em valores retorna uma string com os valores de acordo com a localidade especificada como argumento
-str.toLowerCase()                                    // Convert all letters to lowercase and return the string with the converted values
-str.toString()                                       // Returns a string representing the specified string value.
-str.toUpperCase()                                    // Converts all letters to uppercase returns the string with the converted values
-str.trim()                                           // Remove whitespace at the beginning and end of the string
-str.trimStart()                                      // Remove whitespace at the beginning
-str.trimEnd()                                        // Remove whitespace at the end of the string
-str.valueOf()                                        // Returns the primitive value of a String object.
+// 方法
+str.charAt(index)                                    // 接受整数并返回传递位置的字符，如果未找到则返回空字符串
+str.charCodeAt(index)                                // 接受对应字符串中位置的整数，并返回该位置字符的 Unicode
+str.codePointAt(index)                               // 接受整数并返回作为参数传递的位置的 Unicode
+str.concat(string2[, ...stringN])                    // 接收 N 个字符串并返回它们的连接
+str.endsWith(searchString[, endPosition])            // 检查字符串是否以一个或多个字符结尾，返回布尔值
+str.includes(searchString[, position])               // 检查作为参数传递的字符是否存在于字符串中
+str.indexOf(searchValue[, fromIndex])                // 返回 searchValue 中提供的值在第一次出现的索引
+str.lastIndexOf(searchValue[, fromIndex])            // 返回 searchValue 中提供的值在最后一次出现的索引
+str.localeCompare(compareString[,locales[,options]]) // 检查引用字符串是否在作为参数传递的字符串之前或之后
+str.match(regexp)                                    // 检索将字符串与正则表达式匹配的结果。
+str.matchAll(regexp)                                 // 返回字符串与正则表达式匹配的所有结果的迭代器，包括捕获组
+str.normalize([form])                                // 返回字符串的 Unicode 规范化形式
+str.padEnd(targetLength [, padString])               // 返回从右端用 padString 中指定的字符或字符组填充的新字符串
+str.padStart(targetLength [, padString])             // 返回从开头用 padString 中指定的字符或字符组填充的新字符串
+str.repeat(count)                                    // 构造并返回一个新字符串，其中包含被调用字符串的指定数量的副本，连接在一起
+str.replace(regexp|substr, newSubStr|func)           // 第一个参数是要匹配或替换的字符串或正则表达式，第二个参数是新字符串或函数，返回值将替换匹配项，并返回带有替换的新字符串
+str.replaceAll(regexp|substr, newSubStr|func)        // 第一个参数是要匹配替换的字符串或正则表达式，第二个参数是新字符串或函数，返回值将替换匹配项，并返回带有替换的新字符串
+str.search(regexp)                                   // 以正则表达式作为参数并返回满足它的位置索引
+str.slice(start, end)                                // 删除字符串的一部分并返回新字符串
+str.split([separator[, limit]])                      // 从第一个参数中定义的分隔符分割字符串并返回字符串数组
+str.startsWith(searchString[, position])             // 检查字符串是否以一个或多个字符开头，返回布尔值
+str.toLocaleLowerCase(locale)                        // 将所有字母转换为小写，并根据作为参数指定的区域设置返回带有转换值的字符串
+str.toLocaleUpperCase(locale)                        // 将所有字母转换为大写，并根据作为参数指定的区域设置返回带有转换值的字符串
+str.toLowerCase()                                    // 将所有字母转换为小写并返回带有转换值的字符串
+str.toString()                                       // 返回表示指定字符串值的字符串。
+str.toUpperCase()                                    // 将所有字母转换为大写返回带有转换值的字符串
+str.trim()                                           // 删除字符串开头和结尾的空白
+str.trimStart()                                      // 删除开头的空白
+str.trimEnd()                                        // 删除字符串结尾的空白
+str.valueOf()                                        // 返回 String 对象的原始值。
 
 /* *******************************************************************************************
- * GLOBAL OBJECTS > STRING
+ * 全局对象 > NUMBER
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number
  * ******************************************************************************************* */
 
-// Global object: methods
-Number.EPSILON                                       // The smallest interval between two representable numbers.
-Number.MAX_SAFE_INTEGER                              // The maximum safe integer in JavaScript (253 - 1).
-Number.MAX_VALUE                                     // The largest positive representable number.
-Number.MIN_SAFE_INTEGER                              // The minimum safe integer in JavaScript (-(253 - 1)).
-Number.MIN_VALUE                                     // The smallest positive representable number—that is, the positive number closest to zero (without actually being zero).
-Number.NaN                                           // Special "Not a Number" value.
-Number.NEGATIVE_INFINITY                             // Special value representing negative infinity. Returned on overflow.
-Number.POSITIVE_INFINITY                             // Special value representing infinity. Returned on overflow.
-Number.isFinite(value)                               // Determine whether the passed value is a finite number, returns a boolean.
-Number.isInteger(value)                              // Determine whether the passed value is an integer, returns a boolean.
-Number.isNaN(value)                                  // Determine whether the passed value is NaN, returns a boolean.
-Number.isSafeInteger()                               // Determine whether the passed value is a safe integer (number between -(253 - 1) and 253 - 1), returns a boolean.
-Number.parseFloat()                                  // Parses a string argument and returns a floating point number, this is the same as the global parseFloat() function.
-Number.parseInt()                                    // Parses a string argument and returns an integer of the specified radix, this is the same as the global parseInt() function.
+// 全局对象：方法
+Number.EPSILON                                       // 两个可表示数字之间的最小间隔。
+Number.MAX_SAFE_INTEGER                              // JavaScript 中的最大安全整数 (253 - 1)。
+Number.MAX_VALUE                                     // 最大的正可表示数字。
+Number.MIN_SAFE_INTEGER                              // JavaScript 中的最小安全整数 (-(253 - 1))。
+Number.MIN_VALUE                                     // 最小的正可表示数字——即最接近零的正数（不实际为零）。
+Number.NaN                                           // 特殊的"非数字"值。
+Number.NEGATIVE_INFINITY                             // 表示负无穷大的特殊值。溢出时返回。
+Number.POSITIVE_INFINITY                             // 表示正无穷大的特殊值。溢出时返回。
+Number.isFinite(value)                               // 确定传递的值是否为有限数，返回布尔值。
+Number.isInteger(value)                              // 确定传递的值是否为整数，返回布尔值。
+Number.isNaN(value)                                  // 确定传递的值是否为 NaN，返回布尔值。
+Number.isSafeInteger()                               // 确定传递的值是否为安全整数（介于 -(253 - 1) 和 253 - 1 之间的数字），返回布尔值。
+Number.parseFloat()                                  // 解析字符串参数并返回浮点数，这与全局 parseFloat() 函数相同。
+Number.parseInt()                                    // 解析字符串参数并返回指定基数的整数，这与全局 parseInt() 函数相同。
 
-// Methods
-number.toExponential(fractionDigits)                 // Returns a string representing the number in exponential notation.
-number.toFixed(digits)                               // Returns a string representing the number in fixed-point notation.
-number.toLocaleString(locales, options)              // Returns a string with a language-sensitive representation of this number.
-number.toPrecision(precision)                        // Returns a string representing the number to a specified precision in fixed-point or exponential notation.
-number.toString(radix)                               // Returns a string representing the specified number value.
-number.valueOf(radix)                                // Returns a string representing the specified number value.
+// 方法
+number.toExponential(fractionDigits)                 // 返回表示数字的指数表示法的字符串。
+number.toFixed(digits)                               // 返回表示数字的定点表示法的字符串。
+number.toLocaleString(locales, options)              // 返回此数字的语言敏感表示的字符串。
+number.toPrecision(precision)                        // 返回表示数字到指定精度的定点或指数表示法的字符串。
+number.toString(radix)                               // 返回表示指定数字值的字符串。
+number.valueOf(radix)                                // 返回表示指定数字值的字符串。

@@ -1,0 +1,539 @@
+/* *******************************************************************************************
+ * SYNOPSIS
+ * http://nodejs.org/api/synopsis.html
+ * ******************************************************************************************* */
+
+var http = require('http');
+
+// 一个使用 Node 编写的 Web 服务器示例，响应 'Hello World'。
+// 要运行服务器，将代码放入名为 example.js 的文件中，并使用 node 程序执行。
+http.createServer(function (request, response) {
+  response.writeHead(200, {'Content-Type': 'text/plain'});
+  response.end('Hello World\n');
+}).listen(8124);
+
+console.log('Server running at http://127.0.0.1:8124/');
+
+/* *******************************************************************************************
+ * GLOBAL OBJECTS
+ * http://nodejs.org/api/globals.html
+ * ******************************************************************************************* */
+
+// 在浏览器中，顶层作用域是全局作用域。
+// 这意味着在浏览器中，如果在全局作用域中使用 var 声明变量，将定义一个全局变量。
+// 在 Node 中则不同。顶层作用域不是全局作用域；在 Node 模块中使用 var 声明的变量仅限于该模块。
+
+__filename;  // 当前执行代码的文件名（绝对路径）
+__dirname;   // 当前执行脚本所在目录的名称（绝对路径）
+module;      // 对当前模块的引用，特别是 module.exports 用于定义模块导出的内容，并通过 require() 使其可用
+exports;     // module.exports 的简写引用，方便书写
+process;     // process 对象是一个全局对象，可在任何地方访问，是 EventEmitter 的实例
+Buffer;      // Buffer 类是一个全局类型，用于直接处理二进制数据
+
+/* *******************************************************************************************
+ * CONSOLE
+ * http://nodejs.org/api/console.html
+ * ******************************************************************************************* */
+
+console.log([data], [...]);             // 向标准输出打印，带换行符
+console.info([data], [...]);            // 与 console.log 相同
+console.error([data], [...]);           // 与 console.log 相同，但打印到标准错误输出
+console.warn([data], [...]);            // 与 console.error 相同
+console.dir(obj);                       // 使用 util.inspect 检查对象，并将结果字符串打印到标准输出
+console.time(label);                    // 标记一个时间点
+console.timeEnd(label);                 // 结束计时器，记录输出
+console.trace(label);                   // 向标准错误输出打印当前位置的堆栈跟踪
+console.assert(expression, [message]);  // 与 assert.ok() 相同，如果表达式求值为 false，则抛出带有消息的 AssertionError
+
+/* *******************************************************************************************
+ * TIMERS
+ * http://nodejs.org/api/timers.html
+ * ******************************************************************************************* */
+
+setTimeout(callback, delay, [arg], [...]);   // 调度在 delay 毫秒后执行一次回调函数，可选地向回调传递参数
+clearTimeout(t);                             // 停止先前通过 setTimeout() 创建的定时器
+setInterval(callback, delay, [arg], [...]);  // 调度每隔 delay 毫秒重复执行回调函数，可选地向回调传递参数
+clearInterval(t);                            // 停止先前通过 setInterval() 创建的定时器
+setImmediate(callback, [arg], [...]);        // 调度在 I/O 事件回调之后、setTimeout 和 setInterval 之前"立即"执行回调
+clearImmediate(immediateObject);             // 停止先前通过 setImmediate() 创建的定时器
+
+unref();  // 允许创建活跃的定时器，但如果它是事件循环中唯一剩余的项目，Node 不会保持程序运行
+ref();    // 如果之前对定时器调用了 unref()，可以调用 ref() 显式请求定时器保持程序运行
+
+/* *******************************************************************************************
+ * MODULES
+ * http://nodejs.org/api/modules.html
+ * ******************************************************************************************* */
+
+var module = require('./module.js');    // 加载同一目录下的 module.js 模块
+module.require('./another_module.js');  // 从模块自身调用 require() 加载 another_module
+
+module.id;        // 模块的标识符，通常是完全解析的文件名
+module.filename;  // 模块的完全解析文件名
+module.loaded;    // 模块是否已完成加载，或正在加载过程中
+module.parent;    // 引用该模块的父模块
+module.children;  // 该模块引用的子模块对象
+
+exports.area = function (r) {
+  return Math.PI * r * r;
+};
+
+// 如果希望模块导出的根是一个函数（如构造函数）
+// 或希望一次性导出一个完整对象，而不是逐个属性构建，
+// 则将其赋值给 module.exports 而不是 exports
+module.exports = function(width) {
+  return {
+    area: function() {
+      return width * width;
+    }
+  };
+}
+
+/* *******************************************************************************************
+ * PROCESS
+ * http://nodejs.org/api/process.html
+ * ******************************************************************************************* */
+
+process.on('exit', function(code) {});              // 当进程即将退出时触发
+process.on('uncaughtException', function(err) {});  // 当异常冒泡回到事件循环时触发（不应使用）
+process.on('unhandledRejection', function(err) {});  // 未处理的 Promise 拒绝
+
+process.stdout;           // 标准输出的可写流
+process.stderr;           // 标准错误输出的可写流
+process.stdin;            // 标准输入的可读流
+
+process.argv;             // 包含命令行参数的数组
+process.env;              // 包含用户环境变量的对象
+process.execPath;         // 启动进程的可执行文件的绝对路径名
+process.execArgv;         // 启动进程时 Node 特定的命令行选项集合
+
+process.arch;             // 运行的处理器架构：'arm'、'ia32' 或 'x64'
+process.config;           // 包含用于编译当前 Node 可执行文件的配置选项的 JavaScript 表示的对象
+process.pid;              // 进程的 PID
+process.platform;         // 运行的平台：'darwin'、'freebsd'、'linux'、'sunos' 或 'win32'
+process.title;            // 获取/设置在 'ps' 中显示的进程名称
+process.version;          // 暴露 NODE_VERSION 的编译属性
+process.versions;         // 暴露 Node 及其依赖版本字符串的属性
+
+process.abort();          // 触发 Node 中止，导致进程退出并生成核心文件
+process.chdir(dir);       // 更改进程的当前工作目录，若失败则抛出异常
+process.cwd();            // 返回进程的当前工作目录
+process.exit([code]);     // 以指定代码结束进程，若省略则使用成功代码 0
+process.getgid();         // 获取进程的组标识
+process.setgid(id);       // 设置进程的组标识
+process.getuid();         // 获取进程的用户标识
+process.setuid(id);       // 设置进程的用户标识
+process.getgroups();      // 返回补充组 ID 的数组
+process.setgroups(grps);  // 设置补充组 ID
+
+process.initgroups(user, extra_grp);  // 读取 /etc/group 并初始化组访问列表，使用用户所属的所有组
+process.kill(pid, [signal]);          // 向进程发送信号，pid 是进程 ID，signal 是描述信号的字符串
+process.memoryUsage();                // 返回描述 Node 进程内存使用情况的对象，以字节为单位
+process.nextTick(callback);           // 在事件循环的下一个循环中调用此回调
+process.maxTickDepth;                 // 传递给 process.nextTick 的回调通常在当前执行流结束时调用，速度几乎与同步调用函数相当
+process.umask([mask]);                // 设置或读取进程的文件模式创建掩码
+process.uptime();                     // 返回 Node 运行的秒数
+process.hrtime();                     // 返回当前高分辨率实时时间，以 [秒, 纳秒] 元组数组形式
+
+/* *******************************************************************************************
+ * CHILD PROCESS
+ * http://nodejs.org/api/child_process.html
+ * ******************************************************************************************* */
+
+// Node 通过 child_process 模块提供三向 popen 功能。
+// 可以以完全非阻塞的方式通过子进程的 stdin、stdout 和 stderr 流式传输数据。
+
+ChildProcess;                                                 // 类，ChildProcess 是 EventEmitter 的实例
+
+child.stdin;                                                  // 表示子进程标准输入的可写流
+child.stdout;                                                 // 表示子进程标准输出的可读流
+child.stderr;                                                 // 表示子进程标准错误输出的可读流
+child.pid;                                                    // 子进程的 PID
+child.connected;                                              // 如果 .connected 为 false，则无法再发送消息
+child.kill([signal]);                                         // 向子进程发送信号
+child.send(message, [sendHandle]);                            // 使用 child_process.fork() 时，可通过 child.send(message, [sendHandle]) 向子进程写入，子进程通过 'message' 事件接收消息
+child.disconnect();                                           // 关闭父进程与子进程之间的 IPC 通道，允许子进程在没有其他连接保持其存活时优雅退出
+child_process.spawn(command, [args], [options]);              // 使用给定的命令启动新进程，命令行参数在 args 中，若省略则 args 默认为空数组
+child_process.exec(command, [options], callback);             // 在 shell 中运行命令并缓冲输出
+child_process.execFile(file, [args], [options], [callback]);  // 在 shell 中运行命令并缓冲输出
+child_process.fork(modulePath, [args], [options]);            // spawn() 功能的特例，用于启动 Node 进程。除具有普通 ChildProcess 实例的所有方法外，返回的对象还内置通信通道
+
+/* *******************************************************************************************
+ * UTIL
+ * http://nodejs.org/api/util.html
+ * ******************************************************************************************* */
+
+// 这些函数位于 'util' 模块中，使用 require('util') 访问。
+
+util.format(format, [...]);    // 使用第一个参数作为类似 printf 的格式返回格式化字符串（%s、%d、%j）
+util.debug(string);            // 同步输出函数，将阻塞进程并立即将字符串输出到标准错误
+util.error([...]);             // 与 util.debug() 相同，但立即将所有参数输出到标准错误
+util.puts([...]);              // 同步输出函数，将阻塞进程并将所有参数输出到标准输出，每参数后带换行符
+util.print([...]);             // 同步输出函数，将阻塞进程，将每个参数转换为字符串后输出到标准输出（无换行符）
+util.log(string);              // 在标准输出上带时间戳输出
+util.inspect(object, [opts]);  // 返回对象的字符串表示，便于调试（选项：showHidden、depth、colors、customInspect）
+util.isArray(object);          // 如果给定"对象"是数组则返回 true，否则返回 false
+util.isRegExp(object);         // 如果给定"对象"是正则表达式则返回 true，否则返回 false
+util.isDate(object);           // 如果给定"对象"是日期则返回 true，否则返回 false
+util.isError(object);          // 如果给定"对象"是错误对象则返回 true，否则返回 false
+util.promisify(fn)             // 接受最后一个参数为回调的函数，并返回一个返回 Promise 的版本
+
+util.inherits(constructor, superConstructor);  // 从一个构造函数继承另一个构造函数的原型方法
+
+/* *******************************************************************************************
+ * EVENTS
+ * http://nodejs.org/api/events.html
+ * ******************************************************************************************* */
+
+// 所有发出事件的对象都是 events.EventEmitter 的实例。可通过 require("events") 访问此模块。
+// 要访问 EventEmitter 类，使用 require('events').EventEmitter。
+// 所有 EventEmitter 在添加新监听器时发出 'newListener' 事件，在移除监听器时发出 'removeListener' 事件。
+
+emitter.addListener(event, listener);        // 为指定事件在监听器数组末尾添加一个监听器
+emitter.on(event, listener);                 // 与 emitter.addListener() 相同
+emitter.once(event, listener);               // 为事件添加一次性监听器，该监听器在下次事件触发时调用后即移除
+emitter.removeListener(event, listener);     // 从指定事件的监听器数组中移除一个监听器
+emitter.removeAllListeners([event]);         // 移除所有监听器，或指定事件的所有监听器
+emitter.setMaxListeners(n);                  // 默认情况下，若为特定事件添加超过 10 个监听器，EventEmitter 将打印警告
+emitter.listeners(event);                    // 返回指定事件的监听器数组
+emitter.emit(event, [arg1], [arg2], [...]);  // 按顺序执行每个监听器，并传递提供的参数。若事件有监听器则返回 true，否则返回 false
+
+EventEmitter.listenerCount(emitter, event);  // 返回给定事件的监听器数量
+
+/* *******************************************************************************************
+ * STREAM
+ * http://nodejs.org/api/stream.html
+ * ******************************************************************************************* */
+
+// 流是 Node 中多个对象实现的抽象接口。例如，HTTP 服务器的请求是流，标准输出也是流。
+// 流可以是可读、可写或两者兼具。所有流都是 EventEmitter 的实例。
+
+// 可读流接口是从中读取数据的数据源的抽象。
+// 换言之，数据从可读流中流出。
+// 可读流在你表示准备好接收数据之前不会开始发出数据。
+// 可读流示例包括：客户端的 HTTP 响应、服务器的 HTTP 请求、fs 读流、zlib 流、crypto 流、TCP 套接字、子进程的 stdout 和 stderr、process.stdin。
+
+var readable = getReadableStreamSomehow();
+
+readable.on('readable', function() {});   // 当流中有数据可读时，触发 'readable' 事件
+readable.on('data', function(chunk) {});  // 若附加了 data 事件监听器，流将切换到流动模式，数据一可用即传递给处理程序
+readable.on('end', function() {});        // 当没有更多数据可读时触发此事件
+readable.on('close', function() {});      // 当底层资源（例如支持的文件描述符）关闭时触发。并非所有流都会触发此事件
+readable.on('error', function() {}); // 当接收数据时发生错误触发此事件
+
+
+// read() 方法从内部缓冲区中提取数据并返回。如果没有数据可用数据可用，则返回 null。
+// 此方法仅应在非流动模式下调用。在流动模式下，此方法会自动调用，直到内部缓冲区耗尽。
+readable.read([size]);
+
+readable.setEncoding(encoding);           // 调用此方法使流返回指定编码的字符串，而不是 Buffer 对象
+readable.resume();                        // 此方法使可读流恢复触发数据事件
+readable.pause();                         // 此方法使流动模式的流停止触发数据事件
+readable.pipe(destination, [options]);    // 此方法从可读流中提取所有数据，并将其写入指定的目标，自动管理流以确保目标不会被快速可读流淹没
+readable.unpipe([destination]);            // 此方法移除先前通过 pipe() 设置的钩子。如果未指定目标，则移除所有管道
+readable.unshift(chunk);                  // 在某些情况下，此方法有用，例如当流被解析器消费，解析器需要"取消消费"一些它乐观提取的数据，以便将流传递给其他方
+
+// 可写流接口是写入数据的目标的抽象。
+// 可写流示例包括：客户端的 HTTP 请求、服务器的 HTTP 响应、fs 写流、zlib 流、crypto 流、TCP 套接字、子进程的 stdin、process.stdout、process.stderr。
+
+var writer = getWritableStreamSomehow();
+
+writable.write(chunk, [encoding], [callback]);  // 此方法向底层系统写入数据，并写入数据完全在处理完成后调用提供的回调
+writer.once('drain', write);                    // 如果 writable.write(chunk) 返回 false，则 drain 事件将指示何时适合开始向流写入更多数据
+writable.end([chunk], [encoding], [callback]);  // 当不再向流写入数据时调用此方法
+writer.on('finish', function() {});             ); // 当 end() 方法被调用且所有数据已刷新到底层系统时，触发此事件
+writer.on('pipe', function(src) {});             ); // 每当在可读流上调用 pipe() 方法，将此可写流添加到其目标集合时触发
+writer.on('unpipe', function(src) {});  // 每当在可读流上调用 unpipe() 方法，移除此可写流从其目标集合中移除时触发
+writer.on('error', function(src) {}); // 当写入或管道传输数据时发生错误时触发
+
+// 双工流是同时实现可读和可写接口的流。参见上文使用方法。
+// 双工流示例包括：TCP 套接字接口、zlib 流、crypto 流。
+
+// 转换流是双工流，其输出以某种方式从输入计算得出。它们同时实现可读和可写接口。参见上文使用方法。
+// 转换流的示例包括：zlib 流，crypto 流。
+
+/* *******************************************************************************************
+ * FILE SYSTEM
+ * http://nodejs.org/api/fs.html
+ * *******************************************************************************************
+
+ */
+
+// 要使用此模块，请调用 require('fs')。
+// 所有方法均有异步和同步形式。
+
+fs.rename(oldPath, newPath, callback);  // 异步重命名文件，无其他参数，完成回调仅接收可能的异常
+fs.renameSync(oldPath, delay, [arg], [...]); //  // 同步命名重命名
+fs.renameSync(oldPath, newPath);        // 同步方式重命名
+
+fs.ftruncate(path, [mode], callback);         // 异步截断文件，无其他参数，完成回调仅接收可能的异常
+fs.ftruncateSync(fd, len);              // 同步方式截断 ftruncate
+fs.truncate(path, len, callback);       // 异步截断文件，无其他参数，完成回调仅接收可能的异常
+fs.truncateSync(path, len);             // 同步方式tr截断文件uncate
+
+fs.chown(path, uid, gid, callback);     // 异步设置文件拥有者，无其他参数，完成回调仅接收可能的异常
+fs.chownSync(path, uid, gid);        // 同步设置文件拥有者
+fs.fchown(fd, uid, gid, callback);      // 异步设置文件描述符指定的文件拥有者，无其他参数，完成回调仅接收可能的异常
+fs.fchownSync(fd, uid, gid);            // 同步设置 fchown
+fs.lchown(path, owner, uid, gid, callback); // 异步设置符号链接文件拥有者，无其他参数，完成回调仅接收可能的异常
+fs.lchownSync(path, uid, gid); //  // 同步符号设置符号链接文件拥有者
+
+fs.chmod(path, mode], callback);         // 异步修改文件权限，无其他参数，完成回调仅接收可能的异常
+fs.chmodSync(path, mode);               // 同步修改文件权限
+fs.fchmod(fd, mode, callback);        // 异步修改文件描述符指定的文件权限，无其他参数，完成回调
+fs.fchmodSync(fd, mode);             // 同步修改 fchmod
+fs.lchmod(path, mode, callback);     // 异步修改符号链接权限，无其他参数，完成回调
+fs.lchmodSync(path, mode);           // 同步方式修改 lchmod
+
+fs.stat(path, callback);            // 异步获取文件状态，回调函数接收两个参数 (err, stats)，stats 是 fs.Stats 对象
+fs.statSync(path);                  // 同步获取文件状态，返回 fs.Stats 对象实例
+fs.lstat(path, callback);           // 异步获取路径状态，回调函数接收两个参数 (err, stats)，stats 是 fs.lstat() 与 stat() 相同，但若路径是符号链接，则获取符号链接本身的状态，而非其指向的文件
+fs.lstatSync(path);                // 同步返回 fs.lStat 对象实例
+fs.fstat(fd, callback);            // 异步获取文件描述符指定的文件状态，回调函数接收两个参数 (err, stats)，statsfstat() 与 stat() 相同，文件由文件描述符 fd 指定
+fs.fstatSync(fd);                  // 同步返回 fstat 的 fs.lStat 对象实例
+
+fs.link(srcpath, dstpath, callback);  // 异步创建硬链接，无其他参数，完成回调仅接收可能的异常
+fs.linkSync(srcpath, dstpath);        // 同步创建硬リンク
+fs.symlink(srcpath, dstpath, [type], callback); // 异步创建符号链接，无其他参数，完成回调仅接收可能的异常。type 参数可设为 'dir'、'file' 或 'junction'（默认 'file'），仅在 Windows 上有效（其他平台忽略）
+fs.symlinkSync(srcpath, dstpath, [type]); // 同步创建符号链接
+fs.readlink(path, callback);              // 异步读取符号链接，回调函数接收两个参数（err, linkString）
+fs.readlinkSync(path);                    // 同步读取符号链接，返回符号链接的字符串值
+fs.unlink(path, callback);            // 异步删除文件，无其他参数，完成回调仅接收可能的异常
+fs.unlinkSync(path);                  // 删除同步文件删除文件操作unlink
+
+fs.realpath(path, [cache], callback); // 异步解析真实路径，回调函数接收两个参数（err, resolvedPath）
+fs.realpathSync(path, [cache]);      // 同步解析真实路径，返回解析后的路径
+
+fs.rmdir(path, callback);             // 删除异步删除目录，无其他回调仅接收可能的参数，完成异常
+fs.rmdirSync(path);                  // 删除同步目录删除
+fs.mkdir(path, [mode], callback);     // 异步创建目录，无其他参数，完成回调仅接收可能的异常，mode 默认为 0777
+fs.mkdirSync(path[, mode]);       // 同步创建目录
+fs.readdir(path, callback);           // 异步读取目录内容，回调函数接收两个参数（err, files），files 是目录中文件名数组（不包括 '.' 和 '..'）
+fs.readdirSync(path);             // 同步读取目录，返回文件名数组（不包括 '.' 和 '..'）
+fs.close(fd[, callback);          // 关闭异步关闭文件描述符
+fs.closeSync(fd);                     // 同步关闭 fd
+fs.open(path[, flags[, mode], [callback);]); // 异步打开文件
+fs.openSync(path[, flags[, mode]]); // 同步版本的 fs.open()
+fs.utimes(path, atime, mtime[, callback);]); // 修改由路径引用的文件的文件时间戳
+fs.utimesSync(path, atime, mtime);    // 同步版本的 fs.utimes()
+fs.futimes(fd[, atime[, mtime[, callback);]]); // 修改由文件描述符引用的文件时间戳
+fs.futimesSync(fd[, atime[, mtime)); // 同步版本的 fs.futimes()
+fs.fsync(fd[, callback);        // 异步同步文件描述符
+fs.fsyncSync(fd);               // 同步版本的 fsync()
+
+fs.write(fd[, buffer[, offset[, length[, position[, callback]]]])); // 将缓冲区写入指定的文件描述符
+fs.writeSync(fd[, buffer[, offset[, length[, position]])); // 同步版本的 fs.write()，返回写入的字节数
+fs.read(fd[, buffer[, offset[, length[, position[, callback]]]])); // 从指定的文件描述符读取数据
+fs.readSync(fd[, buffer[, offset[, length[, position]])); // 同步版本的 fs.read，返回读取的字节数
+fs.readFile(filename[, [options[, callback]]); // 异步读取整个文件内容
+fs.readFileSync(filename[, [options]); // 同步版本的 fs.readFile，返回文件内容。若指定编码选项，则返回字符串；否则返回缓冲区
+
+fs.writeFile(filename[, data[, [options[, callback]]]); // 异步写入数据到文件，若文件已存在则覆盖，data 可以是字符串或缓冲区
+fs.writeFileSync(filename[, data[, [options]]); // 同步版本的 fs.writeFile
+fs.appendFile(filename[, data[, [options[, callback]]]); // 异步追加数据到文件，若文件不存在则创建
+fs.appendFileSync(filename[, data[, [options]]); // 同步版本的 fs.appendFile
+fs.watch([filename[, [options[, [listener]])); // 监视文件或目录的变化，返回 fs.FSWatcher 对象。监听器回调接收两个参数（event, filename），event 为 'rename' 或 'change'，filename 为触发事件的文件名
+fs.exists(path[, callback);           // 测试路径是否存在，通过检查文件系统，回调参数为 true 或 false（不建议使用）
+fs.existsSync(path);                  // 同步版本的 fs.exists（不建议使用）
+
+// fs.Stats：fs.stat()、fs.lstat() 和 fs.fstat() 及其同步版本返回的对象属于此类型
+stats.isFile();
+stats.isDirectory();
+stats.isBlockDevice();
+stats.isCharacterDevice();
+stats.isSymbolicLink();  // 仅对 fs.lstat() 有效
+stats.isFIFO();
+stats.isSocket();
+
+fs.createReadStream(path[, [options]); // 返回新的 ReadStream 对象
+fs.createWriteStream(path[, [options]); // 返回新的 WriteStream 对象
+
+/* *******************************************************************************************
+ * PATH
+ * http://nodejs.org/api/fs.html
+ * ******************************************************************************************* */
+
+// 使用 require('path') 访问此模块。
+// 该模块包含处理和转换文件路径的实用工具。
+// 几乎所有方法仅执行字符串转换。
+// 不查询文件系统以检查路径是否有效。
+
+path.normalize(p);                    // 规范化字符串路径，处理 '..' 和 '.' 部分
+path.join([[path1], [path2], [...]]); // 将所有参数连接在一起并规范化结果路径
+path.resolve([[from ...], to);    // 将 'to' 解析为绝对路径
+path.relative(from, to);              // 计算从 'from' 到 'to' 的相对路径
+path.dirname(p);                      // 返回路径的目录名，类似于 Unix 的 dirname 命令
+path.basename(p[, [ext]);         // 返回路径的最后部分，类似于 Unix 的 basename 命令
+path.extname(p);                      // 返回路径的扩展名，从最后一个 '.' 到字符串末尾
+
+path.sep;                             // 平台特定的文件分隔符，'\\' 或 '/'
+path.delimiter;                       // 平台特定的路径分隔符，';' 或 ':'
+
+/* *******************************************************************************************
+ * HTTP
+ * http://nodejs.org/api/http.html
+ * ******************************************************************************************* */
+
+// 要使用 HTTP 服务器和客户端，必须 require('http')。
+
+http.STATUS_CODES;                                             // 包含所有标准 HTTP 响应状态码及其简短描述的集合
+http.request(options[, [callback]);                        // 此函数允许透明地发出请求
+http.get(options[, [callback]);                            // 将方法设置为 GET 并自动调用 req.end()
+
+server = http.createServer([[requestListener]);        // 返回新的 Web 服务器对象，requestListener 是一个自动添加到 'request' 事件的函数
+server.listen(port[, [hostname[, [backlog[, [callback]]]])); // 开始在指定端口和主机名上接受连接
+server.listen(path[, [callback]);                      // 启动 UNIX 套接字服务器，在给定路径上监听连接
+server.listen(handle[, [callback]);                    // handle 对象可以设置为服务器或套接字（具有底层 _handle 成员的任何对象），或 {fd: <n>} 对象
+server.close([[callback]);                             // 停止服务器接受新连接
+server.setTimeout(msecs, callback);                            // 设置套接字的超时值，并在发生超时事件时在 Server 对象上触发 'timeout' 事件，将套接字作为参数传递
+
+server.maxHeadersCount;  // 限制最大传入头部计数，默认值为 1000。若设置为 0，则无限制
+server.timeout;          // 套接字在超时之前不活动的毫秒数
+
+server.on('request', function (request, response) { });        // 每次有请求时触发
+server.on('connection', function (socket) { });                // 当建立新的 TCP 流时触发
+server.on('close', function () { });                           // 当服务器关闭时触发
+server.on('checkContinue', function (request, response) { });  // 每次接收到带有 HTTP Expect: 100-continue 的请求时触发
+server.on('connect', function (request, socket, head) { });    // 每次客户端请求 HTTP CONNECT 方法时触发
+server.on('upgrade', function (request, socket, head) { });    // 每次客户端请求 HTTP 升级时触发
+server.on('clientError', function (exception, socket) { });    // 如果客户端连接触发 'error' 事件，则在此处转发
+
+request.write(chunk[, [encoding]);                        // 发送请求体的部分数据
+request.end([[data], [encoding]);                      // 完成请求发送。若仍有未发送的请求体部分，将其刷新到流中
+request.abort();                                               // 中止请求
+request.setTimeout(timeout[, [callback]);              // 在套接字分配给此请求并连接后，将调用 socket.setTimeout()
+request.setNoDelay([[noDelay]);                        // 在套接字分配给此请求并连接后，将调用 socket.setNoDelay()
+request.setSocketKeepAlive([[enable], [initialDelay]); // 在套接字分配给此请求并连接后，将调用 socket.setKeepAlive()
+
+request.on('response', function(response) { });                // 当收到对此请求的响应时触发，此事件仅触发一次
+request.on('socket', function(socket) { });                    // 在为此请求分配套接字后触发
+request.on('connect', function(response, socket, head) { });   // 每次服务器以 CONNECT 方法响应请求时触发。若未监听此事件，接收 CONNECT 方法的客户端连接将被关闭
+request.on('upgrade', function(response, socket, head) { });   // 每次服务器以升级响应请求时触发。若未监听此事件，接收升级头的客户端连接将被关闭
+request.on('continue', function() { });                        // 当服务器发送 '100 Continue' HTTP 响应时触发，通常因为请求包含 'Expect: 100-continue'
+
+response.write(chunk[, [encoding]);                       // 发送响应体的部分数据。若调用此方法且未调用 response.writeHead()，将切换到隐式头部模式并刷新隐式头部
+response.writeContinue();                                  // 向客户端发送 HTTP/1.1 100 Continue 消息，指示应发送请求体
+response.writeHead(statusCode[, [reasonPhrase[, [headers]]]); // 向请求发送响应头
+response.setTimeout(msecs, callback);                          // 将套接字的超时值设置为 msecs，若提供回调，则将其作为监听器添加到 timeout 事件
+response.setHeader(name, value);                                    // 为隐式头部设置单个头值。若头部已存在于待发送头中，则替换其值。若需发送多个同名头部，使用字符串数组
+response.getHeader(name);                                           // 读取已排队但尚未发送的头部，名称不区分大小写
+response.removeHeader(name);                                        // 移除已排队待发送的隐式头部
+response.addTrailers(headers);                                      // 此方法将 HTTP 尾部头（消息末尾的头部）添加到响应
+response.end([[data], [encoding]]);                             // 此方法通知服务器所有响应头和体已发送，服务器应认为此消息已完成。必须在每个响应上调用 response.end()
+
+response.statusCode;                                           // 使用隐式头部（未显式调用 response.writeHead()）时，此属性控制将在头部刷新时发送到客户端的状态码
+response.headersSent;                                          // 布尔值（只读），头部已发送则为 true，否则为 false
+response.sendDate;                                             // 若为 true，则在响应中未包含 Date 头部时自动生成并发送，默认为 true
+
+response.on('close', function () { });  // 表示在调用 response.end() 或刷新完成之前底层连接已终止
+response.on('finish', function() { });  // 当响应发送完成时触发
+
+message.httpVersion;            // 对于服务器请求，表示客户端发送的 HTTP 版本；对于客户端响应，表示连接到的服务器的 HTTP 版本
+message_version.headers;                 // 请求/响应头对象
+message.trailer;                  // 请求/响应尾部对象，仅在 'end' 事件之后填充
+message.method;                   // 请求方法字符串，只读，例如：'GET', 'DELETE'
+message.url;                     // 请求 URL 字符串，仅包含实际 HTTP 请求中的 URL
+message.statusCode;               // 3 位 HTTP 响应状态码，例如 404
+message.socket;                   // 与连接关联的 net.Socket 对象
+
+message.setTimeout([msecs, callback);]); // 调用 message.connection.setTimeout(msecs, callback)
+
+/* *******************************************************************************************
+ * URL
+ * http://nodejs.org/api/url.html
+ * ******************************************************************************************* */
+
+// 此模块包含用于 URL 解析和解析的实用工具。调用 require('url') 使用。
+
+url.parse(urlStr[, [parseQueryString[, [slashesDenoteHost]]]); // 接受 URL 字符串，返回对象
+url.format(urlObj);                                            // 接受解析的 URL 对象，返回格式化的 URL 字符串
+url.resolve(from, to);                                          // 接受基 URL 和 href URL，并按浏览器对锚点的解析方式解析它们
+
+/* *******************************************************************************************
+ * QUERY STRING
+ * http://nodejs.org/api/querystring.html
+ * ******************************************************************************************* */
+
+// 此模块提供处理查询字符串的实用工具。调用 require('querystring') 使用。
+
+querystring.stringify(obj[, [sep[, [eq]]]);     // 将对象序列化为查询字符串，可选覆盖默认分隔符 ('&') 和赋值符 ('='）
+querystring.parse(str[, [sep[, [eq[, [options]]]])); // 将查询字符串反序列化为对象，可选覆盖默认分隔符 ('&') 和赋值符 ('='）
+
+/* *******************************************************************************************
+ * ASSERT
+ * http://nodejs.org/api/assert.html
+ * ******************************************************************************************* */
+
+// 此模块用于为应用程序编写单元测试，可通过 require('assert') 访问。
+
+assert.fail(actual, expected, message, operator);     // 抛出异常，显示 actual 和 expected 的值，由提供的操作符分隔
+assert(value, message); assert.ok(value[, [message]); // 测试 value 是否为真，等价于 assert.equal(true, !!value)); // message);
+assert.equal(actual, expected[, [message]);        // 使用相等比较操作符 (==) 测试浅层、强制相等性
+assert.notEqual(actual, expected[, [message]); // 使用不相等比较操作符 (!=) 测试浅层、不强制相等性
+assert.deepEqual(actual, expected[, [message]]); // 测试深度相等性
+assert.notDeepEqual(actual, expected[, [message]]); // 测试深度不相等性
+assert.strictEqual(actual, expected[, [message]]); // 使用严格相等操作符（===）测试严格相等性
+assert.strictEqual(actual, expected[, [message]); // 使用严格不相等操作符 (!===) 测试严格不相等性
+assert.throws(block[, [error[, [message]]]); // 期望代码块抛出错误，error 可以是构造函数、正则表达式或验证函数
+assert.doesNotThrow(block[, [callback]]);          // 期望代码块不抛出错误，详见 assert.throws
+assert.ifError(value);                                // 若值不是假值，则测试通过；若值为真值，则抛出错误值。常用于测试回调中的第一个错误参数
+
+/* *******************************************************************************************
+ * OS
+ * http://nodejs.org/api/os.html
+ * ******************************************************************************************* */
+
+
+
+// 提供了一些基本的与操作系统相关的实用工具函数。
+// 使用 require('os') 访问此模块。
+
+os.tmpdir();             // 返回操作系统的默认临时文件目录
+os.endianness();         // 返回 CPU 的字节序，可能值为 "BE" 或 "LE"
+os.hostname();           // 返回操作系统的名称主机名
+os.type();               // 返回操作系统名称
+os.platform();                   // 返回操作系统平台名称
+os.arch();               // 返回操作系统 CPU 架构
+os.release();            // 返回操作系统版本
+os.uptime();            // 返回系统运行时间，以秒为单位
+os.loadavg();            // 返回包含 1、5 和 15 分钟负载平均值的数组
+os.totalmem();           // 返回系统总内存量，以字节为单位
+s.memtotalmem();        // 返回系统总内存量，以字节为单位
+os.s.freememem();     // 返回系统可用内存量，以字节为单位
+os.cpus(); // 返回包含每个 CPU/核信息的对象数组，包括型号、速度（MHz）以及时间（包含 CPU/核在用户态、nice 优先级、系统态、空闲态和中断时间的毫秒数）
+os.networkInterfaces();  // 获取网络接口列表
+os.EOL;                  // 定义操作系统适当的行结束标志的常量
+
+/* *******************************************************************************************
+
+ * BUFFER
+ * http://nodejs.org/api/buffer.html
+ * ******************************************************************************************* */
+
+
+
+// Buffer 用于处理二进制数据
+// Buffer 类似于整数数组，但对应于 V8 堆之外的原始内存分配
+
+Buffer.from(size, [buffer[, size]); //  // 分配指定大小的新缓冲区，单位为八位字节
+buffer[, array[, size]]);     // Allocates 使用指定八位字节数组创建新缓冲区
+buffer[, str[, encoding[, size]]]); //  // 分配包含给定字符串的新缓冲区，编码默认为 'utf8'
+
+buffer.isEncoding(encoding);                                        // 若编码是有效的编码参数，返回 true，否则 false
+                                        // 若编码是有效的缓冲对象，返回 true，否则返回 false
+Buffer.isEncoding(buffer);                                        // 测试 obj 是否为 Buffer 对象
+                                        // 测试对象是否为 Buffer 对象
+buffer.concat([list[, [totalLength]]);                             // 返回一个新缓冲区，由列表中所有缓冲区连接组成
+buffer[, string[, encoding[, length[, encoding]]]]); //  // 计算字符串的实际字节长度
+
+buf.write(buffer[, string[, offset[, length[, encoding]]]]); // 按指定编码在偏移量处将字符串写入缓冲区
+buf.toString([[encoding], [buffer[, start[, encoding[, start[, end]]]]); // 从缓冲区数据解码并返回指定编码的字符串（默认 'utf8'），从 start 开始（默认 0），到 end 结束（默认 buffer.length）
+buf.toJSON(buffer);                                                  // 返回缓冲区实例的 JSON 表示，与 JSON 数组的输出格式相同
+buf.copy(targetBuffer[, buffer[, targetStart[, targetStart[, sourceStart[, sourceEnd]]]]); // 在缓冲区之间执行复制，源和目标区域可以重叠
+buf.slice([[buffer[, end]])); // 返回新缓冲区，引用与旧缓冲区相同的内存，但由 start（默认 0）和 end（默认 buffer.length）索引偏移和裁剪。负索引从缓冲区末尾开始计数
+                                        // 返回新缓冲区，引用与旧缓冲，引用与旧缓冲区相同的内存，但由 start 和 end 索引偏移并裁剪
+buf.fill(value[, [buffer[, offset[, end]]]]); // 用指定值填充缓冲区
+buf[index];                                                         // 获取或设置索引处的八位字节
+buf.length;                                                         // 缓冲区大小，以字节为单位，注意这不一定是内容的实际大小
+
+buffer.INSPECT_MAX_BYTES;                                           // 调用 buffer.inspect() 时返回的字节数，可被用户模块覆盖

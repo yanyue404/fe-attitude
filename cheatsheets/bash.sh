@@ -1,124 +1,124 @@
 #!/bin/bash
 ##############################################################################
-# SHORTCUTS and HISTORY
+# 快捷键和历史记录
 ##############################################################################
 
-CTRL+A  # move to beginning of line
-CTRL+B  # moves backward one character
-CTRL+C  # halts the current command
-CTRL+D  # deletes one character backward or logs out of current session, similar to exit
-CTRL+E  # moves to end of line
-CTRL+F  # moves forward one character
-CTRL+G  # aborts the current editing command and ring the terminal bell
-CTRL+H  # deletes one character under cursor (same as DELETE)
-CTRL+J  # same as RETURN
-CTRL+K  # deletes (kill) forward to end of line
-CTRL+L  # clears screen and redisplay the line
-CTRL+M  # same as RETURN
-CTRL+N  # next line in command history
-CTRL+O  # same as RETURN, then displays next line in history file
-CTRL+P  # previous line in command history
-CTRL+Q  # resumes suspended shell output
-CTRL+R  # searches backward
-CTRL+S  # searches forward or suspends shell output
-CTRL+T  # transposes two characters
-CTRL+U  # kills backward from point to the beginning of line
-CTRL+V  # makes the next character typed verbatim
-CTRL+W  # kills the word behind the cursor
-CTRL+X  # lists the possible filename completions of the current word
-CTRL+Y  # retrieves (yank) last item killed
-CTRL+Z  # stops the current command, resume with fg in the foreground or bg in the background
+CTRL+A  # 移动到行首
+CTRL+B  # 向后移动一个字符
+CTRL+C  # 停止当前命令
+CTRL+D  # 向后删除一个字符或退出当前会话，类似于exit
+CTRL+E  # 移动到行尾
+CTRL+F  # 向前移动一个字符
+CTRL+G  # 中止当前编辑命令并响铃
+CTRL+H  # 删除光标下的一个字符（与DELETE相同）
+CTRL+J  # 与RETURN相同
+CTRL+K  # 删除（kill）从光标到行尾的内容
+CTRL+L  # 清屏并重新显示当前行
+CTRL+M  # 与RETURN相同
+CTRL+N  # 命令历史中的下一行
+CTRL+O  # 与RETURN相同，然后显示历史文件中的下一行
+CTRL+P  # 命令历史中的上一行
+CTRL+Q  # 恢复暂停的shell输出
+CTRL+R  # 向后搜索
+CTRL+S  # 向前搜索或暂停shell输出
+CTRL+T  # 交换两个字符的位置
+CTRL+U  # 从光标位置删除到行首
+CTRL+V  # 使下一个输入的字符按字面意思输入
+CTRL+W  # 删除光标前的单词
+CTRL+X  # 列出当前单词可能的文件名补全
+CTRL+Y  # 恢复（yank）最后删除的内容
+CTRL+Z  # 停止当前命令，可用fg在前台恢复或bg在后台恢复
 
-ALT+B   # moves backward one word
-ALT+D   # deletes next word
-ALT+F   # moves forward one word
-ALT+H   # deletes one character backward
-ALT+T   # transposes two words
-ALT+.   # pastes last word from the last command. Pressing it repeatedly traverses through command history.
-ALT+U   # capitalizes every character from the current cursor position to the end of the word
-ALT+L   # uncapitalizes every character from the current cursor position to the end of the word
-ALT+C   # capitalizes the letter under the cursor. The cursor then moves to the end of the word.
-ALT+R   # reverts any changes to a command you’ve pulled from your history if you’ve edited it.
-ALT+?   # list possible completions to what is typed
-ALT+^   # expand line to most recent match from history
+ALT+B   # 向后移动一个单词
+ALT+D   # 删除下一个单词
+ALT+F   # 向前移动一个单词
+ALT+H   # 向后删除一个字符
+ALT+T   # 交换两个单词的位置
+ALT+.   # 粘贴上一个命令的最后一个单词。重复按下可遍历命令历史
+ALT+U   # 将从当前光标位置到单词末尾的所有字符大写
+ALT+L   # 将从当前光标位置到单词末尾的所有字符小写
+ALT+C   # 将光标下的字母大写。光标随后移动到单词末尾
+ALT+R   # 如果你编辑了从历史记录中获取的命令，则恢复任何更改
+ALT+?   # 列出当前输入的可能补全
+ALT+^   # 将行扩展为历史记录中最近的匹配
 
-CTRL+X then (   # start recording a keyboard macro
-CTRL+X then )   # finish recording keyboard macro
-CTRL+X then E   # recall last recorded keyboard macro
-CTRL+X then CTRL+E   # invoke text editor (specified by $EDITOR) on current command line then execute resultes as shell commands
-CTRL+A then D  # logout from screen but don't kill it, if any command exist, it will continue
+CTRL+X then (   # 开始录制键盘宏
+CTRL+X then )   # 结束录制键盘宏
+CTRL+X then E   # 回调最后录制的键盘宏
+CTRL+X then CTRL+E   # 调用文本编辑器（由$EDITOR指定）编辑当前命令行，然后将结果作为shell命令执行
+CTRL+A then D  # 从screen注销但不杀死它，如果有命令存在，它将继续运行
 
-BACKSPACE  # deletes one character backward
-DELETE     # deletes one character under cursor
+BACKSPACE  # 向后删除一个字符
+DELETE     # 删除光标下的字符
 
-history   # shows command line history
-!!        # repeats the last command
-!<n>      # refers to command line 'n'
-!<string> # refers to command starting with 'string'
-esc :wq   # exits and saves script
+history   # 显示命令行历史
+!!        # 重复上一个命令
+!<n>      # 引用第'n'行命令
+!<string> # 引用以'string'开头的命令
+esc :wq   # 退出并保存脚本
 
-exit      # logs out of current session
-
-
-##############################################################################
-# BASH BASICS
-##############################################################################
-
-env                 # displays all environment variables
-
-echo $SHELL         # displays the shell you're using
-echo $BASH_VERSION  # displays bash version
-
-bash                # if you want to use bash (type exit to go back to your previously opened shell)
-whereis bash        # locates the binary, source and manual-page for a command
-which bash          # finds out which program is executed as 'bash' (default: /bin/bash, can change across environments)
-
-clear               # clears content on window (hide displayed lines)
+exit      # 退出当前会话
 
 
 ##############################################################################
-# FILE COMMANDS
+# BASH基础
+##############################################################################
+
+env                 # 显示所有环境变量
+
+echo $SHELL         # 显示你正在使用的shell
+echo $BASH_VERSION  # 显示bash版本
+
+bash                # 如果你想使用bash（输入exit返回之前打开的shell）
+whereis bash        # 定位命令的二进制文件、源文件和手册页
+which bash          # 找出哪个程序被执行为'bash'（默认：/bin/bash，在不同环境中可能会改变）
+
+clear               # 清除窗口内容（隐藏显示的行）
+
+
+##############################################################################
+# 文件命令
 ##############################################################################
 
 
-ls                            # lists your files in current directory, ls <dir> to print files in a specific directory
-ls -l                         # lists your files in 'long format', which contains the exact size of the file, who owns the file and who has the right to look at it, and when it was last modified
-ls -a                         # lists all files in 'long format', including hidden files (name beginning with '.')
-ln -s <filename> <link>       # creates symbolic link to file
-readlink <filename>           # shows where a symbolic links points to
-tree                          # show directories and subdirectories in easilly readable file tree
-mc                            # terminal file explorer (alternative to ncdu)
-touch <filename>              # creates or updates (edit) your file
-mktemp -t <filename>          # make a temp file in /tmp/ which is deleted at next boot (-d to make directory)
-cat <filename>                # displays file raw content (will not be interpreted)
-cat -n <filename>             # shows number of lines
-nl <file.sh>                  # shows number of lines in file
-cat filename1 > filename2     # Copy filename1 to filename2
-cat filename1 >> filename2    # merge two files texts together
-any_command > <filename>      # '>' is used to perform redirections, it will set any_command's stdout to file instead of "real stdout" (generally /dev/stdout)
-more <filename>               # shows the first part of a file (move with space and type q to quit)
-head <filename>               # outputs the first lines of file (default: 10 lines)
-tail <filename>               # outputs the last lines of file (useful with -f option) (default: 10 lines)
-vim <filename>                # opens a file in VIM (VI iMproved) text editor, will create it if it doesn't exist
-mv <filename1> <dest>         # moves a file to destination, behavior will change based on 'dest' type (dir: file is placed into dir; file: file will replace dest (tip: useful for renaming))
-cp <filename1> <dest>         # copies a file
-rm <filename>                 # removes a file
-find . -name <name> <type>    # searches for a file or a directory in the current directory and all its sub-directories by its name
-diff <filename1> <filename2>  # compares files, and shows where they differ
-wc <filename>                 # tells you how many lines, words and characters there are in a file. Use -lwc (lines, word, character) to ouput only 1 of those informations
-sort <filename>               # sorts the contents of a text file line by line in alphabetical order, use -n for numeric sort and -r for reversing order.
-sort -t -k <filename>         # sorts the contents on specific sort key field starting from 1, using the field separator t.
-rev                           # reverse string characters (hello becomes olleh)
-chmod -options <filename>     # lets you change the read, write, and execute permissions on your files (more infos: SUID, GUID)
-gzip <filename>               # compresses files using gzip algorithm
-gunzip <filename>             # uncompresses files compressed by gzip
-gzcat <filename>              # lets you look at gzipped file without actually having to gunzip it
-lpr <filename>                # prints the file
-lpq                           # checks out the printer queue
-lprm <jobnumber>              # removes something from the printer queue
-genscript                     # converts plain text files into postscript for printing and gives you some options for formatting
-dvips <filename>              # prints .dvi files (i.e. files produced by LaTeX)
-grep <pattern> <filenames>    # looks for the string in the files
+ls                            # 列出当前目录中的文件，ls <dir>打印特定目录中的文件
+ls -l                         # 以'长格式'列出文件，包含文件的确切大小、所有者、权限和最后修改时间
+ls -a                         # 以'长格式'列出所有文件，包括隐藏文件（以'.'开头的文件名）
+ln -s <filename> <link>       # 创建文件的符号链接
+readlink <filename>           # 显示符号链接指向的位置
+tree                          # 以易读的文件树形式显示目录和子目录
+mc                            # 终端文件浏览器（ncdu的替代品）
+touch <filename>              # 创建或更新（编辑）文件
+mktemp -t <filename>          # 在/tmp/中创建临时文件，下次启动时删除（-d创建目录）
+cat <filename>                # 显示文件原始内容（不会被解释）
+cat -n <filename>             # 显示行号
+nl <file.sh>                  # 显示文件行号
+cat filename1 > filename2     # 复制filename1到filename2
+cat filename1 >> filename2    # 合并两个文件的文本
+any_command > <filename>      # '>'用于执行重定向，将any_command的stdout设置为文件而不是"真正的stdout"（通常是/dev/stdout）
+more <filename>               # 显示文件的第一部分（用空格键移动，输入q退出）
+head <filename>               # 输出文件的前几行（默认：10行）
+tail <filename>               # 输出文件的后几行（与-f选项一起使用很有用）（默认：10行）
+vim <filename>                # 在VIM（VI iMproved）文本编辑器中打开文件，如果不存在则创建
+mv <filename1> <dest>         # 将文件移动到目标位置，行为会根据'dest'类型改变（目录：文件放入目录；文件：文件将替换dest（提示：用于重命名很有用））
+cp <filename1> <dest>         # 复制文件
+rm <filename>                 # 删除文件
+find . -name <name> <type>    # 在当前目录及其子目录中按名称搜索文件或目录
+diff <filename1> <filename2>  # 比较文件，显示它们的差异
+wc <filename>                 # 告诉你文件中有多少行、单词和字符。使用-lwc（行、单词、字符）只输出其中一项信息
+sort <filename>               # 按字母顺序逐行排序文本文件内容，使用-n进行数字排序，-r反向排序
+sort -t -k <filename>         # 使用字段分隔符t，从第1个字段开始在特定排序关键字段上排序内容
+rev                           # 反转字符串字符（hello变成olleh）
+chmod -options <filename>     # 让你更改文件的读、写和执行权限（更多信息：SUID、GUID）
+gzip <filename>               # 使用gzip算法压缩文件
+gunzip <filename>             # 解压缩由gzip压缩的文件
+gzcat <filename>              # 让你查看gzip压缩文件而无需实际解压缩
+lpr <filename>                # 打印文件
+lpq                           # 检查打印机队列
+lprm <jobnumber>              # 从打印机队列中删除某项
+genscript                     # 将纯文本文件转换为postscript用于打印，并为你提供一些格式选项
+dvips <filename>              # 打印.dvi文件（即LaTeX生成的文件）
+grep <pattern> <filenames>    # 在文件中查找字符串
 
 grep -nri 自学 docs | cat --number    # 阮一峰周刊搜索
   # - **`grep -nri css docs`**：
@@ -135,207 +135,207 @@ grep -nri 自学 docs | cat --number    # 阮一峰周刊搜索
   #   - `cat --number`：为输入内容添加全局行编号（类似`nl`命令）。
   #   - **作用**：对`grep`的搜索结果逐行编号，形成连续的序号列表。
   
-grep -r <pattern> <dir>       # search recursively for pattern in directory
-head -n file_name | tail +n   # Print nth line from file.
-head -y lines.txt | tail +x   # want to display all the lines from x to y. This includes the xth and yth lines.
+grep -r <pattern> <dir>       # 在目录中递归搜索模式
+head -n file_name | tail +n   # 打印文件的第n行
+head -y lines.txt | tail +x   # 显示从第x行到第y行的所有行。这包括第x行和第y行
 
-sed 's/<pattern>/<replacement>/g' <filename> # replace pattern in file with replacement value to std output the character after s (/) is the delimeter 
-sed -i 's/<pattern>/<replacement>/g' <filename> # replace pattern in file with replacement value in place
-echo "this" | sed 's/is/at/g' # replace pattern from input stream with replacement value
-
-##############################################################################
-# DIRECTORY COMMANDS
-##############################################################################
-
-
-mkdir <dirname>               # makes a new directory
-rmdir <dirname>               # remove an empty directory
-rmdir -rf <dirname>           # remove a non-empty directory
-mv <dir1> <dir2>              # rename a directory from <dir1> to <dir2>
-cd                            # changes to home
-cd ..                         # changes to the parent directory
-cd <dirname>                  # changes directory
-cp -r <dir1> <dir2>           # copy <dir1> into <dir2> including sub-directories
-pwd                           # tells you where you currently are
-cd ~                          # changes to home.
-cd -                          # changes to previous working directory
+sed 's/<pattern>/<replacement>/g' <filename> # 将文件中的模式替换为替换值并输出到标准输出，s后面的字符(/)是分隔符
+sed -i 's/<pattern>/<replacement>/g' <filename> # 就地将文件中的模式替换为替换值
+echo "this" | sed 's/is/at/g' # 将输入流中的模式替换为替换值
 
 ##############################################################################
-# SSH, SYSTEM INFO & NETWORK COMMANDS
+# 目录命令
 ##############################################################################
 
 
-ssh user@host            # connects to host as user
-ssh -p <port> user@host  # connects to host on specified port as user
-ssh-copy-id user@host    # adds your ssh key to host for user to enable a keyed or passwordless login
-
-whoami                   # returns your username
-su <user>                # switch to a different user
-su -                     # switch to root, likely needs to be sudo su -
-sudo <command>           # execute command as the root user
-passwd                   # lets you change your password
-quota -v                 # shows what your disk quota is
-date                     # shows the current date and time
-cal                      # shows the month's calendar
-uptime                   # shows current uptime
-w                        # displays whois online
-finger <user>            # displays information about user
-uname -a                 # shows kernel information
-man <command>            # shows the manual for specified command
-info <command>           # shows another documentation system for the specific command
-help                     # shows documentation about built-in commands and functions
-df                       # shows disk usage
-du <filename>            # shows the disk usage of the files and directories in filename (du -s give only a total)
-resize2fs                # ext2/ext3/ext4 file system resizer
-last <yourUsername>      # lists your last logins
-ps -u yourusername       # lists your processes
-kill <PID>               # kills the processes with the ID you gave
-killall <processname>    # kill all processes with the name
-top                      # displays your currently active processes
-lsof                     # lists open files
-bg                       # lists stopped or background jobs ; resume a stopped job in the background
-fg                       # brings the most recent job in the foreground
-fg <job>                 # brings job to the foreground
-
-ping <host>              # pings host and outputs results
-whois <domain>           # gets whois information for domain
-dig <domain>             # gets DNS information for domain
-dig -x <host>            # reverses lookup host
-wget <file>              # downloads file
-netstat                  # Print network connections, routing tables, interface statistics, masquerade connections, and multicast memberships
-
-time <command>           # report time consumed by command execution
-
+mkdir <dirname>               # 创建新目录
+rmdir <dirname>               # 删除空目录
+rmdir -rf <dirname>           # 删除非空目录
+mv <dir1> <dir2>              # 将目录从<dir1>重命名为<dir2>
+cd                            # 切换到家目录
+cd ..                         # 切换到父目录
+cd <dirname>                  # 切换目录
+cp -r <dir1> <dir2>           # 将<dir1>复制到<dir2>，包括子目录
+pwd                           # 告诉你当前所在位置
+cd ~                          # 切换到家目录
+cd -                          # 切换到上一个工作目录
 
 ##############################################################################
-# VARIABLES
+# SSH、系统信息和网络命令
 ##############################################################################
 
 
-varname=value                # defines a variable
-varname=value command        # defines a variable to be in the environment of a particular subprocess
-echo $varname                # checks a variable's value
-echo $$                      # prints process ID of the current shell
-echo $!                      # prints process ID of the most recently invoked background job
-echo $?                      # displays the exit status of the last command
-read <varname>               # reads a string from the input and assigns it to a variable
-read -p "prompt" <varname>   # same as above but outputs a prompt to ask user for value
-column -t <filename>         # display info in pretty columns (often used with pipe)
-let <varname> = <equation>   # performs mathematical calculation using operators like +, -, *, /, %
-export VARNAME=value         # defines an environment variable (will be available in subprocesses)
-export -f  <funcname>        # Exports function 'funcname'
-export var1="var1 value"     # Export and assign in the same statement
-export <varname>             # Copy Bash variable
-declare -x <varname>         # Copy Bash variable
+ssh user@host            # 以用户身份连接到主机
+ssh -p <port> user@host  # 以用户身份在指定端口连接到主机
+ssh-copy-id user@host    # 将你的ssh密钥添加到主机，为用户启用密钥或无密码登录
 
-array[0]=valA                # how to define an array
+whoami                   # 返回你的用户名
+su <user>                # 切换到不同用户
+su -                     # 切换到root，可能需要sudo su -
+sudo <command>           # 以root用户身份执行命令
+passwd                   # 让你更改密码
+quota -v                 # 显示你的磁盘配额
+date                     # 显示当前日期和时间
+cal                      # 显示月份日历
+uptime                   # 显示当前运行时间
+w                        # 显示谁在线
+finger <user>            # 显示用户信息
+uname -a                 # 显示内核信息
+man <command>            # 显示指定命令的手册
+info <command>           # 显示特定命令的另一个文档系统
+help                     # 显示内置命令和函数的文档
+df                       # 显示磁盘使用情况
+du <filename>            # 显示文件名中文件和目录的磁盘使用情况（du -s只给出总计）
+resize2fs                # ext2/ext3/ext4文件系统调整器
+last <yourUsername>      # 列出你的最后登录记录
+ps -u yourusername       # 列出你的进程
+kill <PID>               # 杀死具有你给出ID的进程
+killall <processname>    # 杀死具有该名称的所有进程
+top                      # 显示你当前活动的进程
+lsof                     # 列出打开的文件
+bg                       # 列出停止或后台作业；在后台恢复停止的作业
+fg                       # 将最近的作业带到前台
+fg <job>                 # 将作业带到前台
+
+ping <host>              # ping主机并输出结果
+whois <domain>           # 获取域名的whois信息
+dig <domain>             # 获取域名的DNS信息
+dig -x <host>            # 反向查找主机
+wget <file>              # 下载文件
+netstat                  # 打印网络连接、路由表、接口统计信息、伪装连接和多播成员资格
+
+time <command>           # 报告命令执行消耗的时间
+
+
+##############################################################################
+# 变量
+##############################################################################
+
+
+varname=value                # 定义变量
+varname=value command        # 定义变量以在特定子进程的环境中
+echo $varname                # 检查变量的值
+echo $$                      # 打印当前shell的进程ID
+echo $!                      # 打印最近调用的后台作业的进程ID
+echo $?                      # 显示最后一个命令的退出状态
+read <varname>               # 从输入读取字符串并将其分配给变量
+read -p "prompt" <varname>   # 与上述相同，但输出提示要求用户输入值
+column -t <filename>         # 以漂亮的列格式显示信息（通常与管道一起使用）
+let <varname> = <equation>   # 使用+、-、*、/、%等运算符执行数学计算
+export VARNAME=value         # 定义环境变量（在子进程中可用）
+export -f  <funcname>        # 导出函数'funcname'
+export var1="var1 value"     # 在同一语句中导出和分配
+export <varname>             # 复制Bash变量
+declare -x <varname>         # 复制Bash变量
+
+array[0]=valA                # 如何定义数组
 array[1]=valB
 array[2]=valC
-array=([2]=valC [0]=valA [1]=valB)  # another way
-array=(valA valB valC)              # and another
+array=([2]=valC [0]=valA [1]=valB)  # 另一种方式
+array=(valA valB valC)              # 还有另一种方式
 
-${array[i]}                  # displays array's value for this index. If no index is supplied, array element 0 is assumed
-${#array[i]}                 # to find out the length of any element in the array
-${#array[@]}                 # to find out how many values there are in the array
+${array[i]}                  # 显示此索引的数组值。如果未提供索引，则假定为数组元素0
+${#array[i]}                 # 找出数组中任何元素的长度
+${#array[@]}                 # 找出数组中有多少个值
 
-declare -a                   # the variables are treated as arrays
-declare -f                   # uses function names only
-declare -F                   # displays function names without definitions
-declare -i                   # the variables are treated as integers
-declare -r                   # makes the variables read-only
-declare -x                   # marks the variables for export via the environment
-declare -l                   # uppercase values in the variable are converted to lowercase
-declare -A                   # makes it an associative array
+declare -a                   # 变量被视为数组
+declare -f                   # 仅使用函数名
+declare -F                   # 显示函数名而不显示定义
+declare -i                   # 变量被视为整数
+declare -r                   # 使变量只读
+declare -x                   # 标记变量以通过环境导出
+declare -l                   # 变量中的大写值转换为小写
+declare -A                   # 使其成为关联数组
 
-${varname:-word}             # if varname exists and isn't null, return its value; otherwise return word
-${varname:word}              # if varname exists and isn't null, return its value; otherwise return word
-${varname:=word}             # if varname exists and isn't null, return its value; otherwise set it word and then return its value
-${varname:?message}          # if varname exists and isn't null, return its value; otherwise print varname, followed by message and abort the current command or script
-${varname:+word}             # if varname exists and isn't null, return word; otherwise return null
-${varname:offset:length}     # performs substring expansion. It returns the substring of $varname starting at offset and up to length characters
+${varname:-word}             # 如果varname存在且不为null，返回其值；否则返回word
+${varname:word}              # 如果varname存在且不为null，返回其值；否则返回word
+${varname:=word}             # 如果varname存在且不为null，返回其值；否则将其设置为word，然后返回其值
+${varname:?message}          # 如果varname存在且不为null，返回其值；否则打印varname，然后是message并中止当前命令或脚本
+${varname:+word}             # 如果varname存在且不为null，返回word；否则返回null
+${varname:offset:length}     # 执行子字符串扩展。返回从offset开始长度为length的$varname子字符串
 
-${variable#pattern}          # if the pattern matches the beginning of the variable's value, delete the shortest part that matches and return the rest
-${variable##pattern}         # if the pattern matches the beginning of the variable's value, delete the longest part that matches and return the rest
-${variable%pattern}          # if the pattern matches the end of the variable's value, delete the shortest part that matches and return the rest
-${variable%%pattern}         # if the pattern matches the end of the variable's value, delete the longest part that matches and return the rest
-${variable/pattern/string}   # the longest match to pattern in variable is replaced by string. Only the first match is replaced
-${variable//pattern/string}  # the longest match to pattern in variable is replaced by string. All matches are replaced
+${variable#pattern}          # 如果模式匹配变量值的开头，删除匹配的最短部分并返回其余部分
+${variable##pattern}         # 如果模式匹配变量值的开头，删除匹配的最长部分并返回其余部分
+${variable%pattern}          # 如果模式匹配变量值的结尾，删除匹配的最短部分并返回其余部分
+${variable%%pattern}         # 如果模式匹配变量值的结尾，删除匹配的最长部分并返回其余部分
+${variable/pattern/string}   # 变量中与模式匹配的最长部分被字符串替换。只替换第一个匹配
+${variable//pattern/string}  # 变量中与模式匹配的最长部分被字符串替换。替换所有匹配
 
-${#varname}                  # returns the length of the value of the variable as a character string
+${#varname}                  # 返回变量值作为字符串的长度
 
-*(patternlist)               # matches zero or more occurrences of the given patterns
-+(patternlist)               # matches one or more occurrences of the given patterns
-?(patternlist)               # matches zero or one occurrence of the given patterns
-@(patternlist)               # matches exactly one of the given patterns
-!(patternlist)               # matches anything except one of the given patterns
+*(patternlist)               # 匹配给定模式的零次或多次出现
++(patternlist)               # 匹配给定模式的一次或多次出现
+?(patternlist)               # 匹配给定模式的零次或一次出现
+@(patternlist)               # 完全匹配给定模式之一
+!(patternlist)               # 匹配除给定模式之一外的任何内容
 
-$(UNIX command)              # command substitution: runs the command and returns standard output
+$(UNIX command)              # 命令替换：运行命令并返回标准输出
 
-typeset -l <x>                 # makes variable local - <x> must be an interger
+typeset -l <x>                 # 使变量本地化 - <x>必须是整数
 
 ##############################################################################
-# FUNCTIONS
+# 函数
 ##############################################################################
 
 
-# The function refers to passed arguments by position (as if they were positional parameters), that is, $1, $2, and so forth.
-# $@ is equal to "$1" "$2"... "$N", where N is the number of positional parameters. $# holds the number of positional parameters.
+# 函数通过位置引用传递的参数（就像它们是位置参数一样），即$1、$2等等。
+# $@等于"$1" "$2"... "$N"，其中N是位置参数的数量。$#保存位置参数的数量。
 
 
 function functname() {
   shell commands
 }
 
-unset -f functname  # deletes a function definition
-declare -f          # displays all defined functions in your login session
+unset -f functname  # 删除函数定义
+declare -f          # 显示登录会话中定义的所有函数
 
 
 ##############################################################################
-# FLOW CONTROLS
+# 流程控制
 ##############################################################################
 
 
-statement1 && statement2  # and operator
-statement1 || statement2  # or operator
+statement1 && statement2  # 与运算符
+statement1 || statement2  # 或运算符
 
--a                        # and operator inside a test conditional expression
--o                        # or operator inside a test conditional expression
+-a                        # 测试条件表达式内的与运算符
+-o                        # 测试条件表达式内的或运算符
 
-# STRINGS
+# 字符串
 
-str1 == str2               # str1 matches str2
-str1 != str2               # str1 does not match str2
-str1 < str2                # str1 is less than str2 (alphabetically)
-str1 > str2                # str1 is greater than str2 (alphabetically)
-str1 \> str2               # str1 is sorted after str2
-str1 \< str2               # str1 is sorted before str2
--n str1                    # str1 is not null (has length greater than 0)
--z str1                    # str1 is null (has length 0)
+str1 == str2               # str1匹配str2
+str1 != str2               # str1不匹配str2
+str1 < str2                # str1小于str2（按字母顺序）
+str1 > str2                # str1大于str2（按字母顺序）
+str1 \> str2               # str1排在str2之后
+str1 \< str2               # str1排在str2之前
+-n str1                    # str1不为null（长度大于0）
+-z str1                    # str1为null（长度为0）
 
-# FILES
+# 文件
 
--a file                   # file exists or its compilation is successful
--d file                   # file exists and is a directory
--e file                   # file exists; same -a
--f file                   # file exists and is a regular file (i.e., not a directory or other special type of file)
--r file                   # you have read permission
--s file                   # file exists and is not empty
--w file                   # your have write permission
--x file                   # you have execute permission on file, or directory search permission if it is a directory
--N file                   # file was modified since it was last read
--O file                   # you own file
--G file                   # file's group ID matches yours (or one of yours, if you are in multiple groups)
-file1 -nt file2           # file1 is newer than file2
-file1 -ot file2           # file1 is older than file2
+-a file                   # 文件存在或其编译成功
+-d file                   # 文件存在且是目录
+-e file                   # 文件存在；与-a相同
+-f file                   # 文件存在且是常规文件（即不是目录或其他特殊类型的文件）
+-r file                   # 你有读权限
+-s file                   # 文件存在且不为空
+-w file                   # 你有写权限
+-x file                   # 你对文件有执行权限，或者如果它是目录则有目录搜索权限
+-N file                   # 文件自上次读取以来已修改
+-O file                   # 你拥有文件
+-G file                   # 文件的组ID与你的匹配（或者如果你在多个组中，与你的其中一个匹配）
+file1 -nt file2           # file1比file2新
+file1 -ot file2           # file1比file2旧
 
-# NUMBERS
+# 数字
 
--lt                       # less than
--le                       # less than or equal
--eq                       # equal
--ge                       # greater than or equal
--gt                       # greater than
--ne                       # not equal
+-lt                       # 小于
+-le                       # 小于或等于
+-eq                       # 等于
+-ge                       # 大于或等于
+-gt                       # 大于
+-ne                       # 不等于
 
 if condition
 then
@@ -382,101 +382,101 @@ until condition; do
 done
 
 ##############################################################################
-# COMMAND-LINE PROCESSING CYCLE
+# 命令行处理周期
 ##############################################################################
 
 
-# The default order for command lookup is functions, followed by built-ins, with scripts and executables last.
-# There are three built-ins that you can use to override this order: `command`, `builtin` and `enable`.
+# 命令查找的默认顺序是函数，然后是内置命令，最后是脚本和可执行文件。
+# 有三个内置命令可用于覆盖此顺序：`command`、`builtin`和`enable`。
 
-command  # removes alias and function lookup. Only built-ins and commands found in the search path are executed
-builtin  # looks up only built-in commands, ignoring functions and commands found in PATH
-enable   # enables and disables shell built-ins
+command  # 删除别名和函数查找。只执行内置命令和在搜索路径中找到的命令
+builtin  # 只查找内置命令，忽略函数和在PATH中找到的命令
+enable   # 启用和禁用shell内置命令
 
-eval     # takes arguments and run them through the command-line processing steps all over again
-
-
-##############################################################################
-# INPUT/OUTPUT REDIRECTORS
-##############################################################################
-
-
-cmd1|cmd2  # pipe; takes standard output of cmd1 as standard input to cmd2
-< file     # takes standard input from file
-> file     # directs standard output to file
->> file    # directs standard output to file; append to file if it already exists
->|file     # forces standard output to file even if noclobber is set
-n>|file    # forces output to file from file descriptor n even if noclobber is set
-<> file    # uses file as both standard input and standard output
-n<>file    # uses file as both input and output for file descriptor n
-n>file     # directs file descriptor n to file
-n<file     # takes file descriptor n from file
-n>>file    # directs file description n to file; append to file if it already exists
-n>&        # duplicates standard output to file descriptor n
-n<&        # duplicates standard input from file descriptor n
-n>&m       # file descriptor n is made to be a copy of the output file descriptor
-n<&m       # file descriptor n is made to be a copy of the input file descriptor
-&>file     # directs standard output and standard error to file
-<&-        # closes the standard input
->&-        # closes the standard output
-n>&-       # closes the ouput from file descriptor n
-n<&-       # closes the input from file descriptor n
-
-|tee <file># output command to both terminal and a file (-a to append to file)
+eval     # 获取参数并让它们再次通过命令行处理步骤
 
 
 ##############################################################################
-# PROCESS HANDLING
+# 输入/输出重定向
 ##############################################################################
 
 
-# To suspend a job, type CTRL+Z while it is running. You can also suspend a job with CTRL+Y.
-# This is slightly different from CTRL+Z in that the process is only stopped when it attempts to read input from terminal.
-# Of course, to interrupt a job, type CTRL+C.
+cmd1|cmd2  # 管道；将cmd1的标准输出作为cmd2的标准输入
+< file     # 从文件获取标准输入
+> file     # 将标准输出定向到文件
+>> file    # 将标准输出定向到文件；如果文件已存在则追加
+>|file     # 即使设置了noclobber也强制标准输出到文件
+n>|file    # 即使设置了noclobber也强制从文件描述符n输出到文件
+<> file    # 将文件用作标准输入和标准输出
+n<>file    # 将文件用作文件描述符n的输入和输出
+n>file     # 将文件描述符n定向到文件
+n<file     # 从文件获取文件描述符n
+n>>file    # 将文件描述符n定向到文件；如果文件已存在则追加
+n>&        # 将标准输出复制到文件描述符n
+n<&        # 从文件描述符n复制标准输入
+n>&m       # 文件描述符n成为输出文件描述符的副本
+n<&m       # 文件描述符n成为输入文件描述符的副本
+&>file     # 将标准输出和标准错误定向到文件
+<&-        # 关闭标准输入
+>&-        # 关闭标准输出
+n>&-       # 关闭来自文件描述符n的输出
+n<&-       # 关闭来自文件描述符n的输入
 
-myCommand &  # runs job in the background and prompts back the shell
-
-jobs         # lists all jobs (use with -l to see associated PID)
-
-fg           # brings a background job into the foreground
-fg %+        # brings most recently invoked background job
-fg %-        # brings second most recently invoked background job
-fg %N        # brings job number N
-fg %string   # brings job whose command begins with string
-fg %?string  # brings job whose command contains string
-
-kill -l               # returns a list of all signals on the system, by name and number
-kill PID              # terminates process with specified PID
-kill -s SIGKILL 4500  # sends a signal to force or terminate the process
-kill -15 913          # Ending PID 913 process with signal 15 (TERM)
-kill %1               # Where %1 is the number of job as read from 'jobs' command.
-
-ps           # prints a line of information about the current running login shell and any processes running under it
-ps -a        # selects all processes with a tty except session leaders
-
-trap cmd sig1 sig2  # executes a command when a signal is received by the script
-trap "" sig1 sig2   # ignores that signals
-trap - sig1 sig2    # resets the action taken when the signal is received to the default
-
-disown <PID|JID>    # removes the process from the list of jobs
-
-wait                # waits until all background jobs have finished
-sleep <number>      # wait # of seconds before continuing
-
-pv                  # display progress bar for data handling commands. often used with pipe like |pv
-yes                 # give yes response everytime an input is requested from script/process
+|tee <file># 将命令输出到终端和文件（-a追加到文件）
 
 
 ##############################################################################
-# TIPS & TRICKS
+# 进程处理
 ##############################################################################
 
 
-# set an alias
+# 要暂停作业，在运行时按CTRL+Z。你也可以用CTRL+Y暂停作业。
+# 这与CTRL+Z略有不同，因为进程只有在尝试从终端读取输入时才会停止。
+# 当然，要中断作业，请按CTRL+C。
+
+myCommand &  # 在后台运行作业并提示返回shell
+
+jobs         # 列出所有作业（使用-l查看相关PID）
+
+fg           # 将后台作业带到前台
+fg %+        # 带来最近调用的后台作业
+fg %-        # 带来第二个最近调用的后台作业
+fg %N        # 带来作业号N
+fg %string   # 带来命令以string开头的作业
+fg %?string  # 带来命令包含string的作业
+
+kill -l               # 返回系统上所有信号的列表，按名称和编号
+kill PID              # 终止具有指定PID的进程
+kill -s SIGKILL 4500  # 发送信号强制或终止进程
+kill -15 913          # 用信号15（TERM）结束PID 913进程
+kill %1               # 其中%1是从'jobs'命令读取的作业号
+
+ps           # 打印当前运行的登录shell和在其下运行的任何进程的信息行
+ps -a        # 选择所有带有tty的进程，除了会话领导者
+
+trap cmd sig1 sig2  # 当脚本接收到信号时执行命令
+trap "" sig1 sig2   # 忽略这些信号
+trap - sig1 sig2    # 将接收到信号时采取的动作重置为默认
+
+disown <PID|JID>    # 从作业列表中删除进程
+
+wait                # 等待直到所有后台作业完成
+sleep <number>      # 等待#秒后继续
+
+pv                  # 为数据处理命令显示进度条。通常与管道一起使用，如|pv
+yes                 # 每当脚本/进程请求输入时给出yes响应
+
+
+##############################################################################
+# 技巧和窍门
+##############################################################################
+
+
+# 设置别名
 cd; nano .bash_profile
-> alias gentlenode='ssh admin@gentlenode.com -p 3404'  # add your alias in .bash_profile
+> alias gentlenode='ssh admin@gentlenode.com -p 3404'  # 在.bash_profile中添加你的别名
 
-# to quickly go to a specific directory
+# 快速转到特定目录
 cd; nano .bashrc
 > shopt -s cdable_vars
 > export websites="/Users/mac/Documents/websites"
@@ -486,102 +486,102 @@ cd $websites
 
 
 ##############################################################################
-# DEBUGGING SHELL PROGRAMS
+# 调试Shell程序
 ##############################################################################
 
 
-bash -n scriptname  # don't run commands; check for syntax errors only
-set -o noexec       # alternative (set option in script)
+bash -n scriptname  # 不运行命令；只检查语法错误
+set -o noexec       # 替代方案（在脚本中设置选项）
 
-bash -v scriptname  # echo commands before running them
-set -o verbose      # alternative (set option in script)
+bash -v scriptname  # 在运行命令之前回显命令
+set -o verbose      # 替代方案（在脚本中设置选项）
 
-bash -x scriptname  # echo commands after command-line processing
-set -o xtrace       # alternative (set option in script)
+bash -x scriptname  # 在命令行处理后回显命令
+set -o xtrace       # 替代方案（在脚本中设置选项）
 
-trap 'echo $varname' EXIT  # useful when you want to print out the values of variables at the point that your script exits
+trap 'echo $varname' EXIT  # 当你想在脚本退出时打印变量值时很有用
 
 function errtrap {
   es=$?
   echo "ERROR line $1: Command exited with status $es."
 }
 
-trap 'errtrap $LINENO' ERR  # is run whenever a command in the surrounding script or function exits with non-zero status
+trap 'errtrap $LINENO' ERR  # 当周围脚本或函数中的命令以非零状态退出时运行
 
 function dbgtrap {
   echo "badvar is $badvar"
 }
 
-trap dbgtrap DEBUG  # causes the trap code to be executed before every statement in a function or script
-# ...section of code in which the problem occurs...
-trap - DEBUG  # turn off the DEBUG trap
+trap dbgtrap DEBUG  # 使trap代码在函数或脚本中的每个语句之前执行
+# ...出现问题的代码段...
+trap - DEBUG  # 关闭DEBUG trap
 
 function returntrap {
   echo "A return occurred"
 }
 
-trap returntrap RETURN  # is executed each time a shell function or a script executed with the . or source commands finishes executing
+trap returntrap RETURN  # 每次shell函数或用.或source命令执行的脚本执行完毕时执行
 
 ##############################################################################
-# COLORS AND BACKGROUNDS
+# 颜色和背景
 ##############################################################################
-# note: \e or \x1B also work instead of \033
-# Reset
-Color_Off='\033[0m' # Text Reset
+# 注意：\e或\x1B也可以代替\033
+# 重置
+Color_Off='\033[0m' # 文本重置
 
-# Regular Colors
-Black='\033[0;30m'  # Black
-Red='\033[0;31m'    # Red
-Green='\033[0;32m'  # Green
-Yellow='\033[0;33m' # Yellow
-Blue='\033[0;34m'   # Blue
-Purple='\033[0;35m' # Purple
-Cyan='\033[0;36m'   # Cyan
-White='\033[0;97m'  # White
+# 常规颜色
+Black='\033[0;30m'  # 黑色
+Red='\033[0;31m'    # 红色
+Green='\033[0;32m'  # 绿色
+Yellow='\033[0;33m' # 黄色
+Blue='\033[0;34m'   # 蓝色
+Purple='\033[0;35m' # 紫色
+Cyan='\033[0;36m'   # 青色
+White='\033[0;97m'  # 白色
 
-# Additional colors
-LGrey='\033[0;37m'  # Light Gray
-DGrey='\033[0;90m'  # Dark Gray
-LRed='\033[0;91m'   # Light Red
-LGreen='\033[0;92m' # Light Green
-LYellow='\033[0;93m'# Light Yellow
-LBlue='\033[0;94m'  # Light Blue
-LPurple='\033[0;95m'# Light Purple
-LCyan='\033[0;96m'  # Light Cyan
+# 附加颜色
+LGrey='\033[0;37m'  # 浅灰色
+DGrey='\033[0;90m'  # 深灰色
+LRed='\033[0;91m'   # 浅红色
+LGreen='\033[0;92m' # 浅绿色
+LYellow='\033[0;93m'# 浅黄色
+LBlue='\033[0;94m'  # 浅蓝色
+LPurple='\033[0;95m'# 浅紫色
+LCyan='\033[0;96m'  # 浅青色
 
 
-# Bold
-BBlack='\033[1;30m' # Black
-BRed='\033[1;31m'   # Red
-BGreen='\033[1;32m' # Green
-BYellow='\033[1;33m'# Yellow
-BBlue='\033[1;34m'  # Blue
-BPurple='\033[1;35m'# Purple
-BCyan='\033[1;36m'  # Cyan
-BWhite='\033[1;37m' # White
+# 粗体
+BBlack='\033[1;30m' # 黑色
+BRed='\033[1;31m'   # 红色
+BGreen='\033[1;32m' # 绿色
+BYellow='\033[1;33m'# 黄色
+BBlue='\033[1;34m'  # 蓝色
+BPurple='\033[1;35m'# 紫色
+BCyan='\033[1;36m'  # 青色
+BWhite='\033[1;37m' # 白色
 
-# Underline
-UBlack='\033[4;30m' # Black
-URed='\033[4;31m'   # Red
-UGreen='\033[4;32m' # Green
-UYellow='\033[4;33m'# Yellow
-UBlue='\033[4;34m'  # Blue
-UPurple='\033[4;35m'# Purple
-UCyan='\033[4;36m'  # Cyan
-UWhite='\033[4;37m' # White
+# 下划线
+UBlack='\033[4;30m' # 黑色
+URed='\033[4;31m'   # 红色
+UGreen='\033[4;32m' # 绿色
+UYellow='\033[4;33m'# 黄色
+UBlue='\033[4;34m'  # 蓝色
+UPurple='\033[4;35m'# 紫色
+UCyan='\033[4;36m'  # 青色
+UWhite='\033[4;37m' # 白色
 
-# Background
-On_Black='\033[40m' # Black
-On_Red='\033[41m'   # Red
-On_Green='\033[42m' # Green
-On_Yellow='\033[43m'# Yellow
-On_Blue='\033[44m'  # Blue
-On_Purple='\033[45m'# Purple
-On_Cyan='\033[46m'  # Cyan
-On_White='\033[47m' # White
+# 背景
+On_Black='\033[40m' # 黑色
+On_Red='\033[41m'   # 红色
+On_Green='\033[42m' # 绿色
+On_Yellow='\033[43m'# 黄色
+On_Blue='\033[44m'  # 蓝色
+On_Purple='\033[45m'# 紫色
+On_Cyan='\033[46m'  # 青色
+On_White='\033[47m' # 白色
 
-# Example of usage
+# 使用示例
 echo -e "${Green}This is GREEN text${Color_Off} and normal text"
 echo -e "${Red}${On_White}This is Red test on White background${Color_Off}"
-# option -e is mandatory, it enable interpretation of backslash escapes
+# 选项-e是必须的，它启用反斜杠转义的解释
 printf "${Red} This is red \n"

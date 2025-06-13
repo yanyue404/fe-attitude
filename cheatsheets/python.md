@@ -1,165 +1,165 @@
 # Python
 
-- Python is an interpreted, high-level and general-purpose, dynamically typed programming language
+- Python是一种解释型、高级通用、动态类型的编程语言
 
-- It is also Object oriented, modular oriented and a scripting language.
+- 它也是面向对象、模块化和脚本语言。
 
-- In Python, everything is considered as an Object.
+- 在Python中，一切都被视为对象。
 
-- A python file has an extension of .py
+- Python文件的扩展名为.py
 
-- Python follows Indentation to separate code blocks instead of flower brackets({}).
+- Python使用缩进来分隔代码块，而不是花括号({})。
 
-- We can run a python file by the following command in cmd(Windows) or shell(mac/linux).
+- 我们可以通过以下命令在cmd(Windows)或shell(mac/linux)中运行Python文件。
 
-  `$ python <filename.py>` or `$ python3 <filename.py>`
+  `$ python <filename.py>` 或 `$ python3 <filename.py>`
 
-#### By default, python doesn't require any imports to run a python file.
+#### 默认情况下，Python不需要任何导入就可以运行Python文件。
 
-## Create and execute a program
+## 创建和执行程序
 
-1. Open up a terminal/cmd
-1. Create the program: nano/cat > nameProgram.py
-1. Write the program and save it
+1. 打开终端/cmd
+1. 创建程序：nano/cat > nameProgram.py
+1. 编写程序并保存
 1. python nameProgram.py
 
 <br>
 
-### Basic Datatypes
+### 基本数据类型
 
-| Data Type | Description                                |
-| --------- | ------------------------------------------ |
-| int       | Integer values [0, 1, -2, 3]               |
-| float     | Floating point values [0.1, 4.532, -5.092] |
-| char      | Characters [a, b, @, !, `]                 |
-| str       | Strings [abc, AbC, A@B, sd!, `asa]         |
-| bool      | Boolean Values [True, False]               |
-| complex   | Complex numbers [2+3j, 4-1j]               |
-
-<br>
-
-## Keywords
+| 数据类型 | 描述                              |
+| -------- | --------------------------------- |
+| int      | 整数值 [0, 1, -2, 3]              |
+| float    | 浮点数值 [0.1, 4.532, -5.092]     |
+| char     | 字符 [a, b, @, !, `]              |
+| str      | 字符串 [abc, AbC, A@B, sd!, `asa] |
+| bool     | 布尔值 [True, False]              |
+| complex  | 复数 [2+3j, 4-1j]                 |
 
 <br>
 
-- As of python3.8 there are 35 keywords
-
-| Keyword  | Description                                                 | Category                 |
-| -------- | ----------------------------------------------------------- | ------------------------ | --- | ---------------- |
-| True     | Boolean value for not False or 1                            | Value Keyword            |
-| False    | Boolean Value for not True or 0                             | Value Keyword            |
-| None     | No Value                                                    | Value keyword            |
-| and      | returns true if both (oprand) are true (other language && ) | Operator keyword         |
-| or       | returns true of either operands is true (other language     |                          | )   | Operator keyword |
-| in       | returns true if word is in iterator                         | Operator keyword         |
-| is       | returns true if id of variables are same                    | Operator keyword         |
-| not      | returns opposite Boolean value                              | Operator Keyword         |
-| if       | get into block if expression is true                        | conditional              |
-| elif     | for more than 1 if checks                                   | conditional              |
-| else     | this block will be executed if condition is false           | conditional              |
-| for      | used for looping                                            | iteration                |
-| while    | used for looping                                            | iteration                |
-| break    | get out of loop                                             | iteration                |
-| continue | skip for specific condition                                 | iteration                |
-| def      | make user defined function                                  | structure                |
-| class    | make user defined classes                                   | structure                |
-| lambda   | make anonymous function                                     | structure                |
-| with     | execute code within context manager's scope                 | structure                |
-| as       | alias for something                                         | structure                |
-| pass     | used for making empty structures(declaration)               | structure                |
-| return   | get value(s) from function, get out of function             | returning keyword        |
-| yield    | yields values instead of returning (are called generators)  | returning keyword        |
-| import   | import libraries/modules/packages                           | import                   |
-| from     | import specific function/classes from modules/packages      | import                   |
-| try      | this block will be tried to get executed                    | exception handling       |
-| except   | is any exception/error has occurred it'll be executed       | exception handling       |
-| finally  | It'll be executed no matter exception occurs or not         | exception handling       |
-| raise    | throws any specific error/exception                         | exception handling       |
-| assert   | throws an AssertionError if condition is false              | exception handling       |
-| async    | used to define asynchronous functions/co-routines           | asynchronous programming |
-| await    | used to specify a point when control is taken back          | asynchronous programming |
-| del      | deletes/unsets any user defined data                        | variable handling        |
-| global   | used to access variables defined outside of function        | variable handling        |
-| nonlocal | modify variables from different scopes                      | variable handling        |
+## 关键字
 
 <br>
 
-## Operators
+- 截至python3.8，共有35个关键字
+
+| 关键字   | 描述                                            | 类别         |
+| -------- | ----------------------------------------------- | ------------ | --- | ------------ |
+| True     | 布尔值，表示不是False或1                        | 值关键字     |
+| False    | 布尔值，表示不是True或0                         | 值关键字     |
+| None     | 无值                                            | 值关键字     |
+| and      | 如果两个操作数都为真则返回真 (其他语言中的 && ) | 操作符关键字 |
+| or       | 如果任一操作数为真则返回真 (其他语言中的        |              | )   | 操作符关键字 |
+| in       | 如果单词在迭代器中则返回真                      | 操作符关键字 |
+| is       | 如果变量的id相同则返回真                        | 操作符关键字 |
+| not      | 返回相反的布尔值                                | 操作符关键字 |
+| if       | 如果表达式为真则进入代码块                      | 条件语句     |
+| elif     | 用于多个if检查                                  | 条件语句     |
+| else     | 如果条件为假则执行此代码块                      | 条件语句     |
+| for      | 用于循环                                        | 迭代         |
+| while    | 用于循环                                        | 迭代         |
+| break    | 跳出循环                                        | 迭代         |
+| continue | 跳过特定条件                                    | 迭代         |
+| def      | 创建用户定义的函数                              | 结构         |
+| class    | 创建用户定义的类                                | 结构         |
+| lambda   | 创建匿名函数                                    | 结构         |
+| with     | 在上下文管理器的作用域内执行代码                | 结构         |
+| as       | 为某物起别名                                    | 结构         |
+| pass     | 用于创建空结构(声明)                            | 结构         |
+| return   | 从函数获取值，退出函数                          | 返回关键字   |
+| yield    | 产生值而不是返回 (被称为生成器)                 | 返回关键字   |
+| import   | 导入库/模块/包                                  | 导入         |
+| from     | 从模块/包导入特定函数/类                        | 导入         |
+| try      | 此代码块将尝试执行                              | 异常处理     |
+| except   | 如果发生任何异常/错误，它将被执行               | 异常处理     |
+| finally  | 无论是否发生异常都会执行                        | 异常处理     |
+| raise    | 抛出任何特定的错误/异常                         | 异常处理     |
+| assert   | 如果条件为假则抛出AssertionError                | 异常处理     |
+| async    | 用于定义异步函数/协程                           | 异步编程     |
+| await    | 用于指定控制权被收回的点                        | 异步编程     |
+| del      | 删除/取消设置任何用户定义的数据                 | 变量处理     |
+| global   | 用于访问在函数外定义的变量                      | 变量处理     |
+| nonlocal | 修改不同作用域中的变量                          | 变量处理     |
 
 <br>
 
-| Operator | Description                                                                    |
-| -------- | ------------------------------------------------------------------------------ | --- |
-| ( )      | grouping parenthesis, function call, tuple declaration                         |
-| [ ]      | array indexing, also declaring lists etc.                                      |
-| !        | relational not, complement, ! a yields true or false                           |
-| ~        | bitwise not, ones complement, ~a                                               |
-| \-       | unary minus, - a                                                               |
-| \+       | unary plus, + a                                                                |
-| \*       | multiply, a \* b                                                               |
-| /        | divide, a / b                                                                  |
-| %        | modulo, a % b                                                                  |
-| \+       | add, a + b                                                                     |
-| \-       | subtract, a - b                                                                |
-| <<       | shift left, left operand is shifted left by right operand bits (multiply by 2) |
-| \>>      | shift right, left operand is shifted right by right operand bits (divide by 2) |
-| <        | less than, result is true or false, a %lt; b                                   |
-| <=       | less than or equal, result is true or false, a <= b                            |
-| \>       | greater than, result is true or false, a > b                                   |
-| \>=      | greater than or equal, result is true or false, a >= b                         |
-| ==       | equal, result is true or false, a == b                                         |
-| !=       | not equal, result is true or false, a != b                                     |
-| &        | bitwise and, a & b                                                             |
-| ^        | bitwise exclusive or XOR, a ^ b                                                |
-| \|       | bitwise or, a                                                                  | b   |
-| &&, and  | relational and, result is true or false, a < b && c >= d                       |
-| \|\|, or | relational or, result is true or false, a < b \|\| c >= d                      |
-| =        | store or assignment                                                            |
-| +=       | add and store                                                                  |
-| -=       | subtract and store                                                             |
-| \*=      | multiply and store                                                             |
-| /=       | divide and store                                                               |
-| %=       | modulo and store                                                               |
-| <<=      | shift left and store                                                           |
-| \>>=     | shift right and store                                                          |
-| &=       | bitwise and and store                                                          |
-| ^=       | bitwise exclusive or and store                                                 |
-| \|=      | bitwise or and store                                                           |
-| ,        | separator as in ( y=x,z=++x )                                                  |
+## 操作符
 
-### Basic Data Structures
+<br>
 
-### List
+| 操作符   | 描述                                       |
+| -------- | ------------------------------------------ | --- |
+| ( )      | 分组括号，函数调用，元组声明               |
+| [ ]      | 数组索引，也用于声明列表等                 |
+| !        | 关系非，补码，! a 产生真或假               |
+| ~        | 按位非，一的补码，~a                       |
+| \-       | 一元减号，- a                              |
+| \+       | 一元加号，+ a                              |
+| \*       | 乘法，a \* b                               |
+| /        | 除法，a / b                                |
+| %        | 取模，a % b                                |
+| \+       | 加法，a + b                                |
+| \-       | 减法，a - b                                |
+| <<       | 左移，左操作数向左移动右操作数位数 (乘以2) |
+| \>>      | 右移，左操作数向右移动右操作数位数 (除以2) |
+| <        | 小于，结果为真或假，a %lt; b               |
+| <=       | 小于等于，结果为真或假，a <= b             |
+| \>       | 大于，结果为真或假，a > b                  |
+| \>=      | 大于等于，结果为真或假，a >= b             |
+| ==       | 等于，结果为真或假，a == b                 |
+| !=       | 不等于，结果为真或假，a != b               |
+| &        | 按位与，a & b                              |
+| ^        | 按位异或XOR，a ^ b                         |
+| \|       | 按位或，a                                  | b   |
+| &&, and  | 关系与，结果为真或假，a < b && c >= d      |
+| \|\|, or | 关系或，结果为真或假，a < b \|\| c >= d    |
+| =        | 存储或赋值                                 |
+| +=       | 加法并存储                                 |
+| -=       | 减法并存储                                 |
+| \*=      | 乘法并存储                                 |
+| /=       | 除法并存储                                 |
+| %=       | 取模并存储                                 |
+| <<=      | 左移并存储                                 |
+| \>>=     | 右移并存储                                 |
+| &=       | 按位与并存储                               |
+| ^=       | 按位异或并存储                             |
+| \|=      | 按位或并存储                               |
+| ,        | 分隔符，如 ( y=x,z=++x )                   |
 
-- List is a collection which is ordered and changeable. Allows duplicate members.
+### 基本数据结构
 
-- Lists are created using square brackets:
+### 列表
+
+- 列表是有序且可变的集合。允许重复成员。
+
+- 列表使用方括号创建：
 
 ```python
 thislist = ["apple", "banana", "cherry"]
 ```
 
-- List items are ordered, changeable, and allow duplicate values.
+- 列表项是有序的、可变的，并且允许重复值。
 
-- List items are indexed, the first item has index `[0]`, the second item has index `[1]` etc.
+- 列表项被索引，第一项的索引为`[0]`，第二项的索引为`[1]`，依此类推。
 
-- The list is changeable, meaning that we can change, add, and remove items in a list after it has been created.
+- 列表是可变的，这意味着我们可以在列表创建后更改、添加和删除列表中的项目。
 
-- To determine how many items a list has, use the `len()` function.
+- 要确定列表有多少项，请使用`len()`函数。
 
-- A list can contain different data types:
+- 列表可以包含不同的数据类型：
 
 ```python
 list1 = ["abc", 34, True, 40, "male"]
 ```
 
-- It is also possible to use the list() constructor when creating a new list
+- 创建新列表时也可以使用list()构造函数
 
 ```python
-thislist = list(("apple", "banana", "cherry"))  # note the double round-brackets
+thislist = list(("apple", "banana", "cherry"))  # 注意双圆括号
 ```
 
-- pop() function removes the last value in the given list by default.
+- pop()函数默认删除给定列表中的最后一个值。
 
   ```python
   thislist = ["apple", "banana", "cherry"]
@@ -169,71 +169,71 @@ thislist = list(("apple", "banana", "cherry"))  # note the double round-brackets
 
   ```
 
-### Tuple
+### 元组
 
-- Tuple is a collection which is ordered and unchangeable. Allows duplicate members.
-- A tuple is a collection which is ordered and unchangeable.
-- Tuples are written with round brackets.
+- 元组是有序且不可变的集合。允许重复成员。
+- 元组是有序且不可变的集合。
+- 元组用圆括号书写。
 
 ```python
 thistuple = ("apple", "banana", "cherry")
 ```
 
-- Tuple items are ordered, unchangeable, and allow duplicate values.
-- Tuple items are indexed, the first item has index `[0]`, the second item has index `[1]` etc.
-- When we say that tuples are ordered, it means that the items have a defined order, and that order will not change.
+- 元组项是有序的、不可变的，并且允许重复值。
+- 元组项被索引，第一项的索引为`[0]`，第二项的索引为`[1]`，依此类推。
+- 当我们说元组是有序的时，意思是项目有定义的顺序，这个顺序不会改变。
 
-- Tuples are unchangeable, meaning that we cannot change, add or remove items after the tuple has been created.
-- Since tuple are indexed, tuples can have items with the same value:
-- Tuples allow duplicate values:
+- 元组是不可变的，这意味着我们不能在元组创建后更改、添加或删除项目。
+- 由于元组是索引的，元组可以有相同值的项目：
+- 元组允许重复值：
 
 ```python
 thistuple = ("apple", "banana", "cherry", "apple", "cherry")
 ```
 
-- To determine how many items a tuple has, use the `len()`function:
+- 要确定元组有多少项，请使用`len()`函数：
 
 ```python
 thistuple = ("apple", "banana", "cherry")
 print(len(thistuple))
 ```
 
-- To create a tuple with only one item, you have to add a comma after the item, otherwise Python will not recognize it as a tuple.
+- 要创建只有一个项目的元组，你必须在项目后添加逗号，否则Python不会将其识别为元组。
 
 ```python
 thistuple = ("apple",)
 print(type(thistuple))
 
-# NOT a tuple
+# 不是元组
 thistuple = ("apple")
 print(type(thistuple))
 ```
 
-- It is also possible to use the tuple() constructor to make a tuple.
+- 也可以使用tuple()构造函数来创建元组。
 
 ```python
 
-thistuple = tuple(("apple", "banana", "cherry")) # note the double round-brackets
+thistuple = tuple(("apple", "banana", "cherry")) # 注意双圆括号
 print(thistuple)
 ```
 
-### Set
+### 集合
 
-- Set is a collection which is unordered and unindexed. No duplicate members.
-- A set is a collection which is both unordered and unindexed.
+- 集合是无序且无索引的集合。无重复成员。
+- 集合是既无序又无索引的集合。
 
 ```python
 thisset = {"apple", "banana", "cherry"}
 ```
 
-- Set items are unordered, unchangeable, and do not allow duplicate values.
-- Unordered means that the items in a set do not have a defined order.
+- 集合项是无序的、不可变的，并且不允许重复值。
+- 无序意味着集合中的项目没有定义的顺序。
 
-- Set items can appear in a different order every time you use them, and cannot be referred to by index or key.
+- 集合项每次使用时可能以不同的顺序出现，不能通过索引或键引用。
 
-- Sets are unchangeable, meaning that we cannot change the items after the set has been created.
-- Duplicate values will be ignored.
-- To determine how many items a set has, use the `len()` method.
+- 集合是不可变的，这意味着我们不能在集合创建后更改项目。
+- 重复值将被忽略。
+- 要确定集合有多少项，请使用`len()`方法。
 
 ```python
 thisset = {"apple", "banana", "cherry"}
@@ -241,7 +241,7 @@ thisset = {"apple", "banana", "cherry"}
 print(len(thisset))
 ```
 
-- Set items can be of any data type:
+- 集合项可以是任何数据类型：
 
 ```python
 set1 = {"apple", "banana", "cherry"}
@@ -250,13 +250,13 @@ set3 = {True, False, False}
 set4 = {"abc", 34, True, 40, "male"}
 ```
 
-- It is also possible to use the `set()` constructor to make a set.
+- 也可以使用`set()`构造函数来创建集合。
 
 ```python
-thisset = set(("apple", "banana", "cherry")) # note the double round-brackets
+thisset = set(("apple", "banana", "cherry")) # 注意双圆括号
 ```
 
-- frozenset() is just an immutable version of Set. While elements of a set can be modified at any time, elements of the frozen set remain the same after creation.
+- frozenset()只是集合的不可变版本。虽然集合的元素可以随时修改，但冻结集合的元素在创建后保持不变。
 
 ```python
 set1 = {"apple", "banana", "cherry"}
@@ -264,11 +264,11 @@ frzset=frozenset(set1)
 print(frzset)
 ```
 
-### Dictionary
+### 字典
 
-- Dictionary is a collection which is unordered and changeable. No duplicate members.
-- Dictionaries are used to store data values in key:value pairs.
-- Dictionaries are written with curly brackets, and have keys and values:
+- 字典是无序且可变的集合。无重复成员。
+- 字典用于存储键:值对中的数据值。
+- 字典用花括号书写，并具有键和值：
 
 ```python
 thisdict = {
@@ -278,7 +278,7 @@ thisdict = {
 }
 ```
 
-- Dictionary items are presented in key:value pairs, and can be referred to by using the key name.
+- 字典项以键:值对的形式呈现，可以通过使用键名来引用。
 
 ```python
 thisdict = {
@@ -289,16 +289,16 @@ thisdict = {
 print(thisdict["brand"])
 ```
 
-- Dictionaries are changeable, meaning that we can change, add or remove items after the dictionary has been created.
-- Dictionaries cannot have two items with the same key.
-- Duplicate values will overwrite existing values.
-- To determine how many items a dictionary has, use the `len()` function.
+- 字典是可变的，这意味着我们可以在字典创建后更改、添加或删除项目。
+- 字典不能有两个具有相同键的项目。
+- 重复值将覆盖现有值。
+- 要确定字典有多少项，请使用`len()`函数。
 
 ```python
 print(len(thisdict))
 ```
 
-- The values in dictionary items can be of any data type
+- 字典项中的值可以是任何数据类型
 
 ```python
 thisdict = {
@@ -309,7 +309,7 @@ thisdict = {
 }
 ```
 
-- pop() Function is used to remove a specific value from a dictionary. You can only use key bot the value. Unlike Lists you have to give a value to this function
+- pop()函数用于从字典中删除特定值。你只能使用键而不能使用值。与列表不同，你必须给这个函数一个值
 
   ```python
    car = {
@@ -324,7 +324,7 @@ thisdict = {
   print(car)#{'brand': 'Ford', 'year': 1964}
   ```
 
-### Conditional branching
+### 条件分支
 
 ```python
     if condition:
@@ -335,17 +335,17 @@ thisdict = {
         pass
 ```
 
-### Loops
+### 循环
 
-Python has two primitive loop commands:
+Python有两个原始的循环命令：
 
-1. while loops
-2. for loops
+1. while循环
+2. for循环
 
-#### While loop
+#### While循环
 
-- With the `while` loop we can execute a set of statements as long as a condition is true.
-- Example: Print i as long as i is less than 6
+- 使用`while`循环，只要条件为真，我们就可以执行一组语句。
+- 示例：只要i小于6就打印i
 
 ```python
 i = 1
@@ -354,19 +354,19 @@ while i < 6:
   i += 1
 ```
 
-- The while loop requires relevant variables to be ready, in this example we need to define an indexing variable, i, which we set to 1.
-- With the `break` statement we can stop the loop even if the while condition is true
-- With the continue statement we can stop the current iteration, and continue with the next.
+- while循环需要准备相关变量，在这个例子中我们需要定义一个索引变量i，我们将其设置为1。
+- 使用`break`语句，即使while条件为真，我们也可以停止循环
+- 使用continue语句，我们可以停止当前迭代，并继续下一个迭代。
 
-- With the else statement we can run a block of code once when the condition no longer is true.
+- 使用else语句，我们可以在条件不再为真时运行一个代码块。
 
-#### For loop
+#### For循环
 
-- A for loop is used for iterating over a sequence (that is either a list, a tuple, a dictionary, a set, or a string).
+- for循环用于迭代序列（即列表、元组、字典、集合或字符串）。
 
-- This is less like the for keyword in other programming languages, and works more like an iterator method as found in other object-orientated programming languages.
+- 这不像其他编程语言中的for关键字，更像其他面向对象编程语言中的迭代器方法。
 
-- With the for loop we can execute a set of statements, once for each item in a list, tuple, set etc.
+- 使用for循环，我们可以为列表、元组、集合等中的每个项目执行一组语句。
 
 ```python
 fruits = ["apple", "banana", "cherry"]
@@ -374,14 +374,14 @@ for x in fruits:
   print(x)
 ```
 
-- The for loop does not require an indexing variable to set beforehand.
-- To loop through a set of code a specified number of times, we can use the range() function.
-- The range() function returns a sequence of numbers, starting from 0 by default, and increments by 1 (by default), and ends at a specified number.
-- The range() function defaults to increment the sequence by 1, however it is possible to specify the increment value by adding a third parameter: range(2, 30, 3).
-- The else keyword in a for loop specifies a block of code to be executed when the loop is finished.
-  A nested loop is a loop inside a loop.
+- for循环不需要预先设置索引变量。
+- 要循环执行一组代码指定次数，我们可以使用range()函数。
+- range()函数返回一个数字序列，默认从0开始，默认递增1，并在指定数字处结束。
+- range()函数默认将序列递增1，但是可以通过添加第三个参数来指定递增值：range(2, 30, 3)。
+- for循环中的else关键字指定在循环完成时要执行的代码块。
+  嵌套循环是循环内的循环。
 
-- The "inner loop" will be executed one time for each iteration of the "outer loop":
+- "内部循环"将为"外部循环"的每次迭代执行一次：
 
 ```python
 adj = ["red", "big", "tasty"]
@@ -392,26 +392,26 @@ for x in adj:
     print(x, y)
 ```
 
-- for loops cannot be empty, but if you for some reason have a for loop with no content, put in the pass statement to avoid getting an error.
+- for循环不能为空，但如果由于某种原因你有一个没有内容的for循环，请放入pass语句以避免出错。
 
 ```python
 for x in [0, 1, 2]:
   pass
 ```
 
-### Function definition
+### 函数定义
 
 ```python
 def function_name():
     return
 ```
 
-### Function call
+### 函数调用
 
 ```python
 function_name()
 ```
 
-- We need not to specify the return type of the function.
-- Functions by default return `None`
-- We can return any datatype.
+- 我们不需要指定函数的返回类型。
+- 函数默认返回`None`
+- 我们可以返回任何数据类型。

@@ -138,6 +138,7 @@
 - [YourWare.so](https://www.yourware.so/) - 网站托管服务
 - [Vercel](https://vercel.com/) - 专注前端部署的托管平台 (支持使用 Next.js 等框架进行服务器端渲染 (SSR)，可以部署 Node.js 项目)
 - 腾讯云 EdgeOne Pages - 腾讯云静态网站托管
+- [sound.jp](https://sound.jp/) - 免费 1G 空间，使用 FTP 连接上传文件
 
 ## Chrome 插件
 
