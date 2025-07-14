@@ -13,12 +13,11 @@
 
 - [豆包 AI](https://www.doubao.com/chat/) 字节 免费
 - [Kimi 智能助手](https://kimi.moonshot.cn/)
-- [文心一言](https://yiyan.baidu.com/) 百度
 - [元宝](https://yuanbao.tencent.com/chat) 腾讯
 - [智谱清言](https://chatglm.cn/) 智谱 A
 - [讯飞星火](https://xinghuo.xfyun.cn/)
 - [通义千问](https://tongyi.aliyun.com/qianwen/)
-- [**deepseek**](https://chat.deepseek.com/)
+- [**deepseek**](https://chat.deepseek.com/) [deepseek 开放平台](https://platform.deepseek.com/usage)
 
 ### 编程
 

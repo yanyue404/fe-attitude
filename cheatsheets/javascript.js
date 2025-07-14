@@ -65,7 +65,7 @@ arr.length                                           // 反映数组中元素的
 arr.copyWithin(target, start, end)                   // 在数组内复制一系列数组元素。
 arr.fill(value, start, end)                          // 用静态值填充数组从开始索引到结束索引的所有元素。
 arr.pop()                                            // 从数组中删除最后一个元素并返回该元素。
-arr.flat()                                           // 将嵌套数组合并为单个数组
+arr.flat(depth)                                      // 将嵌套数组合并为单个数组，depth 参数可选：指定要提取嵌套数组的结构深度，默认值为 1。
 arr.push([element1[, ...[, elementN]]])              // 向数组末尾添加一个或多个元素，并返回数组的新长度。
 arr.reverse()                                        // 就地反转数组元素的顺序——第一个变成最后一个，最后一个变成第一个。
 arr.shift()                                          // 从数组中删除第一个元素并返回该元素。
@@ -90,8 +90,11 @@ arr.every(callback[, thisArg])                       // 如果此数组中的每
 arr.filter(callback[, thisArg])                      // 创建一个新数组，其中包含通过提供的过滤函数测试的此数组的所有元素。
 arr.find(callback[, thisArg])                        // 返回数组中满足提供的测试函数的第一个元素的值，如果未找到则返回 undefined。
 arr.findIndex(callback[, thisArg])                   // 返回数组中满足提供的测试函数的第一个元素的索引，如果未找到则返回 -1。
+// eg：const arr1 = [1, 2, 1];
+// const result = arr1.flatMap((num) => (num === 2 ? [2, 2] : 1));  
+// console.log(result);
+// Expected output: Array [1, 2, 2, 1]
 arr.flatMap(callback[, thisArg])                     // 对数组中的每个元素应用回调函数并将结果平铺到新数组中
-arr.group()                                          // 根据回调的返回值对数组元素进行分组。
 arr.forEach(callback[, thisArg])                     // 为数组中的每个元素调用函数。
 arr.keys()                                           // 返回包含数组中每个索引的键的新 Array Iterator。
 arr.map(callback[, initialValue])                    // 创建一个新数组，其中包含对此数组中每个元素调用提供函数的结果。

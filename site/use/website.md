@@ -42,6 +42,7 @@
 
 ## 常用网站
 
+- [**github trending**](https://github.com/trending) See what the GitHub community is most excited about today.
 - [**阮一峰的网络日志**](https://github.com/ruanyf/weekly) - 科技爱好者周刊
 - [**湾区日报**](https://www.wanqu.co/)
 - [**InfoQ**](https://www.infoq.cn/topic/Front-end) - 文章的质量比一般网站的高不少
@@ -77,10 +78,10 @@
   - [codesandbox](https://codesandbox.io/u/yanyue404) - 在线代码编辑器
   - [codepen](https://codepen.io/) - 前端代码分享社区
   - [**jsfiddle**](https://jsfiddle.net/) - 在线编辑和运行代码
+- [**astexplorer**](https://github.com/fkling/astexplorer) - 在线 AST 生成器 https://astexplorer.net/
 - [**30 seconds of code**](https://30secondsofcode.org/) - 收集了许多有用的代码小片段
 - [**carbon**](https://carbon.now.sh/) - 在线代码生成图片
 - [**JavaScript Visualizer**](https://tylermcginnis.com/javascript-visualizer/) - 可视化 **ES5** JavaScript 执行
-- [**astexplorer**](https://github.com/fkling/astexplorer) - 一个在线 AST 生成器 https://astexplorer.net/
 - [**loupe**](https://github.com/latentflip/loupe) - 可视化的 JavaScript 实时运行，理解异步
 - [**visualgo**](https://visualgo.net/zh/) - 数据结构，算法可视化
 - [**RMind**](https://github.com/Mongkii/RMind) - 基于 React Hooks 与 flex 布局的思维导图
