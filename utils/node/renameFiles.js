@@ -41,8 +41,12 @@ async function renameFilesInFolder(folderPath, renameRule) {
 
 // 示例调用
 ;(async () => {
-  const folderPath = './example-folder' // 替换为你的文件夹路径
-  const renameRule = (oldName, index) => `new_name_${index}${path.extname(oldName)}` // 重命名规则
+  const folderPath = './xiu' // 替换为你的文件夹路径
+  const renameRule = (oldName, index) => {
+    const extname = path.extname(oldName)
+    const basename = path.basename(oldName, extname)
+    return `${basename}_new${extname}`
+  }
 
   await renameFilesInFolder(folderPath, renameRule)
 })()
