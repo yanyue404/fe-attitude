@@ -294,6 +294,7 @@
 - [pxhere](https://pxhere.com/) - 免费 CC0 图片
 - [ISO Republic](https://isorepublic.com/) - 免费高质量图片
 - [泼辣有图](https://www.polaxiong.com/) - 中文图片素材
+- [applewalls](https://www.applewalls.com/) 苹果官方壁纸合集
 
 ### 开放 API
 
