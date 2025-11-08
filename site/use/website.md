@@ -108,6 +108,7 @@
 
 - [**tinypng**](https://tinypng.com/) / [**squoosh**](https://squoosh.app) - 图片压缩
 - [**在线 PS**](https://www.uupoop.com/#/old) / [**photopea**](https://www.photopea.com/) - 在线图像编辑
+- [网站 favicon 图标生成工具](https://favicon.io/)
 
 ### CSS 工具
 
@@ -175,6 +176,8 @@
 - [极简插件 - Chrome 插件/扩展](https://chrome.zzzmh.cn/#/index) - Chrome 插件下载
 - [VS Code 离线扩展](https://marketplace.visualstudio.com/) - VS Code 插件下载
 - [CS 自学指南 - 实用工具箱](https://csdiy.wiki/%E5%BF%85%E5%AD%A6%E5%B7%A5%E5%85%B7/tools/)
+- [Windows 电脑软件下载站](https://www.winapps.cc/)
+- [LocallyTools](https://locallytools.com/zh-Hans) 安全、免费、可离线使用的本地工具集合
 
 ## 媒体工具
 
@@ -294,6 +297,7 @@
 - [pxhere](https://pxhere.com/) - 免费 CC0 图片
 - [ISO Republic](https://isorepublic.com/) - 免费高质量图片
 - [泼辣有图](https://www.polaxiong.com/) - 中文图片素材
+- [applewalls](https://www.applewalls.com/) 苹果官方壁纸合集
 
 ### 开放 API
 
@@ -306,6 +310,8 @@
 - [**paperplane**](https://docs.paperplane.app/) - HTML 转 PDF API
 - [**Awesome_APIs**](https://github.com/TonnyL/Awesome_APIs/blob/master/README-zh.md) - API 资源列表
 - [**public-apis**](https://github.com/public-apis/public-apis) - 公共 API 合集列表
+- [Apple ID 共享站] (https://id.jincaii.com/)
+- [基于 AI 的 FFmpeg 在线工具](https://vidmix.app/ffmpeg-in-plain-english/) 只需用自然语言描述需求，如“截取视频前 20 秒”、“将视频的音频导出为 mp3 文件”，即可自动生成相应的 FFmpeg 命令，并可直接在浏览器中上传文件、运行生成的命令完成处理任务，对于不喜欢命令或不熟悉的情况非常方便，免费使用，无需注册。
 
 ## 趣味工具
 
@@ -335,6 +341,7 @@
 - [深蹲计数器](https://github.com/zhaoolee/sport) - 基于加速度计的深蹲计数工具
 - [SirTunnel](https://github.com/anderspitman/SirTunnel) - 内网穿透工具
 - [Webrecorder](https://webrecorder.net/) - 交互式网页保存工具
+- [英语小说在线阅读](https://yingyuxiaoshuo.com/)
 
 ## 网络资讯
 
