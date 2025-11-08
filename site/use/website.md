@@ -181,13 +181,15 @@
 
 ## 媒体工具
 
-- 录音 - 音频录制
-- 录制视频 - 视频录制
+- [oCam](https://ohsoft.net/eng/) 视频/音频录制
 - 视频剪辑 剪映 - 视频编辑
-- [convertio](https://convertio.co/zh/) - 文件格式转换器
+- 格式转换：[convertio](https://convertio.co/zh/) （在线文件格式转换） / 格式工厂应用
 - [ivcam](https://www.e2esoft.cn/ivcam/) - 手机用作电脑摄像头+传声器
 - [Luvvoice](https://luvvoice.com/) - 免费的在线文本转语音服务
 - [换脸视频生成服务](https://myvoiceyourface.com/) - 替换视频中的人脸
+- [Free MP3 Cutter](https://mp3-tools.com/free-mp3-cutter.html) - mp3 剪切软件
+  - 可以使用 FFmpeg 命令行方式替代 `ffmpeg -ss 00:01:00 -to 00:02:30 -i "输入.mp3" -c copy "输出.mp3"` (剪取从开始到结束时间（如从 1:00 到 2:30）)
+- [buzz](https://github.com/chidiwilliams/buzz) - 音频 mp3 转 文字软件
 
 ### Markdown 工具
 
@@ -230,18 +232,21 @@
 
 ### 下载工具
 
-- Youtube[视频](https://123videotool.com/zh-cn/youtube-downloader)/[音频](https://ytmp3.la/9OYg/) 下载 | [视频解析下载](https://yt.snapmail100.com/) | [y2btools](https://y2btools.org/) | [youtube-convert](https://youtube-convert.com/)
-- [视频下载工具](https://www.fastdownload.io/) - 支持 Youtube 和 TikTok 的在线视频下载
+> https://github.com/yanyue404/video-download/
+
+- 在线 Youtube 下载工具： [视频](https://123videotool.com/zh-cn/youtube-downloader)/[音频](https://ytmp3.la/9OYg/) 下载 | [视频解析下载](https://yt.snapmail100.com/) | [y2btools](https://y2btools.org/) | [youtube-convert](https://youtube-convert.com/) / [fastdownload](https://www.fastdownload.io/)
 - [cobalt](https://github.com/imputnet/cobalt) - 开源视频下载工具，支持多个视频网站 https://cobalt.tools/
 - [Hitomi-Downloader](https://github.com/KurtBestor/Hitomi-Downloader) - 界面简单使用方便音视频下载工具
+- [N_m3u8DL-CLI](https://github.com/nilaoda/N_m3u8DL-CLI) - m3u8 downloader 开源的命令行 m3u8/HLS/dash 下载器
 - 命令行
-  - [yt-dlp](https://github.com/yt-dlp/yt-dlp) - 功能丰富的命令行音视频下载器
+  - [yt-dlp](https://github.com/yt-dlp/yt-dlp) - python 功能丰富的命令行音视频下载器
   - [you-get](https://github.com/soimort/you-get) - 命令行网络媒体下载工具
 - [douyin-downloader](https://github.com/jiji262/douyin-downloader) - 抖音批量下载工具，去水印
 - [bilivideo_down](https://github.com/kangpeiqin/bilivideo_down) - 基于 Flutter 的 B 站视频下载器
 
 ### 文件处理
 
+- [PDFgear](https://www.pdfgear.com/zh/) - 完全免费的 pdf 软件，编辑与格式转换
 - [Graphite](https://github.com/GraphiteEditor/Graphite) - 开源在线图像编辑器
 - [DeepPDF](https://deeppdf.ai/pdf-translator) - 免费 PDF 文件翻译网站
 - [Wiki.js](https://github.com/Requarks/wiki) - 架设个人 Wiki 的应用
@@ -249,16 +254,17 @@
 - [K2pdfopt](https://www.willus.com/k2pdfopt/) - PDF 文件重排工具
 - [Compress JPG](https://compressjpg.io/zh-CN) - 一次性压缩多张图片的网站
 - [Stirling-PDF](https://github.com/Stirling-Tools/Stirling-PDF) - 开源 PDF 操作工具
+- 福昕 pdf 编辑器 - pdf 打印转换为 **小册子** 模式
 
 ## 产品设计
 
+- [**draw**](https://www.draw.io/) - 在线流程图工具 / [画流程图应用](https://www.drawio.com/)
 - [**产品大牛**](http://www.pmdaniu.com/) - 产品原型参考网站
 - [**remove bg**](https://www.remove.bg/zh/upload) - 图片背景消除 / [**bgremover**](http://www.aigei.com/bgremover)
 - [Unscreen](https://www.unscreen.com/) - 免费删除视频背景
 - [设计师必备网站](https://www.meigong8.com/) - 设计资源集合
 - [**Lorem Picsum**](https://picsum.photos/) - 免费占位图
 - [**中国传统颜色手册**](https://colors.ichuantong.cn/) - 中国传统色彩
-- [**draw**](https://www.draw.io/) - 在线流程图工具
 - [excalidraw](https://excalidraw.com/) - 手绘风格流程图
 - [**processon**](https://www.processon.com/) - 在线作图工具
 
@@ -310,7 +316,7 @@
 - [**paperplane**](https://docs.paperplane.app/) - HTML 转 PDF API
 - [**Awesome_APIs**](https://github.com/TonnyL/Awesome_APIs/blob/master/README-zh.md) - API 资源列表
 - [**public-apis**](https://github.com/public-apis/public-apis) - 公共 API 合集列表
-- [Apple ID 共享站] (https://id.jincaii.com/)
+- [Apple ID 共享站](https://id.jincaii.com/)
 - [基于 AI 的 FFmpeg 在线工具](https://vidmix.app/ffmpeg-in-plain-english/) 只需用自然语言描述需求，如“截取视频前 20 秒”、“将视频的音频导出为 mp3 文件”，即可自动生成相应的 FFmpeg 命令，并可直接在浏览器中上传文件、运行生成的命令完成处理任务，对于不喜欢命令或不熟悉的情况非常方便，免费使用，无需注册。
 
 ## 趣味工具
@@ -345,7 +351,7 @@
 
 ## 网络资讯
 
-- [适合独立开发者的reddit 聚合站](https://reddit-top.pages.dev/)
+- [适合独立开发者的 reddit 聚合站](https://reddit-top.pages.dev/)
 
 ## 参考资源
 
