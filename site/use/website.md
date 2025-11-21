@@ -229,7 +229,7 @@
   - [texme](https://github.com/susam/texme#texme) - 渲染 Markdown + LaTeX 文档为网页
   - [mdq](https://github.com/yshavit/mdq) - 从 Markdown 文件提取信息的命令行工具
   - [mdBook](https://github.com/rust-lang/mdBook) - 从 Markdown 生成 PDF 和 EPUB 文件
-
+  - [obsidian](https://github.com/obsidianmd/obsidian-releases) - （黑曜石）一款强大的笔记管理软件
 ### 下载工具
 
 > https://github.com/yanyue404/video-download/
