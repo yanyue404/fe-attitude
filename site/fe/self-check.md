@@ -211,135 +211,434 @@
 
 ## 模拟题
 
-**（一）**
+### （一）
 
-- react setState 是同步还是异步
-- 什么是高阶组件，请举例说明
-- 解释一下原型链
-- instanceof 原理
-- apply 和 call 的作用及区别
-- position 有哪些值，作用分别是什么
-- 说下你对 DOM 树的理解
-- 重排和重绘是什么，有什么区别
-- https 加密过程是怎样的
-- 实现 add(1)(2)(3)
+<details><summary>react setState 是同步还是异步</summary>
+setState 在 React 的合成事件和生命周期中通常是异步（被批量合并），在原生事件或 setTimeout 中可能是同步。React 18 引入自动批处理，更多场景被异步批量处理。要可靠读取更新后状态可使用 setState 的回调或 useEffect（函数组件）。
+</details>
 
-**（二）**
+<details><summary>什么是高阶组件，请举例说明</summary>
+高阶组件（HOC）是一个函数，接受组件并返回增强后的组件。用于复用逻辑。
+示例：const withAuth = (Comp) => props => isAuth ? <Comp {...props}/> : <Redirect/>。
+</details>
 
-- react 为什么需要合成事件
-- 为什么有时 react 两次 setState，只执行一次
-- redux 有哪些原则
-- es5 实现继承
-- 实现一个 promise
-- CSS 选择器有哪些
-- 说下事件模型
-- 如何减少白屏的时间
-- 3 次握手过程
-- 判断链表是否有环
+<details><summary>解释一下原型链</summary>
+每个对象有内部属性 [[Prototype]]（通常通过 __proto__ 访问），查找属性时先查对象本身，找不到就沿着原型链向上查，直到 null。构造函数的 prototype 属性是实例对象的原型来源。
+</details>
 
-**（三）**
+<details><summary>instanceof 原理</summary>
+instanceof 检查右侧构造函数的 prototype 是否在左侧对象的原型链上：让 obj = obj.__proto__，循环比较 obj === C.prototype，直到 null 返回 false。
+</details>
 
-- react 合成事件是什么，和原生事件的区别
-- react 如何处理异常
-- 闭包的作用和原理
-- 0.1+0.2 为什么不等于 0.3
-- 什么是 BFC，BFC 有什么作用，如何形成 BFC
-- 浏览器缓存策略是怎样的
-- 你知道的前端性能优化手段有哪些
-- 前端模块化机制有哪些
-- http2.0 做了哪些改进
-- 求解平方根
+<details><summary>apply 和 call 的作用及区别</summary>
+都是改变函数执行时的 this 指向并立即调用。区别在于参数传递：call(fn, thisArg, arg1, arg2, ...)；apply(fn, thisArg, [arg1, arg2, ...])。
+</details>
 
-**（四）**
+<details><summary>position 有哪些值，作用分别是什么</summary>
+static（默认，不脱离文档流）、relative（相对定位，保留原位置）、absolute（绝对定位，脱离文档流，相对于最近定位祖先）、fixed（相对于视口固定）、sticky（根据滚动在相对/固定间切换）。
+</details>
 
-- react 为什么需要 fiber
-- redux 中间件机制
-- bind 的实现
-- 说下 generator 原理
-- flex 布局有什么好处
-- 如何定位内存泄露
-- 渲染合成层是什么
-- babel 是什么，怎么做到的
-- http2.0 有哪些不足，http3.0 是什么
-- 实现一个发布订阅模式
+<details><summary>说下你对 DOM 树的理解</summary>
+DOM 是浏览器把 HTML 解析成的节点树，表示文档结构。JS 操作 DOM 会触发重绘/重排。DOM 与 CSSOM 合并成渲染树用于布局与绘制。
+</details>
 
-**（五）**
+<details><summary>重排和重绘是什么，有什么区别</summary>
+重排（reflow/layout）：元素几何信息改变，需要重新计算布局（开销大）。重绘（repaint）：样式改变影响绘制但不影响布局（如颜色），开销较小。某些操作会同时触发两者。
+</details>
 
-- vue 的数据绑定机制是如何实现的
-- vue next tick 实现原理
-- 谈谈变量提升
-- new 操作符具体做了什么
-- 介绍下盒子模型
-- 有哪些方式可以使 div 居中
-- 有听过前端性能优化指标 RAIL 吗
-- 进程和线程的区别
-- tcp 滑动窗口是什么
-- 实现一个斐波那契数列
+<details><summary>https 加密过程是怎样的</summary>
+HTTPS 基本流程：客户端发起 TLS 握手 -> 协商协议版本和加密套件 -> 服务器发证书（公钥） -> 客户端校验证书并生成随机密钥（或协商密钥交换如 ECDHE），用服务器公钥加密后发送 -> 双方生成对称会话密钥 -> 用对称加密传输数据。握手保证机密性、完整性与身份认证。
+</details>
 
-**（六）**
+<details><summary>实现 add(1)(2)(3)</summary>
+可用函数返回函数并重写 toString/valueOf，例如：
+const add = a => b => b ? add(a+b) : a;
+或用可调用对象累加并重写 valueOf，在最后求值时得到总和。
+</details>
 
-- vue 的 computed 和 watch 的区别
-- 说下 vue 的 keep alive
-- 什么是立即执行函数
-- 谈下事件循环机制
-- css 优先级是怎么计算的
-- CSS 相关的性能优化
-- 谈下 webpack loader 机制
-- 进程通信方式有哪些
-- 爬楼梯问题
-- 实现一个 trim 方法
+### （二）
 
-**（七）**
+<details><summary>react 为什么需要合成事件</summary>
+合成事件统一浏览器差异、提高性能（事件委托到 document 根，减少真实 DOM 事件数量），并便于在 React 生命周期中控制事件行为（如批量更新）。
+</details>
 
-- react fiber 有哪些优点，怎样做到的
-- 谈谈你对作用域的理解
-- 双飞冀/圣杯布局
-- 浮动元素会造成什么影响，如何清除浮动
-- 网站首页有大量的图片，加载很慢，如何去优化呢？
-- 描述下浏览器从输入网址到页面展现的整个过程
-- uglify 原理的是什么
-- tcp 重试机制
-- 层次遍历二叉树
-- 实现节流函数
+<details><summary>为什么有时 react 两次 setState，只执行一次</summary>
+因为 React 会对 setState 做批量合并（同一事件循环中的多次 setState 合并为一次更新），并且如果使用对象形式，后一次可能覆盖前一次；使用函数式 setState 可避免覆盖问题。
+</details>
 
-**（八）**
+<details><summary>redux 有哪些原则</summary>
+- 单一状态树（单一 store）  
+- 状态只读（通过 action 改变）  
+- 使用纯函数 reducer 来描述如何更新状态（不可有副作用）
+</details>
 
-- react 有哪些性能优化的点
-- v8 垃圾回收机制
-- CSS 样式隔离手段
-- 行内元素、块级元素有哪些，区别是什么
-- 聊下你知道的浏览器架构
-- 是否有写过 webpack 插件
-- websocket 建立过程
-- 合并二维有序数组成一维有序数组
-- 实现防抖函数
-- 最近看了什么书，有什么心得
+<details><summary>es5 实现继承</summary>
+常见模式：构造函数继承（call）、原型链继承、组合继承（构造 + 原型）、寄生组合继承（最优，借助 Object.create）。
+示例寄生组合：Child.prototype = Object.create(Parent.prototype); Child.prototype.constructor = Child; Parent.call(this,...);
+</details>
 
-**（九）**
+<details><summary>实现一个 promise</summary>
+核心要点：三种状态 pending/fulfilled/rejected，then 返回新 promise，处理异步回调和链式调用，处理 resolve 值为 promise 的情况。实现需要维护回调队列并在状态变化时异步执行回调。
+</details>
 
-- CSS3 有哪些新特性
-- 层叠上下文是什么
-- history 和 hash 两种路由方式的最大区别是什么？
-- 动画性能如何优化
-- tree shaking 是什么，有什么作用，原理是什么
-- webpack 工作流程是怎样的
-- 什么场景下会用策略模式
-- 找出数组中和为 sum 的 n 个数
-- 判断括号字符串是否有效
-- 平常的学习途径
+<details><summary>CSS 选择器有哪些</summary>
+基础：元素、类、id；组合符：后代、子选择、相邻、通用；属性选择器、伪类（:hover/:nth-child）、伪元素（::before）、组合选择器（:not）、分组选择器（,）。
+</details>
 
-**（十）**
+<details><summary>说下事件模型</summary>
+浏览器事件模型：捕获阶段 -> 目标阶段 -> 冒泡阶段（除非 stopPropagation）。现代 DOM3 事件可通过 addEventListener 的第三个参数选择捕获或冒泡，也可调用 stopImmediatePropagation。
+</details>
 
-- node 模块机制是怎样的
-- node require 具体实现是什么
-- node 事件循环与浏览器的哪些不一样
-- cluster 原理是怎样的
-- pipe 原理是怎样的
-- node 的异常处理方式
-- 适配器和外观模式的区别
-- 重构的手段有哪些
-- 数组去重
-- 你比较擅长哪一块，不足的地方在哪里
+<details><summary>如何减少白屏的时间</summary>
+优化首屏加载：减小首屏资源体积（gzip/压缩/拆分）、服务端渲染或预渲染、懒加载、使用关键 CSS inline、CDN 加速、资源优先级控制（preload/prefetch）。
+</details>
+
+<details><summary>3 次握手过程</summary>
+1. 客户端发送 SYN（seq=x）。  
+2. 服务端回复 SYN+ACK（seq=y, ack=x+1）。  
+3. 客户端回复 ACK（ack=y+1）。建立连接，双方同步初始序列号。
+</details>
+
+<details><summary>判断链表是否有环</summary>
+快慢指针（Floyd）：快指针每次走两步，慢指针每次走一步，若相遇则有环；若快指针到 null 则无环。
+</details>
+
+### （三）
+
+<details><summary>react 合成事件是什么，和原生事件的区别</summary>
+合成事件是 React 的跨浏览器包装，事件委托到根节点，复用事件对象池（旧版本）。区别：API 统一、性能优化（委托）、在 React 生命周期内可实现批处理；但可通过原生事件直接绑定获取真实事件。
+</details>
+
+<details><summary>react 如何处理异常</summary>
+类组件提供 componentDidCatch(error, info) 和 static getDerivedStateFromError，用于捕获子组件渲染错误并降级显示。函数组件可用 Error Boundary（用类组件实现）或 useEffect 捕获异步错误，或全局 window.onerror。
+</details>
+
+<details><summary>闭包的作用和原理</summary>
+闭包是函数与其定义时的词法环境的组合。作用：封装私有变量、实现函数工厂和部分应用、维护状态。原理：执行环境中的活动记录被函数引用而不被回收，形成持久化作用域。
+</details>
+
+<details><summary>0.1+0.2 为什么不等于 0.3</summary>
+浮点数使用二进制表示，0.1 和 0.2 无法精确表示，计算时产生二进制小数误差，导致结果略有偏差。常用解决：四舍五入、乘以基数取整、使用十进制高精库（decimal）。
+</details>
+
+<details><summary>什么是 BFC，BFC 有什么作用，如何形成 BFC</summary>
+BFC（块级格式化上下文）是一个独立渲染区域，内部布局不影响外部。作用：清除浮动、避免 margin 折叠、限制子元素影响等。触发条件：display: flow-root/flex/inline-block/table-cell/table-column etc; position: absolute/fixed; overflow 不为 visible 等。
+</details>
+
+<details><summary>浏览器缓存策略是怎样的</summary>
+常见策略：强缓存（Cache-Control/Expires）——直接命中；协商缓存（ETag/Last-Modified + If-None-Match/If-Modified-Since）——服务器 304 验证。优先使用强缓存，合理设置版本号和 cache 控制。
+</details>
+
+<details><summary>你知道的前端性能优化手段有哪些</summary>
+压缩与合并资源、代码拆分与懒加载、CDN、图片优化（格式/尺寸/懒加载）、减少重排重绘、使用缓存、服务端渲染、预加载/预连接、减少资源请求数。
+</details>
+
+<details><summary>前端模块化机制有哪些</summary>
+CommonJS（同步，Node），AMD（异步，浏览器），UMD（兼容），ES Modules（静态分析，import/export，浏览器/构建工具支持）。
+</details>
+
+<details><summary>http2.0 做了哪些改进</summary>
+二进制分帧、多路复用（单连接并发多个流）、头部压缩（HPACK）、服务端推送、优先级机制，减少了队头阻塞并提高利用率。
+</details>
+
+<details><summary>求解平方根</summary>
+可用 Math.sqrt；面试实现可用二分法或牛顿迭代（Newton-Raphson）快速逼近平方根。
+</details>
+
+### （四）
+
+<details><summary>react 为什么需要 fiber</summary>
+Fiber 重构为可中断、可恢复的渲染算法，支持增量渲染与优先级调度，提升响应性（避免长任务阻塞渲染），使 React 更易实现并发特性。
+</details>
+
+<details><summary>redux 中间件机制</summary>
+中间件是增强 dispatch 的函数链，形如 store => next => action => result。通过 compose 把中间件串起来，允许在 action 到达 reducer 前做异步、日志、异常处理等。
+</details>
+
+<details><summary>bind 的实现</summary>
+实现要返回一个新函数，调用时 this 指向指定对象，并支持部分应用参数，且当作为构造函数使用时保持原函数的原型行为（new 时忽略绑定的 this）。
+示例简化：Function.prototype.bind = function(ctx, ...args) { const fn=this; return function(...rest){return fn.apply(this instanceof fn ? this : ctx, args.concat(rest))} }
+</details>
+
+<details><summary>说下 generator 原理</summary>
+Generator 是可暂停的函数，yield 暂停并返回值，next 恢复执行并可传入值。底层依赖状态机处理执行上下文、保持堆栈与作用域，用于实现协程、异步流程控制（配合 yield + Promise 作异步序列）。
+</details>
+
+<details><summary>flex 布局有什么好处</summary>
+简化一维布局（横或纵方向），易于实现对齐、顺序调整和自适应伸缩，减少浮动/定位的 hack，响应式布局更直观。
+</details>
+
+<details><summary>如何定位内存泄露</summary>
+使用浏览器 DevTools 的 memory heap snapshot、allocation timeline 和堆快照对比，查找 Detached DOM、未清理的定时器/事件监听器、全局引用或闭包持有过期大对象。
+</details>
+
+<details><summary>渲染合成层是什么</summary>
+合成层（layer）是 GPU 绘制单位（如具有 transform/opacity 或 will-change 的元素会升为独立层），可以在合成阶段单独绘制和合并以提高动画性能、减少重绘代价。
+</details>
+
+<details><summary>babel 是什么，怎么做到的</summary>
+Babel 是 JS 转译器，可把新语法/JSX/TypeScript 转译为向后兼容的 JS。通过 AST（解析 -> 转换 -> 生成）和插件系统对语法树做访遍与替换实现转换。
+</details>
+
+<details><summary>http2.0 有哪些不足，http3.0 是什么</summary>
+http2 的不足：虽然有多路复用但仍受 TCP 的队头阻塞影响；复杂的实现与中间代理兼容性问题。HTTP/3 基于 QUIC（基于 UDP）解决了 TCP 层队头阻塞、集成加密与更快的连接建立。
+</details>
+
+<details><summary>实现一个发布订阅模式</summary>
+核心有订阅列表、on/subscribe、off/unsubscribe、emit/trigger。示例：const bus = { _map:{}, on(k,f){(this._map[k]||=(this._map[k]=[])).push(f)}, off(k,f){...}, emit(k,...args){(this._map[k]||[]).forEach(fn=>fn(...args))} }。
+</details>
+
+### （五）
+
+<details><summary>vue 的数据绑定机制是如何实现的</summary>
+Vue2 使用 Object.defineProperty 劫持 data 的 getter/setter，收集依赖（Dep）并在数据变更时通知 watcher 更新；Vue3 用 Proxy 实现响应式，解决数组、属性新增等限制并性能更好。
+</details>
+
+<details><summary>vue next tick 实现原理</summary>
+nextTick 将回调放入微任务队列（Promise.then / MutationObserver / setImmediate / setTimeout 的 fallback），确保在 DOM 更新并批处理完成后执行。
+</details>
+
+<details><summary>谈谈变量提升</summary>
+在 JS 中声明会被提升：var 的声明被提升但赋值不提升（初始为 undefined）；function 声明整体提升；let/const 不提升到可用阶段（存在暂时性死区）。
+</details>
+
+<details><summary>new 操作符具体做了什么</summary>
+1. 创建空对象 obj；2. 设置 obj.__proto__ = Constructor.prototype；3. 将 this 指向 obj 并执行构造函数（Constructor.call(obj, ...args)）；4. 若构造函数返回对象则返回该对象，否则返回 obj。
+</details>
+
+<details><summary>介绍下盒子模型</summary>
+内容(content)、内边距(padding)、边框(border)、外边距(margin)。盒模型有标准盒（content-box）和替代盒（border-box，width 包含 padding 与 border）。
+</details>
+
+<details><summary>有哪些方式可以使 div 居中</summary>
+水平居中：外联块 margin:0 auto；或 flex: justify-content:center；或 text-align:center（inline）。垂直居中：flex align-items:center；绝对定位 + transform(-50%,-50%)；表格/line-height（特定场景）。
+</details>
+
+<details><summary>有听过前端性能优化指标 RAIL 吗</summary>
+RAIL 指导性能优化的四个维度：响应（Response）、动画（Animation）、载入（Idle/Idle + Load）、可交互（Load）；关注不同阶段的目标耗时（如交互 <100ms，动画 60fps）。
+</details>
+
+<details><summary>进程和线程的区别</summary>
+进程是资源分配单位，有独立地址空间；线程是 CPU 调度单位，属于进程，多个线程共享进程资源但有独立栈。线程切换比进程切换开销小。
+</details>
+
+<details><summary>tcp 滑动窗口是什么</summary>
+TCP 流量控制机制：接收方通告窗口大小（可接收的剩余缓冲区），发送方根据窗口控制未确认数据量，实现流控与避免拥塞配合拥塞控制算法。
+</details>
+
+<details><summary>实现一个斐波那契数列</summary>
+递归（简单但慢）：f(n)=f(n-1)+f(n-2)。动态规划/迭代更优：用循环或缓存 O(n) 时间 O(1) 空间；可用矩阵快速幂或 Binet 公式做 O(log n)。
+</details>
+
+### （六）
+
+<details><summary>vue 的 computed 和 watch 的区别</summary>
+computed 是基于依赖缓存的计算属性，适合基于响应式数据的同步计算；watch 用于响应式数据变动时执行副作用（异步或复杂逻辑）。computed 更适合表现值，watch 更适合监听变化执行任务。
+</details>
+
+<details><summary>说下 vue 的 keep alive</summary>
+<keep-alive> 是 Vue 的抽象组件，用于缓存组件实例和 DOM（基于 include/exclude 与 max），切换时避免销毁，保留组件状态与性能优化。
+</details>
+
+<details><summary>什么是立即执行函数</summary>
+IIFE（立即调用函数表达式）：(function(){ /*...*/ })()，用于创建独立作用域、防止污染全局并立即执行。
+</details>
+
+<details><summary>谈下事件循环机制</summary>
+JS 的事件循环（以浏览器为例）：执行栈执行同步任务 -> 微任务队列（Promise.then、MutationObserver）在每个宏任务结束前清空 -> 宏任务队列（setTimeout、I/O、UI 事件）逐个执行 -> 重复。Node 有额外阶段如 timers、check、close。
+</details>
+
+<details><summary>css 优先级是怎么计算的</summary>
+权重计算：内联样式 > id 选择器（100） > 类/伪类/属性选择器（10） > 元素/伪元素选择器（1）。选择器权重按位相加，权重大则优先；相同权重以后加载的样式优先；!important 可覆盖但同级别仍比权重规则。
+</details>
+
+<details><summary>CSS 相关的性能优化</summary>
+避免强制同步布局（查询 layout 属性如 offsetWidth）、减少重排（批量修改、使用 transform/opacity 做动画）、合并样式变更、使用 will-change 谨慎提升、图片压缩与懒加载、使用适当选择器避免过度匹配。
+</details>
+
+<details><summary>谈下 webpack loader 机制</summary>
+Loader 在模块被打包前处理资源，链式调用（从右到左/从下到上），每个 loader 接收内容并返回转换后的内容（或异步回调）。Loader 主要用于处理非 JS 资源或对源码进行转译。
+</details>
+
+<details><summary>进程通信方式有哪些</summary>
+共享内存、信号、管道（pipe）、命名管道（FIFO）、套接字（socket）、消息队列、远程过程调用（RPC）。浏览器/前端相关还包括 postMessage、WebSocket、BroadcastChannel、SharedWorker 等。
+</details>
+
+<details><summary>爬楼梯问题</summary>
+经典：有 n 阶楼梯，每次可走 1 或 2 步，求方法数，等同于斐波那契数列，递推 f(n)=f(n-1)+f(n-2)，可用 DP 或矩阵快速幂优化。
+</details>
+
+<details><summary>实现一个 trim 方法</summary>
+简易实现：String.prototype.trim = function(){ return this.replace(/^\s+|\s+$/g,''); }。注意处理 Unicode 空白可用更复杂正则或 ECMAScript 标准内置方法。
+</details>
+
+### （七）
+
+<details><summary>react fiber 有哪些优点，怎样做到的</summary>
+优点：可中断渲染、优先级调度、增量渲染与更好的交互响应性。通过把渲染工作分解为小任务（fiber 节点）并在空闲时间逐步完成实现。
+</details>
+
+<details><summary>谈谈你对作用域的理解</summary>
+作用域是变量可访问的区域。JS 有全局作用域、函数作用域、块级作用域（let/const）。词法作用域由代码写时决定，闭包是作用域与函数结合的产物。
+</details>
+
+<details><summary>双飞冀/圣杯布局</summary>
+两种常见居中/布局方案：圣杯布局通常指中间自适应两侧定宽布局（使用负边距或 flex）；双飞冀（传统术语可能指“三栏布局”或古老布局技巧）。面试中可用 flex 或 grid 轻松实现三栏并保证中间自适应。
+</details>
+
+<details><summary>浮动元素会造成什么影响，如何清除浮动</summary>
+浮动会使父容器高度塌陷（不包含浮动子元素）。清除浮动方法：父容器设置 overflow:auto/hidden；使用 clearfix（伪元素清除）；或把父元素设为 flex/grid/flow-root。
+</details>
+
+<details><summary>网站首页有大量的图片，加载很慢，如何去优化呢？</summary>
+图片压缩/更优格式（WebP/AVIF）、按需加载（lazy loading）、使用 CDN、图片尺寸响应式（srcset/picture）、占位图或 LQIP、懒预加载关键首屏图片、合并雪碧图（小图）。
+</details>
+
+<details><summary>描述下浏览器从输入网址到页面展现的整个过程</summary>
+DNS 解析 -> 建立 TCP/TLS 连接 -> 发送 HTTP 请求 -> 服务器响应 -> 浏览器解析 HTML 构建 DOM、解析 CSS 构建 CSSOM -> 构建渲染树 -> 布局（reflow） -> 绘制（paint） -> 合成层并在屏幕上呈现；随后 JS 执行可能修改 DOM 触发重排/重绘。
+</details>
+
+<details><summary>uglify 原理的是什么</summary>
+压缩 JS 一般包括解析生成 AST、做作用域分析与常量折叠、去除无用代码（dead code elimination）、缩短变量名（mangling）、生成最小化代码。UglifyJS 是常见工具，基于 AST 操作。
+</details>
+
+<details><summary>tcp 重试机制</summary>
+TCP 有重传机制：基于超时重传（RTO）和快速重传（收到重复 ACK 达到阈值触发），结合拥塞控制（慢启动、拥塞避免、快重传/快恢复）调整发送窗口和速率。
+</details>
+
+<details><summary>层次遍历二叉树</summary>
+层序遍历（广度优先）用队列：先把根入队，循环取出节点，访问并把子节点入队，直到队列空。可扩展为按层输出或记录深度。
+</details>
+
+<details><summary>实现节流函数</summary>
+节流（throttle）在一定时间间隔内只允许函数执行一次。实现方式：时间戳法（记录上次执行时间）或定时器法（执行后设定定时器禁止再执行），两者可结合以适配立即与延迟执行策略。
+</details>
+
+### （八）
+
+<details><summary>react 有哪些性能优化的点</summary>
+避免不必要渲染（PureComponent、memo、shouldComponentUpdate）、列表 key 合理使用、懒加载组件、拆分代码、避免匿名函数和无谓 prop 改变、使用 useMemo/useCallback、避免重排重绘、虚拟化长列表（react-window）。
+</details>
+
+<details><summary>v8 垃圾回收机制</summary>
+V8 使用分代垃圾回收：新生代（Scavenge，复制算法）和老生代（Mark-Sweep / Mark-Compact）。通过标记-清除和压缩减少碎片，并使用增量与并发标记降低停顿。
+</details>
+
+<details><summary>CSS 样式隔离手段</summary>
+命名规范（BEM）、CSS Modules、Scoped CSS（Vue）、Shadow DOM（Web Components）、CSS-in-JS、后缀/scope 前缀化或构建时自动加前缀。
+</details>
+
+<details><summary>行内元素、块级元素有哪些，区别是什么</summary>
+块级元素（div, p, h1 等）独占一行，可以设置宽高；行内元素（span, a, img 等）不独占行，宽高通常不起作用（img 除外）。还有 inline-block 兼具两者特性。
+</details>
+
+<details><summary>聊下你知道的浏览器架构</summary>
+典型浏览器分层：UI 层（浏览器 chrome）、浏览器内核（网络层、渲染引擎、JS 引擎）、渲染引擎（Blink/WebKit）、JS 引擎（V8/SpiderMonkey）、存储（Cache、IndexedDB）、网络栈、插件/扩展等。
+</details>
+
+<details><summary>是否有写过 webpack 插件</summary>
+（回答面试时可据实叙述）Webpack 插件通过 Tapable 的钩子扩展构建流程，插件实现 apply(compiler) 并在合适的 compiler/hook 上注册回调，访问 compilation、模块和资源以修改输出。
+</details>
+
+<details><summary>websocket 建立过程</summary>
+浏览器向服务器发起 HTTP 升级请求（Upgrade: websocket），双方完成握手（基于 Sec-WebSocket-Key/Accept 校验），之后连接在 TCP 上保持并进行双向全双工数据传输。
+</details>
+
+<details><summary>合并二维有序数组成一维有序数组</summary>
+类似归并排序的合并过程：使用多个指针分别指向每个数组当前元素，取最小值推入结果并移动对应指针。若数组数量多可用最小堆（优先队列）优化。
+</details>
+
+<details><summary>实现防抖函数</summary>
+防抖（debounce）在一段时间内只执行最后一次调用：每次调用清除前一个定时器并设置新定时器，延迟后执行。立即执行版本可在第一次触发时立即执行并在随后延迟期间忽略。
+</details>
+
+<details><summary>最近看了什么书，有什么心得</summary>
+（面试回答应真实）示例：读过《你不知道的 JavaScript》系列，理解了作用域与闭包、异步机制；《高性能网站建设指南》帮助理解性能优化策略。心得：理论结合实践，多写多测。
+</details>
+
+### （九）
+
+<details><summary>CSS3 有哪些新特性</summary>
+Flexbox、Grid、动画与过渡、transform、变换函数、媒体查询增强、变量（CSS Custom Properties）、滤镜（filter）、多列布局、渐变、计算函数（calc）。
+</details>
+
+<details><summary>层叠上下文是什么</summary>
+层叠上下文（stacking context）是元素及其子元素绘制时的独立 z-index 层级环境，触发条件包括 position + z-index、opacity <1、transform、isolation、mix-blend-mode 等。不同上下文间互不干扰。
+</details>
+
+<details><summary>history 和 hash 两种路由方式的最大区别是什么？</summary>
+history（基于 History API）路径看起来像正常 URL，需要服务器配置回退到入口文件以支持直接访问；hash 使用 URL 的 # 切片，不会发送到服务器，兼容性好但 URL 可读性差。
+</details>
+
+<details><summary>动画性能如何优化</summary>
+使用 transform/opacity 做动画避免触发布局，使用 requestAnimationFrame，开启合成层（will-change）谨慎，减少重绘区域，硬件加速与合适的帧预算（60fps），避免在动画中进行昂贵 JS 运算。
+</details>
+
+<details><summary>tree shaking 是什么，有什么作用，原理是什么</summary>
+Tree shaking 是消除未引用代码（死代码消除）的技术，主要用于 ES Module（静态 import/export），构建工具通过静态分析 AST 判定未使用导出并剔除，减小打包体积。
+</details>
+
+<details><summary>webpack 工作流程是怎样的</summary>
+从入口开始解析模块依赖 -> 应用 loader 转换文件 -> 生成模块图 -> 应用插件处理 compilation -> 输出打包后的 bundle -> 可选进行代码分割与优化。核心数据结构是 compilation 和 module graph。
+</details>
+
+<details><summary>什么场景下会用策略模式</summary>
+当有一组算法或行为可互换且希望在运行时切换时使用策略模式；通过把不同策略封装为独立类/函数并在上下文中选择，便于扩展与维护（比如不同支付方式、路由策略等）。
+</details>
+
+<details><summary>找出数组中和为 sum 的 n 个数</summary>
+可用回溯（DFS）或排序后双指针（针对 k=2）；对于 k>2 可递归转化为 k-1 问题或使用哈希、剪枝与排序优化。时间复杂度随 k 增大较高。
+</details>
+
+<details><summary>判断括号字符串是否有效</summary>
+用栈，遍历字符，遇左括号入栈，遇右括号检查栈顶是否匹配，最后栈空则有效；同时检查长度奇偶和提前出错情况。
+</details>
+
+<details><summary>平常的学习途径</summary>
+多渠道结合：阅读官方文档与权威书籍、实践项目、阅读源码、参加技术分享/社区、刷题与总结笔记、通过博客/视频学习新技术并实战验证。
+</details>
+
+### （十）
+
+<details><summary>node 模块机制是怎样的</summary>
+Node 使用 CommonJS 模块：每个模块被包装成函数（function(exports, require, module, __filename, __dirname){...}），通过模块缓存避免重复加载，exports/module.exports 导出接口，require 负责加载并解析依赖。
+</details>
+
+<details><summary>node require 具体实现是什么</summary>
+require 会先解析模块路径（相对/绝对/核心模块/第三方模块），查找缓存，读取文件（.js/.json/.node），对 .js 文件编译包装执行（vm.runInThisContext），并返回 module.exports。还有模块解析算法（node_modules 层级查找）。
+</details>
+
+<details><summary>node 事件循环与浏览器的哪些不一样</summary>
+Node 的事件循环有多个阶段（timers、pending callbacks、idle/prepare、poll、check、close），并有 microtask（process.nextTick 优先于 Promise）。浏览器的宏/微任务模型略有不同，且 Node 更关注 I/O。
+</details>
+
+<details><summary>cluster 原理是怎样的</summary>
+cluster 模块利用多进程（fork）在多核机器上复制 Node 进程，每个 worker 运行事件循环，通过主进程负载分发连接（或内核轮询）实现并发利用 CPU，并可通过 IPC 进行通信与管理。
+</details>
+
+<details><summary>pipe 原理是怎样的</summary>
+在 Node/UNIX 中 pipe 将一个进程/流的输出作为另一个的输入，实现流式数据传输。Node 中 stream.pipe 将可读流的数据写入可写流，处理 backpressure（返回 false 时暂停读取，待 drain 恢复）。
+</details>
+
+<details><summary>node 的异常处理方式</summary>
+同步用 try/catch 捕获；异步（Promise）用 .catch 或 async/await + try/catch；对于未捕获异常可用 process.on('uncaughtException') 或 process.on('unhandledRejection') 做最后的日志/降级，但建议优雅重启。
+</details>
+
+<details><summary>适配器和外观模式的区别</summary>
+适配器（Adapter）用于把一个接口转换为另一个接口以便兼容，关注接口转换；外观（Facade）提供简化的统一接口屏蔽子系统复杂性，关注简化使用。两者都封装但目的不同。
+</details>
+
+<details><summary>重构的手段有哪些</summary>
+常见手段：提炼函数/变量、抽象重复逻辑、拆分模块、引入设计模式、降低耦合、提高内聚、重命名增强可读性、添加测试、持续小步提交与回归验证。
+</details>
+
+<details><summary>数组去重</summary>
+常用方法：利用 Set（Array.from(new Set(arr)) 或 [...new Set(arr)]）；对象/Map 哈希法用于复杂类型；排序后两端去重；保持顺序并处理对象引用可用 JSON/key map 或深比较。
+</details>
+
+<details><summary>你比较擅长哪一块，不足的地方在哪里</summary>
+（此题需你本人回答，示例模板）擅长：前端工程化、React/Vue 框架与性能优化、前端网络与调试。不足：后端系统设计或某些低级系统编程细节（正在通过实践与阅读补足）。
+</details>
 
 ## 回答
 
@@ -538,13 +837,13 @@ daemon.unref()
 3. **EventEmitter 错误事件**：
    ```javascript
    const stream = createReadStream('file')
-   stream.on('error', err => {
+   stream.on('error', (err) => {
      /* 处理错误 */
    })
    ```
 4. **进程级捕获**：
    ```javascript
-   process.on('uncaughtException', err => {
+   process.on('uncaughtException', (err) => {
      logger.error(err)
      process.exit(1)
    })
