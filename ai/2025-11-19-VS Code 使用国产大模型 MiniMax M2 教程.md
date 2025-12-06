@@ -1,0 +1,183 @@
+作者： [阮一峰](https://www.ruanyifeng.com/)
+
+日期： [2025 年 11 月 19 日](https://www.ruanyifeng.com/blog/2025/11/)
+
+一、
+
+上周，我写了一篇  [Claude Code 接入国产大模型](https://www.ruanyifeng.com/blog/2025/11/doubao-seed-code.html)的教程，就有同学问我，为什么不用 VS Code？
+
+问得好。我习惯命令行了，确实忽略了 VS Code。
+
+今天就补上，我来介绍，如何不用插件在 VS Code 里面使用 Claude Code。
+
+![](https://cdn.beekka.com/blogimg/asset/202511/bg2025111506.webp)
+
+我真心觉得，Claude Code 比插件好用，所以试试看跳过插件，直接在 VS Code 里面使用它。
+
+跟以前一样，这一次 Claude Code 也是接入国产大模型，我选的是  [MiniMax M2](https://www.minimaxi.com/news/minimax-m2)。它的质量很不错，而且这周有活动。
+
+![](https://cdn.beekka.com/blogimg/asset/202511/bg2025111701.webp)
+
+二、
+
+这次评测的题目很有趣，我自己都很喜欢。
+
+它是一个老外程序员最近想出来的，已经在国外引起了轰动。
+
+他用了九个著名模型，生成网页时钟的动画，然后把这些动画放在[网站](https://clocks.brianmoore.com/)上，网站标题就叫"AI 时钟"。
+
+![](https://cdn.beekka.com/blogimg/asset/202511/bg2025111601.webp)
+
+说来奇怪，这个测试看上去不难，但是大多数模型生成的效果并不好，有些甚至很差。
+
+举例来说，下图是 OpenAI 公司 GPT-5 模型生成的时钟，让人无语。
+
+![](https://cdn.beekka.com/blogimg/asset/202511/bg2025111602.webp)
+
+这个时钟的提示词如下，大家可以拿来自己测。
+
+> Create HTML/CSS of an analog clock showing \${time}. Include numbers (or numerals) if you wish, and have a CSS animated second hand. Make it responsive and use a white background. Return ONLY the HTML/CSS code with no markdown formatting.
+
+翻译成中文就是：
+
+> "创建一个显示时间 \${time} 的模拟时钟的 HTML/CSS 代码。如果需要，可以包含数字，并添加 CSS 动画秒针。使其具有响应式设计，并使用白色背景。仅返回 HTML/CSS 代码，不要包含任何 Markdown 格式。"
+
+我也拿它来测试，看看 MiniMax M2 的效果如何。
+
+三、
+
+进入正题之前，我想强调一下，VS Code 与 Claude Code 是两种截然不同的工具。
+
+**VS Code 是 IDE**，你是在 IDE 里面使用 AI。
+
+**Claude Code 是命令行工具**，你是在终端窗口使用 AI。
+
+它们的特点完全不同。IDE 支持智能感知（intellisense）和自动补全，而命令行支持调用系统工具和脚本，还能自动化集成，以及并行执行。
+
+所以，**它们两个不是替代关系，而是互补关系**。你应该根据需要，选择最合适的工具。
+
+我要演示的方法，正是将 IDE 和命令行结合起来，让你具有最大的灵活性。
+
+四、
+
+我用来测试的模型是  [MiniMax M2](https://www.minimaxi.com/news/minimax-m2)，说一下为什么选择它。
+
+它是上月底（10 月 27 日）发布的，很多评测显示它是编程能力最强的开源模型之一，而且在 OpenRouter 平台上，它是 Token 调用量最大的国产模型。
+
+我当时对它做了[评测](https://www.ruanyifeng.com/blog/2025/11/minimax-m2.html)，大家还有印象吗？结论是，它的编程表现超出了我的预期。
+
+但是那个时候，它没有包月套餐，只能按 API 使用量计费，就让人不敢多用。
+
+现在不一样了，上个周末，它突然推出了  [Coding Plan 包月套餐](https://platform.minimaxi.com/subscribe/coding-plan)，有三档资费。
+
+最低一档针对普通强度的使用，首月只要 9.9 元，（续费 29 元/月），这就很划算了。
+
+除了这个优惠活动，它还有两个特点，很适合这篇教程。
+
+**（1）兼容性好**，接入外部工具很容易。我用它接入 Claude Code 和 VS Code 都非常顺利。
+
+[官网文档](https://platform.minimaxi.com/docs/guides/text-ai-coding-tools)给出接口示例的工具非常全，包括 Cursor、Cline、Codex、Kilo Code、Droid、Trae、Grok、OpenCode、iFlow 等等。
+
+**（2）响应速度、生成速度快**。它的 API 服务器，在国内的响应时间一般是几十毫秒，每秒生成 Token 的数量（即 TPS 指标）超过 100，比国外模型快得多。
+
+五、
+
+现在进入正题，首先是一些准备工作，要将 MiniMax M2 接入 Claude Code。
+
+具体步骤就不详述了，大家按照[前一篇教程](https://www.ruanyifeng.com/blog/2025/11/doubao-seed-code.html)就可以了。
+
+简单说，就是新建一个`claude-minimax`  脚本（下图），将从 MiniMax M2 官网获取的[接口参数](https://platform.minimaxi.com/docs/api-reference/text-anthropic-api)填入。
+
+![](https://cdn.beekka.com/blogimg/asset/202511/bg2025111508.webp)
+
+完成后，可以测试一下，看看能否正常运行。
+
+> ```
+>
+> $ claude-minimax --version
+>
+> ```
+
+六、
+
+下面就是在 VS Code 使用 Claude Code 生成网页时钟的测试。
+
+第一步，新建一个本地目录作为项目目录，比如`ai-clock`。
+
+> ```
+>
+> $ mkdir ai-clock
+>
+> ```
+
+然后，在 VS Code 里面打开这个目录  `ai-clock`，作为工作区。
+
+第二步，打开 VS Code 的菜单"终端/新建终端"，在这个终端窗口里面，输入  `claude-minimax`。
+
+> ```
+>
+> $ claude-minimax
+>
+> ```
+
+这时，窗口会提示你授予权限，同意后，就会进入主界面，大概就是下面这样。
+
+![](https://cdn.beekka.com/blogimg/asset/202511/bg2025111605.webp)
+
+现在，我们就能在 VS Code 里面使用命令行的 Claude Code 了。
+
+这时，你既可以使用 IDE 编写代码，又可以通过命令行使用 AI 模型，兼得两者的优势。
+
+第三步，在 Claude Code 的提示符后面，输入`/init`命令，用来在仓库里面生成一个 CLAUDE.md 文件，记录 AI 对这个仓库操作。
+
+> ```
+>
+> /init
+>
+> ```
+
+生成结束后，你可以打开看一下 CLAUDE.md 文件（下图）。
+
+![](https://cdn.beekka.com/blogimg/asset/202511/bg2025111606.webp)
+
+因为我们这个示例仓库是空的，所以文件里面没什么内容。如果是有现成代码的仓库，文件里面会有 AI 对代码库的详细解析。
+
+这个文件的作用是当作上下文，每次查询模型时，都会自动附上这个文件，以便模型了解代码库。
+
+如果在提示框输入反斜杠，Claude Code 就会显示所有可用的命令（下图）。
+
+![](https://cdn.beekka.com/blogimg/asset/202511/bg2025111607.webp)
+
+通过这些命令，我们就能使用 Claude Code 的强大功能，完成各种 AI 操作了。
+
+这一步是 Claude Code 的基础用法，对所有项目都是通用的。
+
+第四步，在提示框输入前面的提示词（下图），让模型生成网页时钟。
+
+![](https://cdn.beekka.com/blogimg/asset/202511/bg2025111608.webp)
+
+MiniMax M2 思考了不到一分钟，就生成完毕了（下图），并且自动把这些代码写入文件  `index.html`。
+
+![](https://cdn.beekka.com/blogimg/asset/202511/bg2025111609.webp)
+
+打开网页就是下面的效果。
+
+![](https://cdn.beekka.com/blogimg/asset/202511/bg2025111802.gif)
+
+真的很不错，第一次就能有这样的效果。钟面的形状正确，秒钟跳动的动画十分流畅，每秒都在刷新，显示当前时间。
+
+大家可以使用这个提示词，自己去生成看看，如果手边没有 Claude Code，可以在[官网](https://agent.minimaxi.com/)上执行。
+
+也可以查看我得到的[完整代码](https://nvr3mo2rsk.feishu.cn/wiki/SviGwvbOPipStPkriAvcIYefnlS?from=from_copylink)，复制保存成 HTML 文件，在浏览器打开。
+
+七、
+
+从这个测试结果来看，MiniMax M2 的生成结果，无论是横向对比，还是实际效果，都是令人满意的。
+
+结合它现在的价格，性价比很高，我认为值得推荐给大家上手尝试。
+
+最后，转发一下他们的  [Coding Plan 活动](https://platform.minimaxi.com/subscribe/coding-plan)的海报，首月 9.9 元，一杯咖啡的钱，包月使用最新的 AI 编程模型，需要者自取。
+
+![](https://cdn.beekka.com/blogimg/asset/202511/bg2025111611.webp)
+
+（完）

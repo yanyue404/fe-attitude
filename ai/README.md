@@ -222,7 +222,7 @@ CodeGeeX、GitHub Copilot 和 Cursor 是三款广受欢迎的 AI 编程助手，
   - 内置 AI 聊天和协作功能，开发体验流畅。
 - **缺点**：
   - 作为独立编辑器，可能不适合习惯其他 IDE 的用户。
-  - 付费计划（$20/月起）比 Copilot 稍贵。
+  - 付费计划（\$20/月起）比 Copilot 稍贵。
   - 资源占用略高于 Copilot 插件。
 
 ---
@@ -238,8 +238,8 @@ CodeGeeX、GitHub Copilot 和 Cursor 是三款广受欢迎的 AI 编程助手，
 ### 5. 定价
 
 - **CodeGeeX**：完全免费，支持本地部署。用户可通过开源代码自定义，无需额外费用。
-- **GitHub Copilot**：提供免费层（有限功能，12,000 次补全/月），Pro 计划 $10/月，Business 计划 $19/用户/月，Enterprise 计划 $39/用户/月。[](https://www.builder.io/blog/cursor-vs-windsurf-vs-github-copilot)
-- **Cursor**：免费计划（有限功能），付费计划 $20/月起。支持自定义 API 密钥，降低长期成本。[](https://zencoder.ai/blog/cursor-vs-copilot)
+- **GitHub Copilot**：提供免费层（有限功能，12,000 次补全/月），Pro 计划 $10/月，Business 计划 $19/用户/月，Enterprise 计划 \$39/用户/月。[](https://www.builder.io/blog/cursor-vs-windsurf-vs-github-copilot)
+- **Cursor**：免费计划（有限功能），付费计划 \$20/月起。支持自定义 API 密钥，降低长期成本。[](https://zencoder.ai/blog/cursor-vs-copilot)
 
 ---
 
@@ -316,7 +316,7 @@ CodeGeeX、GitHub Copilot 和 Cursor 是三款广受欢迎的 AI 编程助手，
 
 - **优点**：
   - 广泛的 IDE 支持（VS Code、JetBrains 等），GitHub 生态集成（如 PR 评审）。
-  - 提供免费层（每月 12,000 次补全），Pro 计划 $10/月性价比高。[](https://apidog.com/blog/windsurf-cursor-cline-github-copilot/)
+  - 提供免费层（每月 12,000 次补全），Pro 计划 \$10/月性价比高。[](https://apidog.com/blog/windsurf-cursor-cline-github-copilot/)
   - 支持多种模型（Claude 3.5、GPT-4o），适合多样化需求。[](https://www.reddit.com/r/devsarg/comments/1jf8ax7/cursor_windsurf_copilot_trae_veni_te_cuento_mis/?tl=en)
 - **缺点**：
   - 多文件上下文理解较弱，Copilot Edits 速度慢且有时不稳定。[](https://www.codeant.ai/blogs/best-ai-code-editor-cursor-vs-windsurf-vs-copilot)
@@ -329,7 +329,7 @@ CodeGeeX、GitHub Copilot 和 Cursor 是三款广受欢迎的 AI 编程助手，
   - 集成 Supermaven，补全速度快（约 320ms），支持自动导入。[](https://www.codeant.ai/blogs/best-ai-code-editor-cursor-vs-windsurf-vs-copilot)
   - 支持多种模型（Claude 3.5、Grok 等），灵活性高。[](https://www.reddit.com/r/devsarg/comments/1jf8ax7/cursor_windsurf_copilot_trae_veni_te_cuento_mis/?tl=en)
 - **缺点**：
-  - 定价较高（$20/月），免费层功能有限。[](https://www.reddit.com/r/devsarg/comments/1jf8ax7/cursor_windsurf_copilot_trae_veni_te_cuento_mis/?tl=en)
+  - 定价较高（\$20/月），免费层功能有限。[](https://www.reddit.com/r/devsarg/comments/1jf8ax7/cursor_windsurf_copilot_trae_veni_te_cuento_mis/?tl=en)
   - 基于旧版 VS Code（1.93），可能与最新扩展不兼容。[](https://www.reddit.com/r/ChatGPTCoding/comments/1hhh1tc/cursor_vs_windsurf_vs_cline_whats_the_best_at_the/)
 
 #### Windsurf
@@ -337,7 +337,7 @@ CodeGeeX、GitHub Copilot 和 Cursor 是三款广受欢迎的 AI 编程助手，
 - **优点**：
   - 本地优先，隐私性强，支持完全本地 AI 计算。[](https://medium.com/%40gvelosa/github-copilot-cursor-or-windsurf-a-developers-guide-to-ai-ides-e69181a6f75f)
   - Cascade 提供实时上下文记忆，适合多文件编辑。[](https://www.codeant.ai/blogs/best-ai-code-editor-cursor-vs-windsurf-vs-copilot)
-  - 免费补全无限制，Pro 计划 $15/月较实惠。[](https://www.reddit.com/r/devsarg/comments/1jf8ax7/cursor_windsurf_copilot_trae_veni_te_cuento_mis/?tl=en)
+  - 免费补全无限制，Pro 计划 \$15/月较实惠。[](https://www.reddit.com/r/devsarg/comments/1jf8ax7/cursor_windsurf_copilot_trae_veni_te_cuento_mis/?tl=en)
 - **缺点**：
   - 高级功能（如 Cascade）提示次数有限，需额外购买。[](https://www.reddit.com/r/ChatGPTCoding/comments/1hhh1tc/cursor_vs_windsurf_vs_cline_whats_the_best_at_the/)
   - 功能相对较新，社区支持不如 Copilot。[](https://zapier.com/blog/windsurf-vs-cursor/)
@@ -395,9 +395,9 @@ CodeGeeX、GitHub Copilot 和 Cursor 是三款广受欢迎的 AI 编程助手，
 
 ### 5. 定价
 
-- **Copilot**：免费层（12,000 次补全/月），Pro $10/月，Business $19/月，Enterprise $39/月。[](https://apidog.com/blog/windsurf-cursor-cline-github-copilot/)
-- **Cursor**：免费层（有限功能），付费 $20/月起，支持自定义 API 密钥。[](https://www.reddit.com/r/devsarg/comments/1jf8ax7/cursor_windsurf_copilot_trae_veni_te_cuento_mis/?tl=en)
-- **Windsurf**：免费补全，Cascade 功能有限制，Pro $15/月。[](https://www.reddit.com/r/devsarg/comments/1jf8ax7/cursor_windsurf_copilot_trae_veni_te_cuento_mis/?tl=en)
+- **Copilot**：免费层（12,000 次补全/月），Pro $10/月，Business $19/月，Enterprise \$39/月。[](https://apidog.com/blog/windsurf-cursor-cline-github-copilot/)
+- **Cursor**：免费层（有限功能），付费 \$20/月起，支持自定义 API 密钥。[](https://www.reddit.com/r/devsarg/comments/1jf8ax7/cursor_windsurf_copilot_trae_veni_te_cuento_mis/?tl=en)
+- **Windsurf**：免费补全，Cascade 功能有限制，Pro \$15/月。[](https://www.reddit.com/r/devsarg/comments/1jf8ax7/cursor_windsurf_copilot_trae_veni_te_cuento_mis/?tl=en)
 - **Trae**：完全免费，但可能有隐私成本。[](https://www.reddit.com/r/devsarg/comments/1jf8ax7/cursor_windsurf_copilot_trae_veni_te_cuento_mis/?tl=en)
 - **Cline**：免费，开源，支持本地部署，需自行配置 API。[](https://medium.com/%40roberto.g.infante/comparing-modern-ai-coding-assistants-github-copilot-cursor-windsurf-google-ai-studio-c9a888551ff2)
 - **v0**：免费层（有限功能），付费计划未知，依赖 Vercel 生态。
@@ -440,3 +440,11 @@ CodeGeeX、GitHub Copilot 和 Cursor 是三款广受欢迎的 AI 编程助手，
 - **选择 bolt.new**，如果你：愿意尝试新兴工具，但需等待更多信息。
 
 对于前端开发者（基于您提到 v0 和 bolt.new 的兴趣），**v0** 是生成 React/Next.js 组件的最佳选择，**Cursor** 和 **Windsurf** 适合更复杂的前端项目，**Copilot** 提供平衡的选择。如果隐私是首要考虑，**Cline** 和 **Windsurf** 是更安全的选择。如果需要进一步针对特定用例（如前端框架、项目规模）或更详细的 bolt.new 信息，请告诉我，我可以进一步分析或搜索最新资料！[](https://apidog.com/blog/windsurf-cursor-cline-github-copilot/)[](https://www.codeant.ai/blogs/best-ai-code-editor-cursor-vs-windsurf-vs-copilot)[](https://medium.com/%40gvelosa/github-copilot-cursor-or-windsurf-a-developers-guide-to-ai-ides-e69181a6f75f)
+
+## 新的国产大模型
+
+> https://www.ruanyifeng.com/blog/developer/
+
+- [阮一峰 - 一天之内，智谱和 Anthropic 都发了最强编程模型](https://www.ruanyifeng.com/blog/2025/10/glm-4.6.html)
+- [阮一峰 - 大模型比拼：MiniMax M2 vs GLM 4.6 vs Claude Sonnet 4.5](https://www.ruanyifeng.com/blog/2025/11/minimax-m2.html)
+- [阮一峰 - 国产大模型接入 Claude Code 教程：以 Doubao-Seed-Code 为例](https://www.ruanyifeng.com/blog/2025/11/doubao-seed-code.html)

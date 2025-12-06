@@ -1,0 +1,213 @@
+作者： [阮一峰](https://www.ruanyifeng.com/)
+
+日期： [2025 年 4 月 22 日](https://www.ruanyifeng.com/blog/2025/04/)
+
+## 一、引言
+
+本周，我要加写一篇文章。
+
+因为 AI 编程 IDE 突然成了热门，国内外都有大事发生。
+
+![](https://cdn.beekka.com/blogimg/asset/202504/bg2025042122.webp)
+
+先说国外，OpenAI 要用 30 亿美元[收购 Windsurf](https://www.jiemian.com/article/12627036.html)。
+
+这个消息太惊人。Windsurf（前身叫做 Codeium）的历史很短，发布至今两年多，市场份额也不高，居然值这么多钱！
+
+OpenAI 最新一轮融资（今年 3 月）不过[400 亿美元](https://www.cnbc.com/2025/03/31/openai-closes-40-billion-in-funding-the-largest-private-fundraise-in-history-softbank-chatgpt.html)，现在一下子要拿出 30 亿去收购，看中 Windsurf 哪一点呀！
+
+OpenAI 自己没有编程助手，所以唯一的解释是，它要收购 IDE 打入 AI 编程市场，这个市场对它很重要。
+
+## 二、MarsCode 更名 Trae
+
+再看国内，字节也有大动作。
+
+它旗下的编程助手，最早是 MarsCode 插件，后来又多了一个独立的 AI IDE 产品  [Trae](https://sourl.cn/dLaMpy)。
+
+![](https://cdn.beekka.com/blogimg/asset/202504/bg2025042123.webp)
+
+本周，MarsCode 宣布[改名为 Trae 插件](https://docs.trae.com.cn/plugin/faq)，不再作为独立品牌发展了。
+
+以后，**字节的 AI 编程助手，将只有 Trae 这一个品牌**，分成两种产品形态。
+
+习惯传统 IDE 的用户，可以加装 Trae 插件；想要更好 AI 体验的用户，可以安装独立的 Trae IDE。
+
+这个消息公布的同时，Trae 新版本也一起发布，加入了重磅的新功能（后面会详谈）。
+
+可以看出，字节是下了决心，整合了产品，准备在 AI 编程工具上发力了。
+
+## 三、AI IDE + MCP
+
+为什么国内外的巨头，在同一个时间，不约而同都看上了 AI IDE？
+
+我猜想，答案是 MCP 的出现。
+
+有了 MCP 以后，AI IDE 可以扩展外部能力，从而无所不能，这让它成为巨头的必争之地。
+
+![](https://cdn.beekka.com/blogimg/asset/202504/bg2025042124.webp)
+
+下面，我来解释 MCP 是什么，怎么在 Trae 里面调用。大家看了，就会理解为什么 MCP 这么重要。
+
+## 四、Trae 的简介
+
+我选择 Trae 来演示，主要因为它是国产软件，有中文界面和文档，并且完全免费（国外产品都需要付费）。
+
+前面说过，Trae 分成插件和 IDE 两种形态，它的 IDE 又分成国内版和海外版。这些产品的功能基本一致，就是内置的 AI 模型不一样。
+
+> 国内版：内置 deepseek R1、V3、v3-0324 和 doubao 1.5 pro 模型
+>
+> 海外版：内置 Claude 3.5、3.7，Gemini 2.5 pro，GPT-4o、GPT-4.1 模型
+
+我建议使用国内版，因为海外版的内置模型经常需要排队，很浪费时间，而且可能还会通信不畅。
+
+不过，**这两个版本都支持自定义模型**，你可以提供密钥，接入你指定的模型。所以，版本的差别也不算很重要。
+
+![](https://cdn.beekka.com/blogimg/asset/202504/bg2025042220.webp)
+
+顺便提一下，Trae 这个词的意思是"**T**he **R**eal **A**I **E**ngineer"（真正的 AI 工程师）。我以前总是以为 Trae 的意思是 True Ai。
+
+## 五、Trae 的新版本
+
+Trae 的 MCP 调用功能，是从新版本 v0.5.0 开始加入的。
+
+没安装的朋友，可以去[官网](https://sourl.cn/dLaMpy)下载新版。已经安装的朋友，请检查一下版本。
+
+它的界面这一次简化了，聊天框和 Builder（项目生成）合并成一个对话框（下图）。所有跟 AI 的对话，都在这里输入。
+
+![](https://cdn.beekka.com/blogimg/asset/202504/bg2025042201.webp)
+
+上图中，左下角多了两个按钮："@智能体"和"#上下文"。这就是本次新增的核心功能。
+
+至于 Trae 的基本用法，这里就不提了，可以看[以前的文章](https://www.ruanyifeng.com/blog/2025/03/trae.html)。
+
+## 六、调用智能体
+
+MCP 调用的入口，就是上图左下角的"@智能体"按钮。
+
+如果想要扩展 AI 的功能，就要使用这个按钮。因为 AI 模型的本质只是语言模型，自身的功能是有限的，必须通过外部应用（智能体）来扩展功能。
+
+点击"@智能体"（或者输入`@`），就会弹出一个对话框，显示目前可用的智能体（下图）。
+
+![](https://cdn.beekka.com/blogimg/asset/202504/bg2025042202.webp)
+
+可以看到，Trae 内置了两个智能体:"@Build" 和 "@Builder with MCP"。
+
+其中，"@Build"用来让 AI 生成一个可运行的新项目。
+
+> @Build 俄罗斯方块网页小游戏
+
+输入上面的命令，就会生成一个 HTML 文件，打开就是俄罗斯方块小游戏。
+
+![](https://cdn.beekka.com/blogimg/asset/202504/bg2025042203.webp)
+
+另一个内置的智能体"@Build with MCP"，就是用来连接 MCP 服务器。
+
+## 七、MCP 是什么
+
+我先解释一下，MCP 是什么，很容易理解。
+
+我们知道，AI 模型通过连接外部应用，来扩展功能。每个外部应用的接口，都不一样，如果要接入 10 个应用，就要写 10 种接入代码，非常麻烦。而且，要是换一个模型，可能所有接入代码都要重写。
+
+![](https://cdn.beekka.com/blogimg/asset/202504/bg2025042204.webp)
+
+有鉴于此，Anthropic 公司在 2024 年 11 月提出了 MCP 协议。外部应用只需要支持这个协议，提供一个 MCP 接口（又称 MCP 服务器），那么 AI 模型就可以用统一的格式接入，不需要了解外部应用的接入细节。
+
+所以，**MCP 可以理解成一个 AI 与外部应用之间的适配层**。对于 AI 来说，只要安装某个应用的 MCP 服务器，就能接入该应用，不用写任何代码（除了少数的配置项）。
+
+由于 MCP 解决了 AI 应用的接入痛点，诞生至今仅半年，已经变得极其流行，就连 Anthropic 的竞争对手 OpenAI 公司都公开支持，网上开源的 MCP 服务器项目已经有上万个。
+
+## 八、调用 MCP
+
+现在就来看 Trae 怎么调用 MCP。
+
+点击 AI 标签栏右上角的齿轮图标，弹出一个菜单，选择菜单项 MCP。
+
+![](https://cdn.beekka.com/blogimg/asset/202504/bg2025042205.webp)
+
+它会跳出一个 MCP 的标签页（下图），点击底部的"+ 添加 MCP Servers"。
+
+![](https://cdn.beekka.com/blogimg/asset/202504/bg2025042206.webp)
+
+Trae 内置了 MCP 市场，提供一些常用的 MCP 服务器。如果里面没有你需要的，可以点击"手动配置"，添加你自己的 MCP。
+
+![](https://cdn.beekka.com/blogimg/asset/202504/bg2025042207.webp)
+
+为了便于演示，我选择第一个服务器 Puppeteer，让 AI 可以调用无头浏览器。
+
+鼠标点击 Puppeteer 的名字，会进入该开源项目的主页，可以查看一下它提供的内部命令（即能力）。
+
+![](https://cdn.beekka.com/blogimg/asset/202504/bg2025042209.webp)
+
+上图中可以看到，这个 MCP 服务器提供 puppeteernavigator（打开指定网址）、puppeteerscreenshot（截图）、puppeteer_select（选中页面元素）等内部命令，供 AI 模型调用。
+
+用户不需要记住这些命令，只需了解它有哪些能力就可以了。
+
+接着，点击它后面的加号，添加该 MCP 服务器。
+
+![](https://cdn.beekka.com/blogimg/asset/202504/bg2025042210.webp)
+
+这个 MCP 带有"轻松配置"标签，表示不需要任何设置，可以直接运行。
+
+![](https://cdn.beekka.com/blogimg/asset/202504/bg2025042211.webp)
+
+所有自己添加的 MCP，默认都放在内置的智能体"@Build with MCP"，所以可以通过这个智能体来使用。
+
+在 AI 对话框里面，选中智能体"@Build with MCP"，然后输入下面的命令"打开 https://www.baidu.com"，试试看新安装的 Puppeteer 服务器。
+
+![](https://cdn.beekka.com/blogimg/asset/202504/bg2025042212.webp)
+
+正常情况下，Trae 会让你选择一个项目文件夹，然后就会打开一个浏览器窗口，显示百度的首页。
+
+![](https://cdn.beekka.com/blogimg/asset/202504/bg2025042221.webp)
+
+这就是 MCP 的作用。AI 本来没有能力控制浏览器，但是现在就可以通过 MCP 来控制。
+
+接着，可以给出一些更复杂的命令，比如生成截图，也能顺利完成。
+
+![](https://cdn.beekka.com/blogimg/asset/202504/bg2025042213.webp)
+
+这就是调用 MCP 的基本流程。你还可以把添加的 MCP 服务器保存成智能体（下图）。
+
+![](https://cdn.beekka.com/blogimg/asset/202504/bg2025042214.webp)
+
+然后，通过你起的名字，调用该智能体（下图），从而连接指定的 MCP 服务器。
+
+![](https://cdn.beekka.com/blogimg/asset/202504/bg2025042222.webp)
+
+## 九、上下文功能
+
+除了 MCP 调用，Trae 的本次更新，还加强了上下文功能，这里也简单提一下。
+
+所谓上下文，就是额外提供的信息，帮助 AI 模型思考，来完成任务。
+
+通过`#`号，可以调出上下文菜单。
+
+![](https://cdn.beekka.com/blogimg/asset/202504/bg2025042215.webp)
+
+从上图可以看到，可以提供的上下文，包括额外的代码（code）、文件（file）、目录（folder）、工作区（workspace）。
+
+本次更新多了两个选项，"Doc"表示额外的文档。
+
+![](https://cdn.beekka.com/blogimg/asset/202504/bg2025042216.webp)
+
+点击"添加文档集"，就可以添加文档目录，作为 AI 模型的上下文。
+
+![](https://cdn.beekka.com/blogimg/asset/202504/bg2025042217.webp)
+
+另一个选项"Web"，表示用网上信息作为上下文。这为 AI 提供了实时联网能力。
+
+![](https://cdn.beekka.com/blogimg/asset/202504/bg2025042218.webp)
+
+![](https://cdn.beekka.com/blogimg/asset/202504/bg2025042219.webp)
+
+上图的实时天气问题，AI 只有具有联网能力，才能回答。
+
+## 十、总结
+
+有了 MCP 调用和联网能力，AI IDE 就具备了巨大的想象空间，不仅仅是编程工具，而成了一个无所不能的 AI 控制台。
+
+那些大公司一定是看到了这一点，所以才愿意投入大量资源，去做这个产品。
+
+我认为，在 AI IDE 里面调用 MCP 服务器，将成为近期软件业的热点，值得大家重点关注。
+
+（完）
