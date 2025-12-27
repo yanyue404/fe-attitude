@@ -1,5 +1,18 @@
 # Node.js
 
+## Nodejs vs Browser
+
+各个浏览器厂商会开发解析 Javascript 的引擎如 google chrome、Apple safari。因为不同厂商的引擎对 ecmascript 的解析程序不同，所以有些功能可能在有的浏览器有效，但在其他的浏览器无效。
+
+比较著名的引擎是 chrome 的 v8，它是由 c++编写的，而且它有个特点可以内置到其他 C++程序中，这就为 node.js 的实现提供的基础。所以可以把 nodejs 简单来理解为使用 v8 引擎可以解析 javascript 语法，同时也可以调用 c++功能进行文件操作，网络通信等功能。
+
+- nodejs 是开源、跨平台的 javascript 运行时环境，它是运行时，不是语言或框架，是在浏览器之外的 Javascript 使用
+- nodejs 可以使用 javascript 调用 c++，实现计算底层操作
+- nodejs 运行时包含 v8 引擎（解析 javascript）、libuv (进行计算机文件、网络等底层操作) 等等。通过查看 nodejs 源码，我们会知道 nodejs 使用 c++进行文件或网络操作
+- nodejs 使用 libuv 库，让开发者使用 javascript 调用 c++程序
+- nodejs 没有基于浏览器的 javascript 的 DOM、BOM 等概念这与但是拥有文件系统操作功能
+- nodejs 我们可以随意选择版本，但浏览器的 javascript 运行在众多用户电脑中，所以版本不是由我们决定的
+
 ## 对 Node.js 的理解？优缺点？应用场景？
 
 ### 一、是什么
@@ -47,11 +60,11 @@
 
 具体场景可以表现为如下：
 
-- 第一大类：用户表单收集系统、后台管理系统、实时交互系统、考试系统、联网软件、高并发量的 web 应用程序
+- 第一大类：用户表单收集系统、后台管理系统、实时交互系统、考试系统、联网软件、高并发量的 web 应用程序 (后端开发，Nodejs 的异步 I/O 天生适合做 Web 高并发)
 - 第二大类：基于 web、canvas 等多人联网游戏
 - 第三大类：基于 web 的多人实时聊天客户端、聊天室、图文直播
-- 第四大类：单页面浏览器应用程序
-- 第五大类：操作数据库、为前端和移动端提供基于`json`的 API
+- 第四大类：单页面浏览器应用程序, (前端基建，Webpack、Gulp、Babel、Jest 等等前端工程化的工具或插件。)
+- 第五大类：操作数据库、为前端和移动端提供基于`json`的 API (BFF 开发，比如 SSR 中间层或者 GraphQL 中间层。)
 
 其实，`Nodejs`能实现几乎一切的应用，只考虑适不适合使用它
 
@@ -486,7 +499,7 @@ console.log(data) // Hello world
 ```js
 const fs = require('fs')
 
-fs.writeFile('2.txt', 'Hello world', (err) => {
+fs.writeFile('2.txt', 'Hello world', err => {
   if (!err) {
     fs.readFile('2.txt', 'utf8', (err, data) => {
       console.log(data) // Hello world
@@ -519,7 +532,7 @@ let data = fs.readFileSync('3.txt', 'utf8')
 ```js
 const fs = require('fs')
 
-fs.appendFile('3.txt', ' world', (err) => {
+fs.appendFile('3.txt', ' world', err => {
   if (!err) {
     fs.readFile('3.txt', 'utf8', (err, data) => {
       console.log(data) // Hello world
@@ -573,7 +586,7 @@ fs.mkdirSync('a/b/c')
 异步创建，第二个参数为回调函数
 
 ```js
-fs.mkdir('a/b/c', (err) => {
+fs.mkdir('a/b/c', err => {
   if (!err) console.log('创建成功')
 })
 ```
@@ -585,9 +598,202 @@ fs.mkdir('a/b/c', (err) => {
 
 ## 对 Node 中的 Buffer 的理解？应用场景？
 
+Buffer 对象是一个类似于数组的对象，它的每个元素都是一个表示 8 位字节的整数。
+
+可以将其看作是一个字节数组，用来存储和操作二进制数据。在前端使用 JS 时不需要操作二进制数据，但在后端有对大文件打开、写入等操作，需要处理二进制数据流。
+
+Buffer 是用于存放二进制数据的缓存区（内存）。比如我们读取大文件时，一次载入内存会占用大量内存，这种情况可以使用 Buffer 将数据一块一块加入到 Bueffer 内存中，然后再以流的形式一段一段传递，这样减少内存占用，加快数据读取处理。
+
+你也可以把 Buffer 理解为你在看在线视频时的缓冲区数据。
+
+现实生活中类似，京东在各地建立的仓储点，这个仓储点就是 Buffer。有了这个仓储点就不需要从商家源头运货了，京东不断的保证仓储点有货，就可以保证最快的把货送到客户手里。
+
+应用场景：
+
+1.  网络通信：可以使用 Buffer.from()方法将字符串转换为二进制数据，然后使用 net 模块进行网络通信：
+
+```js
+const net = require('net')
+
+const client = net.createConnection({ port: 8080 }, () => {
+  // 将字符串转换为二进制数据
+  const data = Buffer.from('Hello, world!', 'utf8')
+
+  // 发送数据
+  client.write(data)
+})
+```
+
+2 文件操作，用 Buffer 来存储文件数据：
+
+```js
+const fs = require('fs')
+
+// 读取文件，并将数据存储到 Buffer 对象中
+const data = fs.readFileSync('/path/to/file')
+
+// 处理数据
+// ...
+```
+
+3 加密解密，例如，可以使用 crypto 模块创建加密解密算法需要的二进制数据：
+
+```js
+const crypto = require('crypto')
+
+// 创建加密解密算法需要的二进制数据
+const key = Buffer.from('mysecretkey', 'utf8')
+const iv = Buffer.alloc(16)
+
+// 创建加密解密算法对象
+const cipher = crypto.createCipheriv('aes-256-cbc', key, iv)
+
+// 加密数据
+const encrypted = Buffer.concat([cipher.update(data), cipher.final()])
+```
+
+4 图像处理：
+
+```
+const fs = require('fs');
+const sharp = require('sharp');
+
+// 读取图片文件，并将数据存储到 Buffer 对象中
+const data = fs.readFileSync('/path/to/image');
+
+// 处理图片
+sharp(data)
+  .resize(200, 200)
+  .toFile('/path/to/resized-image', (err, info) => {
+    // ...
+  });
+```
+
+## 什么是 I/O？
+
+**概念**：计算机里所谓的 I/O 指的是输入和输出，但对于前端同学而言，这个定义可能不太好理解。简单点说，需要等待的任务都可以称为 I/O 任务，比如前端的事件处理、网络请求、定时器，后端的文件处理、网络请求、数据库操作，这些都属于 I/O 任务。
+
+**异步 I/O**：以网络请求任务为例，传统的同步 I/O 指的是一个一个排队执行，一个执行完了再执行下一个，即使线程空闲，也不能执行其他任务。
+
+而异步 I/O 会返回一个标记，告诉调用者 I/O 操作已经开始，但不会阻塞线程。当 I/O 操作完成时，会调用注册的回调函数，将结果返回给调用者。
+
+异步 I/O 使得程序在执行 I/O 操作时不必等待，提高了程序的并发性能。
+
+**听起来异步 I/O 很好，那为什么同步 I/O 依然会存在**
+
+1.  传统的同步 I/O 操作比异步 I/O 操作更容易理解和编写。异步编程需要开发人员具备较高的技能水平，以及对事件循环、回调函数等概念的深入理解。
+
+1.  对于某些小规模的应用程序或者一些低频次的 I/O 操作，使用异步 I/O 可能不会带来很大的性能提升，而且可能会增加代码的复杂性。
+
+1.  对于一些 CPU 密集型任务，传统 I/O 操作可能比异步 I/O 更快，因为异步 I/O 会在 I/O 操作执行期间增加额外的上下文切换和事件处理负担，从而降低了程序的性能。
+
+**CPU 密集和 I/O 密集：**
+
+1.  CPU 密集任务指的是纯计算任务。
+
+1.  I/O 密集的任务指的是需要等待的任务。所谓的高并发，显然属于 I/O 密集型任务。
+
 ## 对 Node 中的 Stream 的理解？应用场景？
 
+Stream 是一种处理流式数据的抽象接口，用于读取、写入、转换和操作数据流。它是一个基于事件的 API，可以让我们以高效、低延迟的方式处理大型数据集。
+
+说直白点就是基于 Stream 封装的 API，性能更好。
+
+比如读取文件，使用流我们可以一点一点来读取文件，每次只读取或写入文件的一小部分数据块，而不是一次性将整个文件读取或写入到内存中或磁盘中，这样做能够降低内存占用。
+
+- stream 用于处理数据的传输
+- 在开发中我们多数使用的是对 stream 的封装，一般不需要自己写 stream 的控制
+- stream 主要用在网络请求、文件处理等 IO 操作
+- 在处理大文件时才可以体验到 stream 的效率
+
+Stream 流对象是 EventEmitter 的实例，所以拥有事件处理机制。
+
+主要包含以下事件
+
+- open 文件被打开时触发
+- close 文件关闭时触发
+- data 当有数据读取时触发
+- end 数据读取完毕时触发，早于 close 事件
+- error 在接收和写入过程中发生错误时触发
+
+可读流
+
+可读流指数据从源头（如磁盘）读取内存，也可以将流理解为 Buffer 的搬运工，将 Buffer 一块块的搬运（流动）到目的地。
+
+- 数据会分块读取
+- Buffer 数据是二进制的，所以结果是二进制表示
+- 使用这种方式是一块一块读取处理数据，所以要比一次读取文件到内存性能更好
+- stream 使用默认的 64KB 的 Buffer
+
+**基本操作**
+
+下面通过读取超大文件  **hd.json** ，来体验 Buffer 的操作大数据。
+
+```js
+import { createReadStream, createWriteStream } from 'fs'
+
+//创建可读流,将数据以块的形式读取，每次读取一点放在缓存区
+const readStream = createReadStream('./hd.txt', {
+  encoding: 'utf8'
+})
+
+const writeStream = createWriteStream('a.txt')
+//每次读取到数据时，会触发函数
+readStream.on('data', chunk => {
+  console.log(chunk)
+  writeStream.write(chunk)
+})
+```
+
+可以在读取时设置编码，指定 Buffer 大小
+
+```
+...js
+const readStream = createReadStream('./hd.txt', {encoding: 'utf8',highWaterMark: 2 })
+...
+```
+
 ## 说说 Node 中的 EventEmitter? 如何实现一个 EventEmitter?
+
+EventEmitter 经常在面试的时候会要求手写，因为这玩意用途实在是太广了。比如在 Vue 里面的 EventBus 实现组件通信，其核心就是 EventEmitter。
+
+Node.js 的大多数核心模块都是基于 EventEmitter 实现的，如 http、net、fs，很多第三方库也是基于 EventEmitter 实现的，如 socket.io、nodemailer、cheerio 等。
+
+使用 EventEmitter 的好处是可以用事件的形式来处理异步任务，可以大大简化代码，并且容易处理异常。
+
+举个例子来看看为什么 Nodejs 里大多数模块都要继承 EventEmitter。
+
+这是不使用 EventEmitter 实现的文件读取，所有逻辑都放在一个回调函数里：
+
+```
+const fs = require('fs');
+
+fs.readFile('file.txt', (err, data) => {
+  if (err) {
+    console.error(`Failed to read file: ${err}`);
+  } else {
+    console.log(`File content: ${data}`);
+  }
+});
+```
+
+这是使用 EventEmitter 的文件读取：
+
+```
+const fs = require('fs');
+
+const stream = fs.createReadStream('file.txt');
+
+stream.on('data', (chunk) => {
+  console.log(`Received ${chunk.length} bytes of data.`);
+});
+
+stream.on('end', () => {
+  console.log('Finished reading file.');
+});
+```
+
+很显然，使用 EventEmitter 之后，处理文件和处理异常的逻辑就被分开了，代码可读性和可维护性都提升了。
 
 ## 说说对 Nodejs 中的事件循环机制理解?
 
@@ -663,11 +869,11 @@ async function async2() {
 
 console.log('script start')
 
-setTimeout(function () {
+setTimeout(function() {
   console.log('setTimeout0')
 }, 0)
 
-setTimeout(function () {
+setTimeout(function() {
   console.log('setTimeout2')
 }, 300)
 
@@ -679,11 +885,11 @@ async1()
 
 process.nextTick(() => console.log('nextTick2'))
 
-new Promise(function (resolve) {
+new Promise(function(resolve) {
   console.log('promise1')
   resolve()
   console.log('promise2')
-}).then(function () {
+}).then(function() {
   console.log('promise3')
 })
 
@@ -771,6 +977,50 @@ setTimeout
 ## 说 Node 文件查找的优先级以及 Require 方法的文件查找策略?
 
 ## 说说对中间件概念的理解，如何封装 node 中间件？
+
+Koa 就运用了中间件
+
+Koa 洋葱圈中间件实现原理主要有以下两点：
+
+1.  数组里面存函数：使用 middleware 来存储中间函数。
+
+```
+use (fn) {
+  if (typeof fn !== 'function') throw new TypeError('middleware must be a function!')
+  debug('use %s', fn._name || fn.name || '-')
+  this.middleware.push(fn)
+  return this
+}
+```
+
+1.  compose 函数：将一组中间件函数组合成一个大的异步函数。这个大的异步函数会依次执行每个中间件函数，并将每个中间件函数的执行结果传递给下一个中间件函数。最终，这个大的异步函数会返回一个 Promise 对象，表示整个中间件链的执行结果。
+
+```
+function compose(middleware) {
+  if (!Array.isArray(middleware)) throw new TypeError('Middleware stack must be an array!')
+  for (const fn of middleware) {
+    if (typeof fn !== 'function') throw new TypeError('Middleware must be composed of functions!')
+  }
+
+  return function (context, next) {
+    let index = -1
+    return dispatch(0)
+
+    function dispatch(i) {
+      if (i <= index) return Promise.reject(new Error('next() called multiple times'))
+      index = i
+      let fn = middleware[i]
+      if (i === middleware.length) fn = next
+      if (!fn) return Promise.resolve()
+      try {
+        return Promise.resolve(fn(context, dispatch.bind(null, i + 1)))
+      } catch (err) {
+        return Promise.reject(err)
+      }
+    }
+  }
+}
+```
 
 ## 如何实现 jwt 鉴权机制？说说你的思路
 
@@ -866,8 +1116,13 @@ class UserController {
       })
     }
     const result = userList.find(
-      (item) =>
-        item.name === data.name && item.password === crypto.createHash('md5').update(data.password).digest('hex')
+      item =>
+        item.name === data.name &&
+        item.password ===
+          crypto
+            .createHash('md5')
+            .update(data.password)
+            .digest('hex')
     )
     if (result) {
       // 生成token
@@ -900,7 +1155,7 @@ module.exports = UserController
 在前端接收到`token`后，一般情况会通过`localStorage`进行缓存，然后将`token`放到`HTTP`请求头`Authorization` 中，关于`Authorization` 的设置，前面要加上 Bearer ，注意后面带有空格
 
 ```js
-axios.interceptors.request.use((config) => {
+axios.interceptors.request.use(config => {
   const token = localStorage.getItem('token')
   config.headers.common['Authorization'] = 'Bearer ' + token // 留意这里的 Authorization
   return config
@@ -1187,7 +1442,7 @@ SELECT COUNT(*) FROM record
 代码如下所示：
 
 ```js
-router.all('/api', function (req, res, next) {
+router.all('/api', function(req, res, next) {
   var param = ''
   // 获取参数
   if (req.method == 'POST') {
@@ -1202,9 +1457,9 @@ router.all('/api', function (req, res, next) {
   const pageSize = param.pageSize || 10
   const start = (param.page - 1) * pageSize
   const sql = `SELECT * FROM record limit ${pageSize} OFFSET ${start};`
-  pool.getConnection(function (err, connection) {
+  pool.getConnection(function(err, connection) {
     if (err) throw err
-    connection.query(sql, function (err, results) {
+    connection.query(sql, function(err, results) {
       connection.release()
       if (err) {
         throw err
@@ -1353,14 +1608,14 @@ const http = require('http')
 const fs = require('fs')
 
 // bad
-http.createServer(function (req, res) {
-  fs.readFile(__dirname + '/data.txt', function (err, data) {
+http.createServer(function(req, res) {
+  fs.readFile(__dirname + '/data.txt', function(err, data) {
     res.end(data)
   })
 })
 
 // good
-http.createServer(function (req, res) {
+http.createServer(function(req, res) {
   const stream = fs.createReadStream(__dirname + '/data.txt')
   stream.pipe(res)
 })
@@ -1401,7 +1656,7 @@ for user_id in userIds
 const buffer = fs.readFileSync(__dirname + '/source/index.htm')
 
 app.use(
-  mount('/', async (ctx) => {
+  mount('/', async ctx => {
     ctx.status = 200
     ctx.type = 'html'
     ctx.body = buffer
@@ -1455,11 +1710,50 @@ const leak = []
 
 ## PM2
 
-PM2 是 Node.js 的优秀运行时管理工具，专为简化和优化 Node.js 应用程序的生产部署与运行而设计。
+M2 是一个守护进程管理器，它将帮助您管理和保持应用程序在线。PM2 的入门非常简单，它以简单直观的 CLI 形式提供，可通过 NPM 进行安装。
 
 pm2 官网 https://pm2.keymetrics.io/
 
 https://docs.ffffee.com/nodejs/pm2-quickstart.html
+
+```bash
+pnpm add -g pm2@latest
+# or
+yarn global add pm2
+# or
+npm install pm2@latest -g
+```
+
+常用命令
+
+```bash
+# 执行命令创建配置文件
+pm2 init simple
+
+# 执行以下命令运行
+pm2 start app.ts
+
+# 停止项目
+pm2 stop app.ts
+
+# 文件更改时监视并重新启动应用程序
+pm2 start app.ts --watch
+
+# 显示进程状态
+pm2 list
+
+# 查看 log
+pm2 log
+
+# 删除 id 为 0 的进程
+pm2 delete 0
+
+# 从 pm2 列表中删除所有流程
+pm2 delete all
+
+# 查看资源占用
+pm2 monit
+```
 
 ## 对 Node 中 CommonJS 和 ES Modules，及 Node 发展的理解
 
@@ -1495,7 +1789,7 @@ Node.js 提供了两种模块系统：**CommonJS**（使用 `require`）和 **ES
     // validate.js
     const regex = /^(\S+)@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\.)+[a-zA-Z]{2,}$/
     module.exports = {
-      validateEmail: (email) => regex.test(email)
+      validateEmail: email => regex.test(email)
     }
 
     // index.js
@@ -1536,7 +1830,7 @@ Node.js 提供了两种模块系统：**CommonJS**（使用 `require`）和 **ES
     ```javascript
     // validate.mjs
     const regex = /^(\S+)@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\.)+[a-zA-Z]{2,}$/
-    export const validateEmail = (email) => regex.test(email)
+    export const validateEmail = email => regex.test(email)
 
     // index.mjs
     import { validateEmail } from './validate.mjs'
@@ -1563,7 +1857,7 @@ Node.js 提供了两种模块系统：**CommonJS**（使用 `require`）和 **ES
     ```javascript
     // validate.js
     const regex = /^(\S+)@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\.)+[a-zA-Z]{2,}$/
-    export const validateEmail = (email) => regex.test(email)
+    export const validateEmail = email => regex.test(email)
 
     // index.js
     import { validateEmail } from './validate.js'
@@ -1643,14 +1937,14 @@ Node.js 提供了两种模块系统：**CommonJS**（使用 `require`）和 **ES
 
 ---
 
-### 二、Node.js 当前发展现状（截至 2025年4月28日）
+### 二、Node.js 当前发展现状（截至 2025 年 4 月 28 日）
 
 Node.js 作为服务器端 JavaScript 运行时，近年来持续快速发展，社区活跃，生态系统庞大。以下是从功能更新、社区动态和行业采用等方面对 Node.js 发展的总结，部分信息基于 X 平台和网络搜索的最新动态。
 
 #### 1. 版本和功能更新
 
 - **最新版本**：
-  - 截至 2025年4月，Node.js 的最新 LTS（长期支持）版本为 20.x（2023年10月发布，维护至 2026年4月），最新当前版本为 22.x（2024年10月发布）。
+  - 截至 2025 年 4 月，Node.js 的最新 LTS（长期支持）版本为 20.x（2023 年 10 月发布，维护至 2026 年 4 月），最新当前版本为 22.x（2024 年 10 月发布）。
   - Node.js 保持每半年发布一个新版本（偶数版本，如 22、24），奇数版本为实验性版本。
 - **关键功能更新**：
   - **ES 模块支持**：ES 模块已完全稳定，Node.js 22.x 进一步优化了模块加载性能，支持 `.mjs` 和 `"type": "module"` 成为主流。
@@ -1698,6 +1992,68 @@ Node.js 作为服务器端 JavaScript 运行时，近年来持续快速发展，
   - 始终在 `package.json` 中明确 `"type"`，避免模块类型混淆。
   - 使用工具（如 `esbuild`）检查模块兼容性。
   - 测试模块加载性能，特别是在动态导入大量正则表达式逻辑时。
+
+## 讲一下常见的 Nodejs 框架？
+
+- Koa：一个轻量的 Nodejs 框架，代码非常简洁。采用洋葱圈模型中间件，非常方便扩展功能，但是开发后端 API 需要进行再封装。
+- Express：Express 也是一个轻量框架，Express 和 Koa 的区别在于中间件机制。但总体差别不是很大，绝大多数 Nodejs 框架都是在 Koa 或者 Express 基础上封装的。
+- Eggjs：基于 Koa 封装的框架，整合了数据库、路由、安全防护、日志记录、异常处理等中间件，可以用来快速开发 Rest 或者 Restful API 项目。
+  -Nestjs：基于 TS,使用了大量的装饰器语法，开发体验类似于 Java 的 Springboot。除此之外，Nestjs 还提供了 GraphQL、WebSocket、各种 MQ 和微服务的解决方案，比较适合大型后端项目的开发。
+
+## 什么是 BFF？
+
+BFF（Backend For Frontend）,说白了就是中间层，由前端同学开发的后端项目。
+
+最常见的 BFF 项目像 SSR 和 GraphQL。SSR 用来解决 SEO 问题，GraphQL 用来聚合数据，解决 API 查询的问题。
+
+## 什么是 ORM？Nodejs 的 ORM 框架有哪些？
+
+ORM 框架是通过对 SQL 语句进行封装，并将数据库的数据表和用户代码里的模型对象进行自动映射。
+
+这样开发者使用时只需要调用模型对象的方法就能实现对数据库的增删改查，不用手写太多的 SQL 了。
+
+Node.js 中比较流行的 ORM 框架有：
+
+1.  Sequelize：基于 JS，在 Koa、Express、Egg 这样的框架里操作数据库用 Sequelize 比较多，当然 Sequelize 经过一定扩展也可以支持 TS。
+2.  TypeORM：基于 TS，Nest 框架首选 TypeORM。
+
+## 有没有了解过 Redis？
+
+可以从以下方面来回答：
+
+1. 用 Redis 实现缓存：将热门数据和热门页面存到 Redis 进行缓存，比如热门商品信息，商品页面和网站首页。
+2. 缓存遇到的问题：缓存穿透、缓存雪崩、缓存击穿。
+3. Redis 的进阶功能：Redis 有各种数据结构，除了缓存之外，还能实现很多功能。比如：消息队列、附近的人、排行榜等等。
+4. Redis 持久化：Redis 可以将缓存持久化到本地，持久化策略包括 RDB 和 AOF。
+5. 集群：如果单机 Redis 不够用的话，可以考虑搭建 Redis 集群，Redis 集群有主从和哨兵两种模式。
+
+Redis 对于后端来说，是一个专门的话题
+
+## 有没有做过数据库优化？
+
+常见的优化有：
+
+1. 使用 explain 执行计划查看 SQL 的执行信息，进而定位慢 SQL 来源。
+2. 索引是 Mysql 调优首先能想到的方案，合理设置索引可以很大程度上提高查询效率。
+3. 大分页也是一个常见的性能问题出现的地方，因为 MySQL 需要扫描大量的数据，造成性能瓶颈。可以通过使用主键或者游标分页的方式来优化。
+4. 读写分离，单机顶不住的时候，可以使用主从架构，把数据库读写分担到不同的机器上。
+5. 分库分表，如果数据表存了海量数据，除了读写分离之外，还要考虑分库分表，把一张表分成多张表，减轻数据库压力。
+
+数据库优化也是一个很大的话题，此处仅作简要总结
+
+## 有了解过分布式和微服务吗？
+
+当单体应用撑不住的时候，就得考虑上集群，把应用部署在多个机器上，就形成了分布式架构。
+
+分布式的集群不仅带来了算力和并发能力，也带来了各种问题，这其中包括：分布式通信、分布式事务、分布式 id、分布式容错、负载均衡等。
+
+所以就需要有各种中间件来解决这些问题，比如 Nginx、Zookeeper、Dubbo、MQ、RPC 等。
+
+然后当项目规模进一步扩大的时候，不仅要考虑集群，还要考虑项目的拆分，这时候就要上微服务架构了。把一个大项目根据业务拆分成很多功能单一的模块，可以由不同的团队独立开发和部署。
+
+比如一个电商的后台 API，可以拆分成用户服务、商品服务、订单服务、优惠券服务、广告服务，这些服务由不同的团队去维护。
+
+当然，微服务也带来了更多的复杂性，所以就会有像 Spring Cloud、Spring Cloud Alibaba 这样的解决方案去解决这些复杂性。
 
 ## 参考
 
