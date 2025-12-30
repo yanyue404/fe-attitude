@@ -252,7 +252,7 @@ typeof console.log // 'function'
 如果我们想判断一个对象的正确类型，这时候可以考虑使用 instanceof，因为内部机制是通过原型链来判断的。instanceof 能在实例的 原型对象链 中找到该构造函数的 prototype 属性所指向的 原型对象，就返回 true。即:
 
 ```js
-const Person = function() {}
+const Person = function () {}
 const p1 = new Person()
 p1 instanceof Person // true
 
@@ -347,7 +347,7 @@ let o1 = {
   a: {
     val: 1
   },
-  b: function() {
+  b: function () {
     alert('b')
   },
   c: () => {
@@ -360,7 +360,7 @@ let o2 = JSON.parse(JSON.stringify(o1)) // { a: {val: 1}}
 基础版
 
 ```js
-var deepCopy = function(obj) {
+var deepCopy = function (obj) {
   if (typeof obj !== 'object') return
   var newObj = obj instanceof Array ? [] : {}
   for (var key in obj) {
@@ -417,7 +417,7 @@ const a = {
   regex: /\.(j|t)sx/i,
   obj: { name: 'frank', age: 18 },
   f1: (a, b) => a + b,
-  f2: function(a, b) {
+  f2: function (a, b) {
     return a + b
   }
 }
@@ -458,7 +458,7 @@ console.log(b) // 支持上面的类型
 
 ```js
 var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-arr.sort(function() {
+arr.sort(function () {
   return Math.random() - 0.5
 })
 ```
@@ -466,10 +466,10 @@ arr.sort(function() {
 - 数组拆解: flat: \[1,\[2,3\]\] --> \[1, 2, 3\]
 
 ```js
-Array.prototype.flat = function() {
+Array.prototype.flat = function () {
   return this.toString()
     .split(',')
-    .map(item => +item)
+    .map((item) => +item)
 }
 ```
 
@@ -519,7 +519,7 @@ ES5
 ```js
 function unique(arr) {
   const result = []
-  arr.forEach(function(item) {
+  arr.forEach(function (item) {
     if (result.indexOf(item) == -1) {
       result.push(item)
     }
@@ -719,10 +719,10 @@ newFunc() // Hi! Tom
 ### bind
 
 ```js
-Function.prototype.bind = function(context, ...extra) {
+Function.prototype.bind = function (context, ...extra) {
   const self = this
   // 这里不能用箭头函数，防止绑定函数为构造函数
-  return function(...arg) {
+  return function (...arg) {
     return self.call(context, ...extra.concat(arg))
   }
 }
@@ -731,7 +731,7 @@ Function.prototype.bind = function(context, ...extra) {
 ### call
 
 ```js
-Function.prototype.call = function(context, ...args) {
+Function.prototype.call = function (context, ...args) {
   if (context === null || context === undefined) {
     context = window
   }
@@ -754,7 +754,7 @@ Function.prototype.call = function(context, ...args) {
 ### apply
 
 ```js
-Function.prototype.apply = function(context, args = []) {
+Function.prototype.apply = function (context, args = []) {
   if (!Array.isArray(args)) throw '参数必须为数组'
 
   if (context === null || context === undefined) {
@@ -785,7 +785,7 @@ function Animal(legsNumber) {
   this.legsNumber = legsNumber
 }
 Animal.prototype.kind = '动物'
-Animal.prototype.sayHi = function() {
+Animal.prototype.sayHi = function () {
   console.log('hi，我是' + this.kind)
 }
 
@@ -803,7 +803,7 @@ console.log(huang)
 huang.sayHi() // hi，我是动物
 
 Dog.prototype.kind = '狗'
-Dog.prototype.say = function() {
+Dog.prototype.say = function () {
   console.log(`汪汪汪~ 我是${this.name}，我有${this.legsNumber}条腿。`)
 }
 
@@ -832,7 +832,7 @@ function SuperType(name) {
   this.name = name
   this.colors = ['red', 'blue', 'green']
 }
-SuperType.prototype.sayName = function() {
+SuperType.prototype.sayName = function () {
   console.log(this.name)
 }
 function SubType(name, age) {
@@ -840,7 +840,7 @@ function SubType(name, age) {
   this.age = age
 }
 inheritPrototype(SubType, SuperType)
-SubType.prototype.sayAge = function() {
+SubType.prototype.sayAge = function () {
   console.log(this.age)
 }
 const sub = new SubType('pink', '18')
@@ -1145,7 +1145,7 @@ console.log(g()) // the closest value
 // 函数作为返回值
 function F1() {
   var a = 100
-  return function() {
+  return function () {
     console.log(a)
   }
 }
@@ -1157,7 +1157,7 @@ f1() // 100
 ```js
 function F1() {
   var a = 100
-  return function() {
+  return function () {
     alert(a)
   }
 }
@@ -1195,7 +1195,7 @@ F2(f1) // 100 undefined
 function foo() {
   var arr = []
   for (var i = 0; i < 2; i++) {
-    arr[i] = function() {
+    arr[i] = function () {
       return i
     }
   }
@@ -1239,7 +1239,7 @@ console.log(bar[0]()) //0
 function foo() {
   var arr = []
   for (let i = 0; i < 2; i++) {
-    arr[i] = function() {
+    arr[i] = function () {
       return i
     }
   }
@@ -1255,7 +1255,7 @@ console.log(bar[0]()) //0
 
 ```js
 for (var i = 0; i < 5; i++) {
-  setTimeout(function() {
+  setTimeout(function () {
     console.log(new Date(), i)
   }, 1000)
 }
@@ -1269,9 +1269,9 @@ console.log(new Date(), i) // 输入结果： 5 -> 5,5,5,5,5，即第 1 个 5 �
 
 ```js
 for (var i = 0; i < 5; i++) {
-  ;(function(j) {
+  ;(function (j) {
     // j = i
-    setTimeout(function() {
+    setTimeout(function () {
       console.log(new Date(), j)
     }, 1000)
   })(i)
@@ -1285,7 +1285,7 @@ console.log(new Date(), i)
 ```js
 for (var i = 0; i < 5; i++) {
   setTimeout(
-    function(j) {
+    function (j) {
       console.log(new Date(), j)
     },
     1000,
@@ -1299,8 +1299,8 @@ console.log(new Date(), i)
 3. 对循环体稍做手脚，让负责输出的那段代码能拿到每次循环的 i 值即可。该怎么做呢？利用 JS 中基本类型（Primitive Type）的参数传递是按值传递（Pass by Value）的特征
 
 ```js
-var output = function(i) {
-  setTimeout(function() {
+var output = function (i) {
+  setTimeout(function () {
     console.log(new Date(), i)
   }, 1000)
 }
@@ -1318,8 +1318,8 @@ console.log(new Date(), i)
 
 ```js
 const tasks = [] // 这里存放异步操作的 Promise
-const output = i =>
-  new Promise(resolve => {
+const output = (i) =>
+  new Promise((resolve) => {
     setTimeout(() => {
       console.log(new Date(), i)
       resolve()
@@ -1341,8 +1341,8 @@ Promise.all(tasks).then(() => {
 
 ```js
 // 模拟其他语言中的 sleep，实际上可以是任何异步操作
-const sleep = timeountMS =>
-  new Promise(resolve => {
+const sleep = (timeountMS) =>
+  new Promise((resolve) => {
     setTimeout(resolve, timeountMS)
   })
 
@@ -1391,7 +1391,7 @@ const sleep = timeountMS =>
   for (let i = 0; i < 300; i++) {
     var li = document.createElement('li')
     li.innerText = i + 1
-    li.addEventListener('click', function() {
+    li.addEventListener('click', function () {
       alert(i + 1)
     })
     ndUL.appendChild(li)
@@ -1411,7 +1411,7 @@ const sleep = timeountMS =>
     html += `<li>${i + 1}</li>`
   }
   ndUL.innerHTML = html
-  ndUL.addEventListener('click', function(e) {
+  ndUL.addEventListener('click', function (e) {
     let target = e.target
     if (target.nodeName === 'LI') {
       alert(target.innerText)
@@ -1436,7 +1436,7 @@ const sleep = timeountMS =>
 ```js
 ;<input onclick="sayHi()" />
 
-btn.onclick = function() {}
+btn.onclick = function () {}
 btn.onclick = null
 ```
 
@@ -1485,7 +1485,7 @@ UI事件，当用户与页面上的元素交互时触发，如：load、scroll
 const div = document.createElement('div') // 不创建元素，直接用 window 对象也可以
 const event = new Event('build')
 
-div.addEventListener('build', function(e) {
+div.addEventListener('build', function (e) {
   console.log(111)
 })
 
@@ -1523,7 +1523,7 @@ triggerEvent('resize') // 触发 resize 事件
 ```js
 var a = {
   name: 'A',
-  fn: function() {
+  fn: function () {
     console.log(this.name)
   }
 }
@@ -1557,7 +1557,7 @@ JS 在执行的过程中会产生执行环境，这些执行环境会被顺序�
 ```js
 console.log('script start')
 
-setTimeout(function() {
+setTimeout(function () {
   console.log('setTimeout')
 }, 0)
 
@@ -1571,18 +1571,18 @@ console.log('script end')
 ```js
 console.log('script start')
 
-setTimeout(function() {
+setTimeout(function () {
   console.log('setTimeout')
 }, 0)
 
-new Promise(resolve => {
+new Promise((resolve) => {
   console.log('Promise')
   resolve()
 })
-  .then(function() {
+  .then(function () {
     console.log('promise1')
   })
-  .then(function() {
+  .then(function () {
     console.log('promise2')
   })
 
@@ -1671,7 +1671,7 @@ function throttle(fn, wait = 500, immediate) {
   let timer = null
   let callNow = immediate
 
-  return function() {
+  return function () {
     let context = this,
       args = arguments
 
@@ -1696,7 +1696,7 @@ function throttle(fn, wait = 500, immediate) {
 function debounce(fn, wait = 1500, immediate) {
   let timer = null
 
-  return function() {
+  return function () {
     let args = arguments
     let context = this
 
@@ -1719,7 +1719,7 @@ function debounce(fn, wait = 1500, immediate) {
 在一个函数中，首先填充几个参数，然后再返回一个新的函数的技术，称为函数的柯里化。通常可用于在不侵入函数的前提下，为函数 预置通用参数，供多次重复调用。
 
 ```js
-const curry = fn => {
+const curry = (fn) => {
   const len = fn.length
   return function curried(...args) {
     if (args.length === len) {
@@ -1753,7 +1753,7 @@ add(1)(2)(3)
 
 ```js
 // es5
-;(function() {
+;(function () {
   // todo...
 })()
 
@@ -1921,12 +1921,12 @@ function fn() {
   console.log('real', this) // {a: 100} ，该作用域下的 this 的真实的值
   var arr = [1, 2, 3]
   // 普通 JS
-  arr.map(function(item) {
+  arr.map(function (item) {
     console.log('js', this) // window 。普通函数，这里打印出来的是全局变量，令人费解
     return item + 1
   })
   // 箭头函数
-  arr.map(item => {
+  arr.map((item) => {
     console.log('es6', this) // {a: 100} 。箭头函数，这里打印的就是父作用域的 this
     return item + 1
   })
@@ -1958,7 +1958,7 @@ const obj = {
 var obj = {
   getArrow: function getArrow() {
     var _this = this
-    return function() {
+    return function () {
       console.log(_this === obj)
     }
   }
@@ -1977,6 +1977,8 @@ Promise new 的时候会立即执行（同步）构造函数里面的代码， t
 
 三个状态：`pending`、`fulfilled`、`rejected`
 
+> 注意：一旦从进行状态变成为其他状态就永远不能更改状态了。
+
 两个过程：
 
 - pending→fulfilled（resolve）
@@ -1989,7 +1991,9 @@ Promise new 的时候会立即执行（同步）构造函数里面的代码， t
 - Promise.all() 所有 promise 都成功才返回结果，若有一个出错则直接阻断执行并返回错误信息。
 - Promise.race() 所有 promise 竞赛，取最先改变的 promise 实例结果返回 （不管结果本身是成功状态还是失败状态）。
 - Promise.allset() 不管 单个 Promise 请求成功还是失败，都会返回结果。（每个对象都有 status 属性描述请求结果状态）
-- Promise.any() 【提案中】 所有 promise 竞赛，取最先成功 fulfilled 的 promise 实例结果返回，不会因为某个 Promise 变成 rejected 状态而结束。如果所有参数实例都变成 rejected 状态，包装实例就会变成 rejected 状态
+- Promise.any() 所有 promise 竞赛，取最先成功 fulfilled 的 promise 实例结果返回，不会因为某个 Promise 变成 rejected 状态而结束。如果所有参数实例都变成 rejected 状态，包装实例就会变成 rejected 状态
+
+- https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
 ## Async & Await
 
@@ -2045,8 +2049,8 @@ const fetchData = () => {
   }
 
   // 抽离成公共方法
-  const awaitWrap = promise => {
-    return promise.then(data => [null, data]).catch(err => [err, null])
+  const awaitWrap = (promise) => {
+    return promise.then((data) => [null, data]).catch((err) => [err, null])
   }
 
   const [err, data] = await awaitWrap(fetchData())
@@ -2064,7 +2068,7 @@ const promise1 = Promise.resolve(3)
 const promise2 = new Promise((resolve, reject) => setTimeout(reject, 100, 'foo'))
 const promises = [promise1, promise2]
 
-Promise.allSettled(promises).then(results => results.forEach(result => console.log(result.status)))
+Promise.allSettled(promises).then((results) => results.forEach((result) => console.log(result.status)))
 
 // Expected output:
 // "fulfilled"
@@ -2072,7 +2076,7 @@ Promise.allSettled(promises).then(results => results.forEach(result => console.l
 ```
 
 ```js
-Promise.every = promiseAry => {
+Promise.every = (promiseAry) => {
   return new Promise((resolve, reject) => {
     let resultAry = [],
       errorAry = [],
@@ -2080,14 +2084,14 @@ Promise.every = promiseAry => {
       index__error = 0
     for (let i = 0; i < promiseAry.length; i++) {
       Promise.resolve(promiseAry[i])
-        .then(result => {
+        .then((result) => {
           index++
           resultAry[i] = result
           if (index === promiseAry.length) {
             resolve(resultAry)
           }
         })
-        .catch(reason => {
+        .catch((reason) => {
           index__error++
           index++
           errorAry[i] = reason
@@ -2161,7 +2165,7 @@ console.log(set) // Set(4) {1, 2, 3, 4}
 
 // 例2
 const set = new Set()
-;[2, 3, 5, 4, 5, 8, 8].forEach(item => set.add(item))
+;[2, 3, 5, 4, 5, 8, 8].forEach((item) => set.add(item))
 for (let item of set) {
   console.log(item)
 }
@@ -2178,9 +2182,7 @@ Set 实例的属性和方法有
 
 ```js
 const s = new Set()
-s.add(1)
-  .add(2)
-  .add(2) // 添加元素
+s.add(1).add(2).add(2) // 添加元素
 
 s.size // 2
 
@@ -2326,7 +2328,7 @@ function MathHandle(x, y) {
   this.y = y
 }
 
-MathHandle.prototype.add = function() {
+MathHandle.prototype.add = function () {
   return this.x + this.y
 }
 
@@ -2364,13 +2366,13 @@ JS 构造函数实现继承
 ```js
 // 动物
 function Animal() {
-  this.eat = function() {
+  this.eat = function () {
     console.log('animal eat')
   }
 }
 // 狗
 function Dog() {
-  this.bark = function() {
+  this.bark = function () {
     console.log('dog bark')
   }
 }
@@ -2635,7 +2637,7 @@ UMD，即通用模块定义。UMD 主要为了解决 CommonJS 和 AMD 规范下�
 ```js
 // eg: https://www.npmjs.com/package/crypto-js
 // hzfe.js
-;(function(root, factory) {
+;(function (root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD
     define(['exports', 'hzfe'], factory)
@@ -2646,7 +2648,7 @@ UMD，即通用模块定义。UMD 主要为了解决 CommonJS 和 AMD 规范下�
     // Browser globals
     factory((root.commonJsStrict = {}), root.hzfe)
   }
-})(typeof self !== 'undefined' ? self : this, function(exports, b) {
+})(typeof self !== 'undefined' ? self : this, function (exports, b) {
   const hzfeMember = 17
   const getHZFEMember = () => {
     return `HZFE Member: ${hzfeMember}`
@@ -2801,7 +2803,7 @@ Vue.use(EtionUI)
 
 ```js
 // 📁 say.js 有默认的导出
-export default function() {
+export default function () {
   alert('Module loaded (export default)!')
 }
 
@@ -2872,7 +2874,7 @@ ESModule 不是对象，而是通过 export 暴露出要输出的代码块，在
 
 ```js
 // 例：CJS 兼容 ESM
-;(async function() {
+;(async function () {
   const esm = await import('esm')
   esm.a()
   esm.b()
@@ -3020,7 +3022,7 @@ async function test() {
 // map，返回始终为 promise 数组，需要使用 promise.all() 处理等待返回结果
 async function test() {
   console.log('start')
-  const res = skills.map(async item => {
+  const res = skills.map(async (item) => {
     return await getSkillPromise(item)
   })
   const resPromise = await Promise.all(res)
@@ -3031,7 +3033,7 @@ async function test() {
 // forEach，不支持异步等待， 在forEach循环等待异步结果返回之前就执行了console.log('end')
 async function test() {
   console.log('start')
-  skills.forEach(async item => {
+  skills.forEach(async (item) => {
     const res = await getSkillPromise(item)
     console.log(res)
   })
@@ -3132,7 +3134,7 @@ setInterval 执行动画的缺点：它通过设定间隔时间来不断改变�
 var insertedNodes = []
 document.addEventListener(
   'DOMNodeInserted',
-  function(e) {
+  function (e) {
     insertedNodes.push(e.target)
   },
   false
@@ -3144,8 +3146,8 @@ console.log(insertedNodes)
 
 ```js
 var insertedNodes = []
-var observer = new MutationObserver(function(mutations) {
-  mutations.forEach(function(mutation) {
+var observer = new MutationObserver(function (mutations) {
+  mutations.forEach(function (mutation) {
     for (var i = 0; i < mutation.addedNodes.length; i++) insertedNodes.push(mutation.addedNodes[i])
   })
 })
