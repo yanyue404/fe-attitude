@@ -18,19 +18,79 @@
 
 ## 什么是 React Fiber?
 
-Fiber 是 React v16 中新的协调引擎或核心算法的重新实现。 React Fiber 的目标是提高其对动画、布局、手势、暂停、中止或重用工作的能力以及为不同类型的更新分配优先级等领域的适用性；旨在提高 React 应用的性能和响应能力。
+React 的核心流程可以分为两个部分:
 
-**React Fiber 的主要目标**
+- reconciliation (**调度算法**，也可称为 render):
+  - 更新 state 与 props；
+  - 调用生命周期钩子；
+  - 生成 virtual dom；
+  - 通过新旧 vdom 进行 diff 算法，获取 vdom change；
+  - 确定是否需要重新渲染
+- commit:
+  - 如需要，则操作 dom 节点更新；
 
-React Fiber 的目标是提高其对动画、布局和手势等领域的适用性。它的主要功能是增量渲染：能够将渲染工作分割成块并将其分布在多个帧上。
+要了解 Fiber，我们首先来看为什么需要它？
 
-其主要目标是：
+- **问题**: 随着应用变得越来越庞大，整个更新渲染的过程开始变得吃力，大量的组件渲染会导致主进程长时间被占用，导致一些动画或高频操作出现卡顿和掉帧的情况。而关键点，便是 **同步阻塞**。在之前的调度算法中，React 需要实例化每个类组件，生成一颗组件树，使用 **同步递归** 的方式进行遍历渲染，而这个过程最大的问题就是无法 **暂停和恢复**。
 
-- 能够将可中断的工作分成多个块。
-- 能够对正在进行的工作进行优先级排序、调整基准和重用。
-- 能够在父母和孩子之间来回屈服以支持 React 中的布局。
-- 能够从 render() 返回多个元素。
-- 更好地支持错误边界
+- **解决方案**: 解决同步阻塞的方法，通常有两种: **异步** 与 **任务分割**。而 React Fiber 便是为了实现任务分割而诞生的。
+
+- **简述**:
+
+  - 在 React V16 将调度算法进行了重构， 将之前的 stack reconciler 重构成新版的 fiber reconciler，变成了具有链表和指针的 **单链表树遍历算法**。通过指针映射，每个单元都记录着遍历当下的上一步与下一步，从而使遍历变得可以被暂停和重启。
+  - 这里我理解为是一种 **任务分割调度算法**，主要是 将原先同步更新渲染的任务分割成一个个独立的 **小任务单位**，根据不同的优先级，将小任务分散到浏览器的空闲时间执行，充分利用主进程的事件循环机制。
+
+- **核心**:
+
+  - Fiber 这里可以具象为一个 **数据结构**:
+
+  ```js
+  class Fiber {
+    constructor(instance) {
+      this.instance = instance
+      // 指向第一个 child 节点
+      this.child = child
+      // 指向父节点
+      this.return = parent
+      // 指向第一个兄弟节点
+      this.sibling = previous
+    }
+  }
+  ```
+
+  - **链表树遍历算法**: 通过 **节点保存与映射**，便能够随时地进行 停止和重启，这样便能达到实现任务分割的基本前提；
+
+    - 1、首先通过不断遍历子节点，到树末尾；
+    - 2、开始通过 sibling 遍历兄弟节点；
+    - 3、return 返回父节点，继续执行2；
+    - 4、直到 root 节点后，跳出遍历；
+
+  - **任务分割**，React 中的渲染更新可以分成两个阶段:
+
+    - **reconciliation 阶段**: vdom 的数据对比，是个适合拆分的阶段，比如对比一部分树后，先暂停执行个动画调用，待完成后再回来继续比对。
+    - **Commit 阶段**: 将 change list 更新到 dom 上，不适合拆分，因为使用 vdom 的意义就是为了节省传说中最耗时的 dom 操作，把所有操作一次性更新，如果在这里又拆分，那不是又懵了么。🙃
+
+  - **分散执行**: 任务分割后，就可以把小任务单元分散到浏览器的空闲期间去排队执行，而实现的关键是两个新API: `requestIdleCallback` 与 `requestAnimationFrame`
+
+    - 低优先级的任务交给`requestIdleCallback`处理，这是个浏览器提供的事件循环空闲期的回调函数，需要 pollyfill，而且拥有 deadline 参数，限制执行事件，以继续切分任务；
+    - 高优先级的任务交给`requestAnimationFrame`处理；
+
+  ```js
+  // 类似于这样的方式
+  requestIdleCallback((deadline) => {
+    // 当有空闲时间时，我们执行一个组件渲染；
+    // 把任务塞到一个个碎片时间中去；
+    while ((deadline.timeRemaining() > 0 || deadline.didTimeout) && nextComponent) {
+      nextComponent = performWork(nextComponent)
+    }
+  })
+  ```
+
+  - **优先级策略**: 文本框输入 > 本次调度结束需完成的任务 > 动画过渡 > 交互反馈 > 数据更新 > 不会显示但以防将来会显示的任务
+
+> Tips:
+>
+> Fiber 其实可以算是一种编程思想，在其它语言中也有许多应用(Ruby Fiber)。当遇到进程阻塞的问题时，**任务分割**、**异步调用** 和 **缓存策略** 是三个显著的解决思路。
 
 **React Fiber 工作原理**
 
@@ -120,9 +180,9 @@ export default function Counter() {
 
       <button
         onClick={() => {
-          setNumber2(n => n + 1)
-          setNumber2(n => n + 1)
-          setNumber2(n => n + 1)
+          setNumber2((n) => n + 1)
+          setNumber2((n) => n + 1)
+          setNumber2((n) => n + 1)
         }}
       >
         按钮B{number2}
@@ -131,7 +191,7 @@ export default function Counter() {
       <button
         onClick={() => {
           setNumber3(number3 + 5)
-          setNumber3(n => n + 1)
+          setNumber3((n) => n + 1)
         }}
       >
         按钮C{number3}
@@ -140,7 +200,7 @@ export default function Counter() {
       <button
         onClick={() => {
           setNumber4(number4 + 5)
-          setNumber4(n => n + 1)
+          setNumber4((n) => n + 1)
           setNumber4(42)
         }}
       >
@@ -367,7 +427,7 @@ class MyComponent extends React.Component {
 }
 
 // 函数组件
-const MyComponent = props => {
+const MyComponent = (props) => {
   return <div>Hello, {props.name}!</div>
 }
 ```
@@ -385,7 +445,7 @@ class Counter extends React.Component {
   }
 
   increment = () => {
-    this.setState(prevState => ({ count: prevState.count + 1 }))
+    this.setState((prevState) => ({ count: prevState.count + 1 }))
   }
 
   render() {
@@ -405,7 +465,7 @@ const Counter = () => {
   const [count, setCount] = useState(0)
 
   const increment = () => {
-    setCount(prevCount => prevCount + 1)
+    setCount((prevCount) => prevCount + 1)
   }
 
   return (
@@ -470,7 +530,7 @@ export default function App() {
     <>
       <label>
         Choose the chat room:{' '}
-        <select value={roomId} onChange={e => setRoomId(e.target.value)}>
+        <select value={roomId} onChange={(e) => setRoomId(e.target.value)}>
           <option value="general">general</option>
           <option value="travel">travel</option>
           <option value="music">music</option>
@@ -548,7 +608,7 @@ export default class ChatRoom extends Component {
           Server URL:{' '}
           <input
             value={this.state.serverUrl}
-            onChange={e => {
+            onChange={(e) => {
               this.setState({
                 serverUrl: e.target.value
               })
@@ -582,7 +642,7 @@ export default function ChatRoom({ roomId }) {
   return (
     <>
       <label>
-        Server URL: <input value={serverUrl} onChange={e => setServerUrl(e.target.value)} />
+        Server URL: <input value={serverUrl} onChange={(e) => setServerUrl(e.target.value)} />
       </label>
       <h1>Welcome to the {roomId} room!</h1>
     </>
@@ -852,7 +912,9 @@ function Footer() {
 // $npm i styled-components
 //新建含有 css 的 js 文件，导入模块并导出样式
 import styled from 'styled-components'
-const Pstyled = styled.h1`//h1为标签名，后面接模板字符串 color: red; font-size: ${props => props.size + 'px'};` //可以通过 props 传值
+const Pstyled = styled.h1`
+  //h1为标签名，后面接模板字符串 color: red; font-size: ${(props) => props.size + 'px'};
+` //可以通过 props 传值
 export { Pstyled }
 //组件中使用
 import React, { Component } from 'react'
@@ -908,8 +970,362 @@ export function useDemo() {
 }
 ```
 
+## React Hooks
+
+React 中通常使用 **类定义** 或者 **函数定义** 创建组件:
+
+在类定义中，我们可以使用到许多 React 特性，例如 state、 各种组件生命周期钩子等，但是在函数定义中，我们却无能为力，因此 React 16.8 版本推出了一个新功能 (React Hooks)，通过它，可以更好的在函数定义组件中使用 React 特性。
+
+- **好处**:
+
+  - 1、**跨组件复用**: 其实 render props / HOC 也是为了复用，相比于它们，Hooks 作为官方的底层 API，最为轻量，而且改造成本小，不会影响原来的组件层次结构和传说中的嵌套地狱；
+  - 2、**类定义更为复杂**:
+    - 不同的生命周期会使逻辑变得分散且混乱，不易维护和管理；
+    - 时刻需要关注`this`的指向问题；
+    - 代码复用代价高，高阶组件的使用经常会使整个组件树变得臃肿；
+  - 3、**状态与UI隔离**: 正是由于 Hooks 的特性，状态逻辑会变成更小的粒度，并且极容易被抽象成一个自定义 Hooks，组件中的状态和 UI 变得更为清晰和隔离。
+
+- **注意**:
+
+  - 避免在 循环/条件判断/嵌套函数 中调用 hooks，保证调用顺序的稳定；
+  - 只有 函数定义组件 和 hooks 可以调用 hooks，避免在 类组件 或者 普通函数 中调用；
+  - 不能在`useEffect`中使用`useState`，React 会报错提示；
+  - 类组件不会被替换或废弃，不需要强制改造类组件，两种方式能并存；
+
+- **重要钩子\***:
+
+  - **状态钩子** (`useState`): 用于定义组件的 State，其到类定义中`this.state`的功能；
+
+  ```js
+  // useState 只接受一个参数: 初始状态
+  // 返回的是组件名和更改该组件对应的函数
+  const [flag, setFlag] = useState(true)
+  // 修改状态
+  setFlag(false)
+
+  // 上面的代码映射到类定义中:
+  this.state = {
+    flag: true
+  }
+  const flag = this.state.flag
+  const setFlag = (bool) => {
+    this.setState({
+      flag: bool
+    })
+  }
+  ```
+
+  - **生命周期钩子** (`useEffect`):
+
+  类定义中有许多生命周期函数，而在 React Hooks 中也提供了一个相应的函数 (`useEffect`)，这里可以看做`componentDidMount`、`componentDidUpdate`和`componentWillUnmount`的结合。
+
+  - `useEffect(callback, [source])`接受两个参数
+    - `callback`: 钩子回调函数；
+    - `source`: 设置触发条件，仅当 source 发生改变时才会触发；
+    - `useEffect`钩子在没有传入`[source]`参数时，默认在每次 render 时都会优先调用上次保存的回调中返回的函数，后再重新调用回调；
+
+  ```js
+  useEffect(() => {
+    // 组件挂载后执行事件绑定
+    console.log('on')
+    addEventListener()
+
+    // 组件 update 时会执行事件解绑
+    return () => {
+      console.log('off')
+      removeEventListener()
+    }
+  }, [source])
+
+  // 每次 source 发生改变时，执行结果(以类定义的生命周期，便于大家理解):
+  // --- DidMount ---
+  // 'on'
+  // --- DidUpdate ---
+  // 'off'
+  // 'on'
+  // --- DidUpdate ---
+  // 'off'
+  // 'on'
+  // --- WillUnmount ---
+  // 'off'
+  ```
+
+  - 通过第二个参数，我们便可模拟出几个常用的生命周期:
+
+    - `componentDidMount`: 传入`[]`时，就只会在初始化时调用一次；
+
+    ```js
+    const useMount = (fn) => useEffect(fn, [])
+    ```
+
+    - `componentWillUnmount`: 传入`[]`，回调中的返回的函数也只会被最终执行一次；
+
+    ```js
+    const useUnmount = (fn) => useEffect(() => fn, [])
+    ```
+
+    - `mounted` : 可以使用 useState 封装成一个高度可复用的 mounted 状态；
+
+    ```js
+    const useMounted = () => {
+      const [mounted, setMounted] = useState(false)
+      useEffect(() => {
+        !mounted && setMounted(true)
+        return () => setMounted(false)
+      }, [])
+      return mounted
+    }
+    ```
+
+    - `componentDidUpdate`: `useEffect`每次均会执行，其实就是排除了 DidMount 后即可；
+
+    ```js
+    const mounted = useMounted()
+    useEffect(() => {
+      mounted && fn()
+    })
+    ```
+
+- **其它内置钩子**:
+
+  - `useContext`: 获取 context 对象
+
+  - `useReducer`: 类似于 Redux 思想的实现，但其并不足以替代 Redux，可以理解成一个组件内部的 redux:
+
+    - 并不是持久化存储，会随着组件被销毁而销毁；
+    - 属于组件内部，各个组件是相互隔离的，单纯用它并无法共享数据；
+    - 配合`useContext`的全局性，可以完成一个轻量级的 Redux；([easy-peasy](https://github.com/ctrlplusb/easy-peasy))
+
+  - `useCallback`: 缓存回调函数，避免传入的回调每次都是新的函数实例而导致依赖组件重新渲染，具有性能优化的效果；
+
+  - `useMemo`: 用于缓存传入的 props，避免依赖的组件每次都重新渲染；
+
+  - `useRef`: 获取组件的真实节点；
+
+  - `useLayoutEffect`:
+
+    - DOM更新同步钩子。用法与`useEffect`类似，只是区别于执行时间点的不同。
+    - `useEffect`属于异步执行，并不会等待 DOM 真正渲染后执行，而`useLayoutEffect`则会真正渲染后才触发；
+    - 可以获取更新后的 state；
+
+- **自定义钩子**(`useXxxxx`): 基于 Hooks 可以引用其它 Hooks 这个特性，我们可以编写自定义钩子，如上面的`useMounted`。又例如，我们需要每个页面自定义标题:
+
+```js
+function useTitle(title) {
+  useEffect(() => {
+    document.title = title
+  })
+}
+
+// 使用:
+function Home() {
+  const title = '我是首页'
+  useTitle(title)
+
+  return <div>{title}</div>
+}
+```
+
+## SSR
+
+SSR，俗称 **服务端渲染** (Server Side Render)，讲人话就是: 直接在服务端层获取数据，渲染出完成的 HTML 文件，直接返回给用户浏览器访问。
+
+- **前后端分离**: 前端与服务端隔离，前端动态获取数据，渲染页面。
+
+- **痛点**:
+
+  - **首屏渲染性能瓶颈**:
+
+    - 空白延迟: HTML下载时间 + JS下载/执行时间 + 请求时间 + 渲染时间。在这段时间内，页面处于空白的状态。
+
+  - **SEO 问题**: 由于页面初始状态为空，因此爬虫无法获取页面中任何有效数据，因此对搜索引擎不友好。
+
+    - 虽然一直有在提动态渲染爬虫的技术，不过据我了解，大部分国内搜索引擎仍然是没有实现。
+
+最初的服务端渲染，便没有这些问题。但我们不能返璞归真，既要保证现有的前端独立的开发模式，又要由服务端渲染，因此我们使用 React SSR。
+
+- **原理**:
+
+  - Node 服务: 让前后端运行同一套代码成为可能。
+  - Virtual Dom: 让前端代码脱离浏览器运行。
+
+- **条件**: Node 中间层、 React / Vue 等框架。 结构大概如下:
+
+[![](https://github.com/xd-tayde/blog/raw/master/images/interview/9.png)](https://github.com/xd-tayde/blog/blob/master/images/interview/9.png)
+
+- **开发流程**: (此处以 React + Router + Redux + Koa 为例)
+
+  - 1、在同个项目中，**搭建** 前后端部分，常规结构:
+
+    - build
+    - public
+    - src
+      - client
+      - server
+
+  - 2、server 中使用 Koa **路由监听** 页面访问:
+
+  ```js
+  import * as Router from 'koa-router'
+
+  const router = new Router()
+  // 如果中间也提供 Api 层
+  router.use('/api/home', async () => {
+    // 返回数据
+  })
+
+  router.get('*', async (ctx) => {
+    // 返回 HTML
+  })
+  ```
+
+  - 3、通过访问 url **匹配** 前端页面路由:
+
+  ```js
+  // 前端页面路由
+  import { pages } from '../../client/app'
+  import { matchPath } from 'react-router-dom'
+
+  // 使用 react-router 库提供的一个匹配方法
+  const matchPage = matchPath(ctx.req.url, page)
+  ```
+
+  - 4、通过页面路由的配置进行 **数据获取**。通常可以在页面路由中增加 SSR 相关的静态配置，用于抽象逻辑，可以保证服务端逻辑的通用性，如:
+
+    ```js
+     class HomePage extends React.Component{
+     	public static ssrConfig = {
+     		  cache: true,
+              fetch() {
+             	  // 请求获取数据
+              }
+         }
+     }
+    ```
+
+    获取数据通常有两种情况:
+
+    - 中间层也使用 **http** 获取数据，则此时 fetch 方法可前后端共享；
+
+    ```js
+    const data = await matchPage.ssrConfig.fetch()
+    ```
+
+    - 中间层并不使用 http，是通过一些 **内部调用**，例如 Rpc 或 直接读数据库 等，此时也可以直接由服务端调用对应的方法获取数据。通常，这里需要在 ssrConfig 中配置特异性的信息，用于匹配对应的数据获取方法。
+
+    ```js
+     // 页面路由
+     class HomePage extends React.Component{
+     	public static ssrConfig = {
+             fetch: {
+             	 url: '/api/home',
+             }
+         }
+     }
+
+     // 根据规则匹配出对应的数据获取方法
+     // 这里的规则可以自由，只要能匹配出正确的方法即可
+     const controller = matchController(ssrConfig.fetch.url)
+
+     // 获取数据
+     const data = await controller(ctx)
+    ```
+
+  - 5、创建 Redux store，并将数据`dispatch`到里面:
+
+  ```js
+  import { createStore } from 'redux'
+  // 获取 Clinet层 reducer
+  // 必须复用前端层的逻辑，才能保证一致性；
+  import { reducers } from '../../client/store'
+
+  // 创建 store
+  const store = createStore(reducers)
+
+  // 获取配置好的 Action
+  const action = ssrConfig.action
+
+  // 存储数据
+  store.dispatch(createAction(action)(data))
+  ```
+
+  - 6、注入 Store， 调用`renderToString`将 React Virtual Dom 渲染成 **字符串**:
+
+  ```js
+  import * as ReactDOMServer from 'react-dom/server'
+  import { Provider } from 'react-redux'
+
+  // 获取 Clinet 层根组件
+  import { App } from '../../client/app'
+
+  const AppString = ReactDOMServer.renderToString(
+    <Provider store={store}>
+      <StaticRouter location={ctx.req.url} context={{}}>
+        <App />
+      </StaticRouter>
+    </Provider>
+  )
+  ```
+
+  - 7、将 AppString 包装成完整的 html 文件格式；
+
+  - 8、此时，已经能生成完整的 HTML 文件。但只是个纯静态的页面，没有样式没有交互。接下来我们就是要插入 JS 与 CSS。我们可以通过访问前端打包后生成的`asset-manifest.json`文件来获取相应的文件路径，并同样注入到 Html 中引用。
+
+  ```js
+  const html = `
+   	<!DOCTYPE html>
+   	<html lang="zh">
+   		<head></head>
+   		<link href="${cssPath}" rel="stylesheet" />
+   		<body>
+   			<div id="App">${AppString}</div>
+   			<script src="${scriptPath}"></script>
+   		</body>
+   	</html>
+   `
+  ```
+
+  - 9、进行 **数据脱水**: 为了把服务端获取的数据同步到前端。主要是将数据序列化后，插入到 html 中，返回给前端。
+
+  ```js
+  import serialize from 'serialize-javascript'
+  // 获取数据
+  const initState = store.getState()
+  const html = `
+   	<!DOCTYPE html>
+   	<html lang="zh">
+   		<head></head>
+   		<body>
+   			<div id="App"></div>
+   			<script type="application/json" id="SSR_HYDRATED_DATA">${serialize(initState)}</script>
+   		</body>
+   	</html>
+   `
+
+  ctx.status = 200
+  ctx.body = html
+  ```
+
+  > **Tips**:
+  >
+  > 这里比较特别的有两点:
+  >
+  > 1.  使用了`serialize-javascript`序列化 store， 替代了`JSON.stringify`，保证数据的安全性，避免代码注入和 XSS 攻击；
+  > 2.  使用 json 进行传输，可以获得更快的加载速度；
+
+  - 10、Client 层 **数据吸水**: 初始化 store 时，以脱水后的数据为初始化数据，同步创建 store。
+
+  ```js
+  const hydratedEl = document.getElementById('SSR_HYDRATED_DATA')
+  const hydrateData = JSON.parse(hydratedEl.textContent)
+
+  // 使用初始 state 创建 Redux store
+  const store = createStore(reducer, hydrateData)
+  ```
+
 ## 参考
 
+- https://github.com/xd-tayde/blog/blob/master/interview-2.md
 - [ React 进阶实践指南](https://juejin.cn/book/6945998773818490884)
 - https://juejin.cn/user/254742429175352/posts
 - https://www.yuque.com/yuqueyonghua2m9wj/web_food/tpo1np
