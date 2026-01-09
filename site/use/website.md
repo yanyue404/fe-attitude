@@ -109,6 +109,7 @@
 - [**tinypng**](https://tinypng.com/) / [**squoosh**](https://squoosh.app) - 图片压缩
 - [**在线 PS**](https://www.uupoop.com/#/old) / [**photopea**](https://www.photopea.com/) - 在线图像编辑
 - [网站 favicon 图标生成工具](https://favicon.io/)
+- [免费在线拼图工具 Collaio](https://collaigo.com/)
 
 ### CSS 工具
 
@@ -327,6 +328,7 @@
   - [Fake Mail](https://github.com/CH563/fakemail) - 开源一次性电子邮件服务
   - [moemail](https://github.com/beilunyang/moemail) - 基于 NextJS 的临时邮箱
   - [TempMail](https://tempmail100.com/) - 临时邮箱服务
+  - [TempMail365](https://temp-mail-365.com/) - 免费临时邮箱
 - [**Server 酱**](https://sct.ftqq.com/) - 推送服务
 - [**Temporary Email Address**](https://temp-mail.org) - 临时邮件使用
 - [**Temp**](https://temp.pm/) - 短信息（可加密）
