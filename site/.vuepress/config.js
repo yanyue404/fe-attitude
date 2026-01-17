@@ -4,7 +4,7 @@ module.exports = {
   meta: '我的前端态度',
   description: '记录自己的学习考古，会前端真的可以“为所欲为”maybe',
   // 允许加载HTML文件
-  chainWebpack: config => {
+  chainWebpack: (config) => {
     config.module
       .rule('html')
       .test(/\.html$/)
@@ -12,11 +12,30 @@ module.exports = {
       .loader('html-loader')
       .end()
   },
-  // 添加路由回退配置
-  configureWebpack: {
-    devServer: {
-      historyApiFallback: {
-        rewrites: [{ from: /\/tools\/.*/, to: '/tools/[name].html' }]
+  // 添加路由回退配置，确保工具 HTML 文件可以直接访问
+  configureWebpack: (config, isServer) => {
+    if (!isServer && process.env.NODE_ENV === 'development') {
+      // 配置 dev server，确保静态 HTML 文件可以直接访问
+      config.devServer = config.devServer || {}
+
+      config.devServer.historyApiFallback = {
+        disableDotRule: true,
+        rewrites: [
+          // 工具页面的 HTML 文件优先匹配，直接返回静态文件（不经过 VuePress 路由）
+          {
+            from: /^\/fe-attitude\/tools\/(.+)\.html$/,
+            to: '/fe-attitude/tools/$1.html'
+          },
+          {
+            from: /^\/tools\/(.+)\.html$/,
+            to: '/tools/$1.html'
+          },
+          // 其他所有请求都回退到 index.html（VuePress 默认行为）
+          {
+            from: /./,
+            to: '/index.html'
+          }
+        ]
       }
     }
   },
@@ -116,7 +135,7 @@ module.exports = {
             text: '工具',
             items: [
               { text: 'Markdown 格式化工具', link: '/tools/format-Markdown.html' },
-              { text: 'docx 转 html', link: '/tools/docx-to-html.html' },
+              { text: 'docx 转 html', link: '/tools/docx-to-Html.html' },
               { text: '正则表达式生成器', link: '/tools/regex.html' }
             ]
           }
