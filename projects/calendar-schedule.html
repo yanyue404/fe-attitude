@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>日历排期工具</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+          'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 30px;
+        text-align: center;
+      }
+
+      .header h1 {
+        font-size: 32px;
+        margin-bottom: 10px;
+      }
+
+      .header p {
+        opacity: 0.9;
+        font-size: 14px;
+      }
+
+      .content {
+        padding: 30px;
+      }
+
+      .form-section {
+        background: #f8f9fa;
+        padding: 25px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+      }
+
+      .form-section h2 {
+        color: #333;
+        margin-bottom: 20px;
+        font-size: 20px;
+        border-left: 4px solid #667eea;
+        padding-left: 12px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #555;
+        font-weight: 500;
+      }
+
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: all 0.3s;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      .name-inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .name-item {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .name-item input {
+        flex: 1;
+      }
+
+      .btn-icon {
+        background: #667eea;
+        color: white;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        font-size: 18px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+        flex-shrink: 0;
+      }
+
+      .btn-icon:hover {
+        background: #5568d3;
+        transform: scale(1.05);
+      }
+
+      .btn-icon.btn-remove {
+        background: #ff6b6b;
+      }
+
+      .btn-icon.btn-remove:hover {
+        background: #ee5a5a;
+      }
+
+      .btn-add-person {
+        background: #51cf66;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 5px;
+      }
+
+      .btn-add-person:hover {
+        background: #40c057;
+        transform: translateY(-2px);
+      }
+
+      .date-inputs {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+      }
+
+      .btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 14px 32px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+      }
+
+      .btn:active {
+        transform: translateY(0);
+      }
+
+      .result-section {
+        margin-top: 30px;
+      }
+
+      .result-section h2 {
+        color: #333;
+        margin-bottom: 20px;
+        font-size: 20px;
+        border-left: 4px solid #667eea;
+        padding-left: 12px;
+      }
+
+      .schedule-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .schedule-table thead {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+
+      .schedule-table th {
+        padding: 16px;
+        text-align: left;
+        font-weight: 600;
+      }
+
+      .schedule-table td {
+        padding: 14px 16px;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .schedule-table tbody tr:hover {
+        background: #f8f9fa;
+      }
+
+      .schedule-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      .person-name {
+        font-weight: 600;
+        color: #667eea;
+      }
+
+      .date-cell {
+        color: #666;
+      }
+
+      .month-header {
+        background: #f8f9fa;
+        font-weight: 600;
+        color: #333;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: #999;
+      }
+
+      .empty-state svg {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 20px;
+        opacity: 0.5;
+      }
+
+      @media (max-width: 768px) {
+        .name-inputs,
+        .date-inputs {
+          grid-template-columns: 1fr;
+        }
+
+        .name-item {
+          flex-wrap: wrap;
+        }
+
+        .btn-icon {
+          width: 36px;
+          height: 36px;
+          font-size: 16px;
+        }
+
+        .schedule-table {
+          font-size: 14px;
+        }
+
+        .schedule-table th,
+        .schedule-table td {
+          padding: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>📅 日历排期工具</h1>
+        <p>每周日自动排期，轻松管理团队日程</p>
+      </div>
+
+      <div class="content">
+        <div class="form-section">
+          <h2>📝 基本信息设置</h2>
+
+          <div class="form-group">
+            <label>人员名单</label>
+            <div class="name-inputs" id="nameInputs">
+              <!-- 动态生成的人员输入框 -->
+            </div>
+            <button type="button" class="btn-add-person" onclick="addPerson()">
+              ➕ 添加人员
+            </button>
+          </div>
+
+          <div class="form-group">
+            <label>排期时间范围</label>
+            <div class="date-inputs">
+              <div>
+                <label style="font-size: 12px; margin-bottom: 5px"
+                  >开始日期</label
+                >
+                <input type="date" id="startDate" value="2024-04-01" />
+              </div>
+              <div>
+                <label style="font-size: 12px; margin-bottom: 5px"
+                  >结束日期</label
+                >
+                <input type="date" id="endDate" value="2024-09-30" />
+              </div>
+            </div>
+          </div>
+
+          <button class="btn" onclick="generateSchedule()">
+            🚀 生成排期表
+          </button>
+        </div>
+
+        <div class="result-section" id="resultSection" style="display: none">
+          <h2>📋 排期结果</h2>
+          <div id="scheduleTable"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let personCounter = 0
+
+      // 初始化默认4个人员
+      function initPersons() {
+        const defaultNames = ['张三', '李四', '王五', '赵六']
+        defaultNames.forEach((name) => {
+          addPerson(name)
+        })
+      }
+
+      // 添加人员
+      function addPerson(defaultName = '') {
+        personCounter++
+        const nameInputs = document.getElementById('nameInputs')
+        const nameItem = document.createElement('div')
+        nameItem.className = 'name-item'
+        nameItem.id = `person-${personCounter}`
+
+        nameItem.innerHTML = `
+                <input 
+                    type="text" 
+                    placeholder="请输入姓名" 
+                    value="${defaultName}"
+                    class="person-name-input"
+                >
+                <button 
+                    type="button" 
+                    class="btn-icon btn-remove" 
+                    onclick="removePerson(${personCounter})"
+                    title="删除"
+                >
+                    ✕
+                </button>
+            `
+
+        nameInputs.appendChild(nameItem)
+      }
+
+      // 删除人员
+      function removePerson(id) {
+        const personItem = document.getElementById(`person-${id}`)
+        if (personItem) {
+          const nameInputs = document.getElementById('nameInputs')
+          if (nameInputs.children.length <= 1) {
+            alert('至少需要保留1个人员！')
+            return
+          }
+          personItem.remove()
+        }
+      }
+
+      // 获取所有人员名单
+      function getPersonNames() {
+        const nameInputs = document.querySelectorAll('.person-name-input')
+        const names = []
+        nameInputs.forEach((input) => {
+          const name = input.value.trim()
+          if (name) {
+            names.push(name)
+          }
+        })
+        return names
+      }
+
+      function generateSchedule() {
+        // 获取人员名单
+        const names = getPersonNames()
+
+        // 验证人员名单
+        if (names.length === 0) {
+          alert('请至少填写1个人员姓名！')
+          return
+        }
+
+        // 获取时间范围
+        const startDateStr = document.getElementById('startDate').value
+        const endDateStr = document.getElementById('endDate').value
+
+        if (!startDateStr || !endDateStr) {
+          alert('请选择开始和结束日期！')
+          return
+        }
+
+        // 解析日期
+        const startDate = new Date(startDateStr)
+        const endDate = new Date(endDateStr)
+
+        if (startDate > endDate) {
+          alert('开始日期不能晚于结束日期！')
+          return
+        }
+
+        // 生成所有周日的日期
+        const sundays = []
+        const currentDate = new Date(startDate)
+
+        // 找到第一个周日
+        while (currentDate.getDay() !== 0) {
+          currentDate.setDate(currentDate.getDate() + 1)
+        }
+
+        // 收集所有周日
+        while (currentDate <= endDate) {
+          sundays.push(new Date(currentDate))
+          currentDate.setDate(currentDate.getDate() + 7)
+        }
+
+        if (sundays.length === 0) {
+          alert('所选时间范围内没有周日！')
+          return
+        }
+
+        // 生成排期表
+        generateTable(names, sundays)
+
+        // 显示结果
+        document.getElementById('resultSection').style.display = 'block'
+        document
+          .getElementById('resultSection')
+          .scrollIntoView({ behavior: 'smooth' })
+      }
+
+      function generateTable(names, sundays) {
+        const tableContainer = document.getElementById('scheduleTable')
+
+        let html = '<table class="schedule-table">'
+        html +=
+          '<thead><tr><th>序号</th><th>日期</th><th>星期</th><th>排期人员</th></tr></thead>'
+        html += '<tbody>'
+
+        let currentMonth = ''
+        sundays.forEach((date, index) => {
+          const year = date.getFullYear()
+          const month = date.getMonth() + 1
+          const day = date.getDate()
+          const monthKey = `${year}-${String(month).padStart(2, '0')}`
+
+          // 如果是新月份，添加月份标题行
+          if (monthKey !== currentMonth) {
+            if (currentMonth !== '') {
+              html += '</tbody></table>'
+              html += '<table class="schedule-table" style="margin-top: 20px;">'
+              html +=
+                '<thead><tr><th>序号</th><th>日期</th><th>星期</th><th>排期人员</th></tr></thead>'
+              html += '<tbody>'
+            }
+            currentMonth = monthKey
+            html += `<tr class="month-header"><td colspan="4">${year}年${month}月</td></tr>`
+          }
+
+          // 计算排期人员（循环分配）
+          const personIndex = index % names.length
+          const personName = names[personIndex]
+
+          // 格式化日期
+          const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+          const weekdays = ['日', '一', '二', '三', '四', '五', '六']
+          const weekday = weekdays[date.getDay()]
+
+          html += '<tr>'
+          html += `<td>${index + 1}</td>`
+          html += `<td class="date-cell">${dateStr}</td>`
+          html += `<td>星期${weekday}</td>`
+          html += `<td><span class="person-name">${personName}</span></td>`
+          html += '</tr>'
+        })
+
+        html += '</tbody></table>'
+        tableContainer.innerHTML = html
+      }
+
+      // 页面加载时初始化
+      window.addEventListener('DOMContentLoaded', function () {
+        initPersons()
+      })
+    </script>
+  </body>
+</html>
