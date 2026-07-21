@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文本换行重排工具</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: #f0f2f5; min-height: 100vh; padding: 20px; }
+
+  .container { max-width: 960px; margin: 0 auto; }
+
+  h1 { text-align: center; font-size: 24px; color: #333; margin-bottom: 6px; }
+  .subtitle { text-align: center; font-size: 14px; color: #888; margin-bottom: 20px; }
+
+  .main-layout { display: flex; gap: 16px; height: calc(100vh - 180px); min-height: 300px; }
+
+  .panel { flex: 1; display: flex; flex-direction: column; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); overflow: hidden; }
+
+  .panel-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: #fafafa; border-bottom: 1px solid #e8e8e8; }
+  .panel-header h2 { font-size: 15px; color: #555; }
+
+  textarea { flex: 1; width: 100%; padding: 16px; font-size: 15px; line-height: 1.8; border: none; resize: none; outline: none; font-family: inherit; color: #333; }
+  textarea::placeholder { color: #aaa; }
+
+  .output-area { flex: 1; padding: 16px; font-size: 15px; line-height: 1.8; color: #333; overflow-y: auto; white-space: pre-wrap; word-break: break-all; }
+
+  .toolbar { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 14px; }
+
+  .btn { padding: 8px 18px; border: none; border-radius: 8px; font-size: 13px; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+  .btn-primary { background: #478bff; color: #fff; }
+  .btn-primary:hover { background: #3574e8; }
+  .btn-secondary { background: #e8e8e8; color: #555; }
+  .btn-secondary:hover { background: #d0d0d0; }
+  .btn-danger { background: #ff6b6b; color: #fff; }
+  .btn-danger:hover { background: #e85555; }
+  .btn-sample { background: #fff3cd; color: #856404; border: 1px solid #ffc107; }
+  .btn-sample:hover { background: #ffe69c; }
+
+  .mode-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; justify-content: center; }
+  .mode-bar label { font-size: 13px; color: #555; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+  .mode-bar input[type="radio"] { accent-color: #478bff; }
+
+  .sample-bar { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 14px; }
+
+  .mode-desc { background: #fff; border-radius: 10px; padding: 14px 20px; margin-bottom: 14px; font-size: 13px; color: #555; line-height: 1.7; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+  .mode-desc b { color: #478bff; }
+  .mode-desc .tag { display: inline-block; background: #e8f4fd; color: #478bff; padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-right: 4px; }
+
+  .stats { font-size: 12px; color: #999; }
+
+  .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #333; color: #fff; padding: 10px 24px; border-radius: 8px; font-size: 14px; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999; }
+  .toast.show { opacity: 1; }
+
+  .divider-line { width: 4px; background: #e8e8e8; border-radius: 2px; flex-shrink: 0; }
+
+  @media (max-width: 640px) {
+    .main-layout { flex-direction: column; height: auto; }
+    .panel { min-height: 220px; }
+    .divider-line { display: none; }
+    .mode-bar { flex-wrap: wrap; }
+    .sample-bar { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>文本换行重排</h1>
+  <p class="subtitle">消除不合理硬换行 · 恢复段落原貌 · 不删减任何符号</p>
+
+  <!-- 模式选择 -->
+  <div class="mode-bar">
+    <label><input type="radio" name="mode" value="smart" checked onchange="updateModeDesc()"> 🧠 智能模式</label>
+    <label><input type="radio" name="mode" value="blankline" onchange="updateModeDesc()"> ↵ 空行分段</label>
+    <label><input type="radio" name="mode" value="numbered" onchange="updateModeDesc()"> 🔢 编号分段</label>
+  </div>
+
+  <!-- 模式说明 -->
+  <div class="mode-desc" id="modeDesc"></div>
+
+  <!-- 载入示例 -->
+  <div class="sample-bar">
+    <button class="btn btn-sample" onclick="loadSample('qa')">📋 载入问答示例</button>
+    <button class="btn btn-sample" onclick="loadSample('article')">📋 载入文章示例</button>
+    <button class="btn btn-sample" onclick="loadSample('mixed')">📋 载入混合示例</button>
+  </div>
+
+  <!-- 操作按钮 -->
+  <div class="toolbar">
+    <button class="btn btn-primary" onclick="processText()">处理换行</button>
+    <button class="btn btn-secondary" onclick="copyOutput()">复制结果</button>
+    <button class="btn btn-secondary" onclick="swapText()">交换 ↔</button>
+    <button class="btn btn-danger" onclick="clearAll()">清空</button>
+  </div>
+
+  <div class="main-layout">
+    <div class="panel">
+      <div class="panel-header">
+        <h2>输入（含硬换行）</h2>
+        <span class="stats" id="inputStats">0 字 · 0 行</span>
+      </div>
+      <textarea id="inputArea" placeholder="粘贴含不合理换行的文本到这里，或点击上方「载入示例」..." oninput="updateStats()"></textarea>
+    </div>
+
+    <div class="divider-line"></div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <h2>处理结果</h2>
+        <span class="stats" id="outputStats">0 字 · 0 行</span>
+      </div>
+      <div class="output-area" id="outputArea"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ========== 模式说明 ==========
+
+const MODE_DESCS = {
+  smart: `<b>🧠 智能模式</b> — 同时识别空行和编号两种段落边界，最通用。
+  <br>段落边界识别规则：
+  <span class="tag">空行</span> 空行视为段落分隔
+  <span class="tag">编号开头</span> 如 1、110、23．等中文编号
+  <span class="tag">问答格式</span> 如 Q: A: 问： 答： 题：
+  <span class="tag">英文编号</span> 如 1. 2) (3)
+  <span class="tag">章节标题</span> 如 第一章、Chapter 1
+  <br>💡 <b>最适合</b>：格式混合的文本（既有编号题目又有普通段落），如教义问答、考试题等。`,
+
+  blankline: `<b>↵ 空行分段模式</b> — 仅以空行作为段落边界，最简单。
+  <br>所有非空行之间（即使有编号）的硬换行都会被消除，合并为一段。
+  <br>💡 <b>最适合</b>：纯散文、小说、新闻等以空行自然分段的文本。
+  <br>⚠️ <b>不适合</b>：编号题目之间没有空行的文本，会把不同题目合并在一起。`,
+
+  numbered: `<b>🔢 编号分段模式</b> — 仅以编号开头识别段落，忽略空行。
+  <br>空行被视为无意义的硬换行残余而忽略，只有编号开头才被视为新段落起始。
+  <br>💡 <b>最适合</b>：编号题目/问答，且题目之间没有可靠空行的文本（如从 PDF 粘贴的问答）。
+  <br>⚠️ <b>不适合</b>：没有编号的纯散文文本。`,
+}
+
+// ========== 示例数据 ==========
+
+const SAMPLES = {
+  qa: `110、为使我们愈发谨守遵行第二条诫命，这条诫命所附加的理\n\n由是什么？\n\n答：为使我们愈发谨守遵行第二条诫命，这条诫命所附加的理由\n\n在圣经中如此描述："因为我耶和华你的神是忌邪的神。恨我的，我\n\n必追讨他的罪，自父及子，直到三四代；爱我、守我诫命的，我必向\n\n他们发慈爱，直到千代。"1 这些理由不但包括上帝对我们的主权，而\n\n我们属于祂 2，也包括祂对关乎自己的敬拜有强烈的忌邪之心 3，并看\n\n所有的假敬拜为属灵的淫乱，必遭致祂报应的忿怒 4；将违背这一诫\n\n命的人算作恨祂的，警告要追讨他的罪直到许多代 5；却尊荣遵守的\n\n人，看作爱祂及持守祂诫命的，应许向他们发慈爱直到许多代 6。\n\n111、第二条诫命禁止什么罪？\n\n答：第二条诫命禁止一切以偶像、图像或任何其他不是上帝所设立的方式来敬拜祂的罪 1，以及禁止以任何上帝所没有设立的方式来敬拜祂 2。`,
+
+  article: `人生就像一场漫长的旅行，在这条路上，我们会遇到\n\n各种各样的风景。有时候是阳光明媚的春天，有时候\n\n是寒风凛冽的冬天。但无论什么时候，我们都要保持\n\n一颗平常心，坦然面对生活中的每一个挑战。\n\n生活不是等待暴风雨过去，而是学会在雨中跳舞。\n\n每一次跌倒都是一次成长的机会，每一次挫折\n\n都是一次磨练的契机。真正的坚强不是从不哭泣，\n\n而是在哭泣之后依然选择站起来。\n\n记住，你的态度决定你的高度。不管面对什么困难，\n\n只要心怀希望，脚踏实地，终将走出困境，\n\n迎接属于你的曙光。`,
+
+  mixed: `第一章 绪论\n\n本研究的目的是探讨现代都市中\n\n年轻人面临的压力与应对方式。\n\n随着社会节奏加快，越来越多的人\n\n感到焦虑和疲惫。\n\n第二章 研究方法\n\n1、问卷调查法：通过线上问卷\n\n收集了 500 名受访者的数据。\n\n2、访谈法：选取了 20 名典型个案\n\n进行深度访谈。\n\n第三章 研究发现\n\nQ：年轻人最大的压力来源是什么？\n\nA：工作压力、经济压力和\n\n人际关系压力位列前三。\n\n1. 工作压力占 68%\n\n2. 经济压力占 54%\n\n3. 人际关系压力占 37%`,
+}
+
+// ========== 核心处理逻辑 ==========
+
+/**
+ * 智能模式：同时识别空行段落边界和编号段落边界
+ */
+function processSmart(text) {
+  const lines = text.split('\n')
+  const paragraphs = []
+  let currentPara = []
+
+  const isNewParagraph = (line) => {
+    const t = line.trim()
+    if (t === '') return true
+    if (/^\d+[、．.]/.test(t)) return true
+    if (/^[QA][：:]/.test(t)) return true
+    if (/^(问|答|题)[：:]/.test(t)) return true
+    if (/^\d+[.)]\s/.test(t)) return true
+    if (/^\(\d+\)/.test(t)) return true
+    if (/^(第[一二三四五六七八九十百千]+[章节篇部])/.test(t)) return true
+    if (/^[Chapter|CHAPTER]\s+\d+/.test(t)) return true
+    return false
+  }
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i]
+    const trimmed = line.trim()
+
+    if (trimmed === '') {
+      if (currentPara.length > 0) {
+        paragraphs.push(currentPara.join(''))
+        currentPara = []
+      }
+      if (paragraphs.length > 0 && paragraphs[paragraphs.length - 1] !== '') {
+        paragraphs.push('')
+      }
+      continue
+    }
+
+    if (isNewParagraph(line) && currentPara.length > 0) {
+      paragraphs.push(currentPara.join(''))
+      currentPara = [trimmed]
+      continue
+    }
+
+    currentPara.push(trimmed)
+  }
+
+  if (currentPara.length > 0) {
+    paragraphs.push(currentPara.join(''))
+  }
+
+  const result = []
+  for (const p of paragraphs) {
+    if (p === '') {
+      if (result.length > 0 && result[result.length - 1] !== '') result.push('')
+    } else {
+      result.push(p)
+    }
+  }
+  return result.join('\n')
+}
+
+/**
+ * 空行分段模式：仅以空行作为段落边界
+ */
+function processBlankLine(text) {
+  const lines = text.split('\n')
+  const paragraphs = []
+  let currentPara = []
+
+  for (const line of lines) {
+    if (line.trim() === '') {
+      if (currentPara.length > 0) {
+        paragraphs.push(currentPara.join(''))
+        currentPara = []
+      }
+      if (paragraphs.length > 0 && paragraphs[paragraphs.length - 1] !== '') {
+        paragraphs.push('')
+      }
+    } else {
+      currentPara.push(line.trim())
+    }
+  }
+
+  if (currentPara.length > 0) {
+    paragraphs.push(currentPara.join(''))
+  }
+
+  const result = []
+  for (const p of paragraphs) {
+    if (p === '') {
+      if (result.length > 0 && result[result.length - 1] !== '') result.push('')
+    } else {
+      result.push(p)
+    }
+  }
+  return result.join('\n')
+}
+
+/**
+ * 编号分段模式：仅以编号开头作为段落起始，忽略空行
+ */
+function processNumbered(text) {
+  const lines = text.split('\n')
+  const paragraphs = []
+  let currentPara = []
+
+  const isNumberedStart = (line) => {
+    const t = line.trim()
+    if (t === '') return false
+    if (/^\d+[、．.]/.test(t)) return true
+    if (/^[QA][：:]/.test(t)) return true
+    if (/^(问|答|题)[：:]/.test(t)) return true
+    if (/^\d+[.)]\s/.test(t)) return true
+    if (/^\(\d+\)/.test(t)) return true
+    if (/^(第[一二三四五六七八九十百千]+[章节篇部])/.test(t)) return true
+    return false
+  }
+
+  for (const line of lines) {
+    if (line.trim() === '') continue // 空行视为断行残余，忽略
+
+    if (isNumberedStart(line) && currentPara.length > 0) {
+      paragraphs.push(currentPara.join(''))
+      currentPara = [line.trim()]
+    } else {
+      currentPara.push(line.trim())
+    }
+  }
+
+  if (currentPara.length > 0) {
+    paragraphs.push(currentPara.join(''))
+  }
+
+  return paragraphs.join('\n\n')
+}
+
+// ========== UI 逻辑 ==========
+
+function getMode() {
+  return document.querySelector('input[name="mode"]:checked').value
+}
+
+function updateModeDesc() {
+  document.getElementById('modeDesc').innerHTML = MODE_DESCS[getMode()]
+}
+
+function processText() {
+  const input = document.getElementById('inputArea').value
+  if (!input.trim()) {
+    showToast('请先输入文本')
+    return
+  }
+
+  let result
+  switch (getMode()) {
+    case 'smart':     result = processSmart(input); break
+    case 'blankline':  result = processBlankLine(input); break
+    case 'numbered':   result = processNumbered(input); break
+  }
+
+  document.getElementById('outputArea').textContent = result
+  updateStats()
+  showToast('处理完成')
+}
+
+function loadSample(name) {
+  const sample = SAMPLES[name]
+  if (!sample) return
+
+  // 将 \n\n 替换为真实换行+空行
+  const realText = sample.replace(/\\n/g, '\n')
+
+  document.getElementById('inputArea').value = realText
+  document.getElementById('outputArea').textContent = ''
+  updateStats()
+
+  // 自动处理并展示结果
+  processText()
+
+  const labels = { qa: '问答示例', article: '文章示例', mixed: '混合示例' }
+  showToast(`已载入「${labels[name]}」并自动处理`)
+}
+
+function copyOutput() {
+  const output = document.getElementById('outputArea').textContent
+  if (!output) {
+    showToast('没有可复制的内容')
+    return
+  }
+  navigator.clipboard.writeText(output).then(() => {
+    showToast('已复制到剪贴板')
+  }).catch(() => {
+    const ta = document.createElement('textarea')
+    ta.value = output
+    document.body.appendChild(ta)
+    ta.select()
+    document.execCommand('copy')
+    document.body.removeChild(ta)
+    showToast('已复制到剪贴板')
+  })
+}
+
+function swapText() {
+  const inputArea = document.getElementById('inputArea')
+  const outputArea = document.getElementById('outputArea')
+  const outputText = outputArea.textContent
+  if (!outputText) {
+    showToast('没有可交换的内容')
+    return
+  }
+  inputArea.value = outputText
+  outputArea.textContent = ''
+  updateStats()
+  showToast('已交换')
+}
+
+function clearAll() {
+  document.getElementById('inputArea').value = ''
+  document.getElementById('outputArea').textContent = ''
+  updateStats()
+}
+
+function updateStats() {
+  const input = document.getElementById('inputArea').value
+  const output = document.getElementById('outputArea').textContent
+  const inputChars = input.length
+  const inputLines = input ? input.split('\n').length : 0
+  const outputChars = output.length
+  const outputLines = output ? output.split('\n').length : 0
+  document.getElementById('inputStats').textContent = `${inputChars} 字 · ${inputLines} 行`
+  document.getElementById('outputStats').textContent = `${outputChars} 字 · ${outputLines} 行`
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast')
+  t.textContent = msg
+  t.classList.add('show')
+  clearTimeout(t._timer)
+  t._timer = setTimeout(() => t.classList.remove('show'), 1500)
+}
+
+// 初始化
+updateModeDesc()
+updateStats()
+</script>
+</body>
+</html>

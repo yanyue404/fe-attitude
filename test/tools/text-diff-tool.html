@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文本对比工具</title>
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --panel: #ffffff;
+      --border: #d9e0ea;
+      --text: #223047;
+      --muted: #637087;
+      --same: #f7fbff;
+      --removed: #fff1f0;
+      --added: #f1fff5;
+      --changed: #fffbe6;
+      --shadow: 0 6px 18px rgba(30, 55, 90, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    .wrap {
+      max-width: 1300px;
+      margin: 24px auto;
+      padding: 0 16px 20px;
+    }
+
+    .title {
+      margin: 0 0 14px;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button.primary {
+      background: #2f6df6;
+      color: #fff;
+      border-color: #2f6df6;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .card h3 {
+      margin: 0;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 600;
+      background: #fafcff;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 260px;
+      border: 0;
+      outline: none;
+      resize: vertical;
+      padding: 12px;
+      font-size: 14px;
+      line-height: 1.55;
+      font-family: Consolas, Monaco, Menlo, monospace;
+      color: var(--text);
+      background: #fff;
+    }
+
+    .result {
+      max-height: 420px;
+      overflow: auto;
+      font-family: Consolas, Monaco, Menlo, monospace;
+      font-size: 13px;
+      line-height: 1.55;
+      background: #fff;
+    }
+
+    .line {
+      display: flex;
+      border-bottom: 1px solid #eef2f8;
+      min-height: 24px;
+    }
+
+    .num {
+      width: 56px;
+      flex: 0 0 56px;
+      text-align: right;
+      padding: 2px 8px 2px 6px;
+      color: #8b96aa;
+      border-right: 1px solid #eef2f8;
+      background: #fafcff;
+      user-select: none;
+    }
+
+    .txt {
+      white-space: pre-wrap;
+      word-break: break-word;
+      flex: 1;
+      padding: 2px 10px;
+    }
+
+    .same { background: var(--same); }
+    .removed { background: var(--removed); }
+    .added { background: var(--added); }
+    .changed { background: var(--changed); }
+    .mark-del {
+      background: #ffd6d3;
+      color: #b42318;
+      border-radius: 2px;
+      padding: 0 1px;
+    }
+    .mark-add {
+      background: #d7f7e4;
+      color: #067647;
+      border-radius: 2px;
+      padding: 0 1px;
+    }
+
+    .footer {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1 class="title">文本对比工具（左右布局）</h1>
+
+    <div class="toolbar">
+      <button class="primary" id="compareBtn">开始对比</button>
+      <button id="swapBtn">左右互换</button>
+      <button id="clearBtn">清空</button>
+    </div>
+
+    <div class="grid">
+      <section class="card">
+        <h3>左侧文本（旧内容）</h3>
+        <textarea id="leftInput" placeholder="在这里粘贴左侧文本"></textarea>
+      </section>
+      <section class="card">
+        <h3>右侧文本（新内容）</h3>
+        <textarea id="rightInput" placeholder="在这里粘贴右侧文本"></textarea>
+      </section>
+    </div>
+
+    <div class="grid" style="margin-top:14px;">
+      <section class="card">
+        <h3>左侧结果</h3>
+        <div id="leftResult" class="result"></div>
+      </section>
+      <section class="card">
+        <h3>右侧结果</h3>
+        <div id="rightResult" class="result"></div>
+      </section>
+    </div>
+
+    <div id="summary" class="footer">差异统计：未开始</div>
+  </div>
+
+  <script>
+    const leftInput = document.getElementById('leftInput');
+    const rightInput = document.getElementById('rightInput');
+    const leftResult = document.getElementById('leftResult');
+    const rightResult = document.getElementById('rightResult');
+    const summary = document.getElementById('summary');
+
+    document.getElementById('compareBtn').addEventListener('click', compareText);
+    document.getElementById('swapBtn').addEventListener('click', () => {
+      const temp = leftInput.value;
+      leftInput.value = rightInput.value;
+      rightInput.value = temp;
+      compareText();
+    });
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      leftInput.value = '';
+      rightInput.value = '';
+      leftResult.innerHTML = '';
+      rightResult.innerHTML = '';
+      summary.textContent = '差异统计：已清空';
+    });
+
+    function splitLines(text) {
+      return text.replace(/\r\n/g, '\n').split('\n');
+    }
+
+    function escapeHTML(text) {
+      return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    // 基于 LCS 的逐行对比，先做粗粒度对齐
+    function buildRawDiff(leftLines, rightLines) {
+      const n = leftLines.length;
+      const m = rightLines.length;
+      const dp = Array.from({ length: n + 1 }, () => Array(m + 1).fill(0));
+
+      for (let i = n - 1; i >= 0; i--) {
+        for (let j = m - 1; j >= 0; j--) {
+          if (leftLines[i] === rightLines[j]) {
+            dp[i][j] = dp[i + 1][j + 1] + 1;
+          } else {
+            dp[i][j] = Math.max(dp[i + 1][j], dp[i][j + 1]);
+          }
+        }
+      }
+
+      const rows = [];
+      let i = 0;
+      let j = 0;
+      while (i < n && j < m) {
+        if (leftLines[i] === rightLines[j]) {
+          rows.push({ type: 'same', left: leftLines[i], right: rightLines[j] });
+          i++;
+          j++;
+        } else if (dp[i + 1][j] >= dp[i][j + 1]) {
+          rows.push({ type: 'removed', left: leftLines[i], right: '' });
+          i++;
+        } else {
+          rows.push({ type: 'added', left: '', right: rightLines[j] });
+          j++;
+        }
+      }
+
+      while (i < n) {
+        rows.push({ type: 'removed', left: leftLines[i], right: '' });
+        i++;
+      }
+      while (j < m) {
+        rows.push({ type: 'added', left: '', right: rightLines[j] });
+        j++;
+      }
+      return rows;
+    }
+
+    // 把 removed/addded 连续块配对成 changed，支持一对多、多对一
+    function normalizeDiffRows(rawRows) {
+      const rows = [];
+      let i = 0;
+
+      while (i < rawRows.length) {
+        const cur = rawRows[i];
+
+        if (cur.type !== 'removed') {
+          rows.push(cur);
+          i++;
+          continue;
+        }
+
+        const removedBlock = [];
+        while (i < rawRows.length && rawRows[i].type === 'removed') {
+          removedBlock.push(rawRows[i]);
+          i++;
+        }
+
+        const addedBlock = [];
+        let j = i;
+        while (j < rawRows.length && rawRows[j].type === 'added') {
+          addedBlock.push(rawRows[j]);
+          j++;
+        }
+
+        // 后面不是 added，说明纯删除
+        if (addedBlock.length === 0) {
+          rows.push(...removedBlock);
+          continue;
+        }
+
+        const pairCount = Math.min(removedBlock.length, addedBlock.length);
+        for (let k = 0; k < pairCount; k++) {
+          rows.push({
+            type: 'changed',
+            left: removedBlock[k].left,
+            right: addedBlock[k].right,
+          });
+        }
+        for (let k = pairCount; k < removedBlock.length; k++) {
+          rows.push(removedBlock[k]);
+        }
+        for (let k = pairCount; k < addedBlock.length; k++) {
+          rows.push(addedBlock[k]);
+        }
+
+        i = j;
+      }
+
+      return rows;
+    }
+
+    // 字符级 LCS，用于 changed 行内高亮
+    function buildInlineDiff(leftText, rightText) {
+      const leftChars = Array.from(leftText || '');
+      const rightChars = Array.from(rightText || '');
+      const n = leftChars.length;
+      const m = rightChars.length;
+      const dp = Array.from({ length: n + 1 }, () => Array(m + 1).fill(0));
+
+      for (let i = n - 1; i >= 0; i--) {
+        for (let j = m - 1; j >= 0; j--) {
+          if (leftChars[i] === rightChars[j]) {
+            dp[i][j] = dp[i + 1][j + 1] + 1;
+          } else {
+            dp[i][j] = Math.max(dp[i + 1][j], dp[i][j + 1]);
+          }
+        }
+      }
+
+      let i = 0;
+      let j = 0;
+      const leftOut = [];
+      const rightOut = [];
+
+      while (i < n && j < m) {
+        if (leftChars[i] === rightChars[j]) {
+          const safe = escapeHTML(leftChars[i]);
+          leftOut.push(safe);
+          rightOut.push(safe);
+          i++;
+          j++;
+        } else if (dp[i + 1][j] >= dp[i][j + 1]) {
+          leftOut.push(`<span class="mark-del">${escapeHTML(leftChars[i])}</span>`);
+          i++;
+        } else {
+          rightOut.push(`<span class="mark-add">${escapeHTML(rightChars[j])}</span>`);
+          j++;
+        }
+      }
+
+      while (i < n) {
+        leftOut.push(`<span class="mark-del">${escapeHTML(leftChars[i])}</span>`);
+        i++;
+      }
+      while (j < m) {
+        rightOut.push(`<span class="mark-add">${escapeHTML(rightChars[j])}</span>`);
+        j++;
+      }
+
+      return {
+        leftHTML: leftOut.join(''),
+        rightHTML: rightOut.join(''),
+      };
+    }
+
+    function render(rows) {
+      let leftNo = 0;
+      let rightNo = 0;
+      let sameCount = 0;
+      let changedCount = 0;
+      let removedCount = 0;
+      let addedCount = 0;
+
+      const leftHTML = [];
+      const rightHTML = [];
+
+      rows.forEach((row) => {
+        const hasLeft = row.left !== '';
+        const hasRight = row.right !== '';
+        const cls = row.type;
+
+        if (row.type === 'same') sameCount++;
+        if (row.type === 'changed') changedCount++;
+        if (row.type === 'removed') removedCount++;
+        if (row.type === 'added') addedCount++;
+
+        const ln = hasLeft ? (++leftNo) : '';
+        const rn = hasRight ? (++rightNo) : '';
+        let leftTextHTML = escapeHTML(row.left);
+        let rightTextHTML = escapeHTML(row.right);
+
+        if (row.type === 'changed' && hasLeft && hasRight) {
+          const inlineDiff = buildInlineDiff(row.left, row.right);
+          leftTextHTML = inlineDiff.leftHTML;
+          rightTextHTML = inlineDiff.rightHTML;
+        }
+        else if (row.type === 'removed' && hasLeft) {
+          leftTextHTML = `<span class="mark-del">${leftTextHTML}</span>`;
+        }
+        else if (row.type === 'added' && hasRight) {
+          rightTextHTML = `<span class="mark-add">${rightTextHTML}</span>`;
+        }
+
+        leftHTML.push(
+          `<div class="line ${cls}">
+            <span class="num">${ln}</span>
+            <span class="txt">${leftTextHTML}</span>
+          </div>`
+        );
+        rightHTML.push(
+          `<div class="line ${cls}">
+            <span class="num">${rn}</span>
+            <span class="txt">${rightTextHTML}</span>
+          </div>`
+        );
+      });
+
+      leftResult.innerHTML = leftHTML.join('');
+      rightResult.innerHTML = rightHTML.join('');
+      summary.textContent =
+        `差异统计：相同 ${sameCount} 行，修改 ${changedCount} 行，左侧独有 ${removedCount} 行，右侧独有 ${addedCount} 行`;
+    }
+
+    function compareText() {
+      const leftLines = splitLines(leftInput.value || '');
+      const rightLines = splitLines(rightInput.value || '');
+      const rawRows = buildRawDiff(leftLines, rightLines);
+      const rows = normalizeDiffRows(rawRows);
+      render(rows);
+    }
+  </script>
+</body>
+</html>
