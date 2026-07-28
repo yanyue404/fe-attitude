@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>油猴脚本可视化生成器</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+      background: #f0f2f5;
+      color: #333;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .header {
+      text-align: center;
+      padding: 24px 0 16px;
+    }
+    .header h1 {
+      font-size: 28px;
+      color: #1a73e8;
+      font-weight: 700;
+    }
+    .header p {
+      color: #666;
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .container { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid #e0e0e0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .panel-title {
+      font-size: 16px;
+      color: #1a73e8;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+    .form-group label .hint {
+      color: #999;
+      font-size: 11px;
+      margin-left: 6px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: #fafafa;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      color: #333;
+      padding: 10px 12px;
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #1a73e8;
+      box-shadow: 0 0 0 2px rgba(26,115,232,0.1);
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    .match-list {
+      margin-bottom: 14px;
+    }
+    .match-item {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+      align-items: center;
+    }
+    .match-item input {
+      flex: 1;
+    }
+    .match-item .match-hint {
+      font-size: 11px;
+      color: #1a73e8;
+      margin-left: 4px;
+      white-space: nowrap;
+      max-width: 180px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .match-item .btn-remove {
+      width: 32px;
+      height: 32px;
+      background: #e74c3c;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s;
+    }
+    .match-item .btn-remove:hover { opacity: 0.7; }
+
+    .btn-add {
+      background: #fff;
+      border: 1px solid #1a73e8;
+      color: #1a73e8;
+      padding: 6px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: background 0.2s;
+    }
+    .btn-add:hover { background: #1a73e8; color: #fff; }
+
+    .color-preview {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      vertical-align: middle;
+      margin-left: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .preview-section {
+      grid-column: 1 / -1;
+    }
+    .preview-box {
+      background: #1e1e2e;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 16px;
+      min-height: 120px;
+      max-height: 400px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+      font-family: "Consolas", "Source Code Pro", monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #c8d6e5;
+    }
+    .preview-box .comment { color: #6a9955; }
+    .preview-box .keyword { color: #c586c0; }
+    .preview-box .string { color: #ce9178; }
+    .preview-box .tag { color: #569cd6; }
+
+    .btn-row {
+      grid-column: 1 / -1;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      padding: 8px 0;
+    }
+    .btn-primary {
+      background: #1a73e8;
+      color: #fff;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { transform: scale(1.03); box-shadow: 0 2px 8px rgba(26,115,232,0.3); }
+    .btn-secondary {
+      background: #fff;
+      color: #1a73e8;
+      border: 1px solid #1a73e8;
+      padding: 12px 32px;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-secondary:hover { background: #1a73e8; color: #fff; }
+
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #1a73e8;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      z-index: 9999;
+      transform: translateX(200%);
+      transition: transform 0.3s;
+    }
+    .toast.show { transform: translateX(0); }
+
+    .toggle-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .toggle-group label {
+      font-size: 13px;
+      color: #555;
+      font-weight: 500;
+    }
+    .toggle {
+      position: relative;
+      width: 44px;
+      height: 22px;
+      background: #ccc;
+      border-radius: 11px;
+      cursor: pointer;
+      transition: background 0.2s;
+      border: 1px solid #bbb;
+    }
+    .toggle.active { background: #1a73e8; border-color: #1a73e8; }
+    .toggle::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      border-radius: 50%;
+      transition: left 0.2s;
+    }
+    .toggle.active::after { left: 24px; }
+
+    .cdns-group {
+      margin-bottom: 14px;
+    }
+    .cdn-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .cdn-option input[type="radio"] {
+      accent-color: #1a73e8;
+    }
+    .cdn-option span {
+      font-size: 13px;
+      color: #555;
+    }
+    .cdn-option .cdn-url {
+      font-size: 11px;
+      color: #999;
+      font-family: monospace;
+    }
+
+    /* 代码编辑器输入区域样式 */
+    .code-editor {
+      width: 100%;
+      min-height: 120px;
+      max-height: 300px;
+      resize: vertical;
+      background: #1e1e2e;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      color: #c8d6e5;
+      padding: 12px;
+      font-family: "Consolas", "Source Code Pro", monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      outline: none;
+      tab-size: 2;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .code-editor:focus {
+      border-color: #1a73e8;
+      box-shadow: 0 0 0 2px rgba(26,115,232,0.15);
+    }
+    .code-editor::placeholder {
+      color: #6a7a8a;
+    }
+    .code-tab-bar {
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid #e0e0e0;
+      margin-bottom: 0;
+    }
+    .code-tab {
+      padding: 8px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #888;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: color 0.2s, border-color 0.2s;
+      user-select: none;
+    }
+    .code-tab.active {
+      color: #1a73e8;
+      border-bottom-color: #1a73e8;
+    }
+    .code-tab:hover:not(.active) {
+      color: #555;
+    }
+    .inject-section {
+      grid-column: 1 / -1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>🛠 油猴脚本可视化生成器</h1>
+    <p>配置参数 → 实时预览 → 一键复制脚本</p>
+  </div>
+
+  <div class="container">
+
+    <!-- ===== 匹配网址 ===== -->
+    <div class="panel">
+      <div class="panel-title">📍 匹配网址</div>
+      <div class="form-group">
+        <label>输入格式说明<span class="hint">支持域名、完整URL、通配符，会自动智能解析</span></label>
+        <div style="font-size:12px;color:#888;line-height:1.6;padding:8px 12px;background:#f0f7ff;border-radius:6px;border:1px solid #d0e4f7">
+          ✅ <code>www.baidu.com</code> → <code>*://www.baidu.com/*</code><br>
+          ✅ <code>https://www.baidu.com/</code> → <code>*://www.baidu.com/*</code>（自动去除协议和路径）<br>
+          ✅ <code>*.example.com</code> → <code>*://*.example.com/*</code>（子域名通配）<br>
+          ✅ <code>*</code> → <code>*://*/*</code>（所有网站）
+        </div>
+      </div>
+      <div class="match-list" id="matchList">
+        <div class="match-item">
+          <input type="text" placeholder="输入域名或完整URL，如 www.baidu.com 或 https://example.com" value="" oninput="generate()" />
+          <span class="match-hint" id="matchHint0"></span>
+          <button class="btn-remove" onclick="removeMatch(this)">×</button>
+        </div>
+      </div>
+      <button class="btn-add" onclick="addMatch()">+ 添加网址</button>
+      <div class="form-group" style="margin-top:12px">
+        <label>快捷填入<span class="hint">点击自动添加</span></label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn-add" onclick="quickAdd('github.com')">github.com</button>
+          <button class="btn-add" onclick="quickAdd('example.com')">example.com</button>
+          <button class="btn-add" onclick="quickAdd('www.baidu.com')">baidu.com</button>
+          <button class="btn-add" onclick="quickAdd('*')">*（所有网站）</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 脚本基本信息 ===== -->
+    <div class="panel">
+      <div class="panel-title">📝 脚本信息</div>
+      <div class="form-group">
+        <label>脚本名称<span class="hint">@name</span></label>
+        <input type="text" id="scriptName" value="通用页面增强脚本" oninput="generate()" />
+      </div>
+      <div class="form-group">
+        <label>版本号<span class="hint">@version</span></label>
+        <input type="text" id="scriptVersion" value="1.0.0" oninput="generate()" />
+      </div>
+      <div class="form-group">
+        <label>作者<span class="hint">@author</span></label>
+        <input type="text" id="scriptAuthor" value="anonymous" oninput="generate()" />
+      </div>
+      <div class="form-group">
+        <label>描述<span class="hint">@description</span></label>
+        <input type="text" id="scriptDesc" value="通用页面增强：修改背景色、字体、标题等，注入后可直观看到脚本生效" oninput="generate()" />
+      </div>
+    </div>
+
+    <!-- ===== 运行与注入设置 ===== -->
+    <div class="panel">
+      <div class="panel-title">⚙️ 运行与注入</div>
+      <div class="form-group">
+        <label>运行时机<span class="hint">@run-at 决定脚本何时执行</span></label>
+        <select id="runAt" onchange="generate()">
+          <!-- document-start: DOM未构建，最早执行，适合拦截/修改请求 -->
+          <option value="document-start">document-start（最早，DOM未构建）</option>
+          <!-- document-body: body元素刚出现 -->
+          <option value="document-body">document-body（body刚出现）</option>
+          <!-- document-end: DOM加载完成，最常用 -->
+          <option value="document-end" selected>document-end（DOM完成，推荐）</option>
+          <!-- document-idle: 页面空闲后执行，最晚 -->
+          <option value="document-idle">document-idle（页面空闲后，最晚）</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>注入模式<span class="hint">@inject-into 决定脚本运行在哪个上下文</span></label>
+        <select id="injectInto" onchange="generate()">
+          <!-- content: 注入到页面上下文，可访问页面JS变量和DOM -->
+          <option value="content" selected>content（页面上下文，可访问页面JS）</option>
+          <!-- page: 与content类似但更安全隔离 -->
+          <option value="page">page（安全隔离模式）</option>
+        </select>
+      </div>
+      <div class="toggle-group">
+        <label>注入 jQuery</label>
+        <div class="toggle active" id="toggleJq" onclick="toggleSwitch(this)"></div>
+      </div>
+      <div class="cdns-group" id="cdnGroup">
+        <label style="font-size:13px;color:#aaa;margin-bottom:6px;display:block">jQuery CDN 源<span class="hint">@require</span></label>
+        <!-- jsdelivr: 国际CDN，国内可能慢 -->
+        <div class="cdn-option">
+          <input type="radio" name="jqcdn" value="jsdelivr" onchange="generate()" />
+          <span>jsdelivr</span>
+          <span class="cdn-url">cdn.jsdelivr.net</span>
+        </div>
+        <!-- bootcdn: 国内CDN，稳定快速 -->
+        <div class="cdn-option">
+          <input type="radio" name="jqcdn" value="bootcdn" checked onchange="generate()" />
+          <span>BootCDN（推荐国内）</span>
+          <span class="cdn-url">cdn.bootcdn.net</span>
+        </div>
+        <!-- baomitu: 360前端CDN，国内备用 -->
+        <div class="cdn-option">
+          <input type="radio" name="jqcdn" value="baomitu" onchange="generate()" />
+          <span>360前端（备用）</span>
+          <span class="cdn-url">lib.baomitu.com</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 页面增强配置 ===== -->
+    <div class="panel">
+      <div class="panel-title">🎨 页面增强</div>
+      <div class="toggle-group">
+        <label>修改标题</label>
+        <div class="toggle active" id="toggleTitle" onclick="toggleSwitch(this)"></div>
+      </div>
+      <div class="form-group" id="titleGroup">
+        <label>标题文字<span class="hint">注入后替换页面标题</span></label>
+        <input type="text" id="titleText" value="🛠 通用增强已生效" oninput="generate()" />
+      </div>
+      <div class="toggle-group">
+        <label>修改背景色</label>
+        <div class="toggle active" id="toggleBg" onclick="toggleSwitch(this)"></div>
+      </div>
+      <div class="form-group" id="bgGroup">
+        <label>背景颜色<span class="hint">护眼色推荐</span></label>
+        <input type="color" id="bgColor" value="#f5f5dc" oninput="updateColorPreview(this); generate()" style="width:60px;height:32px;padding:2px" />
+        <span class="color-preview" id="bgPreview" style="background:#f5f5dc"></span>
+        <input type="text" id="bgColorText" value="#f5f5dc" oninput="syncColorText('bg'); generate()" style="width:100px;margin-left:8px" />
+      </div>
+      <div class="form-group">
+        <label>字体<span class="hint">多个字体用逗号分隔，按优先级排列</span></label>
+        <input type="text" id="fontFamily" value="Microsoft YaHei, PingFang SC, sans-serif" oninput="generate()" />
+      </div>
+      <div class="form-group">
+        <label>字号<span class="hint">页面基础字号</span></label>
+        <input type="text" id="fontSize" value="15px" oninput="generate()" />
+      </div>
+      <div class="toggle-group">
+        <label>显示浮标<span class="hint">右下角绿色徽章证明脚本生效</span></label>
+        <div class="toggle active" id="toggleBadge" onclick="toggleSwitch(this)"></div>
+      </div>
+    </div>
+
+    <!-- ===== 自定义代码注入 ===== -->
+    <div class="panel inject-section">
+      <div class="panel-title">💉 自定义代码注入<span style="color:#999;font-size:12px;margin-left:auto">直接注入 CSS / JS 到目标页面</span></div>
+      <div style="font-size:12px;color:#888;line-height:1.6;padding:8px 12px;background:#f0f7ff;border-radius:6px;border:1px solid #d0e4f7;margin-bottom:14px">
+        在这里输入自定义 CSS 或 JS 代码，生成的脚本会自动将其注入到目标页面。<br>
+        CSS 通过 <code>GM_addStyle</code> 注入（绕过 CSP），JS 代码直接嵌入脚本函数体内执行。
+      </div>
+      <div class="code-tab-bar">
+        <div class="code-tab active" id="tabCss" onclick="switchCodeTab('css')">CSS 样式</div>
+        <div class="code-tab" id="tabJs" onclick="switchCodeTab('js')">JavaScript</div>
+      </div>
+      <div id="codePanelCss">
+        <textarea class="code-editor" id="customCss" placeholder="/* 在这里输入自定义 CSS */&#10;/* 例如：隐藏某个元素 */&#10;/* .some-class { display: none !important; } */&#10;/* 或者修改按钮样式 */&#10;/* button { background: red !important; border-radius: 8px !important; } */" oninput="generate()" spellcheck="false"></textarea>
+      </div>
+      <div id="codePanelJs" style="display:none">
+        <textarea class="code-editor" id="customJs" placeholder="// 在这里输入自定义 JavaScript&#10;// 例如：给所有链接添加点击事件&#10;// document.querySelectorAll('a').forEach(a => {&#10;//   a.addEventListener('click', e => console.log('点击了链接:', e.target.href));&#10;// });&#10;&#10;// 或者操作 DOM&#10;// const el = document.querySelector('#some-id');&#10;// if (el) el.textContent = '已被脚本修改';" oninput="generate()" spellcheck="false"></textarea>
+      </div>
+    </div>
+
+    <!-- ===== 预览 ===== -->
+    <div class="preview-section panel">
+      <div class="panel-title">📋 脚本预览<span style="color:#999;font-size:12px;margin-left:auto">实时更新</span></div>
+      <div class="preview-box" id="previewBox"></div>
+    </div>
+
+    <!-- ===== 按钮 ===== -->
+    <div class="btn-row">
+      <button class="btn-primary" onclick="copyScript()">📋 一键复制脚本</button>
+      <button class="btn-secondary" onclick="downloadScript()">💾 下载 .user.js</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- 隐藏的纯文本区域，用于复制原始脚本 -->
+  <textarea id="rawScript" style="position:absolute;left:-9999px"></textarea>
+
+  <script>
+    // ===== 工具函数 =====
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2000);
+    }
+
+    // 代码面板切换（CSS / JS）
+    function switchCodeTab(tab) {
+      const tabCss = document.getElementById('tabCss');
+      const tabJs = document.getElementById('tabJs');
+      const panelCss = document.getElementById('codePanelCss');
+      const panelJs = document.getElementById('codePanelJs');
+      if (tab === 'css') {
+        tabCss.classList.add('active');
+        tabJs.classList.remove('active');
+        panelCss.style.display = '';
+        panelJs.style.display = 'none';
+      } else {
+        tabCss.classList.remove('active');
+        tabJs.classList.add('active');
+        panelCss.style.display = 'none';
+        panelJs.style.display = '';
+      }
+    }
+
+    function toggleSwitch(el) {
+      el.classList.toggle('active');
+      generate();
+    }
+
+    function isToggleActive(id) {
+      return document.getElementById(id).classList.contains('active');
+    }
+
+    function updateColorPreview(input) {
+      const previewId = input.id === 'bgColor' ? 'bgPreview' : null;
+      if (previewId) {
+        document.getElementById(previewId).style.background = input.value;
+        document.getElementById(input.id + 'Text').value = input.value;
+      }
+    }
+
+    function syncColorText(type) {
+      if (type === 'bg') {
+        document.getElementById('bgColor').value = document.getElementById('bgColorText').value;
+        document.getElementById('bgPreview').style.background = document.getElementById('bgColorText').value;
+      }
+    }
+
+    // ===== 匹配网址管理 =====
+
+    /**
+     * 智能解析用户输入的网址，提取出 @match 格式所需的 host 部分
+     * 支持输入格式：
+     *   - 纯域名：example.com → example.com
+     *   - 完整URL：https://www.baidu.com/ → www.baidu.com
+     *   - 带路径URL：https://oa.example.com/jenkins/ → oa.example.com
+     *   - 通配符域名：*.example.com → *.example.com
+     *   - 全匹配：* → *
+     *   - 已带协议的match格式：*://example.com/* → example.com
+     */
+    function parseMatchInput(raw) {
+      let v = raw.trim();
+      if (!v) return { host: '', match: '', display: '' };
+
+      // 特殊值：全匹配
+      if (v === '*') return { host: '*', match: '*://*/*', display: '*://*/*' };
+
+      // 去除已有的 @match 协议前缀（如用户输入 *://xxx/*）
+      v = v.replace(/^\*:\/\/+/, '');
+      v = v.replace(/^https?:\/\/+/, '');
+
+      // 去除末尾的路径和通配符（如 /jenkins/* 或 /*）
+      v = v.replace(/\/.*$/, '');
+
+      // 去除末尾冒号端口前的斜杠
+      v = v.replace(/\/+$/, '');
+
+      if (!v) return { host: '', match: '', display: '' };
+
+      // 判断是否包含通配符
+      const match = v.includes('*') ? `*://${v}/*` : `*://${v}/*`;
+      return { host: v, match: match, display: match };
+    }
+
+    function addMatch(value = '') {
+      const list = document.getElementById('matchList');
+      const idx = list.children.length;
+      const item = document.createElement('div');
+      item.className = 'match-item';
+      item.innerHTML = `
+        <input type="text" placeholder="输入域名或完整URL，如 www.baidu.com 或 https://example.com" value="${value}" oninput="generate()" />
+        <span class="match-hint" id="matchHint${idx}"></span>
+        <button class="btn-remove" onclick="removeMatch(this)">×</button>
+      `;
+      list.appendChild(item);
+      generate();
+    }
+
+    function removeMatch(btn) {
+      const list = document.getElementById('matchList');
+      if (list.children.length > 1) {
+        btn.parentElement.remove();
+      }
+      generate();
+    }
+
+    function quickAdd(domain) {
+      addMatch(domain);
+    }
+
+    function getMatchUrls() {
+      const inputs = document.querySelectorAll('#matchList .match-item input');
+      const hints = document.querySelectorAll('#matchList .match-item .match-hint');
+      const results = [];
+      inputs.forEach((input, i) => {
+        const v = input.value.trim();
+        const parsed = parseMatchInput(v);
+        // 显示解析后的 @match 格式提示
+        if (hints[i]) {
+          if (parsed.display) {
+            hints[i].textContent = '→ ' + parsed.display;
+            hints[i].style.color = '#1a73e8';
+          } else {
+            hints[i].textContent = '';
+          }
+        }
+        if (parsed.host) results.push(parsed);
+      });
+      return results;
+    }
+
+    // ===== 生成脚本 =====
+
+    function getJqCdnUrl() {
+      const selected = document.querySelector('input[name="jqcdn"]:checked').value;
+      const cdns = {
+        jsdelivr: 'https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js',
+        bootcdn:  'https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js',
+        baomitu:  'https://lib.baomitu.com/jquery/3.7.1/jquery.min.js',
+      };
+      return cdns[selected];
+    }
+
+    function generate() {
+      const name = document.getElementById('scriptName').value || '未命名脚本';
+      const version = document.getElementById('scriptVersion').value || '1.0.0';
+      const author = document.getElementById('scriptAuthor').value || 'anonymous';
+      const desc = document.getElementById('scriptDesc').value || '';
+      const runAt = document.getElementById('runAt').value;
+      const injectInto = document.getElementById('injectInto').value;
+      const useJq = isToggleActive('toggleJq');
+      const jqCdn = getJqCdnUrl();
+      const urls = getMatchUrls();
+      const modifyTitle = isToggleActive('toggleTitle');
+      const titleText = document.getElementById('titleText').value;
+      const modifyBg = isToggleActive('toggleBg');
+      const bgColor = document.getElementById('bgColorText').value;
+      const fontFamily = document.getElementById('fontFamily').value;
+      const fontSize = document.getElementById('fontSize').value;
+      const showBadge = isToggleActive('toggleBadge');
+      const customCss = document.getElementById('customCss').value.trim();
+      const customJs = document.getElementById('customJs').value.trim();
+
+      // 如果没有匹配网址，默认匹配所有
+      const matchLines = urls.length > 0
+        ? urls.map(u => `// @match        ${u.match}`).join('\n')
+        : '// @match        *://*/*';
+
+      let script = '';
+      script += '// ==UserScript==\n';
+      script += `// @name         ${name}\n`;
+      script += '// @namespace    https://greasyfork.org\n';
+      script += `// @version      ${version}\n`;
+      script += `// @description  ${desc}\n`;
+      script += `// @author       ${author}\n`;
+      script += '// @license      MIT\n';
+      script += '\n';
+      script += '// ===== 匹配网址 =====\n';
+      script += `${matchLines}\n`;
+      script += '\n';
+      script += '// ===== 运行时机 =====\n';
+      script += `// @run-at       ${runAt}\n`;
+      script += '\n';
+      if (useJq) {
+        script += '// ===== jQuery 注入 =====\n';
+        script += `// @require      ${jqCdn}\n`;
+        script += '\n';
+      }
+      script += '// ===== 注入与安全 =====\n';
+      script += `// @inject-into  ${injectInto}\n`;
+      script += '// @grant        GM_addStyle\n';
+      script += '// @grant        GM_setValue\n';
+      script += '// @grant        GM_getValue\n';
+      script += '// @grant        GM_notification\n';
+      script += '// @grant        GM_registerMenuCommand\n';
+      script += '// @grant        GM_setClipboard\n';
+      script += '// ==/UserScript==\n';
+      script += '\n';
+      script += '(function () {\n';
+      script += "  'use strict';\n\n";
+      script += '  // ========== 配置区 ==========\n\n';
+      script += '  const CONFIG = {\n';
+      if (modifyTitle) {
+        script += `    title: '${titleText}',  // 修改页面标题，设为 null 不修改\n`;
+      } else {
+        script += '    title: null,  // 不修改标题\n';
+      }
+      if (modifyBg) {
+        script += `    bgColor: '${bgColor}',  // 修改背景色，设为 null 不修改\n`;
+      } else {
+        script += '    bgColor: null,  // 不修改背景色\n';
+      }
+      if (fontFamily) {
+        script += `    fontFamily: '${fontFamily}',  // 修改字体\n`;
+      }
+      if (fontSize) {
+        script += `    fontSize: '${fontSize}',  // 修改基础字号\n`;
+      }
+      script += `    showBadge: ${showBadge},  // 右下角显示状态浮标\n`;
+      script += '  };\n\n';
+      script += '  // ========== 1. 修改标题 ==========\n';
+      script += '  if (CONFIG.title) {\n';
+      script += '    document.title = CONFIG.title;\n';
+      script += '    // 监听标题变化，防止被页面 JS 覆盖\n';
+      script += '    new MutationObserver(() => {\n';
+      script += '      if (document.title !== CONFIG.title) document.title = CONFIG.title;\n';
+      script += '    }).observe(\n';
+      script += '      document.querySelector("title") || document.head,\n';
+      script += '      { childList: true, characterData: true, subtree: true }\n';
+      script += '    );\n';
+      script += '  }\n\n';
+      script += '  // ========== 2. 注入样式 ==========\n';
+      script += '  const styles = [];\n';
+      script += '  if (CONFIG.bgColor) styles.push(`body { background-color: ${CONFIG.bgColor} !important; }`);\n';
+      script += '  if (CONFIG.fontFamily) styles.push(`body { font-family: ${CONFIG.fontFamily} !important; }`);\n';
+      script += '  if (CONFIG.fontSize) styles.push(`body { font-size: ${CONFIG.fontSize} !important; }`);\n';
+      script += '  if (styles.length) GM_addStyle(styles.join("\\n"));\n\n';
+      script += '  // ========== 3. 状态浮标 ==========\n';
+      script += '  if (CONFIG.showBadge) {\n';
+      script += '    GM_addStyle(`\n';
+      script += '      #tm-badge { position:fixed!important; bottom:16px!important; right:16px!important;\n';
+      script += '        z-index:2147483647!important; padding:8px 16px!important;\n';
+      script += '        background:#4CAF50!important; color:#fff!important; font-size:13px!important;\n';
+      script += '        border-radius:6px!important; cursor:pointer!important; user-select:none!important;\n';
+      script += '        box-shadow:0 2px 8px rgba(0,0,0,0.3)!important; }\n';
+      script += '    `);\n';
+      script += '    const badge = document.createElement("div");\n';
+      script += '    badge.id = "tm-badge";\n';
+      script += '    badge.textContent = "🛠 增强 ON";\n';
+      script += '    document.body.appendChild(badge);\n';
+      script += '    badge.addEventListener("click", () => badge.style.display = "none");\n';
+      script += '  }\n\n';
+      script += '  // ========== 4. 油猴菜单 ==========\n';
+      script += '  GM_registerMenuCommand("✅ 查看配置", () => {\n';
+      script += '    GM_notification({ title: "脚本配置", text: JSON.stringify(CONFIG, null, 2), timeout: 3000 });\n';
+      script += '  });\n\n';
+
+      // ========== 自定义 CSS 注入 ==========
+      if (customCss) {
+        script += '  // ========== 5. 自定义 CSS 注入 ==========\n';
+        // 将用户输入的 CSS 通过 GM_addStyle 注入，用反引号包裹
+        script += '  GM_addStyle(`\n';
+        // 逐行写入用户 CSS，每行缩进2格
+        const cssLines = customCss.split('\n');
+        cssLines.forEach(line => {
+          script += '    ' + line + '\n';
+        });
+        script += '  `);\n\n';
+      }
+
+      // ========== 自定义 JS 注入 ==========
+      if (customJs) {
+        script += '  // ========== 6. 自定义 JS 注入 ==========\n';
+        // 直接嵌入用户 JS 代码，逐行缩进2格
+        const jsLines = customJs.split('\n');
+        jsLines.forEach(line => {
+          script += '  ' + line + '\n';
+        });
+        script += '\n';
+      }
+
+      if (useJq) {
+        const jqStepNum = customCss ? (customJs ? 7 : 6) : (customJs ? 6 : 5);
+        script += `  // ========== ${jqStepNum}. jQuery 就绪 ==========\n`;
+        script += '  if (typeof $ !== "undefined" && $.fn?.jquery) {\n';
+        script += `    console.log("[增强] jQuery ${'${$.fn.jquery}'} 已注入");\n`;
+        script += '    $(document).ready(() => console.log("[增强] jQuery ready"));  // 在这里写jQuery逻辑\n';
+        script += '  }\n\n';
+      }
+      script += '  console.log("[增强] 脚本已执行", CONFIG);\n';
+      script += '})();\n';
+
+      // 存储原始文本用于复制
+      document.getElementById('rawScript').value = script;
+
+      // 渲染带颜色的预览
+      renderPreview(script);
+    }
+
+    function renderPreview(script) {
+      const box = document.getElementById('previewBox');
+      const lines = script.split('\n');
+      let html = '';
+      lines.forEach(line => {
+        let styled = escapeHtml(line);
+        // 注释高亮
+        if (styled.trimStart().startsWith('//')) {
+          styled = `<span class="comment">${styled}</span>`;
+        }
+        // 关键字高亮
+        styled = styled.replace(/(const|let|var|function|if|else|return|new|typeof|null|true|false)/g, '<span class="keyword">$1</span>');
+        // 字符串高亮
+        styled = styled.replace(/(&#39;[^&#]*&#39;|&quot;[^&]*&quot;)/g, '<span class="string">$1</span>');
+        // 标签高亮
+        styled = styled.replace(/(@name|@namespace|@version|@description|@author|@match|@run-at|@require|@inject-into|@grant|@license)/g, '<span class="tag">$1</span>');
+        html += styled + '\n';
+      });
+      box.innerHTML = html;
+    }
+
+    function escapeHtml(text) {
+      return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function copyScript() {
+      const raw = document.getElementById('rawScript').value;
+      navigator.clipboard.writeText(raw).then(() => {
+        showToast('✅ 脚本已复制到剪贴板');
+      }).catch(() => {
+        // fallback
+        const ta = document.getElementById('rawScript');
+        ta.style.position = 'fixed';
+        ta.style.left = '0';
+        ta.style.top = '0';
+        ta.style.opacity = '0.01';
+        ta.select();
+        document.execCommand('copy');
+        ta.style.position = 'absolute';
+        ta.style.left = '-9999px';
+        showToast('✅ 脚本已复制到剪贴板');
+      });
+    }
+
+    function downloadScript() {
+      const raw = document.getElementById('rawScript').value;
+      const name = document.getElementById('scriptName').value || 'script';
+      const blob = new Blob([raw], { type: 'text/javascript' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = name.replace(/\s+/g, '-') + '.user.js';
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('✅ 脚本文件已下载');
+    }
+
+    // 初始生成
+    generate();
+  </script>
+
+</body>
+</html>
