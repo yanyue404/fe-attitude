@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skill Commander · 双技能库命令与工作流</title>
+<style>
+  :root{
+    --bg:#f5f6f8; --panel:#fff; --panel2:#eef0f4; --line:#dde0e6;
+    --txt:#24292f; --dim:#6e7480;
+    --mp:#0e9488; --sp:#0969da; --err:#cf222e; --accent:#0e9488;
+    --mono:Consolas,Menlo,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--txt);font:14px/1.65 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;padding:24px 16px 70px}
+  .wrap{max-width:1060px;margin:0 auto}
+  header{margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+  h1{font-size:21px}
+  h1 b{color:var(--mp)}
+  h1 .sp{color:var(--sp)}
+  .desc{color:var(--dim);font-size:13px;margin-top:5px}
+  .desc code{background:var(--panel2);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:12px}
+
+  .tabs{display:flex;border:1px solid var(--txt);border-radius:10px;overflow:hidden;background:var(--panel);box-shadow:2px 3px 0 rgba(36,41,47,.1);margin-bottom:16px}
+  .tabs button{flex:1;padding:13px;border:none;background:transparent;cursor:pointer;font-size:15px;font-weight:600;color:var(--dim);transition:all .15s}
+  .tabs button.on{background:var(--txt);color:#fff}
+  .tabs button:not(.on):hover{color:var(--txt);background:var(--panel2)}
+
+  .panel{display:none;animation:rise .25s ease both}
+  .panel.on{display:block}
+  @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  /* ---------- Tab1 命令库 ---------- */
+  .filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+  .filters input{
+    flex:1;min-width:200px;padding:9px 13px;border:1px solid var(--line);border-radius:8px;
+    font-size:13px;outline:none;background:var(--panel);
+  }
+  .filters input:focus{border-color:var(--mp)}
+  .chip{padding:6px 13px;border:1px solid var(--line);border-radius:99px;background:var(--panel);cursor:pointer;font-size:12.5px;color:var(--dim);white-space:nowrap}
+  .chip:hover{border-color:var(--mp);color:var(--mp)}
+  .chip.on{background:var(--txt);color:#fff;border-color:var(--txt)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:7px}
+  .card .head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .lib{font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:4px;color:#fff;flex:none}
+  .lib.mp{background:var(--mp)} .lib.sp{background:var(--sp)} .lib.misc{background:#7c3aed}
+  .cname{font-family:var(--mono);font-size:13.5px;font-weight:700;word-break:break-all}
+  .zh{font-size:12px;color:var(--dim)}
+  .one{font-size:13px}
+  .when{font-size:12px;color:var(--dim)}
+  .when b{color:var(--txt);font-weight:600}
+  .card .prompts{margin-top:2px;display:flex;flex-direction:column;gap:6px}
+  .prow{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:12px}
+  .prow .pt{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+  .ptag{font-size:10.5px;padding:0 6px;border-radius:3px;background:var(--panel2);border:1px solid var(--line);color:var(--dim);flex:none}
+  .ptag.war{background:#fff7ec;border-color:#f3d8ae;color:#b06a00}
+  .prow pre{font-family:var(--mono);font-size:11.5px;white-space:pre-wrap;word-break:break-all;color:#445;max-height:120px;overflow:auto}
+  .copy{font-size:11.5px;padding:4px 12px;cursor:pointer;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--dim);flex:none;transition:all .15s}
+  .copy:hover{border-color:var(--mp);color:var(--mp)}
+
+  /* ---------- Tab2 工作流 ---------- */
+  .stage{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin-bottom:16px;overflow:hidden}
+  .shead{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--panel2);flex-wrap:wrap}
+  .sno{width:26px;height:26px;border-radius:50%;background:var(--txt);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:13px;flex:none}
+  .stitle{font-size:16px;font-weight:700}
+  .schain{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-left:auto}
+  .schain .sc{font-family:var(--mono);font-size:11.5px;padding:2px 8px;border-radius:4px;color:#fff;cursor:pointer;border:none}
+  .sc.mp{background:var(--mp)} .sc.sp{background:var(--sp)} .sc.misc{background:#7c3aed}
+  .sc:hover{opacity:.82}
+  .sc.on{outline:2px solid var(--txt);outline-offset:1px}
+  .pick{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:7px}
+  .pick .pkhd{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .pick .pkhd b{font-family:var(--mono);font-size:13.5px;word-break:break-all}
+  .pick .nop{font-size:12px;color:var(--dim)}
+  .schain .arr{color:var(--dim);font-size:12px}
+  .sbody{padding:14px 18px;display:flex;flex-direction:column;gap:10px}
+  .pair{display:flex;gap:14px;flex-wrap:wrap}
+  .col{flex:1;min-width:280px}
+  .col .cap{font-size:12px;font-weight:700;color:var(--dim);margin-bottom:6px;letter-spacing:.05em}
+  .combo{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:12.5px}
+  .combo .why{color:var(--dim);font-size:12px;margin-top:4px}
+  .case{background:#f0fbf4;border:1px solid #b5e6c9;border-radius:8px;padding:10px 12px;font-size:12.5px;color:#05603f}
+  .case b{font-weight:700}
+  .skip{background:#fff7ec;border:1px solid #f3d8ae;border-radius:8px;padding:8px 12px;font-size:12px;color:#8a5a00}
+
+  .toast{
+    position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(16px);
+    background:var(--mp);color:#fff;font-weight:700;font-size:13px;padding:10px 22px;border-radius:8px;
+    opacity:0;pointer-events:none;transition:all .2s;z-index:9;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  footer{margin-top:26px;font-size:12px;color:var(--dim);text-align:center}
+  .count{font-size:12px;color:var(--dim);margin-left:auto;flex:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Skill <b>Commander</b> <span class="sp">·</span> 双技能库指挥台</h1>
+    <p class="desc">MattPocock Skills（23）× Superpowers（14）× 杂项（3）技能速查 + 按需求流程的六阶段工作流推荐。点击复制提示词 → 粘贴给 AI 即用。</p>
+  </header>
+
+  <div class="tabs">
+    <button class="on" data-p="cmds">① 命令库（40 技能）</button>
+    <button data-p="flow">② 工作流（六阶段推荐）</button>
+  </div>
+
+  <section class="panel on" id="panel-cmds">
+    <div class="filters">
+      <input id="q" placeholder="搜索技能名 / 中文 / 触发时机…" spellcheck="false">
+      <span class="chip on" data-lib="all">全部</span>
+      <span class="chip" data-lib="MP">MattPocock</span>
+      <span class="chip" data-lib="SP">Superpowers</span>
+      <span class="chip" data-lib="Misc">杂项</span>
+      <span class="count" id="count"></span>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section class="panel" id="panel-flow"></section>
+
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  'use strict';
+  /* ================================================================
+     数据：40 个技能（MP 23 + SP 14 + Misc 3）
+     prompt 类型：war=示例（已验证的模板），gen=通用模板
+  ================================================================ */
+  var SKILLS=[
+    /* ---- MP Engineering 用户主动调用 ---- */
+    {lib:'MP',cat:'工程·主动',id:'ask-matt',zh:'技能路由器',one:'分析你的处境，推荐该用哪个技能',when:'不确定用哪个技能时',prompts:[{t:'gen',label:'路由请求',text:'/ask-matt\n我现在的处境是：<描述你的处境/要做的事>\n推荐我该用哪个技能、走哪条流程'}]},
+    {lib:'MP',cat:'工程·主动',id:'grill-with-docs',zh:'带文档盘问',one:'无休止盘问 + 构建领域模型 + 写入 CONTEXT.md/ADR',when:'编码前、做重要决策前（有仓库时）',prompts:[
+      {t:'gen',label:'编码前盘问',text:'/grill-with-docs\n我准备开发：<功能/需求一句话描述>\n参考文档：<仓库内文档路径，没有就让我先读相关代码>\n开始盘问：把模糊点、边界条件、异常分支逐项问清，敲定后再动手，重要且难逆转的决策记入 ADR'},
+      {t:'gen',label:'决策对齐盘问',text:'/grill-with-docs\n待决策的内容和我对齐，开始盘问\n\n<疑问清单，逐项列出，如：\n- 方案 A 与方案 B 的取舍依据是什么\n- 哪些边界场景必须覆盖，哪些可以明确不做\n- 会不会影响既有功能，影响面多大>'}
+    ]},
+    {lib:'MP',cat:'工程·主动',id:'improve-codebase-architecture',zh:'架构健康扫描',one:'扫描代码库深化机会，生成 HTML 可视化报告',when:'定期代码健康检查',prompts:[{t:'gen',label:'扫描请求',text:'/improve-codebase-architecture\n扫描当前仓库，找出模块深化机会，产出报告'}]},
+    {lib:'MP',cat:'工程·主动',id:'to-spec',zh:'对话转 Spec',one:'把对话内容沉淀为正式 Spec，发布到跟踪器',when:'需求讨论完成后',prompts:[{t:'gen',label:'生成 Spec',text:'/to-spec\n把以上对话沉淀为正式 Spec 并发布'}]},
+    {lib:'MP',cat:'工程·主动',id:'to-tickets',zh:'拆分工单',one:'把计划/Spec 拆为 tracer-bullet 式工单',when:'有实施计划时（多会话构建）',prompts:[{t:'gen',label:'拆分',text:'/to-tickets\n按阻塞优先拆分，每个 ticket 声明自己的阻塞边'}]},
+    {lib:'MP',cat:'工程·主动',id:'implement',zh:'按票实现',one:'在约定 seam 上驱动 TDD → 实现 → 代码评审收尾',when:'按 Spec/Ticket 开发时（内部跑 tdd）',prompts:[{t:'gen',label:'实现',text:'/implement\n<指定 ticket / spec>'}]},
+    {lib:'MP',cat:'工程·主动',id:'wayfinder',zh:'决策地图',one:'把大工作拆为决策 ticket 组成的共享地图',when:'大型任务超出一次会话容量',prompts:[{t:'gen',label:'绘制地图',text:'/wayfinder\n<大型模糊工作的描述>'}]},
+    /* ---- MP Engineering 模型可自动调用 ---- */
+    {lib:'MP',cat:'工程·自动',id:'prototype',zh:'一次性原型',one:'构建可丢弃原型验证设计方案',when:'需要验证 UI/架构方案时',prompts:[{t:'gen',label:'原型验证',text:'/prototype\n用一次性代码回答这个设计问题：<状态模型/交互疑问>\n（原型留在 prototype/<name> 分支，答案折回真实代码）'}]},
+    {lib:'MP',cat:'工程·自动',id:'diagnosing-bugs',zh:'纪律化诊断',one:'症状→假设→插桩→根因→修复→回归',when:'疑难 bug / 性能回归',prompts:[{t:'war',label:'示例·排错启动（先取证）',text:'<现象描述 + 截图/报错信息>\n排查这个问题。要求：先给一键取证命令（让我把实际渲染值/中间状态抓给你），不要直接改码。先审「一行决定行为的开关」类配置，再查 CMS/网络等复杂嫌疑。'}]},
+    {lib:'MP',cat:'工程·自动',id:'research',zh:'后台调研',one:'对照一手源调研，产出带引用的 Markdown',when:'需要调查技术问题（不阻塞你干活）',prompts:[{t:'gen',label:'委派调研',text:'/research\n调查：<主题>\n对照一手来源（官方文档/规范），产出带引用的 md 落库'}]},
+    {lib:'MP',cat:'工程·自动',id:'tdd',zh:'红绿重构',one:'红-绿-重构循环，一次一条垂直切片',when:'写新功能或修 bug 时',prompts:[{t:'gen',label:'切片实现',text:'/tdd\n<目标行为描述>\n先写测试看它红，再最小实现变绿，重构收尾'}]},
+    {lib:'MP',cat:'工程·自动',id:'domain-modeling',zh:'领域建模',one:'构建/打磨项目共享语言，更新 CONTEXT.md/ADR',when:'术语不统一、AI 产出冗长时',prompts:[{t:'gen',label:'建模',text:'/domain-modeling\n梳理当前讨论的领域术语，挑战含糊词，重要且难逆转的决策记为 ADR'}]},
+    {lib:'MP',cat:'工程·自动',id:'codebase-design',zh:'深度模块设计',one:'小接口 + 干净 seam + 可测试性',when:'设计或改进模块接口时',prompts:[{t:'gen',label:'接口设计',text:'/codebase-design\n<模块/功能的接口设计任务>'}]},
+    {lib:'MP',cat:'工程·自动',id:'code-review',zh:'双轴评审',one:'标准轴(编码规范) + 规格轴(需求实现)',when:'完成 PR/MR 时',prompts:[{t:'gen',label:'双轴审查',text:'/code-review\n从 <commit/branch/tag> 开始审查\n规格轴对照原始需求：<需求描述或 PRD 链接>'}]},
+    {lib:'MP',cat:'工程·自动',id:'resolving-merge-conflicts',zh:'按意图解冲突',one:'逐 hunk 按原始意图解决，绝不 --abort',when:'Git 合并/变基冲突时',prompts:[{t:'gen',label:'解冲突',text:'/resolving-merge-conflicts\n<冲突分支信息，双方意图尽量提供>'}]},
+    {lib:'MP',cat:'工程·自动',id:'wizard',zh:'人工步骤向导',one:'生成交互式 bash 向导引导人工操作',when:'需要引导人操作第三方控制台/配置密钥时',prompts:[{t:'gen',label:'生成向导',text:'/wizard\n<只有人能做的步骤清单：打开哪些面板、要拿到什么值>'}]},
+    /* ---- MP Productivity ---- */
+    {lib:'MP',cat:'生产力·主动',id:'grill-me',zh:'无状态盘问',one:'盘问直到设计树每分支被解决（不落盘）',when:'方案/计划决策前的通用盘问（无仓库场景）',prompts:[{t:'gen',label:'盘问启动',text:'/grill-me\n<要打磨的计划/设计/文章主题>'}]},
+    {lib:'MP',cat:'生产力·主动',id:'handoff',zh:'交接文档',one:'压缩当前对话为可移植交接文档',when:'把工作交接给他人/AI 时',prompts:[{t:'gen',label:'生成交接',text:'/handoff\n交接对象：<新会话/同事>；接下来要做的事：<下一步>'}]},
+    {lib:'MP',cat:'生产力·主动',id:'teach',zh:'跨会话教学',one:'以当前目录为工作区跨会话教学',when:'教用户学习新概念/技能时',prompts:[{t:'gen',label:'教学',text:'/teach\n我要学习：<概念>\n以当前目录作为教学工作空间'}]},
+    {lib:'MP',cat:'生产力·主动',id:'to-questionnaire',zh:'异步问卷',one:'给他人写问卷收集决策输入',when:'挡路的信息在别人脑子里时',prompts:[{t:'gen',label:'生成问卷',text:'/to-questionnaire\n发给：<谁>；需要拿回：<什么决策/信息>'}]},
+    {lib:'MP',cat:'生产力·主动',id:'wait-what',zh:'大白话重讲',one:'用大白话 + 领域词汇重新讲一遍',when:'AI 没理解你的意思时（事后补救）',prompts:[{t:'gen',label:'矫正',text:'/wait-what\n（对 AI 刚说的那段）用大白话重讲一遍，我没理解'}]},
+    {lib:'MP',cat:'生产力·内部',id:'grilling',zh:'盘问原语',one:'轮次/前沿/设计树的可复用访谈原语',when:'被 grill-me / grill-with-docs 内部调用',prompts:[]},
+    {lib:'MP',cat:'生产力·内部',id:'writing-for-agents',zh:'智能体文档',one:'编写 SKILL.md / AGENTS.md / CLAUDE.md',when:'为 AI 编写文档时自动触发',prompts:[]},
+    /* ---- Superpowers ---- */
+    {lib:'SP',cat:'规划',id:'brainstorming',zh:'头脑风暴',one:'先设计后编码，提 2-3 方案等你拍板',when:'新功能/组件/架构改动前',prompts:[{t:'gen',label:'方案设计',text:'/brainstorming 设计技术方案\n<功能描述 + 约束 + 成功标准>\n提出 2-3 种方案附权衡分析，等我拍板后再写代码'}]},
+    {lib:'SP',cat:'规划',id:'writing-plans',zh:'写实施计划',one:'拆成 bite-sized 任务，零上下文可执行',when:'多步骤需求/重构/迁移（有规格时）',prompts:[{t:'gen',label:'生成计划',text:'/writing-plans\n<需求规格/多步骤任务描述>\n假设执行者零上下文，每个任务自包含可独立执行'}]},
+    {lib:'SP',cat:'元技能',id:'using-superpowers',zh:'技能路由',one:'大白话：每开一个新对话，AI 先想"这活有没有现成技能能干"——哪怕只有 1% 可能用得上，也先把技能说明书调出来读一遍再动手。你不用主动叫它，发第一句话时它自己就生效',when:'每次新对话开始时（自动触发，无需手动调用）',prompts:[]},
+    {lib:'SP',cat:'开发',id:'test-driven-development',zh:'TDD',one:'先写测试看它红 → 最小代码变绿 → 重构',when:'新功能/修 bug/重构前',prompts:[{t:'gen',label:'TDD 循环',text:'/test-driven-development\n<目标行为>\n先写测试看它红，再最小实现变绿，然后重构'}]},
+    {lib:'SP',cat:'调试',id:'systematic-debugging',zh:'系统化排查',one:'不定位根因不许修，症状修补=失败',when:'遇到 bug/测试失败/异常行为',prompts:[{t:'war',label:'示例·排错原则',text:'<现象 + 截图>\n排查此问题。约束：未定位根因之前不要提修复方案；推测必须标注推测，与结论区分；排错第一步先审「一行决定行为的开关」类配置入口。'}]},
+    {lib:'SP',cat:'测试',id:'verification-before-completion',zh:'完成前验证',one:'没跑过验证命令，不许说"完成了"',when:'声称完成/已修复/测试通过前',prompts:[{t:'gen',label:'验证门槛',text:'/verification-before-completion\n声明完成前，必须运行并贴出验证命令的实际输出：<验证命令>'}]},
+    {lib:'SP',cat:'评审',id:'requesting-code-review',zh:'请求评审',one:'完成任务后、合并前请人审查',when:'任务完成/合并主分支前',prompts:[{t:'gen',label:'请求审查',text:'/requesting-code-review\n请审查 <分支/PR 范围>，重点：<关注点>'}]},
+    {lib:'SP',cat:'评审',id:'receiving-code-review',zh:'接收评审',one:'先验证反馈合理性，再决定改不改',when:'收到评审意见时',prompts:[{t:'gen',label:'处理反馈',text:'/receiving-code-review\n<评审意见原文>\n逐条验证技术正确性后再决定是否采纳，不盲从'}]},
+    {lib:'SP',cat:'并行',id:'dispatching-parallel-agents',zh:'并行代理',one:'N 个独立任务 → N 个代理同时干',when:'2+ 个不相关任务',prompts:[{t:'gen',label:'并行派发',text:'/dispatching-parallel-agents\n任务1：<独立任务A>\n任务2：<独立任务B>\n（互不依赖，各自派代理）'}]},
+    {lib:'SP',cat:'并行',id:'subagent-driven-development',zh:'子代理开发',one:'每任务派子代理 + 逐个审查 + 总审',when:'当前会话执行含多任务的计划',prompts:[{t:'gen',label:'子代理执行',text:'/subagent-driven-development\n<实施计划：任务列表>\n每个任务派独立子代理执行，完成后逐个审查再总审'}]},
+    {lib:'SP',cat:'并行',id:'executing-plans',zh:'逐步执行计划',one:'加载计划 → 逐任务执行 → 每步验证',when:'有现成计划需逐步执行',prompts:[{t:'war',label:'示例·计划执行',text:'/executing-plans\n已有实施计划需逐步执行'}]},
+    {lib:'SP',cat:'收尾',id:'finishing-a-development-branch',zh:'分支收尾',one:'验证测试 → 展示选项(merge/PR/清理) → 执行',when:'功能做完、测试通过后',prompts:[{t:'gen',label:'收尾',text:'/finishing-a-development-branch\n功能已完成，引导我决定合并方式'}]},
+    {lib:'SP',cat:'收尾',id:'using-git-worktrees',zh:'隔离工作区',one:'隔离开发不污染当前分支',when:'需要独立工作区时',prompts:[{t:'gen',label:'创建工作区',text:'/using-git-worktrees\n为 <功能描述> 准备隔离工作区'}]},
+    {lib:'SP',cat:'元技能',id:'writing-skills',zh:'编写技能',one:'用 TDD 方法论编写/验证新技能',when:'创建或修改 Superpowers 技能时',prompts:[{t:'gen',label:'写技能',text:'/writing-skills\n<新技能的目标与触发条件>'}]},
+    /* ---- Misc 杂项 ---- */
+    {lib:'Misc',cat:'杂项',id:'migrate-to-shoehorn',zh:'Shoehorn 迁移',one:'引导式迁移旧项目测试，替换 as 断言为 shoehorn',when:'迁移旧项目 / 替换测试中的 as 类型断言时',prompts:[{t:'gen',label:'迁移启动',text:'/migrate-to-shoehorn\n迁移旧项目测试：把 as 类型断言替换为 @total-typescript/shoehorn，按引导式流程逐文件迁移'}]},
+    {lib:'Misc',cat:'杂项',id:'scaffold-exercises',zh:'练习骨架',one:'生成 section/problem/solution/explainer 练习目录',when:'创建编程练习 / 搭建课程章节时',prompts:[{t:'gen',label:'搭建骨架',text:'/scaffold-exercises\n创建编程练习骨架：包含 section、problem、solution 和 explainer 的目录结构，且能通过 lint 检查'}]},
+    {lib:'Misc',cat:'杂项',id:'setup-pre-commit',zh:'Pre-commit 钩子',one:'设置 Husky + lint-staged + 类型检查 + 测试',when:'配置 Git hooks 提交检查时',prompts:[{t:'gen',label:'设置钩子',text:'/setup-pre-commit\n为当前仓库设置 Husky pre-commit 钩子，集成 lint-staged（Prettier）、类型检查和测试'}]},
+  ];
+
+  /* ================================================================
+     数据：六阶段工作流（按需求流程）
+  ================================================================ */
+  var FLOW=[
+    {n:1,name:'需求分析',chain:[['MP','grill-with-docs'],['SP','brainstorming'],['MP','research'],['MP','to-questionnaire']],
+      main:{tag:'MP',id:'grill-with-docs'},
+      combo:'grill-with-docs（有仓库）/ grill-me（无仓库）盘问需求 → 不确定走法用 ask-matt → 缺外部事实派 research 后台调研 → 信息在别人脑子里用 to-questionnaire 出问卷',
+      why:'先把需求盘问成结构化决策（分级规则、tab 结构、边界场景），AI 才有可执行的事实基础',
+      war:'示例：/grill-with-docs 带需求文档路径写设计文档，再用「待开发的内容和我对齐, 开始盘问 + 疑问清单」敲定模块层级——盘问轮发现的决策（哪个模块要二级 tab、哪个不要）成为整个项目的地基',
+      skip:'改一行 typo / 调配置值 → 跳过盘问直接改；已有明确方案 → 跳过 brainstorming'},
+    {n:2,name:'技术方案设计',chain:[['MP','grill-with-docs'],['SP','brainstorming'],['SP','writing-plans'],['MP','to-spec'],['MP','wayfinder'],['MP','prototype'],['MP','codebase-design'],['MP','domain-modeling']],
+      main:{tag:'SP',id:'writing-plans'},
+      combo:'重要决策先 grill-with-docs 盘问（写入 CONTEXT.md/ADR）→ brainstorming 出 2-3 方案拍板 → writing-plans 拆自包含任务（或 MP to-spec 沉淀 Spec）→ 一次会话装不下用 wayfinder 画决策地图 → 拿不准的 UI/状态用 prototype 一次性验证 → 接口设计用 codebase-design，术语统一用 domain-modeling',
+      why:'计划的质量决定执行的吞吐：零上下文可执行的任务才能派给子代理/新会话',
+      war:'示例：设计文档先落（组件映射表 = 执行单元来源），复杂模块（多 tab 切换）抽成单一推导源（一个 composable），服务多个消费方',
+      skip:'紧急 hotfix → 可先动手，方案事后补'},
+    {n:3,name:'开发',chain:[['MP','implement'],['SP','executing-plans'],['SP','test-driven-development'],['MP','tdd'],['SP','using-git-worktrees'],['SP','dispatching-parallel-agents']],
+      main:{tag:'SP',id:'executing-plans'},
+      combo:'按计划逐步执行用 executing-plans（示例提示词：已有实施计划需逐步执行）；按 Spec 用 MP implement（内部驱动 tdd）→ 新功能走 test-driven-development 红绿循环 → 独立工作区用 using-git-worktrees → 2+ 独立任务派 dispatching-parallel-agents 或 subagent-driven-development',
+      why:'mock 先行（接口未就绪先跑通全流程）+ 公共函数只做向后兼容增强 + 产品差异留在产品页',
+      war:'示例：用 mock 参数注入未就绪的接口数据，先跑通主链路再等联调；公共组合式函数只做向后兼容增强（加字段不改行为），既有页面无感',
+      skip:'纯配置改动（cms.json）→ 不需要 TDD/工作区，直接改'},
+    {n:4,name:'测试',chain:[['SP','verification-before-completion'],['MP','code-review'],['SP','requesting-code-review']],
+      main:{tag:'SP',id:'verification-before-completion'},
+      combo:'verification-before-completion 立门槛（没跑过验证不许说完成）→ 非平凡逻辑附闭环测试（真实数据、真实执行）→ 完成后 requesting-code-review / MP code-review 双轴审查（标准轴 + 规格轴）',
+      why:'闭环测试抓过肉眼不可见的 bug：HTML 转 docx 时 buf.join 把 DOM 节点串成 [object HTMLSpanElement]，预览正常但产物是垃圾——只有真实执行能抓到',
+      war:'示例：jsdom 载入工具真实源码 → 塞入真实数据文件 → 模拟操作 → 执行生成的命令 → 读回断言，ALL PASS 才交付',
+      skip:'一行文案改动 → 语法检查即可，无需全套评审'},
+    {n:5,name:'修复 Bug',chain:[['MP','diagnosing-bugs'],['SP','systematic-debugging'],['MP','resolving-merge-conflicts'],['MP','wait-what']],
+      main:{tag:'MP',id:'diagnosing-bugs'},
+      combo:'纪律化诊断：症状→假设→插桩→根因→修复→回归（先让测试对它变红）→ 交流失焦时 wait-what 矫正 → 合并冲突用 resolving-merge-conflicts 按意图逐 hunk 解决',
+      why:'排错三原则：① 证据链推进，每步拿硬证据 ② 推测标注推测 ③ 第一步先审「一行决定行为的开关」类配置——它比 CMS/网络等复杂嫌疑更易被忽略、影响却全量',
+      war:'示例：先误判为全局配置缺失 → 再绕向过滤逻辑推测 → 根因其实在配置文件里一行开关。被纠正时立即承认 + 显式撤销 + lint 确认',
+      skip:'一眼能看出的一行小 bug → 直接修（紧反馈循环原则：先让测试变红再修）'},
+    {n:6,name:'发布收尾',chain:[['SP','finishing-a-development-branch'],['MP','code-review'],['MP','handoff'],['MP','domain-modeling']],
+      main:{tag:'SP',id:'finishing-a-development-branch'},
+      combo:'finishing-a-development-branch 引导 merge/PR/清理 → 合并前 code-review 双轴收尾 → 跨会话/交接用 handoff → 实现变更回写设计文档（记结论 + 可执行取证，不记过程流水账）',
+      why:'文档、代码、对话三者指向同一份事实——不回写文档，下个人（或下个会话的你）会被过期设计误导',
+      war:'示例：设计文档的变更跟踪按「已完成=功能+文件+日期」「待查=结论+一键取证命令+判读表」回写；决策撤销也记录结论而非过程',
+      skip:'个人实验分支 → 直接清理，不必走完整收尾'},
+  ];
+
+  /* ================================================================
+     渲染 & 交互
+  ================================================================ */
+  var $=function(s){return document.querySelector(s)};
+  var toastEl=$('#toast'),toastTimer=null;
+  function say(msg){toastEl.textContent=msg;toastEl.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(function(){toastEl.classList.remove('show')},1600)}
+  function copyText(text,label){
+    function fb(){
+      var ta=document.createElement('textarea');ta.value=text;ta.style.cssText='position:fixed;opacity:0';
+      document.body.appendChild(ta);ta.select();
+      try{document.execCommand('copy');say(label+' 已复制')}catch(e){say('复制失败，请手动复制',true)}
+      ta.remove();
+    }
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(function(){say(label+' 已复制')},fb)}
+    else fb();
+  }
+
+  /* Tab 切换 */
+  function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+  function promptRow(p){
+    return '<div class="prow"><div class="pt"><span class="ptag'+(p.t==='war'?' war':'')+'">'+(p.t==='war'?'示例':'通用')+'</span>'+p.label
+      +'<button class="copy" data-c="'+encodeURIComponent(p.text).replace(/'/g,'%27')+'">复制</button></div>'
+      +'<pre>'+escHtml(p.text)+'</pre></div>';
+  }
+  function bindCopies(root){
+    root.querySelectorAll('.copy').forEach(function(b){
+      b.addEventListener('click',function(){
+        var txt=decodeURIComponent(b.dataset.c);
+        var label=b.closest('.prow').querySelector('.ptag').textContent+'提示词';
+        copyText(txt,label);
+      });
+    });
+  }
+  document.querySelectorAll('.tabs button').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('.tabs button').forEach(function(x){x.classList.remove('on')});
+      document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+      b.classList.add('on');$('#panel-'+b.dataset.p).classList.add('on');
+    });
+  });
+
+  /* ---------- Tab1 命令库 ---------- */
+  var curLib='all';
+  function renderGrid(){
+    var q=$('#q').value.trim().toLowerCase(),grid=$('#grid'),n=0;
+    grid.innerHTML='';
+    SKILLS.forEach(function(s){
+      if(curLib!=='all'&&s.lib!==curLib) return;
+      if(q&&(s.id+' '+s.zh+' '+s.one+' '+s.when+' '+s.cat).toLowerCase().indexOf(q)<0) return;
+      n++;
+      var card=document.createElement('div');card.className='card';
+      var h='<div class="head">'
+        +'<span class="lib '+s.lib.toLowerCase()+'">'+s.lib+'</span>'
+        +'<span class="cname">/'+s.id+'</span>'
+        +(s.zh?'<span class="zh">'+s.zh+'</span>':'')
+        +'</div>'
+        +'<div class="one">'+s.one+'</div>'
+        +'<div class="when"><b>'+s.when+'</b> · '+s.cat+'</div>';
+      if(s.prompts.length){
+        h+='<div class="prompts">';
+        s.prompts.forEach(function(p){h+=promptRow(p)});
+        h+='</div>';
+      }
+      card.innerHTML=h;grid.appendChild(card);
+    });
+    bindCopies(grid);
+    $('#count').textContent=n+' / '+SKILLS.length+' 个技能';
+  }
+  $('#q').addEventListener('input',renderGrid);
+  document.querySelectorAll('.chip').forEach(function(c){
+    c.addEventListener('click',function(){
+      document.querySelectorAll('.chip').forEach(function(x){x.classList.remove('on')});
+      c.classList.add('on');curLib=c.dataset.lib;renderGrid();
+    });
+  });
+
+  /* ---------- Tab2 工作流 ---------- */
+  function skillById(id){
+    var r=SKILLS.filter(function(s){return s.id===id});
+    return r[0]||null;
+  }
+  function fillPick(stage,id){
+    var s=skillById(id);
+    if(!s)return;
+    var pick=stage.querySelector('.pick');
+    var h='<div class="pkhd"><span class="lib '+s.lib.toLowerCase()+'">'+s.lib+'</span><b>/'+s.id+'</b>'+(s.zh?'<span class="zh">'+s.zh+'</span>':'')+'</div>'
+      +'<div class="one">'+s.one+'</div>'
+      +'<div class="when"><b>'+s.when+'</b> · '+s.cat+'</div>';
+    if(s.prompts.length) s.prompts.forEach(function(p){h+=promptRow(p)});
+    else h+='<div class="nop">无独立提示词（模型自动触发）</div>';
+    pick.innerHTML=h;
+    bindCopies(pick);
+    stage.querySelectorAll('.sc').forEach(function(x){x.classList.toggle('on',x.dataset.id===id)});
+  }
+  function renderFlow(){
+    var box=$('#panel-flow');
+    var h='';
+    FLOW.forEach(function(st){
+      h+='<div class="stage"><div class="shead">'
+        +'<span class="sno">'+st.n+'</span><span class="stitle">'+st.name+'</span>'
+        +'<div class="schain">';
+      st.chain.forEach(function(c,i){
+        if(i>0)h+='<span class="arr">→</span>';
+        h+='<button class="sc '+c[0].toLowerCase()+'" data-id="'+c[1]+'" title="点击切换到 '+c[1]+' 的提示词">/'+c[1]+'</button>';
+      });
+      h+='</div></div><div class="sbody">'
+        +'<div class="pick"></div>'
+        +'<div class="pair">'
+        +'<div class="col"><div class="cap">推荐组合</div><div class="combo">'+st.combo+'<div class="why">'+st.why+'</div></div></div>'
+        +'<div class="col"><div class="cap">示例场景</div><div class="case">'+st.war+'</div></div>'
+        +'</div>'
+        +'<div class="skip"><b>何时不用：</b>'+st.skip+'</div>'
+        +'</div></div>';
+    });
+    h+='<footer>MP = MattPocock Skills（管代码怎么写）· SP = Superpowers（管流程怎么走）· 互补不冲突<br>点击阶段链条上的技能按钮，切换查看该技能的提示词并复制</footer>';
+    box.innerHTML=h;
+    box.querySelectorAll('.sc').forEach(function(b){
+      b.addEventListener('click',function(){fillPick(b.closest('.stage'),b.dataset.id)});
+    });
+    box.querySelectorAll('.stage').forEach(function(el,i){fillPick(el,FLOW[i].main.id)});
+  }
+
+  renderGrid();
+  renderFlow();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>切图小工具</title>
+<style>
+  :root{
+    --bg:#f5f6f8; --panel:#fff; --line:#dde0e6; --txt:#24292f; --dim:#6e7480;
+    --accent:#0e9488; --accent2:#0969da; --err:#cf222e;
+    --mono:Consolas,Menlo,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--txt);font:14px/1.6 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;padding:22px 16px 70px}
+  .wrap{max-width:1020px;margin:0 auto}
+  header{margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+  h1{font-size:20px}
+  h1 b{color:var(--accent)}
+  header .desc{color:var(--dim);font-size:13px;margin-top:4px}
+
+  section{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-bottom:14px}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .row input[type=text]{
+    flex:1;min-width:260px;padding:9px 13px;border:1px solid var(--line);border-radius:8px;
+    font:13px var(--mono);outline:none;background:var(--bg);
+  }
+  .row input[type=text]:focus{border-color:var(--accent2)}
+  button{
+    font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--line);
+    padding:9px 18px;border-radius:8px;background:var(--panel);color:var(--txt);transition:all .15s;
+  }
+  button:hover{border-color:var(--accent);color:var(--accent)}
+  button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  button.primary:hover{background:#0c7d73}
+  button:disabled{opacity:.45;cursor:not-allowed}
+  .hint{font-size:12px;color:var(--dim);margin-top:8px}
+  .hint b{color:var(--txt)}
+
+  /* 工作台 */
+  .stage{
+    position:relative;border:1px solid var(--line);border-radius:10px;overflow:auto;
+    background:repeating-conic-gradient(#eceef2 0 25%, #fff 0 50%) 0 0/24px 24px;
+    min-height:180px;display:none;touch-action:none;user-select:none;
+  }
+  .stage.on{display:block}
+  .stage canvas{display:block;cursor:crosshair;max-width:100%}
+  .stage.drop{outline:2px dashed var(--accent);outline-offset:-2px}
+  .stage .empty{
+    padding:60px 20px;text-align:center;color:var(--dim);font-size:13px;
+  }
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+  .toolbar .tips{margin-left:auto;font-size:12px;color:var(--dim)}
+  .quadbar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+  .quadbtn{
+    display:flex;align-items:center;gap:6px;font-size:12.5px;padding:6px 12px;
+    border:1px solid var(--line);border-radius:99px;background:var(--panel);cursor:pointer;
+  }
+  .quadbtn i{width:8px;height:8px;border-radius:2px;background:var(--dim);display:inline-block}
+  .quadbtn.on{border-color:var(--accent);color:var(--accent)}
+  .quadbtn.on i{background:var(--accent)}
+  .meta-line{font-size:12px;color:var(--dim);margin-top:10px;font-family:var(--mono)}
+  #status{
+    display:none;margin-top:14px;padding:10px 14px;border-radius:8px;font-size:13px;
+    background:#fdf3f2;border:1px solid #eec2c0;color:var(--err);
+  }
+  #status.show{display:block}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>切图小工具 <b>Cutter</b></h1>
+    <p class="desc">拖动 X / Y 两条参考线定位切点 → 点击象限选取（可多选）→ 未选区域置灰 → 导出选中图片块</p>
+  </header>
+
+  <section>
+    <div class="row">
+      <input type="text" id="urlInput" placeholder="粘贴远程图片地址 https://…（跨域受限的站点请改用本地文件）" spellcheck="false">
+      <button id="loadUrl">加载</button>
+      <button id="pickLocal">选择本地图片</button>
+      <input type="file" id="fileInput" accept="image/png,image/jpeg,image/gif,image/webp,image/bmp" hidden>
+    </div>
+    <p class="hint">也可以直接把图片文件<b>拖拽到下方工作台</b>。支持 png / jpg / gif / webp / bmp。</p>
+  </section>
+
+  <section>
+    <div class="toolbar">
+      <button id="resetLines" disabled>重置参考线</button>
+      <button id="selectAll" disabled>全选象限</button>
+      <button class="primary" id="exportBtn" disabled>导出选中图片</button>
+      <span class="tips">提示：靠近竖线 / 横线时光标变化，按住拖动；点象限切换选取</span>
+    </div>
+    <div class="quadbar">
+      <span class="quadbtn" data-q="0"><i></i>左上</span>
+      <span class="quadbtn" data-q="1"><i></i>右上</span>
+      <span class="quadbtn" data-q="2"><i></i>左下</span>
+      <span class="quadbtn" data-q="3"><i></i>右下</span>
+    </div>
+    <div class="stage" id="stage">
+      <canvas id="cv"></canvas>
+      <div class="empty" id="emptyTip">尚未加载图片 —— 粘贴远程地址、选择本地文件，或把图片拖到这里</div>
+    </div>
+    <div class="meta-line" id="meta"></div>
+    <div id="status"></div>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var $=function(s){return document.querySelector(s)};
+  var stage=$('#stage'), cv=$('#cv'), ctx=cv.getContext('2d'),
+      emptyTip=$('#emptyTip'), meta=$('#meta'), status=$('#status'),
+      urlInput=$('#urlInput'), fileInput=$('#fileInput'), exportBtn=$('#exportBtn');
+
+  var img=null, imgName='image';
+  var lineX=.5, lineY=.5;              /* 参考线位置（0~1 比例） */
+  var quads=[true,true,true,true];     /* 四象限选中态：0左上 1右上 2左下 3右下 */
+  var hoverQuad=-1, hoverAxis='';
+  var drag=null;                       /* {axis:'x'|'y'} */
+  var HIT=10;                          /* 线命中容差（显示像素） */
+
+  function err(msg){ status.textContent=msg; status.className='show'; }
+  function clearErr(){ status.className=''; }
+
+  /* ---------- 加载图片 ---------- */
+  function loadFromSrc(src,isLocal,name){
+    clearErr();
+    var probe=new Image();
+    if(!isLocal) probe.crossOrigin='anonymous';
+    probe.onload=function(){ img=probe; imgName=(name||'image').replace(/\.[^.]+$/,''); initStage(); };
+    probe.onerror=function(){
+      if(!isLocal){
+        err('远程图片加载失败：可能是跨域限制（服务器未返回 CORS 头）。请下载图片后改用「选择本地图片」或拖拽到工作台。');
+      }else{
+        err('图片加载失败，请确认文件格式（不支持 SVG）。');
+      }
+    };
+    probe.src=src;
+  }
+
+  $('#loadUrl').addEventListener('click',function(){
+    var u=urlInput.value.trim();
+    if(!u){err('请输入图片地址');return;}
+    loadFromSrc(u,false,(u.split('/').pop()||'image'));
+  });
+  urlInput.addEventListener('keydown',function(e){ if(e.key==='Enter') $('#loadUrl').click(); });
+
+  $('#pickLocal').addEventListener('click',function(){ fileInput.click(); });
+  fileInput.addEventListener('change',function(){
+    var f=fileInput.files[0];
+    if(f) readFile(f);
+    fileInput.value='';
+  });
+  function readFile(f){
+    if(!/^image\//.test(f.type)){err('不是图片文件');return;}
+    if(/svg/i.test(f.type)){err('不支持 SVG 格式');return;}
+    var fr=new FileReader();
+    fr.onload=function(){ loadFromSrc(fr.result,true,f.name); };
+    fr.readAsDataURL(f);
+  }
+
+  /* 拖放文件 */
+  ['dragover','dragenter'].forEach(function(ev){
+    stage.addEventListener(ev,function(e){e.preventDefault();stage.classList.add('drop');});
+  });
+  ['dragleave','dragend'].forEach(function(ev){
+    stage.addEventListener(ev,function(){stage.classList.remove('drop');});
+  });
+  stage.addEventListener('drop',function(e){
+    e.preventDefault();stage.classList.remove('drop');
+    var f=e.dataTransfer.files&&e.dataTransfer.files[0];
+    if(f) readFile(f);
+  });
+
+  /* ---------- 工作台初始化 ---------- */
+  function initStage(){
+    emptyTip.style.display='none';
+    stage.classList.add('on');
+    cv.width=img.naturalWidth;
+    cv.height=img.naturalHeight;
+    lineX=.5; lineY=.5; quads=[true,true,true,true];
+    ['#resetLines','#selectAll',exportBtn].forEach(function(b){$(b).disabled=false;});
+    meta.textContent=img.naturalWidth+' × '+img.naturalHeight+' px';
+    syncQuadBtns();
+    render();
+  }
+
+  /* ---------- 象限几何 ---------- */
+  function quadRects(){
+    var W=cv.width,H=cv.height,x=Math.round(lineX*W),y=Math.round(lineY*H);
+    return [
+      {x:0,y:0,w:x,h:y},        /* 0 左上 */
+      {x:x,y:0,w:W-x,h:y},     /* 1 右上 */
+      {x:0,y:y,w:x,h:H-y},     /* 2 左下 */
+      {x:x,y:y,w:W-x,h:H-y},   /* 3 右下 */
+    ];
+  }
+  var QUAD_LABEL=['左上','右上','左下','右下'];
+
+  /* ---------- 渲染 ---------- */
+  function render(){
+    if(!img) return;
+    var W=cv.width,H=cv.height,x=lineX*W,y=lineY*H;
+    ctx.clearRect(0,0,W,H);
+    ctx.drawImage(img,0,0,W,H);
+    var rs=quadRects();
+    for(var i=0;i<4;i++){
+      var r=rs[i];
+      if(!quads[i]){
+        /* 未选取：置灰（半透明灰 + 降饱和靠两层叠色近似） */
+        ctx.fillStyle='rgba(120,124,130,.62)';
+        ctx.fillRect(r.x,r.y,r.w,r.h);
+        ctx.fillStyle='rgba(247,248,250,.35)';
+        ctx.fillRect(r.x,r.y,r.w,r.h);
+      }else{
+        /* 选取：高亮描边（内侧） */
+        ctx.strokeStyle='rgba(14,148,136,.95)';
+        ctx.lineWidth=Math.max(2,Math.round(Math.min(W,H)/300));
+        ctx.setLineDash([]);
+        ctx.strokeRect(r.x+ctx.lineWidth/2,r.y+ctx.lineWidth/2,
+          Math.max(0,r.w-ctx.lineWidth),Math.max(0,r.h-ctx.lineWidth));
+      }
+      if(i===hoverQuad){
+        ctx.fillStyle='rgba(14,148,136,.08)';
+        ctx.fillRect(r.x,r.y,r.w,r.h);
+      }
+    }
+    /* 两条参考线 */
+    drawAxis('x',x);
+    drawAxisY();
+  }
+  function drawAxis(axis,pos){
+    ctx.save();
+    ctx.strokeStyle=(hoverAxis===axis||drag&&drag.axis===axis)?'#0969da':'#ff6a00';
+    ctx.lineWidth=Math.max(1.5,Math.round(cv.width/600));
+    ctx.setLineDash([10,6]);
+    ctx.beginPath();
+    if(axis==='x'){ ctx.moveTo(pos,0); ctx.lineTo(pos,cv.height); }
+    else{ ctx.moveTo(0,pos); ctx.lineTo(cv.width,pos); }
+    ctx.stroke();
+    /* 手柄标签 */
+    ctx.setLineDash([]);
+    var label=axis==='x'?('X '+(pos/cv.width*100).toFixed(1)+'%'):('Y '+(pos/cv.height*100).toFixed(1)+'%');
+    ctx.font=Math.max(11,Math.round(cv.width/55))+'px Consolas,monospace';
+    var tw=ctx.measureText(label).width+10;
+    var lx=axis==='x'?Math.min(Math.max(pos+6,4),cv.width-tw-4):4;
+    var ly=axis==='x'?(drag&&drag.axis==='y'?18:4):(pos+16);
+    if(axis==='y') ly=Math.min(Math.max(pos+4,16),cv.height-6);
+    ctx.fillStyle='rgba(255,106,0,.92)';
+    ctx.fillRect(lx,ly-14,tw,18);
+    ctx.fillStyle='#fff';
+    ctx.fillText(label,lx+5,ly-1);
+    ctx.restore();
+  }
+  function drawAxisY(){
+    ctx.save();
+    var pos=lineY*cv.height;
+    ctx.strokeStyle=(hoverAxis==='y'||drag&&drag.axis==='y')?'#0969da':'#ff6a00';
+    ctx.lineWidth=Math.max(1.5,Math.round(cv.width/600));
+    ctx.setLineDash([10,6]);
+    ctx.beginPath();ctx.moveTo(0,pos);ctx.lineTo(cv.width,pos);ctx.stroke();
+    ctx.setLineDash([]);
+    var label='Y '+(pos/cv.height*100).toFixed(1)+'%';
+    ctx.font=Math.max(11,Math.round(cv.width/55))+'px Consolas,monospace';
+    var tw=ctx.measureText(label).width+10;
+    var lx=cv.width-tw-4, ly=Math.min(Math.max(pos+4,16),cv.height-6);
+    ctx.fillStyle='rgba(255,106,0,.92)';
+    ctx.fillRect(lx,ly-14,tw,18);
+    ctx.fillStyle='#fff';
+    ctx.fillText(label,lx+5,ly-1);
+    ctx.restore();
+  }
+
+  /* ---------- 指针交互（Pointer Events：鼠标+触屏） ---------- */
+  function toImg(e){
+    var r=cv.getBoundingClientRect();
+    return {x:(e.clientX-r.left)*cv.width/r.width, y:(e.clientY-r.top)*cv.height/r.height};
+  }
+  function nearAxis(p){
+    var r=cv.getBoundingClientRect();
+    var sx=cv.width/r.width, sy=cv.height/r.height;
+    var px=lineX*cv.width, py=lineY*cv.height;
+    var dx=Math.abs(p.x-px)/sx, dy=Math.abs(p.y-py)/sy; /* 换算成显示像素距离 */
+    if(dx<=HIT&&dy<=HIT) return dx<dy?'x':'y';
+    if(dx<=HIT) return 'x';
+    if(dy<=HIT) return 'y';
+    return '';
+  }
+  function pointToQuad(p){
+    var W=cv.width,H=cv.height;
+    var col=p.x<lineX*W?0:1, row=p.y<lineY*H?0:1;
+    return row*2+col;
+  }
+  cv.addEventListener('pointerdown',function(e){
+    if(!img) return;
+    var p=toImg(e);
+    var axis=nearAxis(p);
+    if(axis){ drag={axis:axis}; cv.setPointerCapture(e.pointerId); }
+    else{
+      var q=pointToQuad(p);
+      quads[q]=!quads[q];
+      syncQuadBtns(); render(); updateExportBtn();
+    }
+  });
+  cv.addEventListener('pointermove',function(e){
+    if(!img) return;
+    var p=toImg(e);
+    if(drag){
+      if(drag.axis==='x') lineX=Math.min(.999,Math.max(.001,p.x/cv.width));
+      else lineY=Math.min(.999,Math.max(.001,p.y/cv.height));
+      render();
+    }else{
+      var axis=nearAxis(p);
+      var q=pointToQuad(p);
+      var nh=axis?(-1):q;
+      cv.style.cursor=axis?(axis==='x'?'ew-resize':'ns-resize'):'crosshair';
+      if(nh!==hoverQuad||axis!==hoverAxis){ hoverQuad=nh; hoverAxis=axis; render(); }
+    }
+  });
+  cv.addEventListener('pointerup',function(e){
+    if(drag){ drag=null; render(); }
+  });
+  cv.addEventListener('pointerleave',function(){
+    if(hoverQuad!==-1||hoverAxis){hoverQuad=-1;hoverAxis='';render();}
+  });
+
+  /* ---------- 象限按钮 ---------- */
+  function syncQuadBtns(){
+    document.querySelectorAll('.quadbtn').forEach(function(b){
+      b.classList.toggle('on',quads[+b.dataset.q]);
+    });
+  }
+  document.querySelectorAll('.quadbtn').forEach(function(b){
+    b.addEventListener('click',function(){
+      var q=+b.dataset.q;
+      quads[q]=!quads[q];
+      syncQuadBtns(); render(); updateExportBtn();
+    });
+  });
+  $('#resetLines').addEventListener('click',function(){ lineX=.5;lineY=.5;render(); });
+  $('#selectAll').addEventListener('click',function(){
+    var all=quads.every(Boolean);
+    quads=[!all,!all,!all,!all];
+    syncQuadBtns();render();updateExportBtn();
+  });
+  function updateExportBtn(){
+    exportBtn.disabled=!quads.some(Boolean);
+    exportBtn.textContent='导出选中图片（'+quads.filter(Boolean).length+' 块）';
+  }
+
+  /* ---------- 导出 ---------- */
+  exportBtn.addEventListener('click',function(){
+    if(!img) return;
+    clearErr();
+    var rs=quadRects();
+    var jobs=[];
+    quads.forEach(function(sel,i){ if(sel&&rs[i].w>0&&rs[i].h>0) jobs.push({i:i,r:rs[i]}); });
+    if(!jobs.length){ err('请至少选取一个象限'); return; }
+    jobs.forEach(function(job,idx){
+      var c=document.createElement('canvas');
+      c.width=job.r.w; c.height=job.r.h;
+      var cx=c.getContext('2d');
+      cx.drawImage(img,job.r.x,job.r.y,job.r.w,job.r.h,0,0,job.r.w,job.r.h);
+      setTimeout(function(){
+        var a=document.createElement('a');
+        a.href=c.toDataURL('image/png');
+        a.download=imgName+'_'+QUAD_LABEL[job.i]+'.png';
+        document.body.appendChild(a);a.click();a.remove();
+      },idx*350); /* 间隔下载，避免浏览器拦截批量 */
+    });
+  });
+
+  window.addEventListener('resize',function(){ if(img) render(); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>文札 · 微信文章转 Word</title>
+<style>
+  :root{
+    --ink:#1a2e26;          /* 深墨绿 */
+    --ink-soft:#4a5e55;
+    --paper:#f7f5ef;        /* 纸色 */
+    --paper-deep:#efece3;
+    --green:#07c160;        /* 微信绿 */
+    --green-deep:#059a4c;
+    --line:#d8d4c6;
+    --serif:"Songti SC","Noto Serif SC","STSong","SimSun",serif;
+    --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--sans);color:var(--ink);
+    background:
+      radial-gradient(1200px 500px at 85% -10%, rgba(7,193,96,.08), transparent 60%),
+      repeating-linear-gradient(0deg, transparent 0 31px, rgba(26,46,38,.025) 31px 32px),
+      var(--paper);
+    min-height:100vh;
+  }
+  .wrap{max-width:860px;margin:0 auto;padding:48px 24px 80px}
+
+  /* ---------- 头部 ---------- */
+  header{position:relative;padding-top:8px;margin-bottom:40px}
+  .brand{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .brand .seal{
+    font-family:var(--serif);font-weight:900;font-size:15px;color:#fff;
+    background:var(--green);width:34px;height:34px;border-radius:8px 8px 8px 2px;
+    display:flex;align-items:center;justify-content:center;transform:translateY(4px);
+    box-shadow:2px 3px 0 rgba(26,46,38,.18);
+  }
+  h1{
+    font-family:var(--serif);font-size:clamp(30px,5vw,44px);font-weight:900;
+    letter-spacing:.04em;line-height:1.15;
+  }
+  h1 em{font-style:normal;color:var(--green-deep);position:relative}
+  h1 em::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:10px;background:rgba(7,193,96,.18);z-index:-1}
+  .sub{margin-top:12px;font-size:14px;color:var(--ink-soft);letter-spacing:.06em}
+  .sub b{color:var(--ink);font-weight:600}
+  header::after{ /* 印刷横线装饰 */
+    content:"";display:block;margin-top:26px;height:1px;
+    background:linear-gradient(90deg,var(--ink) 0 90px,var(--line) 90px 100%);
+  }
+
+  /* ---------- 流程步骤 ---------- */
+  .steps{display:flex;gap:10px;margin-bottom:18px;font-size:12px;color:var(--ink-soft)}
+  .steps span{display:flex;align-items:center;gap:6px}
+  .steps i{
+    font-style:normal;width:18px;height:18px;border-radius:50%;
+    border:1px solid var(--line);display:inline-flex;align-items:center;justify-content:center;
+    font-family:var(--serif);font-size:11px;background:#fff;
+  }
+  .steps .on i{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+  /* ---------- 模式切换 ---------- */
+  .tabs{
+    display:flex;gap:0;border:1px solid var(--ink);border-radius:12px;overflow:hidden;
+    background:#fff;box-shadow:3px 4px 0 rgba(26,46,38,.12);
+    margin-bottom:22px;
+  }
+  .tabs button{
+    flex:1;padding:13px 8px;border:none;background:transparent;cursor:pointer;
+    font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink-soft);
+    display:flex;align-items:center;justify-content:center;gap:7px;
+    transition:all .18s;white-space:nowrap;
+  }
+  .tabs button+button{border-left:1px solid var(--line)}
+  .tabs button .ico{font-size:15px}
+  .tabs button.on{background:var(--ink);color:#fff}
+  .tabs button:not(.on):hover{color:var(--ink);background:var(--paper-deep)}
+
+  .panel{display:none;animation:rise .3s ease both}
+  .panel.on{display:block}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  .hint{
+    font-size:12.5px;color:var(--ink-soft);line-height:1.9;margin-bottom:10px;
+    background:var(--paper-deep);border-left:3px solid var(--green);
+    padding:10px 14px;border-radius:0 8px 8px 0;
+  }
+  .hint b{color:var(--ink)}
+
+  /* 粘贴区 */
+  #pasteArea{
+    min-height:240px;max-height:420px;overflow:auto;background:#fff;
+    border:1.5px dashed var(--line);border-radius:12px;padding:20px 24px;
+    font-size:15px;line-height:1.8;outline:none;cursor:text;
+    transition:border-color .2s;
+  }
+  #pasteArea:hover{border-color:var(--green)}
+  #pasteArea:focus{border-color:var(--ink);border-style:solid}
+  #pasteArea:empty::before{
+    content:attr(data-ph);color:#b9b4a4;font-size:14px;letter-spacing:.05em;
+  }
+  #pasteArea img{max-width:100%;height:auto;border-radius:4px}
+  #pasteArea table{border-collapse:collapse;max-width:100%;overflow:auto;display:block}
+  #pasteArea td,#pasteArea th{border:1px solid var(--line);padding:6px 10px}
+
+  textarea#srcArea{
+    width:100%;min-height:200px;resize:vertical;background:#1f2b26;color:#cde8d6;
+    border:none;border-radius:12px;padding:16px;font:12px/1.7 Consolas,Menlo,monospace;
+    outline:none;
+  }
+  .urlrow{display:flex;gap:10px}
+  .urlrow input{
+    flex:1;padding:14px 18px;border:1.5px solid var(--line);border-radius:12px;
+    font-size:15px;background:#fff;outline:none;transition:border-color .2s;
+  }
+  .urlrow input:focus{border-color:var(--ink)}
+
+  /* ---------- 标题与按钮 ---------- */
+  .meta{display:flex;gap:10px;margin:20px 0 14px;align-items:stretch}
+  .meta label{
+    display:flex;align-items:center;padding:0 6px 0 14px;background:#fff;
+    border:1.5px solid var(--line);border-radius:12px 12px 12px 0;font-size:13px;
+    color:var(--ink-soft);white-space:nowrap;border-right:none;
+  }
+  .meta input{
+    flex:1;padding:14px;border:1.5px solid var(--line);border-left:none;border-radius:0 12px 12px 0;
+    font-size:15px;outline:none;background:#fff;font-family:var(--serif);font-weight:700;
+  }
+  .meta input:focus{border-color:var(--ink)}
+  .meta label:focus-within,.meta input:focus{border-color:var(--ink)}
+
+  .actions{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{
+    padding:14px 30px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;
+    border:none;font-family:var(--sans);letter-spacing:.08em;
+    transition:transform .12s,box-shadow .12s;display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn:active{transform:translateY(2px)}
+  .btn-main{
+    background:var(--green);color:#fff;box-shadow:3px 4px 0 rgba(5,154,76,.35);
+  }
+  .btn-main:hover{background:var(--green-deep)}
+  .btn-main:disabled{background:#a8d9bd;box-shadow:none;cursor:not-allowed}
+  .btn-ghost{
+    background:#fff;color:var(--ink-soft);border:1.5px solid var(--line);
+  }
+  .btn-ghost:hover{border-color:var(--ink);color:var(--ink)}
+
+  /* ---------- 状态条 ---------- */
+  #status{
+    display:none;margin-top:18px;padding:13px 18px;border-radius:10px;
+    font-size:14px;align-items:center;gap:12px;
+    background:#fff;border:1px solid var(--line);
+  }
+  #status.show{display:flex}
+  #status .msg{flex:1}
+  #status.err{border-color:#e6a8a8;background:#fdf3f2;color:#a0413c}
+  #status.ok{border-color:#b5e6c9;background:#f0fbf4;color:var(--green-deep)}
+  .bar{height:5px;background:var(--paper-deep);border-radius:99px;overflow:hidden;margin-top:8px}
+  .bar i{display:block;height:100%;width:0;background:var(--green);border-radius:99px;transition:width .25s}
+  .spin{
+    width:15px;height:15px;border-radius:50%;flex:none;
+    border:2px solid var(--line);border-top-color:var(--green);
+    animation:spin .7s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* ---------- 预览 ---------- */
+  .previewbox{display:none;margin-top:26px}
+  .previewbox.on{display:block;animation:rise .35s ease both}
+  .previewbox .cap{
+    display:flex;align-items:center;gap:10px;margin-bottom:10px;
+    font-family:var(--serif);font-size:16px;font-weight:700;letter-spacing:.1em;
+  }
+  .previewbox .cap::before{content:"";width:8px;height:8px;background:var(--green);border-radius:2px}
+  .previewbox .cap small{font-family:var(--sans);font-weight:400;color:var(--ink-soft);font-size:12px;margin-left:auto}
+  #preview{
+    background:#fff;border:1px solid var(--line);border-radius:12px;padding:28px 34px;
+    max-height:480px;overflow:auto;font-size:15px;line-height:1.9;
+  }
+  #preview img{max-width:100%;height:auto}
+  #preview table{border-collapse:collapse;max-width:100%}
+  #preview td{border:1px solid var(--line);padding:6px 10px}
+
+  footer{
+    margin-top:48px;font-size:12px;color:#b3ad9c;text-align:center;letter-spacing:.08em;
+  }
+  footer code{
+    background:var(--paper-deep);padding:1px 6px;border-radius:4px;
+    font-family:Consolas,monospace;color:var(--ink-soft);
+  }
+  @media (max-width:640px){
+    .tabs{flex-direction:column}
+    .tabs button+button{border-left:none;border-top:1px solid var(--line)}
+    .meta label{padding:0 4px 0 10px}
+  }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">
+      <span class="seal">札</span>
+      <h1>微信文章 <em>转 Word</em></h1>
+    </div>
+    <p class="sub">粘贴文章内容，一键生成 <b>.docx</b> 文档 —— 图片内嵌、微信可直接预览、Word / WPS 双击编辑</p>
+  </header>
+
+  <div class="steps">
+    <span class="on" id="st1"><i>一</i>粘贴原文</span>
+    <span id="st2"><i>二</i>处理图文</span>
+    <span id="st3"><i>三</i>下载文档</span>
+  </div>
+
+  <div class="tabs">
+    <button class="on" data-panel="paste"><span class="ico">📋</span>粘贴正文（推荐）</button>
+    <button data-panel="source"><span class="ico">⌨️</span>粘贴网页源代码</button>
+    <button data-panel="url"><span class="ico">🔗</span>输入文章链接</button>
+  </div>
+
+  <section class="panel on" id="panel-paste">
+    <p class="hint">
+      <b>操作步骤：</b>打开微信文章页面（电脑浏览器）→ <b>先滚动到底部</b>让图片全部加载 → <b>Ctrl+A</b> 全选 → <b>Ctrl+C</b> 复制 → 点击下方区域 <b>Ctrl+V</b> 粘贴。
+    </p>
+    <div id="pasteArea" contenteditable="true" data-ph="在 这里  Ctrl + V  粘贴 微信 文章 全文 …"></div>
+  </section>
+
+  <section class="panel" id="panel-source">
+    <p class="hint">
+      <b>操作步骤：</b>在微信文章页面右键 →「查看网页源代码」→ <b>Ctrl+A</b> 全选复制 → 粘贴到下方框中。此方式图片最完整（自动识别 <code>data-src</code> 懒加载原图）。
+    </p>
+    <textarea id="srcArea" placeholder="在此粘贴微信文章的完整网页源代码（以 <!DOCTYPE html> 开头的全部内容）…" spellcheck="false"></textarea>
+  </section>
+
+  <section class="panel" id="panel-url">
+    <p class="hint">
+      <b>说明：</b>通过公共跨域代理抓取文章，<b>成功率取决于代理服务状态</b>。若失败，请改用上面两种粘贴方式（100% 可用）。
+    </p>
+    <div class="urlrow">
+      <input id="urlInput" type="url" placeholder="https://mp.weixin.qq.com/s/xxxxxx" spellcheck="false">
+      <button class="btn btn-ghost" id="fetchBtn">抓取</button>
+    </div>
+  </section>
+
+  <div class="meta">
+    <label>文档标题</label>
+    <input id="titleInput" placeholder="自动识别文章标题，可手动修改">
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-main" id="goBtn">生成 Word 文档</button>
+    <button class="btn btn-ghost" id="clearBtn">清空重来</button>
+  </div>
+
+  <div id="status">
+    <div class="spin" id="spin"></div>
+    <div style="flex:1"><div class="msg" id="statusMsg">准备中…</div><div class="bar" id="barBox" style="display:none"><i id="barFill"></i></div></div>
+  </div>
+
+  <div class="previewbox" id="previewBox">
+    <div class="cap">处理结果预览 <small>与生成文档内容一致</small></div>
+    <div id="preview"></div>
+  </div>
+
+  <footer>
+    纯前端处理 · 不上传任何数据 · 图片经 <code>images.weserv.nl</code> 代理内嵌（仅图片地址）· 生成标准 <code>.docx</code>（OOXML，需联网加载 JSZip 组件）
+  </footer>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(s){ return document.querySelector(s); };
+  var pasteArea=$('#pasteArea'), srcArea=$('#srcArea'), titleInput=$('#titleInput'),
+      statusBox=$('#status'), statusMsg=$('#statusMsg'), spin=$('#spin'),
+      barBox=$('#barBox'), barFill=$('#barFill'), preview=$('#preview'), previewBox=$('#previewBox');
+
+  /* ---------- 模式切换 ---------- */
+  var curMode='paste';
+  document.querySelectorAll('.tabs button').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      document.querySelectorAll('.tabs button').forEach(function(b){b.classList.remove('on')});
+      document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+      btn.classList.add('on');
+      $('#panel-'+btn.dataset.panel).classList.add('on');
+      curMode=btn.dataset.panel;
+    });
+  });
+
+  /* ---------- 状态条 ---------- */
+  function setStatus(msg,type,percent){
+    statusBox.className='show'+(type?' '+type:'');
+    statusMsg.textContent=msg;
+    spin.style.display=(type==='ok'||type==='err')?'none':'block';
+    if(typeof percent==='number'){barBox.style.display='block';barFill.style.width=percent+'%';}
+    else{barBox.style.display='none';}
+  }
+  function hideStatus(){statusBox.className='';}
+
+  /* ---------- 粘贴模式：自动提取标题 ---------- */
+  pasteArea.addEventListener('paste',function(e){
+    var html=e.clipboardData.getData('text/html');
+    if(html && !titleInput.value){
+      try{
+        var doc=new DOMParser().parseFromString(html,'text/html');
+        var h=doc.querySelector('h1,h2.rich_media_title,#activity-name')||doc.querySelector('h1,h2');
+        var t=(h?h.textContent:doc.body.textContent||'').trim().replace(/\s+/g,' ');
+        if(t && t.length<=60){ titleInput.value=t; }
+      }catch(_){}
+    }
+  });
+
+  /* ---------- 链接模式：代理抓取 ---------- */
+  $('#fetchBtn').addEventListener('click',async function(){
+    var url=$('#urlInput').value.trim();
+    if(!/^https?:\/\//.test(url)){setStatus('请输入以 http(s):// 开头的文章链接','err');return;}
+    setStatus('正在通过公共代理抓取文章…');
+    try{
+      var res=await fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(url));
+      if(!res.ok) throw new Error('代理返回 '+res.status);
+      var html=await res.text();
+      if(html.indexOf('js_content')<0) throw new Error('抓到的内容里没有微信正文（可能被拦截）');
+      srcArea.value=html;
+      setStatus('抓取成功，已填入源代码，请点击「生成 Word 文档」','ok');
+      document.querySelector('[data-panel="source"]').click();
+    }catch(err){
+      setStatus('抓取失败：'+err.message+'。请改用「粘贴正文」或「粘贴源代码」模式。','err');
+    }
+  });
+
+  /* ---------- 收集内容 ---------- */
+  function collect(){
+    var title=titleInput.value.trim(), bodyHtml='';
+    if(curMode==='paste'){
+      if(!pasteArea.textContent.trim() && !pasteArea.querySelector('img'))
+        throw new Error('请先在上方区域粘贴文章内容');
+      bodyHtml=pasteArea.innerHTML;
+      if(!title){
+        var h=pasteArea.querySelector('h1,h2');
+        if(h){title=h.textContent.trim().replace(/\s+/g,' ');}
+      }
+    }else{
+      var raw=srcArea.value;
+      if(!raw.trim()) throw new Error('请先粘贴微信文章的网页源代码');
+      var doc=new DOMParser().parseFromString(raw,'text/html');
+      var content=doc.querySelector('#js_content');
+      if(!content) throw new Error('未找到微信正文（#js_content），请确认粘贴的是 mp.weixin.qq.com 文章源代码');
+      if(!title){
+        title=(doc.querySelector('#activity-name')||{}).textContent||doc.title||'';
+        title=title.trim().replace(/\s+/g,' ');
+      }
+      bodyHtml=content.innerHTML;
+    }
+    if(!title) title='微信文章';
+    return {title:title, html:bodyHtml};
+  }
+
+  /* ---------- 清理与规整 ---------- */
+  function clean(bodyHtml){
+    var doc=new DOMParser().parseFromString('<div id="root">'+bodyHtml+'</div>','text/html');
+    var root=doc.querySelector('#root');
+    root.querySelectorAll('script,noscript,link,meta').forEach(function(n){n.remove()});
+    /* iframe/video 占位 */
+    root.querySelectorAll('iframe').forEach(function(n){
+      var p=doc.createElement('p');
+      p.textContent='【视频 / 小程序卡片，请在原文查看】';
+      p.setAttribute('style','color:#999;font-size:10.5pt;border:1px dashed #bbb;padding:6pt;text-align:center;');
+      n.replaceWith(p);
+    });
+    root.querySelectorAll('video,mpvoice,mp-common-profile').forEach(function(n){
+      var p=doc.createElement('p');
+      p.textContent='【音视频 / 小程序卡片，请在原文查看】';
+      p.setAttribute('style','color:#999;font-size:10.5pt;border:1px dashed #bbb;padding:6pt;text-align:center;');
+      n.replaceWith(p);
+    });
+    return root;
+  }
+
+  /* ---------- 图片内嵌 ---------- */
+  function realSrc(img){
+    var s=img.getAttribute('data-src')||'';
+    if(!s){ var ds=img.getAttribute('data-srcset')||''; s=ds.split(',')[0].trim().split(' ')[0]; }
+    if(!s){ s=img.getAttribute('src')||''; }
+    if(/^data:/.test(s)&&img.getAttribute('data-src')) s=img.getAttribute('data-src');
+    if(s.indexOf('//')===0) s='https:'+s;
+    return /^https?:\/\//.test(s)?s:'';
+  }
+  function blobToB64(b){
+    return new Promise(function(ok,no){
+      var fr=new FileReader();
+      fr.onload=function(){ok(fr.result)}; fr.onerror=no;
+      fr.readAsDataURL(b);
+    });
+  }
+  function toB64(url){
+    return fetch(url,{mode:'cors'}).then(function(r){
+      if(!r.ok) throw 0; return r.blob();
+    }).then(function(b){
+      /* Word 不支持 webp/svg，经代理转 jpg/png */
+      if(b.type==='image/webp') return viaProxy(url,'jpg');
+      if(b.type==='image/svg+xml') return viaProxy(url,'png');
+      return blobToB64(b);
+    });
+  }
+  function viaProxy(url,output){
+    return fetch('https://images.weserv.nl/?url='+encodeURIComponent(url.replace(/^https?:\/\//,''))+(output?'&output='+output:''))
+      .then(function(r){ if(!r.ok) throw 0; return r.blob(); })
+      .then(blobToB64);
+  }
+  function inlineImg(url){
+    return toB64(url).catch(function(){ return viaProxy(url); });
+  }
+  function pool(items,n,fn){
+    var ret=new Array(items.length),i=0;
+    var w=Math.min(n,items.length),ws=[];
+    for(var k=0;k<w;k++) ws.push((async function(){
+      while(i<items.length){ var idx=i++; ret[idx]=await fn(items[idx],idx); }
+    })());
+    return Promise.all(ws).then(function(){return ret;});
+  }
+
+  /* ---------- HTML → OOXML（.docx）---------- */
+  var OOXML=(function(){
+    var imgRid=0, imgFiles=[], docPr=0;
+    var HEADSZ={H1:32,H2:28,H3:26,H4:24,H5:23,H6:22};
+    var BLOCK=/^(P|DIV|SECTION|H1|H2|H3|H4|H5|H6|UL|OL|LI|BLOCKQUOTE|TABLE|HR|FIGURE|FIGCAPTION|PRE|ARTICLE|HEADER|FOOTER|MAIN|ASIDE|NAV|DETAILS|SUMMARY|DL|DT|DD|FIELDSET|FORM|ADDRESS)$/;
+
+    function xmlEsc(s){
+      return String(s).replace(/[&<>"']/g,function(c){
+        return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c];
+      });
+    }
+    function dataUrlToU8(d){
+      var bin=atob(d.slice(d.indexOf(',')+1)), u8=new Uint8Array(bin.length);
+      for(var i=0;i<bin.length;i++) u8[i]=bin.charCodeAt(i);
+      return u8;
+    }
+    function hexColor(css){
+      var m=String(css).match(/#([0-9a-fA-F]{3,6})/);
+      if(m){ var h=m[1]; if(h.length===3) h=h[0]+h[0]+h[1]+h[1]+h[2]+h[2]; return h.toUpperCase(); }
+      m=String(css).match(/rgba?\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)/i);
+      if(m) return [m[1],m[2],m[3]].map(function(x){return ('0'+(+x).toString(16)).slice(-2).toUpperCase();}).join('');
+      return '';
+    }
+    function styleOf(el){
+      var st={}, css=(el.getAttribute&&el.getAttribute('style'))||'', m;
+      if(m=css.match(/color\s*:\s*(#[0-9a-fA-F]{3,6}|rgba?\([^)]+\))/)) st.color=hexColor(m[1]);
+      if(m=css.match(/font-size\s*:\s*([\d.]+)px/)) st.sz=Math.round(parseFloat(m[1])*1.5); /* px→半磅 */
+      if(m=css.match(/font-weight\s*:\s*(bold|[6-9]\d{2,})/)) st.bold=true;
+      if(/text-decoration[^:;]*:[^;]*line-through/.test(css)) st.strike=true;
+      if(/text-decoration[^:;]*:[^;]*underline/.test(css)) st.underline=true;
+      if(m=css.match(/text-align\s*:\s*(center|right|left|justify)/)) st.align=m[1]==='justify'?'both':m[1];
+      return st;
+    }
+    function alignOf(el){
+      for(var n=el,i=0;n&&n.getAttribute&&i<4;i++,n=n.parentNode){
+        var a=styleOf(n).align; if(a) return a;
+      }
+      return '';
+    }
+    function rPr(p){
+      var s='';
+      if(p.bold) s+='<w:b/>';
+      if(p.italic) s+='<w:i/>';
+      if(p.strike) s+='<w:strike/>';
+      if(p.color) s+='<w:color w:val="'+p.color+'"/>';
+      if(p.sz) s+='<w:sz w:val="'+p.sz+'"/><w:szCs w:val="'+p.sz+'"/>';
+      if(p.underline) s+='<w:u w:val="single"/>';
+      return s?'<w:rPr>'+s+'</w:rPr>':'';
+    }
+    function imgRun(im){
+      var src=im.getAttribute('src')||'';
+      var mime=(src.match(/^data:(image\/[a-z+]+);/i)||[])[1]||'';
+      if(!/image\/(png|jpe?g|gif)/i.test(mime)){
+        var txt=/^data:/.test(src)?'【不支持的图片格式】':'【图片未能下载：'+src+'】';
+        return '<w:r><w:rPr><w:color w:val="999999"/></w:rPr><w:t xml:space="preserve">'+xmlEsc(txt)+'</w:t></w:r>';
+      }
+      var ext=/png/i.test(mime)?'png':(/gif/i.test(mime)?'gif':'jpg');
+      var rid='rId'+(++imgRid), name='image'+imgRid+'.'+ext;
+      imgFiles.push({rid:rid,name:name,u8:dataUrlToU8(src)});
+      var w=+im._wx||620, h=+im._wy||310;
+      var dw=Math.min(w,620), dh=Math.round(h*dw/w);
+      var cx=dw*9525, cy=dh*9525; docPr++;
+      return '<w:r><w:drawing><wp:inline distT="0" distB="0" distL="0" distR="0">'+
+        '<wp:extent cx="'+cx+'" cy="'+cy+'"/>'+
+        '<wp:docPr id="'+docPr+'" name="Picture '+docPr+'"/>'+
+        '<a:graphic><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">'+
+        '<pic:pic><pic:nvPicPr><pic:cNvPr id="'+docPr+'" name="'+name+'"/><pic:cNvPicPr/></pic:nvPicPr>'+
+        '<pic:blipFill><a:blip r:embed="'+rid+'"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill>'+
+        '<pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="'+cx+'" cy="'+cy+'"/></a:xfrm>'+
+        '<a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic>'+
+        '</a:graphicData></a:graphic></wp:inline></w:drawing></w:r>';
+    }
+    function runsOf(node,p,out){
+      if(node.nodeType===3){
+        if(node.nodeValue) out.push('<w:r>'+rPr(p)+'<w:t xml:space="preserve">'+xmlEsc(node.nodeValue)+'</w:t></w:r>');
+        return;
+      }
+      if(node.nodeType!==1) return;
+      var tag=node.tagName.toUpperCase();
+      if(tag==='BR'){ out.push('<w:r><w:br/></w:r>'); return; }
+      if(tag==='IMG'){ out.push(imgRun(node)); return; }
+      if(tag==='SCRIPT'||tag==='STYLE'||tag==='SVG') return;
+      var np={bold:p.bold,italic:p.italic,underline:p.underline,strike:p.strike,color:p.color,sz:p.sz};
+      if(tag==='B'||tag==='STRONG') np.bold=true;
+      if(tag==='I'||tag==='EM') np.italic=true;
+      if(tag==='U'||tag==='INS') np.underline=true;
+      if(tag==='S'||tag==='STRIKE'||tag==='DEL') np.strike=true;
+      if(tag==='A'){ np.color='1E6FBE'; np.underline=true; }
+      var st=styleOf(node);
+      if(st.color) np.color=st.color;
+      if(st.sz) np.sz=st.sz;
+      if(st.bold) np.bold=true;
+      if(st.strike) np.strike=true;
+      if(st.underline) np.underline=true;
+      if(!node.childNodes.length && /^(SPAN|A|B|I|U|S|STRONG|EM|FONT)$/.test(tag)) return;
+      for(var i=0;i<node.childNodes.length;i++) runsOf(node.childNodes[i],np,out);
+    }
+    function makeP(runs,align,after){
+      var jc=(align==='center'||align==='right'||align==='both')?'<w:jc w:val="'+align+'"/>':'';
+      return '<w:p><w:pPr><w:spacing w:after="'+(after!=null?after:120)+'" w:line="360" w:lineRule="auto"/>'+jc+'</w:pPr>'+(runs||'')+'</w:p>';
+    }
+    function blockChildren(el){
+      if(!el.childNodes.length) return '';
+      var xml='', buf=[];
+      function flush(){
+        if(!buf.length) return;
+        var runs=[];
+        for(var i=0;i<buf.length;i++) runsOf(buf[i],{},runs);
+        buf=[];
+        var r=runs.join('');
+        if(r) xml+=makeP(r,alignOf(el));
+      }
+      for(var i=0;i<el.childNodes.length;i++){
+        var k=el.childNodes[i], t=k.nodeType===1?k.tagName.toUpperCase():'';
+        if(k.nodeType===3){ if(k.nodeValue.trim()!==''||k.nodeValue.indexOf('\u00A0')>=0) buf.push(k); }
+        else if(t==='BR'){ buf.push(k); }
+        else if(BLOCK.test(t)){ flush(); xml+=processBlock(k); }
+        else if(k.nodeType===1){ buf.push(k); }
+      }
+      flush();
+      if(!xml&&el.textContent.trim()===''&&!el.querySelector('img,br')) return '';
+      return xml;
+    }
+    function processBlock(el){
+      var tag=el.tagName.toUpperCase(), out;
+      if(tag==='HR') return '<w:p><w:pPr><w:pBdr><w:bottom w:val="single" w:sz="6" w:space="1" w:color="CCCCCC"/></w:pBdr><w:spacing w:after="240"/></w:pPr></w:p>';
+      if(Object.prototype.hasOwnProperty.call(HEADSZ,tag)){ out=[]; runsOf(el,{bold:true,sz:HEADSZ[tag]},out); return makeP(out.join(''),'center',200); }
+      if(tag==='UL'||tag==='OL'){
+        var xml='', n=0;
+        [].slice.call(el.children).forEach(function(li){
+          if(li.tagName.toUpperCase()!=='LI') return;
+          n++; out=[];
+          runsOf(li,{},out);
+          var prefix=tag==='UL'?'· ':(n+'. ');
+          xml+=makeP('<w:r><w:t xml:space="preserve">'+prefix+'</w:t></w:r>'+out.join(''),'',60);
+        });
+        return xml||makeP('');
+      }
+      if(tag==='BLOCKQUOTE'){
+        out=[]; runsOf(el,{color:'888888'},out);
+        return '<w:p><w:pPr><w:spacing w:after="120" w:line="360" w:lineRule="auto"/><w:ind w:left="480"/></w:pPr>'+out.join('')+'</w:p>';
+      }
+      if(tag==='PRE'){ out=[]; runsOf(el,{sz:18},out); return makeP(out.join(''),'',60); }
+      if(tag==='TABLE') return tableOf(el);
+      return blockChildren(el)||'';
+    }
+    function tableOf(tbl){
+      var bd=function(t){return '<w:'+t+' w:val="single" w:sz="4" w:space="0" w:color="CCCCCC"/>';};
+      var xml='<w:tbl><w:tblPr><w:tblW w:w="5000" w:type="pct"/><w:tblBorders>'+
+        bd('top')+bd('left')+bd('bottom')+bd('right')+bd('insideH')+bd('insideV')+
+        '</w:tblBorders></w:tblPr>';
+      [].slice.call(tbl.querySelectorAll('tr')).forEach(function(tr){
+        if(tr.closest('table')!==tbl) return;
+        xml+='<w:tr>';
+        var tds=[].slice.call(tr.children).filter(function(c){return /^(TD|TH)$/.test(c.tagName.toUpperCase());});
+        tds.forEach(function(td){
+          xml+='<w:tc><w:tcPr><w:tcW w:w="0" w:type="auto"/><w:vAlign w:val="center"/></w:tcPr>'+
+            (blockChildren(td)||makeP(''))+'</w:tc>';
+        });
+        if(!tds.length) xml+='<w:tc><w:tcPr><w:tcW w:w="0" w:type="auto"/></w:tcPr>'+makeP('')+'</w:tc>';
+        xml+='</w:tr>';
+      });
+      return xml+'</w:tbl>'+makeP('');
+    }
+    async function buildDocx(title,root){
+      imgRid=0; imgFiles=[]; docPr=0;
+      var body=blockChildren(root);
+      var titleP='<w:p><w:pPr><w:spacing w:after="120"/><w:jc w:val="center"/></w:pPr>'+
+        '<w:r><w:rPr><w:rFonts w:ascii="Microsoft YaHei" w:hAnsi="Microsoft YaHei" w:eastAsia="Microsoft YaHei"/><w:b/><w:sz w:val="36"/><w:szCs w:val="36"/></w:rPr>'+
+        '<w:t xml:space="preserve">'+xmlEsc(title)+'</w:t></w:r></w:p>';
+      var hrP='<w:p><w:pPr><w:pBdr><w:bottom w:val="single" w:sz="6" w:space="1" w:color="CCCCCC"/></w:pBdr><w:spacing w:after="240"/></w:pPr></w:p>';
+      var docXml='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
+        '<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" '+
+        'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" '+
+        'xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" '+
+        'xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" '+
+        'xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">'+
+        '<w:body>'+titleP+hrP+body+
+        '<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1440" w:right="1240" w:bottom="1440" w:left="1240"/></w:sectPr>'+
+        '</w:body></w:document>';
+
+      var zip=new JSZip();
+      zip.file('[Content_Types].xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
+        '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'+
+        '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>'+
+        '<Default Extension="xml" ContentType="application/xml"/>'+
+        '<Default Extension="png" ContentType="image/png"/>'+
+        '<Default Extension="jpg" ContentType="image/jpeg"/>'+
+        '<Default Extension="jpeg" ContentType="image/jpeg"/>'+
+        '<Default Extension="gif" ContentType="image/gif"/>'+
+        '<Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>'+
+        '</Types>');
+      zip.folder('_rels').file('.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
+        '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+
+        '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>');
+      var w=zip.folder('word');
+      w.file('document.xml',docXml);
+      if(imgFiles.length){
+        w.folder('_rels').file('document.xml.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
+          '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+
+          imgFiles.map(function(f){return '<Relationship Id="'+f.rid+'" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/'+f.name+'"/>';}).join('')+
+          '</Relationships>');
+        var media=w.folder('media');
+        imgFiles.forEach(function(f){ media.file(f.name,f.u8); });
+      }
+      return zip.generateAsync({type:'blob',mimeType:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+    }
+    return {buildDocx:buildDocx};
+  })();
+
+  /* ---------- 主流程 ---------- */
+  $('#goBtn').addEventListener('click',async function(){
+    var data;
+    try{ data=collect(); }
+    catch(err){ setStatus(err.message,'err'); return; }
+
+    titleInput.value=data.title;
+    var btn=this; btn.disabled=true;
+
+    if(typeof JSZip==='undefined'){
+      btn.disabled=false;
+      setStatus('docx 生成组件（JSZip，CDN）加载失败，请联网后刷新页面重试','err');
+      return;
+    }
+
+    setStatus('正在解析文章结构…');
+    setStep(2);
+
+    var root;
+    try{ root=clean(data.html); }
+    catch(err){ btn.disabled=false; setStatus('解析失败：'+err.message,'err'); return; }
+
+    var imgs=[].slice.call(root.querySelectorAll('img'));
+    var jobs=imgs.map(function(im){return {im:im,url:realSrc(im)};}).filter(function(j){return j.url;});
+    var done=0,fail=0;
+
+    await pool(jobs,6,function(job){
+      return inlineImg(job.url).then(function(b64){
+        job.im.setAttribute('src',b64);
+      }).catch(function(){
+        job.im.setAttribute('src',job.url); fail++;
+      }).finally(function(){
+        done++;
+        if(jobs.length) setStatus('正在内嵌图片… '+done+' / '+jobs.length, null, Math.round(done/jobs.length*100));
+      });
+    });
+
+    /* 探测图片真实尺寸（供 docx 内 drawing 使用） */
+    await Promise.all(imgs.map(function(im){
+      return new Promise(function(ok){
+        var src=im.getAttribute('src')||'';
+        if(!/^data:image\//.test(src)){ ok(); return; }
+        var probe=new Image();
+        probe.onload=function(){
+          im._wx=probe.naturalWidth||620;
+          im._wy=probe.naturalHeight||310;
+          ok();
+        };
+        probe.onerror=ok;
+        probe.src=src;
+      });
+    }));
+
+    /* 图片宽度规整：data-w 超宽则限宽，保证不超过 A4 版心 */
+    imgs.forEach(function(im){
+      im.removeAttribute('data-src');
+      var w=parseInt(im.getAttribute('data-w')||im.getAttribute('width')||'0',10);
+      if(isNaN(w)||w<=0){
+        im.setAttribute('width','600');
+      }else if(w>620){
+        im.setAttribute('width','620');
+      }
+      im.removeAttribute('data-w');
+      im.removeAttribute('data-ratio');
+      im.style.width=''; im.style.height='';
+      im.setAttribute('style',(im.getAttribute('style')||'').replace(/width:[^;]+;?/g,'').replace(/height:[^;]+;?/g,''));
+    });
+
+    var inner=root.innerHTML;
+
+    setStatus('正在生成 docx 文档…');
+    setStep(3);
+
+    var blob;
+    try{
+      blob=await OOXML.buildDocx(data.title,root);
+    }catch(err){
+      btn.disabled=false;
+      setStatus('docx 生成失败：'+(err&&err.message||err),'err');
+      return;
+    }
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download=data.title.replace(/[\\/:*?"<>|]/g,'')+'.docx';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){URL.revokeObjectURL(a.href);},5000);
+
+    preview.innerHTML=inner;
+    previewBox.classList.add('on');
+    var extra=fail?('，'+fail+' 张图片因网络原因下载失败，已在文档中标注占位'):'';
+    setStatus('docx 文档已生成并开始下载'+extra+'。若未自动下载，请检查浏览器拦截提示。','ok');
+    btn.disabled=false;
+  });
+
+  function setStep(n){
+    for(var i=1;i<=3;i++){
+      var el=$('#st'+i);
+      el.classList.toggle('on', i<=n);
+    }
+  }
+
+  /* ---------- 清空 ---------- */
+  $('#clearBtn').addEventListener('click',function(){
+    pasteArea.innerHTML=''; srcArea.value=''; titleInput.value='';
+    preview.innerHTML=''; previewBox.classList.remove('on');
+    hideStatus(); setStep(1);
+    document.querySelector('[data-panel="paste"]').click();
+  });
+})();
+</script>
+</body>
+</html>

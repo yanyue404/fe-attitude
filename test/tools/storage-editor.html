@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Browser Storage 编辑器</title>
+<style>
+  :root{
+    --bg:#f5f6f8; --panel:#ffffff; --panel2:#eef0f4; --line:#d9dce2;
+    --txt:#24292f; --dim:#6e7480;
+    --key:#0550ae; --str:#a31515; --num:#098658; --bool:#0a2cb3; --null:#8a909c;
+    --accent:#0e9488; --accent2:#0969da; --err:#cf222e;
+    --mono:"JetBrains Mono",Consolas,"Courier New",monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--txt);font:14px/1.6 var(--mono);padding:24px 16px 80px}
+  .wrap{max-width:980px;margin:0 auto}
+
+  header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+  h1{font-size:19px;font-weight:700;letter-spacing:.02em}
+  h1 b{color:var(--accent)}
+  header .desc{color:var(--dim);font-size:12.5px}
+
+  section{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin-bottom:16px}
+  .step{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .step .no{width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:12px;flex:none}
+  .step .tt{font-weight:700;letter-spacing:.03em}
+  .step .tip{color:var(--dim);font-size:12px;margin-left:auto}
+
+  .cmdbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+  code.snippet{
+    flex:1;min-width:280px;background:var(--bg);border:1px solid var(--line);border-radius:8px;
+    padding:10px 14px;font-size:13px;color:var(--str);white-space:nowrap;overflow-x:auto;flex:1;
+  }
+  code.snippet .fn{color:var(--accent2)}
+  code.snippet .s{color:var(--str)}
+  button{
+    font-family:var(--mono);font-size:13px;font-weight:600;cursor:pointer;border:none;
+    padding:9px 18px;border-radius:8px;background:var(--panel2);color:var(--txt);
+    border:1px solid var(--line);transition:all .15s;white-space:nowrap;
+  }
+  button:hover{border-color:var(--accent);color:var(--accent)}
+  button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  button.primary:hover{background:#0c7d73;color:#fff}
+  button:active{transform:translateY(1px)}
+
+  textarea{
+    width:100%;min-height:130px;resize:vertical;background:var(--bg);color:var(--str);
+    border:1px solid var(--line);border-radius:8px;padding:12px 14px;
+    font:13px/1.6 var(--mono);outline:none;
+  }
+  textarea:focus{border-color:var(--accent)}
+  textarea::placeholder{color:var(--dim)}
+
+  .keyrow{display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+  .keyrow label{color:var(--dim);font-size:13px}
+  .keyrow input{
+    background:var(--bg);border:1px solid var(--line);border-radius:8px;color:var(--key);
+    padding:8px 12px;font:13px var(--mono);outline:none;width:230px;
+  }
+  .keyrow input:focus{border-color:var(--accent2)}
+  .seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;flex:none}
+  .seg button{border:none;border-radius:0;padding:8px 14px;background:transparent;color:var(--dim);font-size:12.5px}
+  .seg button+button{border-left:1px solid var(--line)}
+  .seg button:hover{border-color:transparent;color:var(--txt)}
+  .seg button.on{background:var(--accent);color:#fff}
+  .seg button.on:hover{color:#fff}
+
+  /* ---------- 树 ---------- */
+  .toolbar{display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+  .toolbar input{
+    flex:1;min-width:200px;background:var(--bg);border:1px solid var(--line);border-radius:8px;
+    color:var(--txt);padding:8px 12px;font:13px var(--mono);outline:none;
+  }
+  .toolbar input:focus{border-color:var(--accent2)}
+  .treebox{
+    background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 14px;
+    max-height:520px;overflow:auto;
+  }
+  .node{margin:1px 0}
+  .node > .nrow{display:flex;align-items:center;gap:6px;padding:1px 4px;border-radius:4px}
+  .node > .nrow:hover{background:rgba(0,0,0,.045)}
+  .toggle{
+    cursor:pointer;color:var(--dim);width:16px;text-align:center;flex:none;user-select:none;
+    display:inline-block;transition:transform .12s;
+  }
+  .toggle.open{transform:rotate(90deg)}
+  .nkey{color:var(--key)}
+  .nmeta{color:var(--dim);font-size:12px}
+  .children{margin-left:10px;padding-left:14px;border-left:1px dashed var(--line)}
+  .collapsed{display:none}
+
+  .leaf{display:flex;align-items:center;gap:8px;padding:1px 4px;border-radius:4px;flex-wrap:wrap}
+  .leaf:hover{background:rgba(0,0,0,.045)}
+  .leaf.hit > .lkey{background:rgba(14,148,136,.18);border-radius:3px;padding:0 3px}
+  .lkey{color:var(--key)}
+  .badge{
+    font-size:10.5px;padding:0 6px;border-radius:3px;flex:none;line-height:17px;
+    background:var(--panel2);border:1px solid var(--line);color:var(--dim);
+  }
+  .badge.t-string{color:var(--str)} .badge.t-number{color:var(--num)}
+  .badge.t-boolean{color:var(--bool)} .badge.t-null{color:var(--null)}
+  .leaf input[type=text]{
+    background:transparent;border:1px solid transparent;border-radius:4px;color:var(--str);
+    font:13px var(--mono);padding:2px 6px;outline:none;min-width:140px;flex:1;max-width:420px;
+  }
+  .leaf input[type=text]:hover{border-color:var(--line)}
+  .leaf input[type=text]:focus{border-color:var(--accent);background:rgba(14,148,136,.07)}
+  .leaf input.bad{border-color:var(--err)}
+  .leaf input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;cursor:pointer}
+
+  /* ---------- 输出 ---------- */
+  pre{
+    background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 14px;
+    font:12.5px/1.6 var(--mono);overflow:auto;max-height:300px;white-space:pre-wrap;word-break:break-all;
+  }
+  #cmdOut{color:var(--str);font-size:12.5px}
+  .toast{
+    position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);
+    background:var(--accent);color:#fff;font-weight:700;font-size:13px;
+    padding:10px 22px;border-radius:8px;opacity:0;pointer-events:none;transition:all .25s;z-index:9;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .toast.err{background:var(--err);color:#fff}
+  .actions{display:flex;gap:10px;flex-wrap:wrap}
+  .empty-tip{color:var(--dim);text-align:center;padding:30px 0;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Browser <b>Storage</b> 编辑器</h1>
+    <span class="desc">localStorage / sessionStorage 值 → 粘贴解析 → 树形编辑 → 生成 setItem 命令回写</span>
+  </header>
+
+  <section>
+    <div class="step"><span class="no">1</span><span class="tt">读取 &amp; 导入</span>
+      <span class="tip">复制命令到目标页控制台执行，copy() 会把值直接放进剪贴板，粘贴到下方即可</span></div>
+    <div class="keyrow">
+      <div class="seg">
+        <button type="button" class="on" data-st="sessionStorage">sessionStorage</button>
+        <button type="button" data-st="localStorage">localStorage</button>
+      </div>
+      <label>key</label>
+      <input id="keyInput" placeholder="请输入 storage key" spellcheck="false">
+    </div>
+    <div class="cmdbar">
+      <code class="snippet" id="getCmd"></code>
+      <button id="copyGet">复制读取命令</button>
+    </div>
+    <textarea id="pasteArea" placeholder="在浏览器控制台执行上方命令后（值已自动进剪贴板），直接 Ctrl+V 粘贴到这里…" spellcheck="false"></textarea>
+    <div class="cmdbar" style="margin-top:12px;margin-bottom:0">
+      <button class="primary" id="parseBtn">解析 JSON</button>
+      <span class="tip" style="margin-left:auto;font-size:12px;color:var(--dim)">支持直接粘贴带外层引号的字符串</span>
+    </div>
+  </section>
+
+  <section id="editSec" style="display:none">
+    <div class="step"><span class="no">2</span><span class="tt">编辑值</span>
+      <span class="tip">类型自动保持：数字仍是数字，null/布尔按规则转换</span></div>
+    <div class="toolbar">
+      <input id="search" placeholder="搜索 key 或值（如 price、id、status…）" spellcheck="false">
+      <button id="expandAll">全部展开</button>
+      <button id="collapseAll">全部收起</button>
+    </div>
+    <div class="treebox" id="tree"></div>
+  </section>
+
+  <section id="outSec" style="display:none">
+    <div class="step"><span class="no">3</span><span class="tt">写回</span>
+      <span class="tip">复制命令到目标页控制台执行，然后刷新页面生效</span></div>
+    <div class="actions" style="margin-bottom:12px">
+      <button class="primary" id="copySet">复制 setItem 命令</button>
+      <button id="copyJson">复制 JSON</button>
+    </div>
+    <div style="font-size:12px;color:var(--dim);margin-bottom:6px">命令（直接整行粘贴到控制台回车）：</div>
+    <pre id="cmdOut"></pre>
+    <div style="font-size:12px;color:var(--dim);margin:12px 0 6px">编辑后 JSON 预览：</div>
+    <pre id="jsonOut"></pre>
+  </section>
+
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  'use strict';
+  var $=function(s){return document.querySelector(s)};
+  var keyInput=$('#keyInput'), pasteArea=$('#pasteArea'), tree=$('#tree'),
+      editSec=$('#editSec'), outSec=$('#outSec'), cmdOut=$('#cmdOut'), jsonOut=$('#jsonOut'),
+      searchInput=$('#search'), toast=$('#toast');
+
+  var data=null;
+
+  /* ---------- toast ---------- */
+  var toastTimer=null;
+  function say(msg,isErr){
+    toast.textContent=msg;
+    toast.className='toast show'+(isErr?' err':'');
+    clearTimeout(toastTimer);
+    toastTimer=setTimeout(function(){toast.className='toast'+(isErr?' err':'')},1800);
+  }
+
+  /* ---------- 复制 ---------- */
+  function copyText(text,label){
+    function fallback(){
+      var ta=document.createElement('textarea');
+      ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+      document.body.appendChild(ta);ta.select();
+      try{document.execCommand('copy');say(label+' 已复制');}
+      catch(e){say('复制失败，请手动复制',true);}
+      ta.remove();
+    }
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){say(label+' 已复制')},fallback);
+    }else fallback();
+  }
+
+  /* ---------- 命令片段渲染 ---------- */
+  var storageType='sessionStorage';
+  function curKey(){return keyInput.value.trim()}
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+  function refreshGetCmd(){
+    var k=curKey();
+    if(!k){
+      $('#getCmd').innerHTML='<span style="color:var(--dim)">← 输入 storage key 后，这里生成读取命令</span>';
+      return;
+    }
+    $('#getCmd').innerHTML=
+      '<span class="fn">copy</span>(<span class="fn">'+storageType+'.getItem</span>(<span class="s">\''+esc(k)+'\'</span>))';
+  }
+  keyInput.addEventListener('input',function(){
+    refreshGetCmd();
+    if(data) refreshOutput();
+  });
+
+  /* storage 类型切换 */
+  var segBtns=document.querySelectorAll('.seg button');
+  segBtns.forEach(function(b){
+    b.addEventListener('click',function(){
+      segBtns.forEach(function(x){x.classList.remove('on')});
+      b.classList.add('on');
+      storageType=b.dataset.st;
+      refreshGetCmd();
+      if(data) refreshOutput();
+      say('已切换到 '+storageType);
+    });
+  });
+
+  $('#copyGet').addEventListener('click',function(){
+    var k=curKey();
+    if(!k){say('请先输入 storage key',true);return;}
+    copyText("copy("+storageType+".getItem('"+k+"'))",'读取命令（执行后值直接进剪贴板）');
+  });
+
+  /* ---------- 解析 ---------- */
+  $('#parseBtn').addEventListener('click',function(){
+    var raw=pasteArea.value.trim();
+    if(!raw){say('请先粘贴内容',true);return;}
+    /* 兼容外层带引号的 JSON 字符串 */
+    if(raw.charAt(0)==='"'&&raw.charAt(raw.length-1)==='"'){
+      try{raw=JSON.parse(raw);}catch(e){}
+    }
+    try{
+      data=JSON.parse(raw);
+      if(typeof data!=='object'||!data){throw new Error('顶层不是对象/数组');}
+    }catch(err){
+      say('JSON 解析失败：'+err.message,true);return;
+    }
+    renderTree();
+    refreshOutput();
+    editSec.style.display='';
+    outSec.style.display='';
+    searchInput.value='';
+    say('解析成功');
+    editSec.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+
+  /* ---------- 类型工具 ---------- */
+  function typeOf(v){return v===null?'null':Array.isArray(v)?'array':typeof v}
+
+  /* null → ''，非字符串 → String(v)；boolean 特殊（用 checkbox，不走这里） */
+  function valToInput(v){return v===null?'':String(v)}
+
+  /* 按原始类型把输入文本转回值；返回 {ok, val} */
+  function coerce(orig,text){
+    var t=typeOf(orig);
+    if(t==='null'){
+      if(text==='') return {ok:true,val:null};
+      if(text==='true') return {ok:true,val:true};
+      if(text==='false') return {ok:true,val:false};
+      if(text!==''&&!isNaN(Number(text))) return {ok:true,val:Number(text)};
+      return {ok:true,val:text};
+    }
+    if(t==='number'){
+      if(text.trim()==='') return {ok:true,val:null}; /* 清空 = null */
+      if(isNaN(Number(text))) return {ok:false};
+      return {ok:true,val:Number(text)};
+    }
+    if(t==='boolean'){
+      if(text.trim()==='') return {ok:true,val:null}; /* 清空 = null */
+      return {ok:true,val:text==='true'};
+    }
+    if(t==='string') return {ok:true,val:text};
+    return {ok:true,val:orig};
+  }
+
+  /* ---------- 树渲染 ---------- */
+  var COUNT=0; /* 用于折叠后内容的定位 */
+  function el(cls,tag){var n=document.createElement(tag||'div');if(cls)n.className=cls;return n}
+
+  function buildNode(value,key,parent,isRoot){
+    var t=typeOf(value);
+    if(t==='array'||t==='object'){
+      var node=el('node');
+      var row=el('nrow');
+      var toggle=el('toggle','span'); toggle.textContent='▸'; toggle.title='展开/收起';
+      var keys=Object.keys(value);
+      var keySpan=el('nkey','span'); keySpan.textContent=key;
+      var meta=el('nmeta','span'); meta.textContent=t==='array'?('['+keys.length+']'):('{'+keys.length+'}');
+      row.appendChild(toggle); row.appendChild(keySpan); row.appendChild(meta);
+      if(t==='array'){
+        var idxBadge=el('badge','span'); idxBadge.textContent='array'; idxBadge.classList.add('t-null');
+        row.appendChild(idxBadge);
+      }
+      var children=el('children');
+      keys.forEach(function(k){ children.appendChild(buildNode(value[k],t==='array'?('['+k+']'):k,value,false)); });
+      var collapsed=t==='array'&&!isRoot; /* 数组默认收起，对象默认展开 */
+      children.classList.toggle('collapsed',collapsed);
+      toggle.classList.toggle('open',!collapsed);
+      toggle.addEventListener('click',function(){
+        var c=children.classList.toggle('collapsed');
+        toggle.classList.toggle('open',!c);
+      });
+      row.addEventListener('click',function(e){ if(e.target===row||e.target===keySpan||e.target===meta) toggle.click(); });
+      node.appendChild(row); node.appendChild(children);
+      return node;
+    }
+
+    /* 叶子 */
+    var leaf=el('leaf');
+    var keySpan=el('lkey','span'); keySpan.textContent=key;
+    var badge=el('badge','span');
+    var realKey=key.charAt(0)==='['?key.slice(1,-1):key; /* 数组索引去掉括号 */
+    var input;
+
+    function setBadge(v){
+      var tt=typeOf(v);
+      badge.textContent=tt;
+      badge.className='badge t-'+tt;
+    }
+    setBadge(value);
+
+    if(t==='boolean'){
+      input=document.createElement('input');
+      input.type='checkbox'; input.checked=value;
+      input.addEventListener('change',function(){
+        parent[realKey]=input.checked;
+        refreshOutput();
+      });
+    }else{
+      input=document.createElement('input');
+      input.type='text'; input.spellcheck=false;
+      input.value=valToInput(value);
+      input.placeholder=t==='null'?'（空 = null；true/false/数字 会自动转类型）':'';
+      input.addEventListener('change',function(){
+        var r=coerce(parent[realKey],input.value);
+        if(!r.ok){
+          input.classList.add('bad');
+          say('该字段是数字类型，无法转换为：'+input.value,true);
+          input.value=valToInput(parent[realKey]);
+          setTimeout(function(){input.classList.remove('bad')},1500);
+          return;
+        }
+        parent[realKey]=r.val;
+        setBadge(r.val);
+        input.classList.remove('bad');
+        input.value=valToInput(r.val);
+        refreshOutput();
+      });
+    }
+    leaf.appendChild(keySpan); leaf.appendChild(badge); leaf.appendChild(input);
+    return leaf;
+  }
+
+  function renderTree(){
+    tree.innerHTML='';
+    tree.appendChild(buildNode(data,'root',null,true));
+  }
+
+  /* ---------- 展开 / 收起 / 搜索 ---------- */
+  $('#expandAll').addEventListener('click',function(){
+    tree.querySelectorAll('.children').forEach(function(c){c.classList.remove('collapsed')});
+    tree.querySelectorAll('.toggle').forEach(function(t){t.classList.add('open')});
+  });
+  $('#collapseAll').addEventListener('click',function(){
+    tree.querySelectorAll('.children').forEach(function(c){c.classList.add('collapsed')});
+    tree.querySelectorAll('.toggle').forEach(function(t){t.classList.remove('open')});
+  });
+  searchInput.addEventListener('input',function(){
+    var q=searchInput.value.trim().toLowerCase();
+    tree.querySelectorAll('.leaf.hit').forEach(function(l){l.classList.remove('hit')});
+    if(!q) return;
+    /* 全部展开 + 高亮命中叶子 */
+    tree.querySelectorAll('.children').forEach(function(c){c.classList.remove('collapsed')});
+    tree.querySelectorAll('.toggle').forEach(function(t){t.classList.add('open')});
+    var hits=0;
+    tree.querySelectorAll('.leaf').forEach(function(l){
+      var k=l.querySelector('.lkey').textContent.toLowerCase();
+      var v=(l.querySelector('input[type=text]')||{value:''}).value.toLowerCase();
+      if(k.indexOf(q)>-1||v.indexOf(q)>-1){l.classList.add('hit');hits++;}
+    });
+    var first=tree.querySelector('.leaf.hit');
+    if(first) first.scrollIntoView({block:'center'});
+    say('命中 '+hits+' 个节点');
+  });
+
+  /* ---------- 输出 ---------- */
+  function refreshOutput(){
+    var k=curKey();
+    jsonOut.textContent=JSON.stringify(data,null,2);
+    if(!k){cmdOut.textContent='（请先在上方输入 storage key）';return;}
+    var compact=JSON.stringify(data);
+    cmdOut.textContent=storageType+".setItem('"+k+"', JSON.stringify("+compact+"))";
+  }
+
+  $('#copySet').addEventListener('click',function(){
+    if(!data){say('请先解析 JSON',true);return;}
+    var k=curKey();
+    if(!k){say('请先输入 storage key',true);return;}
+    copyText(storageType+".setItem('"+k+"', JSON.stringify("+JSON.stringify(data)+"))",'setItem 命令');
+  });
+  $('#copyJson').addEventListener('click',function(){
+    if(!data){say('请先解析 JSON',true);return;}
+    copyText(JSON.stringify(data,null,2),'JSON');
+  });
+
+  refreshGetCmd();
+})();
+</script>
+</body>
+</html>
