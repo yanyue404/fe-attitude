@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>排班</title>
+  <style>
+    :root {
+      --paper: #f3efe6;
+      --card: #fffdf8;
+      --ink: #1c2430;
+      --muted: #5e6872;
+      --line: #e4dacb;
+      --accent: #0e6b64;
+      --accent-ink: #f4fffd;
+      --danger: #8d342c;
+      --pad: #efe8dc;
+      --shadow: 0 10px 30px rgba(48, 36, 18, 0.06);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 500px at 10% -10%, #fff7e4 0%, transparent 55%),
+        var(--paper);
+      font: 16px/1.5 "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    button, input, select { font: inherit; color: inherit; }
+
+    button { cursor: pointer; }
+
+    .wrap {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 64px;
+    }
+
+    header { margin-bottom: 24px; }
+
+    .eyebrow {
+      margin: 0 0 6px;
+      color: var(--accent);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 40px;
+      line-height: 1.1;
+      font-weight: 700;
+    }
+
+    .lede {
+      margin: 8px 0 0;
+      max-width: 40em;
+      color: var(--muted);
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 16px 16px 18px;
+      min-width: 0;
+    }
+
+    .card h2 {
+      margin: 0 0 4px;
+      font-size: 18px;
+    }
+
+    .hint {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .span-2 { grid-column: 1 / -1; }
+
+    .row, .adder, .range {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .adder, .range { flex-wrap: wrap; }
+
+    .shift-list, .cycle-list {
+      list-style: none;
+      margin: 0 0 12px;
+      padding: 0;
+      display: grid;
+      gap: 8px;
+    }
+
+    .cycle-list { list-style: decimal; padding-left: 28px; }
+
+    .shift-list li, .slot {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      min-height: 42px;
+    }
+
+    .cycle-list li { margin: 0 0 8px; }
+
+    .name-input, .text-input, select, .month-input, .date-input {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 10px;
+      padding: 8px 10px;
+      min-height: 40px;
+    }
+
+    .name-input { flex: 1; min-width: 0; }
+
+    .text-input { width: 160px; }
+
+    select { min-width: 140px; }
+
+    input:focus, select:focus, button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .color-input {
+      width: 42px;
+      height: 40px;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      flex: none;
+    }
+
+    .swatch {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      flex: none;
+      border: 1px solid rgba(28, 36, 48, 0.15);
+    }
+
+    .cycle-name { flex: 1; min-width: 0; }
+
+    button.ghost, button.primary {
+      border-radius: 10px;
+      min-height: 40px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    button.primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: var(--accent-ink);
+    }
+
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .error {
+      min-height: 1.4em;
+      margin: 8px 0 0;
+      color: var(--danger);
+      font-size: 14px;
+    }
+
+    .field { display: grid; gap: 4px; }
+
+    .field span { font-size: 13px; color: var(--muted); }
+
+    .export-actions { margin-top: 12px; }
+
+    .boards {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 22px;
+    }
+
+    .status {
+      margin: 0;
+      padding: 18px;
+      border-radius: 16px;
+      background: #fff7ea;
+      border: 1px dashed #e2c48a;
+      color: #6a4b16;
+    }
+
+    .month h3 {
+      margin: 0 0 10px;
+      font-size: 22px;
+    }
+
+    .weekdays, .grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .month-scroll { overflow-x: auto; max-width: 100%; }
+
+    .weekdays span {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      padding-bottom: 4px;
+    }
+
+    .cell {
+      min-height: 92px;
+      border-radius: 12px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      border: 1px solid transparent;
+    }
+
+    .cell.pad { background: var(--pad); }
+
+    .day-num {
+      font-size: 13px;
+      font-weight: 700;
+      opacity: 0.8;
+    }
+
+    .shift-name {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.3;
+      word-break: break-word;
+    }
+
+    .cell.today { box-shadow: inset 0 0 0 2px #fffdf8, inset 0 0 0 4px var(--ink); }
+
+    @media (max-width: 800px) {
+      .controls { grid-template-columns: minmax(0, 1fr); }
+      .span-2 { grid-column: auto; }
+      h1 { font-size: 32px; }
+      .weekdays, .grid { gap: 4px; }
+      .cell { min-height: 64px; padding: 4px; }
+      .shift-name { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <p class="eyebrow">一个人 · 每天一种班次</p>
+      <h1>排班</h1>
+      <p class="lede">先录入班次，再排成循环。锚点日是循环的第一天，月历从周一铺到周日。</p>
+    </header>
+
+    <div class="controls">
+      <section class="card" aria-labelledby="shift-heading">
+        <h2 id="shift-heading">班次名单</h2>
+        <p class="hint">名称不能重复。改名或改颜色后，循环和月历一起变。</p>
+        <ul class="shift-list" id="shift-list"></ul>
+        <form class="adder" id="add-shift">
+          <input class="text-input" id="new-shift-name" name="name" placeholder="新班次名称" aria-label="新班次名称" autocomplete="off">
+          <input class="color-input" id="new-shift-color" name="color" type="color" value="#6B8F71" aria-label="新班次颜色">
+          <button class="primary" type="submit">添加班次</button>
+        </form>
+        <p class="error" id="shift-error" role="alert"></p>
+      </section>
+
+      <section class="card" aria-labelledby="cycle-heading">
+        <h2 id="cycle-heading">循环</h2>
+        <p class="hint">一格是一天。同一种班次可以连续放多次。走到末尾会从头再来。</p>
+        <ol class="cycle-list" id="cycle-list"></ol>
+        <form class="adder" id="add-cycle">
+          <select id="cycle-shift" aria-label="要加入循环的班次"></select>
+          <button class="primary" type="submit" id="add-cycle-button">加入循环</button>
+        </form>
+        <p class="error" id="cycle-error" role="alert"></p>
+      </section>
+
+      <section class="card span-2" aria-labelledby="range-heading">
+        <h2 id="range-heading">锚点日和月份</h2>
+        <p class="hint">锚点日对应该循环的第一格。更早的日期按循环倒推。结束月不能早于开始月。图片、文本、JSON 和 Excel 都导出这一段月份。</p>
+        <div class="range">
+          <label class="field">
+            <span>锚点日</span>
+            <input class="date-input" id="anchor" type="date" required>
+          </label>
+          <label class="field">
+            <span>开始月</span>
+            <input class="month-input" id="start-month" type="month" required>
+          </label>
+          <label class="field">
+            <span>结束月</span>
+            <input class="month-input" id="end-month" type="month" required>
+          </label>
+        </div>
+        <div class="export-actions adder">
+          <button class="primary" type="button" id="export-image" disabled>导出图片</button>
+          <button class="ghost" type="button" id="export-text" disabled>导出文本</button>
+          <button class="ghost" type="button" id="export-json" disabled>导出 JSON</button>
+          <button class="ghost" type="button" id="export-excel" disabled>导出 Excel</button>
+        </div>
+        <p class="error" id="export-error" role="alert"></p>
+      </section>
+    </div>
+
+    <div class="boards" id="boards" aria-live="polite"></div>
+  </div>
+
+  <script id="roster-pure">
+    (function (root) {
+      function pad(n) {
+        return String(n).padStart(2, "0");
+      }
+
+      function formatISODate(year, monthIndex, day) {
+        return year + "-" + pad(monthIndex + 1) + "-" + pad(day);
+      }
+
+      function formatMonth(year, monthIndex) {
+        return year + "-" + pad(monthIndex + 1);
+      }
+
+      function parseISODate(value) {
+        var match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value || "");
+        if (!match) return null;
+        var year = Number(match[1]);
+        var monthIndex = Number(match[2]) - 1;
+        var day = Number(match[3]);
+        var date = new Date(year, monthIndex, day);
+        if (date.getFullYear() !== year || date.getMonth() !== monthIndex || date.getDate() !== day) return null;
+        return date;
+      }
+
+      function parseMonth(value) {
+        var match = /^(\d{4})-(\d{2})$/.exec(value || "");
+        if (!match) return null;
+        var year = Number(match[1]);
+        var monthIndex = Number(match[2]) - 1;
+        if (monthIndex < 0 || monthIndex > 11) return null;
+        return { y: year, m: monthIndex };
+      }
+
+      function dayOffset(from, to) {
+        var utcFrom = Date.UTC(from.getFullYear(), from.getMonth(), from.getDate());
+        var utcTo = Date.UTC(to.getFullYear(), to.getMonth(), to.getDate());
+        return Math.round((utcTo - utcFrom) / 86400000);
+      }
+
+      function cycleIndex(offset, length) {
+        if (!length) return null;
+        return ((offset % length) + length) % length;
+      }
+
+      function monthsInRange(start, end) {
+        if (!start || !end) return null;
+        if (start.y > end.y || (start.y === end.y && start.m > end.m)) return null;
+        var months = [];
+        var year = start.y;
+        var monthIndex = start.m;
+        while (year < end.y || (year === end.y && monthIndex <= end.m)) {
+          months.push({ y: year, m: monthIndex });
+          monthIndex += 1;
+          if (monthIndex === 12) {
+            monthIndex = 0;
+            year += 1;
+          }
+        }
+        return months;
+      }
+
+      function buildMonthCells(year, monthIndex, anchorDate, cycleIds) {
+        var first = new Date(year, monthIndex, 1);
+        var lead = (first.getDay() + 6) % 7;
+        var days = new Date(year, monthIndex + 1, 0).getDate();
+        var cells = [];
+        var i;
+        for (i = 0; i < lead; i += 1) cells.push({ kind: "pad" });
+        for (var day = 1; day <= days; day += 1) {
+          var date = new Date(year, monthIndex, day);
+          var index = cycleIndex(dayOffset(anchorDate, date), cycleIds.length);
+          cells.push({
+            kind: "day",
+            day: day,
+            iso: formatISODate(year, monthIndex, day),
+            cycleIndex: index,
+            shiftId: index == null ? null : cycleIds[index]
+          });
+        }
+        while (cells.length % 7 !== 0) cells.push({ kind: "pad" });
+        return cells;
+      }
+
+      function textOn(hex) {
+        var n = Number.parseInt(String(hex).slice(1), 16);
+        if (!Number.isFinite(n)) return "#1c2430";
+        function channel(c) {
+          var s = c / 255;
+          return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
+        }
+        var r = channel((n >> 16) & 255);
+        var g = channel((n >> 8) & 255);
+        var b = channel(n & 255);
+        var luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+        return luminance > 0.179 ? "#1c2430" : "#f7f4ee";
+      }
+
+      var WEEKDAYS = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
+
+      function xmlEscape(value) {
+        return String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+      }
+
+      function argb(hex) {
+        return "FF" + String(hex || "#FFFFFF").replace("#", "").toUpperCase();
+      }
+
+      function crc32(bytes) {
+        if (!crc32.table) {
+          var table = new Uint32Array(256);
+          var i, k, c;
+          for (i = 0; i < 256; i += 1) {
+            c = i;
+            for (k = 0; k < 8; k += 1) c = (c & 1) ? (0xedb88320 ^ (c >>> 1)) : (c >>> 1);
+            table[i] = c >>> 0;
+          }
+          crc32.table = table;
+        }
+        var crc = 0xffffffff;
+        for (var n = 0; n < bytes.length; n += 1) crc = crc32.table[(crc ^ bytes[n]) & 255] ^ (crc >>> 8);
+        return (crc ^ 0xffffffff) >>> 0;
+      }
+
+      function zipStore(files) {
+        var encoder = new TextEncoder();
+        var parts = [];
+        var central = [];
+        var offset = 0;
+        files.forEach(function (file) {
+          var name = encoder.encode(file.name);
+          var data = typeof file.data === "string" ? encoder.encode(file.data) : file.data;
+          var crc = crc32(data);
+          var local = new DataView(new ArrayBuffer(30));
+          local.setUint32(0, 0x04034b50, true);
+          local.setUint16(4, 20, true);
+          local.setUint16(6, 0x0800, true);
+          local.setUint16(8, 0, true);
+          local.setUint32(14, crc, true);
+          local.setUint32(18, data.length, true);
+          local.setUint32(22, data.length, true);
+          local.setUint16(26, name.length, true);
+          parts.push(new Uint8Array(local.buffer), name, data);
+          var cen = new DataView(new ArrayBuffer(46));
+          cen.setUint32(0, 0x02014b50, true);
+          cen.setUint16(4, 20, true);
+          cen.setUint16(6, 20, true);
+          cen.setUint16(8, 0x0800, true);
+          cen.setUint16(10, 0, true);
+          cen.setUint32(16, crc, true);
+          cen.setUint32(20, data.length, true);
+          cen.setUint32(24, data.length, true);
+          cen.setUint16(28, name.length, true);
+          cen.setUint32(42, offset, true);
+          central.push(new Uint8Array(cen.buffer), name);
+          offset += 30 + name.length + data.length;
+        });
+        var centralSize = central.reduce(function (sum, part) { return sum + part.length; }, 0);
+        var eocd = new DataView(new ArrayBuffer(22));
+        eocd.setUint32(0, 0x06054b50, true);
+        eocd.setUint16(8, files.length, true);
+        eocd.setUint16(10, files.length, true);
+        eocd.setUint32(12, centralSize, true);
+        eocd.setUint32(16, offset, true);
+        var chunks = parts.concat(central, [new Uint8Array(eocd.buffer)]);
+        var total = chunks.reduce(function (sum, part) { return sum + part.length; }, 0);
+        var out = new Uint8Array(total);
+        var pos = 0;
+        chunks.forEach(function (part) {
+          out.set(part, pos);
+          pos += part.length;
+        });
+        return out;
+      }
+
+      function columnName(index) {
+        return String.fromCharCode(65 + index);
+      }
+
+      function buildRosterXlsx(model) {
+        var styles = collectStyles(model);
+        var usedNames = {};
+        var sheets = model.months.map(function (month, index) {
+          return {
+            file: "xl/worksheets/sheet" + (index + 1) + ".xml",
+            name: uniqueSheetName(month.title, usedNames),
+            xml: sheetXml(month, styles)
+          };
+        });
+        var files = [
+          { name: "[Content_Types].xml", data: contentTypesXml(sheets) },
+          { name: "_rels/.rels", data: packageRelsXml() },
+          { name: "xl/workbook.xml", data: workbookXml(sheets) },
+          { name: "xl/_rels/workbook.xml.rels", data: workbookRelsXml(sheets) },
+          { name: "xl/styles.xml", data: styles.xml }
+        ];
+        sheets.forEach(function (sheet) {
+          files.push({ name: sheet.file, data: sheet.xml });
+        });
+        return zipStore(files);
+      }
+
+      function uniqueSheetName(title, used) {
+        var base = String(title || "月历").replace(/[\\/?*[\]:]/g, " ").slice(0, 31) || "月历";
+        var name = base;
+        var n = 2;
+        while (used[name]) {
+          var suffix = "-" + n;
+          name = base.slice(0, 31 - suffix.length) + suffix;
+          n += 1;
+        }
+        used[name] = true;
+        return name;
+      }
+
+      function collectStyles(model) {
+        var fills = [
+          '<fill><patternFill patternType="none"/></fill>',
+          '<fill><patternFill patternType="gray125"/></fill>',
+          '<fill><patternFill patternType="solid"><fgColor rgb="FFEFE8DC"/><bgColor rgb="FFEFE8DC"/></patternFill></fill>'
+        ];
+        var fonts = [
+          '<font><sz val="12"/><color rgb="FF1C2430"/><name val="Microsoft YaHei"/></font>',
+          '<font><b/><sz val="18"/><color rgb="FF1C2430"/><name val="Microsoft YaHei"/></font>',
+          '<font><b/><sz val="12"/><color rgb="FF5E6872"/><name val="Microsoft YaHei"/></font>',
+          '<font><b/><sz val="14"/><color rgb="FF1C2430"/><name val="Microsoft YaHei"/></font>',
+          '<font><b/><sz val="14"/><color rgb="FFF7F4EE"/><name val="Microsoft YaHei"/></font>'
+        ];
+        var xfs = [
+          xfXml(0, 0, false, "left"),
+          xfXml(1, 0, false, "left"),
+          xfXml(2, 0, false, "center"),
+          xfXml(0, 2, false, "center")
+        ];
+        var styleOf = {};
+        model.months.forEach(function (month) {
+          month.cells.forEach(function (cell) {
+            if (cell.kind !== "day") return;
+            var key = argb(cell.color) + "|" + argb(cell.ink);
+            if (styleOf[key] != null) return;
+            var fillId = fills.length;
+            fills.push('<fill><patternFill patternType="solid"><fgColor rgb="' + argb(cell.color) + '"/><bgColor rgb="' + argb(cell.color) + '"/></patternFill></fill>');
+            var fontId = String(cell.ink).toLowerCase() === "#f7f4ee" ? 4 : 3;
+            styleOf[key] = xfs.length;
+            xfs.push(xfXml(fontId, fillId, true, "center"));
+          });
+        });
+        var border = '<border><left style="thin"><color rgb="FFE4DACB"/></left><right style="thin"><color rgb="FFE4DACB"/></right><top style="thin"><color rgb="FFE4DACB"/></top><bottom style="thin"><color rgb="FFE4DACB"/></bottom></border>';
+        var xml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+          '<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">' +
+          "<fonts count=\"" + fonts.length + "\">" + fonts.join("") + "</fonts>" +
+          "<fills count=\"" + fills.length + "\">" + fills.join("") + "</fills>" +
+          "<borders count=\"1\">" + border + "</borders>" +
+          '<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>' +
+          "<cellXfs count=\"" + xfs.length + "\">" + xfs.join("") + "</cellXfs>" +
+          "</styleSheet>";
+        return {
+          xml: xml,
+          indexFor: function (cell) {
+            if (cell.kind !== "day") return 3;
+            return styleOf[argb(cell.color) + "|" + argb(cell.ink)];
+          }
+        };
+      }
+
+      function xfXml(fontId, fillId, wrap, horizontal) {
+        return '<xf numFmtId="0" fontId="' + fontId + '" fillId="' + fillId + '" borderId="0" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment wrapText="' + (wrap ? "1" : "0") + '" vertical="center" horizontal="' + horizontal + '"/></xf>';
+      }
+
+      function sheetXml(month, styles) {
+        var rows = [];
+        rows.push('<row r="1" ht="26" customHeight="1"><c r="A1" t="inlineStr" s="1"><is><t>' + xmlEscape(month.title) + "</t></is></c></row>");
+        var head = WEEKDAYS.map(function (label, index) {
+          return '<c r="' + columnName(index) + '2" t="inlineStr" s="2"><is><t>' + label + "</t></is></c>";
+        }).join("");
+        rows.push('<row r="2" ht="20" customHeight="1">' + head + "</row>");
+        var rowCount = Math.ceil(month.cells.length / 7);
+        var rowIndex;
+        for (rowIndex = 0; rowIndex < rowCount; rowIndex += 1) {
+          var cells = [];
+          var column;
+          for (column = 0; column < 7; column += 1) {
+            var cell = month.cells[rowIndex * 7 + column];
+            var ref = columnName(column) + (rowIndex + 3);
+            if (!cell || cell.kind === "pad") {
+              cells.push('<c r="' + ref + '" s="3"/>');
+              continue;
+            }
+            var text = cell.day + "&#10;" + xmlEscape(cell.name);
+            cells.push('<c r="' + ref + '" t="inlineStr" s="' + styles.indexFor(cell) + '"><is><t xml:space="preserve">' + text + "</t></is></c>");
+          }
+          rows.push('<row r="' + (rowIndex + 3) + '" ht="42" customHeight="1">' + cells.join("") + "</row>");
+        }
+        return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+          '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">' +
+          '<cols><col min="1" max="7" width="16" customWidth="1"/></cols>' +
+          "<sheetData>" + rows.join("") + "</sheetData>" +
+          '<mergeCells count="1"><mergeCell ref="A1:G1"/></mergeCells>' +
+          "</worksheet>";
+      }
+
+      function contentTypesXml(sheets) {
+        var overrides = sheets.map(function (sheet) {
+          return '<Override PartName="/' + sheet.file + '" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>';
+        }).join("");
+        return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+          '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">' +
+          '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>' +
+          '<Default Extension="xml" ContentType="application/xml"/>' +
+          '<Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>' +
+          '<Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>' +
+          overrides +
+          "</Types>";
+      }
+
+      function packageRelsXml() {
+        return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+          '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' +
+          '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/>' +
+          "</Relationships>";
+      }
+
+      function workbookXml(sheets) {
+        var items = sheets.map(function (sheet, index) {
+          return '<sheet name="' + xmlEscape(sheet.name) + '" sheetId="' + (index + 1) + '" r:id="rId' + (index + 1) + '"/>';
+        }).join("");
+        return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+          '<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">' +
+          "<sheets>" + items + "</sheets></workbook>";
+      }
+
+      function workbookRelsXml(sheets) {
+        var items = sheets.map(function (sheet, index) {
+          return '<Relationship Id="rId' + (index + 1) + '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet' + (index + 1) + '.xml"/>';
+        }).join("");
+        items += '<Relationship Id="rId' + (sheets.length + 1) + '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>';
+        return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+          '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' + items + "</Relationships>";
+      }
+
+      root.RosterPure = {
+        WEEKDAYS: WEEKDAYS,
+        formatISODate: formatISODate,
+        formatMonth: formatMonth,
+        parseISODate: parseISODate,
+        parseMonth: parseMonth,
+        dayOffset: dayOffset,
+        cycleIndex: cycleIndex,
+        monthsInRange: monthsInRange,
+        buildMonthCells: buildMonthCells,
+        textOn: textOn,
+        buildRosterXlsx: buildRosterXlsx
+      };
+    })(typeof globalThis !== "undefined" ? globalThis : this);
+  </script>
+
+  <script>
+    (function () {
+      var P = globalThis.RosterPure;
+      var STORAGE_KEY = "roster-v1";
+      var state = loadState();
+
+      var shiftList = document.getElementById("shift-list");
+      var cycleList = document.getElementById("cycle-list");
+      var cycleShift = document.getElementById("cycle-shift");
+      var addCycleButton = document.getElementById("add-cycle-button");
+      var shiftError = document.getElementById("shift-error");
+      var cycleError = document.getElementById("cycle-error");
+      var boards = document.getElementById("boards");
+      var anchorInput = document.getElementById("anchor");
+      var startInput = document.getElementById("start-month");
+      var endInput = document.getElementById("end-month");
+      var exportImageButton = document.getElementById("export-image");
+      var exportTextButton = document.getElementById("export-text");
+      var exportJsonButton = document.getElementById("export-json");
+      var exportExcelButton = document.getElementById("export-excel");
+      var exportButtons = [exportImageButton, exportTextButton, exportJsonButton, exportExcelButton];
+      var exportError = document.getElementById("export-error");
+
+      anchorInput.value = state.anchor;
+      startInput.value = state.startMonth;
+      endInput.value = state.endMonth;
+
+      document.getElementById("add-shift").addEventListener("submit", function (event) {
+        event.preventDefault();
+        var nameInput = document.getElementById("new-shift-name");
+        var colorInput = document.getElementById("new-shift-color");
+        var name = nameInput.value.trim();
+        var error = nameError(name, null);
+        if (error) {
+          shiftError.textContent = error;
+          nameInput.focus();
+          return;
+        }
+        state.shifts.push({ id: uid(), name: name, color: normalizeColor(colorInput.value) });
+        nameInput.value = "";
+        shiftError.textContent = "";
+        persist();
+        renderShifts();
+        renderCycle();
+        renderBoards();
+      });
+
+      document.getElementById("add-cycle").addEventListener("submit", function (event) {
+        event.preventDefault();
+        if (!state.shifts.length) {
+          cycleError.textContent = "名单里还没有班次。先添加一个，再加入循环。";
+          return;
+        }
+        var shiftId = cycleShift.value;
+        if (!shiftById(shiftId)) {
+          cycleError.textContent = "请选择一个班次。";
+          return;
+        }
+        state.cycle.push(shiftId);
+        cycleError.textContent = "";
+        persist();
+        renderCycle();
+        renderBoards();
+      });
+
+      anchorInput.addEventListener("change", function () {
+        if (!P.parseISODate(anchorInput.value)) {
+          anchorInput.value = state.anchor;
+          return;
+        }
+        state.anchor = anchorInput.value;
+        persist();
+        renderBoards();
+      });
+
+      startInput.addEventListener("change", function () {
+        if (!P.parseMonth(startInput.value)) {
+          startInput.value = state.startMonth;
+          return;
+        }
+        state.startMonth = startInput.value;
+        persist();
+        renderBoards();
+      });
+
+      endInput.addEventListener("change", function () {
+        if (!P.parseMonth(endInput.value)) {
+          endInput.value = state.endMonth;
+          return;
+        }
+        state.endMonth = endInput.value;
+        persist();
+        renderBoards();
+      });
+
+      exportImageButton.addEventListener("click", function () {
+        var model = buildExportModel();
+        if (!model) return;
+        var drawn = drawSchedule(model);
+        if (!drawn) {
+          exportError.textContent = "月份太多，一张图片放不下。请把区间缩短后再导出。";
+          return;
+        }
+        exportError.textContent = "";
+        drawn.canvas.toBlob(function (blob) {
+          if (!blob) {
+            exportError.textContent = "图片没有生成。";
+            return;
+          }
+          downloadBlob(blob, exportFilename("png"));
+        }, "image/png");
+      });
+
+      exportTextButton.addEventListener("click", function () {
+        var model = buildExportModel();
+        if (!model) return;
+        exportError.textContent = "";
+        downloadBlob(new Blob(["\uFEFF" + buildExportText(model)], { type: "text/plain;charset=utf-8" }), exportFilename("txt"));
+      });
+
+      exportJsonButton.addEventListener("click", function () {
+        var model = buildExportModel();
+        if (!model) return;
+        exportError.textContent = "";
+        downloadBlob(new Blob([buildExportJson(model)], { type: "application/json;charset=utf-8" }), exportFilename("json"));
+      });
+
+      exportExcelButton.addEventListener("click", function () {
+        var model = buildExportModel();
+        if (!model) return;
+        exportError.textContent = "";
+        downloadBlob(new Blob([P.buildRosterXlsx(model)], {
+          type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        }), exportFilename("xlsx"));
+      });
+
+      renderShifts();
+      renderCycle();
+      renderBoards();
+
+      function renderShifts() {
+        shiftList.replaceChildren();
+        state.shifts.forEach(function (shift) {
+          var nameInput = el("input", {
+            class: "name-input",
+            type: "text",
+            value: shift.name,
+            "aria-label": "班次名称"
+          });
+          nameInput.addEventListener("change", function () {
+            var next = nameInput.value.trim();
+            var error = nameError(next, shift.id);
+            if (error) {
+              nameInput.value = shift.name;
+              shiftError.textContent = error;
+              return;
+            }
+            shift.name = next;
+            nameInput.value = next;
+            shiftError.textContent = "";
+            persist();
+            renderCycle();
+            renderBoards();
+          });
+
+          var colorInput = el("input", {
+            class: "color-input",
+            type: "color",
+            value: shift.color,
+            "aria-label": shift.name + "的颜色"
+          });
+          colorInput.addEventListener("input", function () {
+            shift.color = normalizeColor(colorInput.value);
+            persist();
+            paint(shift);
+            renderBoards();
+          });
+
+          var removeButton = el("button", { class: "ghost", type: "button" }, ["删除"]);
+          removeButton.addEventListener("click", function () {
+            state.shifts = state.shifts.filter(function (item) { return item.id !== shift.id; });
+            state.cycle = state.cycle.filter(function (id) { return id !== shift.id; });
+            shiftError.textContent = "";
+            persist();
+            renderShifts();
+            renderCycle();
+            renderBoards();
+          });
+
+          shiftList.append(el("li", {}, [colorInput, nameInput, removeButton]));
+        });
+      }
+
+      function renderCycle() {
+        var previous = cycleShift.value;
+        cycleList.replaceChildren();
+        cycleShift.replaceChildren();
+        state.shifts.forEach(function (shift) {
+          var option = el("option", { value: shift.id }, [shift.name]);
+          cycleShift.append(option);
+        });
+        if ([].some.call(cycleShift.options, function (option) { return option.value === previous; })) {
+          cycleShift.value = previous;
+        }
+        addCycleButton.disabled = state.shifts.length === 0;
+
+        state.cycle.forEach(function (shiftId, index) {
+          var shift = shiftById(shiftId);
+          if (!shift) return;
+          var swatch = el("span", { class: "swatch", "data-paint": shift.id });
+          swatch.style.backgroundColor = shift.color;
+          var name = el("span", { class: "cycle-name" }, [shift.name]);
+          var up = el("button", { class: "ghost", type: "button", "aria-label": "上移第 " + (index + 1) + " 格" }, ["上移"]);
+          var down = el("button", { class: "ghost", type: "button", "aria-label": "下移第 " + (index + 1) + " 格" }, ["下移"]);
+          var remove = el("button", { class: "ghost", type: "button", "aria-label": "移除第 " + (index + 1) + " 格" }, ["移除"]);
+          up.disabled = index === 0;
+          down.disabled = index === state.cycle.length - 1;
+          up.addEventListener("click", function () { moveSlot(index, -1); });
+          down.addEventListener("click", function () { moveSlot(index, 1); });
+          remove.addEventListener("click", function () {
+            state.cycle.splice(index, 1);
+            cycleError.textContent = "";
+            persist();
+            renderCycle();
+            renderBoards();
+          });
+          cycleList.append(el("li", {}, [el("div", { class: "slot" }, [swatch, name, up, down, remove])]));
+        });
+      }
+
+      function renderBoards() {
+        boards.replaceChildren();
+        var anchor = P.parseISODate(state.anchor);
+        var start = P.parseMonth(state.startMonth);
+        var end = P.parseMonth(state.endMonth);
+        var months = P.monthsInRange(start, end);
+        var canExport = !!(months && anchor && state.cycle.length);
+        exportButtons.forEach(function (button) { button.disabled = !canExport; });
+        if (!months) {
+          boards.append(el("p", { class: "status" }, ["结束月不能早于开始月。"]));
+          return;
+        }
+        if (!state.cycle.length || !anchor) {
+          boards.append(el("p", { class: "status" }, ["循环是空的。从班次名单里按一天一格加入循环，月历才会生成。"]));
+          return;
+        }
+
+        var today = todayISO();
+        months.forEach(function (month) {
+          var cells = P.buildMonthCells(month.y, month.m, anchor, state.cycle);
+          var weekdays = el("div", { class: "weekdays" }, ["周一", "周二", "周三", "周四", "周五", "周六", "周日"].map(function (label) {
+            return el("span", {}, [label]);
+          }));
+          var grid = el("div", { class: "grid" });
+          cells.forEach(function (cell) {
+            if (cell.kind === "pad") {
+              grid.append(el("div", { class: "cell pad" }));
+              return;
+            }
+            var shift = shiftById(cell.shiftId);
+            var label = shift ? shift.name : "未排班";
+            var node = el("div", {
+              class: "cell" + (cell.iso === today ? " today" : ""),
+              "data-date": cell.iso,
+              "data-shift": label,
+              "data-paint": shift ? shift.id : "",
+              "data-ink": "1",
+              title: cell.iso + " " + label
+            });
+            if (shift) {
+              node.style.backgroundColor = shift.color;
+              node.style.color = P.textOn(shift.color);
+            }
+            node.append(el("span", { class: "day-num" }, [String(cell.day)]));
+            node.append(el("span", { class: "shift-name" }, [label]));
+            grid.append(node);
+          });
+          var section = el("section", { class: "month card" }, [
+            el("h3", {}, [month.y + "年" + (month.m + 1) + "月"]),
+            el("div", { class: "month-scroll" }, [weekdays, grid])
+          ]);
+          boards.append(section);
+        });
+      }
+
+      function moveSlot(index, delta) {
+        var next = index + delta;
+        if (next < 0 || next >= state.cycle.length) return;
+        var slot = state.cycle[index];
+        state.cycle.splice(index, 1);
+        state.cycle.splice(next, 0, slot);
+        cycleError.textContent = "";
+        persist();
+        renderCycle();
+        renderBoards();
+      }
+
+      function paint(shift) {
+        document.querySelectorAll('[data-paint="' + shift.id + '"]').forEach(function (node) {
+          node.style.backgroundColor = shift.color;
+          if (node.dataset.ink === "1") node.style.color = P.textOn(shift.color);
+        });
+      }
+
+      function nameError(name, ignoreId) {
+        if (!name) return "请填写班次名称。";
+        var duplicated = state.shifts.some(function (shift) {
+          return shift.id !== ignoreId && shift.name === name;
+        });
+        if (duplicated) return "已经有同名班次。";
+        return "";
+      }
+
+      function shiftById(id) {
+        return state.shifts.find(function (shift) { return shift.id === id; }) || null;
+      }
+
+      function todayISO() {
+        var now = new Date();
+        return P.formatISODate(now.getFullYear(), now.getMonth(), now.getDate());
+      }
+
+      function persist() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      }
+
+      function loadState() {
+        var saved = null;
+        try {
+          saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+        } catch (error) {
+          saved = null;
+        }
+        if (!saved || !Array.isArray(saved.shifts)) return createSeed();
+        var shifts = saved.shifts.filter(isShift).filter(uniqueName);
+        var ids = {};
+        shifts.forEach(function (shift) { ids[shift.id] = true; });
+        var cycle = Array.isArray(saved.cycle) ? saved.cycle.filter(function (id) { return ids[id]; }) : [];
+        var now = new Date();
+        var month = P.formatMonth(now.getFullYear(), now.getMonth());
+        return {
+          shifts: shifts,
+          cycle: cycle,
+          anchor: P.parseISODate(saved.anchor) ? saved.anchor : P.formatISODate(now.getFullYear(), now.getMonth(), now.getDate()),
+          startMonth: P.parseMonth(saved.startMonth) ? saved.startMonth : month,
+          endMonth: P.parseMonth(saved.endMonth) ? saved.endMonth : month
+        };
+      }
+
+      function createSeed() {
+        var now = new Date();
+        var month = P.formatMonth(now.getFullYear(), now.getMonth());
+        return {
+          shifts: [
+            { id: uid(), name: "白班", color: "#E2B43A" },
+            { id: uid(), name: "夜班", color: "#24356B" },
+            { id: uid(), name: "休息", color: "#D5DDD6" }
+          ],
+          cycle: [],
+          anchor: P.formatISODate(now.getFullYear(), now.getMonth(), now.getDate()),
+          startMonth: month,
+          endMonth: month
+        };
+      }
+
+      function isShift(shift) {
+        return shift && typeof shift.id === "string" && typeof shift.name === "string" && shift.name.trim() && /^#[0-9a-fA-F]{6}$/.test(shift.color);
+      }
+
+      function uniqueName(shift, index, shifts) {
+        return shifts.findIndex(function (item) { return item.name === shift.name; }) === index;
+      }
+
+      function normalizeColor(value) {
+        return /^#[0-9a-fA-F]{6}$/.test(value) ? value.toUpperCase() : "#6B8F71";
+      }
+
+      function uid() {
+        if (globalThis.crypto && crypto.randomUUID) return crypto.randomUUID();
+        return "id-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 8);
+      }
+
+      function buildExportModel() {
+        var anchor = P.parseISODate(state.anchor);
+        var months = P.monthsInRange(P.parseMonth(state.startMonth), P.parseMonth(state.endMonth));
+        if (!months || !anchor || !state.cycle.length) return null;
+        var today = todayISO();
+        return {
+          anchor: state.anchor,
+          cycle: state.cycle.map(function (id) {
+            var shift = shiftById(id);
+            return shift ? shift.name : "";
+          }).filter(Boolean),
+          months: months.map(function (month) {
+            return {
+              month: P.formatMonth(month.y, month.m),
+              title: month.y + "年" + (month.m + 1) + "月",
+              cells: P.buildMonthCells(month.y, month.m, anchor, state.cycle).map(function (cell) {
+                if (cell.kind === "pad") return { kind: "pad" };
+                var shift = shiftById(cell.shiftId);
+                var date = P.parseISODate(cell.iso);
+                return {
+                  kind: "day",
+                  day: cell.day,
+                  iso: cell.iso,
+                  weekday: P.WEEKDAYS[(date.getDay() + 6) % 7],
+                  name: shift ? shift.name : "未排班",
+                  color: shift ? shift.color : "#F4F0E6",
+                  ink: shift ? P.textOn(shift.color) : "#1c2430",
+                  today: cell.iso === today
+                };
+              })
+            };
+          })
+        };
+      }
+
+      function buildExportText(model) {
+        var lines = ["锚点日 " + model.anchor, "循环 " + model.cycle.join("、")];
+        model.months.forEach(function (month) {
+          lines.push("");
+          lines.push(month.title);
+          month.cells.forEach(function (cell) {
+            if (cell.kind !== "day") return;
+            lines.push(cell.iso + "  " + cell.weekday + "  " + cell.name);
+          });
+        });
+        return lines.join("\r\n") + "\r\n";
+      }
+
+      function buildExportJson(model) {
+        return JSON.stringify({
+          anchor: model.anchor,
+          cycle: model.cycle,
+          months: model.months.map(function (month) {
+            return {
+              month: month.month,
+              title: month.title,
+              days: month.cells.filter(function (cell) { return cell.kind === "day"; }).map(function (cell) {
+                return { date: cell.iso, weekday: cell.weekday, shift: cell.name, color: cell.color };
+              })
+            };
+          })
+        }, null, 2);
+      }
+
+      function exportFilename(extension) {
+        var start = monthTitle(state.startMonth);
+        var end = monthTitle(state.endMonth);
+        return "排班-" + (start === end ? start : start + "至" + end) + "." + extension;
+      }
+
+      function monthTitle(value) {
+        var month = P.parseMonth(value);
+        return month ? month.y + "年" + (month.m + 1) + "月" : value;
+      }
+
+      function scheduleLayout(model) {
+        var width = 1280;
+        var pad = 36;
+        var gap = 8;
+        var cellW = (width - pad * 2 - gap * 6) / 7;
+        var cellH = 108;
+        var titleH = 48;
+        var headH = 28;
+        var monthGap = 32;
+        var tops = [];
+        var top = pad;
+        model.months.forEach(function (month) {
+          tops.push(top);
+          var rows = Math.ceil(month.cells.length / 7);
+          top += titleH + headH + rows * cellH + Math.max(0, rows - 1) * gap + monthGap;
+        });
+        return {
+          width: width,
+          height: top - monthGap + pad,
+          pad: pad,
+          gap: gap,
+          cellW: cellW,
+          cellH: cellH,
+          titleH: titleH,
+          headH: headH,
+          tops: tops
+        };
+      }
+
+      function cellBox(layout, monthIndex, cellIndex) {
+        var column = cellIndex % 7;
+        var row = Math.floor(cellIndex / 7);
+        return {
+          x: layout.pad + column * (layout.cellW + layout.gap),
+          y: layout.tops[monthIndex] + layout.titleH + layout.headH + row * (layout.cellH + layout.gap),
+          w: layout.cellW,
+          h: layout.cellH
+        };
+      }
+
+      function drawSchedule(model) {
+        var layout = scheduleLayout(model);
+        var scale = 2;
+        if (layout.width * scale > 16384 || layout.height * scale > 16384) scale = 1;
+        if (layout.width > 16384 || layout.height > 16384) return null;
+        var canvas = document.createElement("canvas");
+        canvas.width = Math.round(layout.width * scale);
+        canvas.height = Math.round(layout.height * scale);
+        var ctx = canvas.getContext("2d");
+        ctx.scale(scale, scale);
+        ctx.fillStyle = "#f3efe6";
+        ctx.fillRect(0, 0, layout.width, layout.height);
+        model.months.forEach(function (month, monthIndex) {
+          ctx.fillStyle = "#1c2430";
+          ctx.font = "700 28px 'Microsoft YaHei', 'PingFang SC', sans-serif";
+          ctx.textAlign = "left";
+          ctx.textBaseline = "top";
+          ctx.fillText(month.title, layout.pad, layout.tops[monthIndex]);
+          P.WEEKDAYS.forEach(function (label, index) {
+            var x = layout.pad + index * (layout.cellW + layout.gap);
+            ctx.fillStyle = "#5e6872";
+            ctx.font = "600 14px 'Microsoft YaHei', 'PingFang SC', sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText(label, x + layout.cellW / 2, layout.tops[monthIndex] + layout.titleH);
+          });
+          month.cells.forEach(function (cell, cellIndex) {
+            var box = cellBox(layout, monthIndex, cellIndex);
+            roundRect(ctx, box.x, box.y, box.w, box.h, 12);
+            ctx.fillStyle = cell.kind === "day" ? cell.color : "#efe8dc";
+            ctx.fill();
+            if (cell.kind !== "day") return;
+            if (cell.today) {
+              ctx.strokeStyle = "#1c2430";
+              ctx.lineWidth = 3;
+              ctx.stroke();
+            }
+            ctx.fillStyle = cell.ink;
+            ctx.globalAlpha = 0.8;
+            ctx.font = "700 16px 'Microsoft YaHei', 'PingFang SC', sans-serif";
+            ctx.textAlign = "left";
+            ctx.textBaseline = "top";
+            ctx.fillText(String(cell.day), box.x + 12, box.y + 10);
+            ctx.globalAlpha = 1;
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            var nameSize = 22;
+            ctx.font = "700 " + nameSize + "px 'Microsoft YaHei', 'PingFang SC', sans-serif";
+            while (nameSize > 12 && ctx.measureText(cell.name).width > box.w - 16) {
+              nameSize -= 2;
+              ctx.font = "700 " + nameSize + "px 'Microsoft YaHei', 'PingFang SC', sans-serif";
+            }
+            ctx.fillText(cell.name, box.x + box.w / 2, box.y + box.h / 2 + 12);
+          });
+        });
+        return { canvas: canvas, scale: scale, layout: layout, model: model };
+      }
+
+      function roundRect(ctx, x, y, w, h, radius) {
+        var r = Math.min(radius, w / 2, h / 2);
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.arcTo(x + w, y, x + w, y + h, r);
+        ctx.arcTo(x + w, y + h, x, y + h, r);
+        ctx.arcTo(x, y + h, x, y, r);
+        ctx.arcTo(x, y, x + w, y, r);
+        ctx.closePath();
+      }
+
+      function downloadBlob(blob, filename) {
+        var url = URL.createObjectURL(blob);
+        var link = el("a", { href: url, download: filename });
+        document.body.append(link);
+        link.click();
+        link.remove();
+        setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
+      }
+
+      globalThis.RosterExport = {
+        buildModel: buildExportModel,
+        draw: function () { return drawSchedule(buildExportModel()); },
+        cellBox: cellBox,
+        scheduleLayout: scheduleLayout
+      };
+
+      function el(tag, attrs, children) {
+        var node = document.createElement(tag);
+        Object.keys(attrs || {}).forEach(function (key) {
+          node.setAttribute(key, attrs[key]);
+        });
+        (children || []).forEach(function (child) {
+          node.append(child instanceof Node ? child : document.createTextNode(String(child)));
+        });
+        return node;
+      }
+    })();
+  </script>
+</body>
+</html>
