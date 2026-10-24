@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function generateMonthArray(year, month) {
+        const dateArray = []
+        const daysInWeek = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
+
+        // 获取该月的天数
+        const daysInMonth = new Date(year, month, 0).getDate()
+
+        // 遍历每一天
+        for (let day = 1; day <= daysInMonth; day++) {
+          const currentDate = new Date(year, month - 1, day)
+          const weekDay = currentDate.getDay() // 获取星期几
+          const isWeekend = weekDay === 0 || weekDay === 6 // 判断是否为周末
+          const weekNumber = Math.ceil((day + new Date(year, month - 1, 1).getDay()) / 7) // 计算第几周
+
+          dateArray.push({
+            date: `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`,
+            dayOfWeek: daysInWeek[weekDay],
+            isWeekend,
+            weekNumber
+          })
+        }
+
+        return dateArray
+      }
+
+      const four = generateMonthArray(2025, 4)
+      const five = generateMonthArray(2025, 5)
+
+      // 行政 遇上周六日是 N
+      const rule = ['白', '夜', 'N', '行']
+
+      let lun = 20
+      let zong = []
+      for (let index = 0; index < 20; index++) {
+        zong = zong.concat(rule)
+      }
+
+      const months = [...four, ...five]
+
+      const temp = zong.slice(1, 1 + 60).map((v, index) => {
+        let day = months[index]
+        return {
+          ...day,
+          state: day.isWeekend && v === '行' ? 'N' : v
+        }
+      })
+
+      const result = temp.map(item => {
+        return `${item.date}(${item.dayOfWeek} 第${item.weekNumber}周), 状态: 【${item.state}】`
+      })
+
+      console.log(JSON.stringify(result, null, 2))
+
+      console.log(temp)
+    </script>
+  </body>
+</html>

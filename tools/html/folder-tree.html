@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>目录导出</title>
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --panel: #ffffff;
+      --border: #d9e0ea;
+      --text: #223047;
+      --muted: #637087;
+      --accent: #2f6df6;
+      --accent-soft: #e8f0ff;
+      --shadow: 0 6px 18px rgba(30, 55, 90, 0.08);
+      --mono: Consolas, Monaco, Menlo, monospace;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    .wrap {
+      max-width: 1180px;
+      margin: 24px auto 40px;
+      padding: 0 16px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-end;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .desc {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .stats {
+      flex: none;
+      font-size: 13px;
+      color: var(--muted);
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 12px;
+      max-width: 100%;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .btn, .preset, .chip, .fmt, .more, .row {
+      font-family: inherit;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .btn:hover { border-color: var(--accent); }
+    .btn.primary:hover { filter: brightness(1.06); }
+    .btn:disabled, .fmt:disabled { opacity: .45; cursor: not-allowed; }
+    .btn input { display: none; }
+
+    .status {
+      min-height: 18px;
+      margin: 0 0 12px;
+      font-size: 13px;
+      color: #1d4ed8;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    section {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding: 14px;
+    }
+
+    .maincol { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .modes, .checks {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .add-row, .export-actions, .tree-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .modes label, .checks label, .depth {
+      font-size: 13px;
+      color: var(--text);
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .presets, .chips, .formats { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .chips {
+      max-height: 168px;
+      overflow: auto;
+      margin: 8px 0;
+      padding: 2px;
+    }
+
+    .preset, .chip, .fmt, .more {
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .preset:hover, .chip:hover, .fmt:hover { border-color: var(--accent); }
+
+    .chip.on, .fmt.on, .preset:focus-visible {
+      background: var(--accent-soft);
+      border-color: #b9cdfb;
+      color: #1d4ed8;
+    }
+
+    .fmt.on { font-weight: 700; }
+
+    .chip em {
+      font-style: normal;
+      margin-left: 6px;
+      color: var(--muted);
+    }
+
+    .chip.on em { color: #1d4ed8; }
+
+    .add-row, .field { margin-top: 8px; }
+
+    input[type="text"], input[type="number"] {
+      border: 1px solid var(--border);
+      background: #fbfcfe;
+      border-radius: 8px;
+      padding: 7px 10px;
+      font-size: 13px;
+      color: var(--text);
+      outline: none;
+    }
+
+    input[type="text"] { min-width: 0; }
+    input[type="text"]:focus, input[type="number"]:focus { border-color: var(--accent); }
+    #keyword, #customExt { width: 100%; }
+    .add-row { display: flex; gap: 8px; }
+    .add-row input { flex: 1; }
+    input[type="number"] { width: 72px; }
+
+    .hint {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .bars { margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+    .bar-title { font-size: 12px; color: var(--muted); margin-bottom: 2px; }
+    .bar { display: grid; grid-template-columns: 72px 1fr 36px; gap: 8px; align-items: center; font-size: 12px; }
+    .bk { color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .bv { text-align: right; color: var(--muted); }
+    .track { height: 8px; background: #eef2f8; border-radius: 99px; overflow: hidden; }
+    .fill { display: block; height: 100%; background: var(--accent); border-radius: 99px; }
+
+    .tree-head, .export-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .tree-head h2, .export-head h2 { margin: 0; }
+
+    .tree {
+      max-height: min(560px, calc(100vh - 220px));
+      min-height: 220px;
+      overflow: auto;
+      padding: 8px;
+      background: #fbfcfe;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .node { min-width: 0; }
+    .children { margin-left: 16px; border-left: 1px solid #e4eaf3; }
+
+    .row {
+      display: flex;
+      width: 100%;
+      text-align: left;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      padding: 4px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+    }
+
+    .row:hover { background: #f3f6fb; }
+    .row.active { background: var(--accent-soft); }
+    .twist { width: 14px; flex: none; color: #8b97a8; }
+    .name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .dir .name { font-weight: 600; color: #1e4db7; }
+    .file .name { font-family: var(--mono); }
+    .badge {
+      flex: none;
+      font-size: 11px;
+      color: #486581;
+      background: #eef3fb;
+      border-radius: 999px;
+      padding: 0 6px;
+    }
+    .meta { flex: none; color: var(--muted); font-size: 12px; }
+    mark { background: #ffe58f; color: inherit; padding: 0 1px; border-radius: 2px; }
+
+    .more {
+      margin: 4px 8px 8px 28px;
+      border-radius: 8px;
+    }
+
+    .empty {
+      padding: 48px 16px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .detail-line {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .detail {
+      flex: 1;
+      min-width: 0;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+      word-break: break-all;
+    }
+
+    .preview {
+      margin: 10px 0 0;
+      max-height: 240px;
+      overflow: auto;
+      padding: 10px 12px;
+      background: #fbfcfe;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      line-height: 1.55;
+      white-space: pre;
+    }
+
+    #mask {
+      position: fixed;
+      inset: 12px;
+      z-index: 9;
+      display: grid;
+      place-items: center;
+      border: 3px dashed var(--accent);
+      border-radius: 16px;
+      background: rgba(47, 109, 246, 0.12);
+      color: var(--accent);
+      font-size: 22px;
+      font-weight: 700;
+      pointer-events: none;
+    }
+
+    #mask[hidden] { display: none; }
+
+    @media (max-width: 860px) {
+      header { flex-direction: column; align-items: flex-start; }
+      .layout { grid-template-columns: 1fr; }
+      .stats { border-radius: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="mask" hidden>松开鼠标，读取这个文件夹</div>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>目录导出</h1>
+        <p class="desc">选择本地文件夹，按文件类型筛选并预览目录树，再导出为文本、Markdown、JSON 或 CSV。路径、大小和修改时间只在本地浏览器中处理。</p>
+      </div>
+      <div class="stats" id="stats">尚未选择文件夹</div>
+    </header>
+
+    <div class="toolbar">
+      <label class="btn primary">选择文件夹
+        <input id="picker" type="file" webkitdirectory directory multiple>
+      </label>
+      <button class="btn" id="sample" type="button">载入示例</button>
+      <button class="btn" id="clear" type="button">清除</button>
+    </div>
+    <p class="status" id="status" role="status"></p>
+
+    <div class="layout">
+      <section>
+        <h2>检索类型</h2>
+        <div class="modes">
+          <label><input type="radio" name="mode" value="include" checked> 只保留点亮的类型</label>
+          <label><input type="radio" name="mode" value="exclude"> 去掉点亮的类型</label>
+        </div>
+        <div class="presets" id="presets">
+          <button type="button" class="preset" data-preset="all">全部</button>
+          <button type="button" class="preset" data-preset="code">代码</button>
+          <button type="button" class="preset" data-preset="style">样式</button>
+          <button type="button" class="preset" data-preset="image">图片</button>
+          <button type="button" class="preset" data-preset="doc">文档</button>
+          <button type="button" class="preset" data-preset="config">配置</button>
+          <button type="button" class="preset" data-preset="archive">压缩包</button>
+          <button type="button" class="preset" data-preset="invert">反选</button>
+          <button type="button" class="preset" data-preset="none">清空</button>
+        </div>
+        <div class="chips" id="chips"></div>
+        <div class="add-row">
+          <input id="customExt" type="text" placeholder="自定义类型，如 vue, ts, md" spellcheck="false">
+          <button class="btn" id="addExt" type="button">添加</button>
+        </div>
+        <div class="field">
+          <input id="keyword" type="text" placeholder="再按文件名或路径筛选" spellcheck="false">
+        </div>
+        <div class="checks" style="margin-top:10px">
+          <label><input id="skipNoise" type="checkbox" checked> 跳过 .git / node_modules / dist 等目录</label>
+          <label><input id="showDot" type="checkbox" checked> 包含 .gitignore 这类点文件</label>
+          <label><input id="hideEmpty" type="checkbox" checked> 隐藏空文件夹</label>
+          <label><input id="withSize" type="checkbox" checked> 导出时附带大小</label>
+          <label><input id="withTime" type="checkbox"> 导出时附带修改时间</label>
+          <label class="depth">层级限制 <input id="depth" type="number" min="0" max="99" value="0"> <span class="hint" style="margin:0">0 表示不限制</span></label>
+        </div>
+        <p class="hint" id="modeHint"></p>
+        <div class="bars" id="bars"></div>
+        <p class="hint">拖入文件夹可以保留空目录。使用按钮选择时，浏览器只提供实际包含文件的路径。</p>
+      </section>
+
+      <div class="maincol">
+        <section>
+          <div class="tree-head">
+            <h2>目录树</h2>
+            <div class="tree-tools">
+              <button class="btn" id="expandAll" type="button">展开</button>
+              <button class="btn" id="collapseAll" type="button">收起</button>
+            </div>
+          </div>
+          <div class="tree" id="tree"></div>
+          <div class="detail-line">
+            <div class="detail" id="detail">点击文件或文件夹查看完整路径</div>
+            <button class="btn" id="copyPath" type="button" disabled>复制路径</button>
+          </div>
+        </section>
+
+        <section>
+          <div class="export-head">
+            <h2>导出预览</h2>
+            <div class="formats" id="formats">
+              <button type="button" class="fmt on" data-format="txt">文本树</button>
+              <button type="button" class="fmt" data-format="flat">扁平列表</button>
+              <button type="button" class="fmt" data-format="md">Markdown</button>
+              <button type="button" class="fmt" data-format="json">JSON</button>
+              <button type="button" class="fmt" data-format="csv">CSV</button>
+            </div>
+          </div>
+          <div class="export-actions">
+            <button class="btn primary" id="download" type="button" disabled>下载</button>
+            <button class="btn" id="copyExport" type="button" disabled>复制</button>
+          </div>
+          <pre class="preview" id="preview"></pre>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const IGNORE_DIRS = new Set(['.git', '.svn', '.hg', 'node_modules', 'dist', 'build', 'coverage', '.next', '.nuxt', '__pycache__', '.turbo', '.cache']);
+    const PRESETS = {
+      code: ['js', 'jsx', 'mjs', 'cjs', 'ts', 'tsx', 'vue', 'py', 'java', 'go', 'rs', 'php', 'rb', 'cs', 'cpp', 'c', 'h', 'hpp', 'kt', 'swift', 'sql', 'sh', 'ps1', 'bat'],
+      style: ['css', 'scss', 'sass', 'less', 'styl'],
+      image: ['png', 'jpg', 'jpeg', 'gif', 'webp', 'bmp', 'ico', 'avif', 'svg'],
+      doc: ['md', 'markdown', 'txt', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'csv', 'rtf'],
+      config: ['json', 'jsonc', 'yml', 'yaml', 'toml', 'ini', 'lock'],
+      archive: ['zip', 'rar', '7z', 'tar', 'gz', 'tgz', 'bz2']
+    };
+    const FORMATS = {
+      txt: { ext: 'txt', mime: 'text/plain;charset=utf-8' },
+      flat: { ext: 'txt', mime: 'text/plain;charset=utf-8' },
+      md: { ext: 'md', mime: 'text/markdown;charset=utf-8' },
+      json: { ext: 'json', mime: 'application/json;charset=utf-8' },
+      csv: { ext: 'csv', mime: 'text/csv;charset=utf-8' }
+    };
+    const RENDER_LIMIT = 400;
+    const PREVIEW_LIMIT = 200000;
+    const SAMPLE = [
+      ['demo-project/README.md', 820],
+      ['demo-project/package.json', 430],
+      ['demo-project/src/index.js', 2100],
+      ['demo-project/src/app.ts', 3600],
+      ['demo-project/src/styles/main.css', 900],
+      ['demo-project/src/components/App.vue', 5400],
+      ['demo-project/public/logo.png', 24000],
+      ['demo-project/docs/guide.md', 1800],
+      ['demo-project/docs/assets', 0, true],
+      ['demo-project/node_modules/left-pad/index.js', 400],
+      ['demo-project/.git/config', 120],
+      ['demo-project/.gitignore', 40]
+    ];
+
+    const state = {
+      items: [],
+      selected: new Set(),
+      extras: new Set(),
+      touched: false,
+      expanded: null,
+      showAll: new Set(),
+      active: '',
+      format: 'txt'
+    };
+
+    let latestTree = null;
+    let latestDiscovered = new Map();
+    let exportPacket = { text: '', filename: 'directory.txt', mime: FORMATS.txt.mime };
+    let keywordTimer = 0;
+    let dragDepth = 0;
+
+    let statsEl, statusEl, chipsEl, barsEl, treeEl, detailEl, previewEl, modeHintEl;
+    let copyPathBtn, downloadBtn, copyExportBtn, formatsEl, maskEl;
+    let keywordEl, depthEl, skipNoiseEl, showDotEl, hideEmptyEl, withSizeEl, withTimeEl;
+
+    function extOf(pathOrName) {
+      const base = String(pathOrName || '').split('/').pop();
+      if (!base || (base.startsWith('.') && base.lastIndexOf('.') === 0)) return '';
+      const index = base.lastIndexOf('.');
+      if (index <= 0) return '';
+      return base.slice(index + 1).toLowerCase();
+    }
+
+    function extKey(relPath) {
+      return extOf(relPath) || '__none__';
+    }
+
+    function pathParts(relPath) {
+      return String(relPath || '').split('/');
+    }
+
+    function isNoise(relPath) {
+      return pathParts(relPath).slice(1).some((part) => IGNORE_DIRS.has(part));
+    }
+
+    function isHidden(relPath) {
+      return pathParts(relPath).slice(1).some((part) => part.startsWith('.'));
+    }
+
+    function formatSize(bytes) {
+      const units = ['B', 'KB', 'MB', 'GB', 'TB'];
+      let value = Number(bytes) || 0;
+      let index = 0;
+      while (value >= 1024 && index < units.length - 1) {
+        value /= 1024;
+        index += 1;
+      }
+      if (index === 0) return Math.round(value) + ' B';
+      const digits = value >= 100 ? 0 : value >= 10 ? 1 : 2;
+      return value.toFixed(digits) + ' ' + units[index];
+    }
+
+    function formatTime(ms) {
+      const time = Number(ms) || 0;
+      if (!time) return '';
+      const date = new Date(time);
+      const pad = (value) => String(value).padStart(2, '0');
+      return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate()) + ' ' + pad(date.getHours()) + ':' + pad(date.getMinutes());
+    }
+
+    function esc(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      }[char]));
+    }
+
+    function clampDepth(value) {
+      const number = Number.parseInt(value, 10);
+      if (!Number.isFinite(number) || number <= 0) return 0;
+      return Math.min(number, 99);
+    }
+
+    function normalizeItems(items) {
+      const cleaned = [];
+      items.forEach((item) => {
+        const relPath = String(item.relPath || '').replace(/\\/g, '/').replace(/^\/+|\/+$/g, '');
+        if (!relPath) return;
+        cleaned.push({ relPath, isDir: Boolean(item.isDir), size: item.size || 0, mtime: item.mtime || 0 });
+      });
+      if (!cleaned.length) return [];
+      const needsRoot = cleaned.some((item) => !item.relPath.includes('/'));
+      const rooted = needsRoot
+        ? cleaned.map((item) => item.relPath.includes('/') ? item : { ...item, relPath: '已选文件/' + item.relPath })
+        : cleaned;
+      const roots = new Set(rooted.map((item) => item.relPath.split('/')[0]));
+      if (roots.size <= 1) return rooted;
+      return rooted.map((item) => ({ ...item, relPath: '已选内容/' + item.relPath }));
+    }
+
+    function matchBase(item, opt) {
+      if (opt.skipNoise && isNoise(item.relPath)) return false;
+      if (!opt.showDot && isHidden(item.relPath)) return false;
+      if (opt.keyword && !item.relPath.toLowerCase().includes(String(opt.keyword).toLowerCase())) return false;
+      return true;
+    }
+
+    function matchExt(item, selected, mode) {
+      const picked = selected.has(extKey(item.relPath));
+      return mode === 'exclude' ? !picked : picked;
+    }
+
+    function extMap(files) {
+      const map = new Map();
+      files.forEach((item) => {
+        const key = extKey(item.relPath);
+        const current = map.get(key) || { count: 0, size: 0 };
+        current.count += 1;
+        current.size += item.size || 0;
+        map.set(key, current);
+      });
+      return map;
+    }
+
+    function sortTree(node) {
+      if (!node || node.type !== 'dir') return;
+      node.children.sort((a, b) => {
+        if (a.type !== b.type) return a.type === 'dir' ? -1 : 1;
+        return a.name.localeCompare(b.name, 'zh-CN', { numeric: true, sensitivity: 'base' });
+      });
+      node.children.forEach(sortTree);
+    }
+
+    function buildTree(items) {
+      if (!items.length) return null;
+      const rootName = items[0].relPath.split('/')[0];
+      const root = makeDir(rootName, rootName);
+      const map = new Map([[root.path, root]]);
+      const seen = new Set();
+
+      function ensureDir(path) {
+        if (map.has(path)) return map.get(path);
+        const index = path.lastIndexOf('/');
+        if (index < 0) return root;
+        const parent = ensureDir(path.slice(0, index));
+        const node = makeDir(path.slice(index + 1), path);
+        parent.children.push(node);
+        map.set(path, node);
+        return node;
+      }
+
+      items.forEach((item) => {
+        if (!item.relPath || seen.has(item.relPath)) return;
+        seen.add(item.relPath);
+        if (item.relPath === rootName) return;
+        if (item.isDir) {
+          ensureDir(item.relPath);
+          return;
+        }
+        const index = item.relPath.lastIndexOf('/');
+        if (index < 0) return;
+        const parent = ensureDir(item.relPath.slice(0, index));
+        parent.children.push({
+          name: item.relPath.slice(index + 1),
+          path: item.relPath,
+          type: 'file',
+          children: null,
+          size: item.size || 0,
+          mtime: item.mtime || 0,
+          fileCount: 1,
+          dirCount: 0,
+          truncated: false,
+          ext: extOf(item.relPath)
+        });
+      });
+      sortTree(root);
+      return root;
+    }
+
+    function makeDir(name, path) {
+      return {
+        name, path, type: 'dir', children: [], size: 0, mtime: 0,
+        fileCount: 0, dirCount: 0, truncated: false, ext: ''
+      };
+    }
+
+    function recompute(node) {
+      let size = 0;
+      let mtime = 0;
+      let files = 0;
+      let dirs = 0;
+      node.children.forEach((child) => {
+        size += child.size || 0;
+        mtime = Math.max(mtime, child.mtime || 0);
+        files += child.fileCount || 0;
+        if (child.type === 'dir') dirs += 1 + (child.dirCount || 0);
+      });
+      node.size = size;
+      node.mtime = mtime;
+      node.fileCount = files;
+      node.dirCount = dirs;
+    }
+
+    function pruneTree(node, opt, depth) {
+      if (!node || node.type === 'file') return node;
+      const maxDepth = Number(opt.maxDepth) || 0;
+      if (maxDepth > 0 && depth >= maxDepth && node.children.length > 0) {
+        return { ...node, children: [], truncated: true, size: 0, fileCount: 0, dirCount: 0, mtime: 0 };
+      }
+      const children = [];
+      node.children.forEach((child) => {
+        const next = pruneTree(child, opt, depth + 1);
+        if (next) children.push(next);
+      });
+      if (opt.hideEmpty && children.length === 0 && depth > 0) return null;
+      const copy = { ...node, children, truncated: false };
+      recompute(copy);
+      return copy;
+    }
+
+    function applyPipeline(items, opt) {
+      const normalized = normalizeItems(items);
+      const base = normalized.filter((item) => matchBase(item, opt));
+      const discovered = extMap(base.filter((item) => !item.isDir));
+      const selected = opt.selected == null ? new Set(discovered.keys()) : opt.selected;
+      const filtered = base.filter((item) => item.isDir || matchExt(item, selected, opt.mode));
+      const built = buildTree(filtered);
+      const tree = built ? pruneTree(built, opt, 0) : null;
+      return { normalized, base, discovered, selected, filtered, tree };
+    }
+
+    function nodeTitle(node, opt) {
+      const meta = [];
+      if (node.truncated) meta.push('…');
+      else if (opt.withSize) meta.push(formatSize(node.size || 0));
+      if (!node.truncated && opt.withTime && node.type === 'file' && node.mtime) meta.push(formatTime(node.mtime));
+      return node.name + (node.type === 'dir' ? '/' : '') + (meta.length ? '    ' + meta.join('  ') : '');
+    }
+
+    function textLines(node, prefix, isLast, opt) {
+      const lines = [prefix + (isLast ? '└── ' : '├── ') + nodeTitle(node, opt)];
+      if (node.type === 'dir' && node.children && node.children.length) {
+        const nextPrefix = prefix + (isLast ? '    ' : '│   ');
+        node.children.forEach((child, index) => {
+          textLines(child, nextPrefix, index === node.children.length - 1, opt).forEach((line) => lines.push(line));
+        });
+      }
+      return lines;
+    }
+
+    function toText(tree, opt) {
+      const lines = [tree.name + '/'];
+      tree.children.forEach((child, index) => {
+        textLines(child, '', index === tree.children.length - 1, opt).forEach((line) => lines.push(line));
+      });
+      return lines.join('\n');
+    }
+
+    function toFlat(tree, opt) {
+      const lines = [];
+      function walk(node, isRoot) {
+        if (!isRoot) {
+          const meta = [];
+          if (node.truncated) meta.push('…');
+          else if (opt.withSize) meta.push(formatSize(node.size || 0));
+          if (!node.truncated && opt.withTime && node.type === 'file' && node.mtime) meta.push(formatTime(node.mtime));
+          lines.push(node.path + (node.type === 'dir' ? '/' : '') + (meta.length ? '\t' + meta.join('\t') : ''));
+        }
+        if (node.type === 'dir' && !node.truncated) node.children.forEach((child) => walk(child, false));
+      }
+      walk(tree, true);
+      return lines.join('\n');
+    }
+
+    function mdInline(value) {
+      return String(value).replace(/[\\`*_{}\[\]]/g, '\\$&');
+    }
+
+    function toMarkdown(tree, opt) {
+      const lines = [];
+      function walk(node, depth, isRoot) {
+        if (!isRoot) {
+          const pad = '  '.repeat(Math.max(0, depth - 1));
+          if (node.type === 'dir') {
+            const extra = node.truncated ? ' …' : (opt.withSize ? ' (' + formatSize(node.size || 0) + ')' : '');
+            lines.push(pad + '- **' + mdInline(node.name) + '/**' + extra);
+          } else {
+            const meta = [];
+            if (opt.withSize) meta.push(formatSize(node.size || 0));
+            if (opt.withTime && node.mtime) meta.push(formatTime(node.mtime));
+            lines.push(pad + '- `' + String(node.name).replace(/`/g, '\\`') + '`' + (meta.length ? ' — ' + meta.join('，') : ''));
+          }
+        }
+        if (node.type === 'dir' && !node.truncated) node.children.forEach((child) => walk(child, depth + 1, false));
+      }
+      walk(tree, 0, true);
+      return lines.join('\n');
+    }
+
+    function csvCell(value) {
+      const text = String(value == null ? '' : value);
+      if (/[",\r\n]/.test(text)) return '"' + text.replace(/"/g, '""') + '"';
+      return text;
+    }
+
+    function toCSV(tree) {
+      const rows = [['path', 'type', 'name', 'ext', 'size_bytes', 'modified']];
+      function visit(node) {
+        rows.push([
+          node.path + (node.type === 'dir' ? '/' : ''),
+          node.type,
+          node.name,
+          node.type === 'file' ? node.ext : '',
+          node.truncated ? '' : String(node.size || 0),
+          node.type === 'file' && node.mtime ? formatTime(node.mtime) : ''
+        ]);
+      }
+      function walk(node) {
+        visit(node);
+        if (node.type === 'dir' && !node.truncated) node.children.forEach(walk);
+      }
+      walk(tree);
+      return rows.map((row) => row.map(csvCell).join(',')).join('\r\n');
+    }
+
+    function toJSON(tree, opt, stats) {
+      function convert(node) {
+        if (node.type === 'file') {
+          return {
+            name: node.name,
+            type: 'file',
+            path: node.path,
+            ext: node.ext,
+            size: node.size,
+            modified: node.mtime ? new Date(node.mtime).toISOString() : null
+          };
+        }
+        return {
+          name: node.name,
+          type: 'dir',
+          path: node.path,
+          truncated: Boolean(node.truncated),
+          children: (node.children || []).map(convert)
+        };
+      }
+      return JSON.stringify({
+        root: tree.name,
+        generatedAt: new Date(opt.now || Date.now()).toISOString(),
+        filter: {
+          mode: opt.mode,
+          label: opt.filterLabel || '',
+          keyword: opt.keyword || '',
+          maxDepth: opt.maxDepth || null,
+          skipGeneratedDirs: Boolean(opt.skipNoise),
+          showDotfiles: Boolean(opt.showDot)
+        },
+        stats: { files: stats.files, directories: stats.dirs, bytes: stats.size },
+        tree: convert(tree)
+      }, null, 2);
+    }
+
+    function banner(tree, opt, stats) {
+      const when = formatTime(opt.now || Date.now());
+      const lines = [
+        '# 目录导出',
+        '# 根目录: ' + tree.name,
+        '# 时间: ' + when,
+        '# 筛选: ' + (opt.filterLabel || ''),
+        '# 统计: ' + stats.files + ' 个文件，' + stats.dirs + ' 个子文件夹，' + formatSize(stats.size)
+      ];
+      if (opt.keyword) lines.push('# 关键字: ' + opt.keyword);
+      if (opt.maxDepth) lines.push('# 层级: ' + opt.maxDepth + '（更深层未计入）');
+      return lines.join('\n');
+    }
+
+    function buildExport(tree, opt, format) {
+      if (!tree) return '';
+      const stats = { files: tree.fileCount || 0, dirs: tree.dirCount || 0, size: tree.size || 0 };
+      if (format === 'json') return toJSON(tree, opt, stats);
+      if (format === 'csv') return '\uFEFF' + toCSV(tree);
+      const body = format === 'md' ? toMarkdown(tree, opt) : format === 'flat' ? toFlat(tree, opt) : toText(tree, opt);
+      if (format === 'md') {
+        const when = formatTime(opt.now || Date.now());
+        const head = [
+          '# ' + tree.name,
+          '',
+          '- 时间：' + when,
+          '- 筛选：' + (opt.filterLabel || ''),
+          '- 统计：' + stats.files + ' 个文件，' + stats.dirs + ' 个子文件夹，' + formatSize(stats.size)
+        ];
+        if (opt.keyword) head.push('- 关键字：' + opt.keyword);
+        if (opt.maxDepth) head.push('- 层级：' + opt.maxDepth);
+        return head.join('\n') + '\n\n' + body + '\n';
+      }
+      return banner(tree, opt, stats) + '\n\n' + body + '\n';
+    }
+
+    function hasContent(tree) {
+      return Boolean(tree && (tree.fileCount > 0 || (tree.children && tree.children.length > 0)));
+    }
+
+    function findNode(node, path) {
+      if (!node) return null;
+      if (node.path === path) return node;
+      if (node.type !== 'dir' || node.truncated) return null;
+      for (let index = 0; index < node.children.length; index += 1) {
+        const found = findNode(node.children[index], path);
+        if (found) return found;
+      }
+      return null;
+    }
+
+    function seedExpanded(tree) {
+      const expanded = new Set();
+      if (!tree) return expanded;
+      expanded.add(tree.path);
+      if ((tree.fileCount || 0) <= 800) {
+        tree.children.forEach((child) => {
+          if (child.type === 'dir') expanded.add(child.path);
+        });
+      }
+      return expanded;
+    }
+
+    function filterLabel() {
+      const labels = [...state.selected].map((key) => key === '__none__' ? '无扩展名' : '.' + key);
+      const discoveredKeys = [...latestDiscovered.keys()];
+      const same = discoveredKeys.length > 0
+        && discoveredKeys.every((key) => state.selected.has(key))
+        && [...state.selected].every((key) => latestDiscovered.has(key));
+      if (state.mode() === 'include' && (!state.touched || same)) return '全部类型';
+      if (state.mode() === 'include') {
+        if (!labels.length) return '未选择类型';
+        if (labels.length > 10) return '只保留 ' + labels.length + ' 种类型';
+        return '只保留 ' + labels.join('、');
+      }
+      if (!labels.length) return '未排除类型';
+      if (labels.length > 10) return '排除 ' + labels.length + ' 种类型';
+      return '排除 ' + labels.join('、');
+    }
+
+    function readOpt() {
+      return {
+        mode: document.querySelector('input[name="mode"]:checked').value,
+        keyword: keywordEl.value.trim(),
+        skipNoise: skipNoiseEl.checked,
+        showDot: showDotEl.checked,
+        hideEmpty: hideEmptyEl.checked,
+        withSize: withSizeEl.checked,
+        withTime: withTimeEl.checked,
+        maxDepth: clampDepth(depthEl.value),
+        selected: state.touched ? state.selected : null
+      };
+    }
+
+    function highlight(name, keyword) {
+      if (!keyword) return esc(name);
+      const lower = name.toLowerCase();
+      const query = keyword.toLowerCase();
+      let html = '';
+      let cursor = 0;
+      while (cursor < name.length) {
+        const at = lower.indexOf(query, cursor);
+        if (at < 0) {
+          html += esc(name.slice(cursor));
+          break;
+        }
+        html += esc(name.slice(cursor, at)) + '<mark>' + esc(name.slice(at, at + query.length)) + '</mark>';
+        cursor = at + query.length;
+      }
+      return html;
+    }
+
+    function renderChips() {
+      const keys = new Set([...latestDiscovered.keys(), ...state.extras, ...state.selected]);
+      const list = [...keys].sort((a, b) => {
+        const countA = (latestDiscovered.get(a) || {}).count || 0;
+        const countB = (latestDiscovered.get(b) || {}).count || 0;
+        if (countB !== countA) return countB - countA;
+        return String(a).localeCompare(String(b));
+      });
+      if (!list.length) {
+        chipsEl.innerHTML = '<span class="hint">选择文件夹后，这里会列出扫描到的扩展名。</span>';
+        return;
+      }
+      chipsEl.innerHTML = list.map((key) => {
+        const info = latestDiscovered.get(key) || { count: 0, size: 0 };
+        const on = state.selected.has(key);
+        const label = key === '__none__' ? '无扩展名' : '.' + key;
+        return '<button type="button" class="chip' + (on ? ' on' : '') + '" data-ext="' + esc(key) + '" aria-pressed="' + on + '" title="' + info.count + ' 个，' + formatSize(info.size) + '">' + esc(label) + '<em>' + info.count + '</em></button>';
+      }).join('');
+    }
+
+    function renderBars(files) {
+      const map = extMap(files);
+      const rows = [...map.entries()].sort((a, b) => b[1].count - a[1].count);
+      if (!rows.length) {
+        barsEl.innerHTML = '';
+        return;
+      }
+      const top = rows.slice(0, 8);
+      const rest = rows.slice(8);
+      if (rest.length) {
+        top.push(['其他', rest.reduce((sum, entry) => ({
+          count: sum.count + entry[1].count,
+          size: sum.size + entry[1].size
+        }), { count: 0, size: 0 })]);
+      }
+      const max = Math.max(...top.map((entry) => entry[1].count), 1);
+      barsEl.innerHTML = '<div class="bar-title">当前结果</div>' + top.map((entry) => {
+        const key = entry[0];
+        const info = entry[1];
+        const label = key === '__none__' ? '无扩展名' : key === '其他' ? '其他' : '.' + key;
+        const width = Math.max(4, Math.round(info.count / max * 100));
+        return '<div class="bar"><span class="bk">' + esc(label) + '</span><span class="track"><span class="fill" style="width:' + width + '%"></span></span><span class="bv">' + info.count + '</span></div>';
+      }).join('');
+    }
+
+    function renderNode(node) {
+      const active = state.active === node.path ? ' active' : '';
+      const keyword = keywordEl.value.trim();
+      let head = '';
+      if (node.type === 'dir') {
+        const twist = node.truncated ? '·' : (state.expanded.has(node.path) ? '▾' : '▸');
+        const meta = node.truncated ? '下级已省略' : (node.fileCount + ' 个文件');
+        head = '<button type="button" class="row dir' + active + '" data-path="' + esc(node.path) + '" data-kind="dir" data-truncated="' + (node.truncated ? '1' : '') + '" title="' + esc(node.path) + '"><span class="twist">' + twist + '</span><span class="name">' + highlight(node.name, keyword) + '/</span><span class="meta">' + meta + '</span></button>';
+      } else {
+        const meta = [];
+        if (withSizeEl.checked) meta.push(formatSize(node.size || 0));
+        if (withTimeEl.checked && node.mtime) meta.push(formatTime(node.mtime));
+        head = '<button type="button" class="row file' + active + '" data-path="' + esc(node.path) + '" data-kind="file" title="' + esc(node.path) + '"><span class="twist"></span><span class="name">' + highlight(node.name, keyword) + '</span><span class="badge">' + esc(node.ext || '无') + '</span><span class="meta">' + esc(meta.join(' · ')) + '</span></button>';
+      }
+      let children = '';
+      if (node.type === 'dir' && state.expanded.has(node.path) && !node.truncated) {
+        const limit = state.showAll.has(node.path) ? node.children.length : RENDER_LIMIT;
+        const slice = node.children.slice(0, limit);
+        const rest = node.children.length - slice.length;
+        children = '<div class="children">' + slice.map(renderNode).join('') + (rest ? '<button type="button" class="more" data-more="' + esc(node.path) + '">还有 ' + rest + ' 项</button>' : '') + '</div>';
+      }
+      return '<div class="node">' + head + children + '</div>';
+    }
+
+    function renderTree(tree) {
+      const top = treeEl.scrollTop;
+      if (!state.items.length) {
+        treeEl.innerHTML = '<div class="empty">选择一个文件夹，或把文件夹拖到页面上。<br>也可以先载入示例，看筛选和导出的效果。</div>';
+        treeEl.scrollTop = 0;
+        return;
+      }
+      if (!hasContent(tree)) {
+        treeEl.innerHTML = '<div class="empty">没有符合当前筛选的文件。<br>点亮需要的类型，或取消跳过 .git / node_modules / dist。</div>';
+        treeEl.scrollTop = 0;
+        return;
+      }
+      treeEl.innerHTML = renderNode(tree);
+      treeEl.scrollTop = top;
+    }
+
+    function renderDetail(tree) {
+      const node = state.active ? findNode(tree, state.active) : null;
+      if (!node) {
+        detailEl.textContent = state.items.length ? '点击文件或文件夹查看完整路径' : '点击文件或文件夹查看完整路径';
+        detailEl.dataset.path = '';
+        copyPathBtn.disabled = true;
+        return;
+      }
+      const bits = [node.path + (node.type === 'dir' ? '/' : '')];
+      if (node.type === 'file') {
+        bits.push(formatSize(node.size || 0));
+        if (node.mtime) bits.push(formatTime(node.mtime));
+      } else if (node.truncated) {
+        bits.push('下级已省略');
+      } else {
+        bits.push(node.fileCount + ' 个文件');
+      }
+      detailEl.textContent = bits.filter(Boolean).join('  ·  ');
+      detailEl.dataset.path = node.path;
+      copyPathBtn.disabled = false;
+    }
+
+    function safeName(name) {
+      return String(name || 'directory').replace(/[<>:"/\\|?*]/g, '_') || 'directory';
+    }
+
+    function stamp(ms) {
+      const date = new Date(ms || Date.now());
+      const pad = (value) => String(value).padStart(2, '0');
+      return date.getFullYear() + pad(date.getMonth() + 1) + pad(date.getDate()) + '-' + pad(date.getHours()) + pad(date.getMinutes());
+    }
+
+    function renderPreview(tree, opt) {
+      formatsEl.querySelectorAll('[data-format]').forEach((button) => {
+        const on = button.dataset.format === state.format;
+        button.classList.toggle('on', on);
+        button.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      if (!hasContent(tree)) {
+        exportPacket = { text: '', filename: 'directory.txt', mime: FORMATS[state.format].mime };
+        previewEl.textContent = '';
+        downloadBtn.disabled = true;
+        copyExportBtn.disabled = true;
+        return;
+      }
+      const exportOpt = { ...opt, filterLabel: filterLabel(), selected: state.selected };
+      const text = buildExport(tree, exportOpt, state.format);
+      const format = FORMATS[state.format];
+      exportPacket = {
+        text,
+        filename: safeName(tree.name) + '-directory-' + stamp(exportOpt.now) + '.' + format.ext,
+        mime: format.mime
+      };
+      previewEl.textContent = text.length > PREVIEW_LIMIT
+        ? text.slice(0, PREVIEW_LIMIT) + '\n\n… 预览已截断，下载和复制仍是全文（' + text.length + ' 字符）'
+        : text;
+      downloadBtn.disabled = false;
+      copyExportBtn.disabled = false;
+    }
+
+    function renderStats(tree) {
+      if (!state.items.length) {
+        statsEl.textContent = '尚未选择文件夹';
+        return;
+      }
+      const files = tree ? tree.fileCount : 0;
+      const dirs = tree ? tree.dirCount : 0;
+      const size = tree ? tree.size : 0;
+      const noise = state.items.filter((item) => !item.isDir && isNoise(item.relPath)).length;
+      const hidden = state.items.filter((item) => !item.isDir && !isNoise(item.relPath) && isHidden(item.relPath)).length;
+      const parts = ['文件 ' + files, '子文件夹 ' + dirs, formatSize(size)];
+      if (skipNoiseEl.checked && noise) parts.push('已跳过 ' + noise);
+      if (!showDotEl.checked && hidden) parts.push('已隐藏点文件 ' + hidden);
+      statsEl.textContent = parts.join(' · ');
+    }
+
+    function refresh() {
+      const opt = readOpt();
+      const result = applyPipeline(state.items, opt);
+      if (!state.touched) state.selected = result.selected;
+      latestDiscovered = result.discovered;
+      latestTree = result.tree;
+      if (state.expanded === null) state.expanded = seedExpanded(result.tree);
+      state.mode = () => opt.mode;
+      modeHintEl.textContent = opt.mode === 'include'
+        ? '当前结果和导出只包含点亮的类型。'
+        : '当前结果和导出会去掉点亮的类型。';
+      renderStats(result.tree);
+      renderChips();
+      renderBars(result.filtered.filter((item) => !item.isDir));
+      renderTree(result.tree);
+      renderDetail(result.tree);
+      renderPreview(result.tree, opt);
+    }
+
+    function loadItems(items) {
+      state.items = items;
+      state.expanded = null;
+      state.showAll = new Set();
+      state.active = '';
+      const fileCount = items.filter((item) => !item.isDir).length;
+      console.info('[dir-export] scanned', {
+        entries: items.length,
+        files: fileCount,
+        dirs: items.length - fileCount
+      });
+      refresh();
+      if (!items.length) {
+        setStatus('没有读到文件');
+        return;
+      }
+      const root = normalizeItems(items)[0].relPath.split('/')[0];
+      setStatus('已读取 ' + fileCount + ' 个文件（' + root + '）');
+    }
+
+    function setStatus(message) {
+      statusEl.textContent = message || '';
+    }
+
+    function fromFileList(files) {
+      return [...files].map((file) => ({
+        relPath: file.webkitRelativePath || file.name,
+        isDir: false,
+        size: file.size,
+        mtime: file.lastModified
+      }));
+    }
+
+    function readEntry(entry) {
+      function walk(ent, prefix) {
+        if (ent.isFile) {
+          return new Promise((resolve, reject) => {
+            ent.file((file) => {
+              resolve([{ relPath: prefix + ent.name, isDir: false, size: file.size || 0, mtime: file.lastModified || 0 }]);
+            }, reject);
+          });
+        }
+        if (!ent.isDirectory) return Promise.resolve([]);
+        const reader = ent.createReader();
+        const children = [];
+        function readBatch() {
+          return new Promise((resolve, reject) => {
+            reader.readEntries(resolve, reject);
+          }).then((batch) => {
+            if (!batch.length) return children;
+            batch.forEach((child) => children.push(child));
+            return readBatch();
+          });
+        }
+        return readBatch().then((list) => {
+          const rel = prefix + ent.name;
+          if (!list.length) return [{ relPath: rel, isDir: true, size: 0, mtime: 0 }];
+          return Promise.all(list.map((child) => walk(child, rel + '/'))).then((groups) => groups.flat());
+        });
+      }
+      return walk(entry, '');
+    }
+
+    function loadSample() {
+      const now = Date.now();
+      loadItems(SAMPLE.map((row) => ({
+        relPath: row[0],
+        size: row[1],
+        isDir: Boolean(row[2]),
+        mtime: row[2] ? 0 : now
+      })));
+      setStatus('已载入示例目录 demo-project');
+    }
+
+    function parseExtToken(token) {
+      const text = token.trim().toLowerCase().replace(/^\.+/, '');
+      if (!text) return '';
+      if (text === '无扩展名' || text === 'none') return '__none__';
+      if (!/^[a-z0-9_+-]{1,16}$/.test(text)) return null;
+      return text;
+    }
+
+    function addCustom() {
+      const tokens = customExtEl.value.split(/[\s,，;；]+/);
+      const invalid = [];
+      let added = 0;
+      tokens.forEach((token) => {
+        const key = parseExtToken(token);
+        if (key == null) {
+          if (token.trim()) invalid.push(token.trim());
+          return;
+        }
+        if (!key) return;
+        state.extras.add(key);
+        state.selected.add(key);
+        added += 1;
+      });
+      if (added) state.touched = true;
+      customExtEl.value = '';
+      refresh();
+      if (invalid.length) setStatus('这些类型未添加：' + invalid.join('、'));
+      else if (added) setStatus('已添加 ' + added + ' 种类型');
+    }
+
+    function applyPreset(name) {
+      if (name === 'all') {
+        state.touched = false;
+        refresh();
+        return;
+      }
+      if (name === 'none') {
+        state.touched = true;
+        state.selected = new Set();
+        refresh();
+        return;
+      }
+      if (name === 'invert') {
+        const shown = new Set([...latestDiscovered.keys(), ...state.extras]);
+        const next = new Set();
+        shown.forEach((key) => {
+          if (!state.selected.has(key)) next.add(key);
+        });
+        state.touched = true;
+        state.selected = next;
+        refresh();
+        return;
+      }
+      if (!PRESETS[name]) return;
+      state.touched = true;
+      const presetKeys = PRESETS[name];
+      if (latestDiscovered.size) {
+        state.selected = new Set(presetKeys.filter((key) => latestDiscovered.has(key)));
+        refresh();
+        if (!state.selected.size) setStatus('当前文件夹里没有这个分类的文件');
+        return;
+      }
+      state.selected = new Set(presetKeys);
+      refresh();
+    }
+
+    function copyText(text, okMessage) {
+      function fallback() {
+        const area = document.createElement('textarea');
+        area.value = text;
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        area.remove();
+        setStatus(okMessage);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => setStatus(okMessage)).catch((error) => {
+          console.warn('[dir-export] copy failed', error);
+          fallback();
+        });
+        return;
+      }
+      fallback();
+    }
+
+    function download(filename, text, mime) {
+      const blob = new Blob([text], { type: mime });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+    }
+
+    let customExtEl;
+
+    function init() {
+      statsEl = document.getElementById('stats');
+      statusEl = document.getElementById('status');
+      chipsEl = document.getElementById('chips');
+      barsEl = document.getElementById('bars');
+      treeEl = document.getElementById('tree');
+      detailEl = document.getElementById('detail');
+      previewEl = document.getElementById('preview');
+      modeHintEl = document.getElementById('modeHint');
+      copyPathBtn = document.getElementById('copyPath');
+      downloadBtn = document.getElementById('download');
+      copyExportBtn = document.getElementById('copyExport');
+      formatsEl = document.getElementById('formats');
+      maskEl = document.getElementById('mask');
+      keywordEl = document.getElementById('keyword');
+      depthEl = document.getElementById('depth');
+      skipNoiseEl = document.getElementById('skipNoise');
+      showDotEl = document.getElementById('showDot');
+      hideEmptyEl = document.getElementById('hideEmpty');
+      withSizeEl = document.getElementById('withSize');
+      withTimeEl = document.getElementById('withTime');
+      customExtEl = document.getElementById('customExt');
+
+      document.getElementById('picker').addEventListener('change', (event) => {
+        const files = [...event.target.files];
+        event.target.value = '';
+        if (!files.length) return;
+        loadItems(fromFileList(files));
+      });
+
+      document.getElementById('sample').addEventListener('click', loadSample);
+      document.getElementById('clear').addEventListener('click', () => {
+        loadItems([]);
+        setStatus('已清除');
+      });
+
+      document.getElementById('presets').addEventListener('click', (event) => {
+        const button = event.target.closest('[data-preset]');
+        if (!button) return;
+        applyPreset(button.dataset.preset);
+      });
+
+      chipsEl.addEventListener('click', (event) => {
+        const chip = event.target.closest('[data-ext]');
+        if (!chip) return;
+        const key = chip.dataset.ext;
+        state.touched = true;
+        if (state.selected.has(key)) state.selected.delete(key);
+        else state.selected.add(key);
+        refresh();
+      });
+
+      document.getElementById('addExt').addEventListener('click', addCustom);
+      customExtEl.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          addCustom();
+        }
+      });
+
+      keywordEl.addEventListener('input', () => {
+        clearTimeout(keywordTimer);
+        keywordTimer = setTimeout(refresh, 150);
+      });
+
+      document.querySelectorAll('input[name="mode"], #skipNoise, #showDot, #hideEmpty, #withSize, #withTime').forEach((input) => {
+        input.addEventListener('change', refresh);
+      });
+      depthEl.addEventListener('input', refresh);
+
+      treeEl.addEventListener('click', (event) => {
+        const more = event.target.closest('[data-more]');
+        if (more) {
+          state.showAll.add(more.dataset.more);
+          refresh();
+          return;
+        }
+        const row = event.target.closest('.row');
+        if (!row) return;
+        state.active = row.dataset.path;
+        if (row.dataset.kind === 'dir' && row.dataset.truncated !== '1') {
+          if (state.expanded.has(row.dataset.path)) state.expanded.delete(row.dataset.path);
+          else state.expanded.add(row.dataset.path);
+        }
+        refresh();
+      });
+
+      document.getElementById('expandAll').addEventListener('click', () => {
+        if (!latestTree) return;
+        const expanded = new Set();
+        let dirs = 0;
+        let capped = false;
+        function walk(node, depth) {
+          if (!node || node.type !== 'dir' || node.truncated) return;
+          if (dirs > 500 && depth > 1) {
+            capped = true;
+            return;
+          }
+          expanded.add(node.path);
+          dirs += 1;
+          node.children.forEach((child) => walk(child, depth + 1));
+        }
+        walk(latestTree, 0);
+        state.expanded = expanded;
+        refresh();
+        if (capped) setStatus('目录较多，已展开前两层');
+      });
+
+      document.getElementById('collapseAll').addEventListener('click', () => {
+        state.expanded = new Set(latestTree ? [latestTree.path] : []);
+        refresh();
+      });
+
+      copyPathBtn.addEventListener('click', () => {
+        const path = detailEl.dataset.path;
+        if (!path) return;
+        copyText(path, '已复制路径');
+      });
+
+      formatsEl.addEventListener('click', (event) => {
+        const button = event.target.closest('[data-format]');
+        if (!button) return;
+        state.format = button.dataset.format;
+        refresh();
+      });
+
+      downloadBtn.addEventListener('click', () => {
+        if (!exportPacket.text) return;
+        download(exportPacket.filename, exportPacket.text, exportPacket.mime);
+        console.info('[dir-export] export', { format: state.format, chars: exportPacket.text.length, file: exportPacket.filename });
+        setStatus('已下载 ' + exportPacket.filename);
+      });
+
+      copyExportBtn.addEventListener('click', () => {
+        if (!exportPacket.text) return;
+        console.info('[dir-export] export', { format: state.format, chars: exportPacket.text.length, copy: true });
+        copyText(exportPacket.text, '已复制导出内容');
+      });
+
+      window.addEventListener('dragenter', (event) => {
+        event.preventDefault();
+        dragDepth += 1;
+        maskEl.hidden = false;
+      });
+      window.addEventListener('dragover', (event) => {
+        event.preventDefault();
+      });
+      window.addEventListener('dragleave', () => {
+        dragDepth -= 1;
+        if (dragDepth <= 0) {
+          dragDepth = 0;
+          maskEl.hidden = true;
+        }
+      });
+      window.addEventListener('dragend', () => {
+        dragDepth = 0;
+        maskEl.hidden = true;
+      });
+      window.addEventListener('drop', (event) => {
+        event.preventDefault();
+        dragDepth = 0;
+        maskEl.hidden = true;
+        const items = [...(event.dataTransfer && event.dataTransfer.items ? event.dataTransfer.items : [])];
+        const entries = items.map((item) => item.webkitGetAsEntry && item.webkitGetAsEntry()).filter(Boolean);
+        if (!entries.length) {
+          const files = [...(event.dataTransfer && event.dataTransfer.files ? event.dataTransfer.files : [])];
+          if (!files.length) {
+            setStatus('没有读到文件夹，请使用 Chrome 或 Edge');
+            return;
+          }
+          loadItems(fromFileList(files));
+          return;
+        }
+        setStatus('正在读取文件夹…');
+        Promise.all(entries.map((entry) => readEntry(entry))).then((groups) => {
+          loadItems(groups.flat());
+        }).catch((error) => {
+          console.warn('[dir-export] read failed', error);
+          setStatus('读取失败，请改用「选择文件夹」');
+        });
+      });
+
+      refresh();
+      if (location.hash === '#demo') loadSample();
+    }
+
+    if (typeof document !== 'undefined') {
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+      else init();
+    }
+  </script>
+</body>
+</html>

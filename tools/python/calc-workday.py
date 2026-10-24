@@ -2,9 +2,9 @@ from pprint import pprint
 import sys
 import os
 
-# 获取 python 目录的绝对路径
-python_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# 将 python 目录添加到 Python 路径
+# 仓库根目录下的 python/，用于导入学习目录里的 utils
+repo_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+python_dir = os.path.join(repo_root, 'python')
 sys.path.insert(0, python_dir)
 
 # 现在尝试导入
