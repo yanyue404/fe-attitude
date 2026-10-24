@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DOCX to HTML</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="file" id="fileInput" accept=".docx" />
+    <div id="output"></div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/mammoth/1.8.0/mammoth.browser.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $("#fileInput").on("change", function(event) {
+          var file = event.target.files[0];
+          var reader = new FileReader();
+          reader.onload = function(e) {
+            var arrayBuffer = e.target.result;
+            var options = {
+              styleMap: [
+                "p[style-name='Heading 1'] => h1",
+                "p[style-name='Heading 2'] => h2",
+                "p[style-name='Heading 3'] => h3"
+              ]
+            };
+            mammoth
+              .convertToHtml({ arrayBuffer: arrayBuffer }, options)
+              .then(function(result) {
+                var html = result.value;
+                $("#output").html(html);
+              })
+              .done();
+          };
+          reader.readAsArrayBuffer(file);
+        });
+      });
+    </script>
+  </body>
+</html>
