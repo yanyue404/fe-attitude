@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Markdown 格式化工具</title>
+    <style>
+      body {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+      .container {
+        display: flex;
+        gap: 20px;
+        margin-top: 20px;
+      }
+      .column {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      textarea {
+        width: 100%;
+        height: 500px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-family: monospace;
+        resize: vertical;
+      }
+      .button-group {
+        margin: 10px 0;
+        display: flex;
+        gap: 10px;
+      }
+      button {
+        padding: 8px 16px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .copy-button {
+        background-color: #2196f3;
+      }
+      .copy-button:hover {
+        background-color: #1976d2;
+      }
+      h2 {
+        margin: 0 0 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Markdown 格式化工具</h1>
+    <div class="container">
+      <div class="column">
+        <h2>输入</h2>
+        <textarea id="input" placeholder="请输入需要格式化的 Markdown 文本..."></textarea>
+        <div class="button-group">
+          <button onclick="formatText()">格式化</button>
+        </div>
+      </div>
+      <div class="column">
+        <h2>输出</h2>
+        <textarea id="output" readonly></textarea>
+        <div class="button-group">
+          <button class="copy-button" onclick="copyResult()">复制结果</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function formatMarkdown(markdown) {
+        if (!markdown) return ''
+
+        return (
+          markdown
+            .split(/\n/)
+            .map(line => line.trim())
+            // 过滤空行
+            .filter(line => line)
+            // 处理每一行
+            .map(line => {
+              if (isSpecialBlock(line)) {
+                return line
+              }
+              return addPunctuation(line)
+            })
+            // 每行之间加入空行
+            .join('\n\n')
+        )
+      }
+
+      function addPunctuation(text) {
+        // 如果已经有结束标点，则不处理
+        if (/[。！？，：；]$/.test(text)) {
+          return text
+        }
+
+        // 根据内容特征添加适当的标点
+        if (/[吗吧呢]$/.test(text)) {
+          return text + '？'
+        } else if (/[啊呀哇]$/.test(text)) {
+          return text + '！'
+        } else {
+          return text + '。'
+        }
+      }
+
+      function isSpecialBlock(text) {
+        if (/^```[\s\S]*```$/m.test(text)) return true
+        if (/^\|.*\|$/m.test(text)) return true
+        if (/^[-*+]\s/.test(text)) return true
+        if (/^\d+\.\s/.test(text)) return true
+        if (/<[^>]+>/.test(text)) return true
+        if (/[。！？，：；]$/.test(text)) return true
+        return false
+      }
+
+      function formatText() {
+        const input = document.getElementById('input').value
+        const formatted = formatMarkdown(input)
+        document.getElementById('output').value = formatted
+      }
+
+      async function copyResult() {
+        const output = document.getElementById('output')
+        try {
+          await navigator.clipboard.writeText(output.value)
+          alert('已复制到剪贴板！')
+        } catch (err) {
+          // 降级处理：如果 clipboard API 不可用
+          output.select()
+          document.execCommand('copy')
+          alert('已复制到剪贴板！')
+        }
+      }
+    </script>
+  </body>
+</html>
