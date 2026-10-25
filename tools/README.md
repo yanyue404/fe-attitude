@@ -54,4 +54,14 @@ python tools/python/calc-workday.py
 
 ### node / shell
 
-预留。有可复用的 Node CLI 或 bash/pwsh 脚本时再往里放。
+| 文件 | 说明 |
+| --- | --- |
+| [chrome-debug.sh](shell/chrome-debug.sh) / [chrome-debug.bat](shell/chrome-debug.bat) | 启动独立调试 Chrome（`127.0.0.1:9222`），给 chrome-devtools MCP 用 |
+
+Git Bash 已加别名，新开一个终端后执行：
+
+```bash
+chrome-debug
+```
+
+或双击 `tools/shell/chrome-debug.bat`。日常 Chrome 不用关。
